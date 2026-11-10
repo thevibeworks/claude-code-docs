@@ -199,9 +199,9 @@ To test both kinds of assertion in one organization, test **Claude-issued** firs
 
 Add your MCP server as a custom connector for the test organization, as [Add the connector for the organization](https://claude.com/docs/connectors/custom/add-unlisted.md#add-the-connector-for-the-organization) describes.
 
-If your MCP server is already in the [Connectors Directory](https://claude.com/docs/connectors/directory.md), add it as a custom connector at your listing's URL rather than from the directory. A connector added from the directory shows **Managed authorization** only after your listing is marked as supporting Enterprise Managed Auth. The custom connector opens on your listing's page, where the **Authentication** section is on the **Configuration** tab.
+If your MCP server is already in the [Connectors Directory](https://claude.com/docs/connectors/directory.md), add the custom connector at a different URL from your listing's, such as a staging deployment of the same server. A connector at your listing's URL, whether you add it from the directory or by URL, shows **Managed authorization** once your listing is marked as supporting Enterprise Managed Auth. The **Authentication** section is on the connector's **Configuration** tab.
 
-An organization can have one connector at a URL, so if yours already has your connector from the directory, test in a Team organization that you create for testing.
+To test at your listing's production URL before your listing is marked, email `mcp-review@anthropic.com` and ask to have Enterprise Managed Auth enabled for your connector in your test organization. Include your listing's name and the **Organization ID**, which you copy from [**Organization settings > Organization and access**](https://claude.ai/admin-settings/organization).
 
 **2. Open the managed authorization setup**
 

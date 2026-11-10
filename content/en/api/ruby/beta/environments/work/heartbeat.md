@@ -25,7 +25,7 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `expected_last_heartbeat: optional String | nil` (query parameter)
 
-  Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+  Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match. The server does not compare the value when the work item is 'stopping' or 'stopped'.
 
 - `betas: optional Array[AnthropicBeta]` (header parameter)
 
@@ -136,6 +136,8 @@ Record a heartbeat for a work item to maintain the lease.
   - `:"telemetry-destinations-2026-08-11"`
 
   - `:"webhooks-2026-10-07"`
+
+  - `:"admin-user-sign-out-2026-10-08"`
 
   - `:"message-threads-2026-08-12"`
 

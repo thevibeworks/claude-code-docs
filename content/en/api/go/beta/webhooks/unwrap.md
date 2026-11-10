@@ -625,6 +625,16 @@ signature is missing or invalid.
 
       - `OrganizationID string`
 
+    - `type BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `Type UserProfileProgramStatusUpdated`
+
+      - `ID string`
+
+        ID of the user profile that triggered the event.
+
+      - `OrganizationID string`
+
 ## Example
 
 ```go

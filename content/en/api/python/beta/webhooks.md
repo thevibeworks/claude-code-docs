@@ -631,6 +631,16 @@ signature is missing or invalid.
 
       - `organization_id: str`
 
+    - `class BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: Literal["user_profile.program_status_updated"]`
+
+      - `id: str`
+
+        ID of the user profile that triggered the event.
+
+      - `organization_id: str`
+
 ### Example
 
 ```python
@@ -1264,6 +1274,16 @@ you have already verified the signature yourself.
       - `enforcement_action_id: str`
 
         ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: Literal["user_profile.program_status_updated"]`
+
+      - `id: str`
+
+        ID of the user profile that triggered the event.
 
       - `organization_id: str`
 
@@ -2129,6 +2149,16 @@ print(event)
 
       - `organization_id: str`
 
+    - `class BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: Literal["user_profile.program_status_updated"]`
+
+      - `id: str`
+
+        ID of the user profile that triggered the event.
+
+      - `organization_id: str`
+
 ### Beta Webhook Event Data
 
 - `type BetaWebhookEventData = ...`
@@ -2717,6 +2747,16 @@ print(event)
 
     - `organization_id: str`
 
+  - `class BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+    - `type: Literal["user_profile.program_status_updated"]`
+
+    - `id: str`
+
+      ID of the user profile that triggered the event.
+
+    - `organization_id: str`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `class BetaWebhookMemoryStoreArchivedEventData`
@@ -3038,6 +3078,18 @@ print(event)
   - `enforcement_action_id: str`
 
     ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `organization_id: str`
+
+### Beta Webhook User Profile Program Status Updated Event Data
+
+- `class BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+  - `type: Literal["user_profile.program_status_updated"]`
+
+  - `id: str`
+
+    ID of the user profile that triggered the event.
 
   - `organization_id: str`
 

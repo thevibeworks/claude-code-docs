@@ -80,7 +80,13 @@ When Claude sends an email, it includes a message header identifying it as agent
 
 **Note:** Attachments aren't currently supported in write tools. Claude can't send, forward, or draft emails with attachments.
 
-**Note:** Your admin turns on each Teams write tool separately. Sending a chat message and posting or replying in a channel always ask you to confirm before Claude sends anything on Team and Enterprise plans.
+**Note:** On Team and Enterprise plans, your admin can set each Teams write tool separately. If your organization added the Microsoft 365 connector before the Teams write tools launched in September 2026, these tools may be blocked by default until your admin turns them on.
+
+In chat and Cowork, Claude asks you to confirm each time before it sends a chat message or posts or replies in a channel, unless your admin has set the Teams tool for that action to **Always allow** on or after November 9, 2026, or your organization added the Microsoft 365 connector for the first time after November 9, 2026. In those cases, Claude asks by default, and you can choose **Always allow** for the tool if your admin allows it. If you chose **Always allow** for the tool in the past, that earlier choice can take effect right away, so Claude can stop asking you.
+
+On or after December 9, 2026, you can choose **Always allow** for any of these tools your admin sets to **Always allow**.
+
+These exceptions don't apply in organizations that have enabled HIPAA. On Free, Pro, Max, and Ultra plans, Claude asks by default, and you can choose **Always allow** for these tools, as for any other tool. "Automatically approve" mode and scheduled tasks are different: if your admin sets one of these tools to **Always allow**, Claude may use it without asking anyone first. This applies in "Automatically approve" mode and in some scheduled tasks, such as a cloud scheduled task set to "Automatically approve" or a Claude Code routine.
 
 Claude can always search and analyze your data. Your admin decides whether Claude can also take actions like sending email, updating your calendar, creating files, or sending Teams messages. Claude can't change Teams settings or permissions.
 
@@ -130,11 +136,15 @@ Yes. Claude can search shared mailboxes you have delegate access to in Microsoft
 
 **Why don't I see write tools?**
 
-Write tools require extra setup on the admin side: a Microsoft Entra administrator needs to consent to updated permissions, and your organization needs to enable write tools for your account. If you connected before write tools launched, ask your admin to complete both steps. For details, see **[Set up the Microsoft 365 connector](https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector)**.
+Write tools require extra setup on the admin side: a Microsoft Entra administrator needs to consent to updated permissions, and your organization needs to enable write tools for your account. If you connected before write tools, or the Teams write tools, launched, ask your admin to complete both steps. On or after December 9, 2026, write tools that are still blocked by default will be turned on and set to **Needs approval**, unless your admin has set them, or the whole connector, to **Blocked**. For details, see **[Set up the Microsoft 365 connector](https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector)**.
 
-**Why does Claude ask me to confirm before sending a Teams message?**
+**Why does Claude ask me to confirm before it sends or changes something?**
 
-Sending a chat message and posting or replying in a channel always require your confirmation. Your admin can't set these to send automatically. Starting a new chat can be set to run without confirmation if your admin allows it.
+By default, in chat and Cowork, Claude asks you to confirm each time it sends or forwards an email, sends a Teams message, creates, changes, deletes, or responds to a calendar event, or sets an automatic reply. On Free, Pro, Max, and Ultra plans, you can choose **Always allow** for any of these tools, and Claude will then use it without asking you each time.
+
+On Team and Enterprise plans, Claude asks each time for these tools, unless your admin has set that tool to **Always allow** on or after November 9, 2026, or your organization added the Microsoft 365 connector for the first time after November 9, 2026. In those cases, you can choose **Always allow** for the tool if your admin allows it. If you chose **Always allow** for the tool in the past, that earlier choice can take effect right away, so Claude can stop asking you. These exceptions don't apply in organizations that have enabled HIPAA.
+
+"Automatically approve" mode and scheduled tasks are different: if your admin sets one of these tools to Always allow, Claude may use it without asking anyone first. This applies in "Automatically approve" mode and in some scheduled tasks, such as a cloud scheduled task set to "Automatically approve" or a Claude Code routine.
 
 **Can Claude access private Teams channels?**
 
@@ -331,6 +341,8 @@ Microsoft 365 stays under your control once connected. A few things to keep in m
 4. With a work or school account, try specifying the SharePoint site or library name in your prompt.
 
 5. Search by exact file name or unique keywords from the document.
+
+6. If SharePoint’s own search finds a file but Claude doesn’t, ask your Microsoft 365 admin to see **[Claude doesn’t find files that SharePoint search finds](https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365-connector#h_cfbc8cb240)**.
 
 ### Search results are incomplete or irrelevant
 

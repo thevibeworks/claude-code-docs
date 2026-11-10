@@ -798,6 +798,12 @@ var_dump($messageTokensCount);
 
   - `"assistant" role`
 
+### Available Tools Limit Exceeded Error Details
+
+- `class AvailableToolsLimitExceededErrorDetails`
+
+  - `"available_tools_limit_exceeded" errorCode`
+
 ### Base64 Image Source
 
 - `class Base64ImageSource`
@@ -3925,6 +3931,60 @@ var_dump($messageTokensCount);
 
   - `CodeExecutionToolResultErrorCode errorCode`
 
+### Compaction Block Ambiguous Error Details
+
+- `class CompactionBlockAmbiguousErrorDetails`
+
+  - `"compaction_block_ambiguous" errorCode`
+
+### Compaction Block Misplaced Error Details
+
+- `class CompactionBlockMisplacedErrorDetails`
+
+  - `"compaction_block_misplaced" errorCode`
+
+### Compaction Content Mismatch Error Details
+
+- `class CompactionContentMismatchErrorDetails`
+
+  - `"compaction_content_mismatch" errorCode`
+
+### Compaction Incomplete Turn Error Details
+
+- `class CompactionIncompleteTurnErrorDetails`
+
+  - `"compaction_incomplete_turn" errorCode`
+
+### Compaction Nothing To Summarize Error Details
+
+- `class CompactionNothingToSummarizeErrorDetails`
+
+  - `"compaction_nothing_to_summarize" errorCode`
+
+### Compaction Signature Invalid Error Details
+
+- `class CompactionSignatureInvalidErrorDetails`
+
+  - `"compaction_signature_invalid" errorCode`
+
+### Compaction Too Many Tool References Error Details
+
+- `class CompactionTooManyToolReferencesErrorDetails`
+
+  - `"compaction_too_many_tool_references" errorCode`
+
+### Compaction Tool Changes Mismatch Error Details
+
+- `class CompactionToolChangesMismatchErrorDetails`
+
+  - `"compaction_tool_changes_mismatch" errorCode`
+
+### Compaction Unavailable Error Details
+
+- `class CompactionUnavailableErrorDetails`
+
+  - `"compaction_unavailable" errorCode`
+
 ### Computer Cursor Position Config
 
 - `class ComputerCursorPositionConfig`
@@ -6801,6 +6861,14 @@ var_dump($messageTokensCount);
 
 - `enum Model`
 
+  - `"claude-fable-5-2"`
+
+    Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+  - `"claude-mythos-5-2"`
+
+    Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
   - `"claude-haiku-5-5"`
 
     Fastest model for high-volume, real-time tasks
@@ -7745,6 +7813,56 @@ var_dump($messageTokensCount);
 
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
+### Thread Already Continued Error Details
+
+- `class ThreadAlreadyContinuedErrorDetails`
+
+  - `"thread_already_continued" errorCode`
+
+### Thread Continue In Flight Error Details
+
+- `class ThreadContinueInFlightErrorDetails`
+
+  - `"thread_continue_in_flight" errorCode`
+
+### Thread Fingerprint Mismatch Error Details
+
+- `class ThreadFingerprintMismatchErrorDetails`
+
+  - `"thread_fingerprint_mismatch" errorCode`
+
+### Thread Not Found Error Details
+
+- `class ThreadNotFoundErrorDetails`
+
+  - `"thread_not_found" errorCode`
+
+### Thread Unsupported Feature Name
+
+- `enum ThreadUnsupportedFeatureName`
+
+  - `"cache_control"`
+
+  - `"context_management"`
+
+  - `"fallbacks"`
+
+  - `"hipaa"`
+
+  - `"inference_hooks"`
+
+  - `"thinking"`
+
+### Thread Unsupported Request Error Details
+
+- `class ThreadUnsupportedRequestErrorDetails`
+
+  - `"thread_unsupported_request" errorCode`
+
+  - `?list<ThreadUnsupportedFeatureName> unsupported`
+
+    Each entry names a request field or an organization setting that Threads do not support. On a value you do not recognize, send the full conversation without `thread`.
+
 ### Tool
 
 - `class Tool`
@@ -7905,6 +8023,12 @@ var_dump($messageTokensCount);
 
     Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
+### Tool Name Conflict Error Details
+
+- `class ToolNameConflictErrorDetails`
+
+  - `"tool_name_conflict" errorCode`
+
 ### Tool Reference Block
 
 - `class ToolReferenceBlock`
@@ -7924,6 +8048,12 @@ var_dump($messageTokensCount);
   - `?CacheControlEphemeral cacheControl`
 
     Create a cache control breakpoint at this content block.
+
+### Tool Reference Unresolved Error Details
+
+- `class ToolReferenceUnresolvedErrorDetails`
+
+  - `"tool_reference_unresolved" errorCode`
 
 ### Tool Result Block Param
 

@@ -149,6 +149,8 @@ Update a Memory Store
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`

@@ -403,6 +403,14 @@ curl https://api.anthropic.com/v1/organizations/users/$USER_ID \
 
 ## Domain types
 
+### Cannot Remove Last Member Error Details
+
+- `CannotRemoveLastMemberErrorDetails object`
+
+  The user is the organization's only member. Add another member before removing this one.
+
+  - `error_code: "cannot_remove_last_member"`
+
 ### Organization User
 
 - `OrganizationUser object`

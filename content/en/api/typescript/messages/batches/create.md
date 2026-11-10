@@ -1109,6 +1109,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `"claude-fable-5-2"`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `"claude-mythos-5-2"`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
         - `"claude-haiku-5-5"`
 
           Fastest model for high-volume, real-time tasks

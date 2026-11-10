@@ -147,6 +147,8 @@ Create a Memory Store
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -385,6 +387,8 @@ List Memory Stores
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -605,6 +609,8 @@ Retrieve a Memory Store
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -847,6 +853,8 @@ Update a Memory Store
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1068,6 +1076,8 @@ Delete a Memory Store
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1242,6 +1252,8 @@ Archive a Memory Store
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -1548,6 +1560,8 @@ Create a Memory
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1815,6 +1829,8 @@ List Memories
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -2078,6 +2094,8 @@ Retrieve a Memory
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -2340,6 +2358,8 @@ Update a Memory
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -2584,6 +2604,8 @@ Delete a Memory
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -2815,6 +2837,8 @@ List Memory Versions
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -3149,6 +3173,8 @@ Retrieve a Memory Version
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -3469,6 +3495,8 @@ Redact a Memory Version
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 

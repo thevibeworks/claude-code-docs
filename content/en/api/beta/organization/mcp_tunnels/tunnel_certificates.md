@@ -144,6 +144,8 @@ holds at most two non-archived certificates.
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -384,6 +386,8 @@ Archived certificates are excluded unless `include_archived` is set.
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -602,6 +606,8 @@ Retrieve a single certificate registered on a tunnel by ID.
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -814,6 +820,8 @@ certificate is added.
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 

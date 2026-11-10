@@ -27,7 +27,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `ExpectedLastHeartbeat param.Opt[string] Optional` (query parameter)
 
-    Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+    Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match. The server does not compare the value when the work item is 'stopping' or 'stopped'.
 
   - `Betas []AnthropicBeta Optional` (header parameter)
 
@@ -136,6 +136,8 @@ Record a heartbeat for a work item to maintain the lease.
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
 
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 

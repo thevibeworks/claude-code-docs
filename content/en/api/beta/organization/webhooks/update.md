@@ -27,7 +27,7 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `webhooks-2026-10-07` in this header.
 
@@ -137,6 +137,8 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -149,13 +151,15 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   Notes about the endpoint.
 
-- `enabled_events: optional array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved"`
+- `enabled_events: optional array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved" or "user_profile.program_status_updated"`
 
   The event types to deliver to the endpoint. Replaces the whole set; an empty list leaves it unchanged.
 
   - `"user_profile.enforcement_action_opened"`
 
   - `"user_profile.enforcement_action_resolved"`
+
+  - `"user_profile.program_status_updated"`
 
 - `name: optional string`
 
@@ -200,13 +204,15 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
 
-  - `enabled_events: array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved"`
+  - `enabled_events: array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved" or "user_profile.program_status_updated"`
 
     The event types delivered to the endpoint.
 
     - `"user_profile.enforcement_action_opened"`
 
     - `"user_profile.enforcement_action_resolved"`
+
+    - `"user_profile.program_status_updated"`
 
   - `name: string`
 

@@ -929,6 +929,18 @@ var_dump($betaEnvironment);
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
+### Beta Environment Archived Error Details
+
+- `class BetaEnvironmentArchivedErrorDetails`
+
+  - `"environment_archived" errorCode`
+
+### Beta Environment Create Disabled Error Details
+
+- `class BetaEnvironmentCreateDisabledErrorDetails`
+
+  - `"environment_create_disabled" errorCode`
+
 ### Beta Environment Delete Response
 
 - `class BetaEnvironmentDeleteResponse`
@@ -940,6 +952,30 @@ var_dump($betaEnvironment);
   - `string id`
 
     Environment identifier
+
+### Beta Environment Not Found Error Details
+
+- `class BetaEnvironmentNotFoundErrorDetails`
+
+  - `"environment_not_found" errorCode`
+
+### Beta Environment Update Disabled Error Details
+
+- `class BetaEnvironmentUpdateDisabledErrorDetails`
+
+  - `"environment_update_disabled" errorCode`
+
+### Beta Invalid Config Type Change Error Details
+
+- `class BetaInvalidConfigTypeChangeErrorDetails`
+
+  - `"invalid_config_type_change" errorCode`
+
+### Beta Invalid Metadata Error Details
+
+- `class BetaInvalidMetadataErrorDetails`
+
+  - `"invalid_metadata" errorCode`
 
 ### Beta Limited Network
 
@@ -1478,7 +1514,7 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `expectedLastHeartbeat?: optional string` (query parameter)
 
-  Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+  Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match. The server does not compare the value when the work item is 'stopping' or 'stopped'.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 

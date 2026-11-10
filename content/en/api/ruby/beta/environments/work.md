@@ -131,6 +131,8 @@ Retrieve detailed information about a specific work item.
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"admin-user-sign-out-2026-10-08"`
+
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
@@ -396,6 +398,8 @@ Long poll for work items in the queue.
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"admin-user-sign-out-2026-10-08"`
+
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
@@ -649,6 +653,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"admin-user-sign-out-2026-10-08"`
+
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
@@ -794,7 +800,7 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `expected_last_heartbeat: optional String | nil` (query parameter)
 
-  Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+  Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match. The server does not compare the value when the work item is 'stopping' or 'stopped'.
 
 - `betas: optional Array[AnthropicBeta]` (header parameter)
 
@@ -905,6 +911,8 @@ Record a heartbeat for a work item to maintain the lease.
   - `:"telemetry-destinations-2026-08-11"`
 
   - `:"webhooks-2026-10-07"`
+
+  - `:"admin-user-sign-out-2026-10-08"`
 
   - `:"message-threads-2026-08-12"`
 
@@ -1101,6 +1109,8 @@ Stop a work item, initiating graceful or forced shutdown.
   - `:"telemetry-destinations-2026-08-11"`
 
   - `:"webhooks-2026-10-07"`
+
+  - `:"admin-user-sign-out-2026-10-08"`
 
   - `:"message-threads-2026-08-12"`
 
@@ -1365,6 +1375,8 @@ List work items in an environment.
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"admin-user-sign-out-2026-10-08"`
+
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
@@ -1623,6 +1635,8 @@ Update work item metadata with merge semantics.
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"admin-user-sign-out-2026-10-08"`
+
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
@@ -1878,6 +1892,8 @@ Get statistics about the work queue for an environment.
 
   - `:"webhooks-2026-10-07"`
 
+  - `:"admin-user-sign-out-2026-10-08"`
+
   - `:"message-threads-2026-08-12"`
 
   - `:"analytics-usage-cost-2026-08-24"`
@@ -1941,6 +1957,44 @@ puts(beta_self_hosted_work_queue_stats)
 ```
 
 ## Domain types
+
+### Beta Heartbeat Precondition Failed Error Details
+
+- `class BetaHeartbeatPreconditionFailedErrorDetails`
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
+  - `current_state: BetaWorkLeaseState`
+
+    The lease as the server holds it.
+
+    - `last_heartbeat: String | nil`
+
+      RFC 3339 timestamp of the stored heartbeat, or null if there has been none
+
+    - `lease_extended: bool`
+
+      Always false: a refused heartbeat does not extend the lease
+
+    - `state: :queued | :starting | :active | 2 more`
+
+      Current state of the work item
+
+      - `:queued`
+
+      - `:starting`
+
+      - `:active`
+
+      - `:stopping`
+
+      - `:stopped`
+
+    - `ttl_seconds: Integer`
+
+      TTL of the lease
+
+  - `error_code: :heartbeat_precondition_failed`
 
 ### Beta Self Hosted Work
 
@@ -2204,3 +2258,35 @@ puts(beta_self_hosted_work_queue_stats)
   - `id: String`
 
     Session identifier (e.g., 'session_...')
+
+### Beta Work Lease State
+
+- `class BetaWorkLeaseState`
+
+  A work item's lease as the server holds it.
+
+  - `last_heartbeat: String | nil`
+
+    RFC 3339 timestamp of the stored heartbeat, or null if there has been none
+
+  - `lease_extended: bool`
+
+    Always false: a refused heartbeat does not extend the lease
+
+  - `state: :queued | :starting | :active | 2 more`
+
+    Current state of the work item
+
+    - `:queued`
+
+    - `:starting`
+
+    - `:active`
+
+    - `:stopping`
+
+    - `:stopped`
+
+  - `ttl_seconds: Integer`
+
+    TTL of the lease

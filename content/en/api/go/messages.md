@@ -3694,6 +3694,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
       Fastest model for high-volume, real-time tasks
@@ -8075,6 +8083,14 @@ func main() {
           Create a cache control breakpoint at this content block.
 
   - `Role Assistant`
+
+### Available Tools Limit Exceeded Error Details
+
+- `type AvailableToolsLimitExceededErrorDetails`
+
+  The tools available after a message exceed a limit on their number or their size.
+
+  - `ErrorCode AvailableToolsLimitExceededErrorCode`
 
 ### Base64 Image Source
 
@@ -15246,6 +15262,78 @@ func main() {
 
     - `const CodeExecutionToolResultErrorCodeExecutionTimeExceeded CodeExecutionToolResultErrorCode = "execution_time_exceeded"`
 
+### Compaction Block Ambiguous Error Details
+
+- `type CompactionBlockAmbiguousErrorDetails`
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+  - `ErrorCode CompactionBlockAmbiguousErrorCode`
+
+### Compaction Block Misplaced Error Details
+
+- `type CompactionBlockMisplacedErrorDetails`
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+  - `ErrorCode CompactionBlockMisplacedErrorCode`
+
+### Compaction Content Mismatch Error Details
+
+- `type CompactionContentMismatchErrorDetails`
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+  - `ErrorCode CompactionContentMismatchErrorCode`
+
+### Compaction Incomplete Turn Error Details
+
+- `type CompactionIncompleteTurnErrorDetails`
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+  - `ErrorCode CompactionIncompleteTurnErrorCode`
+
+### Compaction Nothing To Summarize Error Details
+
+- `type CompactionNothingToSummarizeErrorDetails`
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+  - `ErrorCode CompactionNothingToSummarizeErrorCode`
+
+### Compaction Signature Invalid Error Details
+
+- `type CompactionSignatureInvalidErrorDetails`
+
+  The `compaction` block's `signature` does not verify.
+
+  - `ErrorCode CompactionSignatureInvalidErrorCode`
+
+### Compaction Too Many Tool References Error Details
+
+- `type CompactionTooManyToolReferencesErrorDetails`
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+  - `ErrorCode CompactionTooManyToolReferencesErrorCode`
+
+### Compaction Tool Changes Mismatch Error Details
+
+- `type CompactionToolChangesMismatchErrorDetails`
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+  - `ErrorCode CompactionToolChangesMismatchErrorCode`
+
+### Compaction Unavailable Error Details
+
+- `type CompactionUnavailableErrorDetails`
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
+  - `ErrorCode CompactionUnavailableErrorCode`
+
 ### Computer Cursor Position Config
 
 - `type ComputerCursorPositionConfigParam`
@@ -21452,6 +21540,14 @@ func main() {
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
       Fastest model for high-volume, real-time tasks
@@ -25433,6 +25529,14 @@ func main() {
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+    Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+  - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+    Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
   - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
     Fastest model for high-volume, real-time tasks
@@ -27701,6 +27805,14 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
       - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
         Fastest model for high-volume, real-time tasks
@@ -28866,6 +28978,14 @@ func main() {
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
         - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
@@ -30992,6 +31112,78 @@ func main() {
 
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
+### Thread Already Continued Error Details
+
+- `type ThreadAlreadyContinuedErrorDetails`
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+  - `ErrorCode ThreadAlreadyContinuedErrorCode`
+
+### Thread Continue In Flight Error Details
+
+- `type ThreadContinueInFlightErrorDetails`
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+  - `ErrorCode ThreadContinueInFlightErrorCode`
+
+### Thread Fingerprint Mismatch Error Details
+
+- `type ThreadFingerprintMismatchErrorDetails`
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+  - `ErrorCode ThreadFingerprintMismatchErrorCode`
+
+### Thread Not Found Error Details
+
+- `type ThreadNotFoundErrorDetails`
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+  - `ErrorCode ThreadNotFoundErrorCode`
+
+### Thread Unsupported Feature Name
+
+- `type ThreadUnsupportedFeatureName string`
+
+  - `const ThreadUnsupportedFeatureNameCacheControl ThreadUnsupportedFeatureName = "cache_control"`
+
+  - `const ThreadUnsupportedFeatureNameContextManagement ThreadUnsupportedFeatureName = "context_management"`
+
+  - `const ThreadUnsupportedFeatureNameFallbacks ThreadUnsupportedFeatureName = "fallbacks"`
+
+  - `const ThreadUnsupportedFeatureNameHipaa ThreadUnsupportedFeatureName = "hipaa"`
+
+  - `const ThreadUnsupportedFeatureNameInferenceHooks ThreadUnsupportedFeatureName = "inference_hooks"`
+
+  - `const ThreadUnsupportedFeatureNameThinking ThreadUnsupportedFeatureName = "thinking"`
+
+### Thread Unsupported Request Error Details
+
+- `type ThreadUnsupportedRequestErrorDetails`
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+  - `ErrorCode ThreadUnsupportedRequestErrorCode`
+
+  - `Unsupported []ThreadUnsupportedFeatureName Optional`
+
+    Each entry names a request field or an organization setting that Threads do not support. On a value you do not recognize, send the full conversation without `thread`.
+
+    - `const ThreadUnsupportedFeatureNameCacheControl ThreadUnsupportedFeatureName = "cache_control"`
+
+    - `const ThreadUnsupportedFeatureNameContextManagement ThreadUnsupportedFeatureName = "context_management"`
+
+    - `const ThreadUnsupportedFeatureNameFallbacks ThreadUnsupportedFeatureName = "fallbacks"`
+
+    - `const ThreadUnsupportedFeatureNameHipaa ThreadUnsupportedFeatureName = "hipaa"`
+
+    - `const ThreadUnsupportedFeatureNameInferenceHooks ThreadUnsupportedFeatureName = "inference_hooks"`
+
+    - `const ThreadUnsupportedFeatureNameThinking ThreadUnsupportedFeatureName = "thinking"`
+
 ### Tool
 
 - `type ToolParam`
@@ -31228,6 +31420,14 @@ func main() {
 
     Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
+### Tool Name Conflict Error Details
+
+- `type ToolNameConflictErrorDetails`
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+  - `ErrorCode ToolNameConflictErrorCode`
+
 ### Tool Reference Block
 
 - `type ToolReferenceBlock`
@@ -31272,6 +31472,14 @@ func main() {
       - `const CacheControlEphemeralTTLTTL5m CacheControlEphemeralTTL = "5m"`
 
       - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
+
+### Tool Reference Unresolved Error Details
+
+- `type ToolReferenceUnresolvedErrorDetails`
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+  - `ErrorCode ToolReferenceUnresolvedErrorCode`
 
 ### Tool Result Block Param
 
@@ -40177,6 +40385,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
         - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
           Fastest model for high-volume, real-time tasks
@@ -43916,6 +44132,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+          - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
           - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
             Fastest model for high-volume, real-time tasks
@@ -44213,9 +44437,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type InvalidRequestError`
 
+              The broad category of the error.
+
               default: invalid_request_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Invalid request
 
@@ -44223,9 +44451,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type AuthenticationError`
 
+              The broad category of the error.
+
               default: authentication_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Authentication error
 
@@ -44233,9 +44465,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type BillingError`
 
+              The broad category of the error.
+
               default: billing_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Billing error
 
@@ -44243,9 +44479,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type PermissionError`
 
+              The broad category of the error.
+
               default: permission_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Permission denied
 
@@ -44253,9 +44493,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type NotFoundError`
 
+              The broad category of the error.
+
               default: not_found_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Not found
 
@@ -44263,9 +44507,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type RateLimitError`
 
+              The broad category of the error.
+
               default: rate_limit_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Rate limited
 
@@ -44273,9 +44521,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type TimeoutError`
 
+              The broad category of the error.
+
               default: timeout_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Request timeout
 
@@ -44283,9 +44535,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type APIError`
 
+              The broad category of the error.
+
               default: api_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Internal server error
 
@@ -44293,9 +44549,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type OverloadedError`
 
+              The broad category of the error.
+
               default: overloaded_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Overloaded
 

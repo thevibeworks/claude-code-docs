@@ -131,6 +131,8 @@ Create Skill Version
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -143,7 +145,7 @@ Create Skill Version
 
     Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
 
-  - `List<InputStream> files`
+  - `List<MultipartField<InputStream>> files`
 
     Files to upload for the skill.
 
@@ -196,6 +198,7 @@ package com.anthropic.example;
 
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.core.MultipartField;
 import com.anthropic.models.beta.skills.versions.BetaSkillVersion;
 import com.anthropic.models.beta.skills.versions.VersionCreateParams;
 import java.io.ByteArrayInputStream;
@@ -208,7 +211,7 @@ public final class Main {
 
         VersionCreateParams params = VersionCreateParams.builder()
             .skillId("skill_id")
-            .addFile(new ByteArrayInputStream("Example data".getBytes()))
+            .addFile(MultipartField.of(new ByteArrayInputStream("Example data".getBytes())))
             .build();
         BetaSkillVersion betaSkillVersion = client.beta().skills().versions().create(params);
     }
@@ -365,6 +368,8 @@ List Skill Versions
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -589,6 +594,8 @@ Download a skill version's content as a zip archive.
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -757,6 +764,8 @@ Get Skill Version
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -979,6 +988,8 @@ Delete Skill Version
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 

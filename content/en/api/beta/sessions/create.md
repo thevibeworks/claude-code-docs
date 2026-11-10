@@ -127,6 +127,8 @@ Create Session
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -199,11 +201,15 @@ Create Session
 
       Replacement model. Accepts the model string, e.g. `claude-opus-5-5`, or a `model_config` object. Omit to use the agent's model.
 
-      - `BetaManagedAgentsModel = "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-opus-5-5" or 14 more or string`
+      - `BetaManagedAgentsModel = "claude-fable-5-2" or "claude-haiku-5-5" or "claude-sonnet-5-5" or 15 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-2"`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
         - `"claude-haiku-5-5"`
 
@@ -1326,6 +1332,10 @@ Create Session
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-2"`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
         - `"claude-haiku-5-5"`
 

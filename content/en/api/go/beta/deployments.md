@@ -499,6 +499,8 @@ Create Deployment
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -1294,6 +1296,8 @@ List Deployments
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -2048,6 +2052,8 @@ Get Deployment
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
 
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
@@ -3177,6 +3183,8 @@ Update Deployment
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -3930,6 +3938,8 @@ Archive Deployment
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
 
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
@@ -4685,6 +4695,8 @@ Run Deployment Now
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -5098,6 +5110,8 @@ Pause Deployment
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
 
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
@@ -5852,6 +5866,8 @@ Unpause Deployment
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
 
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 

@@ -117,6 +117,8 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -129,7 +131,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"api_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
 
 ### Beta Authentication Error
 
@@ -137,7 +143,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"authentication_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
 
 ### Beta Billing Error
 
@@ -145,7 +155,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"billing_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
 
 ### Beta Currency
 
@@ -159,55 +173,91 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
     - `"invalid_request_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
   - `class BetaAuthenticationError`
 
     - `"authentication_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
   - `class BetaBillingError`
 
     - `"billing_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
   - `class BetaPermissionError`
 
     - `"permission_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
   - `class BetaNotFoundError`
 
     - `"not_found_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
   - `class BetaRateLimitError`
 
     - `"rate_limit_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
   - `class BetaGatewayTimeoutError`
 
     - `"timeout_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
   - `class BetaAPIError`
 
     - `"api_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
   - `class BetaOverloadedError`
 
     - `"overloaded_error" type`
 
+      The broad category of the error.
+
     - `string message`
+
+      A human-readable explanation of the error. Its wording can change, so don't match on it.
 
 ### Beta Error Response
 
@@ -225,7 +275,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"timeout_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
 
 ### Beta Invalid Request Error
 
@@ -233,7 +287,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"invalid_request_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
 
 ### Beta Monetary Amount
 
@@ -253,7 +311,17 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"not_found_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
+
+### Beta Organization Not Enrolled In Beta Error Details
+
+- `class BetaOrganizationNotEnrolledInBetaErrorDetails`
+
+  - `"organization_not_enrolled_in_beta" errorCode`
 
 ### Beta Overloaded Error
 
@@ -261,7 +329,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"overloaded_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
 
 ### Beta Permission Error
 
@@ -269,7 +341,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"permission_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
 
 ### Beta Rate Limit Error
 
@@ -277,7 +353,17 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"rate_limit_error" type`
 
+    The broad category of the error.
+
   - `string message`
+
+    A human-readable explanation of the error. Its wording can change, so don't match on it.
+
+### Beta Unsupported Charset Error Details
+
+- `class BetaUnsupportedCharsetErrorDetails`
+
+  - `"unsupported_charset" errorCode`
 
 ## Beta › Models
 
@@ -1413,7 +1499,7 @@ var_dump($betaMessage);
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-haiku-5-5",
+        "model": "claude-fable-5-2",
         "output_tokens": 0,
         "type": "message"
       }
@@ -2682,8 +2768,24 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
   ],
   metadata: ['foo' => 'bar'],
   multiagent: [
-    'agents' => ['agent_011CZkYqphY8vELVzwCUpqiQ', ['type' => 'self']],
-    'type' => 'coordinator',
+    'type' => 'multiagent_20261001',
+    'advisor' => ['type' => 'disabled'],
+    'subagents' => [
+      'type' => 'enabled',
+      'inlineAgents' => ['type' => 'disabled'],
+      'predefinedAgents' => ['agent_011CZkYqphY8vELVzwCUpqiQ'],
+    ],
+    'workflows' => [
+      'type' => 'enabled',
+      'inlineAgents' => ['type' => 'disabled'],
+      'predefinedAgents' => [
+        [
+          'id' => 'agent_011CZkYqphY8vELVzwCUpqiQ',
+          'type' => 'agent',
+          'version' => 1,
+        ],
+      ],
+    ],
   ],
   skills: [['skillID' => 'xlsx', 'type' => 'anthropic', 'version' => '1']],
   system: 'You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user\'s task end to end.',
@@ -5188,7 +5290,7 @@ Record a heartbeat for a work item to maintain the lease.
 
 - `expectedLastHeartbeat?: optional string` (query parameter)
 
-  Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+  Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match. The server does not compare the value when the work item is 'stopping' or 'stopped'.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -22140,7 +22242,7 @@ Create an external key config owned by the caller's organization.
 
 - `userProfileID?: optional string`
 
-  ID of a user profile to bind the key to. Omit this field for a key that isn't bound to a user profile. Such a key can be attached to a Workspace whatever its user profile. The binding cannot be changed later. A key bound to a user profile can only be attached to a Workspace that has the same user profile.
+  ID of a user profile to bind the key to. A user profile represents one of your customers: bind a customer's key to that customer's user profile. A key bound to a user profile can only be attached to a Workspace that has the same user profile, and the binding cannot be changed later. Omit this field only for your organization's own key, because a key created without a user profile ID can be attached to any Workspace, including another customer's.
 
 #### Returns
 
@@ -26263,11 +26365,97 @@ var_dump($user);
 }
 ```
 
+### Sign Out User
+
+`$client->beta->organization->users->signOut(string userID, ?list<AnthropicBeta> betas): OrganizationUser`
+
+**POST** `/v1/organizations/users/{user_id}/sign_out`
+
+Sign a member out of Claude everywhere, without removing them from the organization. This ends their sign-in sessions and removes their trusted devices wherever they use Claude, including other organizations and individual plans. It also ends the OAuth tokens issued to them for this organization, so apps such as Claude Code must sign in again.
+
+A token can take up to an hour to stop working, though it almost always stops at once. The member keeps their role and can sign in again right away. To keep them out, remove them from the organization or, if your organization uses single sign-on, block them in your identity provider. Signing out does not end API keys, OAuth tokens that were not issued for this organization, or the member's Claude Code cloud sessions and routines.
+
+You cannot sign out the organization's primary owner or the person your API key or token acts for, and a request to sign out another owner, a member with owner permissions, or a membership admin may be refused. A refused request returns a `400` or `403` error that says why. If the request returns `503`, send it again to finish; anything already ended stays ended.
+
+Every request must include the beta header `anthropic-beta: admin-user-sign-out-2026-10-08`. A request without it returns `400`. Sign-out is in beta for Claude Enterprise organizations. In an organization where it is not enabled, a request returns `400` with `error_code` `organization_not_enrolled_in_beta`. In a Claude Enterprise organization, an API key needs the `write:members` scope; a key without it gets `403`.
+
+#### Parameters
+
+- `userID: string` (path parameter)
+
+  ID of the User.
+
+- `betas?: optional list<AnthropicBeta>` (header parameter)
+
+  This endpoint is in beta: requests must send `admin-user-sign-out-2026-10-08` in this header.
+
+#### Returns
+
+- `class OrganizationUser`
+
+  - `"user" type`
+
+    Object type.
+
+    For Users, this is always `"user"`.
+
+  - `string id`
+
+    ID of the User.
+
+  - `\Datetime addedAt`
+
+    RFC 3339 datetime string indicating when the User joined the Organization.
+
+  - `string email`
+
+    Email of the User.
+
+  - `string name`
+
+    Name of the User.
+
+  - `BetaOrganizationRole role`
+
+    Organization role of the User.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaOrganizationUser = $client->beta->organization->users->signOut(
+  'user_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+);
+
+var_dump($betaOrganizationUser);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
+  "added_at": "2024-10-30T23:58:27.427722Z",
+  "email": "user@emaildomain.com",
+  "name": "Jane Doe",
+  "role": "admin",
+  "type": "user"
+}
+```
+
 ## Beta › Organization › Workspaces
 
 ### List Workspaces
 
-`$client->beta->organization->workspaces->list(?string afterID, ?string beforeID, ?bool includeArchived, ?bool includeDefault, ?int limit): Page<Workspace>`
+`$client->beta->organization->workspaces->list(?string afterID, ?string beforeID, ?list<string> ids, ?bool includeArchived, ?bool includeDefault, ?int limit): Page<Workspace>`
 
 **GET** `/v1/organizations/workspaces`
 
@@ -26282,6 +26470,10 @@ List Workspaces
 - `beforeID?: optional string` (query parameter)
 
   ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+
+- `ids?: optional list<string>` (query parameter)
+
+  Only the Workspaces with these IDs, at most 100. `include_archived` and `include_default` still apply, and IDs of Workspaces the caller can't list are left out.
 
 - `includeArchived?: optional bool` (query parameter)
 
@@ -26387,6 +26579,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $page = $client->beta->organization->workspaces->list(
   afterID: 'after_id',
   beforeID: 'before_id',
+  ids: ['string'],
   includeArchived: true,
   includeDefault: true,
   limit: 1,
@@ -29782,7 +29975,7 @@ var_dump($page);
 
 ### Get Token Usage By Dimension
 
-`$client->beta->organization->analytics->usage->list(\Datetime startingAt, ?list<string> actorIDs, ?list<AnalyticsActorType> actorTypes, ?list<string> agentIDs, ?list<string> apiKeyIDs, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?list<string> deploymentIDs, ?\Datetime endingAt, ?list<string> environmentIDs, ?bool excludeDeletedUsers, ?list<BetaAnalyticsUsageGroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?AnalyticsUsageCostSortOrder order, ?BetaAnalyticsUsageOrderBy orderBy, ?string page, ?list<AnalyticsUsageCostProductFilter> products, ?list<string> rbacGroupIDs, ?list<AnalyticsServiceTier> serviceTiers, ?list<string> sessionIDs, ?list<string> slackChannelIDs, ?list<AnalyticsSpeed> speeds, ?AnalyticsTimeBucketWidth timeBucketWidth, ?list<string> userProfileIDs, ?list<string> workspaceIDs, ?list<AnthropicBeta> betas): ReportPageCursor<BetaAnalyticsUsageItem>`
+`$client->beta->organization->analytics->usage->list(\Datetime startingAt, ?list<string> actorIDs, ?list<AnalyticsActorType> actorTypes, ?list<string> agentIDs, ?list<string> apiKeyIDs, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?list<string> deploymentIDs, ?\Datetime endingAt, ?list<string> environmentIDs, ?bool excludeDeletedUsers, ?list<BetaAnalyticsUsageGroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?AnalyticsUsageCostSortOrder order, ?BetaAnalyticsUsageOrderBy orderBy, ?list<string> organizationIDs, ?string page, ?list<AnalyticsUsageCostProductFilter> products, ?list<string> rbacGroupIDs, ?list<AnalyticsServiceTier> serviceTiers, ?list<string> sessionIDs, ?list<string> slackChannelIDs, ?list<AnalyticsSpeed> speeds, ?AnalyticsTimeBucketWidth timeBucketWidth, ?list<string> userProfileIDs, ?list<string> workspaceIDs, ?list<AnthropicBeta> betas): ReportPageCursor<BetaAnalyticsUsageItem>`
 
 **GET** `/v1/organizations/analytics/usage`
 
@@ -29812,15 +30005,15 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `agentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Developer Platform organizations only.
+  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Platform organizations only.
 
 - `apiKeyIDs?: optional list<string>` (query parameter)
 
-  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Developer Platform organizations only.
+  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Platform organizations only.
 
 - `claudeTagCategories?: optional list<AnalyticsClaudeTagCategory>` (query parameter)
 
-  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude_tag`, so combining this filter with `products[]=claude_tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. Use `group_by[]=claude_tag_category` to break out per-category values.
 
 - `claudeTagUserIDs?: optional list<string>` (query parameter)
 
@@ -29832,7 +30025,7 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `deploymentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Developer Platform organizations only.
+  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Platform organizations only.
 
 - `endingAt?: optional \Datetime` (query parameter)
 
@@ -29840,7 +30033,7 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `environmentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Developer Platform organizations only.
+  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Platform organizations only.
 
 - `excludeDeletedUsers?: optional bool` (query parameter)
 
@@ -29874,6 +30067,10 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
   Row order. A metric ranks rows by that metric in the `order` direction. `time` orders rows by time bucket in the `order` direction (newest first by default) and, within a bucket, by `total_tokens`, highest first. `time` takes effect only with `time_bucket_width`; without it, `time` is the same as `total_tokens`. Defaults to `total_tokens`.
 
+- `organizationIDs?: optional list<string>` (query parameter)
+
+  Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values.
+
 - `page?: optional string` (query parameter)
 
   Opaque cursor from a previous response's `next_page` field.
@@ -29888,11 +30085,11 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `serviceTiers?: optional list<AnalyticsServiceTier>` (query parameter)
 
-  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Developer Platform organizations only; matches nothing for a Claude Enterprise organization.
+  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization.
 
 - `sessionIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Developer Platform organizations only.
+  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Platform organizations only.
 
 - `slackChannelIDs?: optional list<string>` (query parameter)
 
@@ -29908,11 +30105,11 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `userProfileIDs?: optional list<string>` (query parameter)
 
-  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Developer Platform organizations only.
+  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Platform organizations only.
 
 - `workspaceIDs?: optional list<string>` (query parameter)
 
-  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Developer Platform organizations only; matches nothing for a Claude Enterprise organization.
+  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -29980,6 +30177,7 @@ $page = $client->beta->organization->analytics->usage->list(
   models: ['string'],
   order: AnalyticsUsageCostSortOrder::ASC,
   orderBy: BetaAnalyticsUsageOrderBy::OUTPUT_TOKENS,
+  organizationIDs: ['12345678-1234-5678-1234-567812345678'],
   page: 'page',
   products: [AnalyticsUsageCostProductFilter::CHAT],
   rbacGroupIDs: ['rbac_group_012rppKaSVsmTo6NqRDXQXNF'],
@@ -30021,6 +30219,7 @@ var_dump($page);
         "environment_id": "env_017oTjuGedHtjhJauVC5xGJD",
         "inference_geo": "global",
         "model": "claude-opus-5-5",
+        "organization_id": "12345678-1234-5678-1234-567812345678",
         "product": "chat",
         "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
         "service_tier": "standard",
@@ -30057,7 +30256,7 @@ var_dump($page);
 
 ### Get Cost By Dimension
 
-`$client->beta->organization->analytics->cost->list(\Datetime startingAt, ?list<string> actorIDs, ?list<AnalyticsActorType> actorTypes, ?list<string> agentIDs, ?list<string> apiKeyIDs, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?list<string> deploymentIDs, ?\Datetime endingAt, ?list<string> environmentIDs, ?bool excludeDeletedUsers, ?list<BetaAnalyticsCostGroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?AnalyticsUsageCostSortOrder order, ?BetaAnalyticsCostOrderBy orderBy, ?string page, ?list<AnalyticsUsageCostProductFilter> products, ?list<string> rbacGroupIDs, ?list<AnalyticsServiceTier> serviceTiers, ?list<string> sessionIDs, ?list<string> slackChannelIDs, ?list<AnalyticsSpeed> speeds, ?AnalyticsTimeBucketWidth timeBucketWidth, ?list<string> userProfileIDs, ?list<string> workspaceIDs, ?list<AnthropicBeta> betas): ReportPageCursor<BetaAnalyticsCostItem>`
+`$client->beta->organization->analytics->cost->list(\Datetime startingAt, ?list<string> actorIDs, ?list<AnalyticsActorType> actorTypes, ?list<string> agentIDs, ?list<string> apiKeyIDs, ?list<AnalyticsClaudeTagCategory> claudeTagCategories, ?list<string> claudeTagUserIDs, ?list<AnalyticsContextWindow> contextWindows, ?list<string> deploymentIDs, ?\Datetime endingAt, ?list<string> environmentIDs, ?bool excludeDeletedUsers, ?list<BetaAnalyticsCostGroupBy> groupBy, ?list<AnalyticsInferenceGeoFilter> inferenceGeos, ?int limit, ?list<string> models, ?AnalyticsUsageCostSortOrder order, ?BetaAnalyticsCostOrderBy orderBy, ?list<string> organizationIDs, ?string page, ?list<AnalyticsUsageCostProductFilter> products, ?list<string> rbacGroupIDs, ?list<AnalyticsServiceTier> serviceTiers, ?list<string> sessionIDs, ?list<string> slackChannelIDs, ?list<AnalyticsSpeed> speeds, ?AnalyticsTimeBucketWidth timeBucketWidth, ?list<string> userProfileIDs, ?list<string> workspaceIDs, ?list<AnthropicBeta> betas): ReportPageCursor<BetaAnalyticsCostItem>`
 
 **GET** `/v1/organizations/analytics/cost`
 
@@ -30087,15 +30286,15 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `agentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Developer Platform organizations only.
+  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Platform organizations only.
 
 - `apiKeyIDs?: optional list<string>` (query parameter)
 
-  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Developer Platform organizations only.
+  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Platform organizations only.
 
 - `claudeTagCategories?: optional list<AnalyticsClaudeTagCategory>` (query parameter)
 
-  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude_tag`, so combining this filter with `products[]=claude_tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. Use `group_by[]=claude_tag_category` to break out per-category values.
 
 - `claudeTagUserIDs?: optional list<string>` (query parameter)
 
@@ -30107,7 +30306,7 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `deploymentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Developer Platform organizations only.
+  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Platform organizations only.
 
 - `endingAt?: optional \Datetime` (query parameter)
 
@@ -30115,7 +30314,7 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `environmentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Developer Platform organizations only.
+  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Platform organizations only.
 
 - `excludeDeletedUsers?: optional bool` (query parameter)
 
@@ -30149,6 +30348,10 @@ API key with the `read:analytics` scope, or an Admin API key.
 
   Row order. A metric ranks rows by that metric in the `order` direction. `time` orders rows by time bucket in the `order` direction (newest first by default) and, within a bucket, by `amount`, highest first. `time` takes effect only with `time_bucket_width`; without it, `time` is the same as `amount`. Defaults to `amount`.
 
+- `organizationIDs?: optional list<string>` (query parameter)
+
+  Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values.
+
 - `page?: optional string` (query parameter)
 
   Opaque cursor from a previous response's `next_page` field.
@@ -30163,11 +30366,11 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `serviceTiers?: optional list<AnalyticsServiceTier>` (query parameter)
 
-  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Developer Platform organizations only; matches nothing for a Claude Enterprise organization.
+  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization.
 
 - `sessionIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Developer Platform organizations only.
+  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Platform organizations only.
 
 - `slackChannelIDs?: optional list<string>` (query parameter)
 
@@ -30183,11 +30386,11 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `userProfileIDs?: optional list<string>` (query parameter)
 
-  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Developer Platform organizations only.
+  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Platform organizations only.
 
 - `workspaceIDs?: optional list<string>` (query parameter)
 
-  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Developer Platform organizations only; matches nothing for a Claude Enterprise organization.
+  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -30255,6 +30458,7 @@ $page = $client->beta->organization->analytics->cost->list(
   models: ['string'],
   order: AnalyticsUsageCostSortOrder::ASC,
   orderBy: BetaAnalyticsCostOrderBy::AMOUNT,
+  organizationIDs: ['12345678-1234-5678-1234-567812345678'],
   page: 'page',
   products: [AnalyticsUsageCostProductFilter::CHAT],
   rbacGroupIDs: ['rbac_group_012rppKaSVsmTo6NqRDXQXNF'],
@@ -30303,6 +30507,7 @@ var_dump($page);
         "environment_id": "env_017oTjuGedHtjhJauVC5xGJD",
         "inference_geo": "global",
         "model": "claude-opus-5-5",
+        "organization_id": "12345678-1234-5678-1234-567812345678",
         "product": "chat",
         "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
         "service_tier": "standard",
@@ -30350,7 +30555,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
 - `claudeTagCategories?: optional list<AnalyticsClaudeTagCategory>` (query parameter)
 
-  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. Use `group_by[]=claude_tag_category` to break out per-category values.
 
 - `claudeTagUserIDs?: optional list<string>` (query parameter)
 
@@ -30508,7 +30713,7 @@ var_dump($page);
 
 [Legacy] Get per-user token usage across a date range.
 
-Returns usage per user, ranked by the chosen token metric; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users consume the most tokens. Only usage attributed to a user account is included; usage with no user attributed to it, such as Code Review usage and Claude Tag usage in Slack channels, is left out. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
+Returns usage per user, ranked by the chosen token metric; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users consume the most tokens. Only usage attributed to a user account is included, so usage with no user account, such as Code Review usage and Claude Tag usage in Slack channels, is left out. Claude Tag one-to-one direct messages are included, with product `claude-tag`, only for members who have connected a Claude account. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
 
 This endpoint is one of the legacy Claude Enterprise usage and cost reports. For new integrations, use [`GET /v1/organizations/analytics/usage`](https://platform.claude.com/docs/en/api/beta/organization/analytics/usage/list?sdk_languages=php) in the Usage and Cost Analytics API instead. To move an existing integration, see [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api?sdk_languages=php#migrate-from-enterprise-analytics-reports).
 
@@ -30524,7 +30729,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
 - `claudeTagCategories?: optional list<AnalyticsClaudeTagCategory>` (query parameter)
 
-  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. Use `group_by[]=claude_tag_category` to break out per-category values.
 
 - `claudeTagUserIDs?: optional list<string>` (query parameter)
 
@@ -30616,7 +30821,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
   - `?AnalyticsClaudeTagCategory claudeTagCategory`
 
-    Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. Direct-message usage is billed to the individual user and is reported under that user's product, not under `claude-tag`. New categories may be added over time.
+    Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. New categories may be added over time.
 
   - `?string claudeTagUserID`
 
@@ -30660,7 +30865,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
   - `?string slackChannelID`
 
-    Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+    Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack, for some Claude Tag usage that has no channel recorded, and for usage recorded before channel attribution was enabled.
 
   - `?Speed speed`
 
@@ -30791,7 +30996,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
 - `claudeTagCategories?: optional list<AnalyticsClaudeTagCategory>` (query parameter)
 
-  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. Use `group_by[]=claude_tag_category` to break out per-category values.
 
 - `claudeTagUserIDs?: optional list<string>` (query parameter)
 
@@ -30944,7 +31149,7 @@ var_dump($page);
 
 [Legacy] Get per-user cost in USD across a date range.
 
-Returns cost per user, ranked by spend; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users account for the most cost. Only cost attributed to a user account is included; cost with no user attributed to it, such as Code Review usage and Claude Tag usage in Slack channels, is left out. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
+Returns cost per user, ranked by spend; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users account for the most cost. Only cost attributed to a user account is included, so cost with no user account, such as Code Review usage and Claude Tag usage in Slack channels, is left out. Claude Tag one-to-one direct messages are included, with product `claude-tag`, only for members who have connected a Claude account. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
 
 This endpoint is one of the legacy Claude Enterprise usage and cost reports. For new integrations, use [`GET /v1/organizations/analytics/cost`](https://platform.claude.com/docs/en/api/beta/organization/analytics/cost/list?sdk_languages=php) in the Usage and Cost Analytics API instead. To move an existing integration, see [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api?sdk_languages=php#migrate-from-enterprise-analytics-reports).
 
@@ -30960,7 +31165,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
 - `claudeTagCategories?: optional list<AnalyticsClaudeTagCategory>` (query parameter)
 
-  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. `dm` usage is reported under the user's product rather than `claude-tag`, so combining this filter with `products[]=claude-tag` excludes it. Use `group_by[]=claude_tag_category` to break out per-category values.
+  Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. Use `group_by[]=claude_tag_category` to break out per-category values.
 
 - `claudeTagUserIDs?: optional list<string>` (query parameter)
 
@@ -31048,7 +31253,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
   - `?AnalyticsClaudeTagCategory claudeTagCategory`
 
-    Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. Direct-message usage is billed to the individual user and is reported under that user's product, not under `claude-tag`. New categories may be added over time.
+    Claude Tag (Claude in Slack) spend category: `engaged` (a person addressed Claude in a channel or thread), `proactive` (Claude responded without being addressed), `scheduled` (a scheduled routine ran), `monitoring` (Claude watching a channel it was asked to monitor), or `dm` (direct messages with Claude). Populated only when `claude_tag_category` is in `group_by[]`; null for usage that is not Claude Tag. New categories may be added over time.
 
   - `?string claudeTagUserID`
 
@@ -31096,7 +31301,7 @@ This endpoint is one of the legacy Claude Enterprise usage and cost reports. For
 
   - `?string slackChannelID`
 
-    Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack (and for rows recorded before channel attribution was enabled).
+    Slack channel the usage originated from. Populated only when `slack_channel_id` is in `group_by[]`; null for usage outside Slack, for some Claude Tag usage that has no channel recorded, and for usage recorded before channel attribution was enabled.
 
   - `?Speed speed`
 
@@ -32898,7 +33103,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
   - `string displayName`
 
-    Name of the RBAC Role. For a role created by Anthropic, this name can differ from the label claude.ai shows, and Anthropic may change the name. To keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
 
   - `\Datetime updatedAt`
 
@@ -32976,7 +33181,7 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
   - `string displayName`
 
-    Name of the RBAC Role. For a role created by Anthropic, this name can differ from the label claude.ai shows, and Anthropic may change the name. To keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
 
   - `\Datetime updatedAt`
 
@@ -33061,8 +33266,8 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
     permission entitlement (`permission_*`), or a blanket capability-access
     mode — `capability_access_all` grants every product-feature entitlement
     except `inference_hooks_inspection`, which a role holds only through its
-    own row, and `capability_access_all_ga` grants the generally-available
-    subset of those as it stands at permission-check time; neither mode grants
+    own row, and `capability_access_all_ga` grants the subset of those for
+    stable features as it stands at permission-check time; neither mode grants
     model-access entitlements. A consumer enumerating a role's per-feature grants should
     treat a blanket row as granting every product-feature entitlement it
     covers, or it will under-report the role's effective access. A `connector_tool` grant carries
@@ -33140,10 +33345,9 @@ The `name` must be unique within the marketplace: a name already taken
 returns a 409 with `error_code` `plugin_name_taken` and, when a Plugin holds it,
 that Plugin's ID in `details.plugin_id`. A Plugin going into the organization's
 library marketplace is also refused with a 409 when one of its skills has the name of
-an organization skill (a skill an administrator uploaded for the whole organization
-in claude.ai): `error_code` `skill_name_taken`, with that name in
-`details.skill_name`; rename the skill, or remove the organization skill in
-claude.ai. A 503 with `error_code`
+an organization skill that this API does not list: `error_code`
+`skill_name_taken`, with that name in `details.skill_name`; rename the skill, or
+remove the organization skill in claude.ai. A 503 with `error_code`
 `registration_pending` means the Plugin and its version were stored (their IDs are
 in `details`) but are not yet usable in claude.ai: do not retry the create (the
 retry would return `plugin_name_taken`); create a version on the stored Plugin
@@ -33242,9 +33446,9 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
   - `string servedVersionID`
 
@@ -33419,9 +33623,9 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
   - `string servedVersionID`
 
@@ -33521,10 +33725,9 @@ with a 400 (`error_code` `scan_failed`); a `warn` is accepted. If the scan outco
 cannot be read at that moment, the request fails with a retryable 503 instead.
 When the Plugin is in the organization's
 library marketplace, a version other than the one served is also refused with a 409
-when one of its skills has a name that an organization skill (one an administrator
-uploaded for the whole organization in claude.ai) has since taken: `error_code`
-`skill_name_taken`, with that name in `details.skill_name`. A member-owned Plugin
-cannot be updated here (403).
+when an organization skill that this API does not list has since taken the name of
+one of its skills: `error_code` `skill_name_taken`, with that name in
+`details.skill_name`. A member-owned Plugin cannot be updated here (403).
 
 This endpoint does not write installation settings; they are written at
 `/v1/organizations/plugins/{plugin_id}/installation_settings/{target}`.
@@ -33615,9 +33818,9 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
   - `string servedVersionID`
 
@@ -33830,9 +34033,9 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
   - `string servedVersionID`
 
@@ -33930,7 +34133,9 @@ var_dump($page);
 
 Permanently delete a Plugin and every version it holds, exactly as when an
 administrator deletes it in claude.ai. The Plugin may belong to the organization or
-to a member, including a member who has since left the organization.
+to a member, including a member who has since left the organization. Do not delete a
+Plugin only because your pipeline did not create it: a member or an administrator
+might have added it in claude.ai.
 
 An organization-owned Plugin's installation settings go with it; a member-owned
 Plugin's shares are withdrawn and its owner no longer has it.
@@ -34015,9 +34220,8 @@ see which version it serves.
 Only a Plugin in a `manual` marketplace takes uploads; a Plugin synchronized from
 a repository gets its versions from the repository. When the Plugin is in the
 organization's library marketplace, a version that adds a skill with the name of an
-organization skill (a skill an administrator uploaded for the whole organization in
-claude.ai) is refused with a 409: `error_code` `skill_name_taken`, with that name in
-`details.skill_name`. A 503 with `error_code`
+organization skill that this API does not list is refused with a 409: `error_code`
+`skill_name_taken`, with that name in `details.skill_name`. A 503 with `error_code`
 `registration_pending` means the version was stored but is not yet usable; a later
 version create on the Plugin completes it.
 
@@ -34076,7 +34280,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `?string description`
 
-    The manifest's description; null when it declares none.
+    The manifest's description; null when it declares none. The value can be longer than 500 characters, the limit on `description` in an uploaded manifest. A description that the manifest takes from a `SKILL.md` is cut to its first 500 characters. So if the manifest's description is the first 500 characters of exactly one distinct skill `description` in `components`, that skill `description` is returned instead.
 
   - `?string displayName`
 
@@ -34227,7 +34431,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `?string description`
 
-    The manifest's description; null when it declares none.
+    The manifest's description; null when it declares none. The value can be longer than 500 characters, the limit on `description` in an uploaded manifest. A description that the manifest takes from a `SKILL.md` is cut to its first 500 characters. So if the manifest's description is the first 500 characters of exactly one distinct skill `description` in `components`, that skill `description` is returned instead.
 
   - `?string displayName`
 
@@ -34370,7 +34574,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `?string description`
 
-    The manifest's description; null when it declares none.
+    The manifest's description; null when it declares none. The value can be longer than 500 characters, the limit on `description` in an uploaded manifest. A description that the manifest takes from a `SKILL.md` is cut to its first 500 characters. So if the manifest's description is the first 500 characters of exactly one distinct skill `description` in `components`, that skill `description` is returned instead.
 
   - `?string displayName`
 
@@ -37279,6 +37483,7 @@ $betaClaudeTagSlackChannel = $client
     'guestPolicy' => ['type' => 'allow'],
     'instructions' => 'instructions',
     'model' => 'x',
+    'replyMode' => ['type' => 'automatic'],
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
@@ -37299,7 +37504,10 @@ var_dump($betaClaudeTagSlackChannel);
       "type": "allow"
     },
     "instructions": "instructions",
-    "model": "model"
+    "model": "model",
+    "reply_mode": {
+      "type": "automatic"
+    }
   },
   "slack": {
     "channel_id": "xx",
@@ -37325,6 +37533,10 @@ var_dump($betaClaudeTagSlackChannel);
       }
     ],
     "model": {
+      "slack_channel_id": "slack_channel_id",
+      "type": "slack_channel"
+    },
+    "reply_mode": {
       "slack_channel_id": "slack_channel_id",
       "type": "slack_channel"
     }
@@ -37437,7 +37649,10 @@ var_dump($page);
           "type": "allow"
         },
         "instructions": "instructions",
-        "model": "model"
+        "model": "model",
+        "reply_mode": {
+          "type": "automatic"
+        }
       },
       "slack": {
         "channel_id": "xx",
@@ -37463,6 +37678,10 @@ var_dump($page);
           }
         ],
         "model": {
+          "slack_channel_id": "slack_channel_id",
+          "type": "slack_channel"
+        },
+        "reply_mode": {
           "slack_channel_id": "slack_channel_id",
           "type": "slack_channel"
         }
@@ -37566,7 +37785,10 @@ var_dump($betaClaudeTagSlackChannel);
       "type": "allow"
     },
     "instructions": "instructions",
-    "model": "model"
+    "model": "model",
+    "reply_mode": {
+      "type": "automatic"
+    }
   },
   "slack": {
     "channel_id": "xx",
@@ -37592,6 +37814,10 @@ var_dump($betaClaudeTagSlackChannel);
       }
     ],
     "model": {
+      "slack_channel_id": "slack_channel_id",
+      "type": "slack_channel"
+    },
+    "reply_mode": {
       "slack_channel_id": "slack_channel_id",
       "type": "slack_channel"
     }
@@ -37678,6 +37904,7 @@ $betaClaudeTagSlackChannel = $client
     'guestPolicy' => ['type' => 'allow'],
     'instructions' => 'instructions',
     'model' => 'x',
+    'replyMode' => ['type' => 'automatic'],
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
@@ -37698,7 +37925,10 @@ var_dump($betaClaudeTagSlackChannel);
       "type": "allow"
     },
     "instructions": "instructions",
-    "model": "model"
+    "model": "model",
+    "reply_mode": {
+      "type": "automatic"
+    }
   },
   "slack": {
     "channel_id": "xx",
@@ -37724,6 +37954,10 @@ var_dump($betaClaudeTagSlackChannel);
       }
     ],
     "model": {
+      "slack_channel_id": "slack_channel_id",
+      "type": "slack_channel"
+    },
+    "reply_mode": {
       "slack_channel_id": "slack_channel_id",
       "type": "slack_channel"
     }
@@ -37895,7 +38129,10 @@ var_dump($page);
           "type": "allow"
         },
         "instructions": "instructions",
-        "model": "model"
+        "model": "model",
+        "reply_mode": {
+          "type": "automatic"
+        }
       },
       "slack": {
         "workspace_id": "workspace_id"
@@ -37920,6 +38157,10 @@ var_dump($page);
           }
         ],
         "model": {
+          "slack_channel_id": "slack_channel_id",
+          "type": "slack_channel"
+        },
+        "reply_mode": {
           "slack_channel_id": "slack_channel_id",
           "type": "slack_channel"
         }
@@ -38023,7 +38264,10 @@ var_dump($betaClaudeTagSlackWorkspace);
       "type": "allow"
     },
     "instructions": "instructions",
-    "model": "model"
+    "model": "model",
+    "reply_mode": {
+      "type": "automatic"
+    }
   },
   "slack": {
     "workspace_id": "workspace_id"
@@ -38048,6 +38292,10 @@ var_dump($betaClaudeTagSlackWorkspace);
       }
     ],
     "model": {
+      "slack_channel_id": "slack_channel_id",
+      "type": "slack_channel"
+    },
+    "reply_mode": {
       "slack_channel_id": "slack_channel_id",
       "type": "slack_channel"
     }
@@ -38134,6 +38382,7 @@ $betaClaudeTagSlackWorkspace = $client
     'guestPolicy' => ['type' => 'allow'],
     'instructions' => 'instructions',
     'model' => 'x',
+    'replyMode' => ['type' => 'automatic'],
   ],
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
@@ -38154,7 +38403,10 @@ var_dump($betaClaudeTagSlackWorkspace);
       "type": "allow"
     },
     "instructions": "instructions",
-    "model": "model"
+    "model": "model",
+    "reply_mode": {
+      "type": "automatic"
+    }
   },
   "slack": {
     "workspace_id": "workspace_id"
@@ -38179,6 +38431,10 @@ var_dump($betaClaudeTagSlackWorkspace);
       }
     ],
     "model": {
+      "slack_channel_id": "slack_channel_id",
+      "type": "slack_channel"
+    },
+    "reply_mode": {
       "slack_channel_id": "slack_channel_id",
       "type": "slack_channel"
     }

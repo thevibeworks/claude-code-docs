@@ -2998,6 +2998,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `ClaudeFable5_2("claude-fable-5-2")`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                             Fastest model for high-volume, real-time tasks
@@ -3346,14 +3354,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Accepted in `messages[].content` and not rendered into the prompt; not
             validated against the request's `fallbacks` chain or top-level `model`.
 
-            Echo the assistant turn back verbatim, including this block in its
+            When you send the assistant turn back, keep this block in its
             original position. The block marks the boundary between content produced
             before and after a fallback hop, and the server relies on that boundary
             to validate the turn: when thinking runs flank the boundary, omitting
             the block merges them into one span the server cannot validate (the
             request is rejected), and moving it into the middle of a single run is
             likewise rejected; between non-thinking blocks the block's placement has
-            no validation effect.
+            no effect on thinking validation.
+
+            Some blocks from before the turn's final `fallback` block must be left
+            out when you send the turn back, and no `tool_result` is sent for a
+            `tool_use` block you left out.
+
+            See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
             - `JsonElement Type = "fallback"`
 
@@ -3920,6 +3934,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -6580,6 +6596,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                    - `ClaudeFable5_2("claude-fable-5-2")`
+
+                      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                       Fastest model for high-volume, real-time tasks
@@ -8059,7 +8083,7 @@ Console.WriteLine(betaMessage);
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-haiku-5-5",
+        "model": "claude-fable-5-2",
         "output_tokens": 0,
         "type": "message"
       }
@@ -11066,6 +11090,14 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `ClaudeFable5_2("claude-fable-5-2")`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                             Fastest model for high-volume, real-time tasks
@@ -11414,14 +11446,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             Accepted in `messages[].content` and not rendered into the prompt; not
             validated against the request's `fallbacks` chain or top-level `model`.
 
-            Echo the assistant turn back verbatim, including this block in its
+            When you send the assistant turn back, keep this block in its
             original position. The block marks the boundary between content produced
             before and after a fallback hop, and the server relies on that boundary
             to validate the turn: when thinking runs flank the boundary, omitting
             the block merges them into one span the server cannot validate (the
             request is rejected), and moving it into the middle of a single run is
             likewise rejected; between non-thinking blocks the block's placement has
-            no validation effect.
+            no effect on thinking validation.
+
+            Some blocks from before the turn's final `fallback` block must be left
+            out when you send the turn back, and no `tool_result` is sent for a
+            `tool_use` block you left out.
+
+            See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
             - `JsonElement Type = "fallback"`
 
@@ -11862,6 +11900,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -11985,6 +12025,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -12133,6 +12181,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -15368,6 +15424,14 @@ Console.WriteLine(betaMessageTokensCount);
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                      - `ClaudeFable5_2("claude-fable-5-2")`
+
+                        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                        Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                         Fastest model for high-volume, real-time tasks
@@ -15716,14 +15780,20 @@ Console.WriteLine(betaMessageTokensCount);
         Accepted in `messages[].content` and not rendered into the prompt; not
         validated against the request's `fallbacks` chain or top-level `model`.
 
-        Echo the assistant turn back verbatim, including this block in its
+        When you send the assistant turn back, keep this block in its
         original position. The block marks the boundary between content produced
         before and after a fallback hop, and the server relies on that boundary
         to validate the turn: when thinking runs flank the boundary, omitting
         the block merges them into one span the server cannot validate (the
         request is rejected), and moving it into the middle of a single run is
         likewise rejected; between non-thinking blocks the block's placement has
-        no validation effect.
+        no effect on thinking validation.
+
+        Some blocks from before the turn's final `fallback` block must be left
+        out when you send the turn back, and no `tool_result` is sent for a
+        `tool_use` block you left out.
+
+        See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
         - `JsonElement Type = "fallback"`
 
@@ -24681,6 +24751,14 @@ Console.WriteLine(betaMessageTokensCount);
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                - `ClaudeFable5_2("claude-fable-5-2")`
+
+                  Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                  Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                 - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                   Fastest model for high-volume, real-time tasks
@@ -26820,6 +26898,14 @@ Console.WriteLine(betaMessageTokensCount);
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `ClaudeFable5_2("claude-fable-5-2")`
+
+                  Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                  Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                 - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -32289,6 +32375,14 @@ Console.WriteLine(betaMessageTokensCount);
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                  - `ClaudeFable5_2("claude-fable-5-2")`
+
+                    Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                  - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                    Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                   - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                     Fastest model for high-volume, real-time tasks
@@ -35560,6 +35654,14 @@ Console.WriteLine(betaMessageTokensCount);
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                  - `ClaudeFable5_2("claude-fable-5-2")`
+
+                    Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                  - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                    Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                   - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                     Fastest model for high-volume, real-time tasks
@@ -35908,14 +36010,20 @@ Console.WriteLine(betaMessageTokensCount);
     Accepted in `messages[].content` and not rendered into the prompt; not
     validated against the request's `fallbacks` chain or top-level `model`.
 
-    Echo the assistant turn back verbatim, including this block in its
+    When you send the assistant turn back, keep this block in its
     original position. The block marks the boundary between content produced
     before and after a fallback hop, and the server relies on that boundary
     to validate the turn: when thinking runs flank the boundary, omitting
     the block merges them into one span the server cannot validate (the
     request is rejected), and moving it into the middle of a single run is
     likewise rejected; between non-thinking blocks the block's placement has
-    no validation effect.
+    no effect on thinking validation.
+
+    Some blocks from before the turn's final `fallback` block must be left
+    out when you send the turn back, and no `tool_result` is sent for a
+    `tool_use` block you left out.
+
+    See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
     - `JsonElement Type = "fallback"`
 
@@ -36723,6 +36831,14 @@ Console.WriteLine(betaMessageTokensCount);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeFable5_2("claude-fable-5-2")`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
         Fastest model for high-volume, real-time tasks
@@ -36848,14 +36964,20 @@ Console.WriteLine(betaMessageTokensCount);
   Accepted in `messages[].content` and not rendered into the prompt; not
   validated against the request's `fallbacks` chain or top-level `model`.
 
-  Echo the assistant turn back verbatim, including this block in its
+  When you send the assistant turn back, keep this block in its
   original position. The block marks the boundary between content produced
   before and after a fallback hop, and the server relies on that boundary
   to validate the turn: when thinking runs flank the boundary, omitting
   the block merges them into one span the server cannot validate (the
   request is rejected), and moving it into the middle of a single run is
   likewise rejected; between non-thinking blocks the block's placement has
-  no validation effect.
+  no effect on thinking validation.
+
+  Some blocks from before the turn's final `fallback` block must be left
+  out when you send the turn back, and no `tool_result` is sent for a
+  `tool_use` block you left out.
+
+  See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
   - `JsonElement Type = "fallback"`
 
@@ -36868,6 +36990,14 @@ Console.WriteLine(betaMessageTokensCount);
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `ClaudeFable5_2("claude-fable-5-2")`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -37126,6 +37256,14 @@ Console.WriteLine(betaMessageTokensCount);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
       Fastest model for high-volume, real-time tasks
@@ -37219,6 +37357,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -37359,6 +37505,14 @@ Console.WriteLine(betaMessageTokensCount);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
       Fastest model for high-volume, real-time tasks
@@ -37463,6 +37617,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -37737,6 +37899,14 @@ Console.WriteLine(betaMessageTokensCount);
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `ClaudeFable5_2("claude-fable-5-2")`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -41458,6 +41628,14 @@ Console.WriteLine(betaMessageTokensCount);
                     The model that will complete your prompt.
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                    - `ClaudeFable5_2("claude-fable-5-2")`
+
+                      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                      Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -45450,6 +45628,14 @@ Console.WriteLine(betaMessageTokensCount);
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                    - `ClaudeFable5_2("claude-fable-5-2")`
+
+                      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                       Fastest model for high-volume, real-time tasks
@@ -45798,14 +45984,20 @@ Console.WriteLine(betaMessageTokensCount);
       Accepted in `messages[].content` and not rendered into the prompt; not
       validated against the request's `fallbacks` chain or top-level `model`.
 
-      Echo the assistant turn back verbatim, including this block in its
+      When you send the assistant turn back, keep this block in its
       original position. The block marks the boundary between content produced
       before and after a fallback hop, and the server relies on that boundary
       to validate the turn: when thinking runs flank the boundary, omitting
       the block merges them into one span the server cannot validate (the
       request is rejected), and moving it into the middle of a single run is
       likewise rejected; between non-thinking blocks the block's placement has
-      no validation effect.
+      no effect on thinking validation.
+
+      Some blocks from before the turn's final `fallback` block must be left
+      out when you send the turn back, and no `tool_result` is sent for a
+      `tool_use` block you left out.
+
+      See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
       - `JsonElement Type = "fallback"`
 
@@ -45979,6 +46171,14 @@ Console.WriteLine(betaMessageTokensCount);
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeFable5_2("claude-fable-5-2")`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
         - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -46285,6 +46485,14 @@ Console.WriteLine(betaMessageTokensCount);
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -49292,6 +49500,14 @@ Console.WriteLine(betaMessageTokensCount);
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                        - `ClaudeFable5_2("claude-fable-5-2")`
+
+                          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                        - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                          Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                         - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                           Fastest model for high-volume, real-time tasks
@@ -49640,14 +49856,20 @@ Console.WriteLine(betaMessageTokensCount);
           Accepted in `messages[].content` and not rendered into the prompt; not
           validated against the request's `fallbacks` chain or top-level `model`.
 
-          Echo the assistant turn back verbatim, including this block in its
+          When you send the assistant turn back, keep this block in its
           original position. The block marks the boundary between content produced
           before and after a fallback hop, and the server relies on that boundary
           to validate the turn: when thinking runs flank the boundary, omitting
           the block merges them into one span the server cannot validate (the
           request is rejected), and moving it into the middle of a single run is
           likewise rejected; between non-thinking blocks the block's placement has
-          no validation effect.
+          no effect on thinking validation.
+
+          Some blocks from before the turn's final `fallback` block must be left
+          out when you send the turn back, and no `tool_result` is sent for a
+          `tool_use` block you left out.
+
+          See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
           - `JsonElement Type = "fallback"`
 
@@ -52771,6 +52993,14 @@ Console.WriteLine(betaMessageTokensCount);
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                    - `ClaudeFable5_2("claude-fable-5-2")`
+
+                      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                       Fastest model for high-volume, real-time tasks
@@ -53503,6 +53733,14 @@ Console.WriteLine(betaMessageTokensCount);
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+          - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+            Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -56490,6 +56728,14 @@ Console.WriteLine(betaMessageTokensCount);
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `ClaudeFable5_2("claude-fable-5-2")`
+
+                        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                        Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -60214,6 +60460,14 @@ Console.WriteLine(betaMessageTokensCount);
                         The model that will complete your prompt.
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                        - `ClaudeFable5_2("claude-fable-5-2")`
+
+                          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                        - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                          Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                         - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -63983,6 +64237,14 @@ Console.WriteLine(betaMessageTokensCount);
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `ClaudeFable5_2("claude-fable-5-2")`
+
+              Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+            - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+              Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
             - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
               Fastest model for high-volume, real-time tasks
@@ -66186,6 +66448,14 @@ Console.WriteLine(betaMessageTokensCount);
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `ClaudeFable5_2("claude-fable-5-2")`
+
+              Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+            - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+              Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
             - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
               Fastest model for high-volume, real-time tasks
@@ -68303,6 +68573,14 @@ Console.WriteLine(betaMessageTokensCount);
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `ClaudeFable5_2("claude-fable-5-2")`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -70975,6 +71253,14 @@ Console.WriteLine(betaMessageTokensCount);
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                  - `ClaudeFable5_2("claude-fable-5-2")`
+
+                    Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                  - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                    Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                   - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -74454,6 +74740,14 @@ Console.WriteLine(betaMessageTokensCount);
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `ClaudeFable5_2("claude-fable-5-2")`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
         - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
           Fastest model for high-volume, real-time tasks
@@ -76481,6 +76775,14 @@ Console.WriteLine(betaMessageTokensCount);
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeFable5_2("claude-fable-5-2")`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
         - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -79884,6 +80186,14 @@ Console.WriteLine(betaMessageTokensCount);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeFable5_2("claude-fable-5-2")`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
         Fastest model for high-volume, real-time tasks
@@ -82013,6 +82323,14 @@ Console.WriteLine(betaMessageTokensCount);
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeFable5_2("claude-fable-5-2")`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
         - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -85236,6 +85554,14 @@ Console.WriteLine(betaMessageTokensCount);
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                      - `ClaudeFable5_2("claude-fable-5-2")`
+
+                        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                        Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                         Fastest model for high-volume, real-time tasks
@@ -85584,14 +85910,20 @@ Console.WriteLine(betaMessageTokensCount);
         Accepted in `messages[].content` and not rendered into the prompt; not
         validated against the request's `fallbacks` chain or top-level `model`.
 
-        Echo the assistant turn back verbatim, including this block in its
+        When you send the assistant turn back, keep this block in its
         original position. The block marks the boundary between content produced
         before and after a fallback hop, and the server relies on that boundary
         to validate the turn: when thinking runs flank the boundary, omitting
         the block merges them into one span the server cannot validate (the
         request is rejected), and moving it into the middle of a single run is
         likewise rejected; between non-thinking blocks the block's placement has
-        no validation effect.
+        no effect on thinking validation.
+
+        Some blocks from before the turn's final `fallback` block must be left
+        out when you send the turn back, and no `tool_result` is sent for a
+        `tool_use` block you left out.
+
+        See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
         - `JsonElement Type = "fallback"`
 
@@ -90916,6 +91248,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                              - `ClaudeFable5_2("claude-fable-5-2")`
+
+                                Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                              - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                                Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                               - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                                 Fastest model for high-volume, real-time tasks
@@ -91264,14 +91604,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Accepted in `messages[].content` and not rendered into the prompt; not
                 validated against the request's `fallbacks` chain or top-level `model`.
 
-                Echo the assistant turn back verbatim, including this block in its
+                When you send the assistant turn back, keep this block in its
                 original position. The block marks the boundary between content produced
                 before and after a fallback hop, and the server relies on that boundary
                 to validate the turn: when thinking runs flank the boundary, omitting
                 the block merges them into one span the server cannot validate (the
                 request is rejected), and moving it into the middle of a single run is
                 likewise rejected; between non-thinking blocks the block's placement has
-                no validation effect.
+                no effect on thinking validation.
+
+                Some blocks from before the turn's final `fallback` block must be left
+                out when you send the turn back, and no `tool_result` is sent for a
+                `tool_use` block you left out.
+
+                See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=csharp#continuing-the-conversation) to learn which blocks to keep.
 
                 - `JsonElement Type = "fallback"`
 
@@ -92201,6 +92547,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -92659,6 +93007,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -92943,6 +93293,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -93226,6 +93578,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -93500,6 +93854,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -93675,6 +94031,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -96343,6 +96701,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `ClaudeFable5_2("claude-fable-5-2")`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
                             Fastest model for high-volume, real-time tasks
@@ -97434,55 +97800,91 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "invalid_request_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaAuthenticationError`
 
             - `JsonElement Type = "authentication_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaBillingError`
 
             - `JsonElement Type = "billing_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaPermissionError`
 
             - `JsonElement Type = "permission_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaNotFoundError`
 
             - `JsonElement Type = "not_found_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaRateLimitError`
 
             - `JsonElement Type = "rate_limit_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaGatewayTimeoutError`
 
             - `JsonElement Type = "timeout_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaApiError`
 
             - `JsonElement Type = "api_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaOverloadedError`
 
             - `JsonElement Type = "overloaded_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
         - `required string? RequestID`
 

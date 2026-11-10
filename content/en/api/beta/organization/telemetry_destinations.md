@@ -133,6 +133,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -614,6 +616,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -973,6 +977,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -1326,6 +1332,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -1815,6 +1823,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -1981,6 +1991,8 @@ Send one test span, named `anthropic.test`, to the destination with its register
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -2919,6 +2931,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -3116,6 +3130,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -3306,6 +3322,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 

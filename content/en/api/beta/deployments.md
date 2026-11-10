@@ -129,6 +129,8 @@ Create Deployment
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -1335,6 +1337,8 @@ List Deployments
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -2084,6 +2088,8 @@ Get Deployment
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -2823,6 +2829,8 @@ Update Deployment
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -3978,6 +3986,8 @@ Archive Deployment
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -4719,6 +4729,8 @@ Run Deployment Now
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -5119,6 +5131,8 @@ Pause Deployment
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -5860,6 +5874,8 @@ Unpause Deployment
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 

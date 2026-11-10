@@ -129,6 +129,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -2790,11 +2792,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `type: "advisor_20260301"`
 
-                        - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+                        - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
                           The model that will complete your prompt.
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                          - `"claude-fable-5-2"`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `"claude-mythos-5-2"`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                           - `"claude-haiku-5-5"`
 
@@ -3098,7 +3108,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
-              - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+              - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
                 The model that will complete your prompt.
 
@@ -3279,7 +3289,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "unavailable"`
 
-        - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+        - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
           The model that will complete your prompt.
 
@@ -3581,7 +3591,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+              - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
                 The model that will complete your prompt.
 
@@ -3659,7 +3669,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+              - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
                 The model that will complete your prompt.
 
@@ -3708,7 +3718,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+              - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
                 The model that will complete your prompt.
 
@@ -3887,55 +3897,91 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "invalid_request_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `beta_authentication_error: object`
 
             - `type: "authentication_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `beta_billing_error: object`
 
             - `type: "billing_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `beta_permission_error: object`
 
             - `type: "permission_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `beta_not_found_error: object`
 
             - `type: "not_found_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `beta_rate_limit_error: object`
 
             - `type: "rate_limit_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `beta_gateway_timeout_error: object`
 
             - `type: "timeout_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `beta_api_error: object`
 
             - `type: "api_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `beta_overloaded_error: object`
 
             - `type: "overloaded_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
         - `request_id: string`
 

@@ -1,6 +1,6 @@
 # Create surveys for your organization
 
-Surveys let admins ask users short, in-product questions about how they're using Claude and review the aggregated answers in the Admin console. This article explains how to create a survey, choose who sees it, and review the results.
+**[Surveys](https://claude.com/resources/articles/smart-reports-surveys-pooled-budgets)** let admins ask users short, in-product questions about how they're using Claude and review the aggregated answers in the Admin console. This article explains how to create a survey, choose who sees it, and review the results.
 
 Surveys are available for Enterprise plans. Primary Owners, Owners, and Admins can create and view surveys, along with users on **[custom roles that grant Analytics view access](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_536123d968)**. Surveys aren't available to organizations with a HIPAA configuration.
 

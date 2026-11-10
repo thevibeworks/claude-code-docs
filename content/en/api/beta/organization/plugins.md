@@ -25,10 +25,9 @@ The `name` must be unique within the marketplace: a name already taken
 returns a 409 with `error_code` `plugin_name_taken` and, when a Plugin holds it,
 that Plugin's ID in `details.plugin_id`. A Plugin going into the organization's
 library marketplace is also refused with a 409 when one of its skills has the name of
-an organization skill (a skill an administrator uploaded for the whole organization
-in claude.ai): `error_code` `skill_name_taken`, with that name in
-`details.skill_name`; rename the skill, or remove the organization skill in
-claude.ai. A 503 with `error_code`
+an organization skill that this API does not list: `error_code`
+`skill_name_taken`, with that name in `details.skill_name`; rename the skill, or
+remove the organization skill in claude.ai. A 503 with `error_code`
 `registration_pending` means the Plugin and its version were stored (their IDs are
 in `details`) but are not yet usable in claude.ai: do not retry the create (the
 retry would return `plugin_name_taken`); create a version on the stored Plugin
@@ -43,7 +42,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -152,6 +151,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -353,9 +354,9 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
     - `"contained"`
 
@@ -454,7 +455,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -563,6 +564,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -748,9 +751,9 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
     - `"contained"`
 
@@ -844,10 +847,9 @@ with a 400 (`error_code` `scan_failed`); a `warn` is accepted. If the scan outco
 cannot be read at that moment, the request fails with a retryable 503 instead.
 When the Plugin is in the organization's
 library marketplace, a version other than the one served is also refused with a 409
-when one of its skills has a name that an organization skill (one an administrator
-uploaded for the whole organization in claude.ai) has since taken: `error_code`
-`skill_name_taken`, with that name in `details.skill_name`. A member-owned Plugin
-cannot be updated here (403).
+when an organization skill that this API does not list has since taken the name of
+one of its skills: `error_code` `skill_name_taken`, with that name in
+`details.skill_name`. A member-owned Plugin cannot be updated here (403).
 
 This endpoint does not write installation settings; they are written at
 `/v1/organizations/plugins/{plugin_id}/installation_settings/{target}`.
@@ -864,7 +866,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -973,6 +975,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -1164,9 +1168,9 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
     - `"contained"`
 
@@ -1321,7 +1325,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -1430,6 +1434,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -1615,9 +1621,9 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
     - `"contained"`
 
@@ -1705,7 +1711,9 @@ curl https://api.anthropic.com/v1/organizations/plugins \
 
 Permanently delete a Plugin and every version it holds, exactly as when an
 administrator deletes it in claude.ai. The Plugin may belong to the organization or
-to a member, including a member who has since left the organization.
+to a member, including a member who has since left the organization. Do not delete a
+Plugin only because your pipeline did not create it: a member or an administrator
+might have added it in claude.ai.
 
 An organization-owned Plugin's installation settings go with it; a member-owned
 Plugin's shares are withdrawn and its owner no longer has it.
@@ -1728,7 +1736,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 ### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -1837,6 +1845,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -2071,9 +2081,9 @@ curl https://api.anthropic.com/v1/organizations/plugins/$PLUGIN_ID \
 
     How far the served version reaches, or `null` if it is not classified.
 
-    `remote` means it declares an MCP server or a CLI. `privileged` means it declares no MCP server or CLI, but declares a hook, monitor, language server, or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
+    `remote` means it declares an MCP server or a CLI, or something that counts as one. `privileged` means it is not `remote`, but declares a hook (of any type, even one that posts to a URL), monitor, language server, Claude Code workflow (any file in a `workflows/` folder at its root counts as one), or settings, or has a skill, command, or other Markdown file whose frontmatter pre-approves tools (`allowed-tools` with any value other than an empty one or one that names only `AskUserQuestion`, `TodoWrite`, and `ToolSearch`). Otherwise it is `contained`.
 
-    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if it declares an MCP server or a CLI), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, or `contained` where the same files stored today would be `privileged` or `null`.
+    If the frontmatter of a skill, command, or other Markdown file that could change the value could not be read, or was past a size limit, the version is `null` or `privileged` (or `remote`, if something else it declares makes it `remote`), not `contained`. The value is normally worked out when a version is stored, under the rules of that time, so an older version can be `null`, `contained` where the same files stored today would be `privileged`, `remote`, or `null`, or `privileged` where they would be `remote`.
 
     - `"contained"`
 
@@ -2167,6 +2177,16 @@ curl https://api.anthropic.com/v1/organizations/plugins/$PLUGIN_ID \
 
     - `"processing"`
 
+### Beta Plugin Name Taken Error Details
+
+- `BetaPluginNameTakenErrorDetails object`
+
+  The marketplace already holds this name. `plugin_id` is the Plugin that holds it, and can be absent.
+
+  - `error_code: "plugin_name_taken"`
+
+  - `plugin_id: optional string or null`
+
 ### Beta Plugin Owner Organization
 
 - `BetaPluginOwnerOrganization object`
@@ -2247,6 +2267,48 @@ curl https://api.anthropic.com/v1/organizations/plugins/$PLUGIN_ID \
 
     The member's User ID.
 
+### Beta Registration Pending Error Details
+
+- `BetaRegistrationPendingErrorDetails object`
+
+  The Plugin version was stored but is not yet usable in claude.ai. `plugin_id` and `plugin_version_id` identify what was stored.
+
+  - `error_code: "registration_pending"`
+
+  - `plugin_id: string`
+
+  - `plugin_version_id: string`
+
+### Beta Scan Failed Error Details
+
+- `BetaScanFailedErrorDetails object`
+
+  The version in `plugin_version_id` did not pass its content scan, so it cannot be served.
+
+  - `error_code: "scan_failed"`
+
+  - `plugin_version_id: string`
+
+### Beta Scan Pending Error Details
+
+- `BetaScanPendingErrorDetails object`
+
+  The content scan of the version in `plugin_version_id` is still running. Retry once the scan finishes.
+
+  - `error_code: "scan_pending"`
+
+  - `plugin_version_id: string`
+
+### Beta Skill Name Taken Error Details
+
+- `BetaSkillNameTakenErrorDetails object`
+
+  One of the Plugin's skills has the name of an organization skill. `skill_name` is that name.
+
+  - `error_code: "skill_name_taken"`
+
+  - `skill_name: string`
+
 ## Plugins › Versions
 
 ### Create Plugin Version
@@ -2265,9 +2327,8 @@ see which version it serves.
 Only a Plugin in a `manual` marketplace takes uploads; a Plugin synchronized from
 a repository gets its versions from the repository. When the Plugin is in the
 organization's library marketplace, a version that adds a skill with the name of an
-organization skill (a skill an administrator uploaded for the whole organization in
-claude.ai) is refused with a 409: `error_code` `skill_name_taken`, with that name in
-`details.skill_name`. A 503 with `error_code`
+organization skill that this API does not list is refused with a 409: `error_code`
+`skill_name_taken`, with that name in `details.skill_name`. A 503 with `error_code`
 `registration_pending` means the version was stored but is not yet usable; a later
 version create on the Plugin completes it.
 
@@ -2286,7 +2347,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -2395,6 +2456,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -2526,7 +2589,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `description: string or null`
 
-    The manifest's description; null when it declares none.
+    The manifest's description; null when it declares none. The value can be longer than 500 characters, the limit on `description` in an uploaded manifest. A description that the manifest takes from a `SKILL.md` is cut to its first 500 characters. So if the manifest's description is the first 500 characters of exactly one distinct skill `description` in `components`, that skill `description` is returned instead.
 
   - `display_name: string or null`
 
@@ -2639,7 +2702,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -2748,6 +2811,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -2867,7 +2932,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `description: string or null`
 
-    The manifest's description; null when it declares none.
+    The manifest's description; null when it declares none. The value can be longer than 500 characters, the limit on `description` in an uploaded manifest. A description that the manifest takes from a `SKILL.md` is cut to its first 500 characters. So if the manifest's description is the first 500 characters of exactly one distinct skill `description` in `components`, that skill `description` is returned instead.
 
   - `display_name: string or null`
 
@@ -2974,7 +3039,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -3083,6 +3148,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -3202,7 +3269,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `description: string or null`
 
-    The manifest's description; null when it declares none.
+    The manifest's description; null when it declares none. The value can be longer than 500 characters, the limit on `description` in an uploaded manifest. A description that the manifest takes from a `SKILL.md` is cut to its first 500 characters. So if the manifest's description is the first 500 characters of exactly one distinct skill `description` in `components`, that skill `description` is returned instead.
 
   - `display_name: string or null`
 
@@ -3316,7 +3383,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -3425,6 +3492,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -3494,7 +3563,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -3603,6 +3672,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -3751,7 +3822,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -3860,6 +3931,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -4025,7 +4098,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -4134,6 +4207,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 
@@ -4273,7 +4348,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 #### Headers
 
-- `"anthropic-beta": optional array of AnthropicBeta`
+- `"anthropic-beta": array of AnthropicBeta`
 
   This endpoint is in beta: requests must send `ce-plugins-2026-09-01` in this header.
 
@@ -4383,6 +4458,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -4447,7 +4524,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `next_page: string or null`
 
-  Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+  Token to provide in as `page` in the subsequent request to retrieve the next page of data. A page may hold fewer than `limit` shares, even none, while this is set; keep following it until it is null.
 
 #### Example
 

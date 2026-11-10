@@ -256,8 +256,8 @@ The following example registers a tracer provider that prints each span to the c
   	defer provider.Shutdown(ctx)
   	otel.SetTracerProvider(provider)
   	// OpenTelemetry for Go doesn't register a propagator by default, so
-  	// register the W3C trace context propagator.
-  	otel.SetTextMapPropagator(propagation.TraceContext{})
+  	// register the W3C trace context and baggage propagators.
+  	otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(propagation.TraceContext{}, propagation.Baggage{}))
 
   	client := anthropic.NewClient()
 
@@ -279,8 +279,10 @@ The following example registers a tracer provider that prints each span to the c
   import com.anthropic.client.okhttp.AnthropicOkHttpClient;
   import com.anthropic.models.messages.MessageCreateParams;
   import com.anthropic.models.messages.Model;
+  import io.opentelemetry.api.baggage.propagation.W3CBaggagePropagator;
   import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
   import io.opentelemetry.context.propagation.ContextPropagators;
+  import io.opentelemetry.context.propagation.TextMapPropagator;
   import io.opentelemetry.exporter.logging.LoggingSpanExporter;
   import io.opentelemetry.sdk.OpenTelemetrySdk;
   import io.opentelemetry.sdk.trace.SdkTracerProvider;
@@ -294,8 +296,9 @@ The following example registers a tracer provider that prints each span to the c
       OpenTelemetrySdk.builder()
           .setTracerProvider(tracerProvider)
           // OpenTelemetry for Java doesn't register a propagator when you build
-          // it in code, so register the W3C trace context propagator.
-          .setPropagators(ContextPropagators.create(W3CTraceContextPropagator.getInstance()))
+          // it in code, so register the W3C trace context and baggage propagators.
+          .setPropagators(ContextPropagators.create(TextMapPropagator.composite(
+              W3CTraceContextPropagator.getInstance(), W3CBaggagePropagator.getInstance())))
           .buildAndRegisterGlobal();
 
       var client = AnthropicOkHttpClient.fromEnv();
@@ -314,7 +317,9 @@ The following example registers a tracer provider that prints each span to the c
   ```php PHP
   use Anthropic\Client;
   use Anthropic\Messages\Model;
+  use OpenTelemetry\API\Baggage\Propagation\BaggagePropagator;
   use OpenTelemetry\API\Trace\Propagation\TraceContextPropagator;
+  use OpenTelemetry\Context\Propagation\MultiTextMapPropagator;
   use OpenTelemetry\SDK\Sdk;
   use OpenTelemetry\SDK\Trace\SpanExporter\ConsoleSpanExporterFactory;
   use OpenTelemetry\SDK\Trace\SpanProcessor\SimpleSpanProcessor;
@@ -327,8 +332,11 @@ The following example registers a tracer provider that prints each span to the c
   Sdk::builder()
       ->setTracerProvider($tracerProvider)
       // OpenTelemetry for PHP doesn't register a propagator when you build
-      // it in code, so register the W3C trace context propagator.
-      ->setPropagator(TraceContextPropagator::getInstance())
+      // it in code, so register the W3C trace context and baggage propagators.
+      ->setPropagator(new MultiTextMapPropagator([
+          TraceContextPropagator::getInstance(),
+          BaggagePropagator::getInstance(),
+      ]))
       ->buildAndRegisterGlobal();
 
   $client = new Client();
@@ -594,7 +602,7 @@ When the worker sends a tool result, that request’s API span is nested under i
 
 ## Trace context and baggage
 
-With each request, the SDK uses your application’s propagator to send the trace context to the API in headers such as `traceparent`. If that propagator also writes baggage, the SDK sends your baggage too. To send the trace context without baggage, register only the W3C trace context propagator.
+With each request, the SDK uses your application’s propagator to send the trace context to the API in headers such as `traceparent`. If that propagator also writes baggage, the SDK sends your baggage too, which is how you can [identify your end users](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk#identify-your-end-users). To send the trace context without baggage, register only the W3C trace context propagator.
 
 To stop the SDK from sending these headers, for example when your HTTP client instrumentation already sends them, turn off the SDK’s propagation:
 
@@ -668,6 +676,145 @@ To stop the SDK from sending these headers, for example when your HTTP client in
 </CodeGroup>
 
 While the SDK calls an [MCP tool](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#client-side-mcp-helpers), the SDK’s tool span is the current span. Some MCP client libraries send the trace context to the MCP server in `_meta`, so a server that reads it can add its spans to your trace under that tool span. The Python `mcp` package from version 2.0 and the C# `ModelContextProtocol` package do this. The TypeScript, Go, Java, Ruby, and PHP MCP SDKs don’t do it on their own.
+
+### Identify your end users
+
+[Baggage](https://opentelemetry.io/docs/concepts/signals/baggage/) is a set of key-value pairs that a request carries in its W3C `baggage` header. To set the [`user.id`](https://platform.claude.com/docs/en/api/opentelemetry/spans#user.id) attribute on the API spans for a request, send the request with a `user.id` baggage entry set to your end user’s ID. Use an opaque ID, not an email address: to protect user privacy, the API drops any `user.id` that contains one.
+
+<CodeGroup>
+  ```bash cURL
+  curl https://api.anthropic.com/v1/messages \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2026-10-21" \
+    -H "content-type: application/json" \
+    -H "baggage: user.id=4f2a" \
+    -d '{
+      "model": "claude-opus-5-5",
+      "max_tokens": 1024,
+      "messages": [
+        {"role": "user", "content": "Hello, Claude"}
+      ]
+    }'
+  ```
+
+  ```bash CLI
+  ANTHROPIC_CUSTOM_HEADERS="baggage: user.id=4f2a" ant messages create \
+    --model claude-opus-5-5 \
+    --max-tokens 1024 \
+    --message '{role: user, content: "Hello, Claude"}'
+  ```
+
+  ```python Python
+  from opentelemetry import baggage, context
+
+  client = Anthropic()
+
+  token = context.attach(baggage.set_baggage("user.id", "4f2a"))
+  try:
+      message = client.messages.create(
+          model="claude-opus-5-5",
+          max_tokens=1024,
+          messages=[{"role": "user", "content": "Hello, Claude"}],
+      )
+  finally:
+      context.detach(token)
+  ```
+
+  ```typescript TypeScript
+  import { context, propagation } from "@opentelemetry/api";
+
+  const client = new Anthropic();
+
+  const userBaggage = propagation.createBaggage({ "user.id": { value: "4f2a" } });
+  const message = await context.with(propagation.setBaggage(context.active(), userBaggage), () =>
+    client.messages.create({
+      model: "claude-opus-5-5",
+      max_tokens: 1024,
+      messages: [{ role: "user", content: "Hello, Claude" }]
+    })
+  );
+  ```
+
+  ```csharp C#
+  using System.Diagnostics;
+  // ...
+  // Register this source with AddSource on your tracer provider, so that it records the activity.
+  ActivitySource source = new("MyApp");
+  AnthropicClient client = new();
+
+  // The SDK sends the current activity's baggage.
+  using var activity = source.StartActivity("chat");
+  activity?.SetBaggage("user.id", "4f2a");
+  var message = await client.Messages.Create(new MessageCreateParams
+  {
+      Model = Model.ClaudeOpus5_5,
+      MaxTokens = 1024,
+      Messages = [new UserMessageParam { Content = "Hello, Claude" }],
+  });
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  member, _ := baggage.NewMember("user.id", "4f2a")
+  userBaggage, _ := baggage.New(member)
+  ctx := baggage.ContextWithBaggage(context.Background(), userBaggage)
+  message, err := client.Messages.New(ctx, anthropic.MessageNewParams{
+  	Model:     anthropic.ModelClaudeOpus5_5,
+  	MaxTokens: 1024,
+  	Messages: []anthropic.MessageParam{
+  		anthropic.NewUserMessage(anthropic.NewTextBlock("Hello, Claude")),
+  	},
+  })
+  ```
+
+  ```java Java
+  import io.opentelemetry.api.baggage.Baggage;
+
+  void main() {
+      var client = AnthropicOkHttpClient.fromEnv();
+
+      try (var scope = Baggage.current().toBuilder().put("user.id", "4f2a").build().makeCurrent()) {
+          var message = client.messages().create(MessageCreateParams.builder()
+              .model(Model.CLAUDE_OPUS_5_5)
+              .maxTokens(1024)
+              .addUserMessage("Hello, Claude")
+              .build());
+      }
+  }
+  ```
+
+  ```php PHP
+  use OpenTelemetry\API\Baggage\Baggage;
+
+  $client = new Client();
+
+  $scope = Baggage::getBuilder()->set('user.id', '4f2a')->build()->activate();
+  try {
+      $message = $client->messages->create(
+          maxTokens: 1024,
+          messages: [['role' => 'user', 'content' => 'Hello, Claude']],
+          model: Model::CLAUDE_OPUS_5_5,
+      );
+  } finally {
+      $scope->detach();
+  }
+  ```
+
+  ```ruby Ruby
+  require "opentelemetry/sdk"
+
+  client = Anthropic::Client.new
+
+  OpenTelemetry::Context.with_current(OpenTelemetry::Baggage.set_value("user.id", "4f2a")) do
+    client.messages.create(
+      model: Anthropic::Model::CLAUDE_OPUS_5_5,
+      max_tokens: 1024,
+      messages: [{role: "user", content: "Hello, Claude"}]
+    )
+  end
+  ```
+</CodeGroup>
 
 ## Troubleshooting
 

@@ -151,6 +151,8 @@ List Session Threads
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -226,6 +228,10 @@ List Session Threads
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeFable5_2 BetaManagedAgentsModel = "claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
 
@@ -1254,6 +1260,8 @@ Get Session Thread
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -1329,6 +1337,10 @@ Get Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeFable5_2 BetaManagedAgentsModel = "claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
 
@@ -2354,6 +2366,8 @@ Archive Session Thread
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -2429,6 +2443,10 @@ Archive Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeFable5_2 BetaManagedAgentsModel = "claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
 
@@ -3380,6 +3398,10 @@ func main() {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `const BetaManagedAgentsModelClaudeFable5_2 BetaManagedAgentsModel = "claude-fable-5-2"`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
       - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
 
         Fastest model for high-volume, real-time tasks
@@ -4019,6 +4041,10 @@ func main() {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeFable5_2 BetaManagedAgentsModel = "claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
 
@@ -6694,6 +6720,10 @@ func main() {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeFable5_2 BetaManagedAgentsModel = "claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
           - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
 
             Fastest model for high-volume, real-time tasks
@@ -8069,6 +8099,8 @@ List Session Thread Events
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
 
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
@@ -9868,6 +9900,10 @@ List Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `const BetaManagedAgentsModelClaudeFable5_2 BetaManagedAgentsModel = "claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
           - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
 
             Fastest model for high-volume, real-time tasks
@@ -11256,6 +11292,8 @@ Stream Session Thread Events
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
 
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
@@ -13054,6 +13092,10 @@ Stream Session Thread Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `const BetaManagedAgentsModelClaudeFable5_2 BetaManagedAgentsModel = "claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `const BetaManagedAgentsModelClaudeHaiku5_5 BetaManagedAgentsModel = "claude-haiku-5-5"`
 

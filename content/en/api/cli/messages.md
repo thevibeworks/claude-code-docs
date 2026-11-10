@@ -1077,6 +1077,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `"claude-fable-5-2"`
+
+    Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+  - `"claude-mythos-5-2"`
+
+    Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
   - `"claude-haiku-5-5"`
 
     Fastest model for high-volume, real-time tasks
@@ -3830,11 +3838,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "unavailable"`
 
-  - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+  - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-fable-5-2"`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `"claude-mythos-5-2"`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
     - `"claude-haiku-5-5"`
 
@@ -5424,6 +5440,14 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+  - `"claude-fable-5-2"`
+
+    Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+  - `"claude-mythos-5-2"`
+
+    Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
   - `"claude-haiku-5-5"`
 
@@ -8319,6 +8343,14 @@ ant messages count-tokens \
         Create a cache control breakpoint at this content block.
 
   - `role: "assistant"`
+
+### Available Tools Limit Exceeded Error Details
+
+- `available_tools_limit_exceeded_error_details: object`
+
+  The tools available after a message exceed a limit on their number or their size.
+
+  - `error_code: "available_tools_limit_exceeded"`
 
 ### Base64 Image Source
 
@@ -15272,6 +15304,78 @@ ant messages count-tokens \
 
     - `"execution_time_exceeded"`
 
+### Compaction Block Ambiguous Error Details
+
+- `compaction_block_ambiguous_error_details: object`
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+  - `error_code: "compaction_block_ambiguous"`
+
+### Compaction Block Misplaced Error Details
+
+- `compaction_block_misplaced_error_details: object`
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+  - `error_code: "compaction_block_misplaced"`
+
+### Compaction Content Mismatch Error Details
+
+- `compaction_content_mismatch_error_details: object`
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+  - `error_code: "compaction_content_mismatch"`
+
+### Compaction Incomplete Turn Error Details
+
+- `compaction_incomplete_turn_error_details: object`
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+  - `error_code: "compaction_incomplete_turn"`
+
+### Compaction Nothing To Summarize Error Details
+
+- `compaction_nothing_to_summarize_error_details: object`
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+  - `error_code: "compaction_nothing_to_summarize"`
+
+### Compaction Signature Invalid Error Details
+
+- `compaction_signature_invalid_error_details: object`
+
+  The `compaction` block's `signature` does not verify.
+
+  - `error_code: "compaction_signature_invalid"`
+
+### Compaction Too Many Tool References Error Details
+
+- `compaction_too_many_tool_references_error_details: object`
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+  - `error_code: "compaction_too_many_tool_references"`
+
+### Compaction Tool Changes Mismatch Error Details
+
+- `compaction_tool_changes_mismatch_error_details: object`
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+  - `error_code: "compaction_tool_changes_mismatch"`
+
+### Compaction Unavailable Error Details
+
+- `compaction_unavailable_error_details: object`
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
+  - `error_code: "compaction_unavailable"`
+
 ### Computer Cursor Position Config
 
 - `computer_cursor_position_config: object`
@@ -21196,11 +21300,19 @@ ant messages count-tokens \
 
         - `type: "unavailable"`
 
-  - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+  - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-fable-5-2"`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `"claude-mythos-5-2"`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
     - `"claude-haiku-5-5"`
 
@@ -26144,11 +26256,19 @@ ant messages count-tokens \
 
           - `type: "unavailable"`
 
-    - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+    - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-fable-5-2"`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `"claude-mythos-5-2"`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
       - `"claude-haiku-5-5"`
 
@@ -27204,11 +27324,19 @@ ant messages count-tokens \
 
             - `type: "unavailable"`
 
-      - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+      - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-2"`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `"claude-mythos-5-2"`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
         - `"claude-haiku-5-5"`
 
@@ -29253,6 +29381,78 @@ ant messages count-tokens \
 
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
+### Thread Already Continued Error Details
+
+- `thread_already_continued_error_details: object`
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+  - `error_code: "thread_already_continued"`
+
+### Thread Continue In Flight Error Details
+
+- `thread_continue_in_flight_error_details: object`
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+  - `error_code: "thread_continue_in_flight"`
+
+### Thread Fingerprint Mismatch Error Details
+
+- `thread_fingerprint_mismatch_error_details: object`
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+  - `error_code: "thread_fingerprint_mismatch"`
+
+### Thread Not Found Error Details
+
+- `thread_not_found_error_details: object`
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+  - `error_code: "thread_not_found"`
+
+### Thread Unsupported Feature Name
+
+- `thread_unsupported_feature_name: "cache_control" or "context_management" or "fallbacks" or 3 more`
+
+  - `"cache_control"`
+
+  - `"context_management"`
+
+  - `"fallbacks"`
+
+  - `"hipaa"`
+
+  - `"inference_hooks"`
+
+  - `"thinking"`
+
+### Thread Unsupported Request Error Details
+
+- `thread_unsupported_request_error_details: object`
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+  - `error_code: "thread_unsupported_request"`
+
+  - `unsupported: optional array of ThreadUnsupportedFeatureName`
+
+    Each entry names a request field or an organization setting that Threads do not support. On a value you do not recognize, send the full conversation without `thread`.
+
+    - `"cache_control"`
+
+    - `"context_management"`
+
+    - `"fallbacks"`
+
+    - `"hipaa"`
+
+    - `"inference_hooks"`
+
+    - `"thinking"`
+
 ### Tool
 
 - `tool: object`
@@ -29489,6 +29689,14 @@ ant messages count-tokens \
 
     Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
+### Tool Name Conflict Error Details
+
+- `tool_name_conflict_error_details: object`
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+  - `error_code: "tool_name_conflict"`
+
 ### Tool Reference Block
 
 - `tool_reference_block: object`
@@ -29531,6 +29739,14 @@ ant messages count-tokens \
       - `"5m"`
 
       - `"1h"`
+
+### Tool Reference Unresolved Error Details
+
+- `tool_reference_unresolved_error_details: object`
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+  - `error_code: "tool_reference_unresolved"`
 
 ### Tool Result Block Param
 
@@ -38262,11 +38478,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `role: "system"`
 
-    - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+    - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-fable-5-2"`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `"claude-mythos-5-2"`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
       - `"claude-haiku-5-5"`
 
@@ -41737,11 +41961,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "unavailable"`
 
-        - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+        - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+          - `"claude-mythos-5-2"`
+
+            Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
           - `"claude-haiku-5-5"`
 
@@ -42032,55 +42264,91 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "invalid_request_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `authentication_error: object`
 
             - `type: "authentication_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `billing_error: object`
 
             - `type: "billing_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `permission_error: object`
 
             - `type: "permission_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `not_found_error: object`
 
             - `type: "not_found_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `rate_limit_error: object`
 
             - `type: "rate_limit_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `gateway_timeout_error: object`
 
             - `type: "timeout_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `api_error_object: object`
 
             - `type: "api_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `overloaded_error: object`
 
             - `type: "overloaded_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
         - `request_id: string`
 

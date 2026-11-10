@@ -133,6 +133,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -328,6 +330,8 @@ Fetches a tunnel by ID.
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -535,6 +539,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -738,6 +744,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -934,6 +942,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1116,6 +1126,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -1352,6 +1364,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1562,6 +1576,8 @@ Fetches a tunnel certificate by ID.
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -1784,6 +1800,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1997,6 +2015,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 

@@ -3000,11 +3000,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         - `type: "advisor_20260301"`
 
-                        - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+                        - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
                           The model that will complete your prompt.
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                          - `"claude-fable-5-2"`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `"claude-mythos-5-2"`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                           - `"claude-haiku-5-5"`
 
@@ -3354,14 +3362,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Accepted in `messages[].content` and not rendered into the prompt; not
             validated against the request's `fallbacks` chain or top-level `model`.
 
-            Echo the assistant turn back verbatim, including this block in its
+            When you send the assistant turn back, keep this block in its
             original position. The block marks the boundary between content produced
             before and after a fallback hop, and the server relies on that boundary
             to validate the turn: when thinking runs flank the boundary, omitting
             the block merges them into one span the server cannot validate (the
             request is rejected), and moving it into the middle of a single run is
             likewise rejected; between non-thinking blocks the block's placement has
-            no validation effect.
+            no effect on thinking validation.
+
+            Some blocks from before the turn's final `fallback` block must be left
+            out when you send the turn back, and no `tool_result` is sent for a
+            `tool_use` block you left out.
+
+            See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=cli#continuing-the-conversation) to learn which blocks to keep.
 
             - `type: "fallback"`
 
@@ -3369,7 +3383,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Identifies one hop of a fallback transition.
 
-              - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+              - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
                 The model that will complete your prompt.
 
@@ -3451,7 +3465,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"max"`
 
-    - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+    - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
       The model that will complete your prompt.
 
@@ -3686,7 +3700,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `union_member_0: array of BetaFallbackParam`
 
-        - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+        - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
           The model that will complete your prompt.
 
@@ -4286,6 +4300,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"telemetry-destinations-2026-08-11"`
 
   - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
 
   - `"message-threads-2026-08-12"`
 

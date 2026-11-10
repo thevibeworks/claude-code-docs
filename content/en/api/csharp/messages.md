@@ -3604,6 +3604,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
       Fastest model for high-volume, real-time tasks
@@ -7937,6 +7945,14 @@ Console.WriteLine(messageTokensCount);
           Create a cache control breakpoint at this content block.
 
   - `JsonElement Role = "assistant"`
+
+### Available Tools Limit Exceeded Error Details
+
+- `class AvailableToolsLimitExceededErrorDetails`
+
+  The tools available after a message exceed a limit on their number or their size.
+
+  - `JsonElement ErrorCode = "available_tools_limit_exceeded"`
 
 ### Base64 Image Source
 
@@ -14890,6 +14906,78 @@ Console.WriteLine(messageTokensCount);
 
     - `ExecutionTimeExceeded("execution_time_exceeded")`
 
+### Compaction Block Ambiguous Error Details
+
+- `class CompactionBlockAmbiguousErrorDetails`
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+  - `JsonElement ErrorCode = "compaction_block_ambiguous"`
+
+### Compaction Block Misplaced Error Details
+
+- `class CompactionBlockMisplacedErrorDetails`
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+  - `JsonElement ErrorCode = "compaction_block_misplaced"`
+
+### Compaction Content Mismatch Error Details
+
+- `class CompactionContentMismatchErrorDetails`
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+  - `JsonElement ErrorCode = "compaction_content_mismatch"`
+
+### Compaction Incomplete Turn Error Details
+
+- `class CompactionIncompleteTurnErrorDetails`
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+  - `JsonElement ErrorCode = "compaction_incomplete_turn"`
+
+### Compaction Nothing To Summarize Error Details
+
+- `class CompactionNothingToSummarizeErrorDetails`
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+  - `JsonElement ErrorCode = "compaction_nothing_to_summarize"`
+
+### Compaction Signature Invalid Error Details
+
+- `class CompactionSignatureInvalidErrorDetails`
+
+  The `compaction` block's `signature` does not verify.
+
+  - `JsonElement ErrorCode = "compaction_signature_invalid"`
+
+### Compaction Too Many Tool References Error Details
+
+- `class CompactionTooManyToolReferencesErrorDetails`
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+  - `JsonElement ErrorCode = "compaction_too_many_tool_references"`
+
+### Compaction Tool Changes Mismatch Error Details
+
+- `class CompactionToolChangesMismatchErrorDetails`
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+  - `JsonElement ErrorCode = "compaction_tool_changes_mismatch"`
+
+### Compaction Unavailable Error Details
+
+- `class CompactionUnavailableErrorDetails`
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
+  - `JsonElement ErrorCode = "compaction_unavailable"`
+
 ### Computer Cursor Position Config
 
 - `class ComputerCursorPositionConfig`
@@ -20824,6 +20912,14 @@ Console.WriteLine(messageTokensCount);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `ClaudeFable5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
       Fastest model for high-volume, real-time tasks
@@ -26755,6 +26851,14 @@ Console.WriteLine(messageTokensCount);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeFable5_2("claude-fable-5-2")`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
         Fastest model for high-volume, real-time tasks
@@ -27814,6 +27918,14 @@ Console.WriteLine(messageTokensCount);
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeFable5_2("claude-fable-5-2")`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
         - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -29862,6 +29974,78 @@ Console.WriteLine(messageTokensCount);
 
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
+### Thread Already Continued Error Details
+
+- `class ThreadAlreadyContinuedErrorDetails`
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+  - `JsonElement ErrorCode = "thread_already_continued"`
+
+### Thread Continue In Flight Error Details
+
+- `class ThreadContinueInFlightErrorDetails`
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+  - `JsonElement ErrorCode = "thread_continue_in_flight"`
+
+### Thread Fingerprint Mismatch Error Details
+
+- `class ThreadFingerprintMismatchErrorDetails`
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+  - `JsonElement ErrorCode = "thread_fingerprint_mismatch"`
+
+### Thread Not Found Error Details
+
+- `class ThreadNotFoundErrorDetails`
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+  - `JsonElement ErrorCode = "thread_not_found"`
+
+### Thread Unsupported Feature Name
+
+- `enum ThreadUnsupportedFeatureName`
+
+  - `CacheControl("cache_control")`
+
+  - `ContextManagement("context_management")`
+
+  - `Fallbacks("fallbacks")`
+
+  - `Hipaa("hipaa")`
+
+  - `InferenceHooks("inference_hooks")`
+
+  - `Thinking("thinking")`
+
+### Thread Unsupported Request Error Details
+
+- `class ThreadUnsupportedRequestErrorDetails`
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+  - `JsonElement ErrorCode = "thread_unsupported_request"`
+
+  - `IReadOnlyList<ThreadUnsupportedFeatureName>? Unsupported`
+
+    Each entry names a request field or an organization setting that Threads do not support. On a value you do not recognize, send the full conversation without `thread`.
+
+    - `CacheControl("cache_control")`
+
+    - `ContextManagement("context_management")`
+
+    - `Fallbacks("fallbacks")`
+
+    - `Hipaa("hipaa")`
+
+    - `InferenceHooks("inference_hooks")`
+
+    - `Thinking("thinking")`
+
 ### Tool
 
 - `class Tool`
@@ -30098,6 +30282,14 @@ Console.WriteLine(messageTokensCount);
 
     Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
+### Tool Name Conflict Error Details
+
+- `class ToolNameConflictErrorDetails`
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+  - `JsonElement ErrorCode = "tool_name_conflict"`
+
 ### Tool Reference Block
 
 - `class ToolReferenceBlock`
@@ -30140,6 +30332,14 @@ Console.WriteLine(messageTokensCount);
       - `Ttl5m("5m")`
 
       - `Ttl1h("1h")`
+
+### Tool Reference Unresolved Error Details
+
+- `class ToolReferenceUnresolvedErrorDetails`
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+  - `JsonElement ErrorCode = "tool_reference_unresolved"`
 
 ### Tool Result Block Param
 
@@ -38903,6 +39103,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `ClaudeFable5_2("claude-fable-5-2")`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
         - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
           Fastest model for high-volume, real-time tasks
@@ -42534,6 +42742,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+          - `ClaudeMythos5_2("claude-mythos-5-2")`
+
+            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
             Fastest model for high-volume, real-time tasks
@@ -42823,55 +43039,91 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "invalid_request_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class AuthenticationError`
 
             - `JsonElement Type = "authentication_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BillingError`
 
             - `JsonElement Type = "billing_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class PermissionError`
 
             - `JsonElement Type = "permission_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class NotFoundError`
 
             - `JsonElement Type = "not_found_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class RateLimitError`
 
             - `JsonElement Type = "rate_limit_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class GatewayTimeoutError`
 
             - `JsonElement Type = "timeout_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class ApiErrorObject`
 
             - `JsonElement Type = "api_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class OverloadedError`
 
             - `JsonElement Type = "overloaded_error"`
 
+              The broad category of the error.
+
             - `required string Message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
         - `required string? RequestID`
 

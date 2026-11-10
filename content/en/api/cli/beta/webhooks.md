@@ -263,7 +263,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     format: date-time
 
-  - `data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 43 more`
+  - `data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 44 more`
 
     - `beta_webhook_session_created_event_data: object`
 
@@ -849,9 +849,19 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `organization_id: string`
 
+    - `beta_webhook_user_profile_program_status_updated_event_data: object`
+
+      - `type: "user_profile.program_status_updated"`
+
+      - `id: string`
+
+        ID of the user profile that triggered the event.
+
+      - `organization_id: string`
+
 ### Beta Webhook Event Data
 
-- `beta_webhook_event_data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 43 more`
+- `beta_webhook_event_data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 44 more`
 
   - `beta_webhook_session_created_event_data: object`
 
@@ -1437,6 +1447,16 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `organization_id: string`
 
+  - `beta_webhook_user_profile_program_status_updated_event_data: object`
+
+    - `type: "user_profile.program_status_updated"`
+
+    - `id: string`
+
+      ID of the user profile that triggered the event.
+
+    - `organization_id: string`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `beta_webhook_memory_store_archived_event_data: object`
@@ -1758,6 +1778,18 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
   - `enforcement_action_id: string`
 
     ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `organization_id: string`
+
+### Beta Webhook User Profile Program Status Updated Event Data
+
+- `beta_webhook_user_profile_program_status_updated_event_data: object`
+
+  - `type: "user_profile.program_status_updated"`
+
+  - `id: string`
+
+    ID of the user profile that triggered the event.
 
   - `organization_id: string`
 
