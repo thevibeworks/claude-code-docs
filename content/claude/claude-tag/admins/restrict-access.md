@@ -407,7 +407,6 @@ A member whose custom role includes the permission is a Claude Tag admin. A Clau
 * Edit workspace and channel settings at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), such as custom instructions and the default model
 * Turn Claude on or off for a workspace or a channel with its **Enable Claude Tag** switch, or for every channel with the **Respond in all channels** switch on the **Slack** page
 * Add and remove [channel managers](#delegate-channel-setup-to-channel-managers), if the role also sets **Identity & Access** to **Can manage**
-* Set up [**Managed by**](https://claude.com/docs/claude-tag/admins/managed-by.md) for a channel, on the **Admin** tab of the channel's Configure page
 * Open [on-call setup](https://claude.com/docs/claude-tag/admins/setup-oncall.md) at [`claude.ai/oncall`](https://claude.ai/oncall)
 * Set a scope's [**How should Claude work in channels with guests**](#restrict-guest-channels) setting to **Restrict** or **Channel only**; choosing **Full access** or setting a scope back to **Inherit** stays with Owners
 
@@ -444,8 +443,6 @@ The member can now open **Claude Tag** under **Products** in **Organization sett
 A channel manager is a member of your Claude organization who can set up Claude in specific channels without the Owner role. Channel managers are available on the Enterprise plan. An Owner can add or remove them, and so can a [Claude Tag admin](#delegate-claude-tag-administration) whose role also sets **Identity & Access** to **Can manage**.
 
 You name channel managers one channel at a time. For that channel, a channel manager sets the default model, adds repositories, manages credentials and plugins in the channel's bundle, and edits channel instructions. Every other setting at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) stays with Owners; on the Enterprise plan, an Owner can delegate most of them through the [**Claude Tag Admin** permission](#delegate-claude-tag-administration).
-
-A channel manager is a person. To let the members of another Slack channel write a channel's instructions, see [Manage a channel's instructions from another channel](https://claude.com/docs/claude-tag/admins/managed-by.md).
 
 ### What a channel manager can do on the Configure page
 

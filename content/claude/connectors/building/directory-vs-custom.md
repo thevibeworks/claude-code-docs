@@ -26,6 +26,8 @@ Directory and custom connectors differ only in what surrounds the runtime: who r
 | **Distribution** | [Directory link](#share-an-install-link) | [Install link](#share-an-install-link) or manual URL entry |
 | **Anthropic-held client credentials** | Available | Not available |
 | **[External link](https://claude.com/docs/connectors/building/mcp-apps/external-links.md) confirmation** | Can allowlist destinations to skip the modal | Always shows the modal |
+| **[Websites embedded](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md) in an MCP App** | Load only if the listing is Verified and allows their origins | Where available, load only after the person allows them in a conversation |
+| **[Entry points](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md) for an MCP App** | Only under a Verified listing | No listing needed |
 | **Appears as** | Named card with logo | **Custom** |
 
 ## Share an install link

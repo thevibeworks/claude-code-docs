@@ -67,8 +67,6 @@ Fast mode follows your model switches:
 
 Whenever a model switch turns fast mode on or off, Claude Code shows a `Fast mode ON` or `Fast mode OFF` confirmation, and the `↯` icon appears while fast mode is on. This holds whether you switch with `/model`, with [`/config model=<model>`](https://code.claude.com/docs/en/settings), or from a device connected through [Remote Control](https://code.claude.com/docs/en/remote-control.md).
 
-Claude Code resends the session's fast mode status to devices connected through Remote Control after a model switch, a reconnection, or a failed [availability check](#use-fast-mode-behind-proxies-and-llm-gateways).
-
 ### Use fast mode in cloud sessions
 
 Fast mode works in [cloud sessions](https://code.claude.com/docs/en/claude-code-on-the-web.md) when it's available on your account, whether the session runs on Anthropic-managed infrastructure or a [self-hosted runner](https://code.claude.com/docs/en/self-hosted-environments). Requires Claude Code v2.1.271 or later in the session's environment.

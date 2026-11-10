@@ -6,13 +6,15 @@
 
 > Test your MCP server against Claude as a custom connector before you submit it to the directory, including a local server exposed through a tunnel.
 
-You test an MCP server against the real Claude client by adding it to Claude as a custom connector. There is no separate staging environment, so you test in production. Custom connectors use the exact same runtime as directory connectors, and what works as a custom connector will work after publication.
+You test an MCP server against the real Claude client by adding it to Claude as a custom connector. There is no separate staging environment, so you test in production. Custom connectors use the same runtime as directory connectors, with an exception for MCP Apps. Where embedded sites are available for custom connectors, plan for a custom connector's views to [lose some device features](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md#device-features-in-views-that-embed-sites), such as the camera, while you test. Apart from features that read your directory listing, what works as a custom connector will work after publication.
+
+For example, where embedded sites are available for custom connectors, a [website embedded in an MCP App](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md#test-embedded-sites-with-a-custom-connector) loads while you test only after you allow it. After publication, the website loads only if your listing is Verified and allows its origin. An MCP App's [entry point](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md#conditions-for-showing-an-app-on-the-artifacts-page) that appears while you test stays hidden for people who install a Community listing.
 
 This page is for developers with a running server, whether it's deployed or still on your machine. It covers adding the server to Claude, validating it with MCP Inspector, detecting Claude as the client, and preparing test credentials for directory review. If a connection fails while you test, [Troubleshoot your connector](https://claude.com/docs/connectors/building/troubleshooting.md) walks through each error message.
 
 ## Test in Claude as a custom connector
 
-To test your server the way users will reach it, add it to your own Claude account as a custom connector by its URL. Any Claude account can do this, on Free, Pro, Max, Ultra, Team, or Enterprise; [Add a connector that isn't in the directory](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) has the steps for each plan, starting from [**Customize > Connectors**](https://claude.ai/customize/connectors).
+To test your server the way users reach it, add it to Claude as a custom connector by its URL. On Team and Enterprise plans, an Owner adds the connector for the organization. If you can't add one yourself, ask an Owner. Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) to start. For the steps on each plan, see [Add a connector that isn't in the directory](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url).
 
 Once the connector is added, check these:
 

@@ -12,7 +12,7 @@ To use Claude Duet, you need:
 
 - A Claude account in the US
 
-- An invitation from the waitlist
+- An invitation from the waitlist or from a Claude Duet user
 
 ## Why you might not have access yet
 

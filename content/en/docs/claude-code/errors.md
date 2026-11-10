@@ -322,6 +322,7 @@ Match the message you see to a section below.
 | `The packages it lists are not installed` / `The packages it lists were not installed, because` | [Plugin troubleshooting](https://code.claude.com/docs/en/plugins/troubleshooting.md#the-packages-it-lists-are-not-installed) |
 | `does not load (...), so Claude Code ignores the whole file` | [Plugin troubleshooting](https://code.claude.com/docs/en/plugins/troubleshooting.md#does-not-load-so-claude-code-ignores-the-whole-file) |
 | `path escapes plugin directory` | [Plugin errors](#path-escapes-plugin-directory) |
+| `path not read: <path> is absolute or has a ".." part` | [Plugin errors](#server-file-path-not-read) |
 | `Plugin not loaded: its manifest <path> was not read` | [Plugin errors](#plugin-not-loaded-its-manifest-was-not-read) |
 | `path could not be checked` | [Plugin errors](#path-could-not-be-checked) |
 | `its marketplace entry path does not stay inside the marketplace directory` | [Plugin errors](#marketplace-entry-path-does-not-stay-inside-the-marketplace-directory) |
@@ -379,6 +380,7 @@ Match the message you see to a section below.
 | `Command output was lost: the temp filesystem at <dir> is full` / `is out of inodes` | [Tool errors](#disk-quota-or-temp-filesystem-is-full) |
 | `File is not valid UTF-8. It may use a legacy encoding such as Windows-1252, Shift-JIS or GBK, or be binary` | [Tool errors](#file-is-not-valid-utf-8) |
 | `git is not installed on this Mac. To install it, run xcode-select --install, then try again.` | [Tool errors](#git-is-not-installed-on-this-mac) |
+| `Refusing to apply edits to <path>: a hook is configured for file edits in this session` | [Tool errors](#a-hook-is-configured-for-file-edits) |
 | `the source file is not valid UTF-8 text` / `the source file is not valid UTF-16 text` | [Tool errors](#the-source-file-is-not-valid-utf-8-text) |
 | `the source file has the replacement character U+FFFD` | [Tool errors](#the-source-file-is-not-valid-utf-8-text) |
 | `Not published: that file is on a network share` | [Tool errors](#not-published-that-file-is-on-a-network-share) |
@@ -389,7 +391,7 @@ Match the message you see to a section below.
 | `The safety check for domain ... is rate-limited` | [Tool errors](#webfetch-domain-safety-check-failed) |
 | `The safety check for domain ... is temporarily rate-limited` | [Tool errors](#webfetch-domain-safety-check-failed) |
 | `Unable to verify if domain ... is safe to fetch` | [Tool errors](#webfetch-domain-safety-check-failed) |
-| `MCP tool "<tool>" on server "<server>" gave no answer that could be read` / `answered without its text` | [How an MCP tool hook's result is read](https://code.claude.com/docs/en/hooks.md#how-the-tool’s-result-is-read) |
+| `MCP tool "<tool>" on server "<server>" gave no answer that could be read` / `answered without its text` | [How an MCP tool hook's result is read](https://code.claude.com/docs/en/hooks.md#how-the-tools-result-is-read) |
 | `Can't open MCP settings while no terminal is attached to this background session` | [Background session errors](#commands-refused-in-a-background-session) |
 | `Can't open MCP settings in a background session` | [Background session errors](#commands-refused-in-a-background-session) |
 | `blocked because the path is spelled in a form that cannot be safely resolved` | [Background session errors](#write-or-command-blocked-because-the-path-cannot-be-safely-resolved) |
@@ -1439,8 +1441,6 @@ For a `Login expired` message that ends with `or re-authenticate your Anthropic 
 
 This is not the same state as [OAuth token revoked or expired](#oauth-token-revoked-or-expired). Those messages report a rejection the API returned. Claude Code itself produces `Login expired` for a login it already failed to renew, so it sends no request. When the renewal fails because the account itself is suspended rather than the login being stale, Claude Code shows [Your account is on hold](#your-account-is-on-hold) instead.
 
-Sessions authenticated with an API key, [`CLAUDE_CODE_OAUTH_TOKEN`](https://code.claude.com/docs/en/env-vars), or a third-party provider don't use the saved login and never see this message.
-
 You can check for this state before a request fails: [`/status`](https://code.claude.com/docs/en/commands) shows a `Login` row reading `Expired — log in again`, plus the organization and email it has saved for the expired login. The row appears only when the saved login is your active credential and can no longer be refreshed. Sessions authenticated another way don't show the row, even if an expired login remains saved. Before v2.1.210, `/status` gave no indication in this state that a login had ever existed, because the cleared credential left it nothing to report.
 
 **What to do:**
@@ -1463,8 +1463,6 @@ In [non-interactive mode](https://code.claude.com/docs/en/headless.md) (`-p`) an
 ```text theme={null}
 Failed to refresh OAuth token: another Claude Code process is refreshing it or exited mid-refresh. This is usually transient; retry in a minute, and if it persists close other Claude Code processes or sign in again
 ```
-
-Sessions authenticated with an API key, [`CLAUDE_CODE_OAUTH_TOKEN`](https://code.claude.com/docs/en/env-vars), or a third-party provider don't use the saved login and never see this message.
 
 **What to do:**
 
@@ -4489,6 +4487,22 @@ Before v2.1.257, the check on paths the plugin declares looked only at the path'
 * If the message ends with `EACCES`, restore your execute permission on every directory leading to the file or folder the path names. Check the directories above the path, then follow each symlink you reach and check the directories leading to where it points. For any other error code, look it up in the [causes and steps for a path that couldn't be checked](#path-could-not-be-checked).
 * To share files with other plugins in the same marketplace, link them with a symlink inside the plugin directory, following the [symlink rules](https://code.claude.com/docs/en/plugins/host-marketplace.md#share-files-within-a-marketplace-with-symlinks)
 
+### Server file path not read
+
+The `path not read` message means Claude Code didn't read an MCP or LSP server file that a plugin names, because of the file's path. The rest of the plugin loads, without the servers the file defines.
+
+A `..` part counts even when the path stays inside the plugin, as in this example:
+
+```text theme={null}
+mcp-servers path not read: ./sub/../x.json is absolute or has a ".." part
+```
+
+**What to do:**
+
+* If you installed the plugin and don't maintain it, report the message to its author
+* If you maintain the plugin, keep the server file inside the plugin directory. Name it in the manifest or marketplace entry with a path that starts with `./` and has no `..`, for example `./servers/x.json`
+* To share one server file between plugins in the same marketplace, link the file into each plugin with a symlink, following the [symlink rules](https://code.claude.com/docs/en/plugins/host-marketplace.md#share-files-within-a-marketplace-with-symlinks)
+
 ### Plugin not loaded: its manifest was not read
 
 Claude Code couldn't confirm that a marketplace plugin's [manifest](https://code.claude.com/docs/en/plugins/manifest-reference.md) at `.claude-plugin/plugin.json` is inside the plugin, so it loads nothing from that plugin. For a plugin in a [local marketplace](https://code.claude.com/docs/en/plugins/loading.md#in-place-and-copied-plugins), Claude Code also couldn't confirm that the manifest is inside that marketplace. The message appears in the `/plugin` **Errors** tab, and the reason at its end says what Claude Code found.
@@ -5184,6 +5198,23 @@ A file that is meant to be UTF-8 gets this message too when it contains even one
 * To keep editing the file with the Edit tool, convert it to UTF-8, or fix the invalid bytes in a file that is meant to be UTF-8, then ask Claude to make the edit again
 
 Before v2.1.296, Edit and NotebookEdit applied such an edit and saved every byte they couldn't decode as `U+FFFD`. On those versions, update Claude Code.
+
+### Refusing to apply edits: a hook is configured for file edits in this session
+
+Claude tried to publish an [artifact](https://code.claude.com/docs/en/artifacts.md) with a [one-step update](https://code.claude.com/docs/en/artifacts.md#turn-off-one-step-artifact-updates), a small change to the artifact's file included in the publish, and Claude Code refused. Nothing was published and the file is unchanged. The message appears in the Artifact tool result:
+
+```text wrap theme={null}
+Refusing to apply edits to <path>: a hook is configured for file edits in this session, so a publish can't apply edits here. Edit the file, then publish it without edits. Nothing was published.
+```
+
+Claude Code doesn't allow one-step updates while your session has a [`PreToolUse` hook](https://code.claude.com/docs/en/hooks#pretooluse) or [mod](https://code.claude.com/docs/en/plugins/mods/overview.md) on `Edit` or `Write`.
+
+**What to do:**
+
+* Nothing, if Claude went on to edit the file and publish it
+* If Claude stopped at the message, ask Claude to edit the file and publish
+* If the message keeps coming back, quit and relaunch Claude Code
+* If the message comes back even after a relaunch, [turn off one-step updates](https://code.claude.com/docs/en/artifacts.md#turn-off-one-step-artifact-updates)
 
 ### The source file is not valid UTF-8 text
 
