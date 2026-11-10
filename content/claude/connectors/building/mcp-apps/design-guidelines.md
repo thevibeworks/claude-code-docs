@@ -48,7 +48,11 @@ Avoid these patterns:
 
 ## Display modes
 
-An MCP App appears in the conversation as an inline card, an inline carousel, or a full screen view. Each mode suits different content and carries its own constraints on desktop and on mobile.
+> [!NOTE]
+>
+> The [side panel](#side-panel) is available to a limited set of organizations, and not in every conversation. Where it isn't available, a fullscreen request opens your app full screen if Claude offers that mode. To check, see [Show your MCP App in the side panel or full screen](https://claude.com/docs/connectors/building/mcp-apps/display-modes.md).
+
+An MCP App appears inline in the conversation as a card or a carousel, in a side panel beside the conversation, or full screen. Each placement suits different content and carries its own constraints on desktop and on mobile. To declare and request display modes in code, see [Show your MCP App in the side panel or full screen](https://claude.com/docs/connectors/building/mcp-apps/display-modes.md).
 
 ### Inline card
 
@@ -98,6 +102,20 @@ On mobile, carousel cards are optimized for horizontal swipe. Design for thumb r
 
 ![Inline carousel mobile examples](https://mintcdn.com/claude-ai/sLZLADaApRAVEV6C/images/mcp-apps/inline-carousel-mobile.png?fit=max\&auto=format\&n=sLZLADaApRAVEV6C\&q=85\&s=2bf64edd4fdefe8a37188ca4f2f32f4e)
 
+### Side panel
+
+The side panel keeps your app open beside the conversation on web and desktop, so users can keep chatting while they watch the app update. Use the side panel for:
+
+* Documents, boards, and maps that the user and Claude work on together
+* Results the user refers to while they ask follow-up questions
+* Editors and previews that change as the conversation goes on
+
+The side panel has these constraints:
+
+* The panel opens at about half the width of the chat area, and users can resize it down to about 320px
+* Your app reads the `fullscreen` display mode in the panel, as it does in full screen, so lay out by the container's size rather than by the mode
+* Icon buttons in the panel's title bar take users on to full screen or back to the conversation
+
 ### Full screen
 
 Full screen mode gives complex interactions an immersive interface. The conversation composer remains available, so users can continue talking to your app through Claude. Use full screen for:
@@ -115,6 +133,8 @@ Full screen mode gives complex interactions an immersive interface. The conversa
 Full screen mode has these constraints:
 
 * Your app provides its own fullscreen button, and a close button appears in the native header bar
+* Where the [side panel](#side-panel) is available, Claude also shows its own expand button above an inline app that supports `fullscreen` on web and desktop
+* A fullscreen request from your app opens the side panel where there is one, and users go on to full screen from the panel
 * The composer is always visible, so design your UX to work with it
 * No floating panels, so use collapsible sidebars, tabs, or pagination to disclose details
 * The chat sheet maintains conversational context
@@ -149,7 +169,7 @@ In borderless mode your content runs edge-to-edge with no host padding, so honor
 
 ### Declare supported display modes
 
-Declare which modes your app supports through `appCapabilities.availableDisplayModes` in `ui/initialize`. The host responds with the modes it supports, and your app can request a switch with `ui/request-display-mode`. Modes are `inline`, `fullscreen`, and `pip`.
+Declare which modes your app supports through `appCapabilities.availableDisplayModes` in `ui/initialize`. The host responds with the modes it supports, and your app can request a switch with `ui/request-display-mode`. Claude offers `inline` and `fullscreen`. For the request, its result, and the size that Claude reports, see [Show your MCP App in the side panel or full screen](https://claude.com/docs/connectors/building/mcp-apps/display-modes.md).
 
 ### Content security policy
 
@@ -162,14 +182,20 @@ All external origins are blocked by default. Declare the origins each `ui://` re
       "csp": {
         "connectDomains": ["https://api.example.com"],
         "resourceDomains": ["https://cdn.example.com"],
-        "baseUriDomains": []
+        "frameDomains": ["https://editor.example.com"]
       }
     }
   }
 }
 ```
 
-The `frameDomains` field, for embedding third-party iframes, is restricted in Claude pending security review.
+Each field allows a different kind of request to the origins it lists:
+
+* `connectDomains`: origins your app reaches with `fetch`, `XMLHttpRequest`, or a WebSocket
+* `resourceDomains`: origins your app loads scripts, styles, images, fonts, media, and web workers from
+* `frameDomains`: origins your app embeds in an `<iframe>`. Claude also has to allow these origins for your connector, as [Embed a website in an MCP App](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md) explains.
+
+Start each entry with its scheme, such as `https://` or `wss://`. In `connectDomains` and `resourceDomains`, Claude drops an entry it can't read and applies the rest. A request to a dropped origin fails with a Content Security Policy error in the browser console. If you set `baseUriDomains`, Claude ignores it and keeps the base URI on your app's own origin.
 
 ### Viewport and layout
 

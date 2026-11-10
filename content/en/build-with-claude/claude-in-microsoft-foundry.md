@@ -76,8 +76,8 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.7.0")
-        implementation("com.anthropic:anthropic-java-foundry:3.7.0")
+        implementation("com.anthropic:anthropic-java:3.8.0")
+        implementation("com.anthropic:anthropic-java-foundry:3.8.0")
         ```
       </Tab>
 
@@ -86,12 +86,12 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.7.0</version>
+            <version>3.8.0</version>
         </dependency>
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java-foundry</artifactId>
-            <version>3.7.0</version>
+            <version>3.8.0</version>
         </dependency>
         ```
       </Tab>

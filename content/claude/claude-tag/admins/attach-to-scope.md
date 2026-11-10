@@ -159,15 +159,13 @@ Each scope can carry custom instructions, which are standing guidance Claude rea
 
 Channel members reach the same field for the channel scope through the **Configure** page, linked in the footer of any Claude reply in the channel, without going through admin settings. Both entry points write the same instructions, so a change from either place is visible in the other.
 
-To let a central team write a channel's instructions from its own Slack channel, see [Manage a channel's instructions from another channel](https://claude.com/docs/claude-tag/admins/managed-by.md).
-
 #### Instruction format
 
 The field is plain text, inserted as written; there is no include or template syntax, and `{{include:...}}` is passed through literally. To give Claude a repository's `CLAUDE.md`, [grant the repository](https://claude.com/docs/claude-tag/admins/configure-github.md#grant-repository-access) and name it in the request; its `CLAUDE.md` loads after the clone completes.
 
 #### What Claude reads in a channel
 
-What Claude reads in a channel is the concatenated custom instructions of its scope chain, the instructions of each bundle that applies there, the channel's [managed instructions](https://claude.com/docs/claude-tag/admins/managed-by.md#how-managed-instructions-load) if another channel manages it, and the `CLAUDE.md` of any repository it clones. Projects in claude.ai don't apply here; Claude doesn't read a Project's instructions or knowledge in Slack, and a channel can't be pointed at a Project.
+What Claude reads in a channel is the concatenated custom instructions of its scope chain, the instructions of each bundle that applies there, and the `CLAUDE.md` of any repository it clones. Projects in claude.ai don't apply here; Claude doesn't read a Project's instructions or knowledge in Slack, and a channel can't be pointed at a Project.
 
 #### When a new instruction applies
 
@@ -181,7 +179,6 @@ The table lists the kinds of standing instruction that can apply in a channel an
 | :- | :- | :- |
 | Custom instructions | Owner for any scope; [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) for workspace and channel scopes; channel members and [channel managers](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-channel-setup-to-channel-managers) for the channel scope, unless members are [restricted](#restrict-who-can-set-channel-instructions) | The instructions field on a scope's page in admin settings, or the **Configure** link in any reply footer for the channel scope |
 | Bundle instructions | An Owner or a [Claude Tag admin](https://claude.com/docs/claude-tag/admins/restrict-access.md#delegate-claude-tag-administration) | The **Instructions** section of the bundle's page. They apply wherever the bundle applies |
-| Managed instructions | Full workspace members in one of the channel's [managing channels](https://claude.com/docs/claude-tag/admins/managed-by.md), which an Owner or a Claude Tag admin selects under **Managed by** on the channel's Configure page | By asking Claude in the managing channel and confirming the card it posts |
 | Channel memory | Anyone in the channel | By telling Claude to remember |
 | Task prompt | The requester | The message itself |
 

@@ -4,7 +4,7 @@
 
 # Troubleshoot Claude Science
 
-> Fix errors you see while using Claude Science: being signed out, capacity retries, Agent Failed, environment setup, connectors, dictation, and updates.
+> Fix errors you see while using Claude Science: being signed out, capacity retries, Agent Failed, environment setup, connectors, git, dictation, and updates.
 
 This page covers error messages that Claude Science shows while you work. Other problems have their own troubleshooting sections:
 
@@ -63,6 +63,38 @@ If the notice reads "Analysis is unavailable" instead, no Python or R code can r
 ### failed to load 5 times in a row — automatic retries are paused
 
 This message appears in **Settings > Connectors** on a Featured connector marked **Failed** (hold the pointer over **Failed**) and on the connector's own page. The connector runs on your computer and failed to start five times in a row, so Claude Science stopped trying. Turn the connector off and on again in **Settings > Connectors**, or restart Claude Science.
+
+## Git and GitHub
+
+The messages in this section appear when Claude runs git in the sandbox on a Mac or Linux.
+
+### SSH is off inside Claude Science’s sandbox
+
+By design, SSH is off in the [sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox). For `github.com`, Claude can push over HTTPS with a GitHub token you save. With the token, a `git@github.com:` remote works as it is. If your organization [manages the network allowlist](https://claude.com/docs/claude-science/admin-controls.md#network-allowlist), ask an admin to check that the [GitHub domains](https://claude.com/docs/claude-science/network-requirements.md#package-management-domains) are on.
+
+Check these limits before you push:
+
+* **A host other than `github.com`**: Claude Science has no built-in sign-in for it
+* **A Git LFS repository**: Claude's commits can store LFS files as ordinary files, and a push from the sandbox may not upload them
+* **On Linux**: folders such as `.devcontainer` look empty in the sandbox, so git shows their files as deleted. Don't commit those deletions.
+
+For a `github.com` repository that doesn't use Git LFS, follow these steps:
+
+1. Go to **Settings > Credentials**, select **Connect** next to **GitHub**, paste a personal access token that can write to the repository, and select **Save**. To limit the token to one repository, use a [fine-grained token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) for it alone, with **Contents** set to **Read and write**. If the button says **Disconnect**, a token is already saved.
+
+2. Ask Claude:
+
+   ```text Prompt wrap theme={null}
+   Push my commits with a shell command in the default python environment, using my saved GitHub credential.
+   ```
+
+3. Select **Allow for this conversation** on the **Run a shell command?** [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) if it appears, then on the **Credentials** card.
+
+   By default, the approval lasts for the conversation, and commands Claude runs there can use the token without asking again. To revoke the approval, go to **Settings > Permissions**, hold the pointer over each **GitHub** row under **Credentials**, and select **Revoke** (the ×).
+
+Check GitHub for your commits, because git can print an error even when the push worked.
+
+These steps also apply to `could not read Username for 'https://github.com'`, and to the `/bin/false` error git printed before Claude Science 0.1.61.
 
 ## Dictation
 

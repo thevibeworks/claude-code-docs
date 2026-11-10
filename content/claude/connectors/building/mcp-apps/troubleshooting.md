@@ -91,6 +91,16 @@ Your app needs a non-zero height to be visible. A zero height can occur if:
 
 Check that your root element has explicit dimensions or content that gives it height.
 
+#### App stays invisible with no cause found
+
+If your server runs locally (such as through `claude_desktop_config.json`) and can also serve [Streamable HTTP](https://claude.com/docs/connectors/building/index.md#choose-where-the-server-runs), connect it as a custom connector too. On Team and Enterprise plans, an Owner adds the connector for the organization. [Test a local server](https://claude.com/docs/connectors/building/testing.md#test-a-local-server) covers exposing your server through a tunnel, and [Add a connector by URL](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) has the steps for each plan. Then turn the connector on in a chat and compare the same tool call on both connections.
+
+> [!WARNING]
+>
+> If the server has no sign-in, anyone who can reach the tunnel's URL can call its tools. Shut the tunnel down as soon as you finish.
+
+[Send feedback](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md#send-feedback-on-mcp-apps) with what you tried and what you saw.
+
 ### App doesn't render when tool results are large
 
 When a tool result exceeds approximately 150,000 characters and Claude's code execution sandbox is active, Claude writes the result to the sandbox filesystem instead of passing it inline to the conversation. Your app receives a pointer to the stored file rather than the structured content it needs, so it never hydrates.
@@ -136,6 +146,8 @@ A mismatch usually has one of these causes:
 
 ## Next steps
 
+* [Debug an embedded site that fails to load](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md#debug-an-embedded-site-that-fails-to-load): match the console message to its cause
+* [Troubleshoot app tools](https://claude.com/docs/connectors/building/mcp-apps/app-tools.md#troubleshoot-app-tools): fix tools that Claude doesn't find or can't run
 * [Set `ui.domain` for Claude](https://claude.com/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): compute the sandbox origin Claude expects for your app
 * [Design guidelines](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md#mobile-guidelines): mobile layout, safe areas, and sizing rules that prevent clipped or invisible content
 * [Get started with MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md#build-your-own-mcp-app): SDK quickstart, examples, and agent skills

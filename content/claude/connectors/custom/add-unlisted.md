@@ -51,13 +51,13 @@ Go to [**Organization settings > Connectors**](https://claude.ai/admin-settings/
 
 Select **Add**, then **Custom**. If Claude asks for the connector type, choose **Web**.
 
-**3. Enter the server URL**
+**3. Enter a name and the server URL**
 
-Enter the remote MCP server URL.
+Enter a name for the connector and the remote MCP server URL. If the dialog shows **Continue**, click it.
 
-**4. Enter OAuth credentials if needed**
+**4. Choose authentication settings**
 
-Optionally, enter an OAuth client ID and secret. See [Choose authentication settings](#choose-authentication-settings).
+Choose how people sign in, and enter any credentials the server needs. Keep any option marked **Detected** unless the server's documentation says otherwise. See [Choose authentication settings](#choose-authentication-settings).
 
 **5. Add the connector**
 
@@ -89,23 +89,27 @@ Go to **Customize > Connectors**.
 
 **2. Add a custom connector**
 
-Click **Add custom connector**.
+Select **Add**, then **Add custom connector**.
 
-**3. Enter the server URL**
+**3. Enter a name and the server URL**
 
-Enter the remote MCP server URL.
+Enter a name for the connector and the remote MCP server URL, then click **Continue**.
 
-**4. Enter OAuth credentials if needed**
+**4. Choose authentication settings**
 
-Optionally, enter OAuth credentials. See [Choose authentication settings](#choose-authentication-settings).
+If Claude can read the server's settings, it selects them and marks them **Detected**. Keep those options unless the server's documentation says otherwise, and enter any credentials the server needs. To learn what each option does, see [Choose authentication settings](#choose-authentication-settings).
 
 **5. Add the connector**
 
 Click **Add**.
 
+**6. Connect**
+
+If the connector shows **Connect**, click it and sign in.
+
 ### Choose authentication settings
 
-The layout of the **Add custom connector** dialog varies by organization. If yours shows a name, a URL, and **Advanced settings** on one screen, enter the OAuth client ID and secret under **Advanced settings**. If yours has two steps, it asks you to choose among the settings in this section.
+The layout of the **Add custom connector** dialog varies by organization. If yours shows everything on one screen, find the OAuth client and request headers under **Advanced**. If yours has two steps, it asks you to choose among the settings in this section.
 
 For **MCP server URL**, enter the HTTPS address where the server accepts MCP requests, for example `https://mcp.example.com/mcp`.
 

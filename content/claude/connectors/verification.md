@@ -14,7 +14,7 @@ The [Connectors Directory](https://claude.com/docs/connectors/directory.md) list
 
 ## Connector labels
 
-A connector's label reflects the level of review it received. The label affects how the connector is displayed and discovered in the directory, not how the connector itself functions: once connected, a Community connector has the same capabilities and access as any connector you grant.
+A connector's label reflects the level of review it received. The label affects how the connector is displayed and discovered in the directory. It also affects some of what a connector can do in Claude, such as whether an MCP App's [embedded websites](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md#where-embedded-sites-load) and [entry points](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md) are available. Once connected, a Community connector's tools have the same capabilities and access as any connector you grant.
 
 ### Verified
 

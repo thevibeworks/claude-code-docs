@@ -320,6 +320,7 @@ Before you host this server for other people, add authentication, because as wri
 
 ## Next steps
 
+* [What an MCP App can do in Claude](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md#what-an-mcp-app-can-do-in-claude): show the UI in the side panel or full screen, let Claude call tools in it, and more
 * [Design guidelines](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md): choose a display mode and use Claude's style variables so the UI looks native in the conversation
 * [Set `ui.domain` for Claude](https://claude.com/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude): give the UI a stable sandbox origin, which it needs if it runs its own OAuth flow
 * [Troubleshoot MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/troubleshooting.md): open developer tools in Claude and fix a UI that doesn't appear

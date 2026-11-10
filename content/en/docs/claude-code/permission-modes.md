@@ -686,6 +686,8 @@ The first time you start an interactive session with this mode enabled, Claude C
 * **If you accept**: Claude Code sets `skipDangerousModePermissionPrompt` to `true` in `~/.claude/settings.json`, so later sessions skip the dialog. To see the dialog again, remove the key from that file or set it to `false`. The [`skipDangerousModePermissionPrompt` reference](https://code.claude.com/docs/en/settings-reference#skipdangerousmodepermissionprompt) lists the other settings files where you or your organization can set it.
 * **If you decline**: Claude Code exits.
 
+If you pass [`--setting-sources`](https://code.claude.com/docs/en/cli-reference#cli-flags) without `user`, the dialog can appear again although you accepted it earlier. To skip it, add `user`, as in `--setting-sources user,project`.
+
 In [non-interactive mode](https://code.claude.com/docs/en/headless.md) no dialog is shown.
 
 A [background session](https://code.claude.com/docs/en/agent-view.md) honors your acceptance when it's recorded in user or managed settings:
