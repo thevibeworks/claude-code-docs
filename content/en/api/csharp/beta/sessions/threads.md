@@ -151,6 +151,8 @@ List Session Threads
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -226,6 +228,10 @@ List Session Threads
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -1243,6 +1249,8 @@ Get Session Thread
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1318,6 +1326,10 @@ Get Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -2329,6 +2341,8 @@ Archive Session Thread
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
 
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -2404,6 +2418,10 @@ Archive Session Thread
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -3341,6 +3359,10 @@ Console.WriteLine(betaManagedAgentsSessionThread);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `ClaudeFable5_2("claude-fable-5-2")`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
       - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
         Fastest model for high-volume, real-time tasks
@@ -3980,6 +4002,10 @@ Console.WriteLine(betaManagedAgentsSessionThread);
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
@@ -6655,6 +6681,10 @@ Console.WriteLine(betaManagedAgentsSessionThread);
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
             Fastest model for high-volume, real-time tasks
@@ -8030,6 +8060,8 @@ List Session Thread Events
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -9829,6 +9861,10 @@ List Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 
             Fastest model for high-volume, real-time tasks
@@ -11205,6 +11241,8 @@ Stream Session Thread Events
     - `TelemetryDestinations2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `Webhooks2026_10_07("webhooks-2026-10-07")`
+
+    - `AdminUserSignOut2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MessageThreads2026_08_12("message-threads-2026-08-12")`
 
@@ -13003,6 +13041,10 @@ Stream Session Thread Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeFable5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `ClaudeHaiku5_5("claude-haiku-5-5")`
 

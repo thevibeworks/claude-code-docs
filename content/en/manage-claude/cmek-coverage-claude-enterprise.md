@@ -13,6 +13,7 @@ For Claude Platform, see [What CMEK covers on Claude Platform](https://platform.
 * Artifacts, including Claude Design, Claude Slides, and Claude Docs in conversations and the **Artifacts** tab.
 * Claude Code on the CLI, including message content.
 * Cowork in Claude Desktop.
+* Chats in the unified Claude experience, on the web only. **Computer access** is off.
 * Office agents, including Claude for Outlook (beta).
 * Claude in Chrome.
 * Claude Science, which is in beta.
@@ -39,7 +40,7 @@ This list is not exhaustive. Review it with your team before you set up CMEK.
 | Claude in Slack (beta)                                                                                                                    | Off. Claude declines requests, even if an admin turns the product on.                                                                                                                                                                                                                                   |
 | Analytics: smart reports and contribution metrics                                                                                         | Off. Certain analytics are disabled, regardless of admin settings: Claude smart reports (under claude.ai/analytics/insights) and Claude Code contribution metrics from GitHub (beta, under claude.ai/analytics/claude-code).                                                                            |
 | Claude Security (beta)                                                                                                                    | Off. Beta feature, turned off regardless of admin settings.                                                                                                                                                                                                                                             |
-| Cloud scheduled tasks (research preview)                                                                                                  | Off. Research preview feature, turned off regardless of admin settings.                                                                                                                                                                                                                                 |
+| Cloud scheduled tasks (research preview)                                                                                                  | Off. An admin can turn them on for the unified Claude experience.                                                                                                                                                                                                                                       |
 | Standalone Claude Design app (being deprecated)                                                                                           | Not supported. See [Encrypted with Anthropic’s key](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#encrypted-with-anthropics-key).                                                                                                                                   |
 
 ## Encrypted with Anthropic’s key

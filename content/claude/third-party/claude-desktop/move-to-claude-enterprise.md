@@ -51,7 +51,7 @@ Special cases:
 
 * If Cowork runs only in its VM sandbox in your organization (for example, because [`requireCoworkFullVmSandbox`](https://claude.com/docs/third-party/claude-desktop/configuration#requirecoworkfullvmsandbox) is enforced), nothing is migrated. Ask your Anthropic account team.
 * If your organization needs HIPAA, make it HIPAA-ready before users first sign in. A HIPAA-ready organization migrates no skills, local MCP servers, extensions, plugins, plugin marketplaces, instructions, or Cowork memory.
-* With the MSIX install on Windows 10 Enterprise LTSC 2021, or Windows 10 older than 21H1, update Claude in place. Uninstalling or resetting it deletes the Claude (third-party) data.
+* With the MSIX install on Windows versions before Windows 11 (build 22000), for example on Windows 10, update Claude in place. Uninstalling or resetting it can delete the [Claude (third-party) data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).
 
 ## What changes for your security controls
 

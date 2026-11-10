@@ -922,6 +922,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `"claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+          - `"claude-mythos-5-2"`
+
+            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
           - `"claude-haiku-5-5"`
 
             Fastest model for high-volume, real-time tasks
@@ -1221,9 +1229,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "invalid_request_error"`
 
+              The broad category of the error.
+
               default: invalid_request_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Invalid request
 
@@ -1231,9 +1243,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "authentication_error"`
 
+              The broad category of the error.
+
               default: authentication_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Authentication error
 
@@ -1241,9 +1257,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "billing_error"`
 
+              The broad category of the error.
+
               default: billing_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Billing error
 
@@ -1251,9 +1271,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "permission_error"`
 
+              The broad category of the error.
+
               default: permission_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Permission denied
 
@@ -1261,9 +1285,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "not_found_error"`
 
+              The broad category of the error.
+
               default: not_found_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Not found
 
@@ -1271,9 +1299,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "rate_limit_error"`
 
+              The broad category of the error.
+
               default: rate_limit_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Rate limited
 
@@ -1281,9 +1313,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "timeout_error"`
 
+              The broad category of the error.
+
               default: timeout_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Request timeout
 
@@ -1291,9 +1327,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "api_error"`
 
+              The broad category of the error.
+
               default: api_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Internal server error
 
@@ -1301,9 +1341,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "overloaded_error"`
 
+              The broad category of the error.
+
               default: overloaded_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Overloaded
 

@@ -629,6 +629,16 @@ signature is missing or invalid.
 
       - `organization_id: str`
 
+    - `class BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: Literal["user_profile.program_status_updated"]`
+
+      - `id: str`
+
+        ID of the user profile that triggered the event.
+
+      - `organization_id: str`
+
 ## Example
 
 ```python

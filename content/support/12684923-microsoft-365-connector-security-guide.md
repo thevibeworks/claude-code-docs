@@ -171,7 +171,9 @@ The connector provides **read-only** access to:
 | `teams_reply_channel_message`    | Reply in a Teams channel thread                      | ChannelMessage.Send       |
 | `teams_create_chat`              | Start a new Teams chat                               | Chat.Create               |
 
-**Note:** “Always allow” is not supported for the following tools on Team and Enterprise plans:
+**Note:** The `sharepoint_*` file tools also work in OneDrive, wherever the user already has edit access. OneDrive for Business stores files in a SharePoint library, so the same tools cover both. `sharepoint_delete_item` moves the file or folder, including its contents, to the recycle bin. It doesn’t delete it permanently.
+
+**Note:** On Team and Enterprise plans, users can't choose **Always allow** for the following tools, unless an admin has set that tool to **Always allow** on or after November 9, 2026:
 
 - `outlook_send_mail`
 
@@ -183,27 +185,51 @@ The connector provides **read-only** access to:
 
 - `outlook_update_event`
 
+- `outlook_delete_event`
+
+- `outlook_respond_to_event`
+
+- `outlook_set_vacation`
+
 - `teams_send_chat_message`
 
 - `teams_send_channel_message`
 
 - `teams_reply_channel_message`
 
-**Note:** The `sharepoint_*` file tools also work in OneDrive, wherever the user already has edit access. OneDrive for Business stores files in a SharePoint library, so the same tools cover both. `sharepoint_delete_item` moves the file or folder, including its contents, to the recycle bin. It doesn’t delete it permanently.
+This limit doesn't apply to organizations that added the Microsoft 365 connector for the first time after November 9, 2026. There, admins can set each of these tools to **Always allow**, **Needs approval**, or **Blocked**, as for any other write tool. Removing the connector and adding it again usually keeps the organization's original install date, so it usually doesn't change whether the limit applies. Admins in other organizations who see a notice about these tools can set them to **Always allow** now in **Review write tools**, in **Review tool restrictions**, or on the **Tools** tab. The limit ends right away for each tool an admin sets to **Always allow**, and users can then choose **Always allow** for it. Some users may have chosen **Always allow** for that tool in the past. That earlier choice can take effect right away, so Claude can stop asking them. Claude asks everyone else by default until they choose it.
 
-When an organization enables write tools, the connector also exposes write tools for sending and organizing email, managing drafts and calendar events, updating mailbox settings, creating and updating files in OneDrive and SharePoint, and sending Teams messages. Teams write tools are off by default and are enabled individually in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)** within “Microsoft 365”; the connector-wide "all tools" permission doesn't turn them on. Claude can send messages in Teams but can't change Teams settings, memberships, or permissions.
+If the organization has more than one Microsoft 365 connector, the tool must be saved on each one. An **Always allow** saved before November 9, 2026 doesn't end the limit until an admin saves it again. For the rest of these tools, users must still approve each use until the limit is removed on or after December 9, 2026. Any of these tools an admin hasn't set by then will change to **Needs approval**, unless the whole connector is set to **Blocked**.
+
+Organizations that have enabled HIPAA aren't part of these changes to default blocks and limits: they don't get a notice, and neither setting **Always allow** nor adding the connector for the first time ends this limit.
+
+In Cowork, users can choose **Always allow** only when the organization setting **Allow “Always allow” for connector tools** is on. Changes an admin saves apply right away. A tool set to **Always allow** turns on right away if it was blocked by default. With **Always allow**, Claude may use a tool without asking anyone first, including in “Automatically approve” mode and in some scheduled tasks, such as a cloud scheduled task set to “Automatically approve” or a Claude Code routine. Scheduled tasks can lose access to tools on **Needs approval**. On Free, Pro, Max, and Ultra plans, users can choose **Always allow** for these tools.
+
+When an organization enables write tools, the connector also exposes write tools for sending and organizing email, managing drafts and calendar events, updating mailbox settings, creating and updating files in OneDrive and SharePoint, and sending Teams messages. In organizations that added the connector before the Teams write tools launched in September 2026, Admins can set each Teams write tool individually in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)** within “Microsoft 365”. If a Teams write tool is blocked by default, setting the connector's default restriction to No restriction doesn't turn it on. Claude can send messages in Teams but can't change Teams settings, memberships, or permissions.
 
 Write tools include the following built-in safeguards:
 
-- **Attribution:** Emails Claude sends include an attribution header identifying them as agent-initiated. File writes, calendar writes, and Teams messages aren't currently tagged.
+**Attribution.** Emails Claude sends include an attribution header identifying them as agent-initiated. File writes, calendar writes, and Teams messages aren't currently tagged.
 
-- **Rate limits:** Per-user limits apply to writes, sends, and recipients.
+**Rate limits.** Per-user limits apply to writes, sends, and recipients.
 
-- **Attachment restriction:** Attachments aren't supported in any write tool—sending, forwarding, and drafting all reject messages with attachments.
+**Attachment restriction.** Attachments aren't supported in any write tool—sending, forwarding, and drafting all reject messages with attachments.
 
-- **Blocked by default:** Organizations that used the connector before write tools launched have write tools blocked by default until an admin enables them. Teams write tools are blocked by default for every organization and must each be enabled individually.
+**Blocked by default until at least December 9, 2026.** Organizations that used the connector before write tools or the Teams write tools launched have some write tools blocked by default. Admins can choose a setting for each of these tools now in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**.
 
-- **Confirmation required:** Sending a Teams chat message and posting or replying in a channel can only be set to Ask, so the user confirms every send.
+On or after December 9, 2026, any of these tools that an admin hasn't changed will be set to **Needs approval**, unless the whole connector is set to **Blocked**. If one of these tools is among the 11 Outlook, Calendar, and Teams tools with a limit that Anthropic will remove on or after that date, admins can set it to **Always allow** now. It turns on right away.
+
+Once it's saved on each of the organization's Microsoft 365 connectors, the limit ends for that tool, and members can choose **Always allow** for it. Claude may then use it without asking anyone first, including in “Automatically approve” mode and in some scheduled tasks, such as a cloud scheduled task set to “Automatically approve” or a Claude Code routine. Scheduled tasks can lose access to tools on **Needs approval**. Organizations that have enabled HIPAA aren't part of these changes to default blocks and limits.
+
+**Confirmation required.** In chat and Cowork, Claude asks the user to confirm before it sends or forwards an email, sends a Teams message, creates, changes, deletes, or responds to a calendar event, or sets an automatic reply. On Team and Enterprise plans, users can't choose **Always allow** for these tools, unless an admin has set that tool to **Always allow** on or after November 9, 2026. Otherwise the user confirms each use. The exception is organizations that added the Microsoft 365 connector for the first time after November 9, 2026. There, admins can set each of these tools to **Always allow**, **Needs approval**, or **Blocked**, and when an admin sets a tool to **Always allow**, each user can choose **Always allow** for it.
+
+In Cowork, users can choose **Always allow** for these tools only when the organization setting **Allow “Always allow” for connector tools** is on. Removing the connector and adding it again usually keeps the organization's original install date, so it usually doesn't change whether the limit applies. In other organizations, admins who see a notice about these tools can set them to **Always allow** now. The limit ends right away for each tool an admin sets to **Always allow**, and each user can then choose **Always allow** for it.
+
+Some users may have chosen **Always allow** for that tool in the past. That earlier choice can take effect right away, so Claude can stop asking them. If the organization has more than one Microsoft 365 connector, the tool must be saved on each one. For the rest of these tools, users must still confirm each use until the limit is removed on or after December 9, 2026.
+
+With **Always allow**, Claude may use a tool without asking anyone first, including in “Automatically approve” mode and in some scheduled tasks, such as a cloud scheduled task set to “Automatically approve” or a Claude Code routine. On Free, Pro, Max, and Ultra plans, Claude asks by default, and each user can choose **Always allow** for any of these tools. Claude then uses that tool without asking them.
+
+Organizations that have enabled HIPAA aren't part of these changes to default blocks and limits.
 
 ### Permissions list
 
@@ -297,7 +323,7 @@ Requested as part of the updated consent set; used only when write tools are ena
 
 ### Current limitations
 
-- **Teams write access is limited to messaging**: Claude can send a chat message, post or reply in a channel, or start a new chat, but can't modify Teams settings, memberships, or permissions. All write tools require an admin to enable them, and Teams write tools are enabled individually.
+- **Teams write access is limited to messaging**: Claude can send a chat message, post or reply in a channel, or start a new chat, but can't modify Teams settings, memberships, or permissions. All write tools require an admin to enable them.
 
 - **User-level access only**: Access with service principal authentication is not supported.
 
@@ -398,3 +424,5 @@ Anthropic has the following certifications:
 - **[Connect Claude to Microsoft 365](https://support.claude.com/en/articles/15183774)**
 
 - **[Overview of Microsoft Graph permissions: Delegated permissions](https://learn.microsoft.com/en-us/graph/permissions-overview?tabs=http#delegated-permissions)**
+
+- **[Microsoft 365 connector for Claude: architecture and data flows (Anthropic Trust Center)](https://trust.anthropic.com/resources?s=z7e632bdv3hjh3j4bufuzn&name=microsoft-365-connector-for-claude:-architecture-and-data-flows)**

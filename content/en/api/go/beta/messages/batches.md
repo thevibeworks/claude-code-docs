@@ -3014,6 +3014,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                              - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+                                Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                              - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+                                Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                               - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
                                 Fastest model for high-volume, real-time tasks
@@ -3362,14 +3370,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Accepted in `messages[].content` and not rendered into the prompt; not
                 validated against the request's `fallbacks` chain or top-level `model`.
 
-                Echo the assistant turn back verbatim, including this block in its
+                When you send the assistant turn back, keep this block in its
                 original position. The block marks the boundary between content produced
                 before and after a fallback hop, and the server relies on that boundary
                 to validate the turn: when thinking runs flank the boundary, omitting
                 the block merges them into one span the server cannot validate (the
                 request is rejected), and moving it into the middle of a single run is
                 likewise rejected; between non-thinking blocks the block's placement has
-                no validation effect.
+                no effect on thinking validation.
+
+                Some blocks from before the turn's final `fallback` block must be left
+                out when you send the turn back, and no `tool_result` is sent for a
+                `tool_use` block you left out.
+
+                See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=go#continuing-the-conversation) to learn which blocks to keep.
 
                 - `Type Fallback`
 
@@ -4295,6 +4309,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -4612,6 +4628,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -4924,6 +4942,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -5229,6 +5249,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -5531,6 +5553,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
 
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
+
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
@@ -5724,6 +5748,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `const AnthropicBetaTelemetryDestinations2026_08_11 AnthropicBeta = "telemetry-destinations-2026-08-11"`
 
     - `const AnthropicBetaWebhooks2026_10_07 AnthropicBeta = "webhooks-2026-10-07"`
+
+    - `const AnthropicBetaAdminUserSignOut2026_10_08 AnthropicBeta = "admin-user-sign-out-2026-10-08"`
 
     - `const AnthropicBetaMessageThreads2026_08_12 AnthropicBeta = "message-threads-2026-08-12"`
 
@@ -8500,6 +8526,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                           - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
                             Fastest model for high-volume, real-time tasks
@@ -9639,9 +9673,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type InvalidRequestError`
 
+              The broad category of the error.
+
               default: invalid_request_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Invalid request
 
@@ -9649,9 +9687,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type AuthenticationError`
 
+              The broad category of the error.
+
               default: authentication_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Authentication error
 
@@ -9659,9 +9701,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type BillingError`
 
+              The broad category of the error.
+
               default: billing_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Billing error
 
@@ -9669,9 +9715,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type PermissionError`
 
+              The broad category of the error.
+
               default: permission_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Permission denied
 
@@ -9679,9 +9729,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type NotFoundError`
 
+              The broad category of the error.
+
               default: not_found_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Not found
 
@@ -9689,9 +9743,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type RateLimitError`
 
+              The broad category of the error.
+
               default: rate_limit_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Rate limited
 
@@ -9699,9 +9757,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type TimeoutError`
 
+              The broad category of the error.
+
               default: timeout_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Request timeout
 
@@ -9709,9 +9771,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type APIError`
 
+              The broad category of the error.
+
               default: api_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Internal server error
 
@@ -9719,9 +9785,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type OverloadedError`
 
+              The broad category of the error.
+
               default: overloaded_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Overloaded
 
@@ -9927,9 +9997,13 @@ func main() {
 
         - `Type InvalidRequestError`
 
+          The broad category of the error.
+
           default: invalid_request_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Invalid request
 
@@ -9937,9 +10011,13 @@ func main() {
 
         - `Type AuthenticationError`
 
+          The broad category of the error.
+
           default: authentication_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Authentication error
 
@@ -9947,9 +10025,13 @@ func main() {
 
         - `Type BillingError`
 
+          The broad category of the error.
+
           default: billing_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Billing error
 
@@ -9957,9 +10039,13 @@ func main() {
 
         - `Type PermissionError`
 
+          The broad category of the error.
+
           default: permission_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Permission denied
 
@@ -9967,9 +10053,13 @@ func main() {
 
         - `Type NotFoundError`
 
+          The broad category of the error.
+
           default: not_found_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Not found
 
@@ -9977,9 +10067,13 @@ func main() {
 
         - `Type RateLimitError`
 
+          The broad category of the error.
+
           default: rate_limit_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Rate limited
 
@@ -9987,9 +10081,13 @@ func main() {
 
         - `Type TimeoutError`
 
+          The broad category of the error.
+
           default: timeout_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Request timeout
 
@@ -9997,9 +10095,13 @@ func main() {
 
         - `Type APIError`
 
+          The broad category of the error.
+
           default: api_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Internal server error
 
@@ -10007,9 +10109,13 @@ func main() {
 
         - `Type OverloadedError`
 
+          The broad category of the error.
+
           default: overloaded_error
 
         - `Message string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Overloaded
 
@@ -12786,6 +12892,14 @@ func main() {
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                           - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
                             Fastest model for high-volume, real-time tasks
@@ -13925,9 +14039,13 @@ func main() {
 
             - `Type InvalidRequestError`
 
+              The broad category of the error.
+
               default: invalid_request_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Invalid request
 
@@ -13935,9 +14053,13 @@ func main() {
 
             - `Type AuthenticationError`
 
+              The broad category of the error.
+
               default: authentication_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Authentication error
 
@@ -13945,9 +14067,13 @@ func main() {
 
             - `Type BillingError`
 
+              The broad category of the error.
+
               default: billing_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Billing error
 
@@ -13955,9 +14081,13 @@ func main() {
 
             - `Type PermissionError`
 
+              The broad category of the error.
+
               default: permission_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Permission denied
 
@@ -13965,9 +14095,13 @@ func main() {
 
             - `Type NotFoundError`
 
+              The broad category of the error.
+
               default: not_found_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Not found
 
@@ -13975,9 +14109,13 @@ func main() {
 
             - `Type RateLimitError`
 
+              The broad category of the error.
+
               default: rate_limit_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Rate limited
 
@@ -13985,9 +14123,13 @@ func main() {
 
             - `Type TimeoutError`
 
+              The broad category of the error.
+
               default: timeout_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Request timeout
 
@@ -13995,9 +14137,13 @@ func main() {
 
             - `Type APIError`
 
+              The broad category of the error.
+
               default: api_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Internal server error
 
@@ -14005,9 +14151,13 @@ func main() {
 
             - `Type OverloadedError`
 
+              The broad category of the error.
+
               default: overloaded_error
 
             - `Message string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Overloaded
 
@@ -16820,6 +16970,14 @@ func main() {
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                        - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+                          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                        - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+                          Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                         - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 
                           Fastest model for high-volume, real-time tasks
@@ -17959,9 +18117,13 @@ func main() {
 
           - `Type InvalidRequestError`
 
+            The broad category of the error.
+
             default: invalid_request_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Invalid request
 
@@ -17969,9 +18131,13 @@ func main() {
 
           - `Type AuthenticationError`
 
+            The broad category of the error.
+
             default: authentication_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Authentication error
 
@@ -17979,9 +18145,13 @@ func main() {
 
           - `Type BillingError`
 
+            The broad category of the error.
+
             default: billing_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Billing error
 
@@ -17989,9 +18159,13 @@ func main() {
 
           - `Type PermissionError`
 
+            The broad category of the error.
+
             default: permission_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Permission denied
 
@@ -17999,9 +18173,13 @@ func main() {
 
           - `Type NotFoundError`
 
+            The broad category of the error.
+
             default: not_found_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Not found
 
@@ -18009,9 +18187,13 @@ func main() {
 
           - `Type RateLimitError`
 
+            The broad category of the error.
+
             default: rate_limit_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Rate limited
 
@@ -18019,9 +18201,13 @@ func main() {
 
           - `Type TimeoutError`
 
+            The broad category of the error.
+
             default: timeout_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Request timeout
 
@@ -18029,9 +18215,13 @@ func main() {
 
           - `Type APIError`
 
+            The broad category of the error.
+
             default: api_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Internal server error
 
@@ -18039,9 +18229,13 @@ func main() {
 
           - `Type OverloadedError`
 
+            The broad category of the error.
+
             default: overloaded_error
 
           - `Message string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Overloaded
 
@@ -20805,6 +20999,14 @@ func main() {
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `const ModelClaudeFable5_2 Model = "claude-fable-5-2"`
+
+                        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                      - `const ModelClaudeMythos5_2 Model = "claude-mythos-5-2"`
+
+                        Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                       - `const ModelClaudeHaiku5_5 Model = "claude-haiku-5-5"`
 

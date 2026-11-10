@@ -30,6 +30,7 @@ Bundled Claude Code version: 2.1.321.
 
 **3P**
 
+* Changed `fable` in `inferenceModels` to request the newest Fable model, unless your gateway's `/v1/models` has an ID `fable` or a model tagged Fable. Requests can fail if that model isn't served. To pick one, keep `fable` and add an entry with its exact ID and `anthropicFamilyTier` set to `fable`.
 * Changed tool calls made by a plugin's own code (a mod), rather than by Claude, to never show an approval card. They now run where only the user's approval or Auto mode would have stopped them, including connector tools with no `toolPolicy` entry. Such calls to a tool set to `ask` are refused.
 * Fixed Cowork's Progress panel not ticking steps that a subagent marked done.
 

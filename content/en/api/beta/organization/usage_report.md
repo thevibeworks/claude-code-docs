@@ -44,7 +44,7 @@ This endpoint is part of the legacy Usage and Cost API. For new integrations, us
 
 - `context_window: optional array of BetaAnalyticsContextWindow`
 
-  Restrict usage returned to the specified context window(s).
+  Restrict usage returned to the specified context window(s). See the `context_window` response field for how a request is classified.
 
   - `"0-200k"`
 
@@ -255,6 +255,8 @@ This endpoint is part of the legacy Usage and Cost API. For new integrations, us
 
   - `"webhooks-2026-10-07"`
 
+  - `"admin-user-sign-out-2026-10-08"`
+
   - `"message-threads-2026-08-12"`
 
   - `"analytics-usage-cost-2026-08-24"`
@@ -310,6 +312,8 @@ This endpoint is part of the legacy Usage and Cost API. For new integrations, us
       - `context_window: BetaAnalyticsContextWindow or null`
 
         Context window used. `null` if not grouping by context window.
+
+        A request is classified by comparing its prompt size with its model's own long-context boundary, the same boundary that billing uses. The two values are labels for the two classes, not literal ranges: where a model's boundary is below 200k, a request whose prompt exceeds that boundary is reported under `200k-1M`, and a `0-200k` filter does not return it. Where the report cannot determine a model's boundary, it uses 200k instead. Hourly usage stored before this classification took effect keeps its earlier value until it expires. Billed amounts are not affected.
 
         - `"0-200k"`
 
@@ -920,6 +924,8 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
       - `context_window: BetaAnalyticsContextWindow or null`
 
         Context window used. `null` if not grouping by context window.
+
+        A request is classified by comparing its prompt size with its model's own long-context boundary, the same boundary that billing uses. The two values are labels for the two classes, not literal ranges: where a model's boundary is below 200k, a request whose prompt exceeds that boundary is reported under `200k-1M`, and a `0-200k` filter does not return it. Where the report cannot determine a model's boundary, it uses 200k instead. Hourly usage stored before this classification took effect keeps its earlier value until it expires. Billed amounts are not affected.
 
         - `"0-200k"`
 

@@ -1,6 +1,6 @@
 # Export your Claude data
 
-Data exports are available to individual Claude users on Free, Pro, Max, and Ultra plans. Data exports include your chats, projects, memory, and account data. They don't include the original files you uploaded. Data exports don’t yet include your saved Personal Finance dashboard.
+Data exports are available to individual Claude users on Free, Pro, Max, and Ultra plans. Data exports include conversation data and the user data for your account, along with any voice recordings you've shared with Anthropic. They don't include the original files you uploaded. Data exports don’t yet include your saved Personal Finance dashboard.
 
 If you’re on a Team or Enterprise plan, you can export your own data once an organization Owner or Primary Owner turns this on. Primary Owners export the whole organization’s data instead.
 

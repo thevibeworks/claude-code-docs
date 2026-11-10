@@ -49,6 +49,8 @@ You can start a Remote Control session from the CLI, the [Claude Desktop app](ht
 > claude remote-control
 > ```
 >
+> `claude rc` is an alias for this command.
+>
 > Until you accept Remote Control's one-time confirmation, `claude remote-control` explains what it does and asks `Enable Remote Control? (y/n)` before starting the server. Answer `y` to accept and start the server. If you decline, Claude Code exits without starting the server and asks again the next time you run the command.
 >
 > The process stays running in your terminal in server mode, waiting for remote connections. It displays a URL you can use to [connect from another device](#connect-from-another-device), and you can press spacebar to show a QR code for quick access from your phone. While a remote session is active, the terminal shows connection status and tool activity.
@@ -196,7 +198,7 @@ The VS Code extension and the Desktop app also have an auto-connect toggle:
 * **VS Code extension**: **Enable Remote Control for all sessions** in the [command menu's](https://code.claude.com/docs/en/vs-code.md#use-the-prompt-box) Settings section.
 * **Desktop app**: **Connect new sessions to Remote Control** in **Settings > Code** or **Settings > Claude Code**. See [Control which sessions appear on your other devices](https://code.claude.com/docs/en/desktop.md#control-which-sessions-appear-on-your-other-devices).
 
-To turn auto-connect on from a settings file instead, set [`remoteControlAtStartup`](https://code.claude.com/docs/en/settings-reference#remotecontrolatstartup) to `true` in your user `~/.claude/settings.json` or in [managed settings](https://code.claude.com/docs/en/managed-settings.md). In project or local settings (`.claude/settings.json`, `.claude/settings.local.json`), Claude Code honors a `false` and turns auto-connect off for that repository, but ignores a `true`, so a checked-in file can't turn on Remote Control for everyone who opens the repository.
+To turn auto-connect on from a settings file instead, set [`remoteControlAtStartup`](https://code.claude.com/docs/en/settings-reference#remotecontrolatstartup) to `true` in your user `~/.claude/settings.json` or in [managed settings](https://code.claude.com/docs/en/managed-settings.md). In project or local settings (`.claude/settings.json`, `.claude/settings.local.json`), Claude Code honors a `false` and turns auto-connect off for that repository. It ignores a `true`, so you can't use a checked-in file to turn on Remote Control for everyone who opens the repository.
 
 Auto-connect signs in with your own claude.ai account, so a session it starts appears only in your own account's Claude apps and grants no one else access.
 

@@ -631,6 +631,16 @@ signature is missing or invalid.
 
       - `organization_id: string`
 
+    - `interface BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: "user_profile.program_status_updated"`
+
+      - `id: string`
+
+        ID of the user profile that triggered the event.
+
+      - `organization_id: string`
+
 ## Example
 
 ```typescript

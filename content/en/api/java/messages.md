@@ -3604,6 +3604,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
       Fastest model for high-volume, real-time tasks
@@ -7949,6 +7957,14 @@ public final class Main {
           Create a cache control breakpoint at this content block.
 
   - `JsonValue role = "assistant"`
+
+### Available Tools Limit Exceeded Error Details
+
+- `class AvailableToolsLimitExceededErrorDetails`
+
+  The tools available after a message exceed a limit on their number or their size.
+
+  - `JsonValue errorCode = "available_tools_limit_exceeded"`
 
 ### Base64 Image Source
 
@@ -14902,6 +14918,78 @@ public final class Main {
 
     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
+### Compaction Block Ambiguous Error Details
+
+- `class CompactionBlockAmbiguousErrorDetails`
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+  - `JsonValue errorCode = "compaction_block_ambiguous"`
+
+### Compaction Block Misplaced Error Details
+
+- `class CompactionBlockMisplacedErrorDetails`
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+  - `JsonValue errorCode = "compaction_block_misplaced"`
+
+### Compaction Content Mismatch Error Details
+
+- `class CompactionContentMismatchErrorDetails`
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+  - `JsonValue errorCode = "compaction_content_mismatch"`
+
+### Compaction Incomplete Turn Error Details
+
+- `class CompactionIncompleteTurnErrorDetails`
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+  - `JsonValue errorCode = "compaction_incomplete_turn"`
+
+### Compaction Nothing To Summarize Error Details
+
+- `class CompactionNothingToSummarizeErrorDetails`
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+  - `JsonValue errorCode = "compaction_nothing_to_summarize"`
+
+### Compaction Signature Invalid Error Details
+
+- `class CompactionSignatureInvalidErrorDetails`
+
+  The `compaction` block's `signature` does not verify.
+
+  - `JsonValue errorCode = "compaction_signature_invalid"`
+
+### Compaction Too Many Tool References Error Details
+
+- `class CompactionTooManyToolReferencesErrorDetails`
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+  - `JsonValue errorCode = "compaction_too_many_tool_references"`
+
+### Compaction Tool Changes Mismatch Error Details
+
+- `class CompactionToolChangesMismatchErrorDetails`
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+  - `JsonValue errorCode = "compaction_tool_changes_mismatch"`
+
+### Compaction Unavailable Error Details
+
+- `class CompactionUnavailableErrorDetails`
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
+  - `JsonValue errorCode = "compaction_unavailable"`
+
 ### Computer Cursor Position Config
 
 - `class ComputerCursorPositionConfig`
@@ -20836,6 +20924,14 @@ public final class Main {
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
       Fastest model for high-volume, real-time tasks
@@ -24823,6 +24919,14 @@ public final class Main {
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+    Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+  - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+    Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
   - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
     Fastest model for high-volume, real-time tasks
@@ -26857,6 +26961,14 @@ public final class Main {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+      - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+        Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
       - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
         Fastest model for high-volume, real-time tasks
@@ -27916,6 +28028,14 @@ public final class Main {
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
         - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
@@ -29964,6 +30084,78 @@ public final class Main {
 
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
+### Thread Already Continued Error Details
+
+- `class ThreadAlreadyContinuedErrorDetails`
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+  - `JsonValue errorCode = "thread_already_continued"`
+
+### Thread Continue In Flight Error Details
+
+- `class ThreadContinueInFlightErrorDetails`
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+  - `JsonValue errorCode = "thread_continue_in_flight"`
+
+### Thread Fingerprint Mismatch Error Details
+
+- `class ThreadFingerprintMismatchErrorDetails`
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+  - `JsonValue errorCode = "thread_fingerprint_mismatch"`
+
+### Thread Not Found Error Details
+
+- `class ThreadNotFoundErrorDetails`
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+  - `JsonValue errorCode = "thread_not_found"`
+
+### Thread Unsupported Feature Name
+
+- `enum ThreadUnsupportedFeatureName`
+
+  - `CACHE_CONTROL("cache_control")`
+
+  - `CONTEXT_MANAGEMENT("context_management")`
+
+  - `FALLBACKS("fallbacks")`
+
+  - `HIPAA("hipaa")`
+
+  - `INFERENCE_HOOKS("inference_hooks")`
+
+  - `THINKING("thinking")`
+
+### Thread Unsupported Request Error Details
+
+- `class ThreadUnsupportedRequestErrorDetails`
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+  - `JsonValue errorCode = "thread_unsupported_request"`
+
+  - `Optional<List<ThreadUnsupportedFeatureName>> unsupported`
+
+    Each entry names a request field or an organization setting that Threads do not support. On a value you do not recognize, send the full conversation without `thread`.
+
+    - `CACHE_CONTROL("cache_control")`
+
+    - `CONTEXT_MANAGEMENT("context_management")`
+
+    - `FALLBACKS("fallbacks")`
+
+    - `HIPAA("hipaa")`
+
+    - `INFERENCE_HOOKS("inference_hooks")`
+
+    - `THINKING("thinking")`
+
 ### Tool
 
 - `class Tool`
@@ -30200,6 +30392,14 @@ public final class Main {
 
     Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
+### Tool Name Conflict Error Details
+
+- `class ToolNameConflictErrorDetails`
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+  - `JsonValue errorCode = "tool_name_conflict"`
+
 ### Tool Reference Block
 
 - `class ToolReferenceBlock`
@@ -30242,6 +30442,14 @@ public final class Main {
       - `TTL_5M("5m")`
 
       - `TTL_1H("1h")`
+
+### Tool Reference Unresolved Error Details
+
+- `class ToolReferenceUnresolvedErrorDetails`
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+  - `JsonValue errorCode = "tool_reference_unresolved"`
 
 ### Tool Result Block Param
 
@@ -39015,6 +39223,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+        - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+          Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
         - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
           Fastest model for high-volume, real-time tasks
@@ -42558,6 +42774,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+          - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
           - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
             Fastest model for high-volume, real-time tasks
@@ -42847,55 +43071,91 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonValue type = "invalid_request_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class AuthenticationError`
 
             - `JsonValue type = "authentication_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BillingError`
 
             - `JsonValue type = "billing_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class PermissionError`
 
             - `JsonValue type = "permission_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class NotFoundError`
 
             - `JsonValue type = "not_found_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class RateLimitError`
 
             - `JsonValue type = "rate_limit_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class GatewayTimeoutError`
 
             - `JsonValue type = "timeout_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class ApiErrorObject`
 
             - `JsonValue type = "api_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class OverloadedError`
 
             - `JsonValue type = "overloaded_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
         - `Optional<String> requestId`
 

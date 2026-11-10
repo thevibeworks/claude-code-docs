@@ -131,6 +131,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -2798,6 +2800,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                           - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
                             Fastest model for high-volume, real-time tasks
@@ -3889,55 +3899,91 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonValue type = "invalid_request_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaAuthenticationError`
 
             - `JsonValue type = "authentication_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaBillingError`
 
             - `JsonValue type = "billing_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaPermissionError`
 
             - `JsonValue type = "permission_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaNotFoundError`
 
             - `JsonValue type = "not_found_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaRateLimitError`
 
             - `JsonValue type = "rate_limit_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaGatewayTimeoutError`
 
             - `JsonValue type = "timeout_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaApiError`
 
             - `JsonValue type = "api_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `class BetaOverloadedError`
 
             - `JsonValue type = "overloaded_error"`
 
+              The broad category of the error.
+
             - `String message`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
         - `Optional<String> requestId`
 

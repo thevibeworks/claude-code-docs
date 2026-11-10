@@ -814,11 +814,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "unavailable"`
 
-        - `model: "claude-haiku-5-5" or "claude-sonnet-5-5" or "claude-fable-5-1" or 17 more or string`
+        - `model: "claude-fable-5-2" or "claude-mythos-5-2" or "claude-haiku-5-5" or 19 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+          - `"claude-mythos-5-2"`
+
+            Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
           - `"claude-haiku-5-5"`
 
@@ -1109,55 +1117,91 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "invalid_request_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `authentication_error: object`
 
             - `type: "authentication_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `billing_error: object`
 
             - `type: "billing_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `permission_error: object`
 
             - `type: "permission_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `not_found_error: object`
 
             - `type: "not_found_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `rate_limit_error: object`
 
             - `type: "rate_limit_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `gateway_timeout_error: object`
 
             - `type: "timeout_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `api_error_object: object`
 
             - `type: "api_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           - `overloaded_error: object`
 
             - `type: "overloaded_error"`
 
+              The broad category of the error.
+
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
         - `request_id: string`
 

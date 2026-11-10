@@ -26,7 +26,7 @@ To add custom tools, connect an [MCP server](https://code.claude.com/docs/en/mcp
 | `CronDelete` | Cancels a session-scoped scheduled task by ID | No |
 | `CronList` | Lists all session-scoped scheduled tasks | No |
 | `Edit` | Makes targeted edits to specific files. See [Edit tool behavior](#edit-tool-behavior) | Yes |
-| `EndConversation` | Ends the session, in rare cases of sustained abusive input or when you ask Claude to demonstrate the tool. See [EndConversation tool behavior](#endconversation-tool-behavior) | No |
+| `EndConversation` | Ends the session, in rare cases of sustained abusive input or when you ask Claude to end the session and then confirm. See [EndConversation tool behavior](#endconversation-tool-behavior) | No |
 | `EnterPlanMode` | Switches to plan mode to design an approach before coding | No |
 | `EnterWorktree` | Creates an isolated [git worktree](https://code.claude.com/docs/en/worktrees.md) and switches into it, or switches into an existing worktree. See [EnterWorktree tool behavior](#enterworktree-tool-behavior) | Yes |
 | `ExitPlanMode` | Presents a plan for approval and exits plan mode | Yes |
@@ -274,8 +274,8 @@ Claude can still replace such a file with Write, unless the new content contains
 
 The EndConversation tool ends the current session. Claude uses it only in two situations:
 
-* as a last resort against sustained abusive input, after attempts to redirect the conversation have failed and after a clear warning in an earlier message
-* when you explicitly ask to see the tool demonstrated and confirm that you want the session to end
+* When you keep sending abusive messages after Claude gives a clear warning and fails to redirect the conversation
+* When you explicitly ask Claude to end the session, then confirm when Claude asks whether you still want to proceed
 
 General frustration, profanity, or a task going badly don't qualify, and neither do requests for harmful content, which Claude declines instead of ending the session. Claude Code follows the same approach as claude.ai, which can [end a rare subset of chats](https://www.anthropic.com/research/end-subset-conversations).
 
@@ -417,7 +417,11 @@ The `timeout_ms` deadline applies to a WebSocket watch too: the watch ends at th
 
 Without a `Monitor` allow rule, you're prompted before Claude opens a WebSocket; in [auto mode](https://code.claude.com/docs/en/permission-modes.md#eliminate-prompts-with-auto-mode) the classifier decides instead, unless an [ask rule](#bash-rules-that-deny-or-prompt-for-websocket-watches) applies. The prompt doesn't offer an option to skip future prompts for the same host.
 
-Claude Code denies URLs that point at a private, link-local, or cloud-metadata address, including hostnames that resolve to one. It also denies hosts in `sandbox.network.deniedDomains`, and when [`allowManagedDomainsOnly`](https://code.claude.com/docs/en/settings-reference#sandbox-network-allowmanageddomainsonly) is set in managed settings, any host outside the managed allowlist.
+#### Addresses and hosts denied to WebSocket watches
+
+Claude Code denies URLs that point at a private, link-local, or cloud-metadata address, including hostnames that your machine resolves to one. Behind a [proxy](https://code.claude.com/docs/en/network-config.md#proxy-configuration), a watch can reach a private, link-local, or cloud-metadata address unless the proxy blocks it, because Claude Code doesn't check the address the proxy finds. Claude Code also denies hosts in `sandbox.network.deniedDomains`, and when [`allowManagedDomainsOnly`](https://code.claude.com/docs/en/settings-reference#sandbox-network-allowmanageddomainsonly) is set in managed settings, any host outside the managed allowlist.
+
+If a watch behind a proxy fails with `could not resolve <host>`, restart Claude Code v2.1.319 or later with [`CLAUDE_CODE_PROXY_RESOLVES_HOSTS`](https://code.claude.com/docs/en/env-vars#variables) set to `1` so the proxy looks up the hostname.
 
 #### Bash rules that deny or prompt for WebSocket watches
 

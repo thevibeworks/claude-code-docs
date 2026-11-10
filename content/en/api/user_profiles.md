@@ -2516,6 +2516,14 @@ curl https://api.anthropic.com/v1/user_profiles/$USER_PROFILE_ID \
 
     Sort by `name`, ignoring the case of ASCII letters. Profiles without a name come last in either direction.
 
+### User Profile Not Found Error Details
+
+- `UserProfileNotFoundErrorDetails object`
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+  - `error_code: "user_profile_not_found"`
+
 ### User Profile Program Status
 
 - `UserProfileProgramStatus = "active" or "pending" or "rejected"`

@@ -131,6 +131,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -355,6 +357,8 @@ Fetches a tunnel certificate by ID.
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -585,6 +589,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -804,6 +810,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 

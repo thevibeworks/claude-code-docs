@@ -125,6 +125,8 @@ Create a new environment with the specified configuration.
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -588,6 +590,8 @@ List environments with pagination support.
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -927,6 +931,8 @@ Retrieve a specific environment by ID.
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1260,6 +1266,8 @@ Update an existing environment's configuration.
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -1709,6 +1717,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -1886,6 +1896,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -2385,6 +2397,22 @@ public final class Main {
 
     - `ACCOUNT("account")`
 
+### Beta Environment Archived Error Details
+
+- `class BetaEnvironmentArchivedErrorDetails`
+
+  The environment is archived, so it cannot be updated.
+
+  - `JsonValue errorCode = "environment_archived"`
+
+### Beta Environment Create Disabled Error Details
+
+- `class BetaEnvironmentCreateDisabledErrorDetails`
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
+  - `JsonValue errorCode = "environment_create_disabled"`
+
 ### Beta Environment Delete Response
 
 - `class BetaEnvironmentDeleteResponse`
@@ -2398,6 +2426,38 @@ public final class Main {
   - `String id`
 
     Environment identifier
+
+### Beta Environment Not Found Error Details
+
+- `class BetaEnvironmentNotFoundErrorDetails`
+
+  `settings.environment_id` names no Environment within the organization's reach.
+
+  - `JsonValue errorCode = "environment_not_found"`
+
+### Beta Environment Update Disabled Error Details
+
+- `class BetaEnvironmentUpdateDisabledErrorDetails`
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
+
+  - `JsonValue errorCode = "environment_update_disabled"`
+
+### Beta Invalid Config Type Change Error Details
+
+- `class BetaInvalidConfigTypeChangeErrorDetails`
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+  - `JsonValue errorCode = "invalid_config_type_change"`
+
+### Beta Invalid Metadata Error Details
+
+- `class BetaInvalidMetadataErrorDetails`
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+  - `JsonValue errorCode = "invalid_metadata"`
 
 ### Beta Limited Network
 
@@ -2675,6 +2735,8 @@ Retrieve detailed information about a specific work item.
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -2954,6 +3016,8 @@ Long poll for work items in the queue.
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -3217,6 +3281,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -3377,7 +3443,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `Optional<String> expectedLastHeartbeat` (query parameter)
 
-    Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
+    Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match. The server does not compare the value when the work item is 'stopping' or 'stopped'.
 
   - `Optional<List<AnthropicBeta>> betas` (header parameter)
 
@@ -3486,6 +3552,8 @@ Record a heartbeat for a work item to maintain the lease.
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -3691,6 +3759,8 @@ Stop a work item, initiating graceful or forced shutdown.
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -3974,6 +4044,8 @@ List work items in an environment.
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
 
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
+
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
@@ -4236,6 +4308,8 @@ Update work item metadata with merge semantics.
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 
@@ -4509,6 +4583,8 @@ Get statistics about the work queue for an environment.
     - `TELEMETRY_DESTINATIONS_2026_08_11("telemetry-destinations-2026-08-11")`
 
     - `WEBHOOKS_2026_10_07("webhooks-2026-10-07")`
+
+    - `ADMIN_USER_SIGN_OUT_2026_10_08("admin-user-sign-out-2026-10-08")`
 
     - `MESSAGE_THREADS_2026_08_12("message-threads-2026-08-12")`
 

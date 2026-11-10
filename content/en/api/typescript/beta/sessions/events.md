@@ -255,6 +255,8 @@ List Events
 
     - `"webhooks-2026-10-07"`
 
+    - `"admin-user-sign-out-2026-10-08"`
+
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
@@ -2053,6 +2055,10 @@ List Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `"claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
           - `"claude-haiku-5-5"`
 
             Fastest model for high-volume, real-time tasks
@@ -3784,6 +3790,8 @@ Send Events
 
     - `"webhooks-2026-10-07"`
 
+    - `"admin-user-sign-out-2026-10-08"`
+
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
@@ -4414,6 +4422,8 @@ Stream Events
     - `"telemetry-destinations-2026-08-11"`
 
     - `"webhooks-2026-10-07"`
+
+    - `"admin-user-sign-out-2026-10-08"`
 
     - `"message-threads-2026-08-12"`
 
@@ -6212,6 +6222,10 @@ Stream Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `"claude-haiku-5-5"`
 
@@ -12682,6 +12696,10 @@ for await (const betaManagedAgentsStreamSessionEvents of stream) {
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `"claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
           - `"claude-haiku-5-5"`
 
             Fastest model for high-volume, real-time tasks
@@ -16457,6 +16475,10 @@ for await (const betaManagedAgentsStreamSessionEvents of stream) {
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-2"`
+
+            Built for the most ambitious work in coding, enterprise workflows, and the sciences
 
           - `"claude-haiku-5-5"`
 

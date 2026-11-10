@@ -3018,6 +3018,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                              - `"claude-fable-5-2"`
+
+                                Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                              - `"claude-mythos-5-2"`
+
+                                Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                               - `"claude-haiku-5-5"`
 
                                 Fastest model for high-volume, real-time tasks
@@ -3368,14 +3376,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Accepted in `messages[].content` and not rendered into the prompt; not
                 validated against the request's `fallbacks` chain or top-level `model`.
 
-                Echo the assistant turn back verbatim, including this block in its
+                When you send the assistant turn back, keep this block in its
                 original position. The block marks the boundary between content produced
                 before and after a fallback hop, and the server relies on that boundary
                 to validate the turn: when thinking runs flank the boundary, omitting
                 the block merges them into one span the server cannot validate (the
                 request is rejected), and moving it into the middle of a single run is
                 likewise rejected; between non-thinking blocks the block's placement has
-                no validation effect.
+                no effect on thinking validation.
+
+                Some blocks from before the turn's final `fallback` block must be left
+                out when you send the turn back, and no `tool_result` is sent for a
+                `tool_use` block you left out.
+
+                See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#continuing-the-conversation) to learn which blocks to keep.
 
                 - `type: "fallback"`
 
@@ -4307,6 +4321,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"webhooks-2026-10-07"`
 
+    - `"admin-user-sign-out-2026-10-08"`
+
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
@@ -4609,6 +4625,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"webhooks-2026-10-07"`
 
+    - `"admin-user-sign-out-2026-10-08"`
+
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
@@ -4908,6 +4926,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"webhooks-2026-10-07"`
 
+    - `"admin-user-sign-out-2026-10-08"`
+
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
@@ -5205,6 +5225,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"webhooks-2026-10-07"`
 
+    - `"admin-user-sign-out-2026-10-08"`
+
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
@@ -5494,6 +5516,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"webhooks-2026-10-07"`
 
+    - `"admin-user-sign-out-2026-10-08"`
+
     - `"message-threads-2026-08-12"`
 
     - `"analytics-usage-cost-2026-08-24"`
@@ -5674,6 +5698,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `"telemetry-destinations-2026-08-11"`
 
     - `"webhooks-2026-10-07"`
+
+    - `"admin-user-sign-out-2026-10-08"`
 
     - `"message-threads-2026-08-12"`
 
@@ -8450,6 +8476,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `"claude-fable-5-2"`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `"claude-mythos-5-2"`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                           - `"claude-haiku-5-5"`
 
                             Fastest model for high-volume, real-time tasks
@@ -9591,9 +9625,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "invalid_request_error"`
 
+              The broad category of the error.
+
               default: invalid_request_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Invalid request
 
@@ -9601,9 +9639,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "authentication_error"`
 
+              The broad category of the error.
+
               default: authentication_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Authentication error
 
@@ -9611,9 +9653,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "billing_error"`
 
+              The broad category of the error.
+
               default: billing_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Billing error
 
@@ -9621,9 +9667,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "permission_error"`
 
+              The broad category of the error.
+
               default: permission_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Permission denied
 
@@ -9631,9 +9681,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "not_found_error"`
 
+              The broad category of the error.
+
               default: not_found_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Not found
 
@@ -9641,9 +9695,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "rate_limit_error"`
 
+              The broad category of the error.
+
               default: rate_limit_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Rate limited
 
@@ -9651,9 +9709,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "timeout_error"`
 
+              The broad category of the error.
+
               default: timeout_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Request timeout
 
@@ -9661,9 +9723,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "api_error"`
 
+              The broad category of the error.
+
               default: api_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Internal server error
 
@@ -9671,9 +9737,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "overloaded_error"`
 
+              The broad category of the error.
+
               default: overloaded_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Overloaded
 
@@ -9862,9 +9932,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "invalid_request_error"`
 
+          The broad category of the error.
+
           default: invalid_request_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Invalid request
 
@@ -9872,9 +9946,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "authentication_error"`
 
+          The broad category of the error.
+
           default: authentication_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Authentication error
 
@@ -9882,9 +9960,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "billing_error"`
 
+          The broad category of the error.
+
           default: billing_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Billing error
 
@@ -9892,9 +9974,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "permission_error"`
 
+          The broad category of the error.
+
           default: permission_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Permission denied
 
@@ -9902,9 +9988,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "not_found_error"`
 
+          The broad category of the error.
+
           default: not_found_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Not found
 
@@ -9912,9 +10002,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "rate_limit_error"`
 
+          The broad category of the error.
+
           default: rate_limit_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Rate limited
 
@@ -9922,9 +10016,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "timeout_error"`
 
+          The broad category of the error.
+
           default: timeout_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Request timeout
 
@@ -9932,9 +10030,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "api_error"`
 
+          The broad category of the error.
+
           default: api_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Internal server error
 
@@ -9942,9 +10044,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
         - `type: "overloaded_error"`
 
+          The broad category of the error.
+
           default: overloaded_error
 
         - `message: string`
+
+          A human-readable explanation of the error. Its wording can change, so don't match on it.
 
           default: Overloaded
 
@@ -12721,6 +12827,14 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
                           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                          - `"claude-fable-5-2"`
+
+                            Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                          - `"claude-mythos-5-2"`
+
+                            Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                           - `"claude-haiku-5-5"`
 
                             Fastest model for high-volume, real-time tasks
@@ -13862,9 +13976,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "invalid_request_error"`
 
+              The broad category of the error.
+
               default: invalid_request_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Invalid request
 
@@ -13872,9 +13990,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "authentication_error"`
 
+              The broad category of the error.
+
               default: authentication_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Authentication error
 
@@ -13882,9 +14004,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "billing_error"`
 
+              The broad category of the error.
+
               default: billing_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Billing error
 
@@ -13892,9 +14018,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "permission_error"`
 
+              The broad category of the error.
+
               default: permission_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Permission denied
 
@@ -13902,9 +14032,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "not_found_error"`
 
+              The broad category of the error.
+
               default: not_found_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Not found
 
@@ -13912,9 +14046,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "rate_limit_error"`
 
+              The broad category of the error.
+
               default: rate_limit_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Rate limited
 
@@ -13922,9 +14060,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "timeout_error"`
 
+              The broad category of the error.
+
               default: timeout_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Request timeout
 
@@ -13932,9 +14074,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "api_error"`
 
+              The broad category of the error.
+
               default: api_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Internal server error
 
@@ -13942,9 +14088,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
             - `type: "overloaded_error"`
 
+              The broad category of the error.
+
               default: overloaded_error
 
             - `message: string`
+
+              A human-readable explanation of the error. Its wording can change, so don't match on it.
 
               default: Overloaded
 
@@ -16757,6 +16907,14 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
                         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                        - `"claude-fable-5-2"`
+
+                          Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                        - `"claude-mythos-5-2"`
+
+                          Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
                         - `"claude-haiku-5-5"`
 
                           Fastest model for high-volume, real-time tasks
@@ -17898,9 +18056,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "invalid_request_error"`
 
+            The broad category of the error.
+
             default: invalid_request_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Invalid request
 
@@ -17908,9 +18070,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "authentication_error"`
 
+            The broad category of the error.
+
             default: authentication_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Authentication error
 
@@ -17918,9 +18084,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "billing_error"`
 
+            The broad category of the error.
+
             default: billing_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Billing error
 
@@ -17928,9 +18098,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "permission_error"`
 
+            The broad category of the error.
+
             default: permission_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Permission denied
 
@@ -17938,9 +18112,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "not_found_error"`
 
+            The broad category of the error.
+
             default: not_found_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Not found
 
@@ -17948,9 +18126,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "rate_limit_error"`
 
+            The broad category of the error.
+
             default: rate_limit_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Rate limited
 
@@ -17958,9 +18140,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "timeout_error"`
 
+            The broad category of the error.
+
             default: timeout_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Request timeout
 
@@ -17968,9 +18154,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "api_error"`
 
+            The broad category of the error.
+
             default: api_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Internal server error
 
@@ -17978,9 +18168,13 @@ for await (const betaMessageBatchIndividualResponse of stream) {
 
           - `type: "overloaded_error"`
 
+            The broad category of the error.
+
             default: overloaded_error
 
           - `message: string`
+
+            A human-readable explanation of the error. Its wording can change, so don't match on it.
 
             default: Overloaded
 
@@ -20744,6 +20938,14 @@ for await (const betaMessageBatchIndividualResponse of stream) {
                       The model that will complete your prompt.
 
                       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                      - `"claude-fable-5-2"`
+
+                        Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+                      - `"claude-mythos-5-2"`
+
+                        Built for the most demanding cybersecurity and life sciences research, available through verification programs
 
                       - `"claude-haiku-5-5"`
 

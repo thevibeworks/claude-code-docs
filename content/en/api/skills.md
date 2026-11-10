@@ -563,6 +563,14 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID \
 
     format: date-time
 
+### Skill Read Blocked Undecryptable Error Details
+
+- `SkillReadBlockedUndecryptableErrorDetails object`
+
+  A custom skill the request names is stored under an encryption key state the workspace cannot currently decrypt.
+
+  - `error_code: "skill_read_blocked_undecryptable"`
+
 ### Skill Source
 
 - `SkillSource object`

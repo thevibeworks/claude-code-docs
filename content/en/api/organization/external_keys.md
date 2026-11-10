@@ -87,7 +87,7 @@ Create an external key config owned by the caller's organization.
 
 - `user_profile_id: optional string or null`
 
-  ID of a user profile to bind the key to. Omit this field for a key that isn't bound to a user profile. Such a key can be attached to a Workspace whatever its user profile. The binding cannot be changed later. A key bound to a user profile can only be attached to a Workspace that has the same user profile.
+  ID of a user profile to bind the key to. A user profile represents one of your customers: bind a customer's key to that customer's user profile. A key bound to a user profile can only be attached to a Workspace that has the same user profile, and the binding cannot be changed later. Omit this field only for your organization's own key, because a key created without a user profile ID can be attached to any Workspace, including another customer's.
 
 ### Returns
 
@@ -1093,6 +1093,22 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
 
     default: attached
 
+### External Key Changed Error Details
+
+- `ExternalKeyChangedErrorDetails object`
+
+  The external key changed while the request was validating it. Send the request again.
+
+  - `error_code: "external_key_changed"`
+
+### External Key In Workspace Policy Error Details
+
+- `ExternalKeyInWorkspacePolicyErrorDetails object`
+
+  The External Key can't be deleted or reconfigured while the organization's Workspace Policy lists it as an allowed key.
+
+  - `error_code: "external_key_in_workspace_policy"`
+
 ### External Key Unattached Attachment
 
 - `ExternalKeyUnattachedAttachment object`
@@ -1100,6 +1116,22 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
   - `type: "unattached"`
 
     default: unattached
+
+### External Key Validation Failed Error Details
+
+- `ExternalKeyValidationFailedErrorDetails object`
+
+  The External Key failed Anthropic's validation, so the request was refused. The message gives the reason, if there is one.
+
+  - `error_code: "external_key_validation_failed"`
+
+### External Key Validation Timed Out Error Details
+
+- `ExternalKeyValidationTimedOutErrorDetails object`
+
+  Anthropic's validation of the External Key did not finish in time, so the request was refused. Wait a moment, then send the request again.
+
+  - `error_code: "external_key_validation_timed_out"`
 
 ### GCP External Key Config
 

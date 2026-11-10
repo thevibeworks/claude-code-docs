@@ -631,6 +631,16 @@ signature is missing or invalid.
 
       - `String organizationId`
 
+    - `class BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `JsonValue type = "user_profile.program_status_updated"`
+
+      - `String id`
+
+        ID of the user profile that triggered the event.
+
+      - `String organizationId`
+
 ## Example
 
 ```java

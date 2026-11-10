@@ -3602,6 +3602,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `CLAUDE_FABLE_5_2("claude-fable-5-2")`
+
+      Built for the most ambitious work in coding, enterprise workflows, and the sciences
+
+    - `CLAUDE_MYTHOS_5_2("claude-mythos-5-2")`
+
+      Built for the most demanding cybersecurity and life sciences research, available through verification programs
+
     - `CLAUDE_HAIKU_5_5("claude-haiku-5-5")`
 
       Fastest model for high-volume, real-time tasks

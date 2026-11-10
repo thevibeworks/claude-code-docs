@@ -509,6 +509,38 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 
 ## Domain types
 
+### Already Member Error Details
+
+- `AlreadyMemberErrorDetails object`
+
+  The email address already belongs to a user in the organization. The message names the user.
+
+  - `error_code: "already_member"`
+
+### Cannot Invite Emails With Unverified Domains Error Details
+
+- `CannotInviteEmailsWithUnverifiedDomainsErrorDetails object`
+
+  The email address's domain is not one of the verified domains of the organization's parent organization.
+
+  - `error_code: "cannot_invite_emails_with_unverified_domains"`
+
+### Email Domain Not Allowed Error Details
+
+- `EmailDomainNotAllowedErrorDetails object`
+
+  The organization restricts invites to an allowed list of email domains, and the list is empty or does not include the email address's domain.
+
+  - `error_code: "email_domain_not_allowed"`
+
+### Invite Already Exists Error Details
+
+- `InviteAlreadyExistsErrorDetails object`
+
+  A pending invite already exists for the email address. The message names the invite.
+
+  - `error_code: "invite_already_exists"`
+
 ### Organization Invite
 
 - `OrganizationInvite object`

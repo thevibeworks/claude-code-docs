@@ -64,6 +64,8 @@ To change your speech input language:
 
 ## Data privacy
 
-After converting your speech input to text, we will delete your audio recording. We will not retain a copy of your speech input or use it for training our generative models.
+By default, after converting your speech input to text, we delete your audio recording. Your prompt is saved as text in your chat history.
+
+On Free, Pro, Max, and Ultra plans, you can choose to share your dictation recordings to help us improve dictation and voice mode. Learn more in **[Share your voice recordings with Anthropic](https://support.claude.com/en/articles/17644704)**.
 
 Learn more about our privacy practices by visiting our **[Privacy Policy](https://www.anthropic.com/legal/privacy)** and **[Privacy Center](https://privacy.anthropic.com/en/)**.

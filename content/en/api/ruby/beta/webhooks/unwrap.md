@@ -629,6 +629,16 @@ signature is missing or invalid.
 
       - `organization_id: String`
 
+    - `class BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: :"user_profile.program_status_updated"`
+
+      - `id: String`
+
+        ID of the user profile that triggered the event.
+
+      - `organization_id: String`
+
 ## Example
 
 ```ruby

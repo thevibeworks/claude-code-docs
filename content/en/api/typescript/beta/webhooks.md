@@ -633,6 +633,16 @@ signature is missing or invalid.
 
       - `organization_id: string`
 
+    - `interface BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: "user_profile.program_status_updated"`
+
+      - `id: string`
+
+        ID of the user profile that triggered the event.
+
+      - `organization_id: string`
+
 ### Example
 
 ```typescript
@@ -1262,6 +1272,16 @@ you have already verified the signature yourself.
       - `enforcement_action_id: string`
 
         ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+      - `organization_id: string`
+
+    - `interface BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: "user_profile.program_status_updated"`
+
+      - `id: string`
+
+        ID of the user profile that triggered the event.
 
       - `organization_id: string`
 
@@ -2124,9 +2144,19 @@ console.log(event);
 
       - `organization_id: string`
 
+    - `interface BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+      - `type: "user_profile.program_status_updated"`
+
+      - `id: string`
+
+        ID of the user profile that triggered the event.
+
+      - `organization_id: string`
+
 ### Beta Webhook Event Data
 
-- `type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 43 more`
+- `type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 44 more`
 
   - `interface BetaWebhookSessionCreatedEventData`
 
@@ -2712,6 +2742,16 @@ console.log(event);
 
     - `organization_id: string`
 
+  - `interface BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+    - `type: "user_profile.program_status_updated"`
+
+    - `id: string`
+
+      ID of the user profile that triggered the event.
+
+    - `organization_id: string`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `interface BetaWebhookMemoryStoreArchivedEventData`
@@ -3033,6 +3073,18 @@ console.log(event);
   - `enforcement_action_id: string`
 
     ID (`enac_...`) of the enforcement action that was opened or resolved.
+
+  - `organization_id: string`
+
+### Beta Webhook User Profile Program Status Updated Event Data
+
+- `interface BetaWebhookUserProfileProgramStatusUpdatedEventData`
+
+  - `type: "user_profile.program_status_updated"`
+
+  - `id: string`
+
+    ID of the user profile that triggered the event.
 
   - `organization_id: string`
 

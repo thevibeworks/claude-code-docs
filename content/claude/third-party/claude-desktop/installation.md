@@ -45,12 +45,15 @@ For fleet deployments, run the check on one device of each hardware model in you
 
 ## Install the app
 
-Download the installer for your platform from [claude.com/download](https://claude.com/download).
+Download the installer for your platform:
 
-| Platform | Installer | Notes |
-| - | - | - |
-| macOS | `.dmg` | Drag **Claude.app** to Applications |
-| Windows | `.msix` | Supports per-machine provisioning for enterprise deployment |
+| Platform | Installer | Download | Notes |
+| - | - | - | - |
+| macOS | `.dmg` | [claude.com/download](https://claude.com/download) | Drag **Claude.app** to Applications |
+| Windows (x64) | `.msix` | [Claude MSIX (x64)](https://claude.ai/api/desktop/win32/x64/msix/latest/redirect) | Supports per-machine provisioning for enterprise deployment |
+| Windows (Arm) | `.msix` | [Claude MSIX (arm64)](https://claude.ai/api/desktop/win32/arm64/msix/latest/redirect) | Supports per-machine provisioning for enterprise deployment |
+
+On claude.com/download, the Windows download of Claude Desktop is Claude Setup (`Claude Setup.exe`), an interactive installer for a single device. On Windows devices that you manage, deploy the `.msix` package or the [offline installer](#offline-installation), and tell users not to run Claude Setup. Without an administrator's approval, Claude Setup can offer the legacy `.exe` install, which doesn't include Cowork.
 
 For fleet rollouts, distribute the installer through your standard software-distribution mechanism. On the MDM and bootstrap paths, distribute it after the configuration reaches devices; [Choose a configuration delivery model](#choose-a-configuration-delivery-model) covers how the configuration gets there.
 
@@ -101,7 +104,7 @@ On the MDM and bootstrap paths, deploy the configuration before the app so users
 
 For evaluating before a fleet rollout, for pilots, or for organizations that don't use MDM, a single machine can be configured directly in the app.
 
-1. Install Claude Desktop from [claude.com/download](https://claude.com/download).
+1. Install Claude Desktop from [claude.com/download](https://claude.com/download). Don't install it on a device where your organization has already deployed Claude Desktop. On Windows, approve the administrator prompt, or have an administrator approve it. Without that approval, the install doesn't include Cowork.
 2. Launch the app. **Do not sign in or create an Anthropic account.** From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md).
 3. Enter the provider, endpoint, and credential values supplied by your administrator.
 4. Click **Apply Changes**, then click **Save & Restart**. The app relaunches and the sign-in screen now offers the option to start in Claude Desktop on 3P using the configuration you entered.
@@ -244,10 +247,25 @@ Get-AppxPackage -AllUsers -Name Claude
 Get-AppxProvisionedPackage -Online | Where-Object DisplayName -eq 'Claude'
 ```
 
-* **One installed package, provisioned, an older `Version` than your offline package**: remove nothing. Have each signed-in user select **☰ > File > Exit** in Claude Desktop. Then run `Add-AppxProvisionedPackage -Online -PackagePath <path to offline .msix> -SkipLicense`. Users get the new version after they next sign in to Windows.
+* **One installed package, provisioned, an older `Version` than your offline package**: remove nothing. Have each signed-in user select **☰ > File > Exit** in Claude Desktop. [Back up each user's data](#back-up-user-data-before-a-package-change). Then run `Add-AppxProvisionedPackage -Online -PackagePath <path to offline .msix> -SkipLicense`. Users get the new version after they next sign in to Windows.
 * **One installed package, the same `Version`**: follow [Replace a package when the versions match](#replace-a-package-when-the-versions-match). `Add-AppxProvisionedPackage` alone fails with error `0x80073CFB` ("The provided package is already installed") and removes the standard package's provisioning. If the package is provisioned, Anthropic's [`Install-Claude.ps1`](https://downloads.claude.ai/releases/enterprise/intune/Claude-Intune-README.md) prints "Nothing to do.", exits with code 0, and leaves the standard package in place.
 * **More than one installed package**: have each user sign out of Windows, sign in, start Claude Desktop, and select **☰ > File > Exit**. Then list again.
 * **Anything else, or still more than one**: remove nothing and contact your Anthropic representative.
+
+#### Back up user data before a package change
+
+As a precaution before you change the package, back up these folders, where they exist, for every user of the device. They can hold the user's [conversations and settings](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives). Before you copy, run `Get-Process -Name claude -ErrorAction SilentlyContinue` in an elevated Windows PowerShell session, and go on only when it lists nothing.
+
+* `C:\Users\<user>\AppData\Local\Claude-3p`
+* `C:\Users\<user>\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache`
+
+For the backup:
+
+* **Tool**: use a copy tool that supports paths longer than 260 characters, and check that it copied every file
+* **Size**: each folder can be 10 GB or more
+* **Profiles you can't reach**: a profile in a container that isn't attached, for example, isn't in the backup
+* **Protection**: the backup holds full conversations and sign-ins. Encrypt it, restrict access to it, and delete it when you no longer need it.
+* **Restore**: contact your Anthropic representative
 
 #### Replace a package when the versions match
 
@@ -255,12 +273,22 @@ Copy the offline `.msix` to each device. Complete these steps on one device firs
 
 > [!WARNING]
 >
-> Once you remove the standard package, no user has Claude Desktop until you provision the offline package. In that time, Windows can delete each user's `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc` folder, for example when the user signs in. Make sure nobody signs in to Windows, signs out, or restarts the device until provisioning succeeds.
->
-> * **Windows 11**: Windows leaves the [conversations and settings](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) of Claude Desktop on 3P in `%LOCALAPPDATA%\Claude-3p`. The `Claude_pzs8sxrjxfjjc` folder can hold data from Claude Desktop used outside 3P.
-> * **Before Windows 11 (builds below 22000)**: the `Claude_pzs8sxrjxfjjc` folder can also hold the 3P conversations and settings. Contact your Anthropic representative before you start.
+> Once you remove the standard package, no user has Claude Desktop until you provision the offline package. In that time, Windows can delete each user's `C:\Users\<user>\AppData\Local\Packages\Claude_pzs8sxrjxfjjc` folder, for example when the user signs in. Make sure nobody signs in to Windows, signs out, or restarts the device until provisioning succeeds.
 
-**1. Quit Claude Desktop**
+**1. Check where each user's data is**
+
+Do this on each device, before you remove its package. From the system account or an elevated session, look in every user's profile, including users who aren't signed in, for these folders:
+
+* `C:\Users\<user>\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\Claude-3p`
+* `C:\Users\<user>\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Roaming\Claude-3p`
+
+Find the first case that fits the device:
+
+* **At least one user has one of these folders, or the device's Windows build is below 22000 (for example, Windows 10)**: don't remove the package, and contact your Anthropic representative. The `Claude_pzs8sxrjxfjjc` folder can hold [conversations and settings](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) of Claude Desktop on 3P.
+* **You can't look in a user's profile, for example because the user's profile container isn't attached or access is denied**: don't remove the package, and contact your Anthropic representative.
+* **Any other device**: go on to the next step. The conversations and settings of Claude Desktop on 3P stay in `C:\Users\<user>\AppData\Local\Claude-3p`, outside the folder that Windows can delete. The `Claude_pzs8sxrjxfjjc` folder can hold data from Claude Desktop used outside 3P. The [backup](#back-up-user-data-before-a-package-change) in a later step covers its `LocalCache` folder.
+
+**2. Quit Claude Desktop**
 
 Have each signed-in user select **☰ > File > Exit**. The removal doesn't close an open app, and the provisioning then fails.
 
@@ -272,7 +300,13 @@ Get-Process -Name claude -ErrorAction SilentlyContinue
 
 Go on only when it lists nothing.
 
-**2. Remove the standard package**
+**3. Back up each user's data**
+
+Follow [Back up user data before a package change](#back-up-user-data-before-a-package-change).
+
+**4. Remove the standard package**
+
+Run `Get-Process -Name claude -ErrorAction SilentlyContinue` again, and go on only when it lists nothing.
 
 From the system account, run [`Uninstall-Claude.ps1`](https://downloads.claude.ai/releases/enterprise/intune/Claude-Intune-README.md). Otherwise, run these commands with the `PackageFullName` that `Get-AppxPackage` listed:
 
@@ -283,7 +317,7 @@ Remove-AppxPackage -Package <PackageFullName> -AllUsers
 
 Run `Get-AppxPackage -AllUsers -Name Claude` again. If it still lists a package, don't provision, don't have users sign out, and contact your Anthropic representative.
 
-**3. Provision the offline package**
+**5. Provision the offline package**
 
 Right after the removal, run `Install-Claude.ps1 -MsixPath <path to offline .msix>` from the system account, or this command from an elevated session:
 
@@ -293,7 +327,7 @@ Add-AppxProvisionedPackage -Online -PackagePath <path to offline .msix> -SkipLic
 
 If the command fails with error `0x80070005` ("Access is denied"), or the script prints "ERROR: Access is denied." and exits with code 1, have each signed-in user select **☰ > File > Exit**. Then run it again right away. If it fails again or with another error, don't restart or have users sign out, and contact your Anthropic representative.
 
-**4. Check the result**
+**6. Check the result**
 
 Users get the app after they next sign in to Windows. Have a user without administrator rights who has used Claude Desktop sign in and confirm that a conversation and a Cowork task start and that earlier conversations are listed. If they don't, contact your Anthropic representative.
 

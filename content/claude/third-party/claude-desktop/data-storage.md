@@ -26,7 +26,11 @@ Claude Desktop on 3P keeps its application data and logs in directories of its o
 
 > [!NOTE]
 >
-> On Windows, earlier Claude Desktop releases stored this data under `%APPDATA%\Claude-3p\` (the Roaming profile). On first launch after upgrading, the app moves the existing directory to `%LOCALAPPDATA%` automatically; if Roaming is redirected to a network share, conversation history and configuration are copied and large regenerable caches are re-downloaded. Update any external tooling, backup jobs, or endpoint policies that reference the old path. macOS paths are unchanged.
+> With the MSIX installer on Windows versions before Windows 11 (build 22000), for example on Windows 10, this directory can be at `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Local\Claude-3p\`, so check there too. On a device that used Claude Desktop on Windows 10 before it was upgraded in place to Windows 11, data from before the upgrade can still be at that `Packages` path.
+>
+> On Windows, Claude Desktop versions earlier than 1.5186.0 stored this data under `%APPDATA%\Claude-3p\` (the Roaming profile). On first launch after an update from one of those versions, the app moves the existing directory to `%LOCALAPPDATA%` automatically, unless `%LOCALAPPDATA%\Claude-3p\` already exists. If Roaming is redirected to a network share, conversation history and configuration are copied and large regenerable caches are re-downloaded. Update any external tooling, backup jobs, or endpoint policies that reference `%APPDATA%\Claude-3p\`. With the MSIX installer, data from those versions can still be at `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\LocalCache\Roaming\Claude-3p\`. macOS paths are unchanged.
+>
+> An uninstall or a reset of the MSIX package can delete the data at a `Packages` path.
 
 Within the application-data directory:
 
@@ -312,6 +316,11 @@ After a copy, ask the user to:
 
 ### Requirements for the new device
 
+On Windows with the MSIX installer, contact your Anthropic representative before you copy the data to the new device if at least one of these is true:
+
+* The Windows build of one or both devices is below 22000 (for example, Windows 10)
+* On the old device, the user's `C:\Users\<user>\AppData\Local\Packages\Claude_pzs8sxrjxfjjc\LocalCache` folder has a `Local\Claude-3p` or `Roaming\Claude-3p` folder
+
 For a copy, the new device needs:
 
 * The same platform (macOS, Windows, or Linux) and CPU architecture as the old device
@@ -323,6 +332,8 @@ For a copy, the new device needs:
 * The same Claude Desktop version, or a newer one
 
 ### Copy the data to the new device
+
+Before you start, check that both devices meet the [requirements](#requirements-for-the-new-device).
 
 > [!WARNING]
 >

@@ -6,13 +6,13 @@ The following brokers, financial intermediaries, and selling agents are expected
 
 **Australia:** Bell Potter, CommSec, LGT Wealth, Macquarie, Morgans, Morgan Stanley Wealth Management, Sharesies, Stake.
 
-**Canada:** BMO Capital Markets, CIBC Capital Markets, Morgan Stanley, RBC Capital Markets, Scotiabank, TD Securities, Wealthsimple.
+**Canada:** BMO Capital Markets, CIBC Capital Markets, RBC Capital Markets, Scotiabank, TD Securities, Wealthsimple.
 
-**EEA and/or Switzerland:** BNP Paribas, Crédit Agricole CIB (and affiliates), Deutsche Bank, eToro, flatexDEGIRO, Interactive Brokers, Nordnet Bank AB, Revolut, Saxo Bank, Trade Republic, UBS Investment Bank.
+**EEA and/or Switzerland:** BNP Paribas, Crédit Agricole CIB (and affiliates), Deutsche Bank, eToro, flatexDEGIRO, ING, Interactive Brokers, Nordnet Bank AB, Revolut, Saxo Bank, Scalable Capital, Trade Republic, UBS Investment Bank.
 
 **Japan:** Mitsubishi UFJ Morgan Stanley (and affiliates), Mizuho, Rakuten, SBI.
 
-**UK:** AJ Bell, eToro, Hargreaves Lansdown, Interactive Brokers, Interactive Investor, Revolut. RetailBook is acting as the Public Offer Platform (POP) operator and is coordinating the retail offer for the UK.
+**UK:** AJ Bell, eToro, Hargreaves Lansdown, Interactive Brokers, Interactive Investor, Revolut, Robinhood. RetailBook is acting as the Public Offer Platform (POP) operator and is coordinating the retail offer for the UK.
 
 ### Disclaimers
 
