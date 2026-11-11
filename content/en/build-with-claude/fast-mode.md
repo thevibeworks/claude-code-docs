@@ -14,14 +14,16 @@ featureMetadata:
     - claude-opus-5
     - claude-opus-4-8
   supportedPlatforms:
-    Claude API: stable
+    Claude API:
+      availability: stable
+      note: 'Removal date: November 30, 2026. After removal, requests to `claude-opus-4-8` with `speed: "fast"` will return an error. To continue using fast mode, migrate to Claude Opus 5.5. See [Migrating to Claude Opus 5.5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-4-8).'
     Claude Models on Google Cloud (Anthropic managed): stable
     Claude Models on Google Cloud (Google managed): stable
     Microsoft Foundry:
       availability: stable
-      note: On Microsoft Foundry, fast mode is a separate model whose ID ends in `-fast`. Send requests to a deployment of that model, and leave out `speed`.
+      note: On Microsoft Foundry, fast mode has its own model IDs, which end in `-fast`. Send requests to a deployment of the fast mode model, and leave out `speed`.
   details:
-    - Fast mode on Claude Opus 5 and Claude Opus 4.8 is in research preview and needs the `fast-mode-2026-02-01` beta header.
+    - Fast mode is in research preview on Claude Opus 5 and deprecated on Claude Opus 4.8, and needs the `fast-mode-2026-02-01` beta header on both models.
 ---
 
 **API support**: Usage differs by product.
@@ -29,7 +31,7 @@ featureMetadata:
 * **Messages API**: Set `speed: "fast"` on the request.
 * **Managed Agents**: Set `speed` on the agent’s model object, for example `{"id": "claude-opus-5-5", "speed": "fast"}`.
 
-Fast mode delivers up to 2.5x higher output tokens per second at premium pricing. Set `speed: "fast"` on your request to opt in. Fast mode is available on Claude Fable 5.2 and Claude Opus 5.5. Fast mode for Claude Opus 5 and Claude Opus 4.8 is in research preview. Claude Mythos 5.2 supports fast mode too.
+Fast mode delivers up to 2.5x higher output tokens per second at premium pricing. Set `speed: "fast"` on your request to opt in. Fast mode is available on Claude Fable 5.2, Claude Mythos 5.2, and Claude Opus 5.5. Fast mode is in research preview on Claude Opus 5 and deprecated on Claude Opus 4.8.
 
 ## How fast mode works
 
@@ -42,8 +44,6 @@ Fast mode runs the same model with a faster inference configuration. There is no
 ## Basic usage
 
 Fast mode works only on supported models. See [Availability](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) for details, including which models need a beta header.
-
-On [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), fast mode is a separate model, such as `claude-opus-5-5-fast`. For Claude Fable 5.2, it is `claude-fable-5-2-fast`. For Claude Mythos 5.2, it is `claude-mythos-5-2-fast`. Send fast mode requests to a deployment of the fast model, and leave out `speed`. A request that sets `speed` on a deployment of the model without `-fast` returns an error.
 
 <CodeGroup>
   ```bash cURL
@@ -203,11 +203,21 @@ On [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-
   ```
 </CodeGroup>
 
+On [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), fast mode has its own model IDs, and the deployment sets the speed. Send fast mode requests to a deployment of the fast mode model, and leave out `speed`:
+
+| Model             | Fast mode model ID       |
+| ----------------- | ------------------------ |
+| Claude Fable 5.2  | `claude-fable-5-2-fast`  |
+| Claude Mythos 5.2 | `claude-mythos-5-2-fast` |
+| Claude Opus 5.5   | `claude-opus-5-5-fast`   |
+
+A request that sets `speed` on a deployment of the standard model, such as `claude-opus-5-5`, returns an error.
+
 ## Rate limits
 
 Fast mode has a dedicated rate limit that is separate from standard rate limits. When you exceed your fast mode rate limit, the API returns a `429` error with a `retry-after` header that says when capacity is available. On [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#rate-limits), Google Cloud manages rate limits and quotas.
 
-Claude Opus 5.5 has a default fast mode rate limit in the Start, Build, and Scale [usage tiers](https://platform.claude.com/docs/en/api/rate-limits), so you don’t need to request access to use fast mode with it. Organizations in the Evaluation tier can use fast mode with Claude Opus 5.5 once they move to the Start, Build, or Scale tier. The same applies to Claude Fable 5.2. It also applies to Claude Mythos 5.2.
+Claude Fable 5.2, Claude Mythos 5.2, and Claude Opus 5.5 have a default fast mode rate limit. The default limit applies in the Start, Build, and Scale [usage tiers](https://platform.claude.com/docs/en/api/rate-limits). You don’t need to request fast mode access for these models. Organizations in the Evaluation tier can use fast mode with these models once they move to the Start, Build, or Scale tier.
 
 The response includes headers that indicate your fast mode rate limit status:
 
@@ -373,7 +383,7 @@ The SDK automatically retries fast mode `429` errors up to two times by default 
 
 ### Falling back to standard speed
 
-If you’d prefer to fall back to standard speed rather than wait for fast mode capacity, catch the rate limit error and retry without `speed: "fast"`. On Claude in Microsoft Foundry, the deployment sets the speed, so retry on a deployment of the model without `-fast` instead. Set `max_retries` (typescript, php: `maxRetries`; java: `.maxRetries()`; csharp: `MaxRetries`; go: `option.WithMaxRetries()`) to `0` on the initial fast request to skip automatic retries and fail immediately on rate limit errors.
+If you’d prefer to fall back to standard speed rather than wait for fast mode capacity, catch the rate limit error and retry without `speed: "fast"`. On Claude in Microsoft Foundry, the deployment sets the speed, so retry on a deployment of the standard model instead. Set `max_retries` (typescript, php: `maxRetries`; java: `.maxRetries()`; csharp: `MaxRetries`; go: `option.WithMaxRetries()`) to `0` on the initial fast request to skip automatic retries and fail immediately on rate limit errors.
 
 <Note>
   Falling back from fast to standard speed results in a [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) miss. Requests at different speeds do not share cached prefixes.
@@ -600,7 +610,7 @@ Because setting `max_retries` (typescript, php: `maxRetries`; java: `.maxRetries
   use Anthropic\Core\Exceptions\RateLimitException;
   use Anthropic\Messages\Model;
   use Anthropic\RequestOptions;
-  // ...
+
   $client = new Client();
 
   function createMessageWithFastFallback(
@@ -692,7 +702,7 @@ For complete pricing details, see the [Pricing](https://platform.claude.com/docs
 
 ## Availability
 
-Fast mode is available or in research preview on select models and eligible for zero data retention and HIPAA readiness.
+Fast mode is available or in research preview or deprecated on select models and eligible for zero data retention and HIPAA readiness.
 
 ### API support
 
@@ -700,34 +710,35 @@ Fast mode is available only on the following models. If you were using fast mode
 
 To access fast mode on Claude Opus 5, contact your account manager or [join the waitlist](https://claude.com/fast-mode).
 
-<Warning>
-  Fast mode on Claude Opus 4.8 is deprecated and will be removed on November 30, 2026. After removal, requests to `claude-opus-4-8` with `speed: "fast"` will return an error. To continue using fast mode, migrate to Claude Opus 5.5. See [Migrating to Claude Opus 5.5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-4-8).
-</Warning>
-
 #### [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)
 
 * Availability: Available
 * Usage: Set `speed: "fast"` on the request.
 
-| Status                | Cloud platforms                                                                                                                                                                                                                                                                                                              | Models                                                                                                                                                                 |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Available             | Claude API, [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed) | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview) |
-| Available<sup>1</sup> | [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                                                                                                                                                                                 | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview) |
-| Available             | Claude API, [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed)                                                                                                                                                       | [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview)                                                                                        |
-| Available<sup>1</sup> | [Microsoft Foundry (hosted on Azure)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                                                                                                                                                                                     | [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview)                                                                                        |
-| Research preview      | Claude API                                                                                                                                                                                                                                                                                                                   | [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-4-8/overview)           |
+| Status                 | Cloud platforms                                                                                                                                                                                                                                                                                                              | Models                                                                                                                                                                 |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Available              | Claude API, [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed) | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview) |
+| Available<sup>1</sup>  | [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                                                                                                                                                                                 | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview) |
+| Available              | Claude API, [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed)                                                                                                                                                       | [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview)                                                                                        |
+| Available<sup>1</sup>  | [Microsoft Foundry (hosted on Azure)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                                                                                                                                                                                     | [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview)                                                                                        |
+| Research preview       | Claude API                                                                                                                                                                                                                                                                                                                   | [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview)                                                                                            |
+| Deprecated<sup>2</sup> | Claude API                                                                                                                                                                                                                                                                                                                   | [Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-4-8/overview)                                                                                        |
 
-1. On Microsoft Foundry, fast mode is a separate model whose ID ends in `-fast`. Send requests to a deployment of that model, and leave out `speed`.
+1. On Microsoft Foundry, fast mode has its own model IDs, which end in `-fast`. Send requests to a deployment of the fast mode model, and leave out `speed`.
+2. Removal date: November 30, 2026. After removal, requests to `claude-opus-4-8` with `speed: "fast"` will return an error. To continue using fast mode, migrate to Claude Opus 5.5. See [Migrating to Claude Opus 5.5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-4-8).
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 
 * Availability: Available
 * Usage: Set `speed` on the agent’s model object, for example `{"id": "claude-opus-5-5", "speed": "fast"}`.
 
-| Status           | Cloud platforms | Models                                                                                                                                                       |
-| ---------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Available        | Claude API      | [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview)                                                                              |
-| Research preview | Claude API      | [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-4-8/overview) |
+| Status                 | Cloud platforms | Models                                                                          |
+| ---------------------- | --------------- | ------------------------------------------------------------------------------- |
+| Available              | Claude API      | [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview) |
+| Research preview       | Claude API      | [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview)     |
+| Deprecated<sup>1</sup> | Claude API      | [Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-4-8/overview) |
+
+1. Removal date: November 30, 2026. After removal, requests to `claude-opus-4-8` with `speed: "fast"` will return an error. To continue using fast mode, migrate to Claude Opus 5.5. See [Migrating to Claude Opus 5.5 from Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-4-8).
 
 ### Required beta headers
 

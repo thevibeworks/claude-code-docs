@@ -1,7 +1,7 @@
 ---
-title: Versions
+title: API versions
 url: https://platform.claude.com/docs/en/api/versioning
-description: "When making API requests, you must send an `anthropic-version` request header. For example, `anthropic-version: 2026-10-21`. If you are using the [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview), this is handled for you automatically."
+description: "When making API requests, you must send an `anthropic-version` request header. For example, `anthropic-version: 2026-10-21`. If you are using the [client SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview), it sets this header for you."
 ---
 
 For any given API version, Anthropic preserves:
@@ -26,7 +26,7 @@ Anthropic recommends using the latest API version whenever possible.
 
   * [Migrating to API version 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21) shows how to upgrade.
 
-  * Available on the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed). On [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), it’s available for Claude 4.7 and later models. For other models on Bedrock, see the [migration guide for API version 2026-10-21](https://platform.claude.com/docs/en/api/migration-2026-10-21#upgrade).
+  * Available on the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). On Amazon Bedrock, it’s available for Claude 4.7 and later models. For earlier Claude models on Bedrock, [keep the API version that you use today](https://platform.claude.com/docs/en/api/migration-2026-10-21#availability).
 
   * Messages API:
 
@@ -40,7 +40,7 @@ Anthropic recommends using the latest API version whenever possible.
     * [RBAC group members](https://platform.claude.com/docs/en/api/beta/organization/rbac_groups/members/list), and the response to removing one, no longer return `group_id`. Use `rbac_group_id` instead.
     * [RBAC roles](https://platform.claude.com/docs/en/api/beta/organization/rbac_roles/list) no longer return `name`. Use `display_name` instead.
     * [Organization](https://platform.claude.com/docs/en/api/organization/rate_limits/list) and [workspace](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/list) rate-limit entries, and the response to [setting a workspace’s rate limits](https://platform.claude.com/docs/en/api/organization/workspaces/rate_limits/update), no longer return `group_type`. Use `group.type` instead.
-    * [API keys](https://platform.claude.com/docs/en/api/organization/api_keys/list) no longer return `workspace_id`. Use `scope.workspace_id` instead, which gives the workspace’s real ID even for the Default Workspace (an all-workspaces key has no `workspace_id` in `scope`).
+    * [API keys](https://platform.claude.com/docs/en/api/organization/api_keys/list) no longer return `workspace_id`. Use `scope.workspace_id` instead. It holds the ID of the key’s workspace, the Default Workspace included. An all-workspaces key has no `scope.workspace_id`.
 
   * Claude Enterprise Analytics API:
 

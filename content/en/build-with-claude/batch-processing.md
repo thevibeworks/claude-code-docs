@@ -70,7 +70,7 @@ This is especially useful for bulk operations that don’t require immediate res
 * Batch results are available for 29 days after creation. After that, you can still view the Batch, but its results will no longer be available for download.
 * Batches are scoped to a [Workspace](https://platform.claude.com/settings/workspaces) in the Claude Console. You may view all batches (and their results) that were created within the Workspace your request runs in.
 * Rate limits apply to both Batches API HTTP requests and the number of requests within a batch waiting to be processed. See [Message Batches API rate limits](https://platform.claude.com/docs/en/api/rate-limits#message-batches-api). Additionally, processing might be slowed down based on current demand and your request volume. In that case, you might see more requests expiring after 24 hours.
-* Because of high throughput and concurrent processing, batches may go slightly over the [spend limit](https://platform.claude.com/settings/billing) configured in the Claude Console for your Workspace.
+* Because of high throughput and concurrent processing, batches might go slightly over the [spend limit](https://platform.claude.com/docs/en/manage-claude/workspaces#setting-workspace-limits) configured in the Claude Console for your Workspace.
 * Each batched request must have [`max_tokens`](https://platform.claude.com/docs/en/api/messages/create#create.max_tokens) of at least `1`. `max_tokens: 0` ([cache pre-warming](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache)) is not supported inside a batch, because an ephemeral cache entry written during batch processing would likely expire before the follow-up request runs.
 
 ### Supported models
@@ -746,7 +746,7 @@ Results of the batch are available for download at the [`results_url`](https://p
 <CodeGroup>
   ```bash cURL
   # Streams the batch's .jsonl results, one result on each line.
-  # For per-result handling (retries, validation errors), use the Claude SDK.
+  # For per-result handling (retries, validation errors), use the Anthropic SDK.
   curl "https://api.anthropic.com/v1/messages/batches/msgbatch_01HkcTjaV5uDC8jWR4ZsDV8d/results" \
     -H "anthropic-version: 2026-10-21" \
     -H "x-api-key: $ANTHROPIC_API_KEY"
@@ -754,7 +754,7 @@ Results of the batch are available for download at the [`results_url`](https://p
 
   ```bash CLI
   # Prints one result on each line, for example `{"custom_id":"test-1","result":{"type":"succeeded",…}}`.
-  # For per-result handling (retries, validation errors), use the Claude SDK
+  # For per-result handling (retries, validation errors), use the Anthropic SDK
   # examples in the other tabs.
   ant messages:batches results \
     --message-batch-id msgbatch_01HkcTjaV5uDC8jWR4ZsDV8d \

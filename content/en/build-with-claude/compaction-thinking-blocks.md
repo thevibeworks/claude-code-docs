@@ -29,7 +29,7 @@ featureMetadata:
     Microsoft Foundry: beta
 ---
 
-Skip this page unless you send thinking blocks back to a model with [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking) and keep turns after the compaction block. Kept turns are the turns that follow the block: recent turns you left out of the compaction request, as in [Compaction that keeps recent turns](https://platform.claude.com/docs/en/build-with-claude/compaction-keep-recent-turns), or turns that arrived while the summary was being written, as in [Compaction in the background](https://platform.claude.com/docs/en/build-with-claude/compaction-background).
+Skip this page unless you send thinking blocks back to a model with [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking) and keep turns after the compaction block. Kept turns are the turns that follow the block. They’re either recent turns you left out of the compaction request, as in [Compaction that keeps recent turns](https://platform.claude.com/docs/en/build-with-claude/compaction-keep-recent-turns), or turns that arrived while the API was writing the summary, as in [Compaction in the background](https://platform.claude.com/docs/en/build-with-claude/compaction-background).
 
 Models with preserved thinking check earlier thinking blocks against the conversation that produced them. A summary replaces part of that conversation, but the check accepts the swap when the API wrote the summary, so the thinking in kept turns can stay valid.
 
@@ -39,9 +39,9 @@ The thinking blocks in kept turns stay valid while all of these hold:
 
 * **The compaction request runs on a model with preserved thinking.** This condition covers every compaction request since a thinking block was produced, not only the most recent one. One way to meet it is to send every compaction request to the model the conversation uses.
 * **The kept turns directly follow the summarized messages, and you send them unchanged.** Send each kept message exactly as it is in your history. Don’t skip or add a message between the last summarized message and the first kept one. The first kept message must also have a different role from the last summarized message, and it can’t be a mid-conversation `role: "system"` message. Otherwise, the API merges it into the last summarized message. One way to get the first kept message right is to compact exactly the `messages` of a request you already sent. The kept turns then start with Claude’s reply to it.
-* **`system` and the `tools` not marked `defer_loading: true` don’t change.** They are the same on the compaction request as on the requests that produced the kept thinking, and they stay the same on the requests that follow. [Change the system prompt or tools](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#change-the-system-prompt-or-tools) covers how to change them safely.
+* **`system` and `tools` don’t change.** They are the same on the compaction request as on the requests that produced the kept thinking, and they stay the same on the requests that follow. The exception is a tool marked `defer_loading: true` that nothing in the conversation has referenced. [Change the system prompt or tools](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#change-the-system-prompt-or-tools) covers how to change them safely.
 
-If a condition doesn’t hold, nothing fails when you compact, and the API accepts the compaction block on later requests either way. What fails is the kept thinking, on the first later request that sends it. [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior) describes what happens then, and [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) covers requests that don’t set the field, including Message Batches items.
+If a condition doesn’t hold, the API still accepts the compaction block on later requests. What fails is the kept thinking, on the first later request that sends it. The compaction request runs the same check on the thinking blocks it carries, so a changed `system` or `tools`, or an edited message, can fail that request too. [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior) describes what happens then, and [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) covers requests that don’t set the field, including Message Batches items.
 
 ## Compact again without breaking older thinking
 
@@ -59,7 +59,30 @@ To change `system` or `tools` without invalidating any kept thinking, compact th
 
 To add an instruction or change the available tools without touching `system` or `tools`, append the change to `messages`, as described in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits).
 
-Mid-conversation system messages inside the summarized turns are summarized too, so their text instructions stop applying after the swap. A [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) level they set isn’t carried over either: until a later message sets a level, turns run at the request’s top-level `output_config.effort`, or the model’s default if you don’t set one. To keep an instruction or effort level in force, state it again in a `role: "system"` message directly after the first new `user` turn that follows the kept turns. Tool changes inside those turns carry over on their own when the compaction request also carries `inline-tools-2026-09-15`: the returned block records their net effect in its `tool_changes` field, so send the block back unmodified. If the block has no `tool_changes` field, restate those tool changes the same way. A system message placed between the block and the kept turns breaks their thinking.
+The summarized turns can include mid-conversation system messages, which are `role: "system"` entries in `messages` (see [Mid-conversation system messages and tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages)). They’re summarized with the rest. What happens next depends on what a message carried:
+
+* **Text instructions** stop applying.
+* **A [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) level** stops applying too. Turns then run at the request’s top-level `output_config.effort`. If the request sets none, they run at the model’s default. A later message can set a level again.
+* **Tool changes** can carry over. See the steps that follow.
+
+To carry tool changes over:
+
+1. Send the `inline-tools-2026-09-15` beta header on the compaction request. The returned block then records the changes in a `tool_changes` field.
+2. Send the block back unmodified. The API then applies the recorded changes on each request that includes the block. If the field is missing, the API accepts the block but applies nothing.
+3. Send the same header on every request that includes the block.
+
+If the summarized turns changed your tools and the returned block has no `tool_changes` field, the changes weren’t recorded. State them again, as described next.
+
+You can state an instruction, an effort level, or a tool change again. Put it in a `role: "system"` message at the end of your next request, directly after the `user` message. The request’s `messages` then run in this order:
+
+1. The compaction block.
+2. The kept turns, if any.
+3. Your `user` message.
+4. The `role: "system"` message.
+
+On later requests, leave those entries as they are, and add new turns after the system message.
+
+Don’t put the system message before or between the kept turns. There, it invalidates every kept thinking block that comes after it.
 
 ## Check that the kept thinking held
 
@@ -74,7 +97,15 @@ The `prefix_mismatch_behavior` field needs the `thinking-binding-controls-2026-0
 
 The following program runs the four steps. It prints how many thinking blocks the kept turn holds and how many entries `input_transformations` has; no entries means the kept thinking held:
 
-<CodeGroup exclude="shell">
+<CodeGroup exclude="shell:cURL, shell:CLI">
+  <CodeGroupItem language="cURL">
+    This workflow needs more logic than a single shell command. Use the Anthropic SDK to run it.
+  </CodeGroupItem>
+
+  <CodeGroupItem language="CLI">
+    This workflow needs more logic than a single shell command. Use the Anthropic SDK to run it.
+  </CodeGroupItem>
+
   ```python Python
   from anthropic.types.beta import BetaMessageParam, BetaThinkingConfigParam
 
@@ -150,7 +181,7 @@ The following program runs the four steps. It prints how many thinking blocks th
   )
 
   # 4. A 200 with no dropped blocks means the kept thinking held.
-  print(f"Dropped thinking blocks: {len(third.input_transformations)}")
+  print(f"Dropped thinking blocks: {len(third.input_transformations or [])}")
   ```
 
   ```typescript TypeScript

@@ -28,10 +28,10 @@ featureMetadata:
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
     Claude API: stable
+    Amazon Bedrock: stable
+    Amazon Bedrock (bedrock-runtime): stable
     Claude Platform on AWS: stable
     Claude Models on Google Cloud (Anthropic managed): stable
-    Amazon Bedrock: stable
-    Amazon Bedrock (InvokeModel): stable
     Claude Models on Google Cloud (Google managed): stable
     Microsoft Foundry: stable
 ---
@@ -241,7 +241,7 @@ By default, the cache has a 5-minute lifetime. The cache is refreshed for no add
 The lifetime is measured from the start of the request that writes or reads the cache entry, not from the end of its response. Time spent generating a response counts against the lifetime: if a response takes 4 minutes to stream, a follow-up request that reuses the same cached prefix must start within about 1 minute of that response completing.
 
 <Note>
-  If you find that 5 minutes is too short, Anthropic also offers a 1-hour cache duration [at additional cost](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing).
+  If you find that 5 minutes is too short, Anthropic also offers a 1-hour cache duration at additional cost (see [Pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing)).
 
   For more information, see [1-hour cache duration](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration).
 </Note>
@@ -546,7 +546,7 @@ Automatic caching uses the same underlying caching infrastructure. Pricing, mini
 * If the last block is not eligible as an automatic cache breakpoint target, the system silently walks backward to find the nearest eligible block. If none is found, caching is skipped.
 
 <Note>
-  Automatic caching is available on every platform except the legacy [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy) integration. On that integration, the API returns a 400 error for a top-level `cache_control` field, so use [explicit cache breakpoints](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#explicit-cache-breakpoints) instead.
+  Automatic caching is available on every platform except [Amazon Bedrock (`bedrock-runtime`)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy). There, the API returns a 400 error for a top-level `cache_control` field, so use [explicit cache breakpoints](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#explicit-cache-breakpoints) instead.
 </Note>
 
 ***
@@ -628,19 +628,19 @@ On the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/
 * 1,024 tokens for Claude Opus 4.8, Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations)), Claude Opus 4.1 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations)), Claude Opus 4 ([retired, except on Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/about-claude/model-deprecations)), and Claude Sonnet 4 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations))
 * 4,096 tokens for Claude Haiku 4.5
 
-These minimums apply on every platform where each model is available.
+These minimums apply on each of these platforms where the model is available.
 
 Shorter prompts cannot be cached, even if marked with `cache_control`. Any requests to cache fewer than this number of tokens are processed without caching, and no error is returned. To check whether a prompt was cached, look at the [response usage fields](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance): if both `cache_creation_input_tokens` and `cache_read_input_tokens` are 0, the prompt was not cached (likely because it did not meet the minimum length requirement).
 
 If your prompt falls just short of the minimum for your model and platform, expanding the cached content to reach the threshold is often worthwhile. Cache reads cost significantly less than uncached input tokens, so reaching the minimum can reduce costs for frequently reused prompts.
 
 <Note>
-  [Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) is an AWS-operated platform. On Bedrock, see the [Bedrock prompt caching documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html) for the per-model minimums, failure behavior, and usage-field names that apply.
+  [Amazon Bedrock (`bedrock-mantle`)](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) is an AWS-operated platform. On Amazon Bedrock, see the [Bedrock prompt caching documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/prompt-caching.html) for the per-model minimums, failure behavior, and usage-field names that apply.
 </Note>
 
 For concurrent requests, note that a cache entry only becomes available after the first response starts. If you need cache hits for parallel requests, wait for the first response before sending subsequent requests.
 
-Currently, `ephemeral` is the only supported cache type, which by default has a 5-minute lifetime.
+`ephemeral` is the only supported cache type, which by default has a 5-minute lifetime.
 
 ### What can be cached
 
@@ -674,23 +674,23 @@ As described in [Structuring your prompt](https://platform.claude.com/docs/en/bu
 
 The following table shows which parts of the cache are invalidated by different types of changes. ✘ indicates that the cache is invalidated, whereas ✓ indicates that the cache remains valid.
 
-| What changes                                          | Tools cache    | System cache   | Messages cache | Impact                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ----------------------------------------------------- | -------------- | -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Tool definitions**                                  | ✘              | ✘              | ✘              | Modifying tool definitions (names, descriptions, parameters) invalidates the entire cache                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| **Web search toggle**                                 | ✓              | ✘              | ✘              | Enabling/disabling web search modifies the system prompt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| **Citations toggle**                                  | ✓              | ✘              | ✘              | Enabling/disabling citations modifies the system prompt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| **Speed setting**                                     | ✓              | ✘              | ✘              | Switching between [`speed: "fast"` and standard speed](https://platform.claude.com/docs/en/build-with-claude/fast-mode) invalidates system and message caches                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| **Tool choice**                                       | ✓              | ✓              | ✘              | Changes to the `tool_choice` parameter only affect message blocks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| **Images**                                            | ✓              | ✓              | ✘              | Adding/removing images anywhere in the prompt affects message blocks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| **Thinking parameters**                               | Model-specific | Model-specific | ✘              | The thinking configuration (mode, and `budget_tokens` in extended mode) is rendered into the prompt, so changing it always invalidates message blocks; tool and system caches are also invalidated on models that render the configuration ahead of them. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).                                                                                                                                                                                                           |
-| **Effort setting**                                    | Model-specific | Model-specific | ✘              | Changing the [`output_config.effort`](https://platform.claude.com/docs/en/build-with-claude/effort) value always invalidates message blocks, with the same model-specific effect on tool and system caches as thinking parameters. Setting effort explicitly to the model’s default is equivalent to omitting it and does not invalidate. On models that support [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta), an effort change carried in a `role: "system"` message inside `messages` leaves the cached prefix intact. |
-| **Non-tool results passed to requests with thinking** | ✓              | ✓              | Model-specific | On Opus 4.5+, Sonnet 4.6+, and Haiku 5.5, thinking blocks are preserved by default, so the cache remains valid (✓). On earlier Opus/Sonnet models and Haiku models through Claude Haiku 4.5, all previously-cached thinking blocks are stripped from context, and any messages that follow those thinking blocks are removed from the cache (✘). For more details, see [Caching with thinking blocks](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#caching-with-thinking-blocks).                                                                                          |
-| **Dropped thinking blocks**                           | ✓              | ✓              | ✘              | When the API drops a thinking block that isn’t [preserved](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking) on that request, the cached prefix changes from that block’s position onward on that request. Blocks the receiving model can read, passed back unchanged, keep the cache intact.                                                                                                                                                                                                                                                                     |
+| What changes                                          | Tools cache    | System cache   | Messages cache | Impact                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ----------------------------------------------------- | -------------- | -------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tool definitions**                                  | ✘              | ✘              | ✘              | Modifying tool definitions (names, descriptions, parameters) invalidates the entire cache                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| **Web search toggle**                                 | ✓              | ✘              | ✘              | Enabling/disabling web search modifies the system prompt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| **Citations toggle**                                  | ✓              | ✘              | ✘              | Enabling/disabling citations modifies the system prompt                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| **Speed setting**                                     | ✓              | ✘              | ✘              | Switching between [`speed: "fast"` and standard speed](https://platform.claude.com/docs/en/build-with-claude/fast-mode) invalidates system and message caches                                                                                                                                                                                                                                                                                                                                                                                                              |
+| **Tool choice**                                       | ✓              | ✓              | ✘              | Changes to the `tool_choice` parameter only affect message blocks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| **Images**                                            | ✓              | ✓              | ✘              | Adding/removing images anywhere in the prompt affects message blocks                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Thinking parameters**                               | Model-specific | Model-specific | ✘              | The thinking configuration (mode, and `budget_tokens` in extended mode) is rendered into the prompt, so changing it always invalidates message blocks; tool and system caches are also invalidated on models that render the configuration ahead of them. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).                                                                                                                                                                                   |
+| **Effort setting**                                    | Model-specific | Model-specific | ✘              | Changing the [`output_config.effort`](https://platform.claude.com/docs/en/build-with-claude/effort) value always invalidates message blocks, with the same model-specific effect on tool and system caches as thinking parameters. Setting effort explicitly to the model’s default is equivalent to omitting it and does not invalidate. On models that support [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message), an effort change carried in a `role: "system"` message inside `messages` leaves the cached prefix intact. |
+| **Non-tool results passed to requests with thinking** | ✓              | ✓              | Model-specific | On Opus 4.5+, Sonnet 4.6+, and Haiku 5.5, thinking blocks are preserved by default, so the cache remains valid (✓). On earlier Opus/Sonnet models and Haiku models through Claude Haiku 4.5, all previously-cached thinking blocks are stripped from context, and any messages that follow those thinking blocks are removed from the cache (✘). For more details, see [Caching with thinking blocks](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#caching-with-thinking-blocks).                                                                  |
+| **Dropped thinking blocks**                           | ✓              | ✓              | ✘              | When the API drops a thinking block that isn’t [preserved](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking) on that request, the cached prefix changes from that block’s position onward on that request. Blocks the receiving model can read, passed back unchanged, keep the cache intact.                                                                                                                                                                                                                                             |
 
 On models that support [mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes), the `inline-tools-2026-09-15` beta header lets you add a tool, or change a tool’s definition, partway through a conversation without editing `tools`. Send the definition in a `tool_addition` block in a mid-conversation system message and leave `tools` exactly as you first sent it. The cached prefix still matches, so only the appended message is processed as new input. The one exception is a `tools` array with no non-deferred tool, where the first tool defined this way costs one full cache miss on that request. See [Define tools in a message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta).
 
 <Note>
-  On Claude Fable 5.2, [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), Claude Fable 5.1, [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), Claude Fable 5, [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), Claude Opus 5.5, Claude Opus 4.8, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5, you can add a new system instruction partway through a conversation without invalidating the system or message caches. Append a `{"role": "system"}` message to `messages` instead of editing the top-level `system` field, so the cached prefix stays unchanged. This feature is not available on Claude Sonnet 5. Use the top-level `system` field instead. See [Mid-conversation system messages and tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages).
+  On Claude Fable 5.2, [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), Claude Fable 5.1, [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), Claude Fable 5, [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Sonnet 5.5, and Claude Haiku 5.5, you can add a new system instruction partway through a conversation without invalidating the system or message caches. Append a `{"role": "system"}` message to `messages` instead of editing the top-level `system` field, so the cached prefix stays unchanged. This feature is not available on Claude Sonnet 5. Use the top-level `system` field instead. See [Mid-conversation system messages and tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages).
 </Note>
 
 ### Tracking cache performance
@@ -831,10 +831,10 @@ If you experience unexpected behavior:
 
 ## 1-hour cache duration
 
-If you find that 5 minutes is too short, Anthropic also offers a 1-hour cache duration [at additional cost](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing).
+If you find that 5 minutes is too short, Anthropic also offers a 1-hour cache duration at additional cost (see [Pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pricing)).
 
 <Note>
-  The 1-hour cache duration is available on the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry).
+  The 1-hour cache duration is available on the Claude API, [Amazon Bedrock (`bedrock-mantle`)](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Amazon Bedrock (`bedrock-runtime`)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry).
 </Note>
 
 To use the extended cache, include `ttl` in the `cache_control` definition like this:
@@ -2493,12 +2493,32 @@ The following code snippets showcase various prompt caching patterns. These exam
           system=[
               {
                   "type": "text",
-                  "text": "You are a helpful research assistant with access to a document knowledge base.\n\n# Instructions\n- Always search for relevant documents before answering\n- Provide citations for your sources\n- Be objective and accurate in your responses\n- If multiple documents contain relevant information, synthesize them\n- Acknowledge when information is not available in the knowledge base",
+                  "text": """You are a helpful research assistant with access to a document knowledge base.
+
+      # Instructions
+      - Always search for relevant documents before answering
+      - Provide citations for your sources
+      - Be objective and accurate in your responses
+      - If multiple documents contain relevant information, synthesize them
+      - Acknowledge when information is not available in the knowledge base""",
                   "cache_control": {"type": "ephemeral"},
               },
               {
                   "type": "text",
-                  "text": "# Knowledge Base Context\n\nHere are the relevant documents for this conversation:\n\n## Document 1: Solar System Overview\nThe solar system consists of the Sun and all objects that orbit it...\n\n## Document 2: Planetary Characteristics\nEach planet has unique features. Mercury is the smallest planet...\n\n## Document 3: Mars Exploration\nMars has been a target of exploration for decades...\n\n[Additional documents...]",
+                  "text": """# Knowledge Base Context
+
+      Here are the relevant documents for this conversation:
+
+      ## Document 1: Solar System Overview
+      The solar system consists of the Sun and all objects that orbit it...
+
+      ## Document 2: Planetary Characteristics
+      Each planet has unique features. Mercury is the smallest planet...
+
+      ## Document 3: Mars Exploration
+      Mars has been a target of exploration for decades...
+
+      [Additional documents...]""",
                   "cache_control": {"type": "ephemeral"},
               },
           ],
@@ -2592,12 +2612,32 @@ The following code snippets showcase various prompt caching patterns. These exam
         system: [
           {
             type: "text",
-            text: "You are a helpful research assistant with access to a document knowledge base.\n\n# Instructions\n- Always search for relevant documents before answering\n- Provide citations for your sources\n- Be objective and accurate in your responses\n- If multiple documents contain relevant information, synthesize them\n- Acknowledge when information is not available in the knowledge base",
+            text: `You are a helpful research assistant with access to a document knowledge base.
+
+      # Instructions
+      - Always search for relevant documents before answering
+      - Provide citations for your sources
+      - Be objective and accurate in your responses
+      - If multiple documents contain relevant information, synthesize them
+      - Acknowledge when information is not available in the knowledge base`,
             cache_control: { type: "ephemeral" }
           },
           {
             type: "text",
-            text: "# Knowledge Base Context\n\nHere are the relevant documents for this conversation:\n\n## Document 1: Solar System Overview\nThe solar system consists of the Sun and all objects that orbit it...\n\n## Document 2: Planetary Characteristics\nEach planet has unique features. Mercury is the smallest planet...\n\n## Document 3: Mars Exploration\nMars has been a target of exploration for decades...\n\n[Additional documents...]",
+            text: `# Knowledge Base Context
+
+      Here are the relevant documents for this conversation:
+
+      ## Document 1: Solar System Overview
+      The solar system consists of the Sun and all objects that orbit it...
+
+      ## Document 2: Planetary Characteristics
+      Each planet has unique features. Mercury is the smallest planet...
+
+      ## Document 3: Mars Exploration
+      Mars has been a target of exploration for decades...
+
+      [Additional documents...]`,
             cache_control: { type: "ephemeral" }
           }
         ],
@@ -2696,12 +2736,36 @@ The following code snippets showcase various prompt caching patterns. These exam
           {
               new TextBlockParam()
               {
-                  Text = "You are a helpful research assistant with access to a document knowledge base.\n\n# Instructions\n- Always search for relevant documents before answering\n- Provide citations for your sources\n- Be objective and accurate in your responses\n- If multiple documents contain relevant information, synthesize them\n- Acknowledge when information is not available in the knowledge base",
+                  Text = """
+                      You are a helpful research assistant with access to a document knowledge base.
+
+                      # Instructions
+                      - Always search for relevant documents before answering
+                      - Provide citations for your sources
+                      - Be objective and accurate in your responses
+                      - If multiple documents contain relevant information, synthesize them
+                      - Acknowledge when information is not available in the knowledge base
+                      """,
                   CacheControl = new CacheControlEphemeral(),
               },
               new TextBlockParam()
               {
-                  Text = "# Knowledge Base Context\n\nHere are the relevant documents for this conversation:\n\n## Document 1: Solar System Overview\nThe solar system consists of the Sun and all objects that orbit it...\n\n## Document 2: Planetary Characteristics\nEach planet has unique features. Mercury is the smallest planet...\n\n## Document 3: Mars Exploration\nMars has been a target of exploration for decades...\n\n[Additional documents...]",
+                  Text = """
+                      # Knowledge Base Context
+
+                      Here are the relevant documents for this conversation:
+
+                      ## Document 1: Solar System Overview
+                      The solar system consists of the Sun and all objects that orbit it...
+
+                      ## Document 2: Planetary Characteristics
+                      Each planet has unique features. Mercury is the smallest planet...
+
+                      ## Document 3: Mars Exploration
+                      Mars has been a target of exploration for decades...
+
+                      [Additional documents...]
+                      """,
                   CacheControl = new CacheControlEphemeral(),
               },
           }),
@@ -2757,73 +2821,93 @@ The following code snippets showcase various prompt caching patterns. These exam
       ```
 
       ```go Go
-      client := anthropic.NewClient()
+      	client := anthropic.NewClient()
 
-      response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
-      	Model:     anthropic.ModelClaudeOpus5_5,
-      	MaxTokens: 1024,
-      	Tools: []anthropic.ToolUnionParam{
-      		{OfTool: &anthropic.ToolParam{
-      			Name:        "search_documents",
-      			Description: anthropic.String("Search through the knowledge base"),
-      			InputSchema: anthropic.ToolInputSchemaParam{
-      				Properties: map[string]any{
-      					"query": map[string]any{
-      						"type":        "string",
-      						"description": "Search query",
+      	response, err := client.Messages.New(context.TODO(), anthropic.MessageNewParams{
+      		Model:     anthropic.ModelClaudeOpus5_5,
+      		MaxTokens: 1024,
+      		Tools: []anthropic.ToolUnionParam{
+      			{OfTool: &anthropic.ToolParam{
+      				Name:        "search_documents",
+      				Description: anthropic.String("Search through the knowledge base"),
+      				InputSchema: anthropic.ToolInputSchemaParam{
+      					Properties: map[string]any{
+      						"query": map[string]any{
+      							"type":        "string",
+      							"description": "Search query",
+      						},
       					},
+      					Required: []string{"query"},
       				},
-      				Required: []string{"query"},
-      			},
-      		}},
-      		{OfTool: &anthropic.ToolParam{
-      			Name:        "get_document",
-      			Description: anthropic.String("Retrieve a specific document by ID"),
-      			InputSchema: anthropic.ToolInputSchemaParam{
-      				Properties: map[string]any{
-      					"doc_id": map[string]any{
-      						"type":        "string",
-      						"description": "Document ID",
+      			}},
+      			{OfTool: &anthropic.ToolParam{
+      				Name:        "get_document",
+      				Description: anthropic.String("Retrieve a specific document by ID"),
+      				InputSchema: anthropic.ToolInputSchemaParam{
+      					Properties: map[string]any{
+      						"doc_id": map[string]any{
+      							"type":        "string",
+      							"description": "Document ID",
+      						},
       					},
+      					Required: []string{"doc_id"},
       				},
-      				Required: []string{"doc_id"},
+      				CacheControl: anthropic.NewCacheControlEphemeralParam(),
+      			}},
+      		},
+      		System: []anthropic.TextBlockParam{
+      			{
+      				Text: `You are a helpful research assistant with access to a document knowledge base.
+
+      # Instructions
+      - Always search for relevant documents before answering
+      - Provide citations for your sources
+      - Be objective and accurate in your responses
+      - If multiple documents contain relevant information, synthesize them
+      - Acknowledge when information is not available in the knowledge base`,
+      				CacheControl: anthropic.NewCacheControlEphemeralParam(),
       			},
-      			CacheControl: anthropic.NewCacheControlEphemeralParam(),
-      		}},
-      	},
-      	System: []anthropic.TextBlockParam{
-      		{
-      			Text:         "You are a helpful research assistant with access to a document knowledge base.\n\n# Instructions\n- Always search for relevant documents before answering\n- Provide citations for your sources\n- Be objective and accurate in your responses\n- If multiple documents contain relevant information, synthesize them\n- Acknowledge when information is not available in the knowledge base",
-      			CacheControl: anthropic.NewCacheControlEphemeralParam(),
+      			{
+      				Text: `# Knowledge Base Context
+
+      Here are the relevant documents for this conversation:
+
+      ## Document 1: Solar System Overview
+      The solar system consists of the Sun and all objects that orbit it...
+
+      ## Document 2: Planetary Characteristics
+      Each planet has unique features. Mercury is the smallest planet...
+
+      ## Document 3: Mars Exploration
+      Mars has been a target of exploration for decades...
+
+      [Additional documents...]`,
+      				CacheControl: anthropic.NewCacheControlEphemeralParam(),
+      			},
       		},
-      		{
-      			Text:         "# Knowledge Base Context\n\nHere are the relevant documents for this conversation:\n\n## Document 1: Solar System Overview\nThe solar system consists of the Sun and all objects that orbit it...\n\n## Document 2: Planetary Characteristics\nEach planet has unique features. Mercury is the smallest planet...\n\n## Document 3: Mars Exploration\nMars has been a target of exploration for decades...\n\n[Additional documents...]",
-      			CacheControl: anthropic.NewCacheControlEphemeralParam(),
+      		Messages: []anthropic.MessageParam{
+      			anthropic.NewUserMessage(anthropic.NewTextBlock("Can you search for information about Mars rovers?")),
+      			anthropic.NewAssistantMessage(anthropic.NewToolUseBlock(
+      				"tool_1",
+      				map[string]any{"query": "Mars rovers"},
+      				"search_documents",
+      			)),
+      			anthropic.NewUserMessage(anthropic.NewToolResultBlock(
+      				"tool_1",
+      				"Found 3 relevant documents: Document 3 (Mars Exploration), Document 7 (Rover Technology), Document 9 (Mission History)",
+      				false,
+      			)),
+      			anthropic.NewAssistantMessage(anthropic.NewTextBlock("I found 3 relevant documents about Mars rovers. Let me get more details from the Mars Exploration document.")),
+      			anthropic.NewUserMessage(anthropic.ContentBlockParamUnion{OfText: &anthropic.TextBlockParam{
+      				Text:         "Yes, please tell me about the Perseverance rover specifically.",
+      				CacheControl: anthropic.NewCacheControlEphemeralParam(),
+      			}}),
       		},
-      	},
-      	Messages: []anthropic.MessageParam{
-      		anthropic.NewUserMessage(anthropic.NewTextBlock("Can you search for information about Mars rovers?")),
-      		anthropic.NewAssistantMessage(anthropic.NewToolUseBlock(
-      			"tool_1",
-      			map[string]any{"query": "Mars rovers"},
-      			"search_documents",
-      		)),
-      		anthropic.NewUserMessage(anthropic.NewToolResultBlock(
-      			"tool_1",
-      			"Found 3 relevant documents: Document 3 (Mars Exploration), Document 7 (Rover Technology), Document 9 (Mission History)",
-      			false,
-      		)),
-      		anthropic.NewAssistantMessage(anthropic.NewTextBlock("I found 3 relevant documents about Mars rovers. Let me get more details from the Mars Exploration document.")),
-      		anthropic.NewUserMessage(anthropic.ContentBlockParamUnion{OfText: &anthropic.TextBlockParam{
-      			Text:         "Yes, please tell me about the Perseverance rover specifically.",
-      			CacheControl: anthropic.NewCacheControlEphemeralParam(),
-      		}}),
-      	},
-      })
-      if err != nil {
-      	log.Fatal(err)
-      }
-      fmt.Println(response.Usage.RawJSON())
+      	})
+      	if err != nil {
+      		log.Fatal(err)
+      	}
+      	fmt.Println(response.Usage.RawJSON())
       ```
 
       ```java Java
@@ -2876,13 +2960,35 @@ The following code snippets showcase various prompt caching patterns. These exam
                   List.of(
                       TextBlockParam.builder()
                           .text(
-                              "You are a helpful research assistant with access to a document knowledge base.\n\n# Instructions\n- Always search for relevant documents before answering\n- Provide citations for your sources\n- Be objective and accurate in your responses\n- If multiple documents contain relevant information, synthesize them\n- Acknowledge when information is not available in the knowledge base"
+                              """
+                              You are a helpful research assistant with access to a document knowledge base.
+
+                              # Instructions
+                              - Always search for relevant documents before answering
+                              - Provide citations for your sources
+                              - Be objective and accurate in your responses
+                              - If multiple documents contain relevant information, synthesize them
+                              - Acknowledge when information is not available in the knowledge base"""
                           )
                           .cacheControl(CacheControlEphemeral.builder().build())
                           .build(),
                       TextBlockParam.builder()
                           .text(
-                              "# Knowledge Base Context\n\nHere are the relevant documents for this conversation:\n\n## Document 1: Solar System Overview\nThe solar system consists of the Sun and all objects that orbit it...\n\n## Document 2: Planetary Characteristics\nEach planet has unique features. Mercury is the smallest planet...\n\n## Document 3: Mars Exploration\nMars has been a target of exploration for decades...\n\n[Additional documents...]"
+                              """
+                              # Knowledge Base Context
+
+                              Here are the relevant documents for this conversation:
+
+                              ## Document 1: Solar System Overview
+                              The solar system consists of the Sun and all objects that orbit it...
+
+                              ## Document 2: Planetary Characteristics
+                              Each planet has unique features. Mercury is the smallest planet...
+
+                              ## Document 3: Mars Exploration
+                              Mars has been a target of exploration for decades...
+
+                              [Additional documents...]"""
                           )
                           .cacheControl(CacheControlEphemeral.builder().build())
                           .build()
@@ -2996,12 +3102,36 @@ The following code snippets showcase various prompt caching patterns. These exam
           system: [
               [
                   'type' => 'text',
-                  'text' => "You are a helpful research assistant with access to a document knowledge base.\n\n# Instructions\n- Always search for relevant documents before answering\n- Provide citations for your sources\n- Be objective and accurate in your responses\n- If multiple documents contain relevant information, synthesize them\n- Acknowledge when information is not available in the knowledge base",
+                  'text' => <<<'TEXT'
+                      You are a helpful research assistant with access to a document knowledge base.
+
+                      # Instructions
+                      - Always search for relevant documents before answering
+                      - Provide citations for your sources
+                      - Be objective and accurate in your responses
+                      - If multiple documents contain relevant information, synthesize them
+                      - Acknowledge when information is not available in the knowledge base
+                      TEXT,
                   'cache_control' => ['type' => 'ephemeral']
               ],
               [
                   'type' => 'text',
-                  'text' => "# Knowledge Base Context\n\nHere are the relevant documents for this conversation:\n\n## Document 1: Solar System Overview\nThe solar system consists of the Sun and all objects that orbit it...\n\n## Document 2: Planetary Characteristics\nEach planet has unique features. Mercury is the smallest planet...\n\n## Document 3: Mars Exploration\nMars has been a target of exploration for decades...\n\n[Additional documents...]",
+                  'text' => <<<'TEXT'
+                      # Knowledge Base Context
+
+                      Here are the relevant documents for this conversation:
+
+                      ## Document 1: Solar System Overview
+                      The solar system consists of the Sun and all objects that orbit it...
+
+                      ## Document 2: Planetary Characteristics
+                      Each planet has unique features. Mercury is the smallest planet...
+
+                      ## Document 3: Mars Exploration
+                      Mars has been a target of exploration for decades...
+
+                      [Additional documents...]
+                      TEXT,
                   'cache_control' => ['type' => 'ephemeral']
               ]
           ],
@@ -3081,12 +3211,36 @@ The following code snippets showcase various prompt caching patterns. These exam
         system_: [
           {
             type: "text",
-            text: "You are a helpful research assistant with access to a document knowledge base.\n\n# Instructions\n- Always search for relevant documents before answering\n- Provide citations for your sources\n- Be objective and accurate in your responses\n- If multiple documents contain relevant information, synthesize them\n- Acknowledge when information is not available in the knowledge base",
+            text: <<~TEXT.chomp,
+              You are a helpful research assistant with access to a document knowledge base.
+
+              # Instructions
+              - Always search for relevant documents before answering
+              - Provide citations for your sources
+              - Be objective and accurate in your responses
+              - If multiple documents contain relevant information, synthesize them
+              - Acknowledge when information is not available in the knowledge base
+            TEXT
             cache_control: { type: "ephemeral" }
           },
           {
             type: "text",
-            text: "# Knowledge Base Context\n\nHere are the relevant documents for this conversation:\n\n## Document 1: Solar System Overview\nThe solar system consists of the Sun and all objects that orbit it...\n\n## Document 2: Planetary Characteristics\nEach planet has unique features. Mercury is the smallest planet...\n\n## Document 3: Mars Exploration\nMars has been a target of exploration for decades...\n\n[Additional documents...]",
+            text: <<~TEXT.chomp,
+              # Knowledge Base Context
+
+              Here are the relevant documents for this conversation:
+
+              ## Document 1: Solar System Overview
+              The solar system consists of the Sun and all objects that orbit it...
+
+              ## Document 2: Planetary Characteristics
+              Each planet has unique features. Mercury is the smallest planet...
+
+              ## Document 3: Mars Exploration
+              Mars has been a target of exploration for decades...
+
+              [Additional documents...]
+            TEXT
             cache_control: { type: "ephemeral" }
           }
         ],
@@ -3278,7 +3432,7 @@ KV (key-value) cache representations and cryptographic hashes of cached content 
   </Accordion>
 
   <Accordion title="Can I manually clear the cache?">
-    Currently, there’s no way to manually clear the cache. Cached prefixes automatically expire after a minimum of 5 minutes of inactivity.
+    There’s no way to manually clear the cache. Cached prefixes automatically expire after a minimum of 5 minutes of inactivity.
   </Accordion>
 
   <Accordion title="How can I track the effectiveness of my caching strategy?">

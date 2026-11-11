@@ -12,10 +12,10 @@ featureMetadata:
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
     Claude API: stable
+    Amazon Bedrock: stable
+    Amazon Bedrock (bedrock-runtime): stable
     Claude Platform on AWS: stable
     Claude Models on Google Cloud (Anthropic managed): stable
-    Amazon Bedrock: stable
-    Amazon Bedrock (InvokeModel): stable
     Claude Models on Google Cloud (Google managed): stable
     Microsoft Foundry: stable
 ---
@@ -363,7 +363,7 @@ If your model supports only extended thinking (Claude Sonnet 4.5 (deprecated), C
 You need to migrate off `type: "enabled"` if:
 
 * You use Claude Opus 4.6 or Claude Sonnet 4.6, where `budget_tokens` is deprecated.
-* You use Claude 4.7 or a later model, such as Claude Opus 5.5, Claude Sonnet 5, Claude Sonnet 5.5, Claude Fable 5.2, Claude Fable 5.1, or Claude Haiku 5.5, where `type: "enabled"` returns a 400 error.
+* You use a model numbered 4.7 or higher, where `type: "enabled"` returns a 400 error. Examples include Claude Opus 5.5, Claude Sonnet 5, Claude Sonnet 5.5, Claude Fable 5.2, Claude Fable 5.1, and Claude Haiku 5.5.
 
 The mapping is small: remove `budget_tokens`, set `thinking: {type: "adaptive"}`, and control reasoning depth with `output_config: {effort: ...}` instead of a token budget.
 

@@ -645,7 +645,7 @@ export ANTHROPIC_LOG=debug
 
 ### OpenTelemetry tracing
 
-When your application registers an OpenTelemetry tracer provider, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Claude SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
+When your application registers an OpenTelemetry tracer provider, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Anthropic SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
 
 ### Making custom/undocumented requests
 
@@ -744,8 +744,8 @@ response = client.beta.messages.create(
 <Note>
   For detailed platform setup guides with code examples, see:
 
-  * [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
-  * [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
+  * [Amazon Bedrock (`bedrock-mantle`)](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
+  * [Amazon Bedrock (`bedrock-runtime`)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
   * [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)
   * [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)
   * [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
@@ -766,7 +766,7 @@ All six client classes are included in the base `anthropic` package:
 
 The `AnthropicAWS` client is in beta. Pass `workspace_id` to the constructor or set the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable. The `AnthropicGoogleCloud` client is also in beta. Pass `workspace_id` to the constructor or set the `ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID` environment variable. See [Project, location, and workspace resolution](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#project-location-and-workspace-resolution) for how the client resolves the workspace ID.
 
-Use `AnthropicBedrockMantle` for new projects; `AnthropicBedrock` remains for existing applications using the Bedrock `InvokeModel` API.
+Use `AnthropicBedrockMantle` with the `bedrock-mantle` endpoint, and `AnthropicBedrock` with the `InvokeModel` API on the `bedrock-runtime` endpoint.
 
 ## Semantic versioning
 

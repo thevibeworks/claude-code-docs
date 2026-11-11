@@ -1,7 +1,7 @@
 ---
 title: Preserved thinking
 url: https://platform.claude.com/docs/en/build-with-claude/preserved-thinking
-description: On the latest Claude models, preserved thinking determines whether the model can use a thinking block you send back from an earlier turn.
+description: On Claude models that run the prefix check, preserved thinking determines whether the model can use a thinking block you send back from an earlier turn.
 featureMetadata:
   status: stable
   supportedModels:
@@ -14,9 +14,10 @@ featureMetadata:
     - claude-haiku-5-5
   supportedPlatforms:
     Claude API: stable
+    Amazon Bedrock: stable
+    Amazon Bedrock (bedrock-runtime): stable
     Claude Platform on AWS: stable
     Claude Models on Google Cloud (Anthropic managed): stable
-    Amazon Bedrock: stable
     Claude Models on Google Cloud (Google managed): stable
     Microsoft Foundry: stable
 ---
@@ -41,18 +42,22 @@ Let Claude Code check your code for you
 
 On the Claude API, if a request fails the prefix check and leaves [`prefix_mismatch_behavior`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior) unset, whether it gets an error depends on the model and the account:
 
-| Model             | Account created             | Account created                           |
-| ----------------- | --------------------------- | ----------------------------------------- |
-| Name              | On or after August 31, 2026 | Before August 31, 2026                    |
-| Claude Fable 5.2  | 400 error                   | 400 error                                 |
-| Claude Mythos 5.2 | 400 error                   | 400 error                                 |
-| Claude Fable 5.1  | 400 error                   | No error (failing blocks reach the model) |
-| Claude Mythos 5.1 | 400 error                   | 400 error                                 |
-| Claude Opus 5.5   | 400 error                   | No error (failing blocks reach the model) |
-| Claude Sonnet 5.5 | 400 error                   | No error (failing blocks reach the model) |
-| Claude Haiku 5.5  | 400 error                   | No error (failing blocks reach the model) |
+| Model             | Account created             | Account created                                                                                                               |
+| ----------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Name              | On or after August 31, 2026 | Before August 31, 2026                                                                                                        |
+| Claude Fable 5.2  | Enforced (400 error)        | Enforced (400 error)                                                                                                          |
+| Claude Mythos 5.2 | Enforced (400 error)        | Enforced (400 error)                                                                                                          |
+| Claude Fable 5.1  | Enforced (400 error)        | [Enforcement varies by account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement-details) |
+| Claude Mythos 5.1 | Enforced (400 error)        | Enforced (400 error)                                                                                                          |
+| Claude Opus 5.5   | Enforced (400 error)        | [Enforcement varies by account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement-details) |
+| Claude Sonnet 5.5 | Enforced (400 error)        | [Enforcement varies by account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement-details) |
+| Claude Haiku 5.5  | Enforced (400 error)        | [Enforcement varies by account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement-details) |
 
-The cutoff is 00:00 UTC on August 31, 2026. In the Message Batches API, an item that leaves the field unset doesn’t get the 400 error. For this and for how to tell which column your account is in, see [What else happens when `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement-details).
+The dates in the table are at 00:00 UTC.
+
+Where enforcement varies by account, a request that fails the prefix check can get either a 400 error or no error. When no error is returned, the failing blocks reach the model. To find out which behavior your account gets, [test your account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement-details). To get the same result on every account, make your integration append-only or set `prefix_mismatch_behavior`. Otherwise, your code must handle both behaviors.
+
+In the Message Batches API, an item that leaves the field unset doesn’t get the 400 error. For this and for how to tell which outcome your account gets, see [What else happens when `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement-details).
 
 ### What to check in your integration
 
@@ -72,7 +77,7 @@ If your code builds or rewrites requests itself, check it if, between two reques
 | Uses the MCP connector with an unpinned tool list that changes between requests, which affects thinking blocks from the models named in [What counts as an edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-counts-as-an-edit) | On the Claude API, [pin the server’s tool list](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#pin-mcp-tool-list).                                                                                                                                                                |
 | Rewrites someone else’s requests as a library, proxy, or gateway between their history and the API                                                                                                                                                                | Follow [Libraries, proxies, and gateways](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#libraries-proxies-gateways).                                                                                                                                                       |
 
-A run with no errors on your own API key doesn’t prove that your code keeps the prefix intact. When a request leaves `prefix_mismatch_behavior` unset, failing blocks reach the model without an error wherever the table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) shows no error. People who run your tool with their own API keys can get a 400 error even when you don’t. To see the error from your account, set `prefix_mismatch_behavior` to `"error"` on your test requests, as [Check whether your code edits the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted) shows.
+A run with no errors on your own API key doesn’t prove that your code keeps the prefix intact. When a request to Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, or Claude Haiku 5.5 leaves `prefix_mismatch_behavior` unset, failing blocks can reach the model without an error, [depending on the account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement). People who run your tool with their own API keys can get a 400 error even when you don’t. To see the error from your account, set `prefix_mismatch_behavior` to `"error"` on your test requests, as [Check whether your code edits the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted) shows.
 
 Also check your integration if it sends Claude Sonnet 5.5, Claude Haiku 5.5, Claude Fable 5.2, or Claude Mythos 5.2 thinking blocks from one account in a request made by a different account. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
@@ -84,7 +89,7 @@ On Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Cla
 * The set of `tools`
 * Every `message` before the block
 
-With server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction), the checked prefix starts at the most recent compaction block.
+With [compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold), the API checks `messages` only from the most recent compaction block. It still checks `system` and `tools`.
 
 Request parameters outside those three fields, such as `effort`, `max_tokens`, `output_config`, `tool_choice`, and `metadata`, aren’t part of the prefix check, and neither are `cache_control` markers. [What counts as an edit](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-counts-as-an-edit) has the full list.
 
@@ -97,17 +102,17 @@ Keep `system` and `tools` fixed for the session and treat `messages` as append-o
 On the Claude API, the prefix check always runs on these models. Set `thinking.block_binding.prefix_mismatch_behavior` to choose what happens to a block that fails it. The field and the `input_transformations` array require the `thinking-binding-controls-2026-08-01` [beta header](https://platform.claude.com/docs/en/api/beta-headers). [Set the mismatch behavior and read `input_transformations`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#preserved-thinking-controls) shows the request in each SDK.
 
 * **`"error"`:** The API rejects the request with a 400 `invalid_request_error` that names the first failing block.
-* **`"drop_block"`:** The API drops each failing block and every thinking block after it, and the request succeeds. Dropped blocks aren’t billed. The model answers that turn without using reasoning from dropped blocks, and the prompt cache restarts at the edit. The response lists each dropped block in `input_transformations` (on the `message_start` event when streaming) with `reason: "prefix_binding_mismatch"`. It’s a stopgap with an [output-token cost](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#drop-block-cost).
+* **`"drop_block"`:** The API drops each failing block, and the request succeeds. Dropped blocks aren’t billed. The model answers that turn without using reasoning from dropped blocks, and the prompt cache restarts at the edit. The response lists each dropped block in `input_transformations` (on the `message_start` event when streaming) with `reason: "prefix_binding_mismatch"`. It’s a stopgap with an [output-token cost](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#drop-block-cost).
 
 #### What else happens when `prefix_mismatch_behavior` is unset
 
-The table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) gives the outcome for each model and account.
+The table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) lists the outcomes for each model and account.
 
 A failing block that reaches the model is read and billed like any other input. With the beta header, the response lists each one in `input_transformations` as `thinking_mismatch_allowed`.
 
-In the Message Batches API, an item that leaves the field unset doesn’t fail: where the table shows a 400 error, the API drops the failing blocks instead. An item that sets the field to `"error"` and sends a failing block resolves as `errored`.
+In the Message Batches API, an item that leaves the field unset doesn’t fail: where the same request outside a batch would get a 400 error, the API drops the failing blocks instead. An item that sets the field to `"error"` and sends a failing block resolves as `errored`.
 
-To find out which column your account is in, take a Claude Fable 5.1 conversation that contains a thinking block and change something before that block. Send it to Claude Fable 5.1 without the beta header or the `block_binding` field. A 400 error that names the header means your requests get the outcome in the “on or after August 31, 2026” column. A 200 response means they get the outcome in the “before August 31, 2026” column. To confirm a 200 result, send the same request again with the beta header and without `block_binding`: the response lists every thinking block after your edit in `input_transformations` as `thinking_mismatch_allowed`.
+To find out which outcome your account gets, take a Claude Fable 5.1 conversation that contains a thinking block and change something before that block. Send it to Claude Fable 5.1 without the beta header or the `block_binding` field. A 400 error that names the header means that your account gets the error. A 200 response means that it gets no error. To confirm a 200 result, send the same request again with the beta header and without `block_binding`: the response lists every thinking block after your edit in `input_transformations` as `thinking_mismatch_allowed`.
 
 #### The 400 error
 
@@ -178,8 +183,7 @@ The following request opts into dropping rather than rejecting. On a first turn 
   ```
 
   ```bash CLI
-  ant beta:messages create --beta thinking-binding-controls-2026-08-01 \
-    --format yaml <<'YAML'
+  ant beta:messages create --beta thinking-binding-controls-2026-08-01 <<'YAML'
   model: claude-fable-5-1
   max_tokens: 16000
   thinking:
@@ -345,15 +349,17 @@ The following request opts into dropping rather than rejecting. On a first turn 
 
   ```php PHP
   use Anthropic\Beta\AnthropicBeta;
+  use Anthropic\Beta\Messages\BetaTextBlock;
   use Anthropic\Beta\Messages\BetaThinkingBlockBinding;
   use Anthropic\Beta\Messages\BetaThinkingConfigAdaptive;
   use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
   use Anthropic\Client;
+  use Anthropic\Messages\Model;
 
   $client = new Client();
 
   $response = $client->beta->messages->create(
-      model: 'claude-fable-5-1',
+      model: Model::CLAUDE_FABLE_5_1,
       maxTokens: 16000,
       thinking: BetaThinkingConfigAdaptive::with(
           blockBinding: BetaThinkingBlockBinding::with(
@@ -367,7 +373,7 @@ The following request opts into dropping rather than rejecting. On a first turn 
   );
 
   foreach ($response->content as $block) {
-      if ($block->type === 'text') {
+      if ($block instanceof BetaTextBlock) {
           echo $block->text, PHP_EOL;
       }
   }
@@ -392,7 +398,7 @@ The following request opts into dropping rather than rejecting. On a first turn 
   )
 
   response.content.each do |block|
-    puts block.text if block.type == :text
+    puts block.text if block.is_a?(Anthropic::Beta::BetaTextBlock)
   end
 
   puts "Input transformations: #{response.input_transformations&.length || 0}"
@@ -407,7 +413,7 @@ Input transformations: 0
 Under the beta header, every response from a thinking-capable model carries `input_transformations`. Each entry names one thinking block by its `path` (for example `messages.1.content.0`) and gives a `reason`. There are two entry types:
 
 * **`thinking_dropped`:** The API drops the block before the model reads it, and the block isn’t billed. The `reason` is `prefix_binding_mismatch` or `model_binding_mismatch` (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models)). The `reason` can also be `organization_binding_mismatch`, which means the block came from another account (see [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking)).
-* **`thinking_mismatch_allowed`:** The block fails the prefix check, but the API lets it through for this request, so the block reaches the model unchanged and is billed. The `reason` is always `prefix_binding_mismatch`. This entry appears only on requests that leave `prefix_mismatch_behavior` unset, where the table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) shows no error. A request that sets the field never gets this entry.
+* **`thinking_mismatch_allowed`:** The block fails the prefix check, but the API lets it through for this request, so the block reaches the model unchanged and is billed. The `reason` is always `prefix_binding_mismatch`. This entry appears only on requests that leave `prefix_mismatch_behavior` unset, on the models and accounts where [failing blocks reach the model](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement). A request that sets the field never gets this entry.
 
 The array is empty when no block was dropped and none failed the prefix check. Ignore entries whose `type` or `reason` you don’t recognize, because later checks add values.
 
@@ -415,7 +421,7 @@ When [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming
 
 ### What counts as an edit
 
-Each row compares a request with the one before it. “Later thinking blocks” means the blocks already in the history that come after the changed content:
+Each row is a change made after a thinking block was produced. “Later thinking blocks” means the blocks already in the history that come after the changed content:
 
 | Change between requests                                                                                                                                                                                                                                                                                                                  | Later thinking blocks                                                                                                                                                                                                                                                                                                                                    |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -426,14 +432,14 @@ Each row compares a request with the one before it. “Later thinking blocks” 
 | Change `model`                                                                                                                                                                                                                                                                                                                           | Valid for blocks that the new model can read; the API drops the others without an error (see [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models))                                                                                                                             |
 | Add, move, or remove `cache_control` markers                                                                                                                                                                                                                                                                                             | Valid                                                                                                                                                                                                                                                                                                                                                    |
 | A rotating signed URL that returns the same bytes                                                                                                                                                                                                                                                                                        | Valid                                                                                                                                                                                                                                                                                                                                                    |
-| Server-side compaction or context editing removes or replaces content                                                                                                                                                                                                                                                                    | Valid (the check compares what you sent, not the server’s edited copy)                                                                                                                                                                                                                                                                                   |
+| [Compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) or context editing removes or replaces content                                                                                                                                                                             | Valid (the check compares what you sent, not the server’s edited copy)                                                                                                                                                                                                                                                                                   |
 | A cleared [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#per-turn-reminders) left in place                                                                                                                                                                                        | Valid                                                                                                                                                                                                                                                                                                                                                    |
 | Edit, reorder, or delete any earlier `user`, `assistant`, or `system` message                                                                                                                                                                                                                                                            | Invalid, except when the signed block from [on-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) replaces the messages it summarizes, under the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid) |
 | Re-render the context you put in the first user message with a changed value                                                                                                                                                                                                                                                             | Invalid for every thinking block                                                                                                                                                                                                                                                                                                                         |
 | Clear or shorten an earlier `tool_result`, re-encode an earlier image, or change an earlier `tool_use` input                                                                                                                                                                                                                             | Invalid for every later thinking block                                                                                                                                                                                                                                                                                                                   |
 | Add a text block to an earlier user turn, or remove one you added last time                                                                                                                                                                                                                                                              | Invalid                                                                                                                                                                                                                                                                                                                                                  |
 | Change the top-level `system` string or blocks                                                                                                                                                                                                                                                                                           | Invalid                                                                                                                                                                                                                                                                                                                                                  |
-| Add, remove, rename, or edit a tool in `tools`                                                                                                                                                                                                                                                                                           | Invalid                                                                                                                                                                                                                                                                                                                                                  |
+| Add, remove, rename, or edit a tool in `tools`                                                                                                                                                                                                                                                                                           | Invalid, except for a deferred tool that nothing has referenced                                                                                                                                                                                                                                                                                          |
 | Remove a `thinking` block from the middle of the history and keep later ones                                                                                                                                                                                                                                                             | Invalid for every later thinking block                                                                                                                                                                                                                                                                                                                   |
 | Put back a `thinking` block you removed on an earlier request                                                                                                                                                                                                                                                                            | Invalid for thinking blocks produced while it was gone                                                                                                                                                                                                                                                                                                   |
 | An image or document URL that returns different bytes on the next request                                                                                                                                                                                                                                                                | Invalid                                                                                                                                                                                                                                                                                                                                                  |
@@ -450,11 +456,11 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
 
 <CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
-    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+    This workflow needs more logic than a single shell command. Use the [Anthropic SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
   </CodeGroupItem>
 
   <CodeGroupItem language="CLI">
-    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+    This workflow needs more logic than a single shell command. Use the [Anthropic SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
   </CodeGroupItem>
 
   ```python Python
@@ -636,10 +642,12 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
 
   ```php PHP
   use Anthropic\Beta\AnthropicBeta;
+  use Anthropic\Beta\Messages\BetaThinkingBlock;
   use Anthropic\Beta\Messages\BetaThinkingBlockBinding;
   use Anthropic\Beta\Messages\BetaThinkingConfigAdaptive;
   use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
   use Anthropic\Client;
+  use Anthropic\Messages\Model;
 
   $client = new Client();
 
@@ -653,7 +661,7 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
   foreach ($userTurns as $userTurn) {
       $messages[] = ['role' => 'user', 'content' => $userTurn];
       $response = $client->beta->messages->create(
-          model: 'claude-fable-5-1',
+          model: Model::CLAUDE_FABLE_5_1,
           maxTokens: 16000,
           thinking: BetaThinkingConfigAdaptive::with(
               blockBinding: BetaThinkingBlockBinding::with(
@@ -664,7 +672,7 @@ Then confirm against the API. Add the `thinking-binding-controls-2026-08-01` bet
           betas: [AnthropicBeta::THINKING_BINDING_CONTROLS_2026_08_01],
       );
       $messages[] = ['role' => 'assistant', 'content' => $response->content];
-      $thinkingBlocks = array_filter($response->content, fn ($block) => $block->type === 'thinking');
+      $thinkingBlocks = array_filter($response->content, fn ($block) => $block instanceof BetaThinkingBlock);
       $dropped = $response->inputTransformations ?? [];
       echo 'thinking blocks: ', count($thinkingBlocks), ', dropped: ', count($dropped), PHP_EOL;
   }
@@ -726,7 +734,7 @@ Log `input_transformations` on every turn of your own integration. When the API 
 * **`reason: "model_binding_mismatch"`:** The conversation moved to a model that can’t read the earlier model’s blocks. This isn’t a prefix edit. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
 * **`reason: "organization_binding_mismatch"`:** The block came from another account. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
-To see a failure on purpose, send a third turn from the earlier example and add a `system` prompt to that request only, so that it differs from the first two requests, which had none. With `"drop_block"`, the dropped count is no longer 0: the response has one entry for each thinking block in the history, each with `reason: "prefix_binding_mismatch"`. With `"error"`, the request returns the 400 error described in [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior), and its last sentence names the `system` prompt. If the count is still 0, there was nothing to check: confirm that the model is claude-fable-5-1, claude-fable-5-2, or claude-mythos-5-2, that the request sets `block_binding`, that the history you sent contains `thinking` blocks, and that the first two requests had no `system` prompt.
+To see a failure on purpose, send a third turn from the earlier example and add a `system` prompt to that request only, so that it differs from the first two requests, which had none. With `"drop_block"`, the dropped count is no longer 0: the response has one entry for each thinking block in the history, each with `reason: "prefix_binding_mismatch"`. With `"error"`, the request returns the 400 error described in [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior), and its last sentence names the `system` prompt. If the count is still 0, there was nothing to check: confirm that the model runs the [prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check), that the request sets `block_binding`, that the history you sent contains `thinking` blocks, and that the first two requests had no `system` prompt.
 
 Two plain turns rarely show the problem. Run a session through each of the following, with `"error"` set so that a regression fails your CI:
 
@@ -737,7 +745,7 @@ Two plain turns rarely show the problem. Run a session through each of the follo
 * A switch to another model and back
 * A save, a restart, and a resume on a later date
 
-Where the table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) shows no error, you can also watch production traffic: send the beta header, leave `block_binding` out, and log `input_transformations`. Sending the header alone doesn’t change what the model receives. Every thinking block that comes after the content you edited fails the check and gets its own `thinking_mismatch_allowed` entry, with the same `path` and `reason` fields as a `thinking_dropped` entry. Blocks before the edit pass. An edit to `system` or `tools` comes before every block, so every thinking block in the request fails the check. One entry looks like this:
+If [failing blocks reach the model](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) for your requests, you can also watch production traffic: send the beta header, leave `block_binding` out, and log `input_transformations`. Sending the header alone doesn’t change what the model receives. Every thinking block already in the history after the content you edited fails the check and gets its own `thinking_mismatch_allowed` entry, with the same `path` and `reason` fields as a `thinking_dropped` entry. Blocks before the edit pass. An edit to `system` or `tools` comes before every block, so every thinking block already in the history fails the check. One entry looks like this:
 
 ```json
 {
@@ -751,15 +759,15 @@ Where the table in [When `prefix_mismatch_behavior` is unset](https://platform.c
 }
 ```
 
-Run the following example from an [account created before August 31, 2026](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement), because on an account created on or after that date, the API rejects its third request with a 400 error. Keep the example on Claude Fable 5.1: on Claude Fable 5.2 and Claude Mythos 5.2, the third request gets the 400 error on every account. It sends the header without `block_binding` and extends the earlier session with a third request that adds a system prompt, which changes the prefix on purpose. After each turn it prints the number of `thinking` blocks and flagged blocks:
+Run the following example on Claude Fable 5.1 from an account where [failing blocks reach the model](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement). On any other account, the API rejects its third request with a 400 error. On Claude Fable 5.2 and Claude Mythos 5.2, the third request gets the 400 error on every account. The example sends the header without `block_binding` and extends the earlier session with a third request that adds a system prompt, which changes the prefix on purpose. After each turn it prints the number of `thinking` blocks and flagged blocks:
 
 <CodeGroup exclude="shell:cURL, shell:CLI">
   <CodeGroupItem language="cURL">
-    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+    This workflow needs more logic than a single shell command. Use the [Anthropic SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
   </CodeGroupItem>
 
   <CodeGroupItem language="CLI">
-    This workflow needs more logic than a single shell command. Use the [Claude SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
+    This workflow needs more logic than a single shell command. Use the [Anthropic SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) to run it.
   </CodeGroupItem>
 
   ```python Python
@@ -874,11 +882,11 @@ Run the following example from an [account created before August 31, 2026](https
 
   // messages grows across turns: each assistant turn goes back exactly as returned
   messages := []anthropic.BetaMessageParam{}
-  for i, userTurn := range userTurns {
+  for turnIndex, userTurn := range userTurns {
   	messages = append(messages, anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock(userTurn)))
   	// Only the last request adds a system prompt, which changes the prefix on purpose
   	var system []anthropic.BetaTextBlockParam
-  	if i == len(userTurns)-1 {
+  	if turnIndex == len(userTurns)-1 {
   		system = []anthropic.BetaTextBlockParam{{Text: "Answer briefly."}}
   	}
   	response, err := client.Beta.Messages.New(context.TODO(), anthropic.BetaMessageNewParams{
@@ -957,9 +965,11 @@ Run the following example from an [account created before August 31, 2026](https
 
   ```php PHP
   use Anthropic\Beta\AnthropicBeta;
+  use Anthropic\Beta\Messages\BetaThinkingBlock;
   use Anthropic\Beta\Messages\BetaThinkingConfigAdaptive;
   use Anthropic\Beta\Messages\BetaThinkingMismatchAllowedInputTransformation;
   use Anthropic\Client;
+  use Anthropic\Messages\Model;
 
   $client = new Client();
 
@@ -974,7 +984,7 @@ Run the following example from an [account created before August 31, 2026](https
   foreach ($userTurns as $turnIndex => $userTurn) {
       $messages[] = ['role' => 'user', 'content' => $userTurn];
       $response = $client->beta->messages->create(
-          model: 'claude-fable-5-1',
+          model: Model::CLAUDE_FABLE_5_1,
           maxTokens: 16000,
           thinking: BetaThinkingConfigAdaptive::with(),
           // Only the last request adds a system prompt, which changes the prefix on purpose
@@ -983,7 +993,7 @@ Run the following example from an [account created before August 31, 2026](https
           betas: [AnthropicBeta::THINKING_BINDING_CONTROLS_2026_08_01],
       );
       $messages[] = ['role' => 'assistant', 'content' => $response->content];
-      $thinkingBlocks = array_filter($response->content, fn ($block) => $block->type === 'thinking');
+      $thinkingBlocks = array_filter($response->content, fn ($block) => $block instanceof BetaThinkingBlock);
       $flagged = array_filter(
           $response->inputTransformations ?? [],
           fn ($transformation) => $transformation instanceof BetaThinkingMismatchAllowedInputTransformation,
@@ -1033,7 +1043,7 @@ thinking blocks: 1, flagged: 2
 
 The third response flags every thinking block from the earlier turns, one for each turn in this run, because the new system prompt comes before all of them. The model still read them.
 
-Handle these entries as you would `prefix_binding_mismatch` drops. The edit is before the first block listed: diff `system`, `tools`, and `messages` up to that block’s `path` against the previous request to find it, then replace it with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits). If the request sets `prefix_mismatch_behavior`, or if the table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement) shows a 400 error for your model and account, the API instead rejects the request or drops the failing blocks. The entries are a lower bound on what `"drop_block"` would remove. With `"drop_block"`, a failing block also takes the rest of that turn’s thinking blocks with it, and removing one block can make the next one fail too. When the API lets failing blocks through, it evaluates each block on its own and lists a block only if that block fails.
+Handle these entries as you would `prefix_binding_mismatch` drops. The edit is before the first block listed. To find it, diff `system`, `tools`, and `messages` up to that block’s `path` against the conversation as it stood when Claude produced that block. Then replace the edit with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits). If the request sets `prefix_mismatch_behavior`, or if [your model and account get the 400 error](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement), the API instead rejects the request or drops the failing blocks. The entries are a lower bound on what `"drop_block"` would remove. With `"drop_block"`, a failing block also takes the rest of that turn’s consecutive thinking blocks with it, and removing one block can make the next one fail too. When the API lets failing blocks through, it evaluates each block on its own and lists a block only if that block fails.
 
 ## Make changes without editing the prefix
 
@@ -1220,13 +1230,13 @@ The new tool arrives in `messages`, `tools` never changes, and earlier thinking 
 
 If the API connects to the MCP server for you through the [MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector), also send `mcp-client-2026-09-15`. It covers everything `mcp-client-2025-11-20` does, so send it instead of that one. The block’s `definition` can then be an [`mcp_toolset` for a server listed in `mcp_servers`](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#add-an-mcp-server-mid-conversation-beta). When the API has to fetch a server’s tool list, the response starts with an `mcp_tool_listing` block for that server. Send it back unchanged with the rest of the assistant turn, and keep sending `mcp-client-2026-09-15` on every later request that carries it. The block pins the toolset to that list, so the API doesn’t contact the server again for it. These MCP connector features are available on the Claude API.
 
-With only the `mid-conversation-tool-changes-2026-07-01` header, you can append a tool you learn about mid-session to `tools` with `defer_loading: true`, then offer it with a `tool_addition` block. That’s safe because the prefix check ignores a deferred tool until a `tool_addition` block references it. Adding a tool without `defer_loading: true` changes the prefix and invalidates earlier thinking.
+With only the `mid-conversation-tool-changes-2026-07-01` header, you can append a tool you learn about mid-session to `tools` with `defer_loading: true`, then offer it with a `tool_addition` block. That’s safe because the prefix check ignores a deferred tool until something in the conversation references it. Adding a tool without `defer_loading: true` changes the prefix and invalidates earlier thinking.
 
 The `role: "system"` messages that carry these blocks join the prefix for later thinking. Leave them in place on later requests.
 
 ### Change effort with a per-message `output_config`
 
-Changing top-level `output_config.effort` between requests doesn’t invalidate thinking, because effort isn’t part of the prefix. Changing top-level effort does restart the prompt cache. Where the model and platform support [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta), use it instead: append a `role: "system"` message with empty `content` and the new level. It needs the beta header `mid-conversation-output-config-2026-07-01`. On Claude Haiku 5.5, per-message effort needs adaptive thinking.
+Changing top-level `output_config.effort` between requests doesn’t invalidate thinking, because effort isn’t part of the prefix. Changing top-level effort does restart the prompt cache. Where the model and platform support [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message), use it instead: append a `role: "system"` message with empty `content` and the new level. It needs the beta header `mid-conversation-output-config-2026-07-01`. On Claude Sonnet 5.5 and Claude Haiku 5.5, a per-message effort change needs adaptive thinking.
 
 ```json
 { "role": "system", "content": [], "output_config": { "effort": "low" } }
@@ -1236,10 +1246,10 @@ When the new level takes effect depends on where you put the message. Directly a
 
 ### Trim context on the server
 
-Another common prefix edit is client-side trimming: dropping or summarizing the oldest turns and keeping the recent ones verbatim. The kept turns’ thinking blocks were produced while the removed history was still in place, so they fail the check. The server-side equivalents don’t count as edits, because the check compares the conversation as you sent it:
+Another common prefix edit is client-side trimming: dropping or summarizing the oldest turns and keeping the recent ones verbatim. The kept turns’ thinking blocks were produced while the removed history was still in place, so they fail the check. The server-side equivalents avoid that, because the check compares the conversation as you sent it:
 
 * [On-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) (beta) returns the summary from a separate request, which can [run in the background](https://platform.claude.com/docs/en/build-with-claude/compaction-background), and you send the returned block in place of the messages it summarizes. The check accepts that swap, so the turns you keep can stay valid with their thinking, under the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid). [Request a summary](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#request-a-summary) shows the request and names the beta header it needs.
-* [Compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) summarizes older turns into a compaction block when the context approaches a threshold you set, and the checked prefix restarts from that block. Its [`instructions` parameter](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold#custom-summarization-instructions) takes your own summarization prompt, such as “preserve every ticker, position size, and stated assumption.”
+* [Compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) summarizes older turns into a compaction block when the context approaches a threshold you set, and the check on `messages` restarts from that block. Its [`instructions` parameter](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold#custom-summarization-instructions) takes your own summarization prompt, such as “preserve every ticker, position size, and stated assumption.”
 * [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) clears old tool results or old thinking blocks by rule, oldest first. The strategies are `clear_tool_uses_20250919` and `clear_thinking_20251015`.
 
 ### Compact on the client
@@ -1432,12 +1442,13 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
   use Anthropic\Beta\Messages\BetaThinkingConfigAdaptive;
   use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
   use Anthropic\Client;
+  use Anthropic\Messages\Model;
 
   $client = new Client();
 
   // $compactedMessages: the summary message, then the kept turns as returned
   $response = $client->beta->messages->create(
-      model: 'claude-fable-5-1',
+      model: Model::CLAUDE_FABLE_5_1,
       maxTokens: 16000,
       thinking: BetaThinkingConfigAdaptive::with(
           blockBinding: BetaThinkingBlockBinding::with(
@@ -1456,7 +1467,7 @@ Pass the compacted history as `messages` and set `block_binding` on the `thinkin
 
   # compacted_messages: the summary message, then the kept turns as returned
   response = client.beta.messages.create(
-    model: "claude-fable-5-1",
+    model: Anthropic::Model::CLAUDE_FABLE_5_1,
     max_tokens: 16_000,
     thinking: {
       type: "adaptive",
@@ -1543,7 +1554,15 @@ A move that doesn’t keep the reasoning can happen when a router sends a turn t
 
 #### Earlier models
 
-A conversation that moves from Claude Sonnet 5 or an earlier Opus, Sonnet, or Haiku model to Claude Opus 5, Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, or any Claude Fable or Claude Mythos model keeps its reasoning. The reverse doesn’t hold: these earlier models can’t read thinking blocks from those models. Claude Opus 5, Claude Fable 5, and Claude Mythos 5 can’t read thinking blocks from Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Sonnet 5.5, or Claude Haiku 5.5.
+Claude Sonnet 5 and earlier Opus, Sonnet, and Haiku models are the earlier models in this section. A conversation that moves from one of them to Claude Opus 5, Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, or any Claude Fable or Claude Mythos model keeps its reasoning. The reverse doesn’t hold: the earlier models can’t read thinking blocks from those models. Claude Opus 5, Claude Fable 5, and Claude Mythos 5 can’t read thinking blocks from these models:
+
+* Claude Fable 5.2 and Claude Mythos 5.2
+* Claude Fable 5.1 and Claude Mythos 5.1
+* Claude Opus 5.5
+* Claude Sonnet 5.5
+* Claude Haiku 5.5
+
+Claude Opus 5 also can’t read thinking blocks from Claude Fable 5 or Claude Mythos 5.
 
 ### See which blocks were dropped
 
@@ -1575,7 +1594,7 @@ The API can also leave out a thinking block that another account produced, if th
 
 <AccordionGroup>
   <Accordion title="Can I test preserved thinking from an account created before August 31, 2026?">
-    Yes. Send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior`. The setting applies to that request on any account: `"error"` rejects an edited history with a 400 error, and `"drop_block"` lets the request through and lists what was dropped in `input_transformations`. See [Check whether your code edits the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted). Without that setting, what an account created before that date gets varies by model: see the table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement).
+    Yes. Send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior`. The setting applies to that request on any account: `"error"` rejects an edited history with a 400 error, and `"drop_block"` lets the request through and lists what was dropped in `input_transformations`. See [Check whether your code edits the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#how-to-tell-whether-your-integration-is-impacted). Without that setting, the outcome depends on the model and the account: see the table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement).
   </Accordion>
 
   <Accordion title="If anything before a thinking block changes, even one tool description, is the conversation unusable?">
@@ -1593,7 +1612,7 @@ The API can also leave out a thinking block that another account produced, if th
   <Accordion title="I compact by summarizing older turns and keeping recent turns verbatim. Does that still work?">
     Yes, if the API writes the summary. [On-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) (beta header `compact-2026-09-04`) summarizes the older turns into a signed block that you send in place of them. The recent turns keep their thinking under the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid).
 
-    If you write the summary yourself, the kept turns’ thinking fails the check, because those blocks were produced against the history you replaced. Strip `thinking` and `redacted_thinking` blocks from the turns you carry across and keep their `text` and `tool_use` blocks, or send `prefix_mismatch_behavior: "drop_block"` and let the API drop them. Simple compaction leaves no thinking behind to fail and is the recommended approach: one summary message plus the next user turn, with no earlier turns replayed. Server-side [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) don’t count as edits. See [Compact on the client](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#custom-compaction-on-the-client).
+    If you write the summary yourself, the kept turns’ thinking fails the check, because those blocks were produced against the history you replaced. Strip `thinking` and `redacted_thinking` blocks from the turns you carry across and keep their `text` and `tool_use` blocks, or send `prefix_mismatch_behavior: "drop_block"` and let the API drop them. Simple compaction leaves no thinking behind to fail and is the recommended approach: one summary message plus the next user turn, with no earlier turns replayed. [Compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) avoid that failure, because the check compares the conversation as you sent it. See [Compact on the client](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#custom-compaction-on-the-client).
   </Accordion>
 
   <Accordion title="How do I handle instruction files such as AGENTS.md or CLAUDE.md that change mid-session?">
@@ -1601,7 +1620,7 @@ The API can also leave out a thinking block that another account produced, if th
   </Accordion>
 
   <Accordion title="A saved session fails on every request. How do I get it working again?">
-    The stored history has an edit in it, so sending it back as it is fails every time, even after you fix the code that made the edit. To continue the session, send the beta header with `prefix_mismatch_behavior: "drop_block"` on every later request. Alternatively, strip the block the error names and every later `thinking` and `redacted_thinking` block, then retry once. If you can’t send `block_binding` (on Claude Sonnet 5.5 and Claude Haiku 5.5, it works only with `thinking: {"type": "adaptive"}`), strip the blocks. Thinking the model produces after that stays valid as long as nothing before it changes again. Then fix the code that made the edit so that new sessions don’t hit it. See [Handle the error in code](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#handle-the-error-in-code).
+    If the stored history has an edit in it, sending it back as it is fails every time, even after you fix the code that made the edit. To continue the session, send the beta header with `prefix_mismatch_behavior: "drop_block"` on every later request. Alternatively, strip the block the error names and every later `thinking` and `redacted_thinking` block, leave them out of later requests, and retry. If you can’t send `block_binding` (on Claude Sonnet 5.5 and Claude Haiku 5.5, it works only with `thinking: {"type": "adaptive"}`), strip the blocks. Thinking the model produces after that stays valid as long as nothing before it changes again. Then fix the code that made the edit so that new sessions don’t hit it. See [Handle the error in code](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#handle-the-error-in-code).
   </Accordion>
 
   <Accordion title="My harness can route a turn to a non-Claude model. Do those turns invalidate Claude’s earlier thinking?">
@@ -1646,7 +1665,8 @@ Preserved thinking is available on select models.
 | Status    | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                  | Models                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
-| Available | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)                                                                                                                                                                                                                                                                                 | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview)                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Available | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)                                                                                                                                                                                                                                                                                 | [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview)                                                                                                                                                                                                                                                              |
+| Available | [Amazon Bedrock (bedrock-runtime)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)                                                                                                                                                                                                                                                        | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview)                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | Available | [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed)                                                                                                                                                                                                                       | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview)                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)

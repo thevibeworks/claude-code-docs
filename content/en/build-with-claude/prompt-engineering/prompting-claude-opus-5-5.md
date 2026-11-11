@@ -21,7 +21,7 @@ Claude Opus 5.5 generates output tokens more than 30 percent faster than Claude 
 * Frontend output looks generic: [Frontend design defaults](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5#frontend-design-defaults)
 
 <Note>
-  For the four breaking API changes when migrating from Claude Opus 5, see the [migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-5).
+  For the four breaking API changes when migrating from Claude Opus 5, see the [Claude Opus 5.5 migration guide](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-5).
 </Note>
 
 ## Capabilities relevant to prompting
@@ -43,7 +43,7 @@ At a given level, Claude Opus 5.5 tends to think more per turn than Claude Opus 
 * Reserve `xhigh` and `max` for work where you’ve measured a quality gain.
 * To get less thinking, lower the effort level first. Lowering effort reduces thinking, and with it cost and latency, more reliably than prompt instructions do.
 
-Changing the top-level `effort` value between requests invalidates the prompt cache. To change the level partway through a conversation, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which keeps the cache. A change holds for every later turn until another one replaces it.
+Changing the top-level `effort` value between requests invalidates the prompt cache. To change the level partway through a conversation, use a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) change instead, which keeps the cache. Per-message effort is in beta. A change holds for every later turn until another one replaces it.
 
 ## Prompts written for thinking disabled
 
@@ -94,10 +94,10 @@ Second, if the model might need to hand the user something verbatim partway thro
 
 Third, if you want more frequent or predictable updates, such as a one-line statement of intent before the first tool call and a short recap at the end, say so in the system prompt; the model is responsive to such instructions. This helps most in human-in-the-loop work.
 
-Fourth, if long tool-calling turns still go quiet for longer than you want, have your harness ask for an update. With `display: "updates"` set (the first lever), count consecutive tool-calling steps that give the user nothing to read: no `text` block and no progress-update text. After several in a row (five, for example), append a reminder such as the following one after the latest tool results, as a [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (`clear_at: "next_user_message"`, in beta with the `mid-conversation-system-clear-at-2026-08-21` header). If the turn stays quiet, stop after two or three reminders rather than sending more. Because each reminder is appended and left in place, rather than inserted for one request and deleted on the next, the prompt cache keeps matching and the [thinking blocks](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#per-turn-reminders) that follow it stay valid. In Anthropic’s testing on agentic coding tasks, this roughly halved the share of tasks with a long silent stretch, with no measurable change in cost.
+Fourth, if long tool-calling turns still go quiet for longer than you want, have your harness ask for an update. With `display: "updates"` set (the first lever), count consecutive tool-calling steps that give the user nothing to read: no `text` block and no progress-update text. After several in a row (five, for example), append a reminder such as the following one after the latest tool results, as a [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (`clear_at: "next_user_message"`, in beta with the `mid-conversation-system-clear-at-2026-08-21` header). If the turn stays quiet, stop after two or three reminders rather than sending more. Because each reminder is appended and left in place, rather than inserted for one request and deleted on the next, the prompt cache keeps matching and the thinking blocks that follow it stay valid (see [Send per-turn reminders as turn-scoped system messages](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#per-turn-reminders)). In Anthropic’s testing on agentic coding tasks, this roughly halved the share of tasks with a long silent stretch, with no measurable change in cost.
 
 ```text wrap
-The user hasn't heard from you in a while — say in a few words what you're doing, then continue.
+The user hasn't heard from you in a while: say in a few words what you're doing, then continue.
 ```
 
 ## Explore context in multiapp workflows
@@ -105,7 +105,7 @@ The user hasn't heard from you in a while — say in a few words what you're doi
 In workflow automation across several connected apps, such as email, documents, spreadsheets, and CRM records, the information a task depends on often sits somewhere the request doesn’t explicitly mention: for example, a policy in an old email thread, a rule on another spreadsheet tab, or a note on a customer record. Claude Opus 5.5 tends to get to work quickly, and on loosely specified tasks it helps to tell the model to look through the relevant sources before acting. If your agent works across several apps on tasks like these, one sentence in the system prompt makes it look around before it changes anything:
 
 ```text wrap
-Before taking any action, explore broadly with tool calls: list and open the emails, documents, spreadsheet tabs and records across the available apps that could be relevant to this task, including ones the task does not explicitly mention, and use what you find.
+Before taking any action, explore broadly with tool calls: list and open the emails, documents, spreadsheet tabs, and records across the available apps that could be relevant to this task, including ones the task does not explicitly mention, and use what you find.
 ```
 
 In Anthropic’s testing on multiapp automation tasks, Claude Opus 5.5 completed noticeably more of them correctly with this instruction, at both `medium` and `max` effort, at the cost of slightly more tool calls and tokens. Because it tells the model to act on what it finds, keep untrusted content out of the records it searches.

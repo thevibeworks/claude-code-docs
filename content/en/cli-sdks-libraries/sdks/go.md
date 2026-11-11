@@ -625,8 +625,8 @@ For request middleware (`option.WithMiddleware`) and replacing the default `http
 <Note>
   For detailed platform setup guides with code examples, see:
 
-  * [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
-  * [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
+  * [Amazon Bedrock (`bedrock-mantle`)](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
+  * [Amazon Bedrock (`bedrock-runtime`)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
   * [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)
   * [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)
   * [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
@@ -637,11 +637,15 @@ For request middleware (`option.WithMiddleware`) and replacing the default `http
 The Go SDK supports the following platforms:
 
 * **Claude Models on Google Cloud (Google managed):** `import "github.com/anthropics/anthropic-sdk-go/v2/vertex"`. Use `vertex.WithGoogleAuth(ctx, region, projectID)` or `vertex.WithCredentials(ctx, region, projectID, creds)`.
-* **Bedrock:** `import "github.com/anthropics/anthropic-sdk-go/v2/bedrock"`. Use `bedrock.NewMantleClient` for the Messages-API Bedrock endpoint (streams over SSE), or `bedrock.WithLoadDefaultConfig(ctx)` / `bedrock.WithConfig(cfg)` (`bedrock-runtime` path). Importing the `bedrock` package globally registers a decoder for `application/vnd.amazon.eventstream` with the SDK’s streaming layer (through package `init()`). This applies whether you use the `bedrock-runtime` `WithConfig`/`WithLoadDefaultConfig` path or `NewMantleClient`.
-* **Claude Platform on AWS:** `import anthropicaws "github.com/anthropics/anthropic-sdk-go/v2/aws"`. Use `anthropicaws.NewClient(ctx, cfg)` with an `anthropicaws.ClientConfig` value to construct a client; set `WorkspaceID` on the config or the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable. The `anthropicaws` import alias avoids a name collision with `github.com/aws/aws-sdk-go-v2/aws` when both are imported. Available in beta.
-* **Foundry:** `import "github.com/anthropics/anthropic-sdk-go/v2/foundry"`. Use `foundry.NewClient(cfg)` with a `foundry.ClientConfig` value to construct a client; set `APIKey` (or `AzureADTokenProvider` for Microsoft Entra ID) and `Resource` on the config, or the `ANTHROPIC_FOUNDRY_API_KEY` and `ANTHROPIC_FOUNDRY_RESOURCE` environment variables.
 
-Use `bedrock.NewMantleClient` for new projects; `bedrock.WithLoadDefaultConfig`/`WithConfig` remain for existing applications using the Bedrock `InvokeModel` API.
+* **Bedrock:** `import "github.com/anthropics/anthropic-sdk-go/v2/bedrock"`. What you use depends on the endpoint:
+
+  * **`bedrock-mantle`:** `bedrock.NewMantleClient`. It streams over SSE.
+  * **`bedrock-runtime`:** `bedrock.WithLoadDefaultConfig(ctx)` or `bedrock.WithConfig(cfg)`, for the `InvokeModel` API.
+
+* **Claude Platform on AWS:** `import anthropicaws "github.com/anthropics/anthropic-sdk-go/v2/aws"`. Use `anthropicaws.NewClient(ctx, cfg)` with an `anthropicaws.ClientConfig` value to construct a client; set `WorkspaceID` on the config or the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable. The `anthropicaws` import alias avoids a name collision with `github.com/aws/aws-sdk-go-v2/aws` when both are imported. Available in beta.
+
+* **Foundry:** `import "github.com/anthropics/anthropic-sdk-go/v2/foundry"`. Use `foundry.NewClient(cfg)` with a `foundry.ClientConfig` value to construct a client; set `APIKey` (or `AzureADTokenProvider` for Microsoft Entra ID) and `Resource` on the config, or the `ANTHROPIC_FOUNDRY_API_KEY` and `ANTHROPIC_FOUNDRY_RESOURCE` environment variables.
 
 The Go SDK also supports Claude Models on Google Cloud (Anthropic managed) through the `github.com/anthropics/anthropic-sdk-go/v2/googlecloud` package. To construct a client, call `googlecloud.NewClient(ctx, cfg)` with a `googlecloud.ClientConfig` value. This client is in beta. Set `WorkspaceID` on the config or set the `ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID` environment variable. See [Project, location, and workspace resolution](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#project-location-and-workspace-resolution) for how the client resolves the workspace ID.
 
@@ -676,7 +680,7 @@ fmt.Printf("Headers: %+#v\n", response.Header)
 
 ### OpenTelemetry tracing
 
-When your application registers an OpenTelemetry tracer provider, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Claude SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
+When your application registers an OpenTelemetry tracer provider, the SDK emits a span for each request that it sends. To send the spans to your observability platform, see [Set up OpenTelemetry with the Anthropic SDK](https://platform.claude.com/docs/en/manage-claude/opentelemetry/sdk).
 
 ### Making custom/undocumented requests
 
