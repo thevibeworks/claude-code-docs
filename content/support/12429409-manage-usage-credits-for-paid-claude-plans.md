@@ -78,7 +78,7 @@ Expiration dates may vary in certain countries. For more information, see the **
 
 Your expiration dates are shown on the **Usage** page in Settings, and we'll email you before your purchased credits expire.
 
-**Refunds.** Usage credit purchases are non-refundable, including if you cancel your subscription or delete your account. Credits you've already used are never refunded. Exceptions apply where local law requires them, or in cases of fraud. Learn more about **[requesting a refund for a paid Claude plan](https://support.claude.com/en/articles/12386328)**.
+**Refunds.** Usage credit purchases are non-refundable, including if you cancel your subscription or delete your account. Credits you bought directly from us are refunded when you upgrade to Team in place, move your personal account to an organization, close it using the **Start fresh** option, or when it closes at a domain claim deadline. Credits you've already used are never refunded. Exceptions apply where local law requires them, or in cases of fraud. Learn more about **[requesting a refund for a paid Claude plan](https://support.claude.com/en/articles/12386328)**.
 
 ## Manage your usage credits
 
@@ -160,7 +160,7 @@ Your credits aren't refunded when you cancel. Your balance stays on your account
 
 ### What happens to my usage credits if I delete my account?
 
-Any remaining usage credits are forfeited when you delete your account, and they aren't refunded. Use your balance before deleting your account.
+Any remaining usage credits are forfeited when you delete your account, and they aren't refunded. Credits you bought directly from us are refunded when you upgrade to Team in place, move your personal account to an organization, close it with the **Start fresh** option, or when it closes at a domain claim deadline. Use your balance before deleting your account.
 
 ### Can I get a refund for usage credits?
 

@@ -468,7 +468,7 @@ booleanSince 4.16336.0
 >
 > Off unless you set it to `true`. While off, Auto mode's built-in safety check reviews risky actions.
 >
-> This setting is temporary. It goes away when Claude Code drops that built-in check. After that, only turning off **Allow Auto mode** avoids the provider's check.
+> This setting goes away when Claude Code drops that built-in check. After that, only turning off **Allow Auto mode** avoids the provider's check.
 >
 > When on, each Auto mode request carries one more `anthropic-beta` value and a `safeguards` field. The field describes the session, including Claude Code's `autoMode` settings, permission rules, folder paths, a user name and Git state. Your gateway must forward both unchanged, and return `safeguard_results` and tool-use IDs unchanged. If it returns an error such as 401 or 500, every Auto mode turn fails. Turn this off and have users restart the app.
 >
@@ -579,7 +579,7 @@ On Claude API, Google Cloud's Agent Platform, Amazon Bedrock, and Amazon Bedrock
 
 In [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), which Cowork shows as **Automatically approve**, a safety classifier reviews Claude's actions and blocks the ones it judges risky. On a gateway deployment, these can do the review:
 
-* **Claude Code's built-in safety check (the default)**: it sends its own requests through your gateway, and you pay for them like the rest of your usage.
+* **Claude Code's built-in safety check (the default)**: it sends its own requests through your gateway, and you pay for them like the rest of your usage. In Cowork, shell commands wait for this check too, which usually adds one request for each command. If every such request fails, each command is refused with no prompt, and the task shows the command as failed. For what your gateway must accept, and for when shell commands aren't checked, see [`autoModeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeenabled).
 * **The model provider behind your gateway**: the session asks for the review in its normal request, and the provider returns its verdict with the response. The session sends no separate request for an action that gets a verdict.
 
 > [!NOTE]
@@ -749,6 +749,8 @@ Until the gateway meets [the requirements](#gateway-requirements-for-auto-mode-c
 
 * Set `inferenceGatewayAutoModeServerChecks` to `false`, as described in [Turn off server-side Auto mode checks](#turn-off-server-side-auto-mode-checks). The change takes effect once each user [relaunches Claude Desktop](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect).
 * Have users start new sessions in **Manual** mode, which Cowork shows as **Manually approve**. If turns fail in those sessions too, the review isn't the cause.
+
+**`Automatically approve isn’t available for this task. Switched to Manually approve.` or `Couldn’t switch to Automatically approve.`** Claude Code can't run Auto mode for the Cowork task, for example because the task's model [doesn't support it](https://code.claude.com/docs/en/permission-modes#eliminate-prompts-with-auto-mode). Have the user pick a model that does, and then pick **Automatically approve**. A scheduled task keeps its stored mode, so each run on a model that doesn't support Auto mode switches again.
 
 **Model picker is empty or missing models.** Check your gateway's `GET /v1/models` response and your `inferenceModels` list (see [Models](#models)). When `/v1/models` is unreachable or returns an error, the picker falls back to the `inferenceModels` list; if that list is empty, so is the picker.
 

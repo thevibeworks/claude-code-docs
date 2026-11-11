@@ -49,6 +49,10 @@ The IP allowlist on your service and the [allowed websites](https://claude.com/d
 
 Events from connected services, like GitHub activity, are delivered directly to Anthropic, so there is no inbound listener to configure on your side.
 
+## IP allowlist and tenant restrictions for your Claude organization
+
+Your Claude organization's [IP allowlist](https://platform.claude.com/docs/en/manage-claude/ip-allowlist) and [tenant restrictions](https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions), available on the Enterprise plan, don't cover the messages people send Claude in Slack. For the reason, see [Controls that aren't available](https://claude.com/docs/claude-tag/admins/restrict-access.md#controls-that-aren%E2%80%99t-available).
+
 ## Related resources
 
 * [Add connections](https://claude.com/docs/claude-tag/admins/add-connections.md#set-allowed-websites): the allowed-websites setting (the other direction: what Claude is allowed to reach)

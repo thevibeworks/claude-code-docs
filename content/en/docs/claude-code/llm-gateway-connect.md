@@ -378,7 +378,7 @@ To turn that traffic off, set `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` along
 Setting the variable has these effects and limits:
 
 * It disables auto-updates, so plan for another update path, such as your package manager or managed distribution.
-* It suppresses the [fast mode](https://code.claude.com/docs/en/fast-mode.md) availability check. Unless a previous check already enabled fast mode on the machine, `/fast` reports that fast mode is unavailable.
+* It suppresses the [fast mode](https://code.claude.com/docs/en/fast-mode.md) availability check. On the Anthropic API, if `/fast` then reports that fast mode is unavailable, see [use fast mode behind proxies and LLM gateways](https://code.claude.com/docs/en/fast-mode.md#use-fast-mode-behind-proxies-and-llm-gateways) to restore fast mode.
 * It doesn't affect [gateway model discovery](#add-gateway-models-to-the-model-picker), which queries only your gateway. Before v2.1.257, the variable also stopped discovery from refreshing, so the picker kept the previously cached list.
 * The WebFetch tool's [domain safety check](https://code.claude.com/docs/en/data-usage.md#webfetch-domain-safety-check) isn't affected and still calls `api.anthropic.com`. Turn it off separately with `skipWebFetchPreflight: true` in [settings](https://code.claude.com/docs/en/settings.md) if your network blocks that host.
 * For each telemetry stream and the variable that controls it, see [telemetry services](https://code.claude.com/docs/en/data-usage.md#telemetry-services).

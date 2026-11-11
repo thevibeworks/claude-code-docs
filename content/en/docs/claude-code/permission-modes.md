@@ -25,7 +25,7 @@ Each mode makes a different tradeoff between convenience and oversight. The tabl
 
 The mode that reviews every action is named **Manual** in the CLI, in `claude --help`, in the VS Code and JetBrains extensions, and in the desktop app. Its config value is `default`, which is what hooks and SDK integrations use. The CLI accepts `manual` as an alias wherever you type the value, for example `claude --permission-mode manual` or `"defaultMode": "manual"`.
 
-Writes to [protected paths](#protected-paths) are never auto-approved except in `bypassPermissions` mode and in plan-mode sessions where bypass permissions are available, meaning interactive terminal sessions started in a way that [puts `bypassPermissions` in the mode cycle](#switch-permission-modes).
+Each mode has its own rule for writes to [protected paths](#protected-paths).
 
 Modes set the baseline. Layer [permission rules](https://code.claude.com/docs/en/permissions.md#manage-permissions) on top to pre-approve or block specific tools. Deny rules block in every mode, including `bypassPermissions`. Deny and ask rules don't apply to [`EndConversation`](https://code.claude.com/docs/en/tools-reference#endconversation-tool-behavior) as long as Claude still has at least one other tool it can call. Allow rules have no effect in `bypassPermissions`.
 
@@ -730,13 +730,13 @@ If [`claude agents`](https://code.claude.com/docs/en/agent-view#dispatch-default
 
 ## Protected paths
 
-Writes to a small set of paths are never auto-approved, except in `bypassPermissions` mode and in interactive terminal sessions in plan mode with [bypass permissions](#skip-all-checks-with-bypasspermissions-mode) available. This prevents accidental corruption of repository state and Claude's own configuration.
+A small set of paths holds repository state and Claude's own configuration, so each mode has its own rule for writes to them:
 
 | Mode | Protected-path writes |
 | :- | :- |
 | `default`, `acceptEdits` | Prompted |
 | `plan` | Allowed in interactive terminal sessions with [bypass permissions](#skip-all-checks-with-bypasspermissions-mode) available. Otherwise, routed to the classifier when [auto mode](#eliminate-prompts-with-auto-mode) is available during planning, and prompted when it isn't |
-| `auto` | Routed to the classifier |
+| `auto` | Routed to the classifier, which decides |
 | `dontAsk` | Denied |
 | `bypassPermissions` | Allowed |
 

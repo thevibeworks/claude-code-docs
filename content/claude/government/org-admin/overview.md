@@ -41,7 +41,7 @@ You can reach the [user view](https://claude.com/docs/government/account/overvie
 * **[Billing](https://claude.com/docs/government/org-admin/billing.md)**: see the billing account that funds your organization and any spend caps
 * **[Readiness](https://claude.com/docs/government/org-admin/readiness.md)**: see what is blocking users from using Claude and where each item is resolved
 * **[Config](https://claude.com/docs/government/org-admin/configuration.md)**: adjust product settings, such as which products members get, for everyone in your organization
-* **[Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md)**: create and manage read-only API keys that stream your organization's audit events to a SIEM or log management system
+* **[Admin API keys](https://claude.com/docs/government/org-admin/admin-api-keys.md)**: create and manage the read-only keys your tools use with the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) and the [Analytics API](https://claude.com/docs/government/org-admin/analytics-api.md)
 
 The **Billing** and **Group mappings** tabs appear in the navigation only when they apply to your organization, and each of those pages says when.
 

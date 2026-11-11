@@ -167,7 +167,7 @@ To add a rule, choose the match type (for sign-in rules), pick the value, choose
 
 ### When rules move people
 
-A move ends the person's active sessions. It does not revoke a [Compliance API key](https://claude.com/docs/government/org-admin/compliance-api.md) they created. They lose their seat and role in the organization they leave, join the new one as a User or in the role its group mappings give them, and are reseated according to its available seats. Their account itself is kept. Because the Claude desktop app stores conversations on each person's own device, a move does not affect desktop chat history. See [Data storage and retention](https://claude.com/docs/government/security/security-and-data-handling.md#data-storage-and-retention).
+A move ends the person's active sessions. It doesn't revoke [admin API keys](https://claude.com/docs/government/org-admin/admin-api-keys.md) they created. They lose their seat and role in the organization they leave, join the new one as a User or in the role its group mappings give them, and are reseated according to its available seats. Their account itself is kept. Because the Claude desktop app stores conversations on each person's own device, a move does not affect desktop chat history. See [Data storage and retention](https://claude.com/docs/government/security/security-and-data-handling.md#data-storage-and-retention).
 
 Because sign-in rules run every time, a rule change has these effects on people who already exist:
 

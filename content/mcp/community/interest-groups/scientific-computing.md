@@ -54,7 +54,7 @@ formation of working groups.
   implementation path for validating correctness and normalizing units between clients and servers
 * **[File Uploads WG](https://modelcontextprotocol.io/community/working-groups/file-uploads.md)**: input datasets, mesh and geometry
   files, and other large files must be considered
-* **[Primitive Grouping IG](https://modelcontextprotocol.io/community/interest-groups/primitive-grouping.md)**: scientific servers often
+* **[Progressive Disclosure WG](https://modelcontextprotocol.io/community/working-groups/progressive-disclosure.md)**: scientific servers often
   expose large, hierarchical tool surfaces that motivate organization beyond flat lists
 * **[Registry WG](https://modelcontextprotocol.io/community/working-groups/registry.md)**: publishing and discovering servers for shared
   scientific software and datasets intersects with registry metadata

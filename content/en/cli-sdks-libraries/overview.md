@@ -60,7 +60,7 @@ Each major version of a client SDK sends one [API version](https://platform.clau
 
 | Tool       | Latest version | Package                                                                                                     |
 | ---------- | -------------- | ----------------------------------------------------------------------------------------------------------- |
-| ant CLI    | `2.8.0`        | [`github.com/anthropics/anthropic-cli`](https://github.com/anthropics/anthropic-cli/releases)               |
+| ant CLI    | `2.9.0`        | [`github.com/anthropics/anthropic-cli`](https://github.com/anthropics/anthropic-cli/releases)               |
 | Python     | `2.8.0`        | [`anthropic` on PyPI](https://pypi.org/project/anthropic/)                                                  |
 | TypeScript | `1.8.0`        | [`@anthropic-ai/sdk`](https://www.npmjs.com/package/@anthropic-ai/sdk)                                      |
 | C#         | `13.8.0`       | [`Anthropic`](https://www.nuget.org/packages/Anthropic)                                                     |

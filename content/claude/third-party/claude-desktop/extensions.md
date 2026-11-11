@@ -268,7 +268,7 @@ A `url` marketplace served from your deployment's own [inference gateway](https:
 }
 ```
 
-Each plugin marked this way still needs a `sha256` on its archive. Claude Desktop re-fetches the manifest periodically and picks up a newly published version without a configuration change or an app relaunch. A plugin the user removes stays removed.
+Each plugin marked this way still needs a `sha256` on its archive. Claude Desktop picks up a newly published version without a configuration change or an app relaunch, as described in [Roll out marketplace updates](#roll-out-marketplace-updates). A plugin the user removes stays removed.
 
 Claude Desktop honors these per-plugin marks only when the manifest is served from your inference gateway's or bootstrap server's own origin, because those hosts already carry your deployment's configuration and credentials. On any other origin the marks are ignored, and the marketplace behaves as `"available"`. Entry-level `"auto_install"` and `"required"` continue to require the [admin-side content pin](#marketplace-installation-preferences) on every origin.
 
@@ -287,7 +287,26 @@ Because the fetch happens on the host, the marketplace host does not need to be 
 
 ### Roll out marketplace updates
 
-For a git marketplace, commit the change to the repository, update the `ref` in `allowedPluginMarketplaces` to the new commit SHA, and distribute the updated managed configuration. For a `url` marketplace with a `manifestSha256` pin, publish the new archive, update its `url` and `sha256` in `marketplace.json`, and update `manifestSha256` in configuration to the new file's digest. For a `url` marketplace using [per-plugin auto-install from a trusted origin](#per-plugin-auto-install-from-a-trusted-origin), publish the new `marketplace.json` and no configuration change is needed. Devices sync to the new revision on the next app launch or periodic re-fetch. To remove a marketplace, delete its entry; Claude Desktop unregisters it and uninstalls its plugins on the next sync.
+Publish a new version in the way that matches the marketplace's entry in `allowedPluginMarketplaces`:
+
+* **Git marketplace pinned to a commit**: commit the change to the repository, update `ref` to the new commit SHA, and distribute the updated managed configuration
+* **Git marketplace on a branch or tag**: push the change to the branch, or move the tag, with no configuration change
+* **`url` marketplace with a `manifestSha256` pin**: publish the new archive, update its `url` and `sha256` in `marketplace.json`, and update `manifestSha256` in configuration to the new file's digest
+* **`url` marketplace with no `manifestSha256` pin**: publish the new archive, then the new `marketplace.json`, with no configuration change. A marketplace that uses [per-plugin auto-install from a trusted origin](#per-plugin-auto-install-from-a-trusted-origin) is of this kind
+
+Devices sync to the new revision on the next app launch or periodic re-fetch, about every 10 minutes. A pinned marketplace syncs when the device receives the new pin.
+
+Claude Desktop also checks a `url` marketplace with no `manifestSha256` pin when a user opens a new Chat, Cowork, or Code session, returns to the app with that new session still open, or sends the session's first message:
+
+* **What users see**: a new skill in a plugin the user has installed, or in a plugin marked for automatic installation, shows when the user types `/` in the message box, and Claude can use it in that session
+* **What counts as a change**: Claude Desktop compares the bytes of `marketplace.json` with the copy it installed, so a new zip at the same URL goes unseen until that file changes. When you replace a zip, update its `sha256` in `marketplace.json`, or the plugin's `version` if the archive lists no `sha256`. Otherwise serve the same bytes, with no timestamp or other value that differs between requests
+* **What your server gets**: each device requests `marketplace.json`, at most once every 10 seconds per marketplace. After any change to the file, each device downloads every archive that it lists
+* **If the server is slow or an update fails**: a session waits up to 5 seconds for the marketplace's answer and up to 30 seconds in all, then starts with the copy it has. After a check that fails or gets no answer, or a new version that doesn't install, new sessions don't ask that marketplace again for five minutes
+* **With `userGit` or `credentialHelper`**: opening or returning to a new session checks at most once every five minutes, so a new skill can be missing from the `/` list until the user sends the first message
+
+Earlier versions of Claude Desktop sync only at launch and at the periodic re-fetch.
+
+To remove a marketplace, delete its entry; Claude Desktop unregisters it and uninstalls its plugins on the next sync.
 
 ### Move a marketplace to a new source
 

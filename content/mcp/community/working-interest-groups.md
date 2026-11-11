@@ -45,7 +45,6 @@ Interest groups:
 * [Agents](https://modelcontextprotocol.io/community/interest-groups/agents.md)
 * [Authorization](https://modelcontextprotocol.io/community/interest-groups/auth.md)
 * [Enterprise](https://modelcontextprotocol.io/community/interest-groups/enterprise.md)
-* [Enterprise-Managed Authorization](https://modelcontextprotocol.io/community/interest-groups/enterprise-managed-authorization.md)
 * [Financial Services](https://modelcontextprotocol.io/community/interest-groups/financial-services.md)
 * [Scientific Computing](https://modelcontextprotocol.io/community/interest-groups/scientific-computing.md)
 * [Security](https://modelcontextprotocol.io/community/interest-groups/security.md)

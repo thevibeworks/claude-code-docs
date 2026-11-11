@@ -17,6 +17,7 @@ A status line that shows budget use, with made-up data.
 > These cases are covered on other pages:
 >
 > * **A notice across the top of the app window, with no program to install**: set the [`banner`](https://claude.com/docs/third-party/claude-desktop/configuration#banner) key
+> * **A message that each user can close, on the start screen or in a dialog**: set the [`organizationAnnouncement`](https://claude.com/docs/third-party/claude-desktop/configuration#organizationannouncement) key
 > * **Your own message when your gateway blocks a user at a spend limit**: see [Block requests at a spend limit](https://claude.com/docs/third-party/claude-desktop/gateway.md#block-requests-at-a-spend-limit)
 
 ## Turn on the status line
@@ -27,7 +28,7 @@ The status line requires Claude Desktop 4.4212.0 or later and is off until you s
 
 Put the program where users can't change it. Claude Desktop runs it only from a location that meets these rules:
 
-* **macOS and Linux**: root owns the file and every parent folder, with no write access for group or others
+* **macOS and Linux**: root owns the file and every parent folder, with no write access for group or others, and the path isn't under `/home`, `/net`, or `/Volumes`
 * **Windows**: the file is under `Program Files` or `Program Files (x86)` on the drive where Windows is installed
 
 To try the [macOS and Linux sample](#sample-status-line-programs) on a test device, save it as `status-line` and run these commands in your terminal:
@@ -83,12 +84,12 @@ On Claude Desktop 4.16336.0 or later, if [`inferenceModelPricingEnabled`](https:
 
 Claude Desktop starts the status line program with no arguments and no window, as the user who runs Claude Desktop.
 
-* **File type**: on macOS and Linux, an executable file, such as a compiled program or a script that starts with `#!`. On Windows, an `.exe` file or a `.ps1`, `.cmd`, or `.bat` script.
+* **File type**: on macOS and Linux, an executable file, such as a compiled program or a script that starts with `#!`. Claude Desktop doesn't check the interpreter that a `#!` line names, so install it where users can't change it too. Python also runs code from the user's folders unless you start it with `-I`, for example `#!/usr/bin/python3 -I`. On Windows, an `.exe` file or a `.ps1`, `.cmd`, or `.bat` script.
 
-* **Input**: one line of JSON on standard input, with the session ID and the model. A field with no value is left out, so handle a missing `model`.
+* **Input**: one line of JSON on standard input, with the session ID, the model, and the [session cost](#session-cost-in-the-status-line-input). A field with no value is left out, so handle a missing `model` or `cost`. Later versions can add fields, so ignore any that the program doesn't use. Don't build a file path from these values.
 
   ```json theme={null}
-  {"session_id":"local_1f0c2a9e-7b3d-4c58-9a16-5e2d8b40c7f3","model":{"id":"claude-sonnet-4-5","display_name":"Claude Sonnet 4.5"}}
+  {"session_id":"local_1f0c2a9e-7b3d-4c58-9a16-5e2d8b40c7f3","model":{"id":"claude-sonnet-4-5","display_name":"Claude Sonnet 4.5"},"cost":{"total_cost_usd":1.24}}
   ```
 
 * **Output**: the first non-empty line of standard output, read as UTF-8, up to 200 characters. Markup and links show as plain text. A line wider than the message box ends in "…" and shows in full on hover.
@@ -100,6 +101,30 @@ Claude Desktop starts the status line program with no arguments and no window, a
 * **Environment**: the app's variables, minus `ANTHROPIC_*`, `CLAUDE_*`, `ELECTRON_*`, `GIT_*`, and variables that change which code a program loads, such as `PYTHONPATH` or `LD_LIBRARY_PATH`.
 
 * **Time limit**: 10 seconds, after which Claude Desktop stops the program and anything it started.
+
+### Session cost in the status line input
+
+`cost.total_cost_usd` is the session's estimated cost so far. Claude Desktop sends it only while [`inferenceModelPricingEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricingenabled) is on and the session has an estimate. The value is a number in US dollars with up to six decimal places and no exponent. It's for display only and can differ from your provider's bill.
+
+* **Source**: Claude Desktop's own sum for the session, added up on the user's device. It covers Cowork, Chat, and Code sessions, including [Code sessions over SSH](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md). With no status line set, the built-in "Session cost (estimate)" line above the message box shows the same sum.
+* **Models with no price**: a model ID that can't be matched to a Claude model, such as an opaque gateway alias, adds nothing. After you give that ID a rate in [`inferenceModelPricing`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricing), only its later usage counts. The input doesn't show that the sum is partial.
+* **Missing `cost`**: don't show \$0. Check for each of these causes:
+  * `inferenceModelPricingEnabled` is off
+  * The session has no priced estimate yet, such as before Claude Desktop records its first turn's cost or when it has used only models with no price
+  * Claude Desktop [couldn't read its usage ledger](#troubleshoot-a-missing-status-line), the local record of these estimates
+* **Scripts written for Claude Code**: [Claude Code's status line](https://code.claude.com/docs/en/statusline) always sends `cost`, among many other fields. Claude Desktop sends only the fields in the [sample input](#write-the-status-line-program), so check a script that you carry over for other fields and for a fallback to 0. Claude Desktop's sum can also differ from Claude Code's total, for example after `/clear`.
+
+This macOS and Linux script prints the cost. While `cost` is missing it prints nothing, so no line shows:
+
+```sh theme={null}
+#!/bin/sh
+# Prints, for example: Session cost (estimate): $1.24
+LC_ALL=C
+export LC_ALL
+cost=$(sed -n 's/.*"total_cost_usd":\([0-9.]*\).*/\1/p')
+[ -n "$cost" ] || exit 0
+printf 'Session cost (estimate): $%.2f\n' "$cost"
+```
 
 ### Status line scripts on Windows
 
@@ -168,10 +193,13 @@ Claude Desktop runs the status line program at these moments:
 
 * A session opens
 * Claude finishes a turn
+* A turn's result arrives
 * The user picks another model
 * The app regains focus
 
 There's no timer, so new data shows the next time one of these happens.
+
+A turn's result closes the turn, and Claude Desktop doesn't add the turn to the [session cost](#session-cost-in-the-status-line-input) until the result arrives. That can be seconds after Claude's answer ends, for example when a [Stop hook](https://code.claude.com/docs/en/hooks#stop) runs first. The program can then run twice for the turn, and the first run's `cost` may not include the turn yet.
 
 If the program exits with a code other than 0, prints nothing, or takes longer than 10 seconds, the line disappears and the user sees no error. The next successful run brings the line back.
 
@@ -185,6 +213,7 @@ Search `main.log` in the [logs directory](https://claude.com/docs/third-party/cl
   * **macOS and Linux**: code 127 means that a command the script runs wasn't found, so call each tool by its full path
   * **Windows**: a `.ps1` script that an [execution policy](#status-line-scripts-on-windows) blocks ends with code 1
 * **`was stopped after 10 seconds`**: the program hit the [time limit](#write-the-status-line-program). On Windows, a `.ps1` script can be slow to start for a few minutes after a user first opens Claude Desktop, and a `.cmd` or `.exe` file starts faster. If the line appears after a later turn ends or the app regains focus, nothing needs fixing.
+* **`runs without the session's cost`**: Claude Desktop couldn't read its usage ledger, the local record of cost estimates, so the program ran with no `cost` in its input. The entry gives the cause. If `cost` comes back after a later turn ends or the app regains focus, nothing needs fixing.
 * **No entry**: the program printed nothing, which isn't logged, or the key hasn't reached the app. Restart Claude Desktop and check [which configuration source applies](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device).
 
 To see the program's own error messages, run it in a new terminal window with Claude Desktop's working directory and `PATH`:
@@ -193,7 +222,7 @@ To see the program's own error messages, run it in a new terminal window with Cl
 >
 > ```bash theme={null}
 > cd /
-> echo '{"session_id":"test"}' | env -i HOME="$HOME" PATH=/usr/bin:/bin:/usr/sbin:/sbin /opt/example/bin/status-line
+> echo '{"session_id":"test","cost":{"total_cost_usd":1.24}}' | env -i HOME="$HOME" PATH=/usr/bin:/bin:/usr/sbin:/sbin /opt/example/bin/status-line
 > echo "exit code: $?"
 > ```
 
@@ -205,6 +234,6 @@ To see the program's own error messages, run it in a new terminal window with Cl
 > Set-Location "$env:SystemRoot\System32"
 > $env:PATH = "$env:SystemRoot\System32;$env:SystemRoot;$env:SystemRoot\System32\WindowsPowerShell\v1.0"
 > $env:PSModulePath = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\Modules;$env:SystemRoot\System32\WindowsPowerShell\v1.0\Modules"
-> '{"session_id":"test"}' | powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "C:\Program Files\Example\status-line.ps1"
+> '{"session_id":"test","cost":{"total_cost_usd":1.24}}' | powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "C:\Program Files\Example\status-line.ps1"
 > "exit code: $LASTEXITCODE"
 > ```

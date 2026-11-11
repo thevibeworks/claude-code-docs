@@ -30,9 +30,9 @@ Please note:
 
 - You must be signed in to your account to download your data using this link.
 
-- The download link will expire 24 hours after delivery.
+- The download link will expire 24 hours after it's created, and it may work only once, so download the file right away.
 
-- If your link expires, you can always request a new one by repeating the export process.
+- If your link expires or won't open, you can request a new one by repeating the export process.
 
 If you're an Enterprise Primary Owner looking to export audit logs, see **[How to access audit logs](https://support.claude.com/en/articles/9970975-how-to-access-audit-logs)**.
 

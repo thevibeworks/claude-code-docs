@@ -20,14 +20,16 @@ This lets users create and publish artifacts to a shareable Anthropic-hosted pag
 
 Templates are the starting points users pick when they create an artifact.
 
-| **Template**      | **What users can do with it**                                                                                                       |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| Slides            | Start decks they can present, restyle with a design system, and export to PowerPoint                                                |
-| Design            | Lay out screens, flows, and graphics as artboards they can edit by hand                                                             |
-| Design systems    | Capture colors, fonts, and components once so Claude applies them to new decks and designs                                          |
-| Docs              | Start docs their team reads, comments on, and edits in place while Claude keeps them current                                        |
-| Dashboards (beta) | Build dashboards from a data warehouse or connected apps, with each chart showing its query and when it was last refreshed          |
-| Motion (beta)     | Make animated explainers, charts, and walkthroughs from their content, and export them as MP4 video. Team and Enterprise plans only |
+| **Template**       | **What users can do with it**                                                                                                                                                |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Slides             | Start decks they can present, restyle with a design system, and export to PowerPoint                                                                                         |
+| Design             | Lay out screens, flows, and graphics as artboards they can edit by hand                                                                                                      |
+| Design systems     | Capture colors, fonts, and components once so Claude applies them to new decks and designs                                                                                   |
+| Docs               | Start docs their team reads, comments on, and edits in place while Claude keeps them current                                                                                 |
+| Data               | Build dashboards, data stories, narrated short videos, and letters from a data warehouse or connected apps, with each chart showing its query and when it was last refreshed |
+| Motion (beta)      | Make animated explainers, charts, and walkthroughs from their content, and export them as MP4 video. Team and Enterprise plans only                                          |
+| Sheets (beta)      | Build spreadsheets with Claude, with formulas across tabs, and edit the same cells together                                                                                  |
+| Whiteboards (beta) | Think through ideas with Claude on a shared board                                                                                                                            |
 
 **To enable a template:**
 
@@ -43,9 +45,26 @@ Templates are the starting points users pick when they create an artifact.
 
 - **Motion:** On by default on Team plans, and off by default on Enterprise plans.
 
-- **Dashboards:** Available on paid plans. Off by default on Enterprise plans.
+- **Data:** On by default on Team plans. On Enterprise plans, it turns on by default on November 19, 2026. You can turn it on sooner.
 
-### Standalone Claude Design at claude.ai/design
+- **Sheets and Whiteboards (beta):** On by default on Team plans, and off on Enterprise plans until an owner turns them on.
+
+## Manage Claude Data beta features
+
+Certified queries and live sharing have their own settings under **Data** in **Templates**. These settings are hidden when **Data** is off. Both are on by default on Team plans and off by default on Enterprise plans.
+
+| **Setting**           | **What it controls**                                                                                                          |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Certified queries** | Whether users can certify queries so Claude reuses them across your organization                                              |
+| **Live sharing**      | Whether a dashboard can show results from its owner’s connection to people in your organization who don’t have that connector |
+
+When you turn on **Certified queries**, pick the marketplace and plugin that store your certified queries. If you clear that choice, existing certifications go away. They come back if you select the same plugin again.
+
+If you turn off live sharing, people who open a dashboard are asked to connect the data source themselves.
+
+Learn more in **[Get started with Claude Data](https://support.claude.com/en/articles/17454700)**.
+
+## Standalone Claude Design at claude.ai/design
 
 Standalone Claude Design at **claude.ai/design** closes on December 14, 2026. Until then, it has its own setting in **[Organization settings > Claude Design](https://claude.ai/admin-settings/claude-design)**, separate from the **Design** template. Users' existing projects stay at **claude.ai/design** until it closes, and up to 60 of them also appear in the **Artifacts** tab.
 
@@ -135,7 +154,7 @@ It's on by default on Team and Enterprise plans, and it only applies while **Art
 
 ## Let artifacts use connected apps
 
-**Enable artifact connectors** lets users work with artifacts that read from and write to their connected apps. Each user connects their own apps, even in a shared artifact. You can turn this on or off for your whole organization, but you can't limit which apps artifacts can reach.
+**Enable artifact connectors** lets users work with artifacts that read from and write to their connected apps. Each user connects their own apps, even in a shared artifact. The exception is a dashboard shared with live sharing, which shows results from its owner’s connection. You can turn this on or off for your whole organization, but you can't limit which apps artifacts can reach.
 
 1. Navigate to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
 
@@ -157,8 +176,10 @@ The capabilities that cover artifacts are:
 | Docs                       | Starting artifacts from the Docs template                                                                                    |
 | Slides                     | Starting artifacts from the Slides template                                                                                  |
 | Claude Design [standalone] | Access to standalone Claude Design at claude.ai/design                                                                       |
-| Dashboards                 | Starting artifacts from the Dashboards template                                                                              |
+| Data                       | Starting artifacts from the Data template                                                                                    |
 | Motion                     | Starting artifacts from the Motion template                                                                                  |
+| Sheets (beta)              | Starting spreadsheets with formulas and formatting that they and Claude edit together                                        |
+| Whiteboards (beta)         | Starting boards where their team and Claude sketch and arrange ideas together                                                |
 
 Users without the **Artifacts** capability can still open artifacts shared with them, comment on them, and change their data, at the sharing level they were given, up to Contributor. Contributor lets someone use an artifact, save what they enter in it, and comment, without editing the artifact itself. A user without the capability who was shared as an Editor gets Contributor access at most. They can't create, edit, publish, or share artifacts.
 
@@ -218,6 +239,8 @@ Artifacts, including designs, decks, and docs, count toward each user's existing
 
 - **Compliance API:** Artifacts made in conversations and the **Artifacts** tab are recorded at the artifact level. For docs, events for the doc itself are recorded, but activity inside a doc, like edits and comments, isn't recorded yet.
 
+- **Claude Data:** You can see every shared Claude Data artifact with its owner and visibility. In **Organization settings > Artifacts**, under **Published artifacts**, filter **Type** to **Data**. The Compliance API records when Claude Data artifacts are created, viewed, edited, or deleted, but doesn't include their content.
+
 - **Analytics:** These analytics cover claude.ai/design only, and don't include designs made in conversations or the **Artifacts** tab.
 
 - **Audit logs:** Standalone Claude Design doesn't support audit logs.
@@ -245,6 +268,8 @@ Removing someone from your organization, including through your identity provide
 - **HIPAA-ready configurations:** An Owner can turn on Claude Docs, Slides, Design, Dashboards, and Motion in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)** after accepting the terms. These aren't covered under your Business Associate Agreement (BAA), so keep protected health information (PHI) out of them.
 
 - **CMEK:** Artifacts are available.
+
+- **Zero data retention (ZDR) for Claude Code:** Most artifact types, but not Claude Docs, are available in chat and Cowork, and aren’t covered by ZDR. They aren’t available in Claude Code.
 
 - **Education and K-12 organizations:** Email invitations aren't available.
 

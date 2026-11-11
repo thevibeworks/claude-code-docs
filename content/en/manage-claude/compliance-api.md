@@ -116,6 +116,10 @@ Anthropic provides two analytics APIs: the Claude Enterprise Analytics API and t
     Choose a feed-consumption pattern, plan SIEM correlation, and decide your retention approach.
   </Card>
 
+  <Card href="https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/overview" title="Security posture in the Compliance API">
+    Get changes on the Security posture page into your SIEM and other security tools.
+  </Card>
+
   <Card href="https://platform.claude.com/docs/en/manage-claude/compliance-errors" title="Handle Compliance API errors">
     Common 400, 401, 403, 404, 409, 429, and 5xx responses from the Compliance API, with the cause and fix for each.
   </Card>

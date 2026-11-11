@@ -27,7 +27,7 @@ The check covers every way a user can reach Claude for Government:
 * Claude Code
 * The Claude for Microsoft 365 add-ins
 * Direct API calls
-* SCIM directory provisioning and the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md)
+* SCIM directory provisioning, the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md), and the [Analytics API](https://claude.com/docs/government/org-admin/analytics-api.md)
 
 The same check applies at sign-in, so a user signing in to a tenant that is not on the list sees the refusal at the sign-in screen rather than after authentication completes.
 

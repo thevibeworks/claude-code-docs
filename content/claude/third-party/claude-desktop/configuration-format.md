@@ -42,7 +42,7 @@ Claude Desktop reads a managed location and a local location on each platform.
 | Windows | `HKLM\SOFTWARE\Policies\Claude` (machine), `HKCU\SOFTWARE\Policies\Claude` (user) | `%LOCALAPPDATA%\Claude-3p\configLibrary\` |
 | Linux | `/etc/claude-desktop/managed-settings.json` | `~/.config/Claude-3p/configLibrary/` |
 
-The local location is a directory: `_meta.json` records which saved configuration is applied, and each configuration is a `<id>.json` file alongside it. The in-app configuration window writes here.
+The local location is a directory: `_meta.json` records which saved configuration is applied, and each configuration is a `<id>.json` file alongside it. The in-app configuration window writes here. Where the app can use the device's secure storage, API keys in these files are encrypted for the OS user account that saved them (see [Unreadable saved API keys](https://claude.com/docs/third-party/claude-desktop/data-storage.md#unreadable-saved-api-keys)). The app doesn't read an exported **JSON config** file from this directory. Load that file with **Import configuration…** in the configuration window.
 
 ### Which configuration source applies on a device
 
@@ -102,7 +102,7 @@ Because the file is real JSON, array- and object-typed keys use native JSON valu
 
 The file is only honored when it can't be edited by the user it configures:
 
-* `managed-settings.json` must be a regular file (not a symlink), owned by root, and not group- or world-writable.
+* `managed-settings.json` must be a regular file (not a symlink), owned by root, readable by the users it configures, and not group- or world-writable.
 * `/etc/claude-desktop` itself must be a directory (not a symlink), owned by root, and not group- or world-writable.
 
 A file that fails these checks is rejected: none of its settings are applied, the app treats the device as managed but unreadable, and local settings are also disabled until the file is fixed and the app is relaunched. The reason is logged to `main.log` in the app's logs directory, `~/.config/Claude/logs/` (or `~/.config/Claude-3p/logs/` once the app is running in 3P mode). Search the log for `managed-settings.json`. The same log names any key that fails schema validation.

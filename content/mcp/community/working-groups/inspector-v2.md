@@ -37,7 +37,7 @@ The Inspector V2 Working Group is building Inspector V2, a new web-based MCP ins
 
 * **SDK WG** — Inspector Core consumes the TypeScript SDK; coordination required for SDK V2 adoption.
 * **MCP Apps WG** — shared surface area around client/app ergonomics and inspection workflows.
-* **Auth WG** — authentication flows exercised by Inspector when connecting to protected servers.
+* **[Authorization IG](https://modelcontextprotocol.io/community/interest-groups/auth.md)** — authentication flows exercised by Inspector when connecting to protected servers.
 * **Registry WG** — discovery and metadata surfaces that Inspector presents to users.
 
 ## Leadership

@@ -224,11 +224,11 @@ Owners and Primary Owners can turn memory on or off for the organization in **[O
 
 Enabling memory doesn't enable sensitive topics, and even if you allow sensitive topics for your organization, nothing in those categories is saved until each user opts in themselves. Once a user has opted in, they control their own sensitive memories: they can view and delete individual entries, or turn sensitive topics off to stop saving new ones. Owners can't view or edit a user’s individual memories.
 
-When an owner turns memory off for the organization, all existing memory entries for all users are deleted immediately, and users can't access the memory setting.
+When an owner turns memory off for the organization, Claude stops using and saving memory for all users, and users can’t turn it back on for themselves. This doesn’t apply to Claude products that have their own memory, like Claude Tag and Claude Science. Some projects also keep using their own project memory.
 
-**Important:** Turning off memory at the organization level permanently deletes all memory data for everyone in your organization.
+**Important:** Turning off memory at the organization level doesn’t delete existing memory entries. Claude can use them again if an owner turns memory back on. While memory is off, users can’t view or delete their entries in Settings.
 ​
-If your organization has a custom data retention period that covers chats, it still applies while memory is off (see **Data handling and compliance**).
+If your organization has a custom data retention period that covers chats, it still applies while memory is off (see **[Data handling and compliance](#h_18ee9f188b)** below).
 
 The new memory experience isn’t available to organizations with HIPAA or public-sector agreements. Organizations with a custom data retention period that covers chats get it only when the new unified Claude experience is on.
 
@@ -236,15 +236,15 @@ The new memory experience isn’t available to organizations with HIPAA or publi
 
 - **Memory entries** are stored with encryption at rest. When a conversation is deleted, including under a retention period, memory entries generated from it aren’t removed, but members can delete individual memories while memory is on.
 
-- If your organization has a custom data retention period that covers chats, it also applies to current members’ memory, except project memory, while the new unified Claude experience is on for your organization. Project memory is deleted when the project is deleted, including under a data retention period that covers projects. For what custom data retention doesn’t cover, see “Data retention and deletion” in **Set up and manage the new unified Claude experience for your Enterprise organization**.
+- If your organization has a custom data retention period that covers chats, it also applies to current members’ memory, except project memory, while the new unified Claude experience is on for your organization. Project memory is deleted when the project is deleted, including under a data retention period that covers projects. For what custom data retention doesn’t cover, see “Data retention and deletion” in **[Set up and manage the new unified Claude experience](https://support.claude.com/en/articles/17444462-set-up-and-manage-the-new-unified-claude-experience-for-your-enterprise-organization#h_aeff3368a6)**.
 
 - **Incognito chats** don't contribute to memory and aren't visible in members' chat histories, but they remain available to owners through data export and are subject to your data retention policies (retained for at least 30 days for safety purposes).
 
 ### Audit logging and data exports
 
-- **Audit logging:** The system logs when owners turn org-level memory controls on or off. Standard conversation access logging applies to memory entries. Individual member memory edits aren't logged.
+- **Audit logging (Enterprise plans only):** The system logs when owners turn org-level memory controls on or off. Standard conversation access logging applies to memory entries. Individual member memory edits aren't logged.
 
-- **Data exports:** Memory entries are included in standard conversation history exports. Incognito chats are included in organizational data exports.
+- **Data exports:** Memory entries are included in standard conversation history exports. Turning memory off doesn't remove memory from data exports. Incognito chats are included in organizational data exports.
 
 ---
 
@@ -282,7 +282,7 @@ When Claude searches your previous chats, you will see this reflected in your cu
 
 Yes, navigate to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout) and find the **Memory** section. Switch the toggle next to “Search and reference chats” off:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1794336300&amp;signature=af3de90ac932b46adfd26fdaa912bc74a2deb0df26587fad3440621886a2695e&amp;req=dScmH859nYlXUPMW1HO4zRzXHlszIDfBJG68qZhl781dc3ZA8%2BqCiAW5zskh%0Abm%2FyDym4aTvGqHO6NZQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1794506400&amp;signature=9cb2f2da48886d9c13cccbd0e9d2afe65b922d5be2831f7ea4509b84d03c37ed&amp;req=dScmH859nYlXUPMW3nq%2BgZWAenTxz3q8QRSiEHajSESjCWdQev%2B7LdkAFWNs%0ARvvz5zzCeNUW4yXfJrmpOAlRBWE%3D%0A)
 
 ### Can I exclude a specific past chat from searches?
 
@@ -290,7 +290,7 @@ Incognito chats are available to all Claude users (Free, Pro, Max, Ultra, Team, 
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1794336300&amp;signature=74a4e6e301024193d7c2cb5ef859f1400413cfccfef30ab99763e36a9e3f2831&amp;req=dScmH859nYlWWvMW1HO4za54sadvP4C4XDpzhlKsgjPiQrOYCdklmp0DuxkC%0AMET9dixCiwD%2FxLjZ6pM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1794506400&amp;signature=aef588ca1a284b87ab68efb7f397d00956b00807d7b99636007d0b6b5774ef22&amp;req=dScmH859nYlWWvMW3nq%2Bgf44pcp8rujyMml1mzkyUm2RItwxrAVKG6hGrleC%0AxIyxLN8F52Mci9cLZ8btqddy1Ak%3D%0A)
 
 Clicking the ghost icon will open an incognito chat, creating a temporary conversation that isn’t saved to your chat history. Claude won’t pull information from incognito chats when searching previous conversations.
 
@@ -322,7 +322,7 @@ Each project has its own separate memory space and dedicated project summary, so
 
 You can toggle Claude's memory on by navigating to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1794336300&amp;signature=ba74ae1e356158ebbb938f4d6b60b4f9dca2f70117f8f05d2d4b91c1c355b707&amp;req=dScmH859nYlWW%2FMW1HO4zTD5McXldOJGBq9N9dRTKYe%2F1U2Uz8vrasvsTvof%0Az4fWYSZA7TTiOf45PCs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1794506400&amp;signature=70e2dac8812ae6a8cbc6e341acafd17c8030f4e5cb711388dec624bb68874301&amp;req=dScmH859nYlWW%2FMW3nq%2BgRexfslT0Hc4UGvBdWCMNKPqqKUtvG96d%2FIDGPv%2F%0AZMfUhb2nFdm5gDAVQfKiTjwzdlY%3D%0A)
 
 If you want to disable Claude’s memory, click the toggle to see two options:
 
@@ -392,32 +392,28 @@ You can now transfer your memory between Claude and other AI services. This feat
 
 ---
 
-### Controls for Enterprise plan owners
+### Controls for Team and Enterprise plan owners
 
-Enterprise plan Owners and Primary Owners have specific controls for managing memory features across their organization.
+Team and Enterprise plan Owners and Primary Owners have specific controls for managing memory features across their organizations.
 
 **Organization-level memory controls**
 
-The organization-wide **Generate memory from chat history** toggle is enabled by default. When enabled, individual users can manage their own memory settings. Owners can disable the memory summary feature for their entire organization by navigating to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**. When disabled by an Owner, it immediately deletes all existing memory synthesis data for all users, and individual users cannot modify or access the memory synthesis setting.
+The organization-wide **Generate memory from chat history** toggle is enabled by default. When enabled, individual users can manage their own memory settings. Owners can disable the memory summary feature for their entire organization in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**. When an owner disables it, Claude stops using and generating memory for all users, and individual users cannot turn it back on for themselves. This does not apply to Claude products that have their own memory, like Claude Tag and Claude Science.
 
-**Important:** Disabling Claude's memory at the organization level will automatically and permanently delete all memory data for all users in your organization.
+**Important:** Disabling Claude’s memory at the organization level does not delete existing memory synthesis data. Claude can use it again if an owner re-enables memory.
 
 **Data handling and compliance**
 
 - **Chat summaries** are stored alongside conversation data and follow your organization's existing data retention policies. When a conversation is deleted, its summary is also deleted.
 
-- **Memory synthesis** is stored with encryption at rest and is tied to underlying conversations. As conversations expire or are deleted according to your retention settings, the synthesis updates accordingly.
+- **Memory synthesis** is stored with encryption at rest and is tied to underlying conversations. As conversations are deleted, or expire under a custom data retention period on Enterprise plans, the synthesis updates accordingly.
 
-- **Incognito chats** don't contribute to memory and aren't visible in users' chat histories, but they remain available to Owners through data export features and are subject to your existing data retention policies (retained for at least 30 days for safety purposes).
+- **Incognito chats** don't contribute to memory and aren't visible in users' chat histories, but they remain available to owners through data export features and are subject to your existing data retention policies (retained for at least 30 days for safety purposes).
 
 **Audit logging and data exports**
 
-- **Audit logging:** The system logs when org-level memory toggles are enabled or disabled by Owners. Standard conversation access logging applies to memory synthesis. Individual user memory edits are not logged.
+- **Audit logging (Enterprise plans only):** The system logs when org-level memory toggles are enabled or disabled by owners. Standard conversation access logging applies to memory synthesis. Individual user memory edits are not logged.
 
-- **Data exports:** Memory synthesis and chat summaries are included in standard conversation history exports. Incognito chats are included in organizational data exports. All exported chat summaries remain tied to their source conversations.
+- **Data exports:** Memory synthesis and chat summaries are included in standard conversation history exports. Turning memory off doesn't remove memory from data exports. Incognito chats are included in organizational data exports. All exported chat summaries remain tied to their source conversations.
 
-**Important:** All memory will be retained and exportable by admins in accordance with existing enterprise chat data retention policies.
-
-**Team plan limitations**
-
-Team plans do not have organization-level controls for memory features. Individual Team plan members manage their own memory settings directly.
+**Important:** All memory will be retained and exportable by admins in accordance with your organization's data retention policies.

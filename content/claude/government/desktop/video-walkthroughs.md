@@ -16,11 +16,11 @@ The videos run from the first sign-in to getting help.
 
 ### Signing in for the first time
 
-Signing in to Claude Desktop with your work account and a pairing code, and where Chat, Cowork, Code, and the model picker are.
+Signing in to Claude Desktop with your work account and a pairing code, then a first look at the home screen, the model picker, and Code, which is for software work.
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/8qHdPdet0sX9-CKy/images/government/videos/user-01-signing-in-for-the-first-time-v2.mp4?fit=max&auto=format&n=8qHdPdet0sX9-CKy&q=85&s=4383be097080bd0b4e0b73ef155afdef" aria-label="Video walkthrough: Signing in for the first time" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/nMLu5fzo3pFRNLuz/images/government/videos/user-01-signing-in-for-the-first-time-v3.mp4?fit=max&auto=format&n=nMLu5fzo3pFRNLuz&q=85&s=53f074a171b87f7c5f0f8ef71a6e7daa" aria-label="Video walkthrough: Signing in for the first time" />
 
-Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Signing in for the first time (1 min 26 s). Narrated with an AI-generated voice, with on-screen captions.
 
 > [accordion] Transcript
 >
@@ -36,9 +36,9 @@ Video: Signing in for the first time (1 min 32 s). Narrated with an AI-generated
 >
 > Compare the code with the one in Claude, then select Approve. The page confirms you're signed in. Go back to Claude.
 >
-> You arrive on Home. Home and Code sit at the top of the sidebar, above your projects and recent chats.
+> You arrive on the home screen. Projects and your recent conversations are in the sidebar.
 >
-> If your organization offers both Chat and Cowork, you pick one in the message box. The model picker is at the bottom right. Your seat decides which models it lists, so a colleague may see others.
+> You type your message in the message box. The model picker is at the bottom right. Your seat decides which models it lists, so a colleague may see others.
 >
 > Code is for software work, in a folder you choose on your computer.
 >

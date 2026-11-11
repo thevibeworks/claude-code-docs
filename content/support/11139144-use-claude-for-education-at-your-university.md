@@ -172,7 +172,9 @@ This appears when your prompt exceeds Claude's available context window. When th
 
 ### I already have a Claude account using my university email
 
-When you log in, you can select between your previous account and the new university-sponsored account. You can't migrate data between accounts, but you can **[export data](https://support.claude.com/en/articles/9450526)** from your existing account and upload the conversation data (JSON format) to your new account.
+When you log in, you can select between your previous account and the new university-sponsored account. You can keep both accounts, or close your previous account and bring what can move into your university's organization. Your university can access what moves. Not everything can move: see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**. If you want a copy of your data, **[export it](https://support.claude.com/en/articles/9450526-export-your-claude-data)** and download every file before you start. Exported data can't be imported into your university-sponsored account.
+
+If your university has claimed your account, you can't keep both. See **[Respond to an Enterprise domain claim on your Claude account](https://support.claude.com/en/articles/14625626-respond-to-an-enterprise-domain-claim-on-your-claude-account)**.
 
 ---
 

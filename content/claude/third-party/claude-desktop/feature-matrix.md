@@ -32,11 +32,11 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 > [card] Everyday work
 >
 > * [Chat](https://claude.com/docs/third-party/claude-desktop/chat.md)
-> * [Cowork](https://claude.com/docs/third-party/claude-desktop/configuration.md#coworktabenabled)
+> * [Cowork](https://claude.com/docs/third-party/claude-desktop/unified-claude.md)
 > * Projects
 > * Artifacts
 > * [Memory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#memory)
-> * [Scheduled tasks](https://claude.com/docs/third-party/claude-desktop/configuration.md#scheduledtasksenabled)
+> * [Scheduled tasks](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md)
 > * [Code execution for analysis](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis)
 > * [File access, upload, and export](https://claude.com/docs/third-party/claude-desktop/local-access.md)
 > * Global languages
@@ -69,6 +69,7 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 > * [Skills, hooks, and plugins distribution](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin)
 > * [Skill scanning](https://claude.com/docs/third-party/claude-desktop/extensions.md#skill-scanning)
 > * [Status line](https://claude.com/docs/third-party/claude-desktop/status-line.md)
+> * [Organization announcement](https://claude.com/docs/third-party/claude-desktop/configuration.md#organizationannouncement)
 > * [MCP server allowlist](https://claude.com/docs/third-party/claude-desktop/extensions.md#controlling-user-extensions)
 > * [Feature toggles](https://claude.com/docs/third-party/claude-desktop/configuration.md#capabilities)
 > * [Auto-updates](https://claude.com/docs/third-party/claude-desktop/installation.md#updates)
@@ -88,7 +89,7 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 >
 > | Topic | What to know |
 > | - | - |
-> | Sessions and scheduled tasks | Sessions are local, except [Code sessions over SSH](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md), and the device must be awake to run long processes and scheduled tasks. |
+> | Sessions and scheduled tasks | Sessions are local, except [Code sessions over SSH](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md), and the device must be awake to run long processes and scheduled tasks. If a [scheduled task](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md) is missed because the device is asleep, it runs when the device wakes up. |
 > | Memory | [Memory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#memory) in Claude Desktop on 3P is stored on the device, not on Anthropic infrastructure. Chat-history search and nightly summary generation are not available in Chat on 3P. |
 > | Web search | Amazon Bedrock deployments and gateways that do not forward Anthropic server tools need a [web search provider](https://claude.com/docs/third-party/claude-desktop/web-tools.md#web-search-options) configured first. |
 > | Claude in Chrome | Claude in Chrome works with Claude Desktop on 3P only in organizations managed from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md). |

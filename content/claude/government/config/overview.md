@@ -62,7 +62,7 @@ To edit settings for a group, choose the group in the scope bar on the Config pa
 
 > [!NOTE]
 >
-> The **Organization instructions** and **Organization Analytics connector** settings can be set at the tenant and organization levels, but not at either group level. Settings that [only a tenant administrator can set](#what-differs-between-the-tenant-and-organization-levels) can't be set for a group.
+> The **Organization instructions**, **Organization Analytics connector**, and **Analytics API** settings can be set at the tenant and organization levels, but not at either group level. Settings that [only a tenant administrator can set](#what-differs-between-the-tenant-and-organization-levels) can't be set for a group.
 
 ### Turn a feature on for one group
 
