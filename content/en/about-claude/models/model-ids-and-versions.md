@@ -32,6 +32,8 @@ For example: `anthropic.claude-sonnet-4-6`, `anthropic.claude-sonnet-5`, `anthro
 
 Claude Opus 4.6 is the last Bedrock model ID to include the `-v1` suffix (`anthropic.claude-opus-4-6-v1`). Anthropic dropped the suffix starting with Claude Sonnet 4.6.
 
+On the `bedrock-runtime` endpoint, models that AWS serves through cross-region inference, including Claude Fable 5.2 and Claude Mythos 5.2, take an inference profile ID: the base model ID with a prefix such as `global.` or `us.`, for example `global.anthropic.claude-fable-5-2`. See [API model IDs](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#api-model-ids).
+
 On Claude Models on Google Cloud (Google managed), the format matches the Claude API.
 
 ### Before the 4.6 generation

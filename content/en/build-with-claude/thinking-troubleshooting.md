@@ -56,13 +56,13 @@ The request fails with a 400 error whose message reads:
 "thinking.type.enabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
 ```
 
-This occurs because the model you requested has removed extended thinking (see the [per-model configuration table](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#rejected-configurations)).
+This occurs because the model you requested doesn’t support extended thinking (see the [per-model configuration table](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#rejected-configurations)).
 
 Switch the request to `thinking: {type: "adaptive"}` and steer thinking depth with `effort` instead of `budget_tokens`. [Migrating to adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#migrating-to-adaptive-thinking) walks through the conversion.
 
 ## A 400 error after sending `thinking: {type: "disabled"}`
 
-The request fails with a 400 error. On Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Opus 5.5, and Claude Mythos 5, the message reads:
+The request fails with a 400 error. On Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Opus 5.5, the message reads:
 
 ```text wrap
 "thinking.type.disabled" is not supported for this model. Use "thinking.type.adaptive" and "output_config.effort" to control thinking behavior.
@@ -116,7 +116,7 @@ Claude Haiku 5.5 returns the same message when a request sends `thinking: {type:
 
 ## A 400 error says effort cannot change when thinking is disabled
 
-On Claude Sonnet 5.5, a request with `thinking: {type: "between_tools"}` whose [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) changes the level fails with a 400 error whose message reads:
+On Claude Sonnet 5.5, a request with `thinking: {type: "between_tools"}` whose [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) changes the level fails with a 400 error whose message reads:
 
 ```text wrap
 messages.N: output_config.effort 'low' differs from the 'high' in effect before it; effort cannot change when thinking is disabled on this model. Use effort 'high', or enable thinking.
@@ -148,7 +148,7 @@ A request that returns tool results fails with a 400 `invalid_request_error` who
 `thinking` or `redacted_thinking` blocks in the latest assistant message cannot be modified
 ```
 
-In multi-turn and tool-use conversations you send previous assistant messages, including their `thinking` and `redacted_thinking` blocks, back to the API, and the API verifies they arrive unmodified. This error occurs when the assistant message you send back differs from the one the API returned, most often because your code filters content blocks by type and drops `redacted_thinking` blocks, or rebuilds the assistant message instead of echoing it.
+In multi-turn and tool-use conversations, you send previous assistant messages back to the API, including their `thinking` and `redacted_thinking` blocks. The API verifies that they arrive unmodified. This error occurs when the assistant message you send back differs from the one the API returned. The most common causes are code that filters content blocks by type and drops `redacted_thinking` blocks, and code that rebuilds the assistant message instead of echoing it.
 
 Echo the assistant turn back verbatim, thinking blocks included. See [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks) for the rules, and the worked round trip in [Thinking in tool and multi-turn workflows](https://platform.claude.com/docs/en/build-with-claude/thinking-tool-workflows#two-turn-tool-use-round-trip) for correct code in every SDK.
 
@@ -164,9 +164,9 @@ If the request didn’t send the `thinking-binding-controls-2026-08-01` beta hea
 
 The message usually ends with a sentence naming what changed: the `system` prompt, the `tools` list, the first message or block that differs, content that is missing or new, or an earlier thinking block that is missing or out of order. That sentence is for people and logs. Its wording can change, so don’t match on it in code.
 
-If the message stops after ``Invalid `signature` in `thinking` block``, the signature itself didn’t verify: it was truncated, altered, or sent back empty, and `prefix_mismatch_behavior` doesn’t apply. Edited thinking text returns a different error. See [A 400 error says thinking blocks cannot be modified](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#error-thinking-blocks-modified).
+If the message stops after ``Invalid `signature` in `thinking` block``, the signature itself didn’t verify: it was truncated, altered, or sent back empty, and `prefix_mismatch_behavior` doesn’t apply.
 
-These models accept a replayed thinking block only while the `system` prompt, `tools`, and messages that preceded it are unchanged. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check). The error means something earlier in the conversation changed between requests. Common causes include the following:
+A replayed thinking block passes the prefix check only while the `system` prompt, `tools`, and messages that preceded it are unchanged. See [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check). The error means something earlier in the conversation changed between requests. Common causes include the following:
 
 * An edited, reordered, or removed turn
 * A per-turn reminder that was injected and later removed
@@ -175,10 +175,10 @@ These models accept a replayed thinking block only while the `system` prompt, `t
 
 Server-side [compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) and [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) never trigger this error. With [on-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand), thinking in the turns you keep after the summary triggers it when one of the [conditions for kept thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid) doesn’t hold. For requests that don’t set `thinking.block_binding.prefix_mismatch_behavior`, see [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement).
 
-Retrying the same request body doesn’t clear the error. Neither does fixing your code, because the stored history holds the edit. To continue the conversation, do one of the following:
+Retrying the same request body doesn’t clear the error. Neither does fixing your code, if the stored history holds the edit. To continue the conversation, do one of the following:
 
 * Send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"` on the retry and every later request. The request then succeeds without the invalidated reasoning. On Claude Sonnet 5.5 and Claude Haiku 5.5, `block_binding` works only with `thinking: {"type": "adaptive"}`. With any other thinking setting on those models, you can’t send `block_binding`, so use the next option.
-* Strip the block the error names and every later `thinking` and `redacted_thinking` block, leaving each turn’s other blocks in place, then retry once.
+* Strip the block the error names and every later `thinking` and `redacted_thinking` block, leaving each turn’s other blocks in place. Retry, and leave the stripped blocks out of later requests.
 
 Then fix the cause so that new conversations don’t hit the error. Keep the history append-only: pass earlier turns back exactly as sent and received, add instructions with a [mid-conversation system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) instead of editing `system` or `tools`, and let server-side [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) or [compaction](https://platform.claude.com/docs/en/build-with-claude/compaction) do any trimming.
 
@@ -188,9 +188,9 @@ A block from a model the target model can’t read never produces this error: th
 
 The response contains `thinking` blocks, but their `thinking` field is an empty string and only the `signature` field is populated.
 
-This occurs because `display` defaults to `"omitted"` on newer models, which returns thinking blocks without their text.
+This occurs because `display` defaults to `"omitted"` on some models (see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display)), which returns thinking blocks without their text.
 
-Set `display: "summarized"` in your thinking configuration to receive the summarized thinking text. See [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display) for each model’s default. If you only want the short status lines some models write between tool calls, and not the reasoning, set `display: "updates"` (beta) instead. See [Progress updates between tool calls](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates).
+Set `display: "summarized"` in your thinking configuration to receive the summarized thinking text. See [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display) for each model’s default. If you only want the short status lines some models write between tool calls, and not the reasoning, set `display: "updates"`, which is in beta, instead. See [Progress updates between tool calls](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates).
 
 A block whose `thinking` field is empty is still complete: the `signature` holds the reasoning. Send it back with the turn like any other. See [Send assistant turns back exactly as returned](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#append-assistant-turns-exactly-as-returned).
 
@@ -224,7 +224,7 @@ Raise `max_tokens` to leave room for both thinking and text, or lower `effort` s
 
 `cache_read_input_tokens` falls to zero on requests that previously hit the cache.
 
-This happens because the thinking configuration and the effort level (or its default) are part of the cached prompt prefix, so changing any of them starts a new prefix: switching thinking modes, changing the effort value, and changing `budget_tokens` all invalidate message cache breakpoints, and can invalidate tool and system-prompt breakpoints too, depending on where the model renders the configuration.
+This occurs because the thinking configuration and the effort level (or its default) are part of the cached prompt prefix, so changing any of them starts a new prefix. Switching thinking modes, changing the effort value, and changing `budget_tokens` all invalidate message cache breakpoints. They can invalidate tool and system-prompt breakpoints too, depending on where the model renders the configuration.
 
 Keep the thinking configuration and effort level constant across requests that share a conversation; setting a parameter explicitly to its default is equivalent to omitting it and does not invalidate. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).
 

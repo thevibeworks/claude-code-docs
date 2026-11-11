@@ -27,10 +27,10 @@ featureMetadata:
     - claude-opus-4-5-20251101
   supportedPlatforms:
     Claude API: stable
+    Amazon Bedrock: stable
+    Amazon Bedrock (bedrock-runtime): stable
     Claude Platform on AWS: stable
     Claude Models on Google Cloud (Anthropic managed): stable
-    Amazon Bedrock: stable
-    Amazon Bedrock (InvokeModel): stable
     Claude Models on Google Cloud (Google managed): stable
     Microsoft Foundry: stable
 ---
@@ -40,7 +40,7 @@ featureMetadata:
 * **Messages API**: Set `output_config.effort` on the request. With no value, the model’s default level applies.
 * **Managed Agents**: Set `effort` on the agent’s model object, or in a session’s model override. With no value, Managed Agents fills in the model’s default.
 
-The effort parameter lets you control how many tokens Claude spends when responding to requests. You can trade off between response thoroughness and token efficiency with a single model. The top-level effort parameter is available on all supported models with no beta header required. [Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) is in beta.
+The effort parameter lets you control how many tokens Claude spends when responding to requests. You can trade off between response thoroughness and token efficiency with a single model.
 
 <Tip>
   To learn how effort interacts with thinking and which control to reach for, see [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort). Where adaptive thinking is available, effort is the recommended way to control thinking depth.
@@ -187,6 +187,10 @@ Set `output_config.effort` on the request. The following example runs one reques
   ```
 
   ```php PHP
+  use Anthropic\Client;
+  use Anthropic\Messages\Model;
+  use Anthropic\Messages\TextBlock;
+
   $client = new Client();
 
   $message = $client->messages->create(
@@ -194,12 +198,12 @@ Set `output_config.effort` on the request. The following example runs one reques
       messages: [
           ['role' => 'user', 'content' => 'Analyze the trade-offs between microservices and monolithic architectures']
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
       outputConfig: ['effort' => 'medium'],
   );
 
   foreach ($message->content as $block) {
-      if ($block->type === 'text') {
+      if ($block instanceof TextBlock) {
           echo $block->text, PHP_EOL;
       }
   }
@@ -220,7 +224,10 @@ Set `output_config.effort` on the request. The following example runs one reques
   )
 
   message.content.each do |block|
-    puts block.text if block.type == :text
+    case block
+    when Anthropic::Models::TextBlock
+      puts block.text
+    end
   end
   ```
 </CodeGroup>
@@ -265,13 +272,13 @@ The per-model recommendations that follow override this table where they differ.
 
 Claude Fable 5.2 supports all five effort levels. The API default is `high`. Adaptive thinking is always on, so effort is your main control for thinking depth, latency, and cost. Start with `high`. Most of the gain in capability is already present at `high`, and above it, gains are uneven and depend on the task. Step up to `xhigh` for your hardest long-running coding and agentic work, where you’ve measured a gain. Step down to `medium` or `low` where your evals show quality holds. Reserve `max` for measuring the model’s ceiling and for the rare task where time and tokens don’t matter. At `max` the model optimizes for capability without regard to token cost. It runs slower and costs more than at `xhigh`, often for only a small gain. Run an effort sweep on your own evals rather than carrying settings over from Claude Fable 5.1. At `high` and above, set a large `max_tokens`. It’s a hard limit on total output (thinking plus response text). Effort barely changes how long the model’s replies are, so use your prompt to change reply length and tone. The same recommendations apply to Claude Mythos 5.2.
 
-Where your platform supports it, Claude Fable 5.2 and Claude Mythos 5.2 also support [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache.
+Where your platform supports it, Claude Fable 5.2 and Claude Mythos 5.2 also support [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
 
 See also: [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2#calibrate-effort)
 
 **[Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview)** — *For long-running agentic coding and knowledge work*
 
-Claude Opus 5.5 supports all five effort levels, and `medium` is the default (Claude Opus 5 and earlier Opus models default to `high`, so a request that omits `effort` runs one level lower than it did on Claude Opus 5). Adaptive thinking is always on and can’t be turned off, so effort is the primary control for how much the model reasons and what a request costs. Run an effort sweep on your own evals rather than carrying settings over from an earlier model, and set a large `max_tokens` at the higher levels: it’s a hard limit on total output (thinking plus response text). Requests that set `thinking: {"type": "disabled"}` return a 400 error at every effort level. Claude Opus 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache.
+Claude Opus 5.5 supports all five effort levels, and `medium` is the default (Claude Opus 5 and earlier Opus models default to `high`, so a request that omits `effort` runs one level lower than it did on Claude Opus 5). Adaptive thinking is always on and can’t be turned off, so effort is the primary control for how much the model reasons and what a request costs. Run an effort sweep on your own evals rather than carrying settings over from an earlier model, and set a large `max_tokens` at the higher levels: it’s a hard limit on total output (thinking plus response text). Requests that set `thinking: {"type": "disabled"}` return a 400 error at every effort level. Claude Opus 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
 
 See also: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5)
 
@@ -281,7 +288,7 @@ Claude Sonnet 5.5 supports all five effort levels, and `high` is the default on 
 
 To turn off up-front thinking, send `thinking: {"type": "between_tools"}` instead of `"disabled"`. It’s the lowest thinking setting on Claude Sonnet 5.5, and it works at `low`, `medium`, and `high` effort. At `xhigh` or `max`, a request with it returns a 400 error, so use adaptive thinking at those levels: omit the `thinking` field or send `thinking: {"type": "adaptive"}`. See [Running without up-front thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#running-without-up-front-thinking).
 
-Claude Sonnet 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache. With `between_tools`, effort can’t change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
+Where your platform supports it, Claude Sonnet 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache. With `between_tools`, effort can’t change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
 
 See also: [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#calibrate-effort)
 
@@ -291,7 +298,7 @@ Claude Haiku 5.5 supports all five effort levels, and `medium` is the default. E
 
 To get less thinking, lower the effort level. You can also send `thinking: {"type": "disabled"}` at `high` effort or below. At `xhigh` or `max`, it returns a 400 error, so use adaptive thinking there: omit the `thinking` field or send `thinking: {"type": "adaptive"}`.
 
-Where your platform supports it, Claude Haiku 5.5 also lets you [change effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache. With `thinking: {"type": "disabled"}`, effort can’t change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
+Where your platform supports it, Claude Haiku 5.5 also lets you [change effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache. With `thinking: {"type": "disabled"}`, effort can’t change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
 
 See also: [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking)
 
@@ -299,7 +306,7 @@ See also: [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build
 
 Claude Fable 5.1 supports all five effort levels. **Start with `high`, the default.** Step up to `xhigh` or `max` for the most capability-sensitive agentic and coding work, and step down to `medium` or `low` for routine or latency-sensitive work once your evals show quality holds. At `high` and above, set a large `max_tokens`. It’s a hard limit on total output (thinking plus response text).
 
-Claude Fable 5.1 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache.
+Claude Fable 5.1 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
 
 See also: [Prompting Claude Fable 5.1](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-1#consider-all-effort-levels)
 
@@ -323,7 +330,7 @@ On Claude Opus 5, thinking cannot be disabled at `xhigh` or `max` effort: reques
 
 When running Claude Opus 5 at `xhigh` or `max` effort, set a large `max_tokens` so the model has room to think and act across subagents and tool calls. Starting at 64k tokens and tuning from there is a reasonable default.
 
-Claude Opus 5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) with a per-message `output_config`, which preserves the prompt cache. Per-message effort isn’t available for Claude Opus 5 on Amazon Bedrock.
+Where your platform supports it, Claude Opus 5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
 
 See also: [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5)
 
@@ -406,287 +413,11 @@ For per-model thinking availability, see the [per-model configuration table](htt
 
 ## Change effort mid-conversation
 
-You can run later turns of a conversation at a different effort level in two ways. On Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5, use a per-message effort change, which keeps the prompt cache. On other models, set a new top-level value on the next request, which starts the cache over.
+You can run later turns of a conversation at a different effort level in two ways: a per-message effort change, which keeps the prompt cache, or a new top-level value on the next request, which starts the cache over.
 
-### Per-message effort (beta)
+### Per-message effort
 
-Per-message effort is in beta. On the Claude API and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), it’s available on Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5. On the Claude API, it’s also available on Claude Fable 5.2 and Claude Mythos 5.2. On Claude Models on Google Cloud (Google managed), it’s also available on Claude Fable 5.2 and Claude Mythos 5.2. On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), it’s available on Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5. On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), it’s available on Claude Fable 5.2, Claude Fable 5.1, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5. On [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), it’s available on Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, and Claude Opus 5.5. It requires the [beta header](https://platform.claude.com/docs/en/api/beta-headers) `mid-conversation-output-config-2026-07-01`. With the Amazon Bedrock [InvokeModel API](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), it’s available on Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, and Claude Opus 5.5, and you send that value in the `anthropic_beta` array of the request body instead.
-
-Without the beta value, a per-message `output_config` returns a 400 error: `messages.N.output_config: Extra inputs are not permitted`, where `N` is the index of the `system` message in `messages`. With the beta value, models without per-message effort, including Claude Fable 5, return a 400 error: `output_config.effort requires a model that supports per-turn effort; this model does not`. On Amazon Bedrock, those models and Claude Opus 5 return the `Extra inputs are not permitted` error instead. On Claude Sonnet 5.5 with `thinking: {"type": "between_tools"}` and on Claude Haiku 5.5 with `thinking: {"type": "disabled"}`, effort can’t change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
-
-Add a `role: "system"` message with empty `content` and the new level in `output_config.effort`. Placed directly after a `user` turn with new input, it sets the level for Claude’s reply to that turn. Placed anywhere else, such as between an `assistant` turn and the next `user` turn as in the following example, it takes effect from the next `user` turn with new input. A `user` turn that holds only `tool_result` blocks doesn’t count as new input, so a change placed after one in a tool-use loop waits for the next `user` turn with new input. The new level then holds until a later message changes it. Everything before that message is unchanged, so the cached prefix still matches.
-
-The following example starts at `high`, then drops to `low` for a routine follow-up:
-
-<CodeGroup>
-  ```bash cURL
-  # Effort-only system message: the new level takes effect from the next user turn.
-  curl https://api.anthropic.com/v1/messages \
-    -H "x-api-key: $ANTHROPIC_API_KEY" \
-    -H "anthropic-version: 2026-10-21" \
-    -H "anthropic-beta: mid-conversation-output-config-2026-07-01" \
-    -H "content-type: application/json" \
-    -d '{
-      "model": "claude-fable-5-1",
-      "max_tokens": 4096,
-      "output_config": {"effort": "high"},
-      "messages": [
-        {"role": "user", "content": "Plan a migration from SQLite to PostgreSQL in three short steps."},
-        {"role": "assistant", "content": "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts."},
-        {"role": "system", "content": [], "output_config": {"effort": "low"}},
-        {"role": "user", "content": "Summarize the plan in one sentence."}
-      ]
-    }'
-  ```
-
-  ```bash CLI
-  ant beta:messages create \
-    --beta mid-conversation-output-config-2026-07-01 <<'YAML'
-  model: claude-fable-5-1
-  max_tokens: 4096
-  output_config:
-    effort: high
-  messages:
-    - role: user
-      content: Plan a migration from SQLite to PostgreSQL in three short steps.
-    - role: assistant
-      content: "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts."
-    # Effort-only system message: the new level takes effect from the next user turn.
-    - role: system
-      content: []
-      output_config:
-        effort: low
-    - role: user
-      content: Summarize the plan in one sentence.
-  YAML
-  ```
-
-  ```python Python
-  client = anthropic.Anthropic()
-
-  response = client.beta.messages.create(
-      model="claude-fable-5-1",
-      max_tokens=4096,
-      output_config={"effort": "high"},
-      messages=[
-          {
-              "role": "user",
-              "content": "Plan a migration from SQLite to PostgreSQL in three short steps.",
-          },
-          {
-              "role": "assistant",
-              "content": "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts.",
-          },
-          # Effort-only system message: the new level takes effect from the next user turn.
-          {"role": "system", "content": [], "output_config": {"effort": "low"}},
-          {"role": "user", "content": "Summarize the plan in one sentence."},
-      ],
-      betas=["mid-conversation-output-config-2026-07-01"],
-  )
-
-  for block in response.content:
-      if block.type == "text":
-          print(block.text)
-  ```
-
-  ```typescript TypeScript
-  const client = new Anthropic();
-
-  const response = await client.beta.messages.create({
-    model: "claude-fable-5-1",
-    max_tokens: 4096,
-    output_config: { effort: "high" },
-    messages: [
-      {
-        role: "user",
-        content: "Plan a migration from SQLite to PostgreSQL in three short steps."
-      },
-      {
-        role: "assistant",
-        content:
-          "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts."
-      },
-      // Effort-only system message: the new level takes effect from the next user turn.
-      { role: "system", content: [], output_config: { effort: "low" } },
-      { role: "user", content: "Summarize the plan in one sentence." }
-    ],
-    betas: ["mid-conversation-output-config-2026-07-01"]
-  });
-
-  for (const block of response.content) {
-    if (block.type === "text") {
-      console.log(block.text);
-    }
-  }
-  ```
-
-  ```csharp C#
-  using Anthropic.Models.Beta;
-  using Anthropic.Models.Beta.Messages;
-  using Model = Anthropic.Models.Messages.Model;
-
-  AnthropicClient client = new();
-
-  var response = await client.Beta.Messages.Create(new MessageCreateParams
-  {
-      Model = Model.ClaudeFable5_1,
-      MaxTokens = 4096,
-      OutputConfig = new() { Effort = Effort.High },
-      Messages =
-      [
-          new BetaUserMessageParam { Content = "Plan a migration from SQLite to PostgreSQL in three short steps." },
-          new BetaAssistantMessageParam { Content = "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts." },
-          // Effort-only system message: the new level takes effect from the next user turn.
-          new BetaSystemMessageParam
-          {
-              Content = new([]),
-              OutputConfig = new() { Effort = BetaSystemMessageOutputConfigEffort.Low },
-          },
-          new BetaUserMessageParam { Content = "Summarize the plan in one sentence." },
-      ],
-      Betas = [AnthropicBeta.MidConversationOutputConfig2026_07_01],
-  });
-
-  foreach (var block in response.Content)
-  {
-      if (block.TryPickText(out var textBlock))
-      {
-          Console.WriteLine(textBlock.Text);
-      }
-  }
-  ```
-
-  ```go Go
-  client := anthropic.NewClient()
-
-  response, err := client.Beta.Messages.New(context.Background(), anthropic.BetaMessageNewParams{
-  	Model:     anthropic.ModelClaudeFable5_1,
-  	MaxTokens: 4096,
-  	OutputConfig: anthropic.BetaOutputConfigParam{
-  		Effort: anthropic.BetaOutputConfigEffortHigh,
-  	},
-  	Messages: []anthropic.BetaMessageParam{
-  		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Plan a migration from SQLite to PostgreSQL in three short steps.")),
-  		{OfAssistant: &anthropic.BetaAssistantMessageParam{
-  			Content: []anthropic.BetaContentBlockParamUnion{anthropic.NewBetaTextBlock("1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts.")},
-  		}},
-  		// Effort-only system message: the new level takes effect from the next user turn.
-  		anthropic.NewBetaSystemMessage(anthropic.BetaSystemMessageOutputConfigParam{
-  			Effort: anthropic.BetaSystemMessageOutputConfigEffortLow,
-  		}),
-  		anthropic.NewBetaUserMessage(anthropic.NewBetaTextBlock("Summarize the plan in one sentence.")),
-  	},
-  	Betas: []anthropic.AnthropicBeta{anthropic.AnthropicBetaMidConversationOutputConfig2026_07_01},
-  })
-  if err != nil {
-  	log.Fatal(err)
-  }
-
-  for _, block := range response.Content {
-  	if textBlock, ok := block.AsAny().(anthropic.BetaTextBlock); ok {
-  		fmt.Println(textBlock.Text)
-  	}
-  }
-  ```
-
-  ```java Java
-  import com.anthropic.models.beta.AnthropicBeta;
-  import com.anthropic.models.beta.messages.BetaMessage;
-  import com.anthropic.models.beta.messages.BetaOutputConfig;
-  import com.anthropic.models.beta.messages.BetaSystemMessageOutputConfig;
-  import com.anthropic.models.beta.messages.BetaSystemMessageParam;
-  import com.anthropic.models.beta.messages.MessageCreateParams;
-  import com.anthropic.models.messages.Model;
-
-  void main() {
-      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
-
-      MessageCreateParams params = MessageCreateParams.builder()
-          .model(Model.CLAUDE_FABLE_5_1)
-          .maxTokens(4096L)
-          .addBeta(AnthropicBeta.MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01)
-          .outputConfig(BetaOutputConfig.builder()
-              .effort(BetaOutputConfig.Effort.HIGH)
-              .build())
-          .addUserMessage("Plan a migration from SQLite to PostgreSQL in three short steps.")
-          .addAssistantMessage("1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts.")
-          // Effort-only system message: the new level takes effect from the next user turn.
-          .addMessage(BetaSystemMessageParam.builder()
-              .contentOfBlocks(List.of())
-              .outputConfig(BetaSystemMessageOutputConfig.builder()
-                  .effort(BetaSystemMessageOutputConfig.Effort.LOW)
-                  .build())
-              .build())
-          .addUserMessage("Summarize the plan in one sentence.")
-          .build();
-
-      BetaMessage response = client.beta().messages().create(params);
-      response.content().stream()
-          .flatMap(block -> block.text().stream())
-          .forEach(textBlock -> IO.println(textBlock.text()));
-  }
-  ```
-
-  ```php PHP
-  use Anthropic\Beta\AnthropicBeta;
-  use Anthropic\Beta\Messages\BetaMessageParam;
-  use Anthropic\Beta\Messages\BetaOutputConfig;
-  use Anthropic\Beta\Messages\BetaSystemMessageOutputConfig;
-  use Anthropic\Client;
-
-  $client = new Client();
-
-  $response = $client->beta->messages->create(
-      model: 'claude-fable-5-1',
-      maxTokens: 4096,
-      outputConfig: BetaOutputConfig::with(effort: 'high'),
-      messages: [
-          BetaMessageParam::with(role: 'user', content: 'Plan a migration from SQLite to PostgreSQL in three short steps.'),
-          BetaMessageParam::with(role: 'assistant', content: '1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts.'),
-          // Effort-only system message: the new level takes effect from the next user turn.
-          BetaMessageParam::with(
-              role: 'system',
-              content: [],
-              outputConfig: BetaSystemMessageOutputConfig::with(effort: 'low'),
-          ),
-          BetaMessageParam::with(role: 'user', content: 'Summarize the plan in one sentence.'),
-      ],
-      betas: [AnthropicBeta::MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01],
-  );
-
-  foreach ($response->content as $block) {
-      if ($block->type === 'text') {
-          echo $block->text, PHP_EOL;
-      }
-  }
-  ```
-
-  ```ruby Ruby
-  client = Anthropic::Client.new
-
-  response = client.beta.messages.create(
-    model: Anthropic::Model::CLAUDE_FABLE_5_1,
-    max_tokens: 4096,
-    output_config: {effort: :high},
-    messages: [
-      {role: "user", content: "Plan a migration from SQLite to PostgreSQL in three short steps."},
-      {role: "assistant", content: "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts."},
-      # Effort-only system message: the new level takes effect from the next user turn.
-      {role: "system", content: [], output_config: {effort: :low}},
-      {role: "user", content: "Summarize the plan in one sentence."}
-    ],
-    betas: [Anthropic::AnthropicBeta::MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01]
-  )
-
-  response.content.each do |block|
-    puts block.text if block.type == :text
-  end
-  ```
-</CodeGroup>
-
-An effort-only system message carries no text, so the [placement rules for mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations) don’t apply. It can appear anywhere in `messages`, including as the first entry or between an `assistant` turn and the next `user` turn. Values are the level names (`low`, `medium`, `high`, `xhigh`, and `max`).
-
-Prefer this form over changing the top-level value between requests. A top-level change restarts the cache and, on Claude Fable 5.1, also steers the model less reliably: its earlier replies were written at the previous level, and it tends to stay consistent with them.
+[Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) sets a new level with a `system` message in `messages`.
 
 ### Top-level effort on the next request
 
@@ -698,7 +429,7 @@ The top-level `output_config.effort` applies to the whole request. To run a late
 2. **Use low for speed-sensitive or simple tasks:** When latency matters or tasks are straightforward, low effort can significantly reduce response times and costs.
 3. **Test your use case:** The impact of effort levels varies by task type. Evaluate performance on your specific use cases before deploying.
 4. **Consider dynamic effort:** Adjust effort based on task complexity. Simple queries might warrant low effort, whereas agentic coding and complex reasoning benefit from high effort. See the next item before varying it within one conversation.
-5. **Hold top-level effort constant within cached conversations:** Changing the top-level effort value between requests invalidates [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), so vary it across workloads rather than within a conversation that relies on cache hits. On models that support it, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) instead, which preserves the cache. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).
+5. **Hold top-level effort constant within cached conversations:** Changing the top-level effort value between requests invalidates [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), so vary it across workloads rather than within a conversation that relies on cache hits. On models that support it, use a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) change instead, which preserves the cache. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).
 
 ## Next steps
 

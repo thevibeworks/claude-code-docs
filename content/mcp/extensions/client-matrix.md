@@ -39,7 +39,7 @@ This matrix shows which MCP clients support each [official extension](https://mo
 | [PostHog Code](https://posthog.com/code/) | | | | | |
 | [Kiro Crew](https://kiro.dev/crew/) | | | | | |
 | [fast-agent](https://github.com/evalstate/fast-agent) | | | | [Partial](https://github.com/evalstate/fast-agent/blob/main/docs/docs/mcp/skills-over-mcp.md) | |
-| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) | |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/docs/mcp-app-review.md) | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) | |
 | [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | | |
 | [Glean](https://www.glean.com/) | | | | | |
 

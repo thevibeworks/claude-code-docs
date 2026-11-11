@@ -21,7 +21,7 @@ Existing Claude Sonnet 5 prompts should perform well without changes, and the pa
 * Requests return `stop_reason: "refusal"`: [Safeguard refusals](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#safeguard-refusals)
 
 <Note>
-  For the five breaking API changes when migrating from Claude Sonnet 5, see the [migration guide](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-claude-sonnet-5).
+  For the five breaking API changes when migrating from Claude Sonnet 5, see the [Claude Sonnet 5.5 migration guide](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-claude-sonnet-5).
 </Note>
 
 ## Calibrate effort
@@ -36,7 +36,7 @@ Three adjustments help:
 * Reserve `xhigh` and `max` for work where you’ve measured a quality gain, because thinking and replies get much longer there. At those levels, `between_tools` isn’t accepted, so up-front thinking can’t be turned off.
 * To get less thinking, lower the effort level. Asking the model in the system prompt to think less doesn’t reliably reduce its thinking.
 
-Changing the top-level `effort` value between requests invalidates the prompt cache. To change the level partway through a conversation, use a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta) instead, which keeps the cache. A change holds for every later turn until another one replaces it. For example, in an interactive session at `low`, add a change to `high` before the user’s hard problem, and a change back to `low` after Claude answers it. Per-message effort changes need adaptive thinking. With `between_tools`, they return a 400 error, as [Running without up-front thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#running-without-up-front-thinking) explains.
+Changing the top-level `effort` value between requests invalidates the prompt cache. To change the level partway through a conversation, use a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) change instead, which keeps the cache. Per-message effort is in beta. A change holds for every later turn until another one replaces it. For example, in an interactive session at `low`, add a change to `high` before the user’s hard problem, and a change back to `low` after Claude answers it. Per-message effort changes need adaptive thinking. With `between_tools`, they return a 400 error, as [Running without up-front thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#running-without-up-front-thinking) explains.
 
 ## Steer initiative and scope
 
@@ -47,7 +47,7 @@ How far Claude Sonnet 5.5 goes on its own depends on the effort level and the re
 ```text wrap
 Keep working until everything the user asked for is done, and only stop to ask when you can't go on without the user or before a risky step.
 
-When the work the user asked for is done and checked, stop and report. Don't add features, tests, files, docs or refactors that weren't asked for. If you think one would help, mention it at the end instead of doing it.
+When the work the user asked for is done and checked, stop and report. Don't add features, tests, files, docs, or refactors that weren't asked for. If you think one would help, mention it at the end instead of doing it.
 ```
 
 With this prompt, the model carries more of the work through at `low` and `medium` effort, so sessions at those levels run longer and cost more. The prompt doesn’t replace your own rules about risky or irreversible actions. Keep those rules in your system prompt.
@@ -57,7 +57,7 @@ With this prompt, the model carries more of the work through at `low` and `mediu
 **Thoroughness at `xhigh` and `max` effort.** At these levels the model is especially thorough. After it completes a task, it can start its own rounds of review and verification, sometimes with subagents if your harness provides them. It can also make related fixes it noticed along the way. This takes more time and tokens, so run routine work at `high` or below, where it’s rare. If you do want that extra thoroughness of these effort levels, but want to direct it to the task itself, add this to your system prompt:
 
 ```text wrap
-When the work the user asked for is done and its checks pass, stop and report. Don't start extra rounds of review or hardening on your own, and don't launch reviewer sub-agents unless the user asked for a review. If you think a deeper review is worth doing, say so at the end.
+When the work the user asked for is done and its checks pass, stop and report. Don't start extra rounds of review or hardening on your own, and don't launch reviewer subagents unless the user asked for a review. If you think a deeper review is worth doing, say so at the end.
 ```
 
 In testing on coding tasks at `max` effort, this stopped the model from launching reviewer subagents and cut session cost by about a third, with no change in quality. It makes self-started review rounds by the main agent less frequent but doesn’t remove them entirely.
@@ -65,7 +65,7 @@ In testing on coding tasks at `max` effort, this stopped the model from launchin
 **Open-ended requests.** When a request is open-ended, for example “show me what you can do with this,” the model can start building a presentation, report, or video when you only wanted ideas. If you want ideas or a plan first, say so in the request, or add this to your system prompt:
 
 ```text wrap
-When the user asks for ideas, options or a plan, give them that and stop. Don't start building or changing anything until they say to go ahead.
+When the user asks for ideas, options, or a plan, give them that and stop. Don't start building or changing anything until they say to go ahead.
 ```
 
 ## Running without up-front thinking
@@ -110,10 +110,10 @@ To show these notes, set `display: "updates"` (beta, `thinking-display-updates-2
 
 Next, remove older instructions such as “hold all findings for the final response.” If you then want updates at predictable points, for example a line on what the model is about to do before its first tool call and a short recap at the end, say so in the system prompt. The model follows instructions like this. Updates at set points help most in human-in-the-loop work.
 
-If long tool-calling turns still go quiet for longer than you want, your harness can prompt an update. Have it count consecutive tool-calling steps that send the user no text or progress update. After several in a row, for example five, append a one-turn reminder after the latest tool results. Send it as a [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (beta), with text such as the following:
+If long tool-calling turns still go quiet for longer than you want, your harness can prompt an update. Have it count consecutive tool-calling steps that send the user no text or progress update. After several in a row, for example five, append a one-turn reminder after the latest tool results. Send it as a [turn-scoped system message](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (in beta), with text such as the following:
 
 ```text wrap
-The user hasn't heard from you in a while — say in a few words what you're doing, then continue.
+The user hasn't heard from you in a while: say in a few words what you're doing, then continue.
 ```
 
 If the turn stays quiet, stop sending reminders after the second or third. Frequent harness text after tool results can lead the model to treat that text as a possible prompt injection, as [Mid-turn user messages](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#mid-turn-user-messages-and-task-budgets) explains. Leave each reminder in `messages` on later requests. Because the reminder is appended rather than inserted and later deleted, the prompt cache and [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking) stay intact. At `high` effort, with a tool for sending the user a message available, the reminder leads the model to update the user more often and shortens its longest silent stretches, with no measurable change in task quality.
@@ -125,7 +125,7 @@ On chat and knowledge-work tasks, Claude Sonnet 5.5 sometimes answers from its t
 First, check your prompt for language that discourages tool use, such as “only use tools when strictly necessary” or “minimize tool calls,” and remove it. Then, if your product gives the model a search tool, add this to your system prompt:
 
 ```text wrap
-Use the search tool to check specifics that may have changed since your training, such as what is allowed, required or charged, even when you feel confident. For researched work such as a report or a comparison, gather current sources rather than writing from your training knowledge.
+Use the search tool to check specifics that may have changed since your training, such as what is allowed, required, or charged, even when you feel confident. For researched work such as a report or a comparison, gather current sources rather than writing from your training knowledge.
 ```
 
 This matters most for research and support products, where answers depend on current details.
@@ -139,7 +139,7 @@ A token countdown that your harness adds after every tool result can cause this.
 * Never put user text inside a `tool_result` block. The model misreads that placement most often.
 * Deliver mid-turn user input as a user turn. Append the user’s words as a text block in the user message that carries the `tool_result` blocks, after the last `tool_result`.
 * Keep harness notices, such as reminders, in a separate mid-conversation system message after the user’s words. Never put a notice and the user’s words in the same block.
-* In interactive sessions where users can type mid-turn, don’t add your own token or budget countdown after tool results. [Task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets) (beta) add a similar countdown, but they haven’t been seen to cause this misread. If you see the misread while a task budget is set, try the session without one.
+* In interactive sessions where users can type mid-turn, don’t add your own token or budget countdown after tool results. [Task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets) (in beta) add a similar countdown, but they haven’t been seen to cause this misread. If you see the misread while a task budget is set, try the session without one.
 
 ## Verification on coding tasks
 
@@ -148,7 +148,7 @@ On agentic coding tasks, Claude Sonnet 5.5 generally checks its work before it r
 If you see changes reported as complete without test or build output in the transcript, add this paragraph, or one like it, to the system prompt. At `low` effort, it makes skipped or superficial checks rare, with no measurable change in task quality and only a slightly higher cost per task:
 
 ```text wrap
-When you change code that can be run, built, or type-checked, run a real check that exercises the change before reporting it done: the project's tests, type-checker, or build, or the changed command itself. A syntax-only check, or a check command that failed to start, does not count; if all that is missing is the project's declared dependencies, install them with its own package manager and lockfile (e.g. npm install, pip install -r requirements.txt), never via sudo or the system package manager, unless told not to. Only if no real check can run here, say which one you did not run and why instead of reporting the change as done.
+When you change code that can be run, built, or type-checked, run a real check that exercises the change before reporting it done: the project's tests, type-checker, or build, or the changed command itself. A syntax-only check, or a check command that failed to start, does not count; if all that is missing is the project's declared dependencies, install them with its own package manager and lockfile (for example, npm install or pip install -r requirements.txt), never through sudo or the system package manager, unless told not to. Only if no real check can run here, say which one you did not run and why instead of reporting the change as done.
 ```
 
 ## Tolerant tool-call handling
@@ -174,6 +174,6 @@ Claude Sonnet 5.5 runs safety classifiers that can decline a request. A decline 
 
 If the `cyber` classifier blocks your organization’s legitimate security work, you can apply to the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). If the `bio` classifier blocks your organization’s life sciences work, you can apply to the [Life Sciences Verification Program](https://www.anthropic.com/news/life-sciences-verification-program).
 
-If you turn on [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (beta), it retries `cyber` and `frontier_llm` declines on Claude Sonnet 5. It doesn’t retry `bio`, `reasoning_extraction`, or `general_harms` declines. See [Refusals, fallback, and billing](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5#refusals-fallback-and-billing).
+If you turn on [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (in beta), it retries `cyber` and `frontier_llm` declines on Claude Sonnet 5. It doesn’t retry `bio`, `reasoning_extraction`, or `general_harms` declines. See [Refusals, fallback, and billing](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5#refusals-fallback-and-billing).
 
 If your prompts ask the model to include its reasoning in the response, remove those instructions, because they invite `reasoning_extraction` declines. With adaptive thinking, read the reasoning from [summarized thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#summarized-thinking) blocks instead (`display: "summarized"`). You can still ask for a short explanation of the answer or a summary of the actions taken; see [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).

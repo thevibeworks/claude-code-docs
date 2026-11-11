@@ -1,7 +1,7 @@
 ---
 title: OpenTelemetry tracing for the Claude API
 url: https://platform.claude.com/docs/en/manage-claude/opentelemetry
-description: Trace your Messages API requests, tool uses, and Managed Agents sessions with OpenTelemetry spans from the Claude SDK and the Claude API.
+description: Trace your Messages API requests, tool uses, and Managed Agents sessions with OpenTelemetry spans from the Anthropic SDK and the Claude API.
 featureMetadata:
   topic:
     title: OpenTelemetry
@@ -29,10 +29,10 @@ featureMetadata:
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
     Claude API: beta
+    Amazon Bedrock: beta
+    Amazon Bedrock (bedrock-runtime): beta
     Claude Platform on AWS: beta
     Claude Models on Google Cloud (Anthropic managed): beta
-    Amazon Bedrock: beta
-    Amazon Bedrock (InvokeModel): beta
     Claude Models on Google Cloud (Google managed): beta
     Microsoft Foundry: beta
 ---
@@ -58,7 +58,7 @@ You can set up SDK tracing, API tracing, or both. Set up both to see a requestâ€
 Let Claude Code set up this feature for you
 
 ```text
-Set up OpenTelemetry tracing with the Claude API and Claude SDK
+Set up OpenTelemetry tracing with the Claude API and Anthropic SDK
 ```
 
 <CardGroup cols={3}>

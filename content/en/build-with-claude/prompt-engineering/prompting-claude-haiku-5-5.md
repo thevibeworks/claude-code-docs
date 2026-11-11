@@ -19,7 +19,7 @@ Existing Claude Haiku 4.5 prompts should perform well without changes. Start wit
 * Requests return `stop_reason: "refusal"`: [Safeguard refusals](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#safeguard-refusals)
 
 <Note>
-  For the breaking API changes when migrating from Claude Haiku 4.5, see the [migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide).
+  For the breaking API changes when migrating from Claude Haiku 4.5, see the [Claude Haiku 5.5 migration guide](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide).
 
   Several sections on this page suggest text to add to your system prompt. Add it to new conversations only. A request that sends thinking blocks back after `system` changed can return a 400 error, so a stored conversation resumed with the new system prompt can fail. To change instructions partway through a conversation, [put them in the newest turn](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#changing-context). On the Claude API, Amazon Bedrock, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), and Claude Models on Google Cloud (Google managed), you can instead [append a system message to the conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#new-instructions).
 </Note>
@@ -38,7 +38,7 @@ Claude Haiku 5.5 is the first Haiku model with effort levels. Thinking works as 
 * Thinking is on by default and counts toward `max_tokens`, which can go up to 128,000. A `max_tokens` value sized for Claude Haiku 4.5 requests that ran without thinking can cut the reply off, so leave room for thinking.
 * To get less thinking, lower the effort level. In Anthropic’s testing, telling the model in the prompt to answer directly didn’t stop it from thinking. You can also turn thinking off with `thinking: {"type": "disabled"}`. This works at `low`, `medium`, and `high` only. At `xhigh` and `max`, the request returns a 400 error.
 * At `xhigh` effort in multi-turn chats, the model sometimes writes its whole answer in its thinking and ends the turn with no visible text. If you see this behavior, check each response for an empty reply.
-* Changing the top-level `effort` value between requests invalidates the prompt cache for the conversation’s messages. Where your platform supports it, you can change the level partway through a conversation with a [per-message effort change](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta), which keeps the cache. A change holds for every later turn until another one replaces it. It needs the `mid-conversation-output-config-2026-07-01` beta header and adaptive thinking, which is the default. With thinking off, a per-message effort change returns a 400 error.
+* Changing the top-level `effort` value between requests invalidates the prompt cache for the conversation’s messages. Where your platform supports it, you can change the level partway through a conversation with a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) change, which keeps the cache. A change holds for every later turn until another one replaces it. It needs the `mid-conversation-output-config-2026-07-01` beta header and adaptive thinking, which is the default. With thinking off, a per-message effort change returns a 400 error.
 
 ## Accurate search results
 
@@ -53,7 +53,7 @@ Render the date once, when the conversation starts, and send the same `system` a
 The model also sometimes needs an extra nudge to search. This occurs most at `low` effort and with long system prompts. To fix it, add this text directly after the date:
 
 ```text wrap
-Your training data ends well before today's date. Records, office holders, prices, versions, rules and anything "latest" may have changed since then, so search for those before you answer, even when you feel sure. Facts that can't change need no search. When the answer depends on where the user is, put the user's country or region in the search query.
+Your training data ends well before today's date. Records, office holders, prices, versions, rules, and anything "latest" may have changed since then, so search for those before you answer, even when you feel sure. Facts that can't change need no search. When the answer depends on where the user is, put the user's country or region in the search query.
 ```
 
 In Anthropic’s testing, this text raised the search rate on questions whose answers had changed. On prompts that need no search, it added searches in only 0–3 percent of tries.
@@ -94,7 +94,7 @@ Raising effort also reduces early stopping, on its own or together with this tex
 At `low` and `medium` effort, Claude Haiku 5.5 sometimes reports a code change as done without running a check. If you see the model report results without checking its work, add this paragraph, or one like it, to your system prompt:
 
 ```text wrap
-When you change code that can be run, built, or type-checked, run a real check that exercises the change before reporting it done: the project's tests, type-checker, or build, or the changed command itself. A syntax-only check, or a check command that failed to start, does not count; if all that is missing is the project's declared dependencies, install them with its own package manager and lockfile (e.g. npm install, pip install -r requirements.txt), never via sudo or the system package manager, unless told not to. Only if no real check can run here, say which one you did not run and why instead of reporting the change as done.
+When you change code that can be run, built, or type-checked, run a real check that exercises the change before reporting it done: the project's tests, type-checker, or build, or the changed command itself. A syntax-only check, or a check command that failed to start, does not count; if all that is missing is the project's declared dependencies, install them with its own package manager and lockfile (for example, npm install or pip install -r requirements.txt), never through sudo or the system package manager, unless told not to. Only if no real check can run here, say which one you did not run and why instead of reporting the change as done.
 ```
 
 In Anthropic’s testing, the model checked its changes more often with this text, and its performance improved, at the cost of more tokens.
@@ -134,4 +134,4 @@ Claude Haiku 5.5 runs safety classifiers that can decline a request. A declined 
 
 If you’re moving from Claude Haiku 4.5, these refusals are new.
 
-Claude Haiku 5.5 has no [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (beta). If a request is declined, handle `stop_reason: "refusal"` in your client. Sending the same request to Claude Haiku 5.5 again usually returns another refusal.
+Claude Haiku 5.5 has no [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). If a request is declined, handle `stop_reason: "refusal"` in your client. Sending the same request to Claude Haiku 5.5 again usually returns another refusal.

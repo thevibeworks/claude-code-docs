@@ -20,19 +20,19 @@ One more change alters the response shape without failing any request: [text bet
 | ----------------- | ----------------- | ---------------------------------------------- |
 | Claude Sonnet 5.5 | claude-sonnet-5-5 | The best combination of speed and intelligence |
 
-[Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is on by default, and the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) controls thinking depth. Its default on the Claude API is `high`. The tokenizer is the same as Claude Sonnet 5’s, so the same text produces the same token counts. For the context window, output limits, knowledge cutoff, and prices, see the [Claude Sonnet 5.5 model page](https://platform.claude.com/docs/en/models/sonnet-5-5/overview).
+[Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is on by default, and the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) controls thinking depth. Its default on the Claude API is `high`. The tokenizer is the same as Claude Sonnet 5’s, so the same text produces the same token counts. For the context window, output limits, knowledge cutoff, and prices, see the [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) model page.
 
-For all current models, see the [models overview](https://platform.claude.com/docs/en/models/overview).
+For all current models, see [Models overview](https://platform.claude.com/docs/en/models/overview).
 
 ## Breaking changes
 
 ### Turn off up-front thinking with `between_tools`
 
-To turn off up-front thinking on Claude Sonnet 5.5, send `thinking: {"type": "between_tools"}` instead of `"disabled"`. It’s the lowest thinking setting on this model. It’s available on every platform that offers Claude Sonnet 5.5. It needs no beta header. The short [progress updates](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates) the model writes between tool calls still come back as `thinking` blocks with their summary text. Pass those blocks back unchanged with the rest of the assistant turn. A progress-update block you send back gives the model the full note it wrote, not the summary. If your requests don’t use tools, the response contains only text, as with `disabled` on Claude Sonnet 5.
+To turn off up-front thinking on Claude Sonnet 5.5, send `thinking: {"type": "between_tools"}` instead of `"disabled"`. It’s the lowest thinking setting on this model. It’s available on every platform that offers Claude Sonnet 5.5. The short [progress updates](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates) the model writes between tool calls still come back as `thinking` blocks with their summary text. Pass those blocks back unchanged with the rest of the assistant turn. A progress-update block you send back gives the model the full note it wrote, not the summary. If your requests don’t use tools, the response contains only text, as with `disabled` on Claude Sonnet 5.
 
 On Claude Sonnet 5.5, a request that sends `thinking: {"type": "disabled"}` returns a 400 `invalid_request_error` whose message points to `between_tools`.
 
-`between_tools` is accepted at `low`, `medium`, and `high` effort. At `xhigh` or `max` effort, a request with `between_tools` returns a 400 error. To run at `xhigh` or `max`, use adaptive thinking: omit the `thinking` field or send `thinking: {"type": "adaptive"}`, which is equivalent. With `between_tools`, effort can’t change mid-conversation: a [per-message](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
+`between_tools` is accepted at `low`, `medium`, and `high` effort. At `xhigh` or `max` effort, a request with `between_tools` returns a 400 error. To run at `xhigh` or `max`, use adaptive thinking: omit the `thinking` field or send `thinking: {"type": "adaptive"}`, which is equivalent. With `between_tools`, effort can’t change mid-conversation: a [per-message `output_config.effort`](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
 
 `between_tools` takes no other field: `display`, `budget_tokens`, or `block_binding` sent with it returns a 400 error. Manual thinking budgets (`thinking: {"type": "enabled", "budget_tokens": N}`) return a 400 error. See [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) and [Turn off up-front thinking](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#turn-off-up-front-thinking) in the migration guide.
 
@@ -44,15 +44,27 @@ Claude Sonnet 5.5 doesn’t support forced tool use. `tool_choice` set to `{"typ
 tool_choice: type "tool" and "any" are not supported for this model.
 ```
 
-`tool_choice: {"type": "auto"}` (the default) and `{"type": "none"}` are supported. The same check applies to the [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) endpoint. For schema-valid tool input, keep `tool_choice: {"type": "auto"}` and set `strict: true` with [strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use), or move the schema to [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs). To make the model call a tool rather than reply in text, say in the prompt when the tool applies. The migration guide shows the [before and after](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#forced-tool-use).
+`tool_choice: {"type": "auto"}` (the default) and `{"type": "none"}` are supported. The same check applies to the [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting) endpoint. For schema-valid tool input, keep `tool_choice: {"type": "auto"}` and set `strict: true` with [strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use), or move the schema to [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs). To make the model call a tool rather than reply in text, say in the prompt when the tool applies. [Forced tool use is not supported](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#forced-tool-use) in the migration guide shows the before and after.
 
 ### Thinking blocks are tied to the model and the conversation
 
-Every thinking block records which model produced it. Each model reads its own blocks and only some other models’ blocks. Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, and earlier models. On the Claude API and Claude Models on Google Cloud (Google managed), it also reads them from Claude Haiku 5.5. It doesn’t read them from Claude Opus 5, Claude Opus 5.5, or any Claude Fable or Claude Mythos model. On the Claude API and Claude Models on Google Cloud (Google managed), Claude Opus 5.5 reads Claude Sonnet 5.5 thinking blocks. So do Claude Fable 5.2 and Claude Mythos 5.2 on the Claude API. On Claude Models on Google Cloud (Google managed), Claude Fable 5.2 and Claude Mythos 5.2 read the same blocks as on the Claude API. No other model does.
+Every thinking block records which model produced it. A conversation that switches models keeps its earlier reasoning only if the model that it switches to can read the earlier model’s thinking blocks:
 
-So a conversation keeps its reasoning when it moves from Claude Sonnet 5 onto Claude Sonnet 5.5, or from Claude Sonnet 5.5 up to Claude Opus 5.5 on the Claude API and Claude Models on Google Cloud (Google managed), or up to Claude Fable 5.2 or Claude Mythos 5.2 where they read Claude Sonnet 5.5 blocks. Any other move away from Claude Sonnet 5.5 runs the turns after the switch without it. When a request carries a block the target model can’t read, the API drops it before the model sees it: the request succeeds, and dropped blocks aren’t billed. With the `thinking-binding-controls-2026-08-01` beta header, the drop is reported in a top-level `input_transformations` array. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
+| Switch                                                                                                            | Keeps its reasoning                                                            |
+| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| To Claude Sonnet 5.5, from Claude Sonnet 5 or earlier, Claude Opus 4.8 or earlier, or Claude Haiku 4.5 or earlier | Yes                                                                            |
+| To Claude Sonnet 5.5, from Claude Haiku 5.5                                                                       | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
+| To Claude Sonnet 5.5, from any other model                                                                        | No                                                                             |
+| From Claude Sonnet 5.5, to Claude Opus 5.5, Claude Fable 5.2, or Claude Mythos 5.2                                | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
+| From Claude Sonnet 5.5, to any other model                                                                        | No                                                                             |
 
-The API also checks whether anything before a Claude Sonnet 5.5 thinking block has changed since the block was produced: the `system` prompt, the `tools`, or an earlier message. Keep the conversation append-only: change instructions or tools with [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) rather than edits. A request that replays a block after such a change and leaves `thinking.block_binding.prefix_mismatch_behavior` unset gets a 400 error on accounts created on or after August 31, 2026, 00:00 UTC. This applies on the Claude API, Amazon Bedrock, and Claude Models on Google Cloud (Google managed). On accounts created before that date, the request gets the error only when it sets the field to `"error"`. To drop the affected blocks instead, send the `thinking-binding-controls-2026-08-01` beta header and set the field to `"drop_block"`. `block_binding` works only with `thinking: {"type": "adaptive"}`. With any other thinking setting, you can’t send `block_binding`, so strip the block the error names and every later `thinking` and `redacted_thinking` block, then retry once.
+When a request carries a block the target model can’t read, the API drops it before the model sees it. The request succeeds, and dropped blocks aren’t billed. With the `thinking-binding-controls-2026-08-01` beta header, the drop is reported in a top-level `input_transformations` array. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models). For switches that don’t involve Claude Sonnet 5.5, see [Which model switches keep the reasoning on the Claude API](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#which-model-switches-keep-reasoning).
+
+The API also checks whether anything before a Claude Sonnet 5.5 thinking block has changed since the block was produced: the `system` prompt, the `tools`, or an earlier message. Keep the conversation append-only: change instructions or tools with [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) rather than edits.
+
+A request that replays a block after such a change, with `thinking.block_binding.prefix_mismatch_behavior` unset, gets a 400 error. This applies to accounts created on or after August 31, 2026, 00:00 UTC. [Preserved thinking availability](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#feature-availability) lists the platforms where this applies. On accounts created before that date, the request might or might not get the error. To drop the affected blocks instead, send the `thinking-binding-controls-2026-08-01` beta header and set the field to `"drop_block"`.
+
+`block_binding` works only with `thinking: {"type": "adaptive"}`. With any other thinking setting, you can’t send `block_binding`. Instead, strip the block the error names and every later `thinking` and `redacted_thinking` block. Leave them out of later requests, and retry.
 
 See [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking) and the migration guide’s [note on thinking blocks](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#thinking-blocks).
 
@@ -68,15 +80,35 @@ Integrations that use the toolset need no change. To move a `computer_20251124` 
 
 ### Some advisor tool pairings are not supported
 
-With the [advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool), which is in beta, a Claude Sonnet 5.5 executor needs Claude Mythos 5.2, Claude Fable 5.2, Claude Mythos 5.1, Claude Fable 5.1, Claude Mythos 5, Claude Fable 5, Claude Opus 5.5, or Claude Opus 5 as its advisor, or Claude Sonnet 5.5 itself. Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5, and Claude Haiku 5.5 advisors work with a Claude Sonnet 5 executor, but with a Claude Sonnet 5.5 executor they return a 400 `invalid_request_error`. Every advisor that Claude Sonnet 5.5 accepts returns its advice encrypted, as an `advisor_redacted_result` block, so your client can’t read the advice text. See the advisor tool’s [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility) and [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants).
+The [advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) is in beta. A Claude Sonnet 5.5 executor accepts only these advisors:
+
+* Claude Mythos 5.2 and Claude Fable 5.2
+* Claude Mythos 5.1 and Claude Fable 5.1
+* Claude Mythos 5 and Claude Fable 5
+* Claude Opus 5.5 and Claude Opus 5
+* Claude Sonnet 5.5 itself
+
+Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5, and Claude Haiku 5.5 advisors work with a Claude Sonnet 5 executor. With a Claude Sonnet 5.5 executor, they return a 400 `invalid_request_error`. Every advisor that Claude Sonnet 5.5 accepts returns its advice encrypted, as an `advisor_redacted_result` block. So your client can’t read the advice text. See the advisor tool’s [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#model-compatibility) and [Result variants](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#result-variants).
 
 ## Feature support
 
-Claude Sonnet 5.5 supports [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort#change-effort-mid-conversation-beta) (beta), [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages), [mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes) (beta), [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) with a 512-token minimum cacheable prompt, [batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing), the [Files API](https://platform.claude.com/docs/en/build-with-claude/files), [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support), [vision](https://platform.claude.com/docs/en/build-with-claude/vision), and server-side and client-side [tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview). Per-message effort, mid-conversation system messages, and mid-conversation tool changes aren’t available on Claude Sonnet 5, whose minimum cacheable prompt is 1,024 tokens. See each feature’s page for model availability.
+Claude Sonnet 5.5 supports these features:
+
+* [Per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message), which is in beta
+* [Mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages)
+* [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes), which are in beta
+* [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), with a minimum cacheable prompt of 512 tokens
+* [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+* The [Files API](https://platform.claude.com/docs/en/build-with-claude/files)
+* [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support)
+* [Vision](https://platform.claude.com/docs/en/build-with-claude/vision)
+* Server-side and client-side tools (see [Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview))
+
+Claude Sonnet 5 doesn’t support per-message effort, mid-conversation system messages, or mid-conversation tool changes. On Claude Sonnet 5, the minimum cacheable prompt is 1,024 tokens. See each feature’s page for model availability.
 
 ### Compact on demand (beta)
 
-With the `compact-2026-09-04` beta header, a request that sends the top-level `compaction` parameter returns a signed `compaction` block that summarizes the whole conversation. You then send that block first, in place of the summarized messages. You choose when to compact, and the thinking blocks in the turns you keep can stay valid after the swap, under the conditions in [Compaction and preserved thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid). That matters on Claude Sonnet 5.5 because its [thinking blocks are tied to the conversation](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5#thinking-blocks-are-tied-to-the-model-that-produced-them). See [Compaction on demand](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) for platform availability and the full request flow.
+With the `compact-2026-09-04` beta header, a request that sends the top-level `compaction` parameter returns a signed `compaction` block that summarizes the messages in that request. In later requests, the block goes first in `messages`, in place of the messages it summarizes. You choose when to compact and which turns to keep after the block. On Claude Sonnet 5.5, the thinking blocks in the kept turns can stay valid after compaction. For the conditions, see [Compaction and preserved thinking](https://platform.claude.com/docs/en/build-with-claude/compaction-thinking-blocks#conditions-for-kept-thinking-to-stay-valid). See [Compaction on demand](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) for platform availability and the full request flow.
 
 ### Define tools in a message (beta)
 
@@ -84,7 +116,7 @@ With the `inline-tools-2026-09-15` beta header, a `tool_addition` block in a mid
 
 ### Thinking blocks stay with the account that produced them
 
-Thinking blocks that Claude Sonnet 5.5 produces work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model receives it, and the request succeeds. On the Claude API and Claude Models on Google Cloud (Google managed), with the `thinking-binding-controls-2026-08-01` beta header, the response lists each dropped block in `input_transformations` with `reason: "organization_binding_mismatch"`. Blocks from earlier models aren’t affected. See [thinking blocks from another account](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking) in Preserved thinking.
+Thinking blocks that Claude Sonnet 5.5 produces work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model receives it, and the request succeeds. On the Claude API and Claude Models on Google Cloud (Google managed), you can see which blocks were dropped. Send the `thinking-binding-controls-2026-08-01` beta header, and the response lists each dropped block in `input_transformations` with `reason: "organization_binding_mismatch"`. Blocks from earlier models aren’t affected. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
 ## Behavior differences
 
@@ -96,7 +128,11 @@ Claude Sonnet 5.5 differs from Claude Sonnet 5 in several ways that show up with
 
 ## Refusals, fallback, and billing
 
-Everything in [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) applies to Claude Sonnet 5.5. A declined request returns HTTP 200 with `stop_reason: "refusal"` and a [`stop_details`](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) object naming the policy area. Handle refusals and configure fallback. [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (`fallbacks: "default"`), in beta on the Claude API and on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), retries `"cyber"` and `"frontier_llm"` declines on Claude Sonnet 5. It doesn’t retry `"bio"`, `"reasoning_extraction"`, or `"general_harms"` declines. You can also use the [SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) or your own retry. Whether a refusal that arrives before any output is billed depends on its refusal category, and it counts against your rate limits either way. See [How refusals are billed](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed).
+Everything in [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) applies to Claude Sonnet 5.5. A declined request returns HTTP 200 with `stop_reason: "refusal"` and a [`stop_details`](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) object naming the policy area.
+
+Handle refusals in your code, and configure fallback. With [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (`fallbacks: "default"`), a request declined in the `"cyber"` or `"frontier_llm"` category runs again on Claude Sonnet 5. A request declined in the `"bio"`, `"reasoning_extraction"`, or `"general_harms"` category isn’t retried. Server-side fallback is in beta on the Claude API and on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed). You can also use the [SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) or your own retry.
+
+A refusal that arrives before any output is billed in some refusal categories and not in others. Either way, it counts against your rate limits. See [How refusals are billed](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed).
 
 ## Pricing
 
@@ -161,7 +197,7 @@ Then check six things:
 5. If you use the advisor tool with a Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5, or Claude Haiku 5.5 advisor, [switch to an advisor that Claude Sonnet 5.5 accepts](https://platform.claude.com/docs/en/models/sonnet-5-5/whats-new-sonnet-5-5#advisor-tool-pairings).
 6. If your interface shows the text between tool calls, set `thinking.display` when you use adaptive thinking. With `between_tools`, the text comes back without it. See [Text between tool calls is returned in thinking blocks](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#text-between-tool-calls).
 
-The [migration guide](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide) has step-by-step instructions from Claude Sonnet 5 and earlier models, and the full checklist.
+The [Claude Sonnet 5.5 migration guide](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide) has step-by-step instructions from Claude Sonnet 5 and earlier models, and the full checklist.
 
 ## Next steps
 

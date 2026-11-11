@@ -32,7 +32,7 @@ The API enforces service-configured limits at the organization level, but you ca
   **[Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws):** The same monthly spend caps apply, and requests stop at the cap in the same way. Billing and tier increases work differently; see [Spend limits on Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#spend-limits).
 </Note>
 
-Each of the Start, Build, and Scale tiers carries a monthly spend cap, which is the maximum your organization can spend on the API each calendar month. You can view your organization’s monthly spend cap and set your own limit on the [Billing](https://platform.claude.com/settings/billing) page in the Claude Console.
+Each of the Start, Build, and Scale tiers carries a monthly spend cap. The cap is the maximum your organization can spend on the API each calendar month. You can view your organization’s monthly spend cap and set your own limit under [Spend limits in the Claude Console](https://platform.claude.com/settings/spend-limits) (`platform.claude.com/settings/spend-limits`).
 
 | Usage tier | Monthly spend cap |
 | ---------- | ----------------- |
@@ -67,12 +67,12 @@ Once you reach your tier’s spend cap, API usage pauses until 00:00 UTC on the 
 You can also set your own spend limit below your tier’s cap to control costs:
 
 <Steps>
-  <Step title="Navigate to the Billing page">
-    In the Claude Console, go to the [Billing](https://platform.claude.com/settings/billing) page (`platform.claude.com/settings/billing`).
+  <Step title="Navigate to your spend limits">
+    Go to [Spend limits in the Claude Console](https://platform.claude.com/settings/spend-limits) (`platform.claude.com/settings/spend-limits`).
   </Step>
 
   <Step title="Open the spend limit editor">
-    In the **Spend limits** section, click **Adjust limit** (or **Set limit** if no limit is currently set).
+    Next to your organization’s **Monthly spend limit**, click **Adjust limit** or **Set limit**.
   </Step>
 
   <Step title="Adjust your spend limit">
@@ -94,7 +94,7 @@ The rate limits for the Messages API are measured in requests per minute (RPM), 
 
 ### Cache-aware ITPM
 
-Many API providers use a combined “tokens per minute” (TPM) limit that might include all tokens, both cached and uncached, input and output. **Claude’s default ITPM rate limits count only uncached input tokens.** This is a key advantage that makes the rate limits effectively higher than they might initially appear.
+**The API’s default ITPM rate limits count only uncached input tokens.** This makes the rate limits effectively higher than they might initially appear.
 
 ITPM rate limits are estimated at the beginning of each request, and the estimate is adjusted during the request to reflect the actual number of input tokens used.
 
@@ -122,7 +122,7 @@ To get the highest throughput within your rate limits, cache repeated content su
 
 OTPM rate limits are evaluated in real time as output tokens are produced, counting only the actual tokens generated. The `max_tokens` parameter does not factor into OTPM rate limit calculations, so there is no rate limit downside to setting a higher `max_tokens` value.
 
-Each row in the following tables has its own RPM, ITPM, and OTPM limits. Some rows cover several models that share one limit; see the notes under the tables. You can check your current rate limits and behavior on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, or read the configured limits and set workspace limits programmatically with the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api).
+Each row in the following tables has its own RPM, ITPM, and OTPM limits. Some rows cover several models that share one limit; see the notes that follow the tables. You can check your current rate limits and behavior on the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console, or read the configured limits and set workspace limits programmatically with the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api).
 
 <Note>
   Rate limits are shared across all `inference_geo` values. Requests with `inference_geo: "us"` and `inference_geo: "global"` draw from the same rate limit pool.
@@ -228,7 +228,11 @@ The Message Batches API has its own set of rate limits, which are shared across 
 
 ### Fast mode rate limits
 
-When you use [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) with `speed: "fast"` on Claude Fable 5.2, Claude Mythos 5.2, Claude Opus 5.5, Claude Opus 5, or Claude Opus 4.8, dedicated rate limits apply. They are separate from standard rate limits. Claude Opus 5.5 has a default fast mode rate limit in the Start, Build, and Scale tiers, so you don’t need to request access to use fast mode with it. Organizations in the Evaluation tier can use fast mode with Claude Opus 5.5 once they move to the Start, Build, or Scale tier. The same applies to Claude Fable 5.2. It also applies to Claude Mythos 5.2. Fast mode for Claude Opus 5 and Claude Opus 4.8 is in research preview. To see your fast mode rate limits, go to the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console. When you exceed your fast mode rate limits, the API returns a `429` error with a `retry-after` header.
+When you use [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) with `speed: "fast"`, dedicated rate limits apply, separate from standard rate limits. They apply on Claude Fable 5.2, Claude Mythos 5.2, Claude Opus 5.5, Claude Opus 5, and Claude Opus 4.8. Fast mode is in research preview for Claude Opus 5 and deprecated for Claude Opus 4.8.
+
+Claude Fable 5.2, Claude Mythos 5.2, and Claude Opus 5.5 have a default fast mode rate limit. The default limit applies in the Start, Build, and Scale tiers. You don’t need to request fast mode access for these models. Organizations in the Evaluation tier can use fast mode with these models once they move to the Start, Build, or Scale tier.
+
+To see your fast mode rate limits, go to the [Rate limits](https://platform.claude.com/usage/limits) page in the Claude Console. When you exceed your fast mode rate limits, the API returns a `429` error with a `retry-after` header.
 
 The response includes `anthropic-fast-*` headers that indicate your fast mode rate limit status. See [Fast mode rate limits](https://platform.claude.com/docs/en/build-with-claude/fast-mode#rate-limits) for details on these headers.
 

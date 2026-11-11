@@ -171,7 +171,10 @@ Be as specific as the workload allows. Loosen `subject_prefix` to `spiffe://prod
 
 ## Acquire and use the token
 
-The SDK can read the JWT-SVID from the file that spiffe-helper maintains or, except in Java, call the SPIFFE Workload API directly through a token provider. The file path takes the least code, and the SDK supports it in every language. The token-provider path removes the sidecar but requires a SPIFFE Workload API client in your application’s language.
+The SDK can get the JWT-SVID in two ways:
+
+* **From a file.** spiffe-helper keeps the JWT-SVID in a file, and the SDK reads that file. This takes the least code and works in every SDK language.
+* **From a token provider.** You pass the SDK a token provider that fetches the JWT-SVID from the SPIFFE Workload API, so you don’t need spiffe-helper. This needs a SPIFFE Workload API client library in your application’s language; Python and Go have mature ones. The Java SDK doesn’t accept a token provider, so in Java, use the file.
 
 <Tabs>
   <Tab title="File-based with spiffe-helper">
@@ -350,7 +353,7 @@ The SDK can read the JWT-SVID from the file that spiffe-helper maintains or, exc
   </Tab>
 
   <Tab title="Token provider through the SPIFFE Workload API">
-    Except in Java, workloads that link a SPIFFE Workload API client directly can skip spiffe-helper. They pass the SDK a token provider that fetches a fresh JWT-SVID from the agent socket. The SDK calls the provider before each token exchange, so the workload always presents an unexpired SVID. Python ([py-spiffe](https://github.com/HewlettPackard/py-spiffe)) and Go ([go-spiffe](https://github.com/spiffe/go-spiffe)) have mature Workload API clients.
+    Workloads that use a SPIFFE Workload API client library can skip spiffe-helper, in every SDK language except Java. They pass the SDK a token provider that fetches a fresh JWT-SVID from the agent socket. The SDK calls the provider before each token exchange, so the workload always presents an unexpired SVID. Python ([py-spiffe](https://github.com/HewlettPackard/py-spiffe)) and Go ([go-spiffe](https://github.com/spiffe/go-spiffe)) have mature Workload API clients.
 
     <CodeGroup exclude="shell, typescript, java, csharp, php, ruby">
       ```python Python

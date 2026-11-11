@@ -772,11 +772,18 @@ Extended thinking is the reasoning Claude emits before responding. On models tha
 | :- | :- |
 | Toggle for the current session | Press `Option+T` on macOS or `Alt+T` on Windows and Linux |
 | Set the global default | Run `/config` and toggle thinking mode. Saved as `alwaysThinkingEnabled` in `~/.claude/settings.json` |
-| Disable through an environment variable | Set [`MAX_THINKING_TOKENS=0`](https://code.claude.com/docs/en/env-vars), which turns thinking off on the Anthropic API except on Opus 5.5, Sonnet 5.5, Haiku 5.5, and Fable models. On [third-party providers](https://code.claude.com/docs/en/third-party-integrations.md), Claude Code omits the `thinking` parameter instead, and adaptive-reasoning models may still think |
+| Disable through an environment variable | Set [`MAX_THINKING_TOKENS=0`](https://code.claude.com/docs/en/env-vars) |
+
+Claude Code collapses thinking output by default. Press `Ctrl+O` to toggle verbose mode and see the reasoning as gray italic text. Interactive sessions on the Anthropic API receive redacted thinking blocks by default, so set [`showThinkingSummaries: true`](https://code.claude.com/docs/en/settings-reference#showthinkingsummaries) in settings if you want the full summaries available when you expand. You are charged for all thinking tokens generated, even when collapsed or redacted.
+
+#### Where you can't turn thinking off
 
 You can't turn thinking off on Opus 5.5, Sonnet 5.5, Haiku 5.5, or the Fable models. The session toggle and the `/config` row show `Thinking can't be turned off` for these models instead of offering the switch, and a saved `alwaysThinkingEnabled: false` or `MAX_THINKING_TOKENS=0` has no effect there. On these models, the model decides per step how much to think based on the effort level. The saved setting applies again when you switch to a model that accepts it.
 
-Claude Code collapses thinking output by default. Press `Ctrl+O` to toggle verbose mode and see the reasoning as gray italic text. Interactive sessions on the Anthropic API receive redacted thinking blocks by default, so set `showThinkingSummaries: true` in [settings](https://code.claude.com/docs/en/settings.md) if you want the full summaries available when you expand. You are charged for all thinking tokens generated, even when collapsed or redacted.
+To stop or reduce thinking, use the step for your provider:
+
+* **Anthropic API**: you can turn thinking off on models such as `claude-opus-5`, `claude-sonnet-5`, and `claude-haiku-4-5`. [Aliases](#model-aliases) such as `sonnet` select models where you can't, so [set the model](#setting-your-model) by its ID.
+* **[Third-party providers](https://code.claude.com/docs/en/third-party-integrations.md)**: on providers such as Amazon Bedrock and Microsoft Foundry, models with [adaptive reasoning](#adaptive-reasoning-and-fixed-thinking-budgets) may still think with thinking off. [Lower the effort level](#set-the-effort-level) to reduce thinking.
 
 ### Extended context
 

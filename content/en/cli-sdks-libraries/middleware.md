@@ -25,15 +25,15 @@ featureMetadata:
     - claude-sonnet-4-5-20250929
   supportedPlatforms:
     Claude API: stable
+    Amazon Bedrock: stable
+    Amazon Bedrock (bedrock-runtime): stable
     Claude Platform on AWS: stable
     Claude Models on Google Cloud (Anthropic managed): stable
-    Amazon Bedrock: stable
-    Amazon Bedrock (InvokeModel): stable
     Claude Models on Google Cloud (Google managed): stable
     Microsoft Foundry: stable
 ---
 
-The Claude SDK provides a middleware (or interceptor) hook that lets you run code before a request is sent and after the response is received. Use middleware for cross-cutting concerns such as logging, custom retries, request annotation, and refusal fallback handling.
+The Anthropic SDK provides a middleware (or interceptor) hook that runs your code before the SDK sends a request and after it receives the response. Use middleware for cross-cutting concerns such as logging, custom retries, request annotation, and retrying a declined request on a [fallback model](https://platform.claude.com/docs/en/cli-sdks-libraries/middleware#built-in-middleware).
 
 ```mermaid
 sequenceDiagram
@@ -202,7 +202,7 @@ Each middleware is a function that receives the outgoing request and the next ha
 
 When you register multiple middleware, they apply in the order given: the first middleware’s “before” code runs first, and its “after” code runs last. Middleware registered on the client runs before middleware passed as a per-request option.
 
-In the Go SDK, repeated `option.WithMiddleware` calls concatenate (client first, then method). In the other SDKs, pass an array; later entries wrap inner.
+To register more than one middleware, pass them all, as in `middleware=[first, second]` (typescript, ruby: `middleware: [first, second]`; csharp: `Handlers = [first, second]`; go: `option.WithMiddleware(first, second)`; java: `.addInterceptor(first).addInterceptor(second)`; php: `'middleware' => [$first, $second]`).
 
 ## Replacing the HTTP client
 

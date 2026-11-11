@@ -1,13 +1,13 @@
 ---
-title: Claude in Amazon Bedrock (Opus 4.7 and later)
+title: Claude in Amazon Bedrock (bedrock-mantle)
 url: https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock
-description: Access Claude models through Amazon Bedrock with AWS-native authentication, billing, and security boundaries.
+description: Call Claude through the Messages API on Amazon Bedrock's bedrock-mantle endpoint, with AWS-native authentication, billing, and security boundaries.
 ---
 
 This guide walks you through setting up and making API calls to Claude in Amazon Bedrock. Claude in Amazon Bedrock runs on AWS-managed infrastructure with zero operator access: Anthropic personnel have no access to the inference infrastructure. You can build sensitive applications entirely inside the AWS security boundary, with the same Messages API shape you use with the Claude API.
 
 <Note>
-  This page covers Claude in Amazon Bedrock, which serves Claude through the Messages API at `/anthropic/v1/messages` on AWS-managed infrastructure. The `InvokeModel` and `Converse` APIs with ARN-versioned model identifiers are documented at [Claude on Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy). For an Anthropic-operated alternative on AWS with AWS Marketplace billing, see [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
+  This page covers Claude in Amazon Bedrock, which serves Claude through the Messages API at `/anthropic/v1/messages` on the `bedrock-mantle` endpoint. That endpoint runs on AWS-managed infrastructure. The `InvokeModel` and `Converse` APIs, on the `bedrock-runtime` endpoint, are documented at [Claude on Amazon Bedrock (`bedrock-runtime`)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy). For an Anthropic-operated alternative on AWS with AWS Marketplace billing, see [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
 </Note>
 
 ## Access
@@ -330,12 +330,10 @@ For credentials, the client uses what you pass when you create it. Otherwise, th
 
 ## Supported models
 
-Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Model capabilities and behaviors are documented on the [Models overview](https://platform.claude.com/docs/en/models/overview) page.
+Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. For model capabilities and behaviors, see [Models overview](https://platform.claude.com/docs/en/models/overview). Claude Fable 5.2 and Claude Mythos 5.2 aren’t available in Claude in Amazon Bedrock. Amazon Bedrock serves them on the `bedrock-runtime` endpoint only. For their model IDs, see [API model IDs](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#api-model-ids). To see which endpoint serves each model, see [Endpoint availability by models](https://docs.aws.amazon.com/bedrock/latest/userguide/models-endpoint-availability.html) in the AWS documentation.
 
 | Model                                                                                       | Model ID                      | Access                                                                                              |
 | :------------------------------------------------------------------------------------------ | :---------------------------- | :-------------------------------------------------------------------------------------------------- |
-| Claude Fable 5.2                                                                            | `anthropic.claude-fable-5-2`  | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
-| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842)) | `anthropic.claude-mythos-5-2` | Active (verification required)                                                                      |
 | Claude Fable 5.1                                                                            | `anthropic.claude-fable-5-1`  | Open                                                                                                |
 | Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842)) | `anthropic.claude-mythos-5-1` | Active (verification required)                                                                      |
 | Claude Fable 5                                                                              | `anthropic.claude-fable-5`    | Open                                                                                                |
@@ -386,7 +384,7 @@ Claude in Amazon Bedrock is available in the following AWS regions. Amazon Bedro
 * **Global:** dynamic routing across all available regions for maximum availability. No pricing premium.
 * **Regional:** the endpoint resolves to the single AWS region you specify, for data-residency requirements. Regional endpoints carry a 10 percent pricing premium over global endpoints. To route across multiple regions within a geography, use an [inference profile](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) (US, EU, JP, or AU). Regions marked **In-region only** in the table support direct single-region routing without an inference profile.
 
-The global endpoint is available for Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5.5, Claude Sonnet 5, Claude Haiku 5.5, and Claude Haiku 4.5.
+The global endpoint is available for Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5.5, Claude Sonnet 5, Claude Haiku 5.5, and Claude Haiku 4.5.
 
 | AWS region       | Location                  | Endpoint types             |
 | ---------------- | ------------------------- | -------------------------- |
