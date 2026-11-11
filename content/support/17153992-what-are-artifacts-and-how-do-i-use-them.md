@@ -4,14 +4,18 @@ An **[artifact](https://claude.com/features/artifacts)** is anything Claude make
 
 Artifacts are available on Free, Pro, Max, Ultra, Team, and Enterprise plans, and in Claude Code on every plan that includes Claude Code. The Docs, Slides, and Design templates are available on all plans and are on by default. On Enterprise plans, they turn on by default on October 15, 2026, and owners can turn them on before then.
 
-The Dashboards template is in beta on Pro, Max, Ultra, Team, and Enterprise plans. On Enterprise plans, it's off by default until an owner turns it on. The Motion template is in beta on Team and Enterprise plans. It's on by default on Team plans and off on Enterprise plans until an owner turns it on.
+The Data template is available on Pro, Max, Ultra, Team, and Enterprise plans. On Enterprise plans, it turns on by default on November 19, 2026, unless an owner has already saved a setting.
+
+The Sheets and Whiteboards templates are in beta on Pro, Max, Ultra, Team, and Enterprise plans. They’re on by default on Team plans and off on Enterprise plans until an owner turns them on. The Motion template is in beta on Team and Enterprise plans. It's on by default on Team plans and off on Enterprise plans until an owner turns it on.
 
 | **Feature**                                   | **Free** | **Pro** | **Max** | **Ultra** | **Team** | **Enterprise** |
 | --------------------------------------------- | -------- | ------- | ------- | --------- | -------- | -------------- |
 | Create artifacts in a chat                    | ✅        | ✅       | ✅       | ✅         | ✅        | ✅              |
 | Start from a Docs, Slides, or Design template | ✅        | ✅       | ✅       | ✅         | ✅        | ✅              |
-| Start from a Dashboards template (beta)       |          | ✅       | ✅       | ✅         | ✅        | ✅              |
+| Start from a Data template                    |          | ✅       | ✅       | ✅         | ✅        | ✅              |
 | Start from a Claude Motion template (beta)    |          |         |         |           | ✅        | ✅              |
+| Start from a Sheets template (beta)           |          | ✅       | ✅       | ✅         | ✅        | ✅              |
+| Start from a Whiteboards template (beta)      |          | ✅       | ✅       | ✅         | ✅        | ✅              |
 | Connect your apps to an artifact              |          | ✅       | ✅       | ✅         | ✅        | ✅              |
 | Store data in an artifact                     |          | ✅       | ✅       | ✅         | ✅        | ✅              |
 
@@ -53,7 +57,11 @@ Templates are starting points for work you'll share with others. Ask for one in 
 
 - **Design:** Visuals, mockups, prototypes, one-pagers, and landing pages, built with your design system. Learn more in **[Get started with Claude Design](https://support.claude.com/en/articles/14604416)**.
 
-- **Dashboards (beta):** Dashboards built from your data platforms or connected apps, like Salesforce. Claude writes the queries, and each chart shows its query and when it was last refreshed. Learn more in **Get started with Claude Dashboards**.
+- **Data:** Dashboards, data stories, narrated short videos, and letters built from your data platforms or connected apps, like Salesforce. Claude writes the queries, and each chart shows its query and when it was last refreshed. Learn more in **[Get started with Claude Data](https://support.claude.com/en/articles/17454700)**.
+
+- **Sheets (beta):** Spreadsheets Claude builds with you, with formulas across tabs, that you and Claude edit in the same cells. Learn more in **[Get started with Claude Sheets](https://support.claude.com/en/articles/18324300)**.
+
+- **Whiteboards (beta):** A shared board for thinking through ideas with Claude and your team. Learn more in **[Get started with Claude Whiteboards](https://support.claude.com/en/articles/18324319)**.
 
 - **Motion (beta):** Animated explainers, charts, and walkthroughs built from your content. Ask Claude to change any detail, like a word, a number, or the timing, and the rest stays as it was. Export the result as an MP4 video. Available on Team and Enterprise plans. Learn more in **Get started with Claude Motion**.
 

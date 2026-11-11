@@ -40,7 +40,7 @@ Note that exported data can’t be imported into your organization’s workspace
 
 Download the file right away: the link expires after 24 hours and may only work only. It opens only when you’re signed in to Claude with the same email address. If it has expired or won’t open, **[contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support#h_d6fc679aa4)** (an Owner of your organization may need to reach out for you). Claude for Teachers and FERPA-covered accounts don’t get a download link. Export and download your data before the deadline.
 
-For Claude for Teachers, go to **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**. For FERPA-covered accounts, go to **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**. If you can’t export, **[contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support#h_d6fc679aa4)** before the deadline. To use Claude in your organization, sign in with single sign-on (SSO). If you don’t see your organization after you sign in, ask your admin for access.
+For Claude for Teachers, go to **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**. For FERPA-covered accounts, go to **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**. If you can’t export, **[contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support#h_d6fc679aa4)** before the deadline. To use Claude in your organization, sign in with single sign-on (SSO). If you can't sign in or don’t see your organization after you sign in, ask your admin to add you. The download link won’t open until you can sign in.
 
 Sign in before the deadline to make your choice.
 

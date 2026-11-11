@@ -71,7 +71,7 @@ To check a value, go to **Help > Troubleshooting > Generate Diagnostic Report**,
 * **`model-selection.txt`**: the entry's `behavesAs` line says whether the picker uses the value. `(the picker offers that model's options)` means it does.
 * **`managed-config.txt`**: `behavesAs dropped: not an accepted value` under `Parse errors` means the value isn't a model ID. Enter a full ID such as `claude-sonnet-5`, not a family name such as `sonnet`.
 
-Without `behavesAs`, users can't change an unrecognized model's effort level. Its conversations and sessions never run above the `maxEffort` on its entry. When it's the default model, they run at [`defaultModelEffort`](https://claude.com/docs/third-party/claude-desktop/configuration#defaultmodeleffort), up to that cap. With only `maxEffort` set, they run at that cap.
+Without `behavesAs`, users can't change an unrecognized model's effort level. Its conversations and sessions never run above the `maxEffort` on its entry. When it's the default model, its new conversations and sessions start at [`defaultModelEffort`](https://claude.com/docs/third-party/claude-desktop/configuration#defaultmodeleffort), up to that cap. With only `maxEffort` set, they run at that cap.
 
 ## Start every conversation on the default model
 

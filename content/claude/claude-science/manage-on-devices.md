@@ -19,10 +19,14 @@ Authentication tokens and the shared package environment live under the default 
 
 On Windows and macOS, the program is in these places:
 
-* **Windows**: the program itself installs per user to `%LOCALAPPDATA%\Programs\ClaudeScience` and registers under the signed-in user's **Settings** > **Apps** > **Installed apps** rather than machine-wide. The app also writes launch logs and state to `%LOCALAPPDATA%\ClaudeScience` and keeps a sandbox state folder under `%LOCALAPPDATA%`, and it unpacks components it runs, such as the app window engine and the sandbox launcher, under the data folder, so allow-listing by path needs both the program folder and the data folder. Uninstalling removes the program and sandbox state; `claude-science uninstall --purge` also removes the data and state folders.
+* **Windows**: the program itself installs per user to `%LOCALAPPDATA%\Programs\ClaudeScience` and registers under the signed-in user's **Settings > Apps > Installed apps** rather than machine-wide. The app also writes launch logs and state to `%LOCALAPPDATA%\ClaudeScience` and keeps a sandbox state folder under `%LOCALAPPDATA%`, and it unpacks components it runs, such as the app window engine and the sandbox launcher, under the data folder, so allow-listing by path needs both the program folder and the data folder. Uninstalling from Windows **Settings**, with `claude-science uninstall`, or with the uninstall entry's `QuietUninstallString` removes the program and sandbox state and keeps the data directory and `%LOCALAPPDATA%\ClaudeScience`.
 * **macOS**: the app is **Claude Science** in the **Applications** folder, or in the **Applications** folder inside the member's home folder. When Claude Science opens in a browser tab, it runs its program from a copy at `~/.claude-science/bin/claude-science`. When it opens in its own window, it runs the program from inside the app. In its own window, Claude Science also keeps window settings, logs, and the window's page storage, which includes unsent message drafts, in `~/Library/Application Support/Claude Science` (see [Macs where Claude Science opens in its own window](#macs-where-claude-science-opens-in-its-own-window)).
 
 Your endpoint tooling governs these folders the same way it governs any other local application data. Anthropic doesn't host a copy of these folders, so Custom Data Retention and Org Data Export don't reach them. [How Claude Science works with your data](https://claude.com/docs/claude-science/how-claude-science-works-with-your-data.md) covers what Anthropic does receive from the app, including the session transcripts available to Enterprise organizations with the Compliance API enabled.
+
+> [!WARNING]
+>
+> On Windows, `claude-science uninstall --purge` removes the program and deletes the data directory and `%LOCALAPPDATA%\ClaudeScience`, with everything in them, without asking to confirm. If the data directory was moved, it's deleted where it is now, and the default data folder stays. Leave `--purge` out of removal scripts unless you want to delete the member's work.
 
 ## Deploy configuration with device management
 

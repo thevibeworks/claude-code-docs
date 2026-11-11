@@ -102,11 +102,11 @@ After sign-in, a setup wizard walks you through enabling connectors and skills, 
 
 ## Uninstall Claude Science
 
-Uninstalling removes the application and keeps your data folder. Your projects, artifacts, and conversation history stay on your computer until you delete that folder.
+Uninstalling removes the application and keeps your data folder. Your projects, artifacts, and conversation history stay on your computer until you delete that folder or, on Windows, run `claude-science uninstall --purge`.
 
 > [!WARNING]
 >
-> Deleting the data folder (`~/.claude-science`, or `%USERPROFILE%\.claude-science` on Windows) removes all your projects, artifacts, conversation history, environments, and settings, and signs you out. Copy anything you want to keep first, with **Download** on an artifact or by copying the project's folder from inside the data folder.
+> Deleting the data folder (`~/.claude-science`, or `%USERPROFILE%\.claude-science` on Windows) removes all your projects, artifacts, conversation history, environments, and settings, and signs you out. You can't restore your work from your Claude account, so copy any files you want to keep before you delete the folder. Use **Download** on an artifact, or copy the project's folder from inside the data folder. Conversations aren't in a project's folder. To keep them, don't delete the data folder or the folder shown under **Settings > Storage > Data location**.
 >
 > Before you uninstall, check where your data is under **Settings > Storage > Data location**. If it shows a folder other than the default, the default folder still holds your environments and your sign-in, and it can also hold projects from before that location was set. To remove all your data:
 >
@@ -139,11 +139,13 @@ Uninstalling removes the application and keeps your data folder. Your projects, 
 >
 > **2. Uninstall the app**
 >
-> In Windows **Settings**, go to **Apps > Installed apps** and uninstall **Claude Science**, or run `claude-science uninstall` in a terminal.
+> In Windows **Settings**, go to **Apps > Installed apps** and uninstall **Claude Science**, or run `claude-science uninstall` in a terminal. Both keep your data.
 >
-> To remove the app and your data together, use `claude-science uninstall --purge` instead. It deletes the whole folder your data location points to, including anything you stored there yourself, so move those files out first.
+> > [!WARNING]
+> >
+> > `claude-science uninstall --purge` removes the app and permanently deletes your projects, artifacts, and conversation history, along with everything else in the folder that **Data location** shows, including your own files. It doesn't ask you to confirm, and the files don't go to the Recycle Bin. To keep your work, leave out `--purge`.
 >
-> When your data location isn't `%USERPROFILE%\.claude-science`, `--purge` leaves that folder in place. It still holds your environments and your sign-in, and it can also hold projects from before that location was set. To remove those too, delete `%USERPROFILE%\.claude-science` yourself.
+> When your data location isn't `%USERPROFILE%\.claude-science`, `--purge` leaves `%USERPROFILE%\.claude-science` in place. It still holds your environments and your sign-in, and it can also hold projects from before that location was set. To remove those too, delete `%USERPROFILE%\.claude-science` yourself.
 
 > [tab] Linux
 >

@@ -80,15 +80,7 @@ Discord: [#server-card-wg](https://discord.com/channels/1358869848138059966/1399
 
 | Item | Status | Target Date | Champion |
 | - | - | - | - |
-| [SEP-2127: MCP Server Card](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2127) | Draft | Apr 3, 2026 | [@dsp-ant](https://github.com/dsp-ant) |
-
-### Success Criteria
-
-### Active Work Items
-
-| Item | Status | Target Date | Champion |
-| - | - | - | - |
-| SEP 2127: MCP Server Cards | Draft | End March | @dsp-ant |
+| [SEP-2127: MCP Server Cards](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2127) | Draft | End March | @dsp-ant |
 | Reference implementation in Tier-1 SDKs | — | End April | TBD |
 
 ### Success Criteria

@@ -23,7 +23,7 @@ A **role** controls what a person can do in the admin portal. It has no effect o
 
 * A **User** can use the Claude products but has no admin access.
 * An **Owner** can access this organization admin portal and manage its users, seats, and settings.
-* A **Primary Owner** can do everything an Owner can, and can grant or remove the Primary Owner role.
+* A **Primary Owner** can do everything an Owner can, can grant or remove the Primary Owner role, and can create [admin API keys](https://claude.com/docs/government/org-admin/admin-api-keys.md) that read usage and cost reports.
 
 There are no additional roles such as Billing or Developer. Tenant administrator access is a separate tenant-level membership managed on the [Admins](https://claude.com/docs/government/tenant-admin/admins.md) page, not an organization role.
 

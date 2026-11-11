@@ -26,7 +26,7 @@ Contributors talk about the protocol on [Discord](https://modelcontextprotocol.i
 
 Pick the [working group](https://modelcontextprotocol.io/community/working-interest-groups.md#current-groups) or Discord channel that covers your area. If none fits, use `#general`.
 
-The specification repository also labels issues [`good first issue`](https://github.com/modelcontextprotocol/modelcontextprotocol/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) and `help wanted` when they are sized for a first change.
+To find work in the specification repository, read its [open issues](https://github.com/modelcontextprotocol/modelcontextprotocol/issues) or ask in the group's channel what needs doing.
 
 The sections below cover each kind of change.
 
@@ -46,19 +46,21 @@ Please don't post usage questions in the repositories. We stopped taking them th
 
 ## Change the specification or docs
 
-You need write access to open a pull request on the specification repository. We prefer you begin with an issue and follow the steps for a bug below.
+Only members of the `modelcontextprotocol` GitHub organization can open pull requests on the specification repository. Membership comes from being active on issues or in working groups and interest groups. The [Member](https://modelcontextprotocol.io/community/contributor-ladder.md#member) role on the contributor ladder lists the requirements and who sponsors a new member.
+
+Members follow [CONTRIBUTING.md](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/CONTRIBUTING.md#submitting-changes). Everyone else uses the steps below. For a small fix such as a typo, a broken link or a small specification bug, the first step is enough.
 
 **1. Raise the change**
 
-Report a bug in an issue. Raise anything else in your group's channel or `#general`.
+Open an issue with the [Report a bug](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/new?template=bug_report.yml) form and describe the fix. Raise anything else in the relevant working group's channel or `#general`. A member or maintainer can pick it up from there.
 
 **2. Push a branch**
 
-Push to a fork, or to a working group repository you can write to. Specification fixes go in `draft/`. Keep each change to one concern. [CONTRIBUTING.md](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/CONTRIBUTING.md) covers setup and checks.
+To supply the change itself, push to a fork, or to a working group repository you can write to. Fixes to the specification go in `docs/specification/draft/` and fixes to the versioned guides in `docs/docs/draft/`. The dated folders hold released versions. Keep each change to one concern. [CONTRIBUTING.md](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/CONTRIBUTING.md) covers setup and checks.
 
 **3. Ask for a pull request**
 
-Link the branch in that issue or channel and ask a maintainer to open a pull request that credits you.
+Link the branch in that issue or channel and ask a member or maintainer to open a pull request that credits you.
 
 A change to the protocol itself needs a [SEP](#propose-a-protocol-change).
 

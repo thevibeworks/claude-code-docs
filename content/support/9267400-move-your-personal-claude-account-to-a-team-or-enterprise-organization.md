@@ -42,9 +42,9 @@ Both paths move the same content for each person. Before you confirm, the last s
 
 - Custom skills.  There's no migration path for skills. Download any you want to keep before you migrate.
 
-- Claude Docs. Export any docs you want to keep before you migrate.
+- Claude Docs and Claude Sheets. Export any docs or sheets you want to keep before you migrate.
 
-- Claude Dashboards, other artifacts that **[store data](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them#h_97446f855f)**, and a few other kinds of artifacts
+- Claude Data artifacts, other artifacts that[**store data**](https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them#h_97446f855f), and a few other kinds of artifacts.
 
 - Projects on the new version of projects (beta), and the chats in them. If we've switched a project of yours to the new version, only its earlier version moves: an archived project with the chats from before the switch.
 
@@ -78,9 +78,9 @@ Before you migrate, do the following in **[your personal account](#h_c20f7490d4)
 
 1. To keep a copy of your chats, **[export your data](https://support.claude.com/en/articles/9450526-export-your-claude-data)**. Download the file before you start the move: that export's link stops working once the account closes. The export doesn't include the original files you uploaded.
 
-2. Export any Claude Docs you want to keep. You can **[export a doc](https://support.claude.com/en/articles/16923645-get-started-with-claude-docs#h_9920271284)** as Word, PDF, Markdown, or Google Docs.
+2. Export any Claude Docs or Claude Sheets you want to keep. You can **[export a doc](https://support.claude.com/en/articles/16923645-get-started-with-claude-docs#h_9920271284)** as Word, PDF, Markdown, or Google Docs.
 
-3. Download any custom skills you want to keep: go to **[Customize > Skills](https://claude.ai/customize/skills)**, open the skill's menu, and click "Download."
+3. Download any custom skills you want to keep: go to **[Customize > Skills](https://claude.ai/customize/skills)**, click the skill to open it, then click "..." and select "Download."
 
 4. Download any files you want from **[Cowork tasks in the cloud](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_fd499216c4)**.
 
@@ -188,7 +188,7 @@ If you subscribed to the Pro, Max, or Ultra plan through the Apple App Store, yo
 
 - **Cancel your subscription yourself:** We can't cancel or refund it. **[Cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-max-or-ultra-subscription#h_54384c9962)** in your Apple ID settings. Until you do, Apple keeps charging you, even after your personal account closes. To ask Apple for a refund, see **[Request a refund for a paid Claude plan](https://support.claude.com/en/articles/12386328-request-a-refund-for-a-paid-claude-plan#h_0d726f5bbf)**.
 
-- **When your personal account closes:** A few weeks after you move. It's then deleted, per our **[data retention practices](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**. Chats you start in your personal account before it closes move to your organization too, and your organization can access them. Credits you buy after you move aren't refunded.
+- **When your personal account closes:** A few weeks after you move. It's then deleted, per our **[data retention practices](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**. Chats you start in your personal account before it closes usually move to your organization too, and your organization can access them. Credits you buy after you move aren't refunded.
 
 **Start fresh** isn't offered until your App Store plan has ended.
 
@@ -208,7 +208,7 @@ For the full walkthrough of your options, deadlines, and what happens to your su
 
 You may have both a personal account and an organization account tied to the same email address. You can switch between them by clicking your initials or name in the lower left corner of the screen.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1794336300&amp;signature=fee4dd5621ae78ae30e581a292bdca0b1df3e861ef87f061d40ea5e3b8eecb33&amp;req=diMmFMh3noJbXvMW1HO4zXhPnNQ1yxliufhmlOXMdYb5VANUr%2FLRJWNCcdJb%0Au%2BQ5mFLPrg5KD9wtJiY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1794441600&amp;signature=03d7111ee6964f1171a7bb2c9d0c16a1d10731a455537f7e130fdedf051eaaa0&amp;req=diMmFMh3noJbXvMW3nq%2BgXydQ01V6EMKAupl6PawEblSpgx26CWU69Wpi0OV%0AiWL4JGOvpr6BNRVzil9TonzRPao%3D%0A)
 
 A blue checkmark shows which account you're currently using. Click the other account to switch to it and access its separate chats and projects.
 

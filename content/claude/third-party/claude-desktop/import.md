@@ -16,19 +16,55 @@ To take your Claude Desktop data to a new device, see [Move your data to another
 
 Claude Desktop can automatically copy into your history the Cowork, Chat, and Code sessions it stored on this computer under an earlier third-party configuration. In an organization managed from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), this automatic copy is on unless it's turned off in your organization's settings. In any other deployment it runs only if your administrator turns it on.
 
-Along with the sessions, the automatic copy brings over other things you had under the earlier configuration:
+Along with the sessions, the automatic copy brings over other things you had under the earlier configuration. Claude Desktop 5.1231.0 or later brings these items, and [earlier versions bring less](#if-the-automatic-copy-ran-on-an-earlier-version):
 
-* **Projects**: your Cowork projects. New tasks use a project's instructions only after you accept them.
+* **Projects**: your Cowork projects, with their descriptions, folders, and sidebar pins. New tasks use a project's instructions only after you accept them. A project's links aren't copied. Add them again.
 * **Memory and instructions**: your Cowork memory, unless you paused it, and your global instructions. New tasks use them right away. Your **Instructions for Claude** (**Settings → General**) come over too. Instructions you already set under the new configuration are kept.
-* **Scheduled tasks**: your scheduled tasks from Cowork and Code. Each stays on or off as it was.
+* **Scheduled tasks**: your scheduled tasks from Cowork and Code. Each stays on or off as it was. A task arrives with **Default model**, and a Cowork task arrives on **Manually approve**. Set the model again, and set the approval mode again where the app offers **Automatically approve**. Until you do, a run waits for you each time it needs an approval. A task starts with no runs, and its earlier runs are listed as ordinary sessions.
 * **Uploaded plugins**: plugins you uploaded, unless your administrator has turned off plugin uploads ([`userPluginUploadsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled)). Each stays on or off as it was.
 * **Saved skills**: skills you saved, unless your administrator has turned off skill creation ([`skillCreationEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#skillcreationenabled)).
 * **Your organization's optional plugins**: the ones you had turned on are turned on again, if they come from your organization's plugins directory or from a marketplace hosted at the address of its gateway or bootstrap server. With Claude Desktop 2.42304.0 or later, plugins from other marketplaces, such as a git repository, are turned on again too, if your administrator offers the marketplace from the same repository or URL as before. On a computer where the copy already ran, they're turned on the first time the app starts on 2.42304.0 or later.
-* **Artifacts**: your Cowork artifacts.
+* **Artifacts**: your Cowork artifacts, with their earlier versions.
 
 The copy runs once on each computer, in the background shortly after the app starts, and the sessions then appear in the sidebar. Your original sessions stay where they were, and sessions you already imported are skipped. The copy is listed under **Import history** in **Settings → Import & export**, where the **Remove** button deletes the copied sessions and the projects copied with them. The app doesn't copy them again later.
 
+Copied sessions go back into custom groups of the same name in the sidebar, and Cowork sessions keep their connected folders. Sessions and scheduled tasks arrive unpinned. The copy doesn't bring connector sign-ins, files you attached to sessions, or **Always allow** choices. It also doesn't bring app preferences such as the model, per-tool permissions, and notifications. Set them up again as you need them.
+
 Use the [import wizard](#open-the-import-wizard) for your claude.ai conversations and projects, and for any local sessions the automatic copy left out.
+
+### If the automatic copy ran on an earlier version
+
+If the copy ran on a Claude Desktop version before 5.1231.0, set up these items yourself:
+
+* **Project descriptions**: enter them again on each project's page
+* **Folders connected to Cowork sessions**: connect them again
+* **Project folders outside the default location**: [add the original folder again](#add-the-original-folder-to-a-copied-project)
+
+The first time the app starts on 5.1231.0 or later, it brings these items:
+
+* **Sidebar pins of your projects and custom groups of your sessions**
+* **Earlier versions of your artifacts**, if the automatic copy is still on
+* **Your projects, scheduled tasks, and instructions**, if you had no earlier sessions and the automatic copy is still on. Before 5.1231.0, the app copies nothing for someone with no sessions. Projects and scheduled tasks that you made again under the new configuration appear twice. Delete the ones you don't need.
+
+### Add the original folder to a copied project
+
+If a copied project's folder shows **Empty folder** when you expand it under **Context** on the project's page, the copy didn't keep the original folder. The original folder and its files stay where they were. Add the original folder once for each of these projects.
+
+Before Claude Desktop 5.1231.0, this happens to every project whose folder isn't directly inside the **Projects** folder of your Cowork files folder. Your Cowork files folder is `~/Claude` by default. To check, go to **Settings > Cowork** and read the path under **Cowork files**.
+
+**1. Open the project**
+
+Go to the **Projects** page and open the copied project.
+
+**2. Add the original folder**
+
+Next to **Context**, click **+**, select **Choose a folder**, then select **Choose a different folder** in the submenu. In the folder dialog, select the project's original folder.
+
+**3. Remove the empty folder**
+
+**Context** now lists both folders, which can have the same name. Click each folder to expand it. Click the **x** on the row of the one that shows **Empty folder**.
+
+New tasks in the project now work in the original folder. Sessions that were copied with the project still use the empty folder. Start a new task to work with your files.
 
 ## Before you open the import wizard
 
@@ -240,7 +276,7 @@ Set up Claude Desktop on the new device first. The import adds to the data there
 3. Continue to the **Review** step and click **Import**.
 4. When Claude Desktop asks whether the file is your own export, click **Import as my own**. Click it only for a file that you made yourself. **Import sessions only** imports the sessions, and only the projects and attached files that they use.
 5. If the file has local MCP servers, a second dialog lists up to five of them with their commands. If you click **Add**, Claude Desktop tries to start all the listed servers right away, so click it only if you recognize every command. If a message then says that a server couldn't start, close it and finish the import. If you click **Don’t add**, the rest of the import continues.
-6. Note the folders that the last screen lists. If it lists **Local MCP servers not imported yet**, import the same file again.
+6. Note the folders that the last screen lists. If it lists **Local MCP servers not imported yet**, import the same file again. If it lists **Folders with Code sessions not imported yet**, repeat step 1 for those folders, then import the same file again.
 7. Finish the setup:
    * Accept each project's instructions.
    * Copy your folders, and add them again under **Context** in each project.
@@ -341,4 +377,5 @@ If a [move to another device](#move-your-data-to-another-device) goes wrong, fin
 * **That export was made in another organization. Choose an export made in this organization.** Ask your administrator to check that both devices are in the same organization.
 * **Only your sessions were imported.** Import the same file again, and click **Import as my own** when Claude Desktop asks. If it doesn't ask, update both devices to Claude Desktop 4.23118.0 or later and export again.
 * **Sessions that you imported before are missing their attached files.** An export from a version before 4.23118.0 has no attached files, and a later import doesn't add files to a session that's already there. Under **Import history** in **Settings > Import & export**, remove the earlier import, then import the new file. This also deletes the projects that the earlier import made and anything that you added to those sessions since. A session that isn't in the new file doesn't come back.
-* **A Code session or a Code scheduled task is missing.** On Windows, if its folder is on a mapped network drive, it doesn't move. Ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device), or create the task again. Otherwise, [copy its folder and trust it](#import-your-data-on-the-new-device), then import the file again. If a Code scheduled task is still missing, create it again.
+* **A Code session is missing.** [Copy and trust its folder](#import-your-data-on-the-new-device), then import the same file again and click **Import as my own**. On the last screen, Claude Desktop 5.1231.0 and later list the folders that you still need to copy and trust, under **Folders with Code sessions not imported yet**. If the last screen lists the folder under **Folders with Code sessions that can’t be imported**, or on Windows the folder is on a mapped network drive, the session doesn't move. Ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
+* **A Code scheduled task is missing.** On Windows, if its folder is on a mapped network drive, it doesn't move. Ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device), or create the task again. Otherwise, [copy its folder and trust it](#import-your-data-on-the-new-device), then import the file again. If the task is still missing, create it again.

@@ -34,8 +34,11 @@ This table below lists the beta and research preview features currently availabl
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------- |
 | **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**                                                                         | API and developer | Beta       |
 | **[Claude Code Security Center](https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code)**                                     | Claude Code       | Beta       |
-| **[Claude Dashboards](https://support.claude.com/en/articles/17454700)**                                                                                         | Artifacts         | Beta       |
+| **[Certified queries in Claude Data](https://support.claude.com/en/articles/17454700)**                                                                          | Artifacts         | Beta       |
+| **[Live sharing in Claude Data](https://support.claude.com/en/articles/17454700)**                                                                               | Artifacts         | Beta       |
 | **[Claude Motion](https://support.claude.com/en/articles/17454997)**                                                                                             | Artifacts         | Beta       |
+| **[Claude Sheets](https://support.claude.com/en/articles/18324300)**                                                                                             | Artifacts         | Beta       |
+| **[Claude Whiteboards](https://support.claude.com/en/articles/18324319)**                                                                                        | Artifacts         | Beta       |
 | **[Enterprise security center](https://support.claude.com/en/articles/18246629-review-your-organization-s-security-posture-with-the-security-center)**           | Enterprise admin  | Beta       |
 | **[Sign members out through the Admin API](https://platform.claude.com/docs/en/manage-claude/user-management#sign-a-member-out-everywhere)**                     | Enterprise admin  | Beta       |
 | **[Self-serve IP allowlist](https://platform.claude.com/docs/en/manage-claude/ip-allowlist)**                                                                    | Enterprise admin  | Beta       |

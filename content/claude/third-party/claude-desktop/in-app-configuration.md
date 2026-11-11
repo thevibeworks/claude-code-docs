@@ -34,9 +34,17 @@ Use the **Export** menu to generate deployment artifacts for a fleet:
 | `.reg` policy file | Intune, Group Policy, or any Windows MDM |
 | ADMX template (`.zip`) | Intune or Group Policy; a schema-only template, you enter values in the management console |
 | Profile Manifest (`.plist`) | Jamf, ProfileCreator, or similar macOS tools; a schema-only template, you enter values in your tool |
-| JSON config | The response body for a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), a file to import into the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#start-from-an-existing-configuration-file), or a configuration file for a device without MDM |
+| JSON config | The response body for a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), a file to import into the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#start-from-an-existing-configuration-file), or a file that a user loads with **Import configuration…** on a device without MDM |
 | Firewall allowlist (`.txt`) | Your firewall or network team |
 
 See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) or [Deploy with a bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) to distribute what you exported.
 
 When a managed profile is already present on the device, the window opens in read-only mode and shows the deployed values. Its **Export** menu offers **JSON config (redacted)**, a file to [import into the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#start-from-an-existing-configuration-file). This option requires Claude Desktop 4.23118.0 or later. Author new configurations from a device without a managed profile.
+
+### Set up a device without MDM
+
+Export **JSON config** and send the file to the user. In the [configuration window](#open-the-configuration-window) on their device, the user opens the configuration picker at the top right, chooses **Import configuration…**, selects the file, clicks **Apply Changes**, and then clicks **Relaunch now**. The exported file holds your API key in plain text, so handle it as you handle the key.
+
+> [!WARNING]
+>
+> Don't set up another device or user account by copying files from the `configLibrary/` directory, for example in a setup script, a disk image, or a profile template. Where the app can use the device's secure storage, the API key in those files is encrypted for the OS user account that saved it. On another device or account, the app then shows the banner **Claude can’t read your saved key** and starts no sessions until the user enters the key and restarts the app. Before Claude Desktop 4.4212.0, the files held the key unencrypted. See [Unreadable saved API keys](https://claude.com/docs/third-party/claude-desktop/data-storage.md#unreadable-saved-api-keys).

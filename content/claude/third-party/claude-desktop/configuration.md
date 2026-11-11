@@ -158,6 +158,7 @@
 | [`deploymentDisplayName`](#deploymentdisplayname) | Deployment display name | Appearance | Admin Console |
 | [`deploymentDisplaySubtitle`](#deploymentdisplaysubtitle) | Deployment display subtitle | Appearance | |
 | [`disableConfigDeprecationWarnings`](#disableconfigdeprecationwarnings) | Hide configuration deprecation warnings | Appearance | Admin Console |
+| [`organizationAnnouncement`](#organizationannouncement) | Organization announcement | Appearance | Admin Console |
 | [`banner`](#banner) | Organization banner | Appearance | Admin Console |
 | [`sessionStatusLine`](#sessionstatusline) | Status line | Appearance | Admin Console |
 | [`disableFeatureDiscovery`](#disablefeaturediscovery) | Hide feature announcements | Appearance | Admin Console |
@@ -343,7 +344,7 @@ Since 1.44121.1
 >
 > SOCKS proxies and embedded credentials (`user:pass@`) are rejected.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -369,7 +370,7 @@ Since 1.44121.1
 >
 > What `egressProxyUrl` lists as not sent through its proxy skips the PAC file too.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -691,7 +692,7 @@ booleanSince 4.16336.0
 >
 > Off unless you set it to `true`. While off, Auto mode's built-in safety check reviews risky actions.
 >
-> This setting is temporary. It goes away when Claude Code drops that built-in check. After that, only turning off **Allow Auto mode** avoids the provider's check.
+> This setting goes away when Claude Code drops that built-in check. After that, only turning off **Allow Auto mode** avoids the provider's check.
 >
 > When on, each Auto mode request carries one more `anthropic-beta` value and a `safeguards` field. The field describes the session, including Claude Code's `autoMode` settings, permission rules, folder paths, a user name and Git state. Your gateway must forward both unchanged, and return `safeguard_results` and tool-use IDs unchanged. If it returns an error such as 401 or 500, every Auto mode turn fails. Turn this off and have users restart the app.
 >
@@ -1141,9 +1142,9 @@ object\[]Since 1.2581.0
 
 > [accordion] More detail
 >
-> Each entry is a model ID string or an object:
+> Each entry is a model ID or an object:
 >
-> ```json theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
+> ```json theme={null}
 > [
 >   {"name": "claude-sonnet-5",
 >    "supports1m": true},
@@ -1151,14 +1152,14 @@ object\[]Since 1.2581.0
 > ]
 > ```
 >
-> Use your inference provider's exact model ID:
+> Use your provider's exact model ID:
 >
 > * **Vertex:** the publisher ID (`claude-sonnet-5`).
 > * **Bedrock:** the inference-profile ID (`us.anthropic.claude-sonnet-5`).
 > * **Foundry:** the deployment name.
-> * **Gateway:** the exact ID that its `/v1/models` endpoint returns.
+> * **Gateway:** the ID its `/v1/models` endpoint returns.
 >
-> For Auto mode on a gateway, also list `claude-sonnet-5`. Its safety classifier calls that ID by default (see `autoModeEnabled`).
+> For Auto mode on a gateway, also list `claude-sonnet-5`, or an Opus or older Sonnet entry tagged with its tier (see `autoModeEnabled`).
 
 > [accordion] Child attributes (8)
 >
@@ -1405,7 +1406,7 @@ Since 2.42304.0
 
 > [accordion] More detail
 >
-> Every connection is still checked against `sshHostAllowlist`. While that list allows no host, the SSH section is hidden.
+> Every connection is still checked against `sshHostAllowlist`. While that list allows no host, Code offers none of these.
 >
 > For a connection from this list, the app does not first ask the user to confirm the host. SSH's own host-key checks still apply, so a first connection to a host missing from the user's `known_hosts` may ask the user or fail. Users can still add connections of their own.
 >
@@ -1514,7 +1515,7 @@ One of: `standard`, `off`
 >
 > `standard` turns on Unified Claude. `off` turns Chat and Cowork off, which leaves only Code, or nothing where Code is off. `isClaudeCodeForDesktopEnabled` still decides Code. Under `standard`, if you use `chatSessionRetentionDays`, set `coworkSessionRetentionDays` as well: it covers new conversations that are Cowork tasks.
 >
-> **Unset:** the three settings that this key replaces decide until November 10, 2026 (12:00 PM PT). Current versions of the app started after that read an unset key as `standard`, whatever those three say. Cowork is then on even where `coworkTabEnabled` is `false`.
+> **Unset:** the three settings that this key replaces decide until November 10, 2026 (12:00 PM PT). Current versions started after that read an unset key as `standard`, so Cowork is on even where `coworkTabEnabled` is `false`. Where those three leave Chat and Cowork off, the newest versions read `off` until December 17, 2026 (12:00 PM PT).
 >
 > A non-empty value that the app does not recognize, such as `Standard`, is read as `off`.
 
@@ -1560,7 +1561,7 @@ string\[]Since 1.2581.0
 > * **Ports:** an entry other than `*` can end in `:port`, which only Code ignores. Update all devices first: older versions then block every host in Cowork's shell.
 > * **Plugins:** command-line tools also reach hosts their plugin declares.
 > * **Built-in browser:** a list other than `*`, even an empty one, limits Claude's browsing.
-> * **Code:** a list other than `*` locks Claude Code's sandbox on, for shell commands only, where it runs (see `allowedWorkspaceFolders`). So does an unset list, except where a local file is the only configuration and `blockReadsOutsideWorkingDirectories` is off. Claude Code's own managed settings, where a session has any, take priority by default.
+> * **Code:** a list other than `*` locks Claude Code's sandbox on, for shell commands only, where it runs (see `allowedWorkspaceFolders`). So does an unset list, except where a local file is the only configuration and `blockReadsOutsideWorkingDirectories` is off. Claude Code's own managed settings take priority by default.
 
 ***
 
@@ -1575,7 +1576,7 @@ object\[]Since 1.2581.0
 > Claude can read and write in every listed folder unless its `mode` is `ro`. An empty list allows none.
 >
 > * **Paths:** `~` and these variables expand per user: `%OneDrive%`, `%OneDriveCommercial%`, `%OneDriveConsumer%`, `%APPDATA%`, `%LOCALAPPDATA%`, `%USERNAME%`, `%XDG_DOCUMENTS_DIR%`. An entry with any other variable, or an unset one, adds no folder.
-> * **Code shell commands:** this key turns on Claude Code's sandbox on macOS, and on Linux and WSL2 where bubblewrap and socat work. There, most writes outside the list are refused, and most reads are not. Elsewhere, Windows included, only Claude's file tools follow the list. Claude Code's own managed settings, where a session has any, take priority by default.
+> * **Code shell commands:** this key turns on Claude Code's sandbox on macOS, and on Linux and WSL2 where bubblewrap and socat work. There, most writes outside the list are refused, and most reads are not. Elsewhere, Windows included, only Claude's file tools follow the list. Claude Code's own managed settings take priority by default.
 >
 > Do not list a home folder: it holds SSH keys and shell start-up files.
 
@@ -1622,7 +1623,7 @@ booleanSince 1.46388.1
 >
 > The user's git configuration files stay readable, and they can hold credentials. If the app cannot download its Claude Code, sessions may run on an older copy without this block.
 >
-> Claude Code's own managed settings, where a session has any, take priority by default.
+> Claude Code's own managed settings take priority by default.
 
 ***
 
@@ -1636,7 +1637,9 @@ booleanSince 1.10628.0
 >
 > Unless it is `false`, new Code sessions normally start in Auto mode.
 >
-> By default on a gateway, Auto mode sends its own requests to Claude Sonnet 5. Your gateway must accept the ID `claude-sonnet-5` and the `anthropic-beta` value `context-1m-2025-08-07`. If you set `inferenceModels`, list that ID there and in any group's model list. If not, Auto mode can block actions it would normally allow.
+> By default on a gateway, Auto mode's check calls `claude-sonnet-5`. Your gateway must accept that ID and the `anthropic-beta` value `context-1m-2025-08-07`. If you set `inferenceModels`, list that ID, or an Opus or older Sonnet entry tagged with its tier, there and in any group's model list. If not, Auto mode can block actions it would normally allow.
+>
+> In Cowork, while Auto mode runs, each shell command waits for this check (usually one more request). If no check can be made, the command is refused. On a model that can't run Auto mode, the task switches to Manually approve and shell commands skip this check. A plugin whose start hook sends a task's first message turns this check off for that task.
 
 ***
 
@@ -1707,7 +1710,7 @@ booleanSince 1.37937.0
 > Nothing is deleted: turning it back on restores the hidden marketplaces.
 >
 > * It does not limit Claude Code in a terminal.
-> * Claude Code's own managed settings, where a session has any, take priority by default. Restrict marketplaces in those settings as well.
+> * Claude Code's own managed settings take priority by default. Restrict marketplaces in those settings as well.
 >
 > Applies only while the app runs in third-party mode. If users could otherwise sign in to Claude.ai on the device, also set `deploymentMode` to `3p`, or `disableDeploymentModeChooser`.
 
@@ -1844,7 +1847,7 @@ object: name → valueSince 1.8089.0
 >
 > `ask` also turns off the user's saved “always allow” choices for that tool. A scheduled task in Cowork waits at the prompt.
 >
-> **Rules such as `Bash(curl *)`:** Claude Code's own managed settings, where a session has any, take priority by default. A tool name such as `Bash` still applies. Update all devices first: an older version drops these rules, so the tool runs without a prompt.
+> **Rules such as `Bash(curl *)`:** Claude Code's own managed settings take priority by default. A tool name such as `Bash` still applies. Update all devices first: an older version drops these rules, so the tool runs without a prompt.
 >
 > An unusable entry is dropped and recorded as a configuration error.
 
@@ -1898,9 +1901,9 @@ Since 1.19367.0
 >
 > MDM profile only. Only a machine-wide `false` (`HKLM`) allows WSL sessions on a device with any managed configuration.
 >
-> For a WSL session that starts under `allowedWorkspaceFolders`, Desktop checks it inside the distro, so `~` also means the distro user's home. The session needs both bubblewrap and socat there to start. Shell commands can read the Windows drives under `/mnt`. `blockReadsOutsideWorkingDirectories` hides them, apart from listed `/mnt` folders. Users can re-open them. Claude Code's server-managed settings, among others, can take away that read limit and the sandbox: see the list's Path help.
+> Under `allowedWorkspaceFolders`, a WSL session needs bubblewrap and socat in the distro, and its shell commands can read the Windows drives under `/mnt`. Claude Code's server-managed settings, among others, can remove its sandbox and `blockReadsOutsideWorkingDirectories`: see the Path help of `allowedWorkspaceFolders`.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -1914,14 +1917,14 @@ booleanSince 2.7032.0
 
 > [accordion] More detail
 >
-> The launcher comes from the device's managed settings, not server-managed settings. SSH sessions to Linux or macOS hosts use the one in the host's managed-settings files.
+> The launcher comes from the device's managed settings, not server-managed settings. SSH sessions to Linux or macOS use the host's managed-settings files.
 >
-> * **Credentials:** the app passes the launcher no inference credential. The launcher must supply one, such as `ANTHROPIC_AUTH_TOKEN`, or every reply fails.
-> * **Not used:** on Windows for sessions on the device, in WSL, in Cowork, and for the connection test and title generation.
+> * **Credentials:** the app passes no inference credential. The launcher must supply one, such as `ANTHROPIC_AUTH_TOKEN`, and keep `ANTHROPIC_BASE_URL` or set your gateway's, or every reply fails.
+> * **Not used:** for sessions on a Windows device, in WSL, in Cowork, and for the connection test and title generation.
 >
 > To stop users bypassing the launcher, set this key in your MDM profile, with `disableDeploymentModeChooser` if that profile sets more than app-behavior keys.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -2122,9 +2125,10 @@ objectSince 1.10628.0
 > >
 > > Unset is off, except in Admin Console organizations, where it is on unless an admin turns it off. Without the Admin Console, also set `deploymentOrganizationUuid`. Only sessions stored before you set it are copied.
 > >
-> > It brings back more than sessions, without asking the user. That includes:
+> > Without asking the user, it brings back more than sessions, including:
 > >
-> > * The user's Cowork memory, global instructions and Instructions for Claude, which are used at once, unreviewed.
+> > * The user's Cowork memory, global instructions, Instructions for Claude and project descriptions, which are used at once, unreviewed.
+> > * The folders connected to Cowork projects and sessions. Claude can read and change their files, as under the earlier configuration.
 > > * Scheduled tasks. A task that was on runs at its next scheduled time.
 > > * Uploaded plugins, unless `userPluginUploadsEnabled` is off. They can run programs on the device.
 > > * Saved skills, unless `skillCreationEnabled` is off.
@@ -2135,7 +2139,9 @@ objectSince 1.10628.0
 >
 > > [accordion] More detail
 > >
-> > The zip contains sessions, projects and their files, memory, scheduled tasks, saved skills, uploaded plugins, some app preferences, and local MCP servers. Passwords or API keys in them are included. Sign-ins and the servers’ variable values are not. Treat it as sensitive data.
+> > The zip can contain sessions, projects and their files, memory, scheduled tasks, saved skills, uploaded plugins, some app preferences, and local MCP server commands. Passwords or API keys in them are included. Treat it as sensitive data.
+> >
+> > This setting does not cover the `/export` command.
 >
 > **bannerBehavior** `enum`
 >
@@ -2190,9 +2196,9 @@ object\[]Since 1.2581.0
 > >
 > > Also applies to an installed plugin's server that matches this entry by URL, or else by name (letter case is ignored).
 > >
-> > * That server follows this entry instead of `orgPluginSettings`, even if the entry sets no `toolPolicy`. A built-in entry (one with `server`) applies only if it sets one.
+> > * That server follows this entry instead of `orgPluginSettings`, even if the entry sets no `toolPolicy`. A built-in entry (one with `server`) applies only if it sets one. A local entry applies only where it has a `command`.
 > > * For a server that only a plugin runs, use an entry with `transport: "policy-only"`.
-> > * Claude Code runs or connects to some plugin servers itself. For those: Claude Code's own managed settings, where a session has any, take priority by default.
+> > * Claude Code runs or connects to some plugin servers itself. For those: Claude Code's own managed settings take priority by default.
 >
 > > [tab] microsoft365
 > >
@@ -2300,12 +2306,12 @@ object\[]Since 1.2581.0
 > >
 > > > [accordion] More detail
 > > >
-> > > A value written here replaces the entry's value whole: lists and maps are not merged.
+> > > Lists and maps are replaced, not merged.
 > > >
-> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
+> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`.
 > > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
 > > > * A mistake under any operating system drops the server on all of them.
-> > > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
+> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop an entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
 > >
 > > > [accordion] Child attributes (3)
 > > >
@@ -2557,12 +2563,12 @@ object\[]Since 1.2581.0
 > >
 > > > [accordion] More detail
 > > >
-> > > A value written here replaces the entry's value whole: lists and maps are not merged.
+> > > Lists and maps are replaced, not merged.
 > > >
-> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
+> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`.
 > > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
 > > > * A mistake under any operating system drops the server on all of them.
-> > > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
+> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop an entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
 > >
 > > > [accordion] Child attributes (3)
 > > >
@@ -2621,11 +2627,15 @@ object\[]Since 1.2581.0
 > >
 > > Must be: `stdio`
 > >
-> > **command** `string` *required*
+> > **command** `string`
 > >
 > > Consent required (A value that a bootstrap server delivers applies only after the user approves it, unless machine-scoped device management set that server's address. The trustBootstrapDelivery key overrides that default. A value set in an MDM profile, the local configuration file or the Enterprise Admin Console needs no approval.)
 > >
-> > Absolute path to the server executable, run on the user’s machine.
+> > Absolute path to the server executable on the user’s machine. Without it, the server runs only on operating systems with their own Command.
+> >
+> > > [accordion] More detail
+> > >
+> > > Required, unless `platformOverrides` gives a `command` for at least one operating system. The server then runs only where it has a `command`. Elsewhere its `toolPolicy` does not apply. It still counts as a managed server there: Claude Code drops MCP servers that users add. No other entry can use its name.
 > >
 > > **args** `string[]`
 > >
@@ -2682,12 +2692,12 @@ object\[]Since 1.2581.0
 > >
 > > > [accordion] More detail
 > > >
-> > > A value written here replaces the entry's value whole: lists and maps are not merged.
+> > > Lists and maps are replaced, not merged.
 > > >
-> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`. It always needs its own `command` too.
+> > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`.
 > > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
 > > > * A mistake under any operating system drops the server on all of them.
-> > > * An older version ignores this setting and runs the entry's own values. Until all devices are updated, put the Windows values in the entry itself.
+> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop an entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
 > >
 > > > [accordion] Child attributes (3)
 > > >
@@ -2760,7 +2770,7 @@ booleanDefault: trueSince 1.24012.9
 
 integerRange: 0–3,650Since 2.7032.0
 
-**Scheduled-task tool approval lifetime.** Days a scheduled task can reuse a persistent MCP tool approval before it asks again. 0 turns reuse off. Unset: no limit.
+**Scheduled-task tool approval lifetime.** Days a scheduled task reuses a persistent MCP tool approval before asking again. 0 is off. Unset: no limit (Cowork folder deletes: 30 days).
 
 > [accordion] More detail
 >
@@ -2782,7 +2792,7 @@ booleanDefault: trueSince 1.2581.0
 >
 > When `false` comes from an MDM profile, the app starts only the local `managedMcpServers` entries in that same profile, exactly as written there. A `false` from any other source does not do this.
 >
-> Claude Code's own managed settings, where a session has any, take priority by default.
+> Claude Code's own managed settings take priority by default.
 
 ***
 
@@ -2798,7 +2808,7 @@ object\[]Since 2.2553.0
 > * **Once set:** no entry allows a plugin's local (`stdio`) server, and servers that a user or a project configures for Claude Code are not connected.
 > * **`policy-only`:** a `managedMcpServers` entry with that `transport` does not allow its server. List the server's own URL here too.
 >
-> Claude Code's own managed settings, where a session has any, take priority by default.
+> Claude Code's own managed settings take priority by default.
 
 > [accordion] Child attributes (1)
 >
@@ -2822,7 +2832,7 @@ object\[]Since 2.16120.0
 > * **Not affected:** `managedMcpServers` and servers from the org-plugins directory on the device.
 > * **Any other form**, such as `serverName`, is reported and blocks every plugin's remote server.
 >
-> Claude Code's own managed settings, where a session has any, take priority by default.
+> Claude Code's own managed settings take priority by default.
 
 > [accordion] Child attributes (1)
 >
@@ -2971,7 +2981,7 @@ booleanDefault: falseSince 1.2581.0
 
 booleanDefault: falseSince 1.2581.0
 
-**Block nonessential services.** Connector icons, hosted artifact previews, MCP Apps widgets and the Linux spellcheck dictionary. A blocked widget shows an error.
+**Block nonessential services.** Connector icons, hosted artifact previews, MCP Apps widgets, Linux spellcheck, and GitLab and Gerrit status. Blocked widgets show an error.
 
 > [accordion] More detail
 >
@@ -2980,6 +2990,7 @@ booleanDefault: falseSince 1.2581.0
 > * Artifacts still render locally.
 > * Excel files in the Code tab preview only through Claude’s workspace (the local VM).
 > * Spellcheck underlines are off on Linux.
+> * The Code tab’s pull request bar stops updating or adding GitLab merge requests and Gerrit changes. GitHub pull requests still show. Claude Code may still check GitLab or Gerrit with your command-line sign-ins unless Block nonessential telemetry is on.
 >
 > Windows still downloads a dictionary for a language it cannot check natively. This key does not stop that download.
 
@@ -3075,6 +3086,10 @@ enumDefault: errorSince 1.9255.0
 
 One of: `off`, `error` (default), `warn`, `info`, `debug`
 
+> [accordion] More detail
+>
+> Every level but `off` also sends one info record, `lam_vm_edr_extension_install_completed`, each time the Cowork workspace VM reports that an endpoint security (EDR) package installed. Filter on that name to leave it out of your collector.
+
 ***
 
 #### `otlpContentCapture`
@@ -3145,7 +3160,7 @@ booleanDefault: falseSince 1.2581.0
 >
 > On Windows the notice covers installs from the MSIX package, not the Microsoft Store version or the .exe installer. The switch to the newer version may end the Cowork tasks of other users signed in on that device.
 >
-> This is an app-behavior key, like `releaseChannel`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -3162,7 +3177,7 @@ booleanSince 3.6556.1
 > * **Unset:** off in third-party deployments. Where users sign in with Claude.ai it follows Anthropic's rollout, and `false` keeps it off.
 > * **Windows:** if Windows does not reopen Claude, scheduled tasks and background work stop until a user opens it. The restart may also end the Cowork tasks of other users signed in on that device.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -3180,7 +3195,7 @@ integerRange: 1–72Since 3.6556.1
 > * Idle means 10 minutes without input. Where the system reports no idle time, as some Wayland sessions do, an unset key never restarts: set a number.
 > * The restart waits while Claude is mid-task on the device.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -3199,7 +3214,7 @@ integerRange: 1–72Since 1.2581.0
 >
 > These hours do not delay an update. It usually installs sooner, after 10 minutes with no Claude window in use and no task running.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -3215,7 +3230,7 @@ booleanDefault: falseSince 1.26832.0
 >
 > If an MDM profile sets `bootstrapUrl` to a `config.claude.com` URL and leaves `bootstrapEnabled` on, the app reads the feed from `releases.claude.com` whatever this key says. Turn this key on anyway: an older version reads it from there only when this key is on.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -3236,7 +3251,7 @@ One of: `stable` (default), `staggered`
 > * Users who sign in to Claude.ai follow `stable`, unless their organization manages Claude Desktop from the Admin Console.
 > * No effect on Linux or Microsoft Store installs.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -3254,7 +3269,7 @@ integerDefault: 24Range: 0–336Since 1.40609.0
 >
 > When an MDM profile that sets more than app-behavior keys first reaches a running app, the restart dialog can show with no countdown.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -3268,7 +3283,7 @@ integerDefault: 10Range: 2–30Since 1.46388.1
 >
 > A change that needs a restart starts the `relaunchEnforcementHours` countdown.
 >
-> This is an app-behavior key, like `disableAutoUpdates`. If your MDM profile holds nothing but such keys, the app reads them all from that profile alone, so put every one you use there.
+> It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
 ***
 
@@ -3304,7 +3319,7 @@ integerRange: 1–3,650Since 1.52386.0
 
 > [accordion] More detail
 >
-> Applies only while the app runs in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it does not reliably keep it.
+> Applies only in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it may not keep it.
 >
 > It does not delete, for example:
 >
@@ -3317,7 +3332,7 @@ integerRange: 1–3,650Since 1.52386.0
 >
 > A value that cannot be read as a whole number of days deletes nothing.
 >
-> To keep some people's idle sessions, set all three periods to 3650 days for them, in the configuration that sets their periods.
+> To keep some people's idle sessions, set all three periods to 3650 days in the configuration that sets their periods.
 
 ***
 
@@ -3329,7 +3344,7 @@ integerRange: 1–3,650Since 1.52386.0
 
 > [accordion] More detail
 >
-> Applies only while the app runs in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it does not reliably keep it.
+> Applies only in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it may not keep it.
 >
 > It does not delete, for example:
 >
@@ -3342,7 +3357,7 @@ integerRange: 1–3,650Since 1.52386.0
 >
 > A value that cannot be read as a whole number of days deletes nothing.
 >
-> To keep some people's idle sessions, set all three periods to 3650 days for them, in the configuration that sets their periods.
+> To keep some people's idle sessions, set all three periods to 3650 days in the configuration that sets their periods.
 
 ***
 
@@ -3354,7 +3369,7 @@ integerRange: 1–3,650Since 1.52386.0
 
 > [accordion] More detail
 >
-> Applies only while the app runs in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it does not reliably keep it.
+> Applies only in third-party mode. Deletion can start shortly after the app gets this configuration. Pinned sessions are not exempt. Opening an old chat or Cowork task without continuing it may not keep it.
 >
 > It does not delete, for example:
 >
@@ -3367,7 +3382,7 @@ integerRange: 1–3,650Since 1.52386.0
 >
 > A value that cannot be read as a whole number of days deletes nothing.
 >
-> To keep some people's idle sessions, set all three periods to 3650 days for them, in the configuration that sets their periods.
+> To keep some people's idle sessions, set all three periods to 3650 days in the configuration that sets their periods.
 
 ***
 
@@ -3455,6 +3470,44 @@ booleanSince 1.40609.0
 
 ***
 
+### `organizationAnnouncement`
+
+objectSince 5.1231.0
+
+**Organization announcement.** Shows everyone one message from your organization, which each person can close. Off unless set.
+
+> [accordion] More detail
+>
+> It is signed “From” and your `deploymentDisplayName`, or “From your organization”.
+>
+> * **Shown again:** without an `id`, when `title` or `body` changes. With one, only when the `id` changes.
+> * **Links:** write `[words](address)`, with an `http` or `https` address.
+> * **Invalid or too long text:** nothing is shown, and the log says why.
+> * **MDM:** alone in a profile, or with app-behavior keys only, it keeps other settings and wins over the console's message. Update all devices first. A first profile blocks WSL (see `disableWslSessions`). Over a Setup configuration it also takes Code's shell offline on macOS and Linux until Setup sets `coworkEgressAllowedHosts`.
+> * **Admin Console:** a group's message keeps the organization's `id` and `placement` unless it sets its own.
+
+> [accordion] Child attributes (4)
+>
+> **title** `string` *required*
+>
+> One line of plain text, up to 80 characters.
+>
+> **body** `string` *required*
+>
+> Markdown: paragraphs, bold, lists and links. Anything else shows as plain text or is left out. Up to 1,000 characters.
+>
+> **placement** `enum` (default: inline)
+>
+> A card on the start screen of Chat, Cowork and Code, or a dialog over the whole window. Unset: the card.
+>
+> One of: `inline` (default), `modal`
+>
+> **id** `string`
+>
+> Optional. With an ID, people who closed the message see it again only when the ID changes.
+
+***
+
 ### `banner`
 
 objectSince 1.7196.0
@@ -3497,8 +3550,8 @@ Since 4.4212.0
 
 > [accordion] More detail
 >
-> * **Runs:** on the user's device, as the signed-in user, when a session opens, a turn ends, the app regains focus or the model changes.
-> * **Input:** one JSON line on standard input: `{"session_id": "…", "model": {"id": "…", "display_name": "…"}}`. Fields with no value are left out. Do not build a file path from these values.
+> * **Runs:** on the user's device, as the signed-in user. When: a session opens, a turn ends or its result arrives, the app regains focus or the model changes.
+> * **Input:** one JSON line on standard input: `{"session_id": "…", "model": {"id": "…", "display_name": "…"}, "cost": {"total_cost_usd": 1.24}}`. `cost` holds only the session's estimated cost in USD, while `inferenceModelPricingEnabled` is on, and is for display only. Fields with no value are left out, so no `cost` means no estimate, not 0. Do not build a file path from these values.
 > * **Output:** Claude shows the first non-empty line, up to 200 characters. ANSI codes 31 to 36 and 91 to 96 set the color.
 > * **Limits:** 10 seconds and 64 KiB of output. Past either, Claude stops the program.
 
@@ -3708,9 +3761,9 @@ object\[]Since 1.8089.0
 
 > [accordion] More detail
 >
-> * If a `managedMcpServers` entry is for the same server (same URL, otherwise same name), the entry here is ignored. Put the locks in that entry's `toolPolicy`.
+> * If a `managedMcpServers` entry is for the same server (same URL, otherwise same name), the entry here is ignored. Put the locks in that entry's `toolPolicy`. On an operating system where that local (`stdio`) entry has no `command`, the entry here applies.
 > * Update all devices first: an older version ignores this list and enforces no locks.
-> * Claude Code's own managed settings, where a session has any, take priority by default.
+> * Claude Code's own managed settings take priority by default.
 
 > [accordion] Child attributes (2)
 >
@@ -3989,7 +4042,7 @@ Each [`managedMcpServers`](#managedmcpservers) entry can carry a `toolPolicy` th
 * `"ask"`: the user approves every call; no session-scoped or standing grants are offered.
 * `"blocked"`: the tool is removed from Claude's session; connector settings show it as blocked by your organization.
 
-In Cowork's [**Automatically approve**](#automodeenabled), a safety classifier still reviews calls to a tool set to `"allow"`, and can block them. See [Run vetted connector tools without classifier review](https://claude.com/docs/third-party/claude-desktop/code.md#run-vetted-connector-tools-without-classifier-review).
+In Cowork's [**Automatically approve**](#automodeenabled), a safety classifier still reviews calls to a tool set to `"allow"`, and can block them. See [Run vetted connector tools without classifier review](https://claude.com/docs/third-party/claude-desktop/code.md#run-vetted-connector-tools-without-classifier-review). In a task or scheduled run that Cowork has switched to **Manually approve**, for example because its model doesn't support Auto mode, `"allow"` still applies with no classifier review.
 
 Claude's calls to a tool with no policy entry stay under the user's control (built-in connectors apply default policies to some tools): outside [**Auto mode**](#automodeenabled) and bypass permissions mode, the user is prompted and can approve once, approve for the rest of the task (offered for tools that can modify data), or grant a standing approval unless [`mcpPersistentAlwaysAllowEnabled`](#mcppersistentalwaysallowenabled) is `false`. The app reads a `toolPolicy` value other than `"allow"`, `"ask"`, or `"blocked"`, such as `"ask-session"`, as `"blocked"` for that tool and reports a configuration error, so write `"ask"` in place of `"ask-session"`. Managed policies take precedence over user grants, and enforcement happens in the desktop host process, not only in the prompt UI. A deny-by-default posture, `"*": "blocked"` plus exact `"allow"` entries for approved tools, is supported, including in Code sessions. See the [`managedMcpServers` reference](#managedmcpservers) for wildcard matching, precedence rules, and built-in connector defaults.
 
@@ -4013,8 +4066,10 @@ The key's values:
 
 In Code sessions, an allow rule already in Claude Code's own settings files keeps allowing the tool even while `mcpPersistentAlwaysAllowEnabled` is `false`, until someone removes it.
 
+`mcpScheduledTaskApprovalLifetimeDays` also limits a scheduled Cowork task's [approval to delete files in a folder](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md#approvals-that-last-across-runs). It lasts the number of days you set, or 30 days while the key is unset. At `0`, or while the key is unset and `mcpPersistentAlwaysAllowEnabled` is `false`, the prompt doesn't offer it and stored approvals aren't used.
+
 The time limit doesn't cover:
 
-* **Folder, browser, and built-in tool approvals:** these approvals never expire.
+* **Folder access, browser, and other built-in tool approvals:** these approvals never expire.
 * **Account-wide grants in Cowork:** the account-wide **Always allow** and **Allow for all tasks** grants never expire. Of the two keys, only `mcpPersistentAlwaysAllowEnabled` affects them.
 * **Claude Code allow rules in Code sessions:** an allow rule in Claude Code's own settings files, such as one saved when a user chose **Always allow** before the key was set, keeps allowing the tool, even with a value of `0`, until someone removes it. For a scheduled task, look in the project's `.claude/settings.local.json` file.

@@ -43,12 +43,12 @@ The window is organized into sections in the left sidebar. Work through them in 
 | **Connectors** | Managed MCP servers pushed to all users Whether users can add their own local MCP servers Whether desktop extensions (`.mcpb`) are allowed Whether unsigned extensions are rejected |
 | **Telemetry & updates** | Organization UUID OpenTelemetry collector endpoint Whether auto-updates are blocked The enforcement window for downloaded updates, or the restart for versions you install yourself The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
 | **Limits** | Per-device token cap and its window length Retention periods after which idle chats, Cowork tasks, and Code sessions are deleted |
-| **Appearance** | Persistent banner shown across the app window Deployment display name and subtitle Whether the signed-in user's identity is shown and exported (end-user attribution) Whether feature announcements are shown |
+| **Appearance** | Persistent banner shown across the app window Announcement from your organization that each user can close Deployment display name and subtitle Whether the signed-in user's identity is shown and exported (end-user attribution) Whether feature announcements are shown |
 | **Plugins** | [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin), added by GitHub repo, git URL, or hosted `marketplace.json` URL Shows the org-plugins folder path for your platform; plugin bundles are mounted to that folder via your MDM, not through this window |
 | **Egress** | A read-only firewall allowlist derived from everything you've entered above, grouped by feature **Copy hostnames**, **Download .txt**, and **Test connectivity** actions |
 | **Source** | The bootstrap keys, if you are using the [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) delivery model instead of a full MDM profile |
 
-To turn on [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude), set `desktopHome` to `standard` in your MDM profile.
+[Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) is on by default in current versions of Claude Desktop, even where your profile sets `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, or `coworkTabEnabled` to `false`.
 
 > [!NOTE]
 >
@@ -79,7 +79,7 @@ The configuration window can hold multiple named configurations. Use the picker 
 * **New configuration** creates an empty configuration.
 * **Duplicate** copies the current configuration as a starting point for a variant.
 * **Rename** and **Delete** manage the list.
-* **Reveal in Finder** opens the on-disk location where saved configurations are stored.
+* **Reveal in Finder** (**Show in Explorer** on Windows, **Show in file manager** on Linux) opens the folder where saved configurations are stored. Don't set up another device or user account from a copy of these files (see [Unreadable saved API keys](https://claude.com/docs/third-party/claude-desktop/data-storage.md#unreadable-saved-api-keys)). To use a configuration on another device, click **Export**.
 
 Selecting a configuration in the picker loads it for editing; the **applied** badge marks the one currently active on your machine. **Apply Changes** and **Export** each act on whichever configuration is selected, so you can test each one locally and export them independently.
 
@@ -133,7 +133,7 @@ Push the exported configuration through your MDM. The app reads from these locat
 > >
 > > In releases before v1.19367.0, the app read both hives and merged them key by key, with the `HKLM` value winning where a key appeared in both. Fleets that split keys across both hives must consolidate the full configuration into one hive before updating to v1.19367.0 or later.
 
-When a managed source sets any key other than the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
+When a managed source sets any key other than `organizationAnnouncement` and the [app-behavior keys](#update-keys-and-managed-precedence) listed below, the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 
 ### Restrict a device to one deployment mode
 
@@ -163,7 +163,9 @@ A small group of **app-behavior keys** is treated specially, so you can set an u
 
 When a managed source sets only keys from this group (any of them), the device keeps its locally authored configuration and the configuration window stays editable. The group is still enforced as a unit: every key in it is resolved from the managed source alone, so a locally set or bootstrap-served value for any of them is ignored even if the profile sets only one. A profile that sets the update keys but not `relaunchEnforcementHours` or `configRecheckIntervalMinutes` therefore runs their defaults (24 hours and 10 minutes) on those devices, so set them in the same profile when you want other values.
 
-If the managed profile sets any other recognized key, the normal rule above applies and the whole configuration is managed. For a profile that also sets `bootstrapUrl`, see [Which configuration source applies on a device](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device).
+A profile of only these keys leaves what the device connects to in the local configuration, which a user can edit. If that connection runs every session on a server and none on the device, that server answers the device's update checks, so the app installs only the updates that the server offers. Update, restart, and re-check timing then comes from that server or takes its default, and most of these keys stop applying, though `disableAutoUpdates` and the network proxy keys still apply. To prevent this, set the connection in the profile, or set [`deploymentMode`](#restrict-a-device-to-one-deployment-mode) to `1p` on a device that only signs in to claude.ai.
+
+If the managed profile sets any other recognized key except [`organizationAnnouncement`](https://claude.com/docs/third-party/claude-desktop/configuration#organizationannouncement), the normal rule above applies and the whole configuration is managed. For a profile that also sets `bootstrapUrl`, see [Which configuration source applies on a device](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device).
 
 ## 5. Distribute the app
 

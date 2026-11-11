@@ -97,7 +97,7 @@ The IG's outputs are the drafts and demos that pass through it: authorization SE
 
 ### Consolidated channels
 
-The following Discord channels previously hosted authorization sub-groups. They are archived (read-only) as of this re-charter and their topics continue as `#auth-ig` threads and agenda slots. The [Enterprise-Managed Authorization IG](https://modelcontextprotocol.io/community/interest-groups/enterprise-managed-authorization.md) is folded into this group on the same basis: EMA implementers bring interoperability and deployment progress to the call as presentation slots rather than to a standing separate group.
+The following Discord channels previously hosted authorization sub-groups. They are archived (read-only) as of this re-charter and their topics continue as `#auth-ig` threads and agenda slots. The [Enterprise-Managed Authorization IG](https://modelcontextprotocol.io/community/interest-groups/enterprise-managed-authorization) is folded into this group on the same basis: EMA implementers bring interoperability and deployment progress to the call as presentation slots rather than to a standing separate group.
 
 | Former channel | Topic | State at consolidation | Continues as |
 | - | - | - | - |

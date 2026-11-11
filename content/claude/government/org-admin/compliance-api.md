@@ -14,19 +14,12 @@ The API is available to every Claude for Government organization by default, and
 
 ## Managing API keys
 
-To create and manage keys for your organization, open **Compliance API** under **Settings** in the [organization admin portal](https://claude.com/docs/government/org-admin/overview.md#who-can-access-it). To create and manage keys that return events for every organization in your tenant, open **Compliance API keys** under **Settings** in the [tenant admin portal](https://claude.com/docs/government/tenant-admin/overview.md). Only tenant administrators can open the tenant admin portal.
+Create the key in the portal that covers the events you want:
 
-Both pages list only their own keys, showing each key's name, a hint with the last few characters of the key so you can tell keys apart, when the key was created, and whether it is active or revoked.
+* **One organization**: go to **Settings > Admin API keys** in the [organization admin portal](https://claude.com/docs/government/org-admin/overview.md#who-can-access-it) and [create a key](https://claude.com/docs/government/org-admin/admin-api-keys.md#create-a-key) with **Compliance activity feed** selected. It returns events for that organization only, regardless of who holds the key.
+* **Every organization in your tenant**: go to **Settings > Compliance API keys** in the [tenant admin portal](https://claude.com/docs/government/tenant-admin/overview.md), enter a name, click **Create key**, and copy the key before you click **Done**. Only tenant administrators can open that portal. The key returns the events of every organization in the tenant, together with tenant-level activity such as changes to single sign-on, to the list of tenant administrators, and to tenant-wide settings.
 
-To create a key, enter a name and click **Create key**. The full value is shown once, immediately after creation. Copy it somewhere safe before clicking **Done**.
-
-> [!WARNING]
->
-> The full key value is shown **only once**, at creation time. If you lose it, create a new key and revoke the old one.
-
-Keys never expire on their own, so rotate them on whatever schedule your agency's policy requires. You can keep more than one key active at a time, which lets you rotate without interrupting your SIEM feed: create a new key, update your collector to use it, confirm events are still arriving, and then revoke the old key. Revoking a key takes effect immediately, and the next request made with it returns a 401.
-
-Each key is scoped to the organization or tenant it was created in. A key created in the organization admin portal returns events for that one organization only, regardless of who holds the key. A key that a tenant administrator creates in the tenant admin portal returns the events of every organization in the tenant, together with tenant-level activity such as changes to single sign-on, to the list of tenant administrators, and to tenant-wide settings.
+Both kinds of key are shown only once, never expire, and are [rotated and revoked](https://claude.com/docs/government/org-admin/admin-api-keys.md#rotate-or-revoke-a-key) the same way, each on the page where it was created.
 
 ## Calling the API
 
@@ -141,7 +134,7 @@ A typical run requests `since=<watermark>`, forwards every event returned, and i
 
 ## When the API is disabled
 
-Your tenant administrator can turn off the **Compliance API** setting on the [tenant Config page](https://claude.com/docs/government/tenant-admin/configuration.md). When that setting is off, the **Create key** button is hidden in the organization and tenant admin portals, and every call to `/gateway-api/v1/compliance/activities` returns a 400 error, including calls made with keys that were valid before the setting changed.
+Your tenant administrator can turn off the **Compliance API** setting on the [tenant Config page](https://claude.com/docs/government/tenant-admin/configuration.md). When that setting is off, nobody can create a key for this API in the organization or tenant admin portal, and every call to `/gateway-api/v1/compliance/activities` returns a 400 error, including calls made with keys that were valid before the setting changed.
 
 Listing and revoking existing keys in either portal remains available even when the setting is off, so an exposed key can still be revoked.
 
@@ -151,7 +144,7 @@ Listing and revoking existing keys in either portal remains available even when 
 * There is no separate Splunk add-on. The polling pattern described under [Connecting to your SIEM](#connecting-to-your-siem) is the reference implementation for a Splunk HTTP Event Collector job.
 * The OpenTelemetry export from the Claude applications is a separate log stream, configured with **Telemetry endpoint** on the [Config](https://claude.com/docs/government/config/settings.md#telemetry-endpoint) page. It carries per-session tool and telemetry events to a collector you specify, while this API carries administrative audit events.
 * The Compliance API returns governance and audit events only. It does not return conversation content, files, or anything your users type into Claude.
-* Each organization can hold up to 50 active keys at once, and keys created in the tenant admin portal have a separate limit of 50 active keys. Revoked keys do not count toward either limit.
+* Keys created in the tenant admin portal have their own limit of 50 active keys, separate from each organization's [limit](https://claude.com/docs/government/org-admin/admin-api-keys.md#create-a-key).
 * Events are returned newest first within each page.
 * `first_id` and `last_id` are opaque cursors. Pass them back exactly as received rather than constructing them yourself.
 * If your network enforces a [tenant restriction](https://claude.com/docs/government/tenant-admin/tenant-restrictions.md), the same restriction applies to Compliance API requests.

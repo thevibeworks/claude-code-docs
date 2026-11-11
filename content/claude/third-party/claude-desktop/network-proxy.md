@@ -166,21 +166,26 @@ These settings reach the agent process only. The app itself and Cowork's sandbox
 
 If your proxy performs TLS interception, it presents its own certificate authority. The app trusts the operating system's certificate store. On macOS, the app also configures the agent to trust the System keychain in addition to the bundled CA roots, so a corporate CA installed there normally works without extra setup. To clone a [git plugin marketplace](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin), the app runs the device's `git`, which reads git's system-level configuration, not the user's own.
 
-If inference or tool requests still fail certificate verification, the CA was likely added with policy-restricted trust: certificates installed via `security add-trusted-cert -p ssl …` are trusted by Safari and Chrome but are not picked up by the agent's keychain reader. Re-add the CA with full root trust (omit `-p`):
+On macOS, if the agent's inference requests or remote MCP connections still fail certificate verification, give the agent your private CA certificates as a file. Requires Claude Desktop 4.16336.0 or later.
 
-```bash theme={null}
-sudo security add-trusted-cert -d -r trustRoot \
-  -k /Library/Keychains/System.keychain /path/to/corp-ca.pem
-```
+1. Create one PEM file with the root certificate of every private CA that sessions need. You can include intermediate certificates with their roots. In Chat and Cowork sessions, the agent uses this file in place of the CA list that the app gives it. A private CA that you leave out can stop working in those sessions.
 
-If the certificate is MDM-managed and you cannot change how it is installed, set `NODE_EXTRA_CA_CERTS` as a fallback, then quit and relaunch Claude:
+2. Put the file at a path that every user of the device can read and only administrators can change.
 
-```bash theme={null}
-security find-certificate -a -p /Library/Keychains/System.keychain > ~/corp-ca.pem
-launchctl setenv NODE_EXTRA_CA_CERTS "$HOME/corp-ca.pem"
-```
+3. Set `NODE_EXTRA_CA_CERTS` to that path in the `env` block of Claude Code [managed settings](#interaction-with-claude-code-managed-settings). If the device already has Claude Code managed settings, add the entry to them.
 
-`launchctl setenv` makes the variable visible to apps launched from Finder or the Dock (shell-profile exports only reach terminal sessions). It applies until the next reboot; to make it permanent, run the command from a LaunchAgent at login.
+   ```json /Library/Application Support/ClaudeCode/managed-settings.json theme={null}
+   {
+     "env": {
+       "NODE_EXTRA_CA_CERTS": "/Library/Application Support/ClaudeCode/corp-ca.pem"
+     },
+     "parentSettingsBehavior": "merge"
+   }
+   ```
+
+4. Quit and reopen Claude Desktop.
+
+In Chat, Cowork, and local Code sessions, the agent then trusts the CA certificates in that file. A `NODE_EXTRA_CA_CERTS` value set with `launchctl setenv` has no effect on Claude Desktop.
 
 ## Troubleshoot
 

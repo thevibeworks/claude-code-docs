@@ -47,4 +47,4 @@ The **Download** menu saves what the page shows as CSV files. **All** downloads 
 * **Export context.** The ZIP archive includes an `export_info.csv` file recording the export's context, including when it was made, the organization, the view, the window and its date range, and the time zone the dates are in.
 * **Per-user data.** The top users file lists the same users as the **Top users** table, up to 100, and adds each user's ID and account status to the columns shown on screen.
 
-Claude for Government does not offer a programmatic usage or analytics API. Usage data is available through this admin portal page. The [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) returns governance and audit events, not usage metrics.
+To read usage and estimated cost from a script, or for more than the top 100 users, use the [Analytics API](https://claude.com/docs/government/org-admin/analytics-api.md).

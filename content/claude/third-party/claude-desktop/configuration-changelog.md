@@ -8,6 +8,47 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v5.1231.2**
+
+2026-11-10
+
+No configuration changes in this release.
+
+**v5.1231.0**
+
+2026-11-10
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`organizationAnnouncement`](https://claude.com/docs/third-party/claude-desktop/configuration#organizationannouncement) | `object` | Organization announcement |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "appearance": {
+    "announcement": {
+      "title": "<string>",
+      "body": "<string>",
+      "placement": "<inline|modal>",
+      "id": "<string>"
+    }
+  }
+}
+```
+
+Update all devices before you put `organizationAnnouncement` in a device profile. Older versions on Linux refuse a profile with any key they do not know, and older versions on Windows refuse a profile with only such keys. The settings made in Setup then stop applying as well.
+
+As with any device profile, a computer's first one also blocks WSL sessions. Where settings were made in Setup, it also cuts off network access for Code's shell commands on macOS and Linux until `coworkEgressAllowedHosts` is set in Setup.
+
+**Changed:**
+
+* `desktopHome`: at launches after 12:00 PM PT on November 10, 2026, an unset key reads as `off` where `coworkTabEnabled` is `false`, `chatTabEnabled` is not `true` and Code is on, so people there keep only Code. From 12:00 PM PT on December 17, 2026, it reads as `standard` there too. Versions 4.4212.0 to 4.23118.1 read it as `standard` there at launches after 12:00 PM PT on November 10. A key set to `off` stays `off`. Where a configuration server sends the settings, set it there too.
+* `managedMcpServers`: a local entry can leave out its own `command` when `platformOverrides` gives one for at least one operating system. It then runs only on those systems. The entry is dropped on every device if `win32`, `darwin` or `linux` has other values, such as `args`, but no `command`. It is also dropped if `platformOverrides` holds any other name, such as `windows`, unless all three have a `command`. Keep each server in one entry. Two entries with the same name make the whole list unreadable, so no managed server starts and plugins' MCP tools are blocked. Older versions drop an entry with no `command` of its own. If every entry in the list is dropped, the app blocks plugins' MCP tools. Update all devices first, or give the entry its own `command`, with which the server runs on every system.
+* `claudeAiImport`: with `automatic3pImport`, the copy now keeps Cowork projects' descriptions and folders, and Cowork sessions' folders. The folders are connected again without asking the person, so Cowork can read and change their files as before the move.
+* `mcpScheduledTaskApprovalLifetimeDays`: also sets how many days a scheduled Cowork task's approval to delete files in one of its folders lasts, and `0` turns that approval off. Where it is unset, that approval lasts 30 days, and a task's other approvals still have no limit.
+* `sessionStatusLine`: the program also receives `cost.total_cost_usd` while `inferenceModelPricingEnabled` is on.
+
 **v4.23118.1**
 
 2026-11-09

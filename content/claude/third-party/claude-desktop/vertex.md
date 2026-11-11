@@ -26,7 +26,7 @@ Google Cloud's Agent Platform authenticates with Google Cloud Application Defaul
 
 ## How the two sign-in flows compare
 
-The [in-app Google sign-in](#in-app-google-sign-in) and [in-app Workforce Identity sign-in](#in-app-workforce-identity-sign-in) approaches both open the system browser for a one-time consent and then renew in the background (or, for Workforce Identity, re-prompt in the browser when your IdP does not issue a refresh token). They differ in which party issues the refresh token, whether Google's Security Token Service is involved, and whether an Application Default Credentials file is written. The diagrams below show each flow end to end, and the table that follows summarizes the differences.
+The [in-app Google sign-in](#in-app-google-sign-in) and [in-app Workforce Identity sign-in](#in-app-workforce-identity-sign-in) approaches both open the system browser for a one-time consent and then renew in the background (or, for Workforce Identity, re-prompt in the browser when your IdP does not issue a refresh token). They differ in which party issues the refresh token and whether Google's Security Token Service is involved. The diagrams below show each flow end to end, and the table that follows summarizes the differences.
 
 ### Workforce Identity sign-in
 
@@ -73,7 +73,7 @@ sequenceDiagram
 
 ### Google sign-in (OAuth)
 
-Claude Desktop runs authorization code with PKCE against **Google's** OAuth endpoints. Google issues the refresh token, and the app writes it to an `authorized_user` Application Default Credentials file that the Google Cloud client library consumes. Your corporate IdP may appear inside Google's sign-in page (if Cloud Identity is federated via SAML), but the app never talks to it directly.
+Claude Desktop runs authorization code with PKCE against **Google's** OAuth endpoints. Google issues the refresh token, and only the app holds it. The app exchanges it at Google for short-lived access tokens and gives each session an access token. Your corporate IdP may appear inside Google's sign-in page (if Cloud Identity is federated via SAML), but the app never talks to it directly.
 
 ```mermaid theme={null}
 sequenceDiagram
@@ -100,15 +100,14 @@ sequenceDiagram
     end
     App->>App: Store authorized_user ADC<br/>{client_id, client_secret, refresh_token}<br/>encrypted with the operating system's secure storage<br/>(Keychain on macOS, DPAPI on Windows)
 
-    Note over App,Vertex: At each session start
+    Note over App,Vertex: When a session starts and the app holds no fresh access token
 
-    App->>App: Write the ADC JSON to a per-session file,<br/>set GOOGLE_APPLICATION_CREDENTIALS
-    App->>Goog: google-auth-library reads ADC and<br/>POSTs oauth2.googleapis.com/token (grant_type=refresh_token)
+    App->>Goog: POST oauth2.googleapis.com/token<br/>(grant_type=refresh_token)
     Goog-->>App: Fresh access_token
     App->>Vertex: Vertex AI request (Authorization: Bearer access_token)
     Vertex-->>App: Model response
 
-    Note over App,Vertex: Silent renewal: google-auth-library refreshes against Google using the ADC file.<br/>Your corporate IdP is not contacted on renewal.
+    Note over App,Vertex: No ADC file is written. Silent renewal: the app repeats the exchange before the access token expires.<br/>Your corporate IdP is not contacted on renewal.
 ```
 
 ### Side by side
@@ -119,7 +118,6 @@ sequenceDiagram
 | Where your corporate IdP appears | Directly (the app opens it) | Inside Google's sign-in page, via Cloud Identity SAML federation (optional) |
 | Refresh token issued by | Your IdP (when the Refresh Token grant is enabled on the client) | Google |
 | Google STS (`sts.googleapis.com`) involved | Yes, on every access-token renewal | No |
-| ADC file written | No | Yes (`authorized_user` JSON, pointed to by `GOOGLE_APPLICATION_CREDENTIALS`) |
 | Registered on the Google side | Workforce pool and OIDC provider (IAM & Admin) | Desktop-app OAuth 2.0 client (APIs & Services → Credentials) |
 | Per-user prerequisite | An account at your IdP | A Google Workspace or Cloud Identity account |
 | Client registered at your IdP | Public (native) OAuth client, PKCE required, loopback redirect URI | None (your IdP is federated to Cloud Identity, not to the app) |
@@ -174,7 +172,7 @@ No per-device preparation is required. The sign-in experience uses a Google OAut
 
 When `inferenceVertexOAuthClientId` and `inferenceVertexOAuthClientSecret` are both set, the app shows a **Sign in with Google Cloud** page at first launch. Clicking the button opens the system browser for a standard Google consent flow, and the app listens on a loopback address for the redirect. On success, the app stores the user's Google refresh token encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows) and returns to Cowork.
 
-At the start of each Cowork session, the app writes an `authorized_user` Application Default Credentials file (the same format produced by `gcloud auth application-default login`) and points `GOOGLE_APPLICATION_CREDENTIALS` at it. The Google Cloud client library handles access-token minting and refresh automatically.
+The refresh token stays in the app. For each session, the app exchanges it at Google for a short-lived access token, gives the session that token, and renews it in the background. The app writes no credentials file and doesn't set `GOOGLE_APPLICATION_CREDENTIALS`. Hooks and MCP servers that run on the device, and commands in Code sessions, use the user's own `gcloud` credentials, if there are any, and not this sign-in. Before Claude Desktop 5.1231.0, the app wrote the refresh token to a `.gcp-credentials.json` file in each session's folder, and from that version on it deletes those files at launch.
 
 If the stored refresh token is revoked or expires, the app shows a **Sign in again** prompt; clicking it reopens the Google consent flow in the browser. If you deploy a new OAuth client ID, the app clears the stored token and shows the sign-in page on next launch.
 

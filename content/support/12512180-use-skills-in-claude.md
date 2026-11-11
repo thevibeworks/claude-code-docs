@@ -190,6 +190,18 @@ All your skills are listed in **[Customize > Skills](https://claude.ai/customize
 
 Toggle any skill on or off using the switch next to it. Disabled skills won't be available to Claude.
 
+### Download custom skills
+
+To save a copy of a custom skill you've created or uploaded:
+
+1. Navigate to **[Customize > Skills](https://claude.ai/customize/skills)**.
+
+2. Find the skill in your skills list and click on it to view the details.
+
+3. Click the "..." button next to the toggle, then select "Download."
+
+Custom skills don't move when you migrate a personal account to a Team or Enterprise organization, so download any you want to keep before you migrate. For more information, see **[What moves when you migrate](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**.
+
 ### Delete custom skills
 
 To remove a custom skill you've uploaded:
@@ -202,7 +214,7 @@ To remove a custom skill you've uploaded:
 
 4. To delete the custom skill entirely, click the "..." button next to the toggle, then select "Delete":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1794336300&amp;signature=d98db6bad2b1ed623b27225ceac8c82839a774fcaccd7054120fd295b3764a00&amp;req=diEnE8p3nINYWvMW1HO4zSOgDi8rweCuH%2BdCnFXB0uhLQl0ZSiAXB18HtU1%2F%0Aw6on%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1794441600&amp;signature=acd662ee1cd2edc9def677444e76b2110c22d19c1f9e2a41f27da46eb2366330&amp;req=diEnE8p3nINYWvMW3nq%2BgQ%2B4%2F5bohGVIxVcT2ztkCRg05osz6p7u0pgca5BT%0ALqrRroUAPAwsSclYnK9c7h2hN1I%3D%0A)
 
 5. Click "Delete" in the confirmation prompt.
 

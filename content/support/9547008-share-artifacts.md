@@ -119,7 +119,7 @@ If someone didn't get an invitation email because they didn't have a Claude acco
 
 ## Who can open a shared artifact
 
-- **Who needs a Claude account:** To open an artifact shared with them or with your organization, people sign in to Claude. Most artifacts shared with "Anyone with the link" open without a Claude account or sign-in. Docs open only for people signed in to Claude, who can only view them. Some other artifacts, like dashboards, show part or all of their content only after the visitor signs in. Legacy artifacts have their own rules, described in **[Publish or share a legacy artifact](#h_a5750b9176)**.
+- **Who needs a Claude account:** To open an artifact shared with them or with your organization, people sign in to Claude. Most artifacts shared with "Anyone with the link" open without a Claude account or sign-in. Docs open only for people signed in to Claude, who can only view them. Some other artifacts show part or all of their content only after the visitor signs in. Legacy artifacts have their own rules, described in **[Publish or share a legacy artifact](#h_a5750b9176)**.
 
 - **Everyone in your organization:** Only people signed in to your organization can open it.
 
@@ -133,7 +133,7 @@ If someone didn't get an invitation email because they didn't have a Claude acco
 
 ### What people see when they open your artifact
 
-- **Viewers use their own access.** An **[artifact that pulls from connected apps](https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them#h_1a161da210)** uses the viewer's connections, not yours. If a viewer can't access a data source, that part of the artifact shows an error instead of your data.
+- **Viewers use their own access.** An **[artifact that pulls from connected apps](https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them#h_1a161da210)** uses the viewer's connections, not yours. If a viewer can't access a data source, that part of the artifact shows an error instead of your data. The exception is a Claude Data dashboard shared with live sharing (beta), which shows people in your organization results from your connection. Learn more in **[Get started with Claude Data](https://support.claude.com/en/articles/17454700)**[.](https://support.claude.com/en/articles/17454700)
 
 - **Stored information can be shared.** Some artifacts save information that everyone who opens them can see, like items in a shared tracker. Before you enter sensitive information, check whether the **[artifact uses shared storage](https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them#h_135477d2e6)**.
 

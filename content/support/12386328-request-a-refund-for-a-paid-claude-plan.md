@@ -30,7 +30,7 @@ In the European Economic Area and the United Kingdom, you may receive a refund w
 
 ## Refunds for usage credits
 
-Usage credit purchases are non-refundable, including when you cancel your subscription or delete your account. Credits you've already used are never refunded.
+Usage credit purchases are non-refundable, including when you cancel your subscription or delete your account. Credits you bought directly from us are refunded when you upgrade to a Team plan in place, move your personal account to an organization, close your personal account using the **Start fresh** option, or when your personal account closes at a domain claim deadline. Credits you've already used are never refunded.
 
 The exceptions are where local law gives you a refund right for unused credits, and cases of fraud.
 
@@ -69,7 +69,7 @@ If you're requesting a refund for an inactive subscription, you'll need to **[co
 
 ### I upgraded from Pro, Max, or Ultra to Team—when do I get my refund?
 
-When you upgrade to a Team plan from a Pro, Max, or Ultra plan, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. You don't need to request it manually. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded.
+When you upgrade to a Team plan from a Pro, Max, or Ultra plan in place, if you bought it directly from us, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. You don't need to request it manually. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. For Google Play purchases, we ask Google Play to cancel your subscription and refund your unused time. Refunds usually take one to two weeks. Check Google Play, and cancel there if your plan is still active. Any unused credits you bought directly from us are refunded.
 
 If you claimed monthly API credits on your Max or Ultra plan, your Max/Ultra link ends. A Team Owner or Primary Owner can claim the team’s credits once the Team plan has been active for seven days.
 

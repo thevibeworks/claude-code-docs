@@ -37,7 +37,7 @@ Within the application-data directory:
 | Path | Contents |
 | - | - |
 | `ant-did` | The random device identifier described above. |
-| `configLibrary/` | Locally authored configuration (from the in-app configuration window). `_meta.json` records which saved configuration is applied; each is a `<id>.json` file alongside it. API keys in these files are encrypted (see [Credentials](#credentials)). Ignored when a managed profile is present. |
+| `configLibrary/` | Locally authored configuration (from the in-app configuration window). `_meta.json` records which saved configuration is applied; each is a `<id>.json` file alongside it. API keys in these files are encrypted where the app can use the device's secure storage (see [Credentials](#credentials)). Ignored when a managed profile is present. |
 | `local-agent-mode-sessions/.../cowork_account_settings.json` | User-level preferences set in the app, such as locale, the memory toggle, and the text entered under **Instructions for Claude** and **Global instructions**. |
 | `local-agent-mode-sessions/` | Cowork and Chat conversation history. One `local_<uuid>.json` file plus a working directory per session, scoped by the `ant-did` device identifier and the organization ID, not by who is signed in to the app. The working directory includes an `uploads/` subdirectory with copies of files attached to the conversation and an `outputs/` subdirectory for files Claude creates. |
 | `local-agent-mode-sessions/.../memory/` | Cowork memory: a `CLAUDE.md` instructions file plus a `memory/` subdirectory of Markdown notes Claude writes about the user's preferences, projects, and feedback. See [Memory](#memory). |
@@ -128,8 +128,8 @@ Deleting a conversation's session state file and working directory removes all o
 
 Credentials are handled according to how they're delivered:
 
-* **Managed configuration** (for example, `inferenceGatewayApiKey`, `inferenceBedrockBearerToken`): read from the OS preference store or registry at launch and held in memory. The app also writes resolved credentials to a small set of transient, owner-only files for its own session processes, described below.
-* **API keys saved in the in-app configuration window**: stored in the `configLibrary/` files, encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows, GNOME Keyring or KWallet on Linux). Requires Claude Desktop 4.4212.0 or later, which also encrypts a key that an earlier version saved, at the next launch where secure storage is available. See [Unreadable saved API keys](#unreadable-saved-api-keys).
+* **Managed configuration** (for example, `inferenceGatewayApiKey`, `inferenceBedrockBearerToken`): read from the OS preference store or registry at launch and held in memory.
+* **API keys saved in the in-app configuration window**: stored in the `configLibrary/` files, encrypted with the operating system's secure storage where the app can use it (Keychain on macOS, DPAPI on Windows, GNOME Keyring or KWallet on Linux). Requires Claude Desktop 4.4212.0 or later, which also encrypts a key that an earlier version saved, at the next launch where secure storage is available. See [Unreadable saved API keys](#unreadable-saved-api-keys).
 * **OAuth tokens** (in-app Google sign-in, MCP servers with `oauth: true` in `managedMcpServers` or in an `org-plugins/` plugin): stored in the application-data directory, encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows).
 * **[Sign-ins to plugin servers](https://claude.com/docs/third-party/claude-desktop/extensions.md#sign-in-to-a-plugin-server)**: the OAuth tokens from a sign-in outside **Code** are stored as follows, and any program that runs under the user's OS account can read them:
 
@@ -144,15 +144,11 @@ Credentials are handled according to how they're delivered:
 
 ### Transient credential files
 
-Parts of each session run as separate processes: the sandbox VM for Cowork sessions, and the Claude Code runtime for Code sessions. Processes that cannot receive credentials through an in-memory channel read them from short-lived files that the app writes for them. All of these files are created with owner-only permissions and are cleaned up automatically:
+Processes that cannot receive credentials through an in-memory channel read them from short-lived files that the app writes for them. All of these files are created with owner-only permissions and are cleaned up automatically:
 
 | Path (within the application-data directory) | Contents | Lifecycle |
 | - | - | - |
-| `host-creds-<random-id>.json` | The resolved inference credential (plus the endpoint), as environment values for background Claude Code worker processes. The app writes it for credentials that it renews, such as a sign-in token or credential-helper output. Before Claude Desktop 4.29.0, the app also wrote it for a static API key or bearer token. Written atomically with owner-only permissions (mode `0600` on macOS; per-user ACLs on Windows). | Rewritten on each credential refresh; deleted when the app quits; leftovers from a crash are removed at the next launch. The random path segment is regenerated when you sign out of the inference provider or its credentials are rotated, so a process holding the old path loses access. |
-| `ccd-session-secrets/<session-id>/` | File-based credentials for Code sessions: Google Cloud application default credentials for Google Cloud's Agent Platform, or AWS configuration files for Amazon Bedrock. The directory is created with owner-only permissions (mode `0700` on macOS; per-user ACLs on Windows). | Created when the session starts; removed when the session ends; the whole directory is swept before the next Code session starts and when you sign out of the inference provider. |
-| Per-session working directory | For Cowork sessions, the same file-based credentials (Google Cloud's Agent Platform and Amazon Bedrock) are written into the session's working directory. | Scoped to the session; removed with the session directory. |
-
-Aside from these files, credentials delivered through managed configuration are held in memory only.
+| `ccd-session-secrets/<session-id>/` | The short-lived AWS credentials files of a session on Amazon Bedrock with [in-app AWS sign-in](https://claude.com/docs/third-party/claude-desktop/bedrock.md#in-app-aws-sign-in). A session on Google Cloud's Agent Platform writes no file here. The directory is created with owner-only permissions (mode `0700` on macOS; per-user ACLs on Windows). | Created when the session starts; removed when the session ends; the whole directory is swept at each launch and when you sign out of the inference provider. |
 
 ### Unreadable saved API keys
 
@@ -162,9 +158,10 @@ When Claude Desktop can't decrypt the key that its connection uses, it shows the
 
 Have the user enter the key again in the in-app configuration window, then restart the app, after any of these:
 
-* **The data moves without its secure storage**: the application-data directory is copied or restored to another device or another OS user account
+* **The data moves without its secure storage**: the application-data directory is copied or restored to another device or another OS user account, for example by a setup script, disk image, or profile template
 * **A Windows profile changes**: the profile is rebuilt, roams without the user's DPAPI keys, or belongs to a local account whose password an administrator reset
 * **The macOS login keychain is reset**
+* **The Claude Safe Storage item is removed from the macOS keychain**
 * **The desktop environment changes on Linux**: a key saved under GNOME Keyring can't be decrypted in a KDE session, or the reverse
 * **The app is rolled back**: versions earlier than Claude Desktop 4.29.0 send the encrypted text as the key, and the provider refuses it
 
@@ -175,7 +172,9 @@ These cases call for something else:
 * **A macOS keychain that the app can't access as it launches**: this happens, for example, when the user dismisses the keychain prompt. Have the user restart the app, and enter their password or click **Allow** if macOS asks. If the banner stays, have the user enter the key again.
 * **A key entered again while secure storage isn't available**: the app saves the key unencrypted and uses it after a restart. At the next launch where secure storage is available, the app encrypts the key, so a later launch without secure storage shows the banner again.
 * **Devices with no secure storage that the app can use**, such as Linux without GNOME Keyring or KWallet: the key stays unencrypted, and the configuration window shows **This key is saved unencrypted on this computer.** under the key
-* **Tools that read or write the `configLibrary/` files**: a tool that reads the key gets the encrypted value. A tool that writes an unencrypted key still works, and the app encrypts that key at the next launch where secure storage is available.
+* **Tools that read or write the `configLibrary/` files**: a tool that reads the key gets the encrypted value. Don't write that value into another device's files, a managed profile, or a bootstrap response. A tool that writes an unencrypted key still works, and the app encrypts that key at the next launch where secure storage is available.
+
+An API key that managed configuration delivers is never stored in the `configLibrary/` files or encrypted by the app, so it can't become unreadable this way. For users who don't have the key, deliver it through [managed configuration](https://claude.com/docs/third-party/claude-desktop/mdm.md), or send them an exported **JSON config** file to [import](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#set-up-a-device-without-mdm). Where users type a key in, keep it somewhere they can get it again.
 
 ## Automatic deletion of idle sessions
 
@@ -282,7 +281,7 @@ After the user confirms:
 * **App preferences**: those that the user hasn't set on the new device apply right away
 * **Project instructions**: Claude uses them after the user accepts them
 * **Project files**: the import copies them into a new folder for each project
-* **Folders**: the import doesn't connect any to a project or a Cowork task. A Code session or a Code scheduled task keeps its folder only if the new device trusts that folder. The last screen lists the folders that the user's projects and scheduled tasks used.
+* **Folders**: the import doesn't connect any to a project or a Cowork task. It imports a Code session or a Code scheduled task only if the new device trusts its folder. The last screen lists the folders that the user's projects and scheduled tasks used. On Claude Desktop 5.1231.0 and later, it also lists [folders of Code sessions that weren't imported](https://claude.com/docs/third-party/claude-desktop/import.md#problems-when-you-move-to-another-device).
 * **Uploaded plugins, saved skills, and scheduled tasks**: they stay off until the user turns them on. Setting [`userPluginUploadsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled), [`skillCreationEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#skillcreationenabled), or [`scheduledTasksEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#scheduledtasksenabled) to `false` keeps that kind of data out of the import.
 * **Local MCP servers**: for each import, a second dialog lists up to five servers with their full commands and environment variables. Claude Desktop tries to start the servers that the user adds right away. Blocks that the user set on tools on the old device don't apply, because tool permissions aren't imported. The app writes no values of these servers' environment variables into an export. Until the user enters the values, a server might not work, or might run without a limit that the user set in a variable. Setting [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled) to `false` keeps local MCP servers out of the export and the import.
 
@@ -344,13 +343,12 @@ Before you start, check that both devices meet the [requirements](#requirements-
 3. Copy these to the same paths. On Windows, use a copy tool that supports paths longer than 260 characters.
    * The application-data directory, except these files in it, which the app creates again when it needs them:
 
-     * `host-creds-*.json`
      * `ccd-session-secrets/`
      * `spaces-present/*/*/link-key`
      * `ccd-environment-config.json`
      * `cowork-enabled-cli-ops.json`
 
-     Also leave out `plugin-mcp-auth/` and `connectors/*/plugin-mcp/`, which on Windows and Linux hold the user's sign-ins to plugin servers. The user signs in to those servers again on the new device.
+     Also leave out `plugin-mcp-auth/` and `connectors/*/plugin-mcp/`, which on Windows and Linux hold the user's sign-ins to plugin servers. The user signs in to those servers again on the new device. Leave out any `host-creds-*.json` file too, which an earlier version of Claude Desktop can leave behind.
 
      If you copied any of these files or folders, quit Claude Desktop on the new device, then delete them.
    * The user's Cowork files folder: `~/Claude/`, or `~/Documents/Claude/` on legacy installs. If the user changed it, note the folder shown under **Cowork files** in **Settings > Cowork** on the old device before step 1, and copy that folder instead.
@@ -367,7 +365,7 @@ Before you start, check that both devices meet the [requirements](#requirements-
 
 ## Removing data
 
-To fully reset a device's Claude Desktop on 3P state, delete the application-data directory above and the `~/Claude/` user-files folder. Code session transcripts are in Claude Code's store at `~/.claude/projects/`, which Claude Code in the terminal also uses, so delete them there separately if you need to remove them. For [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#host-requirements), transcripts are in `~/.claude/projects/` and attached files in `~/.claude/uploads/` in the SSH user's home directory on the remote host. Claude Desktop also copies those transcripts to the device, into folders in `~/.claude/projects/` whose names start with `ssh-`, so delete them in both places.
+To fully reset a device's Claude Desktop on 3P state, delete the application-data directory above and the `~/Claude/` user-files folder. Code session transcripts are in Claude Code's store at `~/.claude/projects/`, which Claude Code in the terminal also uses, so delete them there separately if you need to remove them. For [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#host-requirements), transcripts are in `~/.claude/projects/` and attached files in `~/.claude/uploads/` in the SSH user's home directory on the remote host. Claude Desktop also copies those transcripts to the device, into folders in `~/.claude/projects/` whose names start with `ssh-`, so delete them in both places. Sign-ins to plugin servers made in **Code** and [secret plugin settings](#credentials) entered there stay too, in [Claude Code's own credential store](https://code.claude.com/docs/en/authentication#credential-management), which Claude Code in the terminal also uses.
 
 On a device that also runs standard Claude Desktop, `~/Claude/` and `~/.claude/` hold that mode's files too, so deleting them deletes those as well. See [Data shared with standard Claude Desktop](#data-shared-with-standard-claude-desktop).
 

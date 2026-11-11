@@ -116,6 +116,8 @@ By default, anyone in a connected Slack workspace can invoke Claude in channels,
 
 See [Restrict who can use Claude](https://claude.com/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude). The restriction governs DMs as well as channels.
 
+Your Claude organization's [IP allowlist](https://platform.claude.com/docs/en/manage-claude/ip-allowlist) and [tenant restrictions](https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions), available on the Enterprise plan, don't cover the messages people send Claude in Slack. For the reason, see [Controls that aren't available](https://claude.com/docs/claude-tag/admins/restrict-access.md#controls-that-aren%E2%80%99t-available).
+
 ## Related resources
 
 * [How agent identity works](https://claude.com/docs/claude-tag/concepts/agent-identity.md): the identity model in full, including DM attribution
