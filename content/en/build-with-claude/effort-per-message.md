@@ -47,7 +47,7 @@ The following example keeps the top-level value at `high` and drops to `low` for
     -H "anthropic-beta: mid-conversation-output-config-2026-07-01" \
     -H "content-type: application/json" \
     -d '{
-      "model": "claude-fable-5-1",
+      "model": "claude-opus-5-5",
       "max_tokens": 4096,
       "output_config": {"effort": "high"},
       "messages": [
@@ -62,7 +62,7 @@ The following example keeps the top-level value at `high` and drops to `low` for
   ```bash CLI
   ant beta:messages create \
     --beta mid-conversation-output-config-2026-07-01 <<'YAML'
-  model: claude-fable-5-1
+  model: claude-opus-5-5
   max_tokens: 4096
   output_config:
     effort: high
@@ -85,7 +85,7 @@ The following example keeps the top-level value at `high` and drops to `low` for
   client = anthropic.Anthropic()
 
   response = client.beta.messages.create(
-      model="claude-fable-5-1",
+      model="claude-opus-5-5",
       max_tokens=4096,
       output_config={"effort": "high"},
       messages=[
@@ -113,7 +113,7 @@ The following example keeps the top-level value at `high` and drops to `low` for
   const client = new Anthropic();
 
   const response = await client.beta.messages.create({
-    model: "claude-fable-5-1",
+    model: "claude-opus-5-5",
     max_tokens: 4096,
     output_config: { effort: "high" },
     messages: [
@@ -143,13 +143,13 @@ The following example keeps the top-level value at `high` and drops to `low` for
   ```csharp C#
   using Anthropic.Models.Beta;
   using Anthropic.Models.Beta.Messages;
-  using Model = Anthropic.Models.Messages.Model;
+  // ...
 
   AnthropicClient client = new();
 
   var response = await client.Beta.Messages.Create(new MessageCreateParams
   {
-      Model = Model.ClaudeFable5_1,
+      Model = Model.ClaudeOpus5_5,
       MaxTokens = 4096,
       OutputConfig = new() { Effort = Effort.High },
       Messages =
@@ -180,7 +180,7 @@ The following example keeps the top-level value at `high` and drops to `low` for
   client := anthropic.NewClient()
 
   response, err := client.Beta.Messages.New(context.Background(), anthropic.BetaMessageNewParams{
-  	Model:     anthropic.ModelClaudeFable5_1,
+  	Model:     anthropic.ModelClaudeOpus5_5,
   	MaxTokens: 4096,
   	OutputConfig: anthropic.BetaOutputConfigParam{
   		Effort: anthropic.BetaOutputConfigEffortHigh,
@@ -216,13 +216,13 @@ The following example keeps the top-level value at `high` and drops to `low` for
   import com.anthropic.models.beta.messages.BetaSystemMessageOutputConfig;
   import com.anthropic.models.beta.messages.BetaSystemMessageParam;
   import com.anthropic.models.beta.messages.MessageCreateParams;
-  import com.anthropic.models.messages.Model;
+  // ...
 
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       MessageCreateParams params = MessageCreateParams.builder()
-          .model(Model.CLAUDE_FABLE_5_1)
+          .model(Model.CLAUDE_OPUS_5_5)
           .maxTokens(4096L)
           .addBeta(AnthropicBeta.MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01)
           .outputConfig(BetaOutputConfig.builder()
@@ -253,13 +253,12 @@ The following example keeps the top-level value at `high` and drops to `low` for
   use Anthropic\Beta\Messages\BetaOutputConfig;
   use Anthropic\Beta\Messages\BetaSystemMessageOutputConfig;
   use Anthropic\Beta\Messages\BetaTextBlock;
-  use Anthropic\Client;
-  use Anthropic\Messages\Model;
+  // ...
 
   $client = new Client();
 
   $response = $client->beta->messages->create(
-      model: Model::CLAUDE_FABLE_5_1,
+      model: Model::CLAUDE_OPUS_5_5,
       maxTokens: 4096,
       outputConfig: BetaOutputConfig::with(effort: 'high'),
       messages: [
@@ -287,15 +286,15 @@ The following example keeps the top-level value at `high` and drops to `low` for
   client = Anthropic::Client.new
 
   response = client.beta.messages.create(
-    model: Anthropic::Model::CLAUDE_FABLE_5_1,
+    model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 4096,
-    output_config: {effort: :high},
+    output_config: { effort: :high },
     messages: [
-      {role: "user", content: "Plan a migration from SQLite to PostgreSQL in three short steps."},
-      {role: "assistant", content: "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts."},
+      { role: "user", content: "Plan a migration from SQLite to PostgreSQL in three short steps." },
+      { role: "assistant", content: "1. Export the SQLite data. 2. Create the PostgreSQL schema. 3. Import the data and verify row counts." },
       # Effort-only system message: the new level takes effect from the next user turn.
-      {role: "system", content: [], output_config: {effort: :low}},
-      {role: "user", content: "Summarize the plan in one sentence."}
+      { role: "system", content: [], output_config: { effort: :low } },
+      { role: "user", content: "Summarize the plan in one sentence." }
     ],
     betas: [Anthropic::AnthropicBeta::MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01]
   )
@@ -318,7 +317,7 @@ A `user` turn that holds only `tool_result` blocks doesn’t count as new input.
 
 The new level stays in effect until a later message changes it.
 
-Put the message after everything you’ve already sent, and keep it in place on later requests. Don’t insert it before turns you’ve already sent, and don’t move or remove it later. On models with [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking), any of those changes invalidates the thinking blocks in the `assistant` turns after the message. [What the API does with an invalid block](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#mismatch-behavior) says what happens next.
+Put the message after everything you’ve already sent, and keep it in place on later requests. Don’t insert it before turns you’ve already sent, and don’t move or remove it later. On models with [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking), any of those changes invalidates the thinking blocks in the `assistant` turns after the message. For what happens next, see [Set `prefix_mismatch_behavior`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#mismatch-behavior).
 
 If it sits next to a `system` message that has content, both messages must follow the [placement rules for mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#limitations).
 
@@ -332,7 +331,7 @@ With the Amazon Bedrock InvokeModel API, send the beta value in the `anthropic_b
 
 ## Per-message or top-level effort
 
-Prefer per-message effort over [changing the top-level value](https://platform.claude.com/docs/en/build-with-claude/effort#top-level-effort-on-the-next-request) between requests. A per-message change leaves everything before it unchanged, so the cached prefix still matches. A top-level change restarts the cache. On Claude Fable 5.1, a top-level change also steers the model less reliably. The model’s earlier replies were written at the previous level, and the model tends to stay consistent with them.
+Prefer per-message effort over [changing the top-level value](https://platform.claude.com/docs/en/build-with-claude/effort#top-level-effort-on-the-next-request) between requests. A per-message change leaves everything before it unchanged, so the cached prefix still matches. A top-level change can invalidate all or part of the cache. On Claude Fable 5.1, a top-level change also steers the model less reliably. The model’s earlier replies were written at the previous level, and the model tends to stay consistent with them.
 
 ## Availability
 

@@ -20,7 +20,7 @@ Each device needs managed settings that send users to your agency's Claude for G
 
 * **Claude Code is turned on for the organization.** A tenant administrator or organization owner turns on the **Claude Code** switch under [Product availability](https://claude.com/docs/government/config/settings.md#product-availability) on the **Config** page. It is off by default, and while it is off, Claude Code exits right after the user signs in.
 * **User accounts exist.** Claude Code signs users in to the same accounts as this portal. Each user needs a [routing rule](https://claude.com/docs/government/tenant-admin/identity-and-access.md) that covers them and a [seat tier](https://claude.com/docs/government/org-admin/seat-tiers.md) with at least one model enabled.
-* **Claude Code is current.** This setup requires Claude Code 2.1.274 or later (`claude --version` in a terminal).
+* **Claude Code is current.** This setup requires Claude Code 2.1.308 or later (`claude --version` in a terminal).
 * **Devices can reach Claude for Government.** Claude Code must reach the gateway address over HTTPS on port 443, and the user's browser must reach the same sign-in hosts that [Claude Desktop needs](https://claude.com/docs/government/deploy-desktop/configure.md#network-access).
 * **You can place a system-level file or policy.** The settings are enforced only from a system file, a macOS configuration profile, or a machine-level Windows policy, and values for the same keys in a user's own settings cannot override them.
 
@@ -62,7 +62,7 @@ For Claude Code's other environment variables, see [Environment variables](https
 
 ### Web proxy settings
 
-If your devices use a web proxy that you manage, add `HTTPS_PROXY` and `HTTP_PROXY` (the proxy's address, for example `http://proxy.example.corp:8080`) and `NO_PROXY` (your bypass list, keeping `localhost`, `127.0.0.1`, and `::1`) to the same `env` block, each under both its uppercase and lowercase name. Claude Code then uses that proxy wherever the device connects from, in place of any other proxy setting on the device. Signing in through a proxy whose address starts with `https://` requires Claude Code 2.1.307 or later. If your devices connect directly, leave these variables out rather than setting them to empty strings, because an empty value switches off a proxy a user would otherwise use.
+If your devices use a web proxy that you manage, add `HTTPS_PROXY` and `HTTP_PROXY` (the proxy's address, for example `http://proxy.example.corp:8080`) and `NO_PROXY` (your bypass list, keeping `localhost`, `127.0.0.1`, and `::1`) to the same `env` block, each under both its uppercase and lowercase name. Claude Code then uses that proxy wherever the device connects from, in place of any other proxy setting on the device. If your devices connect directly, leave these variables out rather than setting them to empty strings, because an empty value switches off a proxy a user would otherwise use.
 
 ## Deploy the settings
 

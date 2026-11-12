@@ -34,7 +34,7 @@ x-api-key: <your-compliance-api-key>
 
 | Parameter | Description |
 | - | - |
-| `since` or `created_at.gte` | The earliest event time to return, as an RFC 3339 timestamp or epoch seconds. A lower bound is required on every request that does not carry a cursor. |
+| `since` or `created_at.gte` | The earliest event time to return, as an RFC 3339 timestamp or epoch seconds. If you build the URL yourself, write a `+` in an offset as `%2B`. A lower bound is required on every request that does not carry a cursor. |
 | `until` or `created_at.lte` | The latest event time to return, in the same format. Optional. |
 | `after_id` | An opaque cursor that continues from where a previous page left off. Pass the `last_id` value from the previous response. |
 | `before_id` | An opaque cursor that pages in the other direction. Pass the `first_id` value from the previous response. Cannot be combined with `after_id`. |

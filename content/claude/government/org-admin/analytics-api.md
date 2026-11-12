@@ -193,6 +193,7 @@ An error response is JSON. Its `error` object has a `message`, and can have a `c
 | 400 | `The analytics API is not enabled for this organization.` | Turn on the [**Analytics API**](https://claude.com/docs/government/config/settings.md#analytics-api) setting. |
 | 400 | `beta_header_required` | Send the `anthropic-beta` header. |
 | 400 | `Extra inputs are not permitted` | Check the name of the parameter, including its `[]`. |
+| 400 | `must be an RFC 3339 timestamp with a UTC offset` | Use the form `2026-10-01T00:00:00Z`. If you build the URL yourself, write a `+` in an offset as `%2B`. |
 | 400 | `cursor_param_mismatch` | Start again from the first page, without `page`. |
 | 400 | `query_too_large` | Use a shorter range. |
 | 401 | `x-api-key header is required` | Send the key in the `x-api-key` header. A key sent as `Authorization: Bearer` isn't read, so set the header yourself if your client or SDK sends only that. |

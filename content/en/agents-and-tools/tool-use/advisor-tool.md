@@ -323,7 +323,7 @@ The `max_uses` cap applies to a whole turn, and a turn can span several requests
 
 The `caching` object has the shape `{"type": "ephemeral", "ttl": "5m" | "1h"}`. Unlike `cache_control` on content blocks, this is not a breakpoint marker. It is an on/off switch. The server determines where cache boundaries go.
 
-The advisor tool also accepts the generic properties available on any tool definition: `cache_control`, `allowed_callers`, `defer_loading`, and `strict` (covered in [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)). See [Tool definition properties](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#tool-definition-properties) in the Tool reference for their semantics.
+The advisor tool also accepts the generic properties available on any tool definition: `cache_control`, `allowed_callers`, `defer_loading`, and `strict` (covered in [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)). See [Tool definition properties](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#tool-definition-properties) in the Tool reference for their semantics.
 
 ## Response structure
 
@@ -757,14 +757,13 @@ You can drop the advisor tool from `tools` in a follow-up request while the mess
 * **No advisor call is still pending.** See [Resuming a paused turn](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#resuming-a-paused-turn).
 * **You still send the `advisor-tool-2026-03-01` beta header.** The API needs it to accept those history blocks. That header covers the `advisor_tool_result` blocks, not thinking blocks.
 
-**Exception: a history that also contains thinking blocks.** Removing the advisor tool is an [edit to `tools`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-counts-as-an-edit). So is changing its `model` or `caching`. An edit to `tools` invalidates the thinking blocks already in the history.
+**Exception: a history that also contains thinking blocks.** Removing the advisor tool is an [edit to `tools`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#what-counts-as-an-edit). So is changing its `model`, `max_uses`, `max_tokens`, or `caching`. An edit to `tools` invalidates the thinking blocks already in the history.
 
-* **What happens:** Where the API enforces the [prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check), the request returns a 400 error.
-* **Where the API enforces it:** On every account when the executor is Claude Fable 5.2 or Claude Mythos 5.2. For other executors, see the table in [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement).
+* **What happens:** If the executor model [runs the prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#enforcement), the request can get a [400 error](https://platform.claude.com/docs/en/api/errors#thinking-block-conversation-mismatch).
 * **How to continue:** Set `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"` on that request and on every later request in the conversation. The API then drops those thinking blocks. This setting is in beta and needs the `thinking-binding-controls-2026-08-01` beta header.
 
 <Note>
-  The advisor tool has no built-in conversation-level cap. To limit advisor calls across a conversation, count them client-side. When you reach your ceiling, remove the advisor tool from your `tools` array. You do not need to strip `advisor_tool_result` blocks from your message history. If your history also contains thinking blocks, read the preceding exception first. In that case, where the prefix check is enforced, the request returns a 400 error unless you set `"drop_block"`.
+  The advisor tool has no built-in conversation-level cap. To limit advisor calls across a conversation, count them client-side. When you reach your ceiling, remove the advisor tool from your `tools` array. You do not need to strip `advisor_tool_result` blocks from your message history. If your history also contains thinking blocks, read the preceding exception first. In that case, unless you set `"drop_block"`, the request can get a [400 error](https://platform.claude.com/docs/en/api/errors#thinking-block-conversation-mismatch).
 </Note>
 
 ### Resuming a paused turn
@@ -1452,7 +1451,7 @@ The advisor’s prompt on the Nth call is the (N-1)th call’s prompt with one m
 **Keep it consistent:** Set `caching` once and leave it for the whole conversation. Toggling it off and on mid-conversation causes cache misses. Each toggle is also an edit to `tools`. That edit can make the next request return a 400 error. [Multi-turn conversations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#multi-turn-conversations) explains when this happens and what to set.
 
 <Warning>
-  [`clear_thinking`](https://platform.claude.com/docs/en/build-with-claude/context-editing) with a `keep` value other than `"all"` shifts the advisor’s quoted transcript each turn, causing advisor-side cache misses. This is a cost degradation only. Advice quality is unaffected. When thinking is on without explicit `clear_thinking` configuration, the API defaults to `keep: {type: "thinking_turns", value: 1}`, which triggers this behavior (the default on earlier Opus and Sonnet models and on Haiku models through Claude Haiku 4.5, whereas on Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, and Claude Haiku 5.5, the default is to keep all turns). Set `keep: "all"` to preserve advisor cache stability.
+  [`clear_thinking`](https://platform.claude.com/docs/en/build-with-claude/context-editing) with a `keep` value other than `"all"` shifts the advisor’s quoted transcript each turn, causing advisor-side cache misses. This is a cost degradation only. Advice quality is unaffected. When thinking is on without explicit `clear_thinking` configuration, Opus models before Claude Opus 4.5, Sonnet models before Claude Sonnet 4.6, and Haiku models through Claude Haiku 4.5 default to `keep: {type: "thinking_turns", value: 1}`, which triggers this behavior. Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Haiku 5.5, and Claude Fable and Claude Mythos models keep all turns by default. Set `keep: "all"` to preserve advisor cache stability.
 </Warning>
 
 ## Combining with other tools
@@ -1722,7 +1721,7 @@ Advisor output is the advisor’s largest cost driver, and the top-level `max_to
 (Advisor: please keep your guidance under 80 words. I need a focused starting point, not a comprehensive plan.)
 ```
 
-Your agent framework can prefix this line programmatically before sending the request. The limit is a soft constraint. The advisor occasionally exceeds it, so ask for roughly 80 percent of your true ceiling.
+Your agent framework can prefix this line once and keep it there. The limit is a soft constraint. The advisor can exceed it, so ask for roughly 80 percent of your true ceiling.
 
 <Note>
   In Anthropic’s testing this line also increased how often the executor consults the advisor, but the net effect was still lower total cost (more consults, each shorter).
@@ -1853,7 +1852,7 @@ For coding tasks, pairing a Sonnet executor at medium [effort](https://platform.
 
 ### Cost control
 
-* For conversation-level budgets, count advisor calls client-side. When you reach your cap, remove the advisor tool from `tools`. You do not need to strip `advisor_tool_result` blocks from your message history (see the note in [Multi-turn conversations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#multi-turn-conversations)). If you send earlier thinking blocks back, removing the tool can return a 400 error where the API enforces the prefix check. To avoid it, set `prefix_mismatch_behavior` to `"drop_block"`, as [Multi-turn conversations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#multi-turn-conversations) explains. The API enforces the check for every account when the executor is Claude Fable 5.2 or Claude Mythos 5.2.
+* For conversation-level budgets, count advisor calls client-side. When you reach your cap, remove the advisor tool from `tools`. You do not need to strip `advisor_tool_result` blocks from your message history. If you send earlier thinking blocks back, removing the tool can return a 400 error. To avoid it, set `prefix_mismatch_behavior` to `"drop_block"`, as [Multi-turn conversations](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool#multi-turn-conversations) explains.
 * Enable `caching` only for conversations where you expect three or more advisor calls.
 
 ## Model compatibility

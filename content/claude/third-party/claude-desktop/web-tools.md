@@ -27,7 +27,7 @@ Web Search is a **server-side tool** executed by your inference provider, not by
 
 On Microsoft Foundry, Web Search works on both [hosting options](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) with no additional configuration. Deployments hosted on Azure support only the basic web search tool version (`web_search_20250305`), which is the version Claude Desktop uses; see [features not supported when hosted on Azure](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure) in the Claude in Microsoft Foundry documentation for what else differs when hosted on Azure. On any provider you can configure the [built-in web search](#built-in-web-search) to choose the search backend yourself. Once it is configured, the app stops offering provider-side search and routes the model's search calls to the built-in server. If you want no web search at all, add `"WebSearch"` to [`disabledBuiltinTools`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledbuiltintools) instead. That entry also blocks the built-in web search tool, so do not combine the two.
 
-The [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) passes the `web_search` tool through to its upstream provider, so Web Search works in Claude Desktop behind that gateway when the upstream is Google Cloud's Agent Platform, Microsoft Foundry, or the Anthropic API. Claude Desktop can't see which upstream the gateway routes to and offers the tool regardless, so if the gateway routes any model to Amazon Bedrock, configure the [built-in web search](#built-in-web-search), which replaces provider-side search on every route. To turn web search off instead, add `"WebSearch"` to `disabledBuiltinTools` in the gateway's [Claude Desktop overlay](https://code.claude.com/docs/en/claude-apps-gateway-config#claude-desktop-overlay). That entry also blocks the built-in web search tool if one is configured.
+The [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) passes the `web_search` tool through to its upstream provider, so Web Search works in Claude Desktop behind that gateway when the upstream is Google Cloud's Agent Platform, Microsoft Foundry, or the Anthropic API. The exception is a gateway policy that holds settings under [`code`](https://code.claude.com/docs/en/claude-apps-gateway-config#apply-code-settings-in-the-code-tab), which turns Web Search off in Cowork, Chat, and Code. Claude Desktop can't see which upstream the gateway routes to and offers the tool regardless, so if the gateway routes any model to Amazon Bedrock, configure the [built-in web search](#built-in-web-search), which replaces provider-side search on every route. To turn web search off instead, add `"WebSearch"` to `disabledBuiltinTools` in the gateway's [Claude Desktop overlay](https://code.claude.com/docs/en/claude-apps-gateway-config#claude-desktop-overlay). That entry also blocks the built-in web search tool if one is configured.
 
 Provider-side search runs on the provider's infrastructure, so queries and results travel over the same path as model inference and are subject to your provider's data-handling terms. It needs no additional firewall rules beyond the inference endpoint itself.
 
@@ -200,3 +200,22 @@ To remove web tools entirely, add them to `disabledBuiltinTools`:
 With the web tools removed and `coworkEgressAllowedHosts` empty, commands in the agent's sandboxed shell reach no host other than those a [plugin declares for its command-line tool](#web-fetch). In Code sessions where [Claude Code's sandbox doesn't run](#how-the-egress-allowlist-applies-in-code-sessions), shell commands can reach any host your network allows.
 
 The agent can still read and write local files, run code against them, and call any MCP servers you've provisioned. See the [Locked down profile](https://claude.com/docs/third-party/claude-desktop/configuration.md#recommended-security-profiles).
+
+## User settings for web tools
+
+Each user can make Web Search or Web Fetch stricter for themselves than your configuration requires, and can't make either tool looser. The user goes to **Customize > Connectors** and sets **Web search** or **Web fetch** under **Built-in tools**, or opens the message box's **+** menu and selects **Connectors**. Each tool's setting covers the user's Cowork, Chat, and Code sessions and takes one of these values:
+
+* **Default**: your configuration and the session's permission mode decide whether Claude asks first
+* **Always ask**: Claude asks the user before each call to the tool, including in Auto mode, which Cowork shows as **Automatically approve**
+* **Blocked**: new sessions don't include the tool
+
+A session that's already running can keep its earlier setting until it next starts. When a [scheduled Cowork task](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md) runs on its schedule in **Automatically approve**, Claude Desktop declines a call to a tool that's at **Always ask** by the user's choice alone, and the run continues without that step.
+
+Your configuration sets the minimum for each tool, and the user sees why a choice is missing:
+
+* **`WebSearch` or `WebFetch` set to `"ask"` in [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy)**: the user selects **Always ask** or **Blocked**, next to the line **Restricted by your admin**
+* **`WebSearch` or `WebFetch` listed in [`disabledBuiltinTools`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledbuiltintools)**: the tool's row reads **Blocked by your admin**, and the user can't change it
+
+The **Web search** row appears where your provider or gateway runs Web Search, and controls that tool. When you configure the [built-in web search](#built-in-web-search), that server has a row of its own in both places, and users control search from that row.
+
+A user's setting is a preference that the user can change back at any time. **Blocked** removes that tool, and shell commands and browser tools still reach what your configuration allows. To enforce a restriction for everyone, see [Disabling web tools](#disabling-web-tools).

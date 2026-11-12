@@ -838,15 +838,23 @@ The example marks every tool in the list strict. A request can have at most 20 s
 
 ### Thinking blocks are tied to the model and the conversation
 
-Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, and earlier models, and, on the Claude API and Claude Models on Google Cloud (Google managed), from Claude Haiku 5.5. It doesn’t read blocks from Claude Opus 5, Claude Opus 5.5, or any Claude Fable or Claude Mythos model. The API drops blocks the model can’t read. The request still returns 200, and dropped blocks aren’t billed. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
+Claude Sonnet 5.5 reads thinking blocks from Claude Sonnet 5, Claude Opus 4.8, Claude Haiku 4.5, and [earlier models](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#earlier-models). On the Claude API and Claude Models on Google Cloud (Google managed), it also reads them from Claude Haiku 5.5. It doesn’t read blocks from Claude Opus 5, Claude Opus 5.5, or any Claude Fable or Claude Mythos model.
 
-Each Claude Sonnet 5.5 thinking block is also signed over the conversation before it. Keep conversations append-only, and change instructions or tools with [mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages). A request can replay a block after an edit to earlier history and leave `thinking.block_binding.prefix_mismatch_behavior` unset. On accounts created on or after August 31, 2026, 00:00 UTC, that request gets a 400 error. [Preserved thinking availability](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#feature-availability) lists the platforms where this applies. Thinking blocks that Claude Sonnet 5.5 produces work only in the account that produced them or in an account linked to it. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
+The API drops blocks the model can’t read. The request returns 200, and dropped blocks aren’t billed. See [Switch models and back](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
+
+Keep conversations append-only, so that thinking blocks pass the [prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#prefix-check). To change instructions or tools, see [Mid-conversation system messages and tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages).
+
+Failing the [prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#prefix-check) might or might not result in a [400 error](https://platform.claude.com/docs/en/api/errors#thinking-block-conversation-mismatch). To identify and handle both cases, see [Prefix checks on thinking blocks](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks).
+
+The prefix check runs on the Claude API and on [some cloud platforms](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#feature-availability).
+
+Claude Sonnet 5.5 thinking blocks work only in the account that produced them or in an account linked to it. See [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
 ### Some computer use tool versions are not supported
 
 Claude Sonnet 5.5 supports computer use through the `computer_toolset_20260801` toolset. On Amazon Bedrock, Claude Sonnet 5.5 also accepts the `computer_20251124` tool with the `computer-use-2025-11-24` beta header. Claude Sonnet 5.5 returns a 400 error for any computer use tool version it doesn’t accept, such as `computer_20251124` on the Claude API. It doesn’t accept `computer_20250124` on any platform.
 
-Integrations that use the toolset need no change. To move to the toolset, replace `computer_20251124` or `computer_20250124` with `computer_toolset_20260801`, and drop that version’s beta header. [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124) lists the request and agent-loop changes.
+Integrations that use the toolset need no change. To move to the toolset, replace `computer_20251124` or `computer_20250124` with `computer_toolset_20260801`, and drop that version’s beta header. For the request and agent-loop changes, see [Migrate from `computer_20251124`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#migrate-from-computer-20251124).
 
 If you send the `fine-grained-tool-streaming-2025-05-14` beta header, remove it when you move to the toolset. Alongside a toolset entry, it returns a 400 error. Set `eager_input_streaming: true` on each tool that needs it instead.
 
@@ -1187,7 +1195,7 @@ After (Claude Sonnet 5.5):
 ### Other changes
 
 * **About 30 percent more tokens:** Claude Sonnet 5.5 uses Claude Sonnet 5’s tokenizer. Against Claude Sonnet 4.6, Claude Sonnet 4.5, and Claude Haiku 4.5, the same text produces about 30 percent more tokens, depending on the content. Recount with [token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting), and revisit `max_tokens` and cost.
-* **Effort:** `xhigh` is new, and the levels are recalibrated. See [Recommended changes](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#recommended-changes).
+* **Effort:** Claude Sonnet 5.5 supports `xhigh`, and the levels are recalibrated. See [Recommended changes](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#recommended-changes).
 * **Images:** Claude Sonnet 5.5 uses the high-resolution image tier, up to 2,576 pixels on the long edge and up to 4,784 visual tokens for an image. Claude Sonnet 4.6, Claude Sonnet 4.5, and Claude Haiku 4.5 stop at 1,568 pixels and 1,568 tokens. A 2000×1500 image costs about 2.5 times as many tokens on Claude Sonnet 5.5. See [Resolution and token cost](https://platform.claude.com/docs/en/build-with-claude/vision#evaluate-image-size).
 
 ### Migrating from Claude Sonnet 4.5 or earlier
@@ -1212,7 +1220,7 @@ Replace each prefill according to what it was for:
 
 **Computer use.** Claude Sonnet 5.5 doesn’t accept `computer_20250124`. See [Some computer use tool versions are not supported](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#computer-use-toolset).
 
-**Effort.** Claude Sonnet 4.5 has no effort parameter. Set an effort level explicitly, as [Recommended changes](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#recommended-changes) describes.
+**Effort.** Claude Sonnet 4.5 has no effort parameter. Set an effort level explicitly (see [Recommended changes](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#recommended-changes)).
 
 **Context and output.** Claude Sonnet 5.5 has a larger context window and a higher output limit. See the [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) model page. Remove any context-window beta header.
 

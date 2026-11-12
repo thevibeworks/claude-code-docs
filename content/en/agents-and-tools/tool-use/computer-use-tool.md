@@ -709,7 +709,7 @@ The loop continues until either Claude responds without requesting any tools (ta
 
 ### Optimize model performance with prompting
 
-1. Specify simple, well-defined tasks and provide explicit instructions for each step.
+1. Specify well-defined tasks and provide explicit instructions for each step.
 2. Claude sometimes acts as if its actions succeeded without explicitly checking their results. To prevent this, you can prompt Claude with `After each step, take a screenshot and carefully evaluate if you have achieved the right outcome. State in one sentence what the screenshot shows and whether the step succeeded. If it didn't, try again. Only when you confirm a step was executed correctly should you move on to the next one.`
 3. Some UI elements (such as dropdowns and scrollbars) might be tricky for Claude to manipulate using mouse movements. If you experience this, try prompting the model to use keyboard shortcuts.
 4. For repeatable tasks or UI interactions, include example screenshots and tool calls of successful outcomes in your prompt.
@@ -718,13 +718,9 @@ The loop continues until either Claude responds without requesting any tools (ta
 7. Claude uses the `zoom` action to inspect a region at full resolution when asked about small text or specific UI elements that aren’t legible at the screenshot’s default resolution, such as file names in a sidebar, tab titles, status-bar text, line numbers, or button labels. If Claude isn’t zooming when you expect, ask about a specific region or element rather than the screen as a whole.
 8. If you want every [batch action](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#batch-actions) to end with a screenshot, say so in the system prompt, for example, `End each group of actions with a screenshot so you can verify the result before continuing.`
 
-<Tip>
-  If you repeatedly encounter a clear set of issues or know in advance the tasks Claude will need to complete, use the system prompt to provide Claude with explicit tips or instructions on how to do the tasks successfully.
-</Tip>
+If you repeatedly encounter a clear set of issues, or know in advance the tasks Claude has to complete, give Claude explicit tips or instructions for them in the system prompt.
 
-<Tip>
-  For agents that span multiple sessions, run end-to-end verification at the start of each session, not only after implementation. Browser-based checks catch regressions from prior sessions that code-level review alone misses. See [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) for details.
-</Tip>
+For agents that span multiple sessions, run end-to-end verification at the start of each session, not only after implementation. Browser-based checks catch regressions from prior sessions that code-level review alone misses. See [Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) for details.
 
 ### System prompts
 
@@ -1824,7 +1820,9 @@ When you choose a display resolution and return screenshots:
 
 ### Manage screenshot history
 
-Long agent loops accumulate screenshots quickly (roughly 1,000–1,800 input tokens each). The API’s [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) also apply. Once a single request carries more than 20 images, every image in it is held to a stricter per-side limit. A loop that keeps its screenshot history reaches that count within a few dozen turns, so either resize each screenshot to stay under that limit or prune older screenshots to keep 20 or fewer in the request.
+Long agent loops accumulate screenshots quickly (roughly 1,000–1,800 input tokens each). The API’s [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) also apply.
+
+Once a single request carries more than 20 images, every image in it is held to a stricter per-side limit. A loop that keeps its screenshot history can reach that count. Either resize each screenshot to stay under that limit, or prune older screenshots to keep 20 or fewer in the request.
 
 To keep [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) effective while bounding context:
 
@@ -1834,8 +1832,8 @@ To keep [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/p
 
 * Avoid client-side pruning on Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, and Claude Mythos 5.1. The same goes for Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5. On these models, removing an earlier screenshot from a request [invalidates every later thinking block already in the history](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-in-conversation) of that and every later request.
 
-  * **Instead:** Resize screenshots to stay under the stricter limit. Use server-side [tool result clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing#tool-result-clearing) to drop old ones from the context.
-  * **If you must prune:** Keep [`prefix_mismatch_behavior: "drop_block"`](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking-controls) set from then on. After each prune, the API drops the invalidated thinking blocks, on that request and every later one. So Claude continues without the thinking that it produced after the pruned screenshot.
+  * **Instead:** Resize screenshots to stay under the stricter limit. [Tool result clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing#tool-result-clearing) saves tokens, but cleared screenshots still count toward [request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits), so use [on-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) before a loop reaches them.
+  * **If you must prune:** Keep [`prefix_mismatch_behavior: "drop_block"`](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#preserved-thinking-controls) set from then on. After each prune, the API drops the invalidated thinking blocks, on that request and every later one. So Claude continues without the thinking that it produced after the pruned screenshot.
   * **If you must prune on Claude Sonnet 5.5 or Claude Haiku 5.5:** `prefix_mismatch_behavior` works only with `thinking: {"type": "adaptive"}`. With any other thinking setting on those models, keep the history append-only or strip every `thinking` and `redacted_thinking` block after the pruned screenshot.
 
 ### Diagnose click issues
@@ -2123,7 +2121,7 @@ If clicks miss their targets, the cause is usually one of the following:
 
 ## Migrate from `computer_20251124`
 
-A `computer_20251124` integration works without changes on the models listed for that version under [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions). Upgrade the integration before you move it to a model that doesn’t accept `computer_20251124`, such as a Claude 5.5 model on the Claude API.
+A `computer_20251124` integration works without changes on the models listed for that version under [Earlier tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#earlier-tool-versions). Upgrade the integration before you move it to a model that doesn’t accept `computer_20251124`, such as Claude Opus 5.5 on the Claude API.
 
 To upgrade, make the following changes together:
 

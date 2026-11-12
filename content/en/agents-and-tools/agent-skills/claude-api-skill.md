@@ -184,7 +184,7 @@ The skill works through five steps:
 1. **Scope:** Checks whether your integration is affected, then sends three test requests to confirm that the API reports a deliberate edit.
 2. **Find:** Captures a few of your own multi-turn sessions, diffs consecutive requests, and lists each place your code edits the prefix.
 3. **Measure:** Replays the sessions with `"drop_block"` and reports which conversations lose `thinking` blocks, at which turn, and why.
-4. **Fix:** Replaces one edit at a time with the matching pattern in [Make changes without editing the prefix](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits), and measures again after each change.
+4. **Fix:** Replaces each edit with the matching pattern in [Change tools or instructions without failing the prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/change-tools-or-instructions), and measures again after each one.
 5. **Report:** Summarizes each cause, the change made for it, and the counts before and after.
 
 If your project has an eval, the skill also compares scores and token usage with and without dropped `thinking` blocks.

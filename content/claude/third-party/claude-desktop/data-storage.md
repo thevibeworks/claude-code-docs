@@ -235,7 +235,7 @@ You can't hide the **Storage** window or the **Low disk space** notice with a co
 You can move a user's Claude Desktop data to a new device with an export or a copy:
 
 * **Export and import**: you [turn on two settings](#turn-on-export-and-import). The user exports their data to a zip file on the old device and imports it on the new device.
-* **[Copy the data](#copy-the-data-to-the-new-device)**: on devices that get their configuration from MDM or from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), you copy the user's [application-data directory](#where-data-lives) and related folders to the same paths on the new device
+* **[Copy the data](#copy-the-data-to-the-new-device)**: on devices that get their configuration from MDM (directly or through a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md)) or from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), you copy the user's [application-data directory](#where-data-lives) and related folders to the same paths on the new device
 
 ### When to use an export or a copy
 
@@ -293,7 +293,7 @@ The old device keeps its data until you [remove it](#removing-data).
 
 ### What a copy moves
 
-On devices that get their configuration from MDM or from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), you can move a user to a new device by copying their data. The copy moves:
+A [copy](#copy-the-data-to-the-new-device) moves:
 
 * Chats, Cowork tasks, and Code sessions
 * Projects, project instructions, and memory
@@ -309,7 +309,7 @@ After a copy, ask the user to:
 * Enter the provider API key again, if the user saved it in the in-app configuration window (see [Unreadable saved API keys](#unreadable-saved-api-keys))
 * Reconnect each connector
 * Enter the environment variables for Code sessions from their original source, because the app masks saved values
-* In each project they use from Chat, use **Choose a folder > Choose a different folder** to select the same folders again
+* In each project they use from Chat, use **Choose a folder > Choose a different folder** to select the same folders again, then start a new conversation in the project
 * Add any keys, sign-ins, or settings that their plugins need
 * Set command permissions for plugins
 
@@ -325,7 +325,7 @@ For a copy, the new device needs:
 * The same platform (macOS, Windows, or Linux) and CPU architecture as the old device
 * The same OS user name and home-directory path. Otherwise, Code sessions, scheduled tasks, plugins, and project folders stop working.
 * The same organization as the old device:
-  * **MDM**: the managed configuration, with the same [`deploymentOrganizationUuid`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid), in place before Claude Desktop launches
+  * **MDM**: the managed configuration in place before Claude Desktop launches. A profile that only points to a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) counts as MDM. Both devices' managed configurations set the same [`deploymentOrganizationUuid`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid), or neither sets it.
   * **Enterprise Admin Console**: no managed configuration to deploy. When the app asks the user to sign in to Claude, they use the same account and organization as on the old device.
 * Anything on the device that your configuration relies on for credentials, set up as on the old device. For example, a [credential helper](https://claude.com/docs/third-party/claude-desktop/credential-helper.md) or other helper script, an [AWS named profile](https://claude.com/docs/third-party/claude-desktop/bedrock.md#named-profile), or a [Google Cloud credentials file](https://claude.com/docs/third-party/claude-desktop/vertex.md#credentials-file).
 * The same Claude Desktop version, or a newer one
@@ -339,7 +339,7 @@ Before you start, check that both devices meet the [requirements](#requirements-
 > The copy holds full conversations. Encrypt any intermediate copy, restrict access to it, and delete it when you're done.
 
 1. Quit Claude Desktop on both devices, without signing out. Closing its window isn't enough.
-2. If the new device has an application-data directory (see [Where data lives](#where-data-lives)), delete it. This removes anything the user created in it.
+2. If the new device has an application-data directory (see [Where data lives](#where-data-lives)), delete it. This removes anything the user created in it. If you copy on top of it instead, replacing files of the same name, the chats that the user made on the new device no longer appear in the app.
 3. Copy these to the same paths. On Windows, use a copy tool that supports paths longer than 260 characters.
    * The application-data directory, except these files in it, which the app creates again when it needs them:
 
@@ -348,17 +348,17 @@ Before you start, check that both devices meet the [requirements](#requirements-
      * `ccd-environment-config.json`
      * `cowork-enabled-cli-ops.json`
 
-     Also leave out `plugin-mcp-auth/` and `connectors/*/plugin-mcp/`, which on Windows and Linux hold the user's sign-ins to plugin servers. The user signs in to those servers again on the new device. Leave out any `host-creds-*.json` file too, which an earlier version of Claude Desktop can leave behind.
+     Also leave out `plugin-mcp-auth/` and `connectors/*/plugin-mcp/`, which on Windows and Linux hold the user's sign-ins to plugin servers. The user signs in to those servers again on the new device. Leave out any `host-creds-*.json` file too, which an earlier version of Claude Desktop can leave behind. Leave out any `reset-app-data` file, which makes the app delete the user's chats and other data at its next launch.
 
      If you copied any of these files or folders, quit Claude Desktop on the new device, then delete them.
    * The user's Cowork files folder: `~/Claude/`, or `~/Documents/Claude/` on legacy installs. If the user changed it, note the folder shown under **Cowork files** in **Settings > Cowork** on the old device before step 1, and copy that folder instead.
    * `~/.claude/` and `~/.claude.json`
    * The folders and repositories that the user's projects, scheduled tasks, and Code sessions use
-4. Make the user the owner of the copied files, with read and write access. Give no other user account access to the application-data directory, the user's Cowork files folder, `~/.claude/`, or `~/.claude.json`.
-5. Have the user launch Claude Desktop, sign in if the app asks, and confirm that their chats, Cowork tasks, Code sessions, and projects appear. If any are missing, check that:
-   * The user owns the copied files
+4. Make the user the owner of the copied files, with read and write access. Give no other user account access to the application-data directory, the user's Cowork files folder, `~/.claude/`, or `~/.claude.json`. On Windows, let SYSTEM and the Administrators group keep their access.
+5. Have the user launch Claude Desktop and sign in if the app asks. If your users sign in to get their configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) or the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), expect the app to ask for that sign-in once after the copy. Then have the user confirm that their chats, Cowork tasks, Code sessions, and projects appear. If any are missing, check that:
+   * The user owns the copied files. On Windows, if the user's account has no access to the application-data directory, the app shows **Claude Desktop failed to launch**. Repeat step 4.
    * The [`ant-did`](#identity) file in the application-data directory has the same contents as on the old device. If it doesn't, start again from step 1.
-   * With MDM, the managed configuration has the old device's `deploymentOrganizationUuid`
+   * With MDM, both devices' managed configurations set the same `deploymentOrganizationUuid`, or neither sets it
    * With the Enterprise Admin Console, the account menu at the bottom of the sidebar shows the same organization as on the old device. If it shows another name, look for a managed profile that [keeps the device off the admin console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile). If you find one, remove it, then have the user relaunch Claude Desktop and sign in. Otherwise, have the user choose your organization from the account menu and sign in.
 6. Have the user [set up what the copy doesn't move](#what-the-user-sets-up-again).
 7. Soon after launch on the new device, a scheduled task runs once if it recently missed a run. If the old device stays in use, its enabled scheduled tasks run on both devices. Retire the old device, or turn off its scheduled tasks in Claude Desktop there. To remove the user's data from it, see [Removing data](#removing-data).
