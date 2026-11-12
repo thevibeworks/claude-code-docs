@@ -836,4 +836,4 @@ authoritative, up-to-date requirements.
 
 [SEP-2567]: https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2567
 
-[sessions-decision]: https://github.com/modelcontextprotocol/transports-wg/blob/main/docs/sessions-vs-sessionless-decision.md
+[sessions-decision]: https://github.com/modelcontextprotocol/transports-wg/blob/main/proposals/stateless/session-removal-decision.md

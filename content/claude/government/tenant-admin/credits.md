@@ -8,7 +8,7 @@
 
 > **Who this is for:** Tenant administrators who monitor billing-account balances and set spend caps on organizations.
 
-The **Billing** page shows each billing account's **available balance**. This is also where you set per-organization spend caps, which limit how much any one organization can draw from its account.
+The **Billing** page shows each billing account's **available balance** and any credit that [expired unspent](https://claude.com/docs/government/org-admin/billing.md#billing-account) since credit was last added. This is also where you set per-organization spend caps, which limit how much any one organization can draw from its account.
 
 > [!NOTE]
 >

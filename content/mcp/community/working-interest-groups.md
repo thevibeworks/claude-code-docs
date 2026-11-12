@@ -6,7 +6,7 @@
 
 > The MCP project's working groups and interest groups, how to join or start one, and the operating rules every group follows.
 
-This page lists the project's working groups and interest groups, explains how to join or start one, and sets the operating rules every group follows. The rules were adopted by [SEP-2149](https://modelcontextprotocol.io/seps/2149.md), a Specification Enhancement Proposal (SEP). A group's charter cannot override them, and changing them requires a Process SEP. Group membership is not required to take part in a group's work, though a [SEP](https://modelcontextprotocol.io/community/sep-guidelines.md) needs [prior discussion](https://modelcontextprotocol.io/community/sep-guidelines.md#before-you-write) with the relevant working group and its approval before the pull request is opened. You may take part in as many groups as your time allows.
+This page lists the project's working groups and interest groups, explains how to join or start one, and sets the operating rules every group follows. The rules were adopted by [SEP-2149](https://modelcontextprotocol.io/seps/2149.md), a Specification Enhancement Proposal (SEP). A group's charter cannot override them, and changing them requires a Process SEP. Group membership is not required to take part in a group's work, though a [SEP](https://modelcontextprotocol.io/community/sep-guidelines.md) needs [prior discussion](https://modelcontextprotocol.io/community/sep-guidelines.md#before-you-write) with the relevant working group and its agreement to sponsor before the pull request is [marked ready for review](https://modelcontextprotocol.io/community/sep-guidelines.md#workflow). You may take part in as many groups as your time allows.
 
 ## Working groups and interest groups
 
@@ -19,7 +19,7 @@ This page lists the project's working groups and interest groups, explains how t
 | Duration | Until its deliverables are complete | Ongoing while the topic is relevant |
 | Example | [Transports](https://modelcontextprotocol.io/community/working-groups/transports.md) | [Security](https://modelcontextprotocol.io/community/interest-groups/security.md) |
 
-In the usual path an interest group frames a problem, and a new working group, an existing group, or a SEP submitted directly solves it.
+In the usual path an interest group frames a problem, and a working group solves it. That can be an existing working group or a new one the interest group starts through the [forming a group](#forming-a-group) process, and the working group sponsors any resulting SEP.
 
 ## Current groups
 

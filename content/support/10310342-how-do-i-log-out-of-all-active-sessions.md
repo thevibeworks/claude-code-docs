@@ -46,7 +46,7 @@ Logging out of all active sessions also logs you out of Claude Code. To log out 
 
 If you used your Claude account to authenticate into Claude Code, you can see and log out of those sign-ins in **Settings > Account**, where they're listed with your other sessions. If they aren't listed there, manage your authorization tokens in **Settings > Claude Code**. To remove a token and log out of Claude Code, click the trash can icon.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1608263923/b4fa7d6f6f08f2adffb4ea63bc58/image+%287%29.png?expires=1794471300&amp;signature=456a960ff788f1fd01750a59478eed9c2395e83b3066bd45dd178c46c76bbf6a&amp;req=dSYnHst4nohdWvMW1HO4zVuHixj50Wa4AQofdwM8qVcDUp8xZLHbBUdLn1u7%0A3cd4KSpAST82%2FK3r%2F54%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1608263923/b4fa7d6f6f08f2adffb4ea63bc58/image+%287%29.png?expires=1794510000&amp;signature=f6faa1de080653f539dcf73faaf5727c1d93c32dd9ac36c0fa265212df09cef0&amp;req=dSYnHst4nohdWvMW1HO4zVuHixj412e7AQofdwM8qVeMK%2BCT5OWQzItfSlCx%0Ah9fub7Iccx0QE%2FSSQcI%3D%0A)
 
 ## Unable to access your account?
 

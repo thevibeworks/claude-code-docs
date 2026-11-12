@@ -49,7 +49,17 @@ With [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking),
 
 Thinking tokens are a subset of your `max_tokens` parameter, are billed as output tokens, and count toward rate limits. With [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking), Claude determines its thinking allocation dynamically, so thinking token usage varies from request to request.
 
-Whether thinking blocks from previous assistant turns stay in the context window depends on the model. On Claude Opus 4.5 and later Opus models, Claude Sonnet 4.6 and later Sonnet models, Claude Haiku 5.5, Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, and Claude Mythos Preview, the API keeps previous thinking blocks by default, and they count toward the context window like any other input tokens. On earlier Opus and Sonnet models and all Haiku models through Claude Haiku 4.5, the API automatically strips previous thinking blocks from the conversation history when you pass them back, which preserves token capacity for conversation content. For the per-model defaults, see [thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model). To override the default in either direction, use [thinking block clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing#thinking-block-clearing).
+Whether thinking blocks from previous assistant turns stay in the context window depends on the model.
+
+The API keeps previous thinking blocks by default on these models, where those blocks count toward the context window like any other input tokens:
+
+* Claude Opus 4.5 and later Opus models
+* Claude Sonnet 4.6 and later Sonnet models
+* Claude Haiku 5.5
+* Claude Fable 5.2, Claude Fable 5.1, and Claude Fable 5
+* Claude Mythos 5.2, Claude Mythos 5.1, Claude Mythos 5, and Claude Mythos Preview
+
+On earlier Opus and Sonnet models and all Haiku models through Claude Haiku 4.5, the API automatically strips previous thinking blocks from the conversation history when you pass them back. This preserves token capacity for conversation content. For the per-model defaults, see [thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model). To override the default in either direction, use [thinking block clearing](https://platform.claude.com/docs/en/build-with-claude/context-editing#thinking-block-clearing).
 
 The following diagram shows how tokens are managed when thinking is enabled on a model that strips previous thinking blocks:
 
@@ -80,7 +90,7 @@ The following diagram illustrates how tokens are managed when you combine thinki
   </Step>
 
   <Step title="Tool result handling (turn 2)">
-    * **Input components:** Every block in the first turn and the `tool_result`. You must return the thinking block with the corresponding tool results. This is the only case where you have to return thinking blocks.
+    * **Input components:** Every block in the first turn and the `tool_result`. Return the thinking block with the corresponding tool results.
     * **Output components:** After tool results have been passed back to Claude, Claude responds with only text (no additional thinking until the next `user` message, unless [interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking) is enabled).
     * **Token calculation:** All input and output components count toward the context window, and all output components are billed as output tokens.
   </Step>
@@ -94,8 +104,8 @@ The following diagram illustrates how tokens are managed when you combine thinki
 
 * **Considerations for tool use with thinking:**
 
-  * When you post tool results, you must include the entire unmodified thinking block that accompanies that tool request, including its signature.
-  * The API uses cryptographic signatures to verify thinking block authenticity. If you modify a thinking block, the API returns an error.
+  * When you post tool results, include the entire unmodified thinking block that accompanies that tool request, including its signature.
+  * The API uses cryptographic signatures to verify thinking block authenticity.
 
 <Note>
   Most current Claude models support [interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking), which lets Claude think between tool calls, including after it receives tool results. It is automatic on models with adaptive thinking; Claude Opus 4.5, Claude Sonnet 4.5 (deprecated), and earlier Claude 4 models require the `interleaved-thinking-2025-05-14` beta header, and Claude Haiku 4.5 does not support it.

@@ -57,7 +57,7 @@ A `lapsed` activity means that the check result or the control’s current value
   "organization_uuid": "91012d09-e48b-438e-a489-1bebfd8fa6f9",
   "actor": {
     "type": "user_actor",
-    "email_address": "jane.doe@example.com",
+    "email_address": "priya@example.com",
     "user_id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
     "ip_address": "192.0.2.34",
     "user_agent": "Mozilla/5.0..."
@@ -72,7 +72,7 @@ A `lapsed` activity means that the check result or the control’s current value
 
 Do not read the absence of an activity as a sign that nothing changed. For current results, see [Security posture results reference](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference); its endpoint can omit a control that an activity names.
 
-* Changes from before the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) began recording these activities for the organization, or while the Compliance API was off, never added later.
+* Changes from before the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) began recording these activities for the organization, or while the Compliance API was off. The feed never adds activities for them later.
 * Rarely, a change of any kind.
 * Every end date that arrives: not all get an activity, so do not wait for one.
 * Each time the Security posture page is turned off or on: do not rely on a [detection rule](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/detect-changes) to detect it.

@@ -55,7 +55,7 @@ Without structured outputs, Claude can generate malformed JSON responses or inva
 
 Structured outputs guarantee schema-compliant responses through constrained decoding:
 
-* **Always valid:** No more `JSON.parse()` errors
+* **Always valid:** No JSON parsing errors
 * **Type safe:** Guaranteed field types and required fields
 * **Reliable:** No retries needed for schema violations
 
@@ -203,6 +203,8 @@ Structured outputs guarantee schema-compliant responses through constrained deco
     ```text Output wrap
     name='John Smith' email='john@example.com' plan_interest='Enterprise' demo_requested=True
     ```
+
+    If you know a field’s keys, use a nested Pydantic model, not a `dict`. The SDK sends a `dict` field as an object with empty `properties`, so Claude can only return `{}` for it. If you don’t know the keys in advance, see [Objects with arbitrary keys](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#objects-with-arbitrary-keys).
   </Tab>
 
   <Tab title="TypeScript">
@@ -242,7 +244,7 @@ Structured outputs guarantee schema-compliant responses through constrained deco
 
     The previous example outputs:
 
-    ```javascript Output
+    ```text Output wrap
     {
       name: 'John Smith',
       email: 'john@example.com',
@@ -250,6 +252,8 @@ Structured outputs guarantee schema-compliant responses through constrained deco
       demo_requested: true
     }
     ```
+
+    If you know a field’s keys, use `z.object()`, not `z.record()`. The SDK sends a `z.record()` field as an object with empty `properties`, so Claude can only return `{}` for it. If you don’t know the keys in advance, see [Objects with arbitrary keys](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#objects-with-arbitrary-keys).
   </Tab>
 
   <Tab title="C#">
@@ -397,8 +401,8 @@ Structured outputs guarantee schema-compliant responses through constrained deco
 
       Key points:
 
-      * **Local validation** occurs without sending requests to the remote AI model.
-      * **Remote validation** is also performed by the AI model upon receiving the JSON schema.
+      * **Local validation:** The SDK validates the schema without sending a request.
+      * **Remote validation:** The API also validates the JSON schema when it receives the request.
       * **Version compatibility:** If the SDK version is outdated, local validation might reject a schema that remote validation accepts.
       * **Disabling local validation:** Pass `JsonSchemaLocalValidation.NO` if you encounter compatibility issues:
 
@@ -442,7 +446,7 @@ Structured outputs guarantee schema-compliant responses through constrained deco
       * There are no fields or getter methods in the class
       * All `public` members are annotated with `@JsonIgnore`
       * All non-`public` members lack `@JsonProperty` annotations
-      * A field uses a `Map` type, which produces an empty `"properties"` field
+      * A field uses a `Map` type, which produces an empty `"properties"` field (to avoid this, see [Objects with arbitrary keys](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#objects-with-arbitrary-keys))
     </Accordion>
 
     <Accordion title="Composition and inheritance">
@@ -693,14 +697,14 @@ Structured outputs guarantee schema-compliant responses through constrained deco
           "John Smith (john@example.com) is interested in our Enterprise plan " \
           "and wants to schedule a demo for next Tuesday at 2pm."
       }],
-      output_config: {format: ContactInfo}
+      output_config: { format: ContactInfo }
     )
 
     contact = message.parsed_output
     puts contact
     ```
 
-    Define a class that extends `Anthropic::BaseModel` and pass it to `messages.create()` as `output_config: {format: Model}`. The SDK derives a JSON schema from the class, transforms it, and assigns the parsed result to the response’s `parsed_output` attribute as a typed Ruby object.
+    Define a class that extends `Anthropic::BaseModel` and pass it to `messages.create()` as `output_config: { format: Model }`. The SDK derives a JSON schema from the class, transforms it, and assigns the parsed result to the response’s `parsed_output` attribute as a typed Ruby object.
 
     The previous example outputs:
 
@@ -729,8 +733,8 @@ Structured outputs guarantee schema-compliant responses through constrained deco
       message = client.messages.create(
         model: Anthropic::Model::CLAUDE_OPUS_5_5,
         max_tokens: 1024,
-        messages: [{role: "user", content: "give me some famous numbers"}],
-        output_config: {format: Output}
+        messages: [{ role: "user", content: "give me some famous numbers" }],
+        output_config: { format: Output }
       )
 
       message.parsed_output
@@ -930,7 +934,7 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
 
     The previous example outputs:
 
-    ```javascript Output
+    ```text Output wrap
     { name: 'John Smith', email: 'john@example.com', planInterest: 'Pro' }
     ```
   </Tab>
@@ -1137,12 +1141,13 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
         ])),
     );
 
-    $textBlock = array_find($message->content, static fn ($block): bool => $block->type === 'text');
+    $textBlock = array_find($message->content, static fn ($block): bool => $block instanceof \Anthropic\Messages\TextBlock)
+        ?? throw new \RuntimeException('Expected a text block in the response.');
     $contact = json_decode($textBlock->text, associative: true);
     var_dump($contact);
     ```
 
-    Pass the schema as an associative array to `OutputConfig::with()`, and decode the response with `json_decode()`.
+    Pass the schema as an associative array to `JSONOutputFormat::with()` inside `OutputConfig::with()`, and decode the response with `json_decode()`.
 
     The previous example outputs:
 
@@ -1222,7 +1227,7 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
           "messages": [
             {
               "role": "user",
-              "content": "Extract invoice data from: Invoice #12345, Date: 2024-01-15, Total: $500.00"
+              "content": "Extract invoice data from: Invoice #12345, Date: 2024-01-15, Customer: Acme Corp, 2 widgets at $150.00 each, 1 setup fee at $200.00, Total: $500.00"
             }
           ],
           "output_config": {
@@ -1236,7 +1241,16 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
                   "total_amount": {"type": "number"},
                   "line_items": {
                     "type": "array",
-                    "items": {"type": "object", "additionalProperties": false}
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "description": {"type": "string"},
+                        "quantity": {"type": "number"},
+                        "unit_price": {"type": "number"}
+                      },
+                      "required": ["description", "quantity", "unit_price"],
+                      "additionalProperties": false
+                    }
                   },
                   "customer_name": {"type": "string"}
                 },
@@ -1254,7 +1268,14 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       max_tokens: 4096
       messages:
         - role: user
-          content: "Extract invoice data from: Invoice #12345, Date: 2024-01-15, Total: $500.00"
+          content: |
+            Extract invoice data from:
+            Invoice #12345
+            Date: 2024-01-15
+            Customer: Acme Corp
+            2 widgets at $150.00 each
+            1 setup fee at $200.00
+            Total: $500.00
       output_config:
         format:
           type: json_schema
@@ -1266,7 +1287,14 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
               total_amount: {type: number}
               line_items:
                 type: array
-                items: {type: object, additionalProperties: false}
+                items:
+                  type: object
+                  properties:
+                    description: {type: string}
+                    quantity: {type: number}
+                    unit_price: {type: number}
+                  required: [description, quantity, unit_price]
+                  additionalProperties: false
               customer_name: {type: string}
             required: [invoice_number, date, total_amount, line_items, customer_name]
             additionalProperties: false
@@ -1277,16 +1305,29 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       from pydantic import BaseModel
 
 
+      class LineItem(BaseModel):
+          description: str
+          quantity: float
+          unit_price: float
+
+
       class Invoice(BaseModel):
           invoice_number: str
           date: str
           total_amount: float
-          line_items: list[dict]
+          line_items: list[LineItem]
           customer_name: str
 
 
       client = anthropic.Anthropic()
-      invoice_text = "Invoice #12345, Date: 2024-01-15, Total: $500.00"
+      invoice_text = """
+      Invoice #12345
+      Date: 2024-01-15
+      Customer: Acme Corp
+      2 widgets at $150.00 each
+      1 setup fee at $200.00
+      Total: $500.00
+      """
 
       response = client.messages.parse(
           model="claude-opus-5-5",
@@ -1306,15 +1347,29 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
 
       const client = new Anthropic();
 
+      const LineItemSchema = z.object({
+        description: z.string(),
+        quantity: z.number(),
+        unit_price: z.number()
+      });
+
       const InvoiceSchema = z.object({
         invoice_number: z.string(),
         date: z.string(),
         total_amount: z.number(),
-        line_items: z.array(z.record(z.string(), z.any())),
+        line_items: z.array(LineItemSchema),
         customer_name: z.string()
       });
 
-      const invoiceText = "Invoice #12345, Date: 2024-01-15, Total: $500.00";
+      const invoiceText = `
+      Invoice #12345
+      Date: 2024-01-15
+      Customer: Acme Corp
+      2 widgets at $150.00 each
+      1 setup fee at $200.00
+      Total: $500.00
+      `;
+
       const response = await client.messages.parse({
         model: "claude-opus-5-5",
         max_tokens: 4096,
@@ -1327,7 +1382,14 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       ```csharp C#
       AnthropicClient client = new();
 
-      string invoiceText = "Invoice #12345, Date: 2024-01-15, Total: $500.00";
+      string invoiceText = """
+          Invoice #12345
+          Date: 2024-01-15
+          Customer: Acme Corp
+          2 widgets at $150.00 each
+          1 setup fee at $200.00
+          Total: $500.00
+          """;
 
       var parameters = new MessageCreateParams
       {
@@ -1351,6 +1413,13 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
                               items = new
                               {
                                   type = "object",
+                                  properties = new
+                                  {
+                                      description = new { type = "string" },
+                                      quantity = new { type = "number" },
+                                      unit_price = new { type = "number" },
+                                  },
+                                  required = new[] { "description", "quantity", "unit_price" },
                                   additionalProperties = false,
                               },
                           },
@@ -1371,7 +1440,14 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       ```go Go
       client := anthropic.NewClient()
 
-      invoiceText := "Invoice #12345, Date: 2024-01-15, Total: $500.00"
+      invoiceText := `
+      Invoice #12345
+      Date: 2024-01-15
+      Customer: Acme Corp
+      2 widgets at $150.00 each
+      1 setup fee at $200.00
+      Total: $500.00
+      `
 
       schema := map[string]any{
       	"type":                 "object",
@@ -1429,7 +1505,7 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
           public String description;
 
           @JsonProperty("quantity")
-          public int quantity;
+          public double quantity;
 
           @JsonProperty("unit_price")
           public double unitPrice;
@@ -1455,7 +1531,14 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       void main() {
           AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-          String invoiceText = "Invoice #12345, Date: 2024-01-15, Total: $500.00";
+          String invoiceText = """
+              Invoice #12345
+              Date: 2024-01-15
+              Customer: Acme Corp
+              2 widgets at $150.00 each
+              1 setup fee at $200.00
+              Total: $500.00
+              """;
 
           StructuredMessageCreateParams<Invoice> params = MessageCreateParams.builder()
               .model(Model.CLAUDE_OPUS_5_5)
@@ -1468,15 +1551,28 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
           Invoice invoice = response.content().stream()
               .flatMap(block -> block.text().stream())
               .findFirst().orElseThrow().text();
-          IO.println(invoice.invoiceNumber + ": $" + invoice.totalAmount);
+          IO.println("Invoice " + invoice.invoiceNumber + ": $" + invoice.totalAmount);
+          for (LineItem item : invoice.lineItems) {
+              IO.println(item.quantity + " x " + item.description);
+          }
       }
       ```
 
       ```php PHP
+      use Anthropic\Lib\Attributes\Constrained;
       use Anthropic\Lib\Concerns\StructuredOutputModelTrait;
       use Anthropic\Lib\Contracts\StructuredOutputModel;
 
       $client = new Client();
+
+      class LineItem implements StructuredOutputModel
+      {
+          use StructuredOutputModelTrait;
+
+          public string $description;
+          public float $quantity;
+          public float $unit_price;
+      }
 
       class Invoice implements StructuredOutputModel
       {
@@ -1485,11 +1581,19 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
           public string $invoice_number;
           public string $date;
           public float $total_amount;
+          #[Constrained(itemClass: LineItem::class)]
           public array $line_items;
           public string $customer_name;
       }
 
-      $invoiceText = "Invoice #12345, Date: 2024-01-15, Total: $500.00";
+      $invoiceText = <<<'TEXT'
+      Invoice #12345
+      Date: 2024-01-15
+      Customer: Acme Corp
+      2 widgets at $150.00 each
+      1 setup fee at $200.00
+      Total: $500.00
+      TEXT;
 
       $message = $client->messages->create(
           maxTokens: 4096,
@@ -1503,6 +1607,9 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       $invoice = $message->parsedOutput();
       if ($invoice instanceof Invoice) {
           echo "Invoice {$invoice->invoice_number}: \${$invoice->total_amount}\n";
+          foreach ($invoice->line_items as $item) {
+              echo "{$item->quantity} x {$item->description}\n";
+          }
       }
       ```
 
@@ -1511,7 +1618,8 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
 
       class LineItem < Anthropic::BaseModel
         required :description, String
-        required :amount, Float
+        required :quantity, Float
+        required :unit_price, Float
       end
 
       class Invoice < Anthropic::BaseModel
@@ -1522,19 +1630,27 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
         required :customer_name, String
       end
 
-      invoice_text = "Invoice #12345, Date: 2024-01-15, Total: $500.00"
+      invoice_text = <<~TEXT
+        Invoice #12345
+        Date: 2024-01-15
+        Customer: Acme Corp
+        2 widgets at $150.00 each
+        1 setup fee at $200.00
+        Total: $500.00
+      TEXT
 
       message = client.messages.create(
         model: Anthropic::Model::CLAUDE_OPUS_5_5,
         max_tokens: 4096,
-        output_config: {format: Invoice},
+        output_config: { format: Invoice },
         messages: [
-          {role: "user", content: "Extract invoice data from: #{invoice_text}"}
+          { role: "user", content: "Extract invoice data from: #{invoice_text}" }
         ]
       )
 
       invoice = message.parsed_output
       puts "Invoice #{invoice.invoice_number}: $#{invoice.total_amount}"
+      invoice.line_items.each { |item| puts "#{item.quantity} x #{item.description}" }
       ```
     </CodeGroup>
   </Accordion>
@@ -1657,6 +1773,8 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       ```
 
       ```csharp C#
+      AnthropicClient client = new();
+
       string feedbackText = "Great product, fast shipping!";
 
       var parameters = new MessageCreateParams
@@ -1690,6 +1808,8 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       ```
 
       ```go Go
+      client := anthropic.NewClient()
+
       feedbackText := "Great product, fast shipping!"
 
       schema := map[string]any{
@@ -1814,9 +1934,9 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       message = client.messages.create(
         model: Anthropic::Model::CLAUDE_OPUS_5_5,
         max_tokens: 1024,
-        output_config: {format: Classification},
+        output_config: { format: Classification },
         messages: [
-          {role: "user", content: "Classify this feedback: #{feedback_text}"}
+          { role: "user", content: "Classify this feedback: #{feedback_text}" }
         ]
       )
       puts message.parsed_output
@@ -1839,7 +1959,7 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
           "messages": [
             {
               "role": "user",
-              "content": "Process this request: ..."
+              "content": "Write an API response: request req_2abc3def has an invalid email."
             }
           ],
           "output_config": {
@@ -1849,12 +1969,30 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
                 "type": "object",
                 "properties": {
                   "status": {"type": "string"},
-                  "data": {"type": "object", "additionalProperties": false},
+                  "data": {
+                    "type": "object",
+                    "properties": {"message": {"type": "string"}},
+                    "required": ["message"],
+                    "additionalProperties": false
+                  },
                   "errors": {
                     "type": "array",
-                    "items": {"type": "object", "additionalProperties": false}
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "code": {"type": "string"},
+                        "detail": {"type": "string"}
+                      },
+                      "required": ["code", "detail"],
+                      "additionalProperties": false
+                    }
                   },
-                  "metadata": {"type": "object", "additionalProperties": false}
+                  "metadata": {
+                    "type": "object",
+                    "properties": {"request_id": {"type": "string"}},
+                    "required": ["request_id"],
+                    "additionalProperties": false
+                  }
                 },
                 "required": ["status", "data", "metadata"],
                 "additionalProperties": false
@@ -1878,14 +2016,32 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
                 type: string
               data:
                 type: object
+                properties:
+                  message:
+                    type: string
+                required:
+                  - message
                 additionalProperties: false
               errors:
                 type: array
                 items:
                   type: object
+                  properties:
+                    code:
+                      type: string
+                    detail:
+                      type: string
+                  required:
+                    - code
+                    - detail
                   additionalProperties: false
               metadata:
                 type: object
+                properties:
+                  request_id:
+                    type: string
+                required:
+                  - request_id
                 additionalProperties: false
             required:
               - status
@@ -1894,7 +2050,7 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
             additionalProperties: false
       messages:
         - role: user
-          content: "Process this request: ..."
+          content: "Write an API response: request req_2abc3def has an invalid email."
       YAML
       ```
 
@@ -1904,18 +2060,36 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       client = Anthropic()
 
 
+      class Payload(BaseModel):
+          message: str
+
+
+      class APIError(BaseModel):
+          code: str
+          detail: str
+
+
+      class Metadata(BaseModel):
+          request_id: str
+
+
       class APIResponse(BaseModel):
           status: str
-          data: dict
-          errors: list[dict] | None
-          metadata: dict
+          data: Payload
+          errors: list[APIError] | None = None
+          metadata: Metadata
 
 
       response = client.messages.parse(
           model="claude-opus-5-5",
           max_tokens=1024,
           output_format=APIResponse,
-          messages=[{"role": "user", "content": "Process this request: ..."}],
+          messages=[
+              {
+                  "role": "user",
+                  "content": "Write an API response: request req_2abc3def has an invalid email.",
+              }
+          ],
       )
 
       print(response.parsed_output)
@@ -1929,27 +2103,40 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
 
       const APIResponseSchema = z.object({
         status: z.string(),
-        data: z.record(z.string(), z.any()),
-        errors: z.array(z.record(z.string(), z.any())).optional(),
-        metadata: z.record(z.string(), z.any())
+        data: z.object({ message: z.string() }),
+        errors: z.array(z.object({ code: z.string(), detail: z.string() })).optional(),
+        metadata: z.object({ request_id: z.string() })
       });
 
       const response = await client.messages.parse({
         model: "claude-opus-5-5",
         max_tokens: 1024,
         output_config: { format: zodOutputFormat(APIResponseSchema) },
-        messages: [{ role: "user", content: "Process this request..." }]
+        messages: [
+          {
+            role: "user",
+            content: "Write an API response: request req_2abc3def has an invalid email."
+          }
+        ]
       });
 
       console.log(response.parsed_output);
       ```
 
       ```csharp C#
+      AnthropicClient client = new();
+
       var parameters = new MessageCreateParams
       {
           Model = Model.ClaudeOpus5_5,
           MaxTokens = 1024,
-          Messages = [new UserMessageParam { Content = "Process this request: ..." }],
+          Messages =
+          [
+              new UserMessageParam
+              {
+                  Content = "Write an API response: request req_2abc3def has an invalid email.",
+              },
+          ],
           OutputConfig = new OutputConfig
           {
               Format = new JsonOutputFormat
@@ -1960,13 +2147,35 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
                       ["properties"] = JsonSerializer.SerializeToElement(new
                       {
                           status = new { type = "string" },
-                          data = new { type = "object", additionalProperties = false },
+                          data = new
+                          {
+                              type = "object",
+                              properties = new { message = new { type = "string" } },
+                              required = new[] { "message" },
+                              additionalProperties = false,
+                          },
                           errors = new
                           {
                               type = "array",
-                              items = new { type = "object", additionalProperties = false },
+                              items = new
+                              {
+                                  type = "object",
+                                  properties = new
+                                  {
+                                      code = new { type = "string" },
+                                      detail = new { type = "string" },
+                                  },
+                                  required = new[] { "code", "detail" },
+                                  additionalProperties = false,
+                              },
                           },
-                          metadata = new { type = "object", additionalProperties = false },
+                          metadata = new
+                          {
+                              type = "object",
+                              properties = new { request_id = new { type = "string" } },
+                              required = new[] { "request_id" },
+                              additionalProperties = false,
+                          },
                       }),
                       ["required"] = JsonSerializer.SerializeToElement(new[] { "status", "data", "metadata" }),
                       ["additionalProperties"] = JsonSerializer.SerializeToElement(false),
@@ -1997,17 +2206,30 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       					"data": map[string]any{
       						"type":                 "object",
       						"additionalProperties": false,
+      						"properties": map[string]any{
+      							"message": map[string]any{"type": "string"},
+      						},
+      						"required": []string{"message"},
       					},
       					"errors": map[string]any{
       						"type": "array",
       						"items": map[string]any{
       							"type":                 "object",
       							"additionalProperties": false,
+      							"properties": map[string]any{
+      								"code":   map[string]any{"type": "string"},
+      								"detail": map[string]any{"type": "string"},
+      							},
+      							"required": []string{"code", "detail"},
       						},
       					},
       					"metadata": map[string]any{
       						"type":                 "object",
       						"additionalProperties": false,
+      						"properties": map[string]any{
+      							"request_id": map[string]any{"type": "string"},
+      						},
+      						"required": []string{"request_id"},
       					},
       				},
       				"required": []string{"status", "data", "metadata"},
@@ -2015,7 +2237,9 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       		},
       	},
       	Messages: []anthropic.MessageParam{
-      		anthropic.NewUserMessage(anthropic.NewTextBlock("Process this request: ...")),
+      		anthropic.NewUserMessage(anthropic.NewTextBlock(
+      			"Write an API response: request req_2abc3def has an invalid email.",
+      		)),
       	},
       })
       if err != nil {
@@ -2032,28 +2256,22 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       ```java Java
       import com.fasterxml.jackson.annotation.JsonProperty;
 
-      static class APIData {
+      static class Payload {
           @JsonProperty("message")
           public String message;
-
-          @JsonProperty("resource_id")
-          public String resourceId;
       }
 
       static class APIError {
           @JsonProperty("code")
           public String code;
 
-          @JsonProperty("message")
-          public String message;
+          @JsonProperty("detail")
+          public String detail;
       }
 
-      static class APIMetadata {
+      static class Metadata {
           @JsonProperty("request_id")
           public String requestId;
-
-          @JsonProperty("timestamp")
-          public String timestamp;
       }
 
       static class APIResponse {
@@ -2061,13 +2279,13 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
           public String status;
 
           @JsonProperty("data")
-          public APIData data;
+          public Payload data;
 
           @JsonProperty("errors")
           public List<APIError> errors;
 
           @JsonProperty("metadata")
-          public APIMetadata metadata;
+          public Metadata metadata;
       }
 
       void main() {
@@ -2077,14 +2295,14 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
               .model(Model.CLAUDE_OPUS_5_5)
               .maxTokens(1024L)
               .outputConfig(APIResponse.class)
-              .addUserMessage("Process this request: ...")
+              .addUserMessage("Write an API response: request req_2abc3def has an invalid email.")
               .build();
 
           StructuredMessage<APIResponse> response = client.messages().create(params);
           APIResponse result = response.content().stream()
               .flatMap(block -> block.text().stream())
               .findFirst().orElseThrow().text();
-          IO.println(result.status);
+          IO.println(result.status + ": " + result.data.message);
       }
       ```
 
@@ -2095,11 +2313,27 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
 
       $client = new Client();
 
-      class Payload implements StructuredOutputModel { use StructuredOutputModelTrait; public string $message; }
+      class Payload implements StructuredOutputModel
+      {
+          use StructuredOutputModelTrait;
 
-      class APIError implements StructuredOutputModel { use StructuredOutputModelTrait; public string $code; public string $detail; }
+          public string $message;
+      }
 
-      class Metadata implements StructuredOutputModel { use StructuredOutputModelTrait; public string $request_id; }
+      class APIError implements StructuredOutputModel
+      {
+          use StructuredOutputModelTrait;
+
+          public string $code;
+          public string $detail;
+      }
+
+      class Metadata implements StructuredOutputModel
+      {
+          use StructuredOutputModelTrait;
+
+          public string $request_id;
+      }
 
       class APIResponse implements StructuredOutputModel
       {
@@ -2115,7 +2349,10 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       $message = $client->messages->create(
           maxTokens: 1024,
           messages: [
-              ['role' => 'user', 'content' => 'Process this request: ...']
+              [
+                  'role' => 'user',
+                  'content' => 'Write an API response: request req_2abc3def has an invalid email.',
+              ],
           ],
           model: 'claude-opus-5-5',
           outputConfig: ['format' => APIResponse::class],
@@ -2153,9 +2390,9 @@ To use a JSON schema from a file, an OpenAPI spec, or code that builds it at run
       message = client.messages.create(
         model: Anthropic::Model::CLAUDE_OPUS_5_5,
         max_tokens: 1024,
-        output_config: {format: APIResponse},
+        output_config: { format: APIResponse },
         messages: [
-          {role: "user", content: "Process this request: ..."}
+          { role: "user", content: "Write an API response: request req_2abc3def has an invalid email." }
         ]
       )
       puts message.parsed_output
@@ -2367,6 +2604,8 @@ When combined, Claude can call tools with guaranteed-valid parameters AND return
   ```
 
   ```csharp C#
+  AnthropicClient client = new();
+
   var parameters = new MessageCreateParams
   {
       Model = Model.ClaudeOpus5_5,
@@ -2563,7 +2802,7 @@ When combined, Claude can call tools with guaranteed-valid parameters AND return
     model: Anthropic::Model::CLAUDE_OPUS_5_5,
     max_tokens: 1024,
     messages: [
-      {role: "user", content: "Help me plan a trip to Paris departing May 15, 2026"}
+      { role: "user", content: "Help me plan a trip to Paris departing May 15, 2026" }
     ],
     # JSON outputs: structured response format
     output_config: {
@@ -2572,8 +2811,8 @@ When combined, Claude can call tools with guaranteed-valid parameters AND return
         schema: {
           type: "object",
           properties: {
-            summary: {type: "string"},
-            next_steps: {type: "array", items: {type: "string"}}
+            summary: { type: "string" },
+            next_steps: { type: "array", items: { type: "string" } }
           },
           required: ["summary", "next_steps"],
           additionalProperties: false
@@ -2588,8 +2827,8 @@ When combined, Claude can call tools with guaranteed-valid parameters AND return
         input_schema: {
           type: "object",
           properties: {
-            destination: {type: "string"},
-            date: {type: "string", format: "date"}
+            destination: { type: "string" },
+            date: { type: "string", format: "date" }
           },
           required: ["destination", "date"],
           additionalProperties: false
@@ -2617,7 +2856,7 @@ When using structured outputs, Claude automatically receives an additional syste
 
 * Your input token count is slightly higher.
 * The injected prompt costs you tokens like any other system prompt.
-* Changing the `output_config.format` parameter will invalidate any [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for that conversation thread.
+* Changing the `output_config.format` parameter invalidates any [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for that conversation thread.
 
 ### JSON Schema limitations
 
@@ -2642,7 +2881,7 @@ Structured outputs support standard JSON Schema with some limitations. Both JSON
   * Numerical constraints (such as `minimum`, `maximum`, `multipleOf`)
   * String constraints (`minLength`, `maxLength`)
   * Array constraints beyond `minItems` of 0 or 1
-  * `additionalProperties` set to anything other than `false`
+  * `additionalProperties` set to anything other than `false` (see [Objects with arbitrary keys](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#objects-with-arbitrary-keys))
 
   If you use an unsupported feature, you’ll receive a 400 error with details.
 </Accordion>
@@ -2669,6 +2908,29 @@ Structured outputs support standard JSON Schema with some limitations. Both JSON
   SDK helpers can transform schemas with [constraints not supported by the API](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#json-schema-limitations). See [How SDK transformation works](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#how-sdk-transformation-works).
 </Tip>
 
+#### Objects with arbitrary keys
+
+List every key of an object, either in `properties` or as a field of the class or schema you pass to the SDK. Because `additionalProperties` must be `false`, Claude can only return the keys you list.
+
+The API accepts an object with empty or missing `properties`, but Claude can only return `{}` for it. A map, dictionary, or record type lists no keys, so the Python and TypeScript SDKs send it as an object with empty `properties`. The Java and Ruby SDKs raise an error instead.
+
+If you don’t know the keys in advance, use an array instead. Give each item a `key` and a `value`, as in this schema:
+
+```json
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "key": { "type": "string" },
+      "value": { "type": "string" }
+    },
+    "required": ["key", "value"],
+    "additionalProperties": false
+  }
+}
+```
+
 ### Property ordering
 
 When using structured outputs, properties in objects maintain their defined ordering from your schema, with one important caveat: **required properties appear first, followed by optional properties**.
@@ -2689,7 +2951,7 @@ For example, given this schema:
 }
 ```
 
-The output will order properties as:
+The output orders properties as:
 
 1. `name` (required, in schema order)
 2. `email` (required, in schema order)
@@ -2760,7 +3022,7 @@ The following limits apply to all requests with `output_config.format` or `stric
 | Parameters with union types | 16    | Total parameters that use `anyOf` or type arrays (for example, `"type": ["string", "null"]`) across all strict schemas. These are especially expensive because they create exponential compilation cost. |
 
 <Note>
-  These limits apply to the combined total across all strict schemas in a single request. For example, if you have 4 strict tools with 6 optional parameters each, you’ll reach the 24-parameter limit even though no single tool seems complex.
+  These limits apply to the combined total across all strict schemas in a single request. For example, if you have four strict tools with six optional parameters each, you’ll reach the 24-parameter limit even though no single tool seems complex.
 </Note>
 
 #### Additional internal limits
@@ -2787,7 +3049,7 @@ For persistent issues with valid schemas, [contact support](https://support.clau
 
 The `output_format` parameter has moved to `output_config.format`, and beta headers are no longer required. The `output_format` parameter is deprecated. To use it anyway, add the `structured-outputs-2025-11-13` beta header. Without it, the API returns a 400 error.
 
-The Python SDK (v1.0 and later) does not accept `output_format={...}` on `client.beta.messages.create()` or `count_tokens()` and raises a `TypeError`. Use `output_config` instead. See [Using a raw JSON schema](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#using-a-raw-json-schema) for the updated API shape.
+In the Python SDK (v1.0 and later), a schema dictionary passed as `output_format={...}` raises a `TypeError`. Use `output_config` instead. A Pydantic model passed as `output_format=Model` to `parse()` or `stream()` works with no change and no beta header, because the SDK sends it as `output_config`. See [Using a raw JSON schema](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#using-a-raw-json-schema) for the updated API shape.
 
 ## Feature compatibility
 

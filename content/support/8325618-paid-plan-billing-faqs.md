@@ -54,7 +54,7 @@ A removed card isn't used for future renewals or auto-reload unless you add it b
 
 If you want to use a name other than the one tied to your payment method, check the "Use a different name on invoices" box when adding or updating your payment method in **[Settings > Billing](https://claude.ai/settings/billing)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1794471300&amp;signature=4f3ecf505aff75eb391340b7894ff3b76d5ac78901f09482ca11c2d1f44bb24e&amp;req=dSklFMh6nIZXXPMW1HO4zVXW8WmvbDLPQoNvNFTb5cfx42dvXkTxXcl8fWjD%0AZoyTBkn6tFhvfQv1Rgg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1794510900&amp;signature=dfd0ff55fc95300dd2e4624cf3d7b071ba00a7b904eae815ab1be79d1f8af0ef&amp;req=dSklFMh6nIZXXPMW1HO4zVXW8WmuajPFQoNvNFTb5cfiPQUU9phm8bEh%2BBpC%0Ak0r57RKeBX9hMo1GXm0%3D%0A)
 
 ## How can I edit a paid invoice?
 

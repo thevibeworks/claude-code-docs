@@ -8,7 +8,7 @@
 
 > **Who this is for:** Organization owners who need to understand how their organization is using Claude and how quickly it is consuming credits.
 
-The **Analytics** page shows requests, tokens, spend, top users, and credit balance over time across your organization. Usage figures on this page are compiled from the same metering that enforces your users' spend limits. All times are shown in your browser's time zone.
+The **Analytics** page shows requests, tokens, spend, top users, and credit balance over time across your organization. Usage figures on this page are compiled from the same metering that enforces your users' spend limits. Times are shown in your browser's time zone.
 
 > [!NOTE]
 >
@@ -23,9 +23,11 @@ The **Analytics** page shows requests, tokens, spend, top users, and credit bala
 
 ## Credits (self-managed view only)
 
-When credit data is available, the credit panel displays the **Credits remaining** for the account your organization draws from. It also shows a runway estimate that tells you roughly how many days remain at your organization's own trailing 7-day burn rate. A **Low balance** badge appears as the balance runs low, and a **Depleted** badge replaces it when no credits remain.
+When credit data is available, the credit panel displays the **Credits remaining** for the account your organization draws from, with [how much was used and how much expired](https://claude.com/docs/government/org-admin/billing.md#billing-account) under it. A **Low balance** badge appears as the balance runs low, and a **Depleted** badge replaces it when no credits remain. When credits expire within 30 days, the panel also shows [how much expires next and the last day you can use it](https://claude.com/docs/government/org-admin/billing.md#billing-account), in UTC.
 
-The **Credit burndown** chart plots your balance, with markers on the days credits were added, and projects forward at that rate to the date you are estimated to reach \$0.
+The panel's runway estimate tells you roughly how many days remain at your organization's own 7-day pace, its average daily spend over the trailing 7 days. The estimate leaves out any of the credits shown as expiring that you wouldn't spend in time. When the runway says "until your credits expire", it instead counts the days until your remaining credits expire, because they expire before you would spend them all.
+
+The **Credit burndown** chart plots your balance, with markers on the days credits were added and the days credits expired. It projects forward at the 7-day pace to the date you are estimated to reach \$0. The projection steps down on the last day you can use the credits shown as expiring, by the amount that would go unspent.
 
 ## Active users
 

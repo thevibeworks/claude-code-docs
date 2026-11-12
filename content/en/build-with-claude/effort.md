@@ -138,7 +138,13 @@ Set `output_config.effort` on the request. The following example runs one reques
   };
 
   var message = await client.Messages.Create(parameters);
-  Console.WriteLine(message);
+  foreach (var block in message.Content)
+  {
+      if (block.TryPickText(out var textBlock))
+      {
+          Console.WriteLine(textBlock.Text);
+      }
+  }
   ```
 
   ```go Go
@@ -270,25 +276,41 @@ The per-model recommendations that follow override this table where they differ.
 
 **[Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview) & [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview)** — *For demanding reasoning and long-horizon agentic work*
 
-Claude Fable 5.2 supports all five effort levels. The API default is `high`. Adaptive thinking is always on, so effort is your main control for thinking depth, latency, and cost. Start with `high`. Most of the gain in capability is already present at `high`, and above it, gains are uneven and depend on the task. Step up to `xhigh` for your hardest long-running coding and agentic work, where you’ve measured a gain. Step down to `medium` or `low` where your evals show quality holds. Reserve `max` for measuring the model’s ceiling and for the rare task where time and tokens don’t matter. At `max` the model optimizes for capability without regard to token cost. It runs slower and costs more than at `xhigh`, often for only a small gain. Run an effort sweep on your own evals rather than carrying settings over from Claude Fable 5.1. At `high` and above, set a large `max_tokens`. It’s a hard limit on total output (thinking plus response text). Effort barely changes how long the model’s replies are, so use your prompt to change reply length and tone. The same recommendations apply to Claude Mythos 5.2.
+Claude Fable 5.2 supports all five effort levels. The API default is `high`. Adaptive thinking is always on, so effort is your main control for thinking depth, latency, and cost.
 
-Where your platform supports it, Claude Fable 5.2 and Claude Mythos 5.2 also support [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
+Start with `high`. Most of the gain in capability is already present at `high`, and above it, gains are uneven and depend on the task. Step up to `xhigh` for your hardest long-running coding and agentic work, where you’ve measured a gain. Step down to `medium` or `low` where your evals show quality holds. Reserve `max` for measuring the model’s ceiling and for the rare task where time and tokens don’t matter. At `max` the model optimizes for capability without regard to token cost. It runs slower and costs more than at `xhigh`, often for only a small gain.
+
+Run an effort sweep on your own evals rather than carrying settings over from Claude Fable 5.1. At `high` and above, set a large `max_tokens`. It’s a hard limit on total output (thinking plus response text). Effort barely changes how long the model’s replies are, so use your prompt to change reply length and tone.
+
+The same recommendations apply to Claude Mythos 5.2.
+
+On [supported platforms](https://platform.claude.com/docs/en/build-with-claude/effort-per-message#feature-availability), Claude Fable 5.2 and Claude Mythos 5.2 also support [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
 
 See also: [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2#calibrate-effort)
 
 **[Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview)** — *For long-running agentic coding and knowledge work*
 
-Claude Opus 5.5 supports all five effort levels, and `medium` is the default (Claude Opus 5 and earlier Opus models default to `high`, so a request that omits `effort` runs one level lower than it did on Claude Opus 5). Adaptive thinking is always on and can’t be turned off, so effort is the primary control for how much the model reasons and what a request costs. Run an effort sweep on your own evals rather than carrying settings over from an earlier model, and set a large `max_tokens` at the higher levels: it’s a hard limit on total output (thinking plus response text). Requests that set `thinking: {"type": "disabled"}` return a 400 error at every effort level. Claude Opus 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
+Claude Opus 5.5 supports all five effort levels, and `medium` is the default. Claude Opus 5 and earlier Opus models default to `high`, so a request that omits `effort` runs one level lower on Claude Opus 5.5.
+
+Adaptive thinking is always on and can’t be turned off, so effort is the primary control for how much the model reasons and what a request costs. Requests that set `thinking: {"type": "disabled"}` return a 400 error at every effort level.
+
+Run an effort sweep on your own evals rather than carrying settings over from an earlier model. At `xhigh` or `max`, set a large `max_tokens`. It’s a hard limit on total output (thinking plus response text).
+
+Claude Opus 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
 
 See also: [Prompting Claude Opus 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5)
 
 **[Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview)** — *The best combination of speed and intelligence*
 
-Claude Sonnet 5.5 supports all five effort levels, and `high` is the default on the Claude API. Its levels are recalibrated, so a level doesn’t produce the same amount of thinking as the same level on Claude Sonnet 5. Run a fresh effort sweep on your evals rather than carrying over the setting you used on Claude Sonnet 5. Start with `high` unless your workload is agentic or latency-sensitive. For agentic coding and multistep tool use, start with `medium` for well-specified tasks and move to `high` for harder or longer ones. For chat and other latency-sensitive work, start with `medium` or `low`. Use `xhigh` or `max` only where your evals show a quality gain. Set `max_tokens` with room for thinking and the reply. Thinking counts toward `max_tokens` even when the thinking content isn’t returned. For agentic coding, set `max_tokens` to 128,000, the model’s maximum, and [stream](https://platform.claude.com/docs/en/build-with-claude/streaming) the response.
+Claude Sonnet 5.5 supports all five effort levels, and `high` is the default on the Claude API. Its levels are calibrated differently, so a level doesn’t produce the same amount of thinking as on Claude Sonnet 5. Run a fresh effort sweep on your evals rather than carrying over the setting you used on Claude Sonnet 5.
 
-To turn off up-front thinking, send `thinking: {"type": "between_tools"}` instead of `"disabled"`. It’s the lowest thinking setting on Claude Sonnet 5.5, and it works at `low`, `medium`, and `high` effort. At `xhigh` or `max`, a request with it returns a 400 error, so use adaptive thinking at those levels: omit the `thinking` field or send `thinking: {"type": "adaptive"}`. See [Running without up-front thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#running-without-up-front-thinking).
+Start with `high` unless your workload is agentic or latency-sensitive. For agentic coding and multistep tool use, start with `medium` for well-specified tasks and move to `high` for harder or longer ones. For chat and other latency-sensitive work, start with `medium` or `low`. Use `xhigh` or `max` only where your evals show a quality gain.
 
-Where your platform supports it, Claude Sonnet 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache. With `between_tools`, effort can’t change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
+Set `max_tokens` with room for thinking and the reply. Thinking counts toward `max_tokens` even when the thinking content isn’t returned. For agentic coding, set `max_tokens` to 128,000, the model’s maximum, and stream the response (see [Streaming messages](https://platform.claude.com/docs/en/build-with-claude/streaming)).
+
+To have the model respond without thinking first, send `thinking: {"type": "between_tools"}`, not `"disabled"`. It works at `low`, `medium`, and `high` effort. At `xhigh` or `max` it returns a 400 error, so use adaptive thinking, the default, at those levels. See [Running without up-front thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#running-without-up-front-thinking).
+
+On [supported platforms](https://platform.claude.com/docs/en/build-with-claude/effort-per-message#feature-availability), Claude Sonnet 5.5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache. With `between_tools`, effort can’t change mid-conversation: a per-message `output_config.effort` at a different level returns a 400 error. To vary effort for each turn, use adaptive thinking.
 
 See also: [Prompting Claude Sonnet 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-sonnet-5-5#calibrate-effort)
 
@@ -298,7 +320,7 @@ Claude Haiku 5.5 supports all five effort levels, and `medium` is the default. E
 
 To get less thinking, lower the effort level. You can also send `thinking: {"type": "disabled"}` at `high` effort or below. At `xhigh` or `max`, it returns a 400 error, so use adaptive thinking there: omit the `thinking` field or send `thinking: {"type": "adaptive"}`.
 
-Where your platform supports it, Claude Haiku 5.5 also lets you [change effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache. With `thinking: {"type": "disabled"}`, effort can’t change mid-conversation: a per-message `output_config.effort` that differs from the level in effect returns a 400 error. To vary effort for each turn, use adaptive thinking.
+On [supported platforms](https://platform.claude.com/docs/en/build-with-claude/effort-per-message#feature-availability), Claude Haiku 5.5 also lets you [change effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache. With `thinking: {"type": "disabled"}`, effort can’t change mid-conversation: a per-message `output_config.effort` at a different level returns a 400 error. To vary effort for each turn, use adaptive thinking.
 
 See also: [Prompting Claude Haiku 5.5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking)
 
@@ -330,7 +352,7 @@ On Claude Opus 5, thinking cannot be disabled at `xhigh` or `max` effort: reques
 
 When running Claude Opus 5 at `xhigh` or `max` effort, set a large `max_tokens` so the model has room to think and act across subagents and tool calls. Starting at 64k tokens and tuning from there is a reasonable default.
 
-Where your platform supports it, Claude Opus 5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
+On [supported platforms](https://platform.claude.com/docs/en/build-with-claude/effort-per-message#feature-availability), Claude Opus 5 also supports [changing effort mid-conversation](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) with a per-message `output_config`, which preserves the prompt cache.
 
 See also: [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5)
 
@@ -376,9 +398,9 @@ See also: [Prompting Claude Sonnet 5](https://platform.claude.com/docs/en/build-
 
 **[Claude Sonnet 4.6](https://platform.claude.com/docs/en/models/sonnet-4-6/overview)**
 
-Sonnet 4.6 defaults to `high` effort. Explicitly set effort when using Sonnet 4.6 to avoid unexpected latency:
+Claude Sonnet 4.6 defaults to `high` effort. Set effort explicitly to avoid unexpected latency:
 
-* **Medium effort (recommended default):** Best balance of speed, cost, and performance for most applications. Suitable for agentic coding, tool-heavy workflows, and code generation.
+* **Medium effort (recommended):** Best balance of speed, cost, and performance for most applications. Suitable for agentic coding, tool-heavy workflows, and code generation.
 * **Low effort:** For high-volume or latency-sensitive workloads. Suitable for chat and non-coding use cases where faster turnaround is prioritized.
 * **High effort:** For complex reasoning and tasks where quality matters more than speed or cost.
 * **Max effort:** For tasks requiring the absolute highest capability with no constraints on token spending.
@@ -413,7 +435,7 @@ For per-model thinking availability, see the [per-model configuration table](htt
 
 ## Change effort mid-conversation
 
-You can run later turns of a conversation at a different effort level in two ways: a per-message effort change, which keeps the prompt cache, or a new top-level value on the next request, which starts the cache over.
+You can run later turns of a conversation at a different effort level in two ways. A per-message effort change keeps the prompt cache. A new top-level value on the next request can invalidate all or part of the prompt cache.
 
 ### Per-message effort
 
@@ -421,7 +443,7 @@ You can run later turns of a conversation at a different effort level in two way
 
 ### Top-level effort on the next request
 
-The top-level `output_config.effort` applies to the whole request. To run a later part of a conversation at a different level, set the new value on the next request. Because top-level effort shapes the rendered prompt, changing it between requests doesn’t preserve cached prefixes from earlier turns. If you rely on [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) across a long session and your model doesn’t support per-message effort, pick an effort level at the start and keep it constant.
+The top-level `output_config.effort` applies to the whole request. To run a later part of a conversation at a different level, set the new value on the next request. Because top-level effort shapes the rendered prompt, changing it between requests can invalidate cached prefixes from earlier turns. If you rely on [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) across a long session and your model doesn’t support per-message effort, pick an effort level at the start and keep it constant.
 
 ## Best practices
 
@@ -429,7 +451,7 @@ The top-level `output_config.effort` applies to the whole request. To run a late
 2. **Use low for speed-sensitive or simple tasks:** When latency matters or tasks are straightforward, low effort can significantly reduce response times and costs.
 3. **Test your use case:** The impact of effort levels varies by task type. Evaluate performance on your specific use cases before deploying.
 4. **Consider dynamic effort:** Adjust effort based on task complexity. Simple queries might warrant low effort, whereas agentic coding and complex reasoning benefit from high effort. See the next item before varying it within one conversation.
-5. **Hold top-level effort constant within cached conversations:** Changing the top-level effort value between requests invalidates [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), so vary it across workloads rather than within a conversation that relies on cache hits. On models that support it, use a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) change instead, which preserves the cache. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).
+5. **Hold top-level effort constant within cached conversations:** Changing the top-level effort value between requests can invalidate all or part of the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching), so vary it across workloads rather than within a conversation that relies on cache hits. On models that support it, use a [per-message effort](https://platform.claude.com/docs/en/build-with-claude/effort-per-message) change instead, which preserves the cache. See [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching).
 
 ## Next steps
 

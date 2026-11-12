@@ -33,13 +33,13 @@ Use the **Export** menu to generate deployment artifacts for a fleet:
 | `.mobileconfig` profile | Jamf or any macOS MDM |
 | `.reg` policy file | Intune, Group Policy, or any Windows MDM |
 | ADMX template (`.zip`) | Intune or Group Policy; a schema-only template, you enter values in the management console |
-| Profile Manifest (`.plist`) | Jamf, ProfileCreator, or similar macOS tools; a schema-only template, you enter values in your tool |
+| Profile Manifest (`.plist`) | A profile editor such as iMazing Profile Editor or ProfileCreator; a schema-only template, you enter values there to build the profile that your MDM installs |
 | JSON config | The response body for a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), a file to import into the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#start-from-an-existing-configuration-file), or a file that a user loads with **Import configuration…** on a device without MDM |
 | Firewall allowlist (`.txt`) | Your firewall or network team |
 
 See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) or [Deploy with a bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) to distribute what you exported.
 
-When a managed profile is already present on the device, the window opens in read-only mode and shows the deployed values. Its **Export** menu offers **JSON config (redacted)**, a file to [import into the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#start-from-an-existing-configuration-file). This option requires Claude Desktop 4.23118.0 or later. Author new configurations from a device without a managed profile.
+When a managed profile on the device sets any key other than the [app-behavior keys and the keys treated like them](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence), the window opens in read-only mode and shows the deployed values. Its **Export** menu offers **JSON config (redacted)**, a file to [import into the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#start-from-an-existing-configuration-file). This option requires Claude Desktop 4.23118.0 or later. Author new configurations from a device without such a profile.
 
 ### Set up a device without MDM
 

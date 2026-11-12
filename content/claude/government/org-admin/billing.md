@@ -18,9 +18,14 @@ A **billing account** is the funding pool that pays for one or more organization
 
 The page shows the account's available balance if your organization uses self-managed seat tiers and either manages the account or is the only organization on it. Otherwise it says why no balance is shown. The balance is shared by every organization the account funds. Your organization's usage against the account balance is shown on the [Analytics](https://claude.com/docs/government/org-admin/analytics.md) page.
 
+Under the balance, the page shows:
+
+* **Used and expired.** How much was used and how much expired unspent since credit was last added, for example "\$20,000.00 used (5%) · \$280,000.00 expired". With the balance, they add up to the total beside it, and both return to zero the next time credit is added. The bar's length shows only what was used, and its color follows the spend alerts.
+* **Expiring next.** When credits expire within 30 days, how much expires next and the last day (in UTC) you can use it, for example "\$5,000.00 expires on Mar 31, 2027".
+
 The page also shows the [spend caps](https://claude.com/docs/government/tenant-admin/credits.md#how-billing-works) currently set on your organization. These caps are set by your tenant administrator and cannot be changed here. A cap of \$0 pauses your organization's spending from the account.
 
-As the account's balance runs low, and again when it runs out and requests are refused, a spend-alert banner appears on every page of the organization admin portal and an email is sent to your organization's Owners and Primary Owners. The banner stays in place until Anthropic adds more credits to the account. People on Anthropic-managed seat tiers keep working, so [moving someone to one](https://claude.com/docs/government/org-admin/users.md#assigning-a-seat-tier) gets them working again. An organization that has only Anthropic-managed seat tiers gets neither banner nor email, so moving everyone to them and [deleting your self-managed tiers](https://claude.com/docs/government/org-admin/seat-tiers.md#deleting-a-tier) also clears the banner.
+As the account's balance runs low, and again when it runs out and requests are refused, a spend-alert banner appears on every page of the organization admin portal and an email is sent to your organization's Owners and Primary Owners. For an organization that can see the balance, both say what percentage of its credits is left, not counting credits that expired. The banner stays in place until Anthropic adds more credits to the account. People on Anthropic-managed seat tiers keep working, so [moving someone to one](https://claude.com/docs/government/org-admin/users.md#assigning-a-seat-tier) gets them working again. An organization that has only Anthropic-managed seat tiers gets neither banner nor email, so moving everyone to them and [deleting your self-managed tiers](https://claude.com/docs/government/org-admin/seat-tiers.md#deleting-a-tier) also clears the banner.
 
 ## Seats
 

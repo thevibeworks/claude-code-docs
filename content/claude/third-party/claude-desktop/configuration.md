@@ -61,6 +61,7 @@
 | [`inferenceFoundryTenantId`](#inferencefoundrytenantid) | Entra ID tenant ID | Connection | Admin Console |
 | [`inferenceFoundryClientId`](#inferencefoundryclientid) | Entra ID client ID | Connection | Admin Console |
 | [`inferenceFoundryAuthFlow`](#inferencefoundryauthflow) | Entra ID sign-in flow | Connection | Admin Console |
+| [`enforceConsoleSignInOrgList`](#enforceconsolesigninorglist) | Enforce Required organization for Claude Console sign-in | Connection | |
 | [`modelDiscoveryEnabled`](#modeldiscoveryenabled) | Model discovery | Connection | Admin Console |
 | [`modelPrefer1mContext`](#modelprefer1mcontext) | Use 1M wherever it’s available | Connection | Admin Console |
 | [`inferenceModels`](#inferencemodels) | Model list | Connection | Admin Console |
@@ -78,6 +79,7 @@
 | [`sshConfigs`](#sshconfigs) | SSH connections | Capabilities | Admin Console |
 | [`sshClientPath`](#sshclientpath) | SSH client program | Capabilities | Admin Console |
 | [`sshTransport`](#sshtransport) | SSH connection engine | Capabilities | Admin Console |
+| [`remoteFileDownloads`](#remotefiledownloads) | SSH and WSL file downloads | Capabilities | Admin Console |
 | [`chatTabEnabled`](#chattabenabled) | Allow Chat | Capabilities | Admin Console |
 | [`desktopHome`](#desktophome) | Desktop home | Capabilities | Admin Console |
 | [`chatAdvancedFileAnalysisEnabled`](#chatadvancedfileanalysisenabled) | Advanced file analysis | Capabilities | Admin Console |
@@ -85,6 +87,7 @@
 | [`allowedWorkspaceFolders`](#allowedworkspacefolders) | Allowed workspace folders | Capabilities | Admin Console |
 | [`blockReadsOutsideWorkingDirectories`](#blockreadsoutsideworkingdirectories) | Block reads outside working directories | Capabilities | Admin Console |
 | [`autoModeEnabled`](#automodeenabled) | Allow Auto mode | Capabilities | Admin Console |
+| [`autoModeClassifierModel`](#automodeclassifiermodel) | Auto mode classifier model | Capabilities | Admin Console |
 | [`disableBypassPermissionsMode`](#disablebypasspermissionsmode) | Disable bypass permissions mode | Capabilities | Admin Console |
 | [`disableBundledSkills`](#disablebundledskills) | Disable bundled skills and workflows | Capabilities | Admin Console |
 | [`skillCreationEnabled`](#skillcreationenabled) | Allow user-created skills | Capabilities | Admin Console |
@@ -113,6 +116,7 @@
 | [`builtinBrowserDefaultDomainPolicy`](#builtinbrowserdefaultdomainpolicy) | Default site policy in the built-in browser | Capabilities | Admin Console |
 | [`builtinBrowserAllowedDomains`](#builtinbrowseralloweddomains) | Allowed sites in the built-in browser | Capabilities | Admin Console |
 | [`builtinBrowserBlockedDomains`](#builtinbrowserblockeddomains) | Blocked sites in the built-in browser | Capabilities | Admin Console |
+| [`builtinBrowserClientCertificateHosts`](#builtinbrowserclientcertificatehosts) | Sites allowed a client certificate in the built-in browser and preview panes | Capabilities | |
 | [`claudeAiImport`](#claudeaiimport) | Claude.ai data import | Capabilities | Admin Console |
 | [`managedMcpServers`](#managedmcpservers) | Managed MCP servers | Connectors | Admin Console |
 | [`mcpPersistentAlwaysAllowEnabled`](#mcppersistentalwaysallowenabled) | Allow persistent tool approvals | Connectors | Admin Console |
@@ -157,6 +161,7 @@
 | [`endUserAttribution`](#enduserattribution) | End-user attribution | Appearance | Admin Console |
 | [`deploymentDisplayName`](#deploymentdisplayname) | Deployment display name | Appearance | Admin Console |
 | [`deploymentDisplaySubtitle`](#deploymentdisplaysubtitle) | Deployment display subtitle | Appearance | |
+| [`deploymentLogo`](#deploymentlogo) | Deployment logo | Appearance | |
 | [`disableConfigDeprecationWarnings`](#disableconfigdeprecationwarnings) | Hide configuration deprecation warnings | Appearance | Admin Console |
 | [`organizationAnnouncement`](#organizationannouncement) | Organization announcement | Appearance | Admin Console |
 | [`banner`](#banner) | Organization banner | Appearance | Admin Console |
@@ -1105,6 +1110,30 @@ One of: `device-code`, `browser`, `broker`
 
 ***
 
+### Authentication
+
+#### `enforceConsoleSignInOrgList`
+
+boolean
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
+
+Since 5.11492.0
+
+**Enforce Required organization for Claude Console sign-in.** Only organizations in Required organization can sign in with Claude Console. Off or unset: others still work, with a warning.
+
+[Admin Console](#the-works-with-column): Not available.
+
+> [accordion] More detail
+>
+> MDM profile only. Applies where the profile sets `forceLoginOrgUUID` and uses Claude Console sign-in with the Anthropic (Claude API) provider.
+>
+> Off or unset, an unlisted organization’s sign-in still works, with a configuration warning in main.log. When on, Chat, Cowork, and Code don’t start on it, and the app renews the saved sign-in with Anthropic at each launch. If that fails, no session starts.
+>
+> Before you turn it on, add your Claude Console organization’s ID to the list. Your Claude organization’s ID doesn’t cover it. People with a key saved by an earlier version must then sign in again. An unreadable value counts as on, and a `[]` or unreadable list then allows no organization. Update all devices first. An earlier version ignores this key, and on Linux can reject the whole file.
+
+***
+
 ### Models
 
 #### `modelDiscoveryEnabled`
@@ -1487,6 +1516,35 @@ One of: `auto`, `system-openssh`, `builtin`
 
 ***
 
+#### `remoteFileDownloads`
+
+enum
+
+Beta (The feature that the key configures is in beta.)
+
+Since 5.1231.0
+
+**SSH and WSL file downloads.** Which files users can download from an SSH host or WSL in Code. Unset: documents, images, and small text files.
+
+One of: `all`, `limited`, `none`
+
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md)
+
+> [accordion] More detail
+>
+> `all` is a new way to take files off a host in bulk where devices block `ssh`, with no app log of the files downloaded.
+>
+> `none` is not a security boundary: users can still open the files.
+>
+> In an MDM profile:
+>
+> * Update all devices first: older versions can lose settings.
+> * If MDM sets your connection keys, set it beside them. On Windows, machine policy hides per-user policy.
+> * Alone or beside app-behavior keys, it wins over the console. Otherwise a server or console that omits it wins.
+> * Alone, it marks the device as managed, like any key. Among other things, WSL sessions need a machine-wide `disableWslSessions` of `false`: see its help. Shell commands can lose network until the user lists hosts in Setup. `coworkEgressAllowedHosts` here would replace the user's configuration.
+
+***
+
 ### Chat surface
 
 #### `chatTabEnabled`
@@ -1640,6 +1698,22 @@ booleanSince 1.10628.0
 > By default on a gateway, Auto mode's check calls `claude-sonnet-5`. Your gateway must accept that ID and the `anthropic-beta` value `context-1m-2025-08-07`. If you set `inferenceModels`, list that ID, or an Opus or older Sonnet entry tagged with its tier, there and in any group's model list. If not, Auto mode can block actions it would normally allow.
 >
 > In Cowork, while Auto mode runs, each shell command waits for this check (usually one more request). If no check can be made, the command is refused. On a model that can't run Auto mode, the task switches to Manually approve and shell commands skip this check. A plugin whose start hook sends a task's first message turns this check off for that task.
+
+***
+
+#### `autoModeClassifierModel`
+
+stringSince 5.11492.0
+
+**Auto mode classifier model.** The model that Claude Code’s built-in safety check uses to review actions. If unset, Claude Code chooses the model.
+
+> [accordion] More detail
+>
+> Actions your provider reviews itself don't use this model.
+>
+> Use your provider's ID for an Anthropic model, or this setting counts as unset. If you set `inferenceModels`, also list the ID there and in any group's model list. If your provider lacks the model, the built-in safety check blocks every action it reviews.
+>
+> Don't use Claude Opus 5, Sonnet 5.5 or Opus 5.5: they can't do this review. Weaker models may allow what the default would block.
 
 ***
 
@@ -1839,7 +1913,7 @@ booleanSince 1.37937.0
 
 object: name → valueSince 1.8089.0
 
-**Built-in tool policy.** Approval per tool or rule such as Bash(curl \*). “ask” prompts the user before each matching call. To block, use Disabled built-in tools.
+**Built-in tool policy.** Approval per tool or rule such as Bash(curl \*). With “ask”, each matching call needs user approval. To block, use Disabled built-in tools.
 
 > [accordion] More detail
 >
@@ -2089,6 +2163,24 @@ string\[]Since 2.2553.0
 
 ***
 
+#### `builtinBrowserClientCertificateHosts`
+
+string\[]
+
+MDM only (You can set the key only in an MDM profile or the local configuration file. Claude Desktop ignores it in a bootstrap server's response. Where a key's description says MDM profile only, the local configuration file does not count either.)
+
+Since 5.11492.0
+
+**Sites allowed a client certificate in the built-in browser and preview panes.** Sites that get a client certificate from the device’s store when they ask for one in the built-in browser or a preview pane. Unset: none.
+
+[Admin Console](#the-works-with-column): Not available.
+
+> [accordion] More detail
+>
+> Entries use the `coworkEgressAllowedHosts` format: `host`, `host:port`, or `*.example.com` for its subdomains only. An IPv6 address goes in brackets, such as `[2001:db8::5]`, and a single-label name such as `intranet` is matched exactly. A bare `*` admits every site, as before this setting. A listed site, such as a TLS-inspecting proxy, gets the first matching certificate without asking. Other sites get none from these panes, which also make no background requests to a host you declared unless an entry names it. The app’s own windows and connections are unaffected. Only machine-wide device management can set it: a value from per-user Windows policy or the local configuration file is shown but not applied. A change applies at the next start.
+
+***
+
 ### Claude.ai data import
 
 #### `claudeAiImport`
@@ -2123,14 +2215,14 @@ objectSince 1.10628.0
 >
 > > [accordion] More detail
 > >
-> > Unset is off, except in Admin Console organizations, where it is on unless an admin turns it off. Without the Admin Console, also set `deploymentOrganizationUuid`. Only sessions stored before you set it are copied.
+> > Unset is off except in Admin Console organizations. Without the Admin Console, also set `deploymentOrganizationUuid`: only sessions stored before you set it are copied.
 > >
-> > Without asking the user, it brings back more than sessions, including:
+> > Most copied Cowork and Chat sessions continue with no prompt to confirm. Without asking, it copies more, including:
 > >
-> > * The user's Cowork memory, global instructions, Instructions for Claude and project descriptions, which are used at once, unreviewed.
-> > * The folders connected to Cowork projects and sessions. Claude can read and change their files, as under the earlier configuration.
-> > * Scheduled tasks. A task that was on runs at its next scheduled time.
-> > * Uploaded plugins, unless `userPluginUploadsEnabled` is off. They can run programs on the device.
+> > * Cowork memory, global instructions, Instructions for Claude and project descriptions, used at once, unreviewed.
+> > * Folders connected to Cowork projects and sessions. Claude can read and change their files.
+> > * Scheduled tasks, which run on schedule if they were on. A task in Auto or bypass permissions mode gets Auto mode if its tab then offers it (`autoModeEnabled`).
+> > * Uploaded plugins, unless `userPluginUploadsEnabled` is off. They can run programs.
 > > * Saved skills, unless `skillCreationEnabled` is off.
 >
 > **exportEnabled** `boolean` (default: false)
@@ -2190,11 +2282,13 @@ object\[]Since 1.2581.0
 >
 > **toolPolicy** `object: name → value`
 >
-> Sets approval for listed tools, and users choose the rest, but “allow” doesn’t pre-approve tools in Code sessions on the device or over SSH.
+> Sets approval for listed tools. A plugin’s own code can call unlisted tools without approval. To stop that, add them as “blocked”.
 >
 > > [accordion] More detail
 > >
-> > Also applies to an installed plugin's server that matches this entry by URL, or else by name (letter case is ignored).
+> > `allow` does not pre-approve Claude's own calls in Code sessions on the device or over SSH.
+> >
+> > The policy also applies to an installed plugin's server that matches this entry by URL, or else by name. Use the server's exact name.
 > >
 > > * That server follows this entry instead of `orgPluginSettings`, even if the entry sets no `toolPolicy`. A built-in entry (one with `server`) applies only if it sets one. A local entry applies only where it has a `command`.
 > > * For a server that only a plugin runs, use an entry with `transport: "policy-only"`.
@@ -2239,6 +2333,29 @@ object\[]Since 1.2581.0
 > > **scope** `string`
 > >
 > > What the server may request at sign-in. If blank, Desktop’s default read set is used.
+> >
+> > **sensitivityLabels** `object[]`
+> >
+> > Blocks Outlook email and Word, Excel, PowerPoint, PDF and MP4 files in OneDrive and SharePoint with these Purview labels.
+> >
+> > > [accordion] More detail
+> > >
+> > > * **Checked:** files by extension, and email with its attachments by the email's label. Word, Excel, PowerPoint and PDF attachments are also checked by their own label, except .doc, .xls and .ppt attachments. OneNote, Loop and Whiteboard items are refused.
+> > > * **Not checked:** new files and new email, calendar events, Teams messages, site pages and meeting transcripts. Nor are files in a folder that is moved, copied or deleted.
+> > > * **Search** can show a blocked file's name or an email's headers until Microsoft indexes the label.
+> > > * **Tenant:** `tenantId` must be your tenant's GUID. Give other Microsoft 365 entries that can reach your tenant the GUID and this list too, or remove them.
+> > >
+> > > Update all devices first: an older version blocks only files, or nothing.
+> >
+> > > [accordion] Child attributes (2)
+> > >
+> > > **sensitivityLabels.labelId** `string` *required*
+> > >
+> > > The Purview label’s GUID, not its name. A parent label does not cover its sublabels: list each sublabel too.
+> > >
+> > > **sensitivityLabels.effect** `string` *required*
+> > >
+> > > What the connector does with files and email that carry the label. The only effect is “block”: the connector refuses to read or change them.
 >
 > > [tab] websearch
 > >
@@ -2311,7 +2428,7 @@ object\[]Since 1.2581.0
 > > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`.
 > > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
 > > > * A mistake under any operating system drops the server on all of them.
-> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop an entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
+> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop a local entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
 > >
 > > > [accordion] Child attributes (3)
 > > >
@@ -2359,7 +2476,7 @@ object\[]Since 1.2581.0
 > >
 > > > [accordion] More detail
 > > >
-> > > Every tool that can change something asks before each call unless `toolPolicy` says otherwise.
+> > > Every tool that can change something needs approval for each call unless `toolPolicy` says otherwise.
 > > >
 > > > These tools cannot be set looser than `ask`, and `allow` is treated as `ask`: `merge_pull_request`, `push_files`, `create_or_update_file`, `delete_file`, `actions_run_trigger`, `pull_request_review_write`, `delete_repository`. Where no prompt can be shown, their calls are refused.
 > >
@@ -2568,7 +2685,7 @@ object\[]Since 1.2581.0
 > > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`.
 > > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
 > > > * A mistake under any operating system drops the server on all of them.
-> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop an entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
+> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop a local entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
 > >
 > > > [accordion] Child attributes (3)
 > > >
@@ -2697,7 +2814,7 @@ object\[]Since 1.2581.0
 > > > * A local (`stdio`) entry can repeat `command`, `args`, `env`, `envHelper` and `envHelperArgs`.
 > > > * A remote or web search entry can repeat `headersHelper` and `headersHelperArgs`. If it gives `headersHelper` here, it needs its own too.
 > > > * A mistake under any operating system drops the server on all of them.
-> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop an entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
+> > > * Older versions ignore this setting and use the entry's own values. They and some later versions drop a local entry with no `command` of its own. Until all devices are updated, put the Windows values in the entry itself.
 > >
 > > > [accordion] Child attributes (3)
 > > >
@@ -2746,7 +2863,7 @@ object\[]Since 1.2581.0
 > > >
 > > > For a `policy-only` entry:
 > > >
-> > > * Set `name` to the server's name as the plugin declares it (letter case is ignored), and `toolPolicy` to the permissions. A name that matches no installed plugin server does nothing.
+> > > * Set `name` to the server's name as the plugin declares it, capitals included. Set `toolPolicy` to the permissions. A name that matches no installed plugin server does nothing.
 > > > * It takes priority over `orgPluginSettings` for that server. With no `toolPolicy`, the server is left unrestricted.
 > > > * An older version drops the entry and applies `orgPluginSettings` instead. Until all devices are updated, keep the same permissions there, and do not deploy a list made only of `policy-only` entries.
 
@@ -2784,13 +2901,15 @@ integerRange: 0–3,650Since 2.7032.0
 
 booleanDefault: trueSince 1.2581.0
 
-**Allow local MCP servers.** Lets users run local (stdio) MCP servers added in Developer settings. On third-party deployments, off also stops plugins’ local servers.
+**Allow local MCP servers.** Lets users run local (stdio) MCP servers added in Developer settings. On third-party deployments, off also stops plugins’ local MCP servers.
 
 > [accordion] More detail
 >
-> On third-party deployments, `false` covers `.mcpb` bundles and plugins from every marketplace, your organization's included. Plugins in the org-plugins directory on the device are not affected. In Code, it also stops the local servers that a user or a project configures for Claude Code.
+> On third-party deployments, `false` covers `.mcpb` bundles and plugins from every marketplace, your organization's included. In Code there, it also stops a user's or a project's own local MCP servers. Plugins in the org-plugins directory on the device are not affected.
 >
-> When `false` comes from an MDM profile, the app starts only the local `managedMcpServers` entries in that same profile, exactly as written there. A `false` from any other source does not do this.
+> Other plugin code, such as hooks and language servers, is not covered.
+>
+> A `false` from an MDM profile limits local `managedMcpServers` entries to those in that same profile, exactly as written there.
 >
 > Claude Code's own managed settings take priority by default.
 
@@ -3004,6 +3123,12 @@ stringSince 1.2581.0
 
 **OTLP endpoint.** Where OpenTelemetry logs and metrics are sent. Leave blank to disable.
 
+> [accordion] More detail
+>
+> Code sessions on an SSH host or in WSL send to this collector too. Their telemetry includes `process.owner` (the OS login name on the computer that runs the app) and, unless `endUserAttribution` is off, `enduser.id`.
+>
+> An SSH host must be able to reach the address. If the address is a loopback address, sessions over SSH send nothing to it.
+
 ***
 
 #### `otlpProtocol`
@@ -3194,6 +3319,7 @@ integerRange: 1–72Since 3.6556.1
 > * Only time with the app open and the device awake counts toward the hours.
 > * Idle means 10 minutes without input. Where the system reports no idle time, as some Wayland sessions do, an unset key never restarts: set a number.
 > * The restart waits while Claude is mid-task on the device.
+> * With no number set, on macOS it also waits while the keychain is locked, for up to 72 hours.
 >
 > It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
@@ -3207,7 +3333,7 @@ integerRange: 1–72Since 1.2581.0
 
 > [accordion] More detail
 >
-> * **Unset:** after 72 hours the app restarts once the device has been idle for 10 minutes.
+> * **Unset:** after 72 hours the app restarts once the device has been idle for 10 minutes. On macOS, it also waits while the keychain is locked, for up to 72 hours.
 > * **Any number, even 72:** the app restarts when the time is up, whether or not the user is active.
 >
 > In both cases the restart waits while Claude is mid-task on the device, or while the update server gives no answer.
@@ -3462,6 +3588,23 @@ stringSince 1.24012.0
 
 ***
 
+### `deploymentLogo`
+
+stringSince 5.11492.0
+
+**Deployment logo.** A logo shown beside the Organization announcement. Paste a PNG image as a base64 data: URI. Unset: no logo.
+
+[Admin Console](#the-works-with-column): Not available.
+
+> [accordion] More detail
+>
+> * **Form:** `data:image/png;base64,` and then the file's base64 text. Line breaks are ignored. A web address is not read.
+> * **Size:** up to 32,768 characters, a file of about 24 KB, and 1,024 pixels a side.
+> * **Shape:** a picture that is not square is cropped.
+> * **MDM:** alone in a profile, or with app-behavior keys only, it keeps other settings. Such a profile has the costs listed under `organizationAnnouncement`: read them first.
+
+***
+
 ### `disableConfigDeprecationWarnings`
 
 booleanSince 1.40609.0
@@ -3547,6 +3690,8 @@ Consent required (A value that a bootstrap server delivers applies only after th
 Since 4.4212.0
 
 **Status line.** Claude runs this program and shows the first line it prints above the message box in Cowork, Chat and Code. Off unless set.
+
+[Guide for this setting](https://claude.com/docs/third-party/claude-desktop/status-line.md)
 
 > [accordion] More detail
 >
@@ -3769,7 +3914,7 @@ object\[]Since 1.8089.0
 >
 > **serverName** `string` *required*
 >
-> Name of the plugin-delivered MCP server this policy applies to.
+> Name of the plugin-delivered MCP server this policy applies to, as the plugin declares it, capitals included.
 >
 > **tools** `object[]`
 >
@@ -3783,7 +3928,7 @@ object\[]Since 1.8089.0
 > >
 > > **tools.permission** `enum` *required*
 > >
-> > Approval state locked for this tool. Unlisted tools stay user-controlled.
+> > Locks approval for this tool. A plugin’s own code can call unlisted tools without approval. To stop that, add them as “blocked”.
 > >
 > > One of: `allow`, `ask`, `blocked`
 

@@ -16,19 +16,21 @@ To take your Claude Desktop data to a new device, see [Move your data to another
 
 Claude Desktop can automatically copy into your history the Cowork, Chat, and Code sessions it stored on this computer under an earlier third-party configuration. In an organization managed from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), this automatic copy is on unless it's turned off in your organization's settings. In any other deployment it runs only if your administrator turns it on.
 
-Along with the sessions, the automatic copy brings over other things you had under the earlier configuration. Claude Desktop 5.1231.0 or later brings these items, and [earlier versions bring less](#if-the-automatic-copy-ran-on-an-earlier-version):
+Along with the sessions, the automatic copy brings over other things you had under the earlier configuration. Claude Desktop 5.11492.0 or later brings these items, and [earlier versions bring less](#if-the-automatic-copy-ran-on-an-earlier-version):
 
 * **Projects**: your Cowork projects, with their descriptions, folders, and sidebar pins. New tasks use a project's instructions only after you accept them. A project's links aren't copied. Add them again.
 * **Memory and instructions**: your Cowork memory, unless you paused it, and your global instructions. New tasks use them right away. Your **Instructions for Claude** (**Settings → General**) come over too. Instructions you already set under the new configuration are kept.
-* **Scheduled tasks**: your scheduled tasks from Cowork and Code. Each stays on or off as it was. A task arrives with **Default model**, and a Cowork task arrives on **Manually approve**. Set the model again, and set the approval mode again where the app offers **Automatically approve**. Until you do, a run waits for you each time it needs an approval. A task starts with no runs, and its earlier runs are listed as ordinary sessions.
+* **Scheduled tasks**: your scheduled tasks from Cowork and Code. Each stays on or off as it was. A task arrives with **Default model**. Set the model again. A task that ran on **Automatically approve** or in bypass permissions mode arrives on **Automatically approve** where the app offers that mode. Any other task arrives without its approval mode. Until you set the mode again, a run waits for you each time it needs an approval. A task's **History** lists its earlier runs, which are also listed as ordinary sessions.
 * **Uploaded plugins**: plugins you uploaded, unless your administrator has turned off plugin uploads ([`userPluginUploadsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled)). Each stays on or off as it was.
 * **Saved skills**: skills you saved, unless your administrator has turned off skill creation ([`skillCreationEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#skillcreationenabled)).
 * **Your organization's optional plugins**: the ones you had turned on are turned on again, if they come from your organization's plugins directory or from a marketplace hosted at the address of its gateway or bootstrap server. With Claude Desktop 2.42304.0 or later, plugins from other marketplaces, such as a git repository, are turned on again too, if your administrator offers the marketplace from the same repository or URL as before. On a computer where the copy already ran, they're turned on the first time the app starts on 2.42304.0 or later.
 * **Artifacts**: your Cowork artifacts, with their earlier versions.
+* **Attached files**: the files you attached to Cowork and Chat sessions, except configuration files such as `CLAUDE.md`, `.mcp.json`, and `.env`. Some files can stay behind when the disk is nearly full.
+* **Imported data**: sessions you imported under the earlier configuration from a [Claude Desktop export](#move-your-data-to-another-device) or a folder. The projects and scheduled tasks of an export you imported with **Import as my own** come over too.
 
-The copy runs once on each computer, in the background shortly after the app starts, and the sessions then appear in the sidebar. Your original sessions stay where they were, and sessions you already imported are skipped. The copy is listed under **Import history** in **Settings → Import & export**, where the **Remove** button deletes the copied sessions and the projects copied with them. The app doesn't copy them again later.
+The copy runs once on each computer, in the background shortly after the app starts, and the sessions then appear in the sidebar. Your original sessions stay where they were, and sessions you already imported under the new configuration are skipped. The copy is listed under **Import history** in **Settings → Import & export**, where the **Remove** button deletes the copied sessions and the projects copied with them. The app doesn't copy them again later.
 
-Copied sessions go back into custom groups of the same name in the sidebar, and Cowork sessions keep their connected folders. Sessions and scheduled tasks arrive unpinned. The copy doesn't bring connector sign-ins, files you attached to sessions, or **Always allow** choices. It also doesn't bring app preferences such as the model, per-tool permissions, and notifications. Set them up again as you need them.
+Copied sessions go back into custom groups of the same name in the sidebar, and Cowork sessions keep their connected folders. Sessions and scheduled tasks arrive unpinned. The copy doesn't bring connector sign-ins, files you attached to Code sessions, or **Always allow** choices. It also doesn't bring app preferences such as the model, per-tool permissions, and notifications. Set them up again as you need them.
 
 Use the [import wizard](#open-the-import-wizard) for your claude.ai conversations and projects, and for any local sessions the automatic copy left out.
 
@@ -45,6 +47,14 @@ The first time the app starts on 5.1231.0 or later, it brings these items:
 * **Sidebar pins of your projects and custom groups of your sessions**
 * **Earlier versions of your artifacts**, if the automatic copy is still on
 * **Your projects, scheduled tasks, and instructions**, if you had no earlier sessions and the automatic copy is still on. Before 5.1231.0, the app copies nothing for someone with no sessions. Projects and scheduled tasks that you made again under the new configuration appear twice. Delete the ones you don't need.
+
+Versions from 5.1231.0 bring most kinds of items in the [list above](#automatic-import-of-earlier-third-party-sessions). If the copy ran on a Claude Desktop version before 5.11492.0, what already arrived differs from that list in these items, and an update doesn't change it:
+
+* **History of scheduled tasks**: a task's earlier runs are listed only as ordinary sessions
+* **Approval mode of scheduled tasks**: every task waits for your approvals until you set the mode again
+* **Files you attached to sessions**: attach them again
+* **First message in a copied session**: the app asks you to confirm once in each session
+* **Imported data**: the copy left out what you had imported from a Claude Desktop export or a folder. After an update to 5.11492.0 or later, the app brings the projects and scheduled tasks of an export that you imported with **Import as my own**, if the automatic copy is still on. The tasks arrive turned off. Delete any project that then appears twice, and use [step 2 of the import wizard](#step-2-local-cowork-and-code-sessions) for sessions that are still missing.
 
 ### Add the original folder to a copied project
 
@@ -182,9 +192,10 @@ The **Projects** page offers the same two choices, in a row under the duplicate 
 
 ## Continue an imported conversation
 
-Open any imported conversation from the sidebar and keep chatting. The first time you send a message in an imported session, Claude Desktop asks you to confirm before it continues. The reply then comes from your configured inference provider, not from claude.ai.
+Open any imported conversation from the sidebar and keep chatting. For some imported sessions, Claude Desktop asks you to confirm the first time you send a message. The reply then comes from your configured inference provider, not from claude.ai.
 
-* A session from this app's earlier third-party configuration on this computer shows a **Continue this conversation?** prompt. Click **Continue** to send your message.
+* A Cowork or Chat session that you started under this app's earlier third-party configuration on this computer, and that the [automatic copy](#automatic-import-of-earlier-third-party-sessions) brought over, continues when you send your first message, with no prompt. If a prompt appears, click **Continue**.
+* Any other session that you started under this app's earlier third-party configuration on this computer shows a **Continue this conversation?** prompt. Click **Continue** to send your message. These are Code sessions, sessions you imported with the wizard, sessions that [a version before 5.11492.0](#if-the-automatic-copy-ran-on-an-earlier-version) copied, and sessions in which Claude ran inside Cowork's virtual machine.
 * Any other imported conversation or session shows a **Resume imported session?** prompt. Click **Trust and resume** to continue.
 
 ![An imported conversation open in Cowork with a yellow Resume imported session card offering Go back and Trust and resume buttons.](https://mintcdn.com/claude-ai/HpR2FaaZXZXkiUcV/images/third-party/import/import-trust-resume.png?fit=max\&auto=format\&n=HpR2FaaZXZXkiUcV\&q=85\&s=806d0d2018d7fc0f10afb71035b1f807)
@@ -269,7 +280,7 @@ If the export shows an error or leaves out something that you need, see [Problem
 
 ### Import your data on the new device
 
-Set up Claude Desktop on the new device first. The import adds to the data there and replaces nothing. If you import the same file again, you don't get duplicates. If you export again, a session that changed on the old device since the last export arrives as a separate session.
+Set up Claude Desktop on the new device first. The import adds to the data there and replaces nothing. If you import the same file again, you don't get duplicates, unless the [automatic copy](#automatic-import-of-earlier-third-party-sessions) has since copied the imported data to a new configuration. If you export again, a session that changed on the old device since the last export arrives as a separate session.
 
 1. If you use the **Code** tab, copy the folders of your Code sessions and Code scheduled tasks to the same paths on the new device, or to the same place under your new home folder if its path changed. Then open each folder in the **Code** tab and click **Trust workspace**.
 2. Go to **Settings > Import & export**, click **Import…**, click **Choose file…**, and select the zip file.

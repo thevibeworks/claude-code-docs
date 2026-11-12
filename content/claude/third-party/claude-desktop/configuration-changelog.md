@@ -8,6 +8,61 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v5.11492.0**
+
+2026-11-12
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`remoteFileDownloads`](https://claude.com/docs/third-party/claude-desktop/configuration#remotefiledownloads) · Beta | `enum` | SSH and WSL file downloads |
+| [`autoModeClassifierModel`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeclassifiermodel) | `string` | Auto mode classifier model |
+| [`builtinBrowserClientCertificateHosts`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserclientcertificatehosts) | `string[]` | Sites allowed a client certificate in the built-in browser and preview panes |
+| [`enforceConsoleSignInOrgList`](https://claude.com/docs/third-party/claude-desktop/configuration#enforceconsolesigninorglist) | `boolean` | Enforce Required organization for Claude Console sign-in |
+| [`deploymentLogo`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentlogo) | `string` | Deployment logo |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "codeSurface": {
+    "remoteFileDownloads": "<all|limited|none>"
+  },
+  "workspace": {
+    "autoModeClassifierModel": "<string>"
+  },
+  "builtinBrowser": {
+    "clientCertificateHosts": ["<string>"]
+  },
+  "authentication": {
+    "enforceConsoleSignInOrgList": "<boolean>"
+  },
+  "appearance": {
+    "deploymentLogo": "<string>"
+  }
+}
+```
+
+`builtinBrowserClientCertificateHosts` is read at launch, from machine-wide device management only. A value in a local configuration file or in per-user Windows policy, or served by a bootstrap server or the Admin Console, is ignored.
+
+`enforceConsoleSignInOrgList` is read from a device profile only. A value in a local configuration file, or served by a bootstrap server or the Admin Console, is ignored.
+
+Versions 5.1231.0 and later already read `remoteFileDownloads`. It is new in the configuration reference.
+
+Update all devices before you put any of these keys in a device profile. Older versions on Linux can refuse a profile with any key they do not know, and older versions on Windows refuse a profile with only such keys. The settings made in Setup then stop applying as well. The exception is `builtinBrowserClientCertificateHosts`: to keep sites working through the update, add it first on macOS, and in a Windows policy that sets other keys.
+
+A profile with `autoModeClassifierModel` or `enforceConsoleSignInOrgList` replaces the settings made in Setup, in this version too. A profile with only the other three keys leaves them in place.
+
+As with any device profile, a computer's first one also blocks WSL sessions until `disableWslSessions` is set to `false` machine-wide (see that key's help). Where settings were made in Setup, it also cuts off network access for Code's shell commands on macOS and Linux until `coworkEgressAllowedHosts` is set. If the profile leaves those settings in place, set that key in Setup. In the profile, it would replace them.
+
+**Changed:**
+
+* **Breaking:** the built-in browser and preview panes now send a client certificate only to sites listed in `builtinBrowserClientCertificateHosts`. Other sites that require one stop loading there. Behind a proxy that requires one, list the proxy as `host:port`, or use `*` if it asks during each site's own connection. A device with no device management can't list any site.
+* `managedMcpServers`: `sensitivityLabels` on a Microsoft 365 entry is now documented. It blocks Outlook email and Word, Excel, PowerPoint, PDF and MP4 files in OneDrive and SharePoint with the Purview labels you list. Update first: versions before 5.1231.0 block only files, or nothing.
+* `managedMcpServers`: the published bootstrap schemas now require `command` or `platformOverrides` on a local (`stdio`) entry. They do not look inside `platformOverrides`, so the app can still drop an entry that passes.
+* `claudeAiImport`: with `automatic3pImport`, most Cowork and Chat sessions copied by this version or later continue with no prompt to confirm. A scheduled task on Auto or Skip all approvals arrives on Auto. For a Cowork task, that needs `autoModeEnabled` set to `true`. For a Code task, it needs the key not set to `false`.
+* `autoUpdaterEnforcementHours` and `installedUpdateEnforcementHours`: with no number set, the restart on macOS now also waits while the keychain is locked, for up to 72 hours. With a number set, a locked keychain doesn't delay it.
+* `coworkTabEnabled`, `chatTabEnabled` and `chatAdvancedFileAnalysisEnabled`: this release and later show users no in-app warning. Versions 4.16336.0 to 5.1231.2 can still show it from November 17, 2026 while one is still set. Logs and the diagnostic report still list them.
+
 **v5.1231.2**
 
 2026-11-10

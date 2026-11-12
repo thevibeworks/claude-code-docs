@@ -11,6 +11,7 @@ Working groups deliver concrete outcomes such as SEPs, extensions, and code. Eac
 | Working group | Leads | Discord | Focus |
 | - | - | - | - |
 | [Apps](https://modelcontextprotocol.io/community/working-groups/apps.md) | [Ido Salomon](https://github.com/idosal), [Liad Yosef](https://github.com/liady), [Olivier Chafik](https://github.com/ochafik) | `#mcp-apps-wg` | Official extension for interactive user interfaces over MCP |
+| [Core Primitives](https://github.com/modelcontextprotocol/core-primitives-wg) | [Kurtis Van Gent](https://github.com/kurtisvg), [David Soria Parra](https://github.com/dsp-ant) | `#core-primitives-wg` | Tool result shape, stability, and audience under the roadmap's Improved Primitives area |
 | [File Uploads](https://modelcontextprotocol.io/community/working-groups/file-uploads.md) | [Den Delimarsky](https://github.com/localden) | `#file-uploads-wg` | Declaring file inputs for tools and elicitation so hosts can offer native file pickers |
 | [Filesystems](https://modelcontextprotocol.io/community/working-groups/filesystems.md) | [Sambhav Kothari](https://github.com/sambhav), [Ola Hungerford](https://github.com/olaservo), [Daniel Temesgen](https://github.com/DanielTemesgen) | `#filesystems-wg` | Aligning MCP Resources with general filesystem semantics |
 | [Governance](https://modelcontextprotocol.io/community/working-groups/governance.md) | [Sarah Novotny](https://github.com/sarahnovotny) | `#governance-wg` | Refining, documenting, and stewarding MCP governance processes and community values |

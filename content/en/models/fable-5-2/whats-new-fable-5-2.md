@@ -8,17 +8,17 @@ Claude Fable 5.2 is built for demanding reasoning and long-horizon agentic work.
 
 Four changes from Claude Fable 5.1 can break your code:
 
-* [The prefix check applies to every account](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#editing-earlier-turns-invalidates-thinking-blocks).
+* [Failed prefix checks return a 400 error](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#editing-earlier-turns-invalidates-thinking-blocks).
 * [Only Claude Fable 5.2 and Claude Mythos 5.2 read Claude Fable 5.2 thinking blocks](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#thinking-blocks-are-tied-to-the-model-that-produced-them).
 * The earlier [`computer_20251124` computer use tool returns an error](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#computer-20251124-is-not-supported) on every platform except Amazon Bedrock.
 * With the advisor tool, a Claude Fable 5.2 executor [needs a Claude Fable 5.2 or Claude Mythos 5.2 advisor](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#advisor-tool-pairs).
 
 ## Models
 
-| Model             | Claude API ID     | Description                                           | Availability                                                                                                                                                |
-| ----------------- | ----------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Fable 5.2  | claude-fable-5-2  | For demanding reasoning and long-horizon agentic work | All customers on the Claude API (see each platform’s page for partner platforms)                                                                            |
-| Claude Mythos 5.2 | claude-mythos-5-2 | Same capabilities as Claude Fable 5.2                 | Organizations verified through Anthropic’s verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842) |
+| Model             | Claude API ID     | Description                                           | Availability                                                                                                                                                     |
+| ----------------- | ----------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Fable 5.2  | claude-fable-5-2  | For demanding reasoning and long-horizon agentic work | All customers on the Claude API (for other platforms, see [Availability](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#availability)) |
+| Claude Mythos 5.2 | claude-mythos-5-2 | Same capabilities as Claude Fable 5.2                 | Organizations verified through Anthropic’s verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842)      |
 
 Claude Fable 5.2 and Claude Mythos 5.2 share these specs:
 
@@ -30,11 +30,9 @@ For all current models, see [Models overview](https://platform.claude.com/docs/e
 
 ## Breaking changes
 
-### Editing earlier turns invalidates thinking blocks on every account
+### Editing earlier turns invalidates thinking blocks
 
-The API’s prefix check (see [Keeping the prefix unchanged](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#prefix-check)) tests whether anything before a Claude Fable 5.2 or Claude Mythos 5.2 thinking block has changed since the model produced it: the `system` prompt, the `tools`, or an earlier message. On Claude Fable 5.2 and Claude Mythos 5.2, a request that sends back an invalid thinking block and leaves `prefix_mismatch_behavior` unset gets a 400 error, whatever the account’s age (see [When `prefix_mismatch_behavior` is unset](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#enforcement)). On Claude Fable 5.1, such a request gets the error on accounts created on or after August 31, 2026. On the Claude API, Claude Mythos 5.1 already returns it on every account. So code on Claude Fable 5.1 that edits its history can run without errors on an older account before the switch and fail after it.
-
-When the check fails, the request returns a 400 error whose message says `The block is bound to a different conversation`. To drop the affected blocks and continue instead, send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"`. The response then lists each dropped block in a top-level `input_transformations` array. Treat `"drop_block"` as a stopgap while you fix the edit, because [dropping blocks can raise output tokens](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#drop-block-cost).
+On Claude Fable 5.2 and Claude Mythos 5.2, a request that fails the API’s prefix check gets a [400 error](https://platform.claude.com/docs/en/api/errors#thinking-block-conversation-mismatch). The prefix check tests whether anything before a thinking block has changed since the model produced it. It covers the `system` prompt, the `tools`, and every earlier message (see [What must stay the same, and why](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#prefix-check)). The error message says `The block is bound to a different conversation`.
 
 Nothing changes for you if Claude Code, claude.ai, [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview), or the [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview) builds your requests.
 
@@ -42,24 +40,26 @@ If your own code builds your requests, nothing changes for you either, as long a
 
 * Your code keeps `system` and `tools` the same for the whole conversation.
 * Your code only adds to `messages`. It never changes, reorders, or removes an earlier message.
-* Your code [sends each assistant turn back exactly as the API returned it](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#append-assistant-turns-exactly-as-returned): every block, in the same order.
-* Your code does none of the things listed in [What to check in your integration](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#what-to-check).
+* Your code [sends each assistant turn back exactly as the API returned it](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/change-tools-or-instructions#append-assistant-turns-exactly-as-returned): every block, in the same order.
+* Your code does none of the things listed in [If your code changes the system prompt, tools, or history](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#what-to-check).
 
 Otherwise, test your code before you switch:
 
 * **Code on Claude Fable 5.1:** Follow the [prefix check section](https://platform.claude.com/docs/en/models/fable-5-2/migration-guide#fable-5-2-preserved-thinking) of the migration guide.
 * **Code on Claude Mythos 5.1:** Follow [Migrating to Claude Mythos 5.2 from Claude Mythos 5.1](https://platform.claude.com/docs/en/models/fable-5-2/migration-guide#migrating-from-claude-mythos-5-1-to-claude-mythos-5-2).
 
-[Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking) explains what counts as an edit. It also shows how to make each change without an edit.
+For what counts as an edit, see [What counts as a change](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#what-counts-as-an-edit). To make each change without an edit, see [Change tools or instructions without failing the prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/change-tools-or-instructions).
+
+To drop the affected thinking blocks and continue without the 400 error, send the `thinking-binding-controls-2026-08-01` beta header and set `thinking.block_binding.prefix_mismatch_behavior` to `"drop_block"`. The response then lists each dropped block in a top-level `input_transformations` array. Treat `"drop_block"` as a stopgap while you fix the edit, because [dropping blocks can raise output tokens](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/fix-bound-to-a-different-conversation#drop-block-cost).
 
 ### Only Claude Fable 5.2 and Claude Mythos 5.2 read Claude Fable 5.2 thinking blocks
 
-Every thinking block records which model produced it, and a model reads only its own blocks and some other models’ blocks. On the Claude API and Claude Models on Google Cloud (Google managed), Claude Fable 5.2 and Claude Mythos 5.2 read each other’s thinking blocks and those from Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5, Claude Fable 5, and Claude Mythos 5, and from earlier Opus, Sonnet, and Haiku models. No other model reads their blocks.
+Every thinking block records which model produced it, and a model reads only its own blocks and some other models’ blocks. On the Claude API and Claude Models on Google Cloud (Google managed), Claude Fable 5.2 and Claude Mythos 5.2 read each other’s thinking blocks. On those platforms, they also read blocks from Claude Opus 5.5, Claude Sonnet 5.5, Claude Haiku 5.5, Claude Fable 5.1, Claude Mythos 5.1, Claude Opus 5, Claude Fable 5, and Claude Mythos 5. They read blocks from [earlier Claude Opus, Claude Sonnet, and Claude Haiku models](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#earlier-models) too. No other model reads their blocks.
 
 * **Moving onto Claude Fable 5.2 or Claude Mythos 5.2** from one of those models keeps the conversation’s reasoning on the Claude API and Claude Models on Google Cloud (Google managed). So does moving between Claude Fable 5.2 and Claude Mythos 5.2.
 * **Moving from Claude Fable 5.2 or Claude Mythos 5.2 to any other model** loses their reasoning for the turns that run there. That includes Claude Opus 5.5, Claude Fable 5.1, Claude Mythos 5.1, and Claude Fable 5.2’s fallback models (Claude Opus 4.8 and Claude Opus 5).
 
-When a request carries a block the current model can’t read, the API drops the block before the model receives it. The request succeeds, and dropped blocks aren’t billed. With the `thinking-binding-controls-2026-08-01` beta header, the response lists the drop in `input_transformations`. See [Switching models mid-conversation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
+When a request carries a block the current model can’t read, the API drops the block before the model receives it. The request succeeds, and dropped blocks aren’t billed. With the `thinking-binding-controls-2026-08-01` beta header, the response lists the drop in `input_transformations`. See [Switch models and back](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models).
 
 ### Use the computer use toolset instead of `computer_20251124`
 
@@ -86,7 +86,7 @@ Claude Fable 5.2 supports these API features, among others:
 
 * **Effort:** all five [effort levels](https://platform.claude.com/docs/en/build-with-claude/effort#effort-levels): `low`, `medium`, `high`, `xhigh`, and `max`. The API default is `high`. Start there, because most of the gain in capability is already present at `high`. Step up to `xhigh` for your hardest long-running coding and agentic work, where you’ve measured a gain. Reserve `max` for measuring the model’s ceiling and for the rare task where time and tokens don’t matter. See [Recommended effort levels for Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/effort#recommended-effort-levels-for-claude-fable-5-2).
 * **Compaction on demand (beta):** with the `compact-2026-09-04` beta header, you choose when to replace older turns with a summary. See [Compaction on demand](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand).
-* **Mid-conversation tool changes (beta):** you add or remove tools in a `role: "system"` message instead of editing `tools`. On the Claude API, Claude Platform on AWS, and Claude Models on Google Cloud (Anthropic managed), send the `inline-tools-2026-09-15` beta header. The `mid-conversation-tool-changes-2026-07-01` header works for changes that name a tool by reference, on the platforms that [Mid-conversation system messages and tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) lists. See [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes).
+* **Mid-conversation tool changes (beta):** you add or remove tools in a `role: "system"` message instead of editing `tools`. On the Claude API, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), and Microsoft Foundry, send the `inline-tools-2026-09-15` beta header. The `mid-conversation-tool-changes-2026-07-01` header works for changes that name a tool by reference, on the platforms that [Mid-conversation system messages and tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages) lists. See [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes).
 * **Computer use:** through the `computer_toolset_20260801` toolset. The earlier `computer_20251124` tool returns a 400 error on every platform except Amazon Bedrock. There, Claude Fable 5.2 and Claude Mythos 5.2 also accept the earlier tool. See the [computer use breaking change](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#computer-20251124-is-not-supported) and [Computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool).
 
 Compaction on demand and mid-conversation tool changes help you keep the history append-only, which the [prefix check](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#editing-earlier-turns-invalidates-thinking-blocks) requires. See each feature’s page for model and platform availability.
@@ -97,11 +97,11 @@ Fast mode is also available for Claude Mythos 5.2 in Messages API requests on th
 
 ### Thinking blocks stay with the account that produced them
 
-Thinking blocks that Claude Fable 5.2 and Claude Mythos 5.2 produce work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model receives it, and the request succeeds. On the Claude API and Claude Models on Google Cloud (Google managed), with the `thinking-binding-controls-2026-08-01` beta header, the response lists each dropped block in `input_transformations` with `reason: "organization_binding_mismatch"`. See [Thinking blocks stay with the account that produced them](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking) in Preserved thinking.
+Thinking blocks that Claude Fable 5.2 and Claude Mythos 5.2 produce work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model receives it, and the request succeeds. On the Claude API and Claude Models on Google Cloud (Google managed), with the `thinking-binding-controls-2026-08-01` beta header, the response lists each dropped block in `input_transformations` with `reason: "organization_binding_mismatch"`. See [Accounts and cloud platforms](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking) in Preserved thinking.
 
 ## Behavior differences
 
-A few Claude Fable 5.2 behaviors show up without any code change. Check them when you carry prompts over. [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2) has guidance for each:
+A few Claude Fable 5.2 behaviors show up without any code change. Check them when you carry prompts over. For guidance on each, see [Prompting Claude Fable 5.2](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2):
 
 * **Prompt lines that ask for less thinking don’t stop the model from thinking at `medium` effort and above.** Claude Fable 5.1 usually follows a line such as “answer directly without deliberating.” In Anthropic’s testing, such a line didn’t stop Claude Fable 5.2 from thinking at `medium` and above. At `high` and above, the model thinks before almost every reply. If easy requests take too long or cost too much, use a lower effort level for those turns. See [Calibrate effort](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2#calibrate-effort).
 * **A turn can end before the work is done.** On long, multistep tasks, the model sometimes ends a turn with a list of what remains, an offer to continue, or a stop at an ordinary obstacle. This occurs more often at `low` and `medium` effort. See [Finish the whole task](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5-2#finish-the-whole-task).
@@ -200,7 +200,7 @@ To migrate from Claude Fable 5.1, update your model ID:
 
 Then review these items:
 
-1. **Check whether your code edits history.** If your code builds the `messages` array itself, run the test in the migration guide’s [prefix check section](https://platform.claude.com/docs/en/models/fable-5-2/migration-guide#fable-5-2-preserved-thinking), even if Claude Fable 5.1 has never returned the error for your account.
+1. **Check whether your code edits history.** If your code builds the `messages` array itself, run the test in the migration guide’s [prefix check section](https://platform.claude.com/docs/en/models/fable-5-2/migration-guide#fable-5-2-preserved-thinking).
 2. **Check model switches.** If a router or fallback moves conversations between models, expect every model except Claude Mythos 5.2 to drop Claude Fable 5.2’s thinking blocks, Claude Fable 5.1 and Claude Opus 5.5 included. See [Only Claude Fable 5.2 and Claude Mythos 5.2 read Claude Fable 5.2 thinking blocks](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#thinking-blocks-are-tied-to-the-model-that-produced-them).
 3. **Move computer use to the toolset.** If you use the `computer_20251124` tool anywhere except Amazon Bedrock, Claude Fable 5.2 returns a 400 error for that tool. Declare `computer_toolset_20260801` instead. For the change itself, see [Use the computer use toolset instead of `computer_20251124`](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#computer-20251124-is-not-supported).
 4. **Update the advisor.** If you use the advisor tool with Claude Fable 5.2 as the executor, set the advisor’s `model` to `claude-fable-5-2` or `claude-mythos-5-2`. See [A Claude Fable 5.2 executor needs a Claude Fable 5.2 or Claude Mythos 5.2 advisor](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#advisor-tool-pairs).

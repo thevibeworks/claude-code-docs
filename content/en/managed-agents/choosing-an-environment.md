@@ -10,7 +10,7 @@ featureMetadata:
   betaHeader: managed-agents-2026-04-01
   zdr:
     eligibility: not-eligible
-    note: Sessions are stateful resources; transcripts persist until you delete them. Applies to all Managed Agents sub-features, including Self-hosted sandboxes.
+    note: Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them.
   supportedModels:
     - claude-fable-5-2
     - claude-mythos-5-2
@@ -74,6 +74,10 @@ A self-hosted sandbox fits when the agent needs to do one of the following:
 ## What a self-hosted sandbox doesn’t change
 
 With either option, the conversation history and tool results go to the Managed Agents service, which Anthropic operates. That is how the model receives the result of each tool call. The web search and web fetch tools also run on Anthropic’s side, not in the sandbox. See [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions). Neither option changes the compliance coverage of Managed Agents or how long it keeps conversation history. See [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility).
+
+<Note>
+  With [self-hosted Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/self-hosted), you run the whole Managed Agents service, not only the sandboxes. You store agents, sessions, and session history on your own infrastructure. By default, each model request still sends the conversation history and tool results to Anthropic. To request access, contact your Anthropic account team.
+</Note>
 
 ## What you take on and give up with a self-hosted sandbox
 

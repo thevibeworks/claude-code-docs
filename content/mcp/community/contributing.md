@@ -12,7 +12,7 @@ You'll find the specification, these docs and Specification Enhancement Proposal
 
 To build with MCP, start with the [server](https://modelcontextprotocol.io/docs/develop/build-server.md) and [client](https://modelcontextprotocol.io/docs/develop/build-client.md) guides, the [SDK list](https://modelcontextprotocol.io/docs/sdk.md) or the [MCP Registry](https://modelcontextprotocol.io/registry/about.md).
 
-If you want to invest some time in our discussions, the protocol work is organized in [working groups and interest groups](https://modelcontextprotocol.io/community/working-interest-groups.md). Their meetings are open to anyone and are listed on [meet.modelcontextprotocol.io](https://meet.modelcontextprotocol.io/). [Meetings and channels](https://modelcontextprotocol.io/community/working-interest-groups.md#meetings-and-channels) sets out how a meeting is announced and minuted. No invitation or role is needed to attend or speak at a meeting, to comment on a pull request, or to open an issue or a discussion.
+If you want to invest some time in our discussions, the protocol work is organized in [working groups and interest groups](https://modelcontextprotocol.io/community/working-interest-groups.md). Their meetings are open to anyone and are listed on [meet.modelcontextprotocol.io](https://meet.modelcontextprotocol.io/). [Meetings and channels](https://modelcontextprotocol.io/community/working-interest-groups.md#meetings-and-channels) sets out how a meeting is announced and minuted. No invitation or role is needed to attend or speak at a meeting, to comment on a pull request, or to open an issue.
 
 These same working groups and interest groups are represented in the Discord space.
 
@@ -86,21 +86,23 @@ The [SDK list](https://modelcontextprotocol.io/docs/sdk.md) shows each SDK's [ti
 
 Protocol changes go through a [SEP](https://modelcontextprotocol.io/community/sep-guidelines.md). Bug fixes and clarifications [do not need one](https://modelcontextprotocol.io/community/sep-guidelines.md#when-you-need-a-sep).
 
-**1. Discuss the idea**
+A SEP needs a [sponsor](https://modelcontextprotocol.io/community/sep-guidelines.md#sponsors): a working group or the Core Maintainers.
 
-Raise it in your group's channel. The SEP pull request [must link to that discussion](https://modelcontextprotocol.io/community/sep-guidelines.md#before-you-write).
+**1. Check the roadmap**
 
-**2. Build a prototype**
+See whether the idea fits the current focus on the [roadmap](https://modelcontextprotocol.io/development/roadmap.md). SEPs within its priority areas get [expedited review](https://modelcontextprotocol.io/development/roadmap.md#sep-prioritization).
 
-See [Prototype Requirements](https://modelcontextprotocol.io/community/sep-guidelines.md#prototype-requirements). Consider shipping the idea as an [extension](https://modelcontextprotocol.io/extensions/overview.md) where its shape allows.
+**2. Bring it to a working group**
 
-**3. Find a sponsor**
+Raise the idea with the [working group](https://modelcontextprotocol.io/community/working-interest-groups.md#current-groups) that covers the area, in its channel or at a meeting. If the area belongs to an interest group, that interest group can start a working group through the [forming a group](https://modelcontextprotocol.io/community/working-interest-groups.md#forming-a-group) process, and that working group sponsors the SEP. The SEP pull request [must link to that discussion](https://modelcontextprotocol.io/community/sep-guidelines.md#workflow).
 
-See [Sponsors](https://modelcontextprotocol.io/community/sep-guidelines.md#sponsors).
+**3. Draft a SEP the group sponsors**
 
-**4. Write the SEP**
+Once the group reaches consensus, write a SEP that it wants to [sponsor](https://modelcontextprotocol.io/community/sep-guidelines.md#sponsors). Until a group agrees to sponsor it, work in progress lives in a draft pull request. Include a prototype that meets the [Prototype Requirements](https://modelcontextprotocol.io/community/sep-guidelines.md#prototype-requirements), and consider shipping the idea as an [extension](https://modelcontextprotocol.io/extensions/overview.md) where its shape allows.
 
-Follow the [workflow](https://modelcontextprotocol.io/community/sep-guidelines.md#workflow). Without write access, ask your sponsor to open the pull request.
+**4. Bring it to the Core Maintainers**
+
+Follow the [workflow](https://modelcontextprotocol.io/community/sep-guidelines.md#workflow). By this point you should be a member of the working group and have access to open pull requests on the specification repository (see [Member](https://modelcontextprotocol.io/community/contributor-ladder.md#member)). If you do not have that access yet, the working group's leads open the pull request. The SEP's sponsor brings it to the Core Maintainers for review.
 
 ## Other ways to help
 
