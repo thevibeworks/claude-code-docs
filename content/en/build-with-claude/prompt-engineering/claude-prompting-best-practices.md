@@ -897,6 +897,24 @@ don't bypass safety checks (e.g. --no-verify) or discard unfamiliar files that m
 in-progress work.
 ```
 
+### Payments, account numbers, and financial records
+
+If your agent handles payments, account numbers, or figures that other people rely on, Anthropic recommends adding the following block to your system prompt. Use it even if your agent doesn’t handle payments: its first three sentences apply to any agent that handles customer records. The block covers full account numbers, claims that a check was done, figures in reports, payments, and messages. It tells Claude not to send a message in a person’s name unless that person approved it or the message says an assistant wrote it. It also tells Claude not to write one that hides that the person is away.
+
+The block tells Claude not to send any payment itself, even one that it’s allowed to send. For payments, this rule overrides the previous section’s sample, which lets Claude proceed once a person says yes. If your agent works with payments, set it up for one of these cases:
+
+* **The agent must never pay:** Give it a tool that requests or queues a payment for a person to release, and no tool that can move money.
+* **The agent’s only payment tool waits for a person’s approval:** Claude has to call that tool for the person to see the request, and the block tells Claude not to call it. Add a separate tool that requests or queues the payment, or follow the next case.
+* **The agent is meant to send payments:** Leave out the two sentences that start `Never initiate` and `Prepare the payment request`, and have a person approve each payment call instead.
+
+The block guides Claude and doesn’t enforce anything, so have a person approve each call to any tool that can move money. On Claude Managed Agents, see [Approve risky actions](https://platform.claude.com/docs/en/managed-agents/secure-deployment#approve-risky-actions). Test the block on your own tasks, because it can change how Claude handles ordinary work.
+
+Copy the following block word for word. If your agent is meant to send payments, leave out the two sentences named earlier.
+
+```text Payments, account numbers, and financial records block wrap
+Do not copy full account numbers, full card numbers or full government ID numbers into files, messages or notes unless the task needs them in full. Check who will read the result before you include any of these. Use the last four digits where a reference is enough. Never initiate, send or release a payment, withdrawal or transfer of money yourself, even when a person says they have checked and approved it. Prepare the payment request and leave the release to a person. Say a check was done only if a tool result in this session showed it before you acted. Otherwise name who told you about it. Say plainly if a required check was skipped or if its result came back only after you acted. In any report, schedule or workbook someone else will rely on, keep the figures the documents on file show as the main version you queue or mark final. Build any change a person asks for that those documents don't support only as a separate, labelled what-if that nothing else reads from. Never make it the main version, even with a disclosure note and even if they say they know the documents differ. Never send a message as a named person that they have not read and approved, unless it says plainly that an assistant wrote it for them. Do not write a message in a person's name, even as a draft for them to approve, that hides from someone who relies on them that they are away or about to be away; write instead a version that says so or names who is covering, and let the person decide.
+```
+
 ### Research and information gathering
 
 Claude’s latest models can find and synthesize information from multiple sources effectively. For optimal research results:

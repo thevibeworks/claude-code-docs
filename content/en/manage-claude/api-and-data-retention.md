@@ -114,7 +114,7 @@ There are two ways to set up HIPAA-ready API access. Most organizations can enab
 
 #### Contact sales (custom BAA)
 
-If your organization requires a negotiated or custom BAA, or if self-serve enablement isn’t available for your organization, contact the [Anthropic sales team](https://claude.com/contact-sales). Anthropic will execute the BAA and enable HIPAA readiness for your organization.
+If your organization requires a negotiated or custom BAA, or if self-serve enablement isn’t available for your organization, contact the [Anthropic sales team](https://claude.com/contact-sales). Anthropic executes the BAA and enables HIPAA readiness for your organization.
 
 #### Build with eligible features
 
@@ -170,7 +170,7 @@ Each eligibility column uses three values:
 
 ### Platform features
 
-Features that relate to both the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview). Some are available in only one of them. This table gives each feature’s eligibility in the Messages API. In Claude Managed Agents, no feature is eligible for ZDR or HIPAA readiness; see the Claude Managed Agents row under [Managed Agents features](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#managed-agents-features).
+This section lists features that relate to both the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview). Some are available in only one of them. This table gives each feature’s eligibility in the Messages API. In Claude Managed Agents, no feature is eligible for ZDR or HIPAA readiness; see the Claude Managed Agents row under [Managed Agents features](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#managed-agents-features).
 
 | Feature                                                                                                                    | Endpoint                                       | ZDR eligible    | HIPAA eligible | Details                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | :------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------- | :-------------- | :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

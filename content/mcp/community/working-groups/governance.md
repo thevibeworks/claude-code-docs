@@ -170,7 +170,7 @@ These criteria are deliberately conservative for v0.1 and may be revised as the 
 
 This charter is a v0.1 document and is expected to be revised as the group coalesces. Updates
 follow the
-[Charter Amendments](https://modelcontextprotocol.io/community/working-interest-groups.md#charter-amendments) process defined for
+[charter amendment](https://modelcontextprotocol.io/community/working-interest-groups.md#amending-or-retiring-a-group) process defined for
 all groups: proposal by a Lead or Core Maintainer, approval by Core Maintainers. Within the WG,
 amendment proposals are treated like any other substantive governance change — WG consensus
 first, then Core Maintainer approval. Editorial fixes (typos, broken links, rewordings that do

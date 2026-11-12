@@ -91,7 +91,7 @@ Claude Managed Agents is built around four concepts:
   </Step>
 
   <Step title="Send events and stream responses">
-    Send user messages as events. Claude autonomously runs tools and streams back results through server-sent events (SSE). Event history is persisted server-side and can be fetched in full.
+    Send user messages as events. Claude autonomously runs tools and streams back results through server-sent events (SSE). The Managed Agents service keeps the event history, and you can fetch it in full.
   </Step>
 
   <Step title="Steer or interrupt">
@@ -124,16 +124,16 @@ See [Tools](https://platform.claude.com/docs/en/managed-agents/tools) for the fu
 ## Beta access
 
 <Note>
-  Claude Managed Agents is in beta. All Managed Agents endpoints require the `managed-agents-2026-04-01` beta header. The SDK sets the beta header automatically. Behaviors may be refined between releases to improve outputs.
+  Claude Managed Agents is in beta. All Managed Agents endpoints require the `managed-agents-2026-04-01` beta header. The SDK sets the beta header automatically. Anthropic might refine behaviors between releases to improve outputs.
 </Note>
 
 To get started, you need:
 
-1. A [Claude API key](https://platform.claude.com/settings/keys) from the Claude Console
-2. The `managed-agents-2026-04-01` beta header on all requests
-3. Access to Claude Managed Agents (enabled by default for all API accounts)
+1. A [Claude API key](https://platform.claude.com/settings/keys) from the Claude Console.
+2. The `managed-agents-2026-04-01` beta header on all requests.
+3. Access to Claude Managed Agents (enabled by default for all API accounts).
 
-Within the beta, [MCP tunnels](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview) and [dreaming](https://platform.claude.com/docs/en/managed-agents/dreams) are in a more limited research preview. [Request access](https://claude.com/form/claude-managed-agents) to enable them.
+Within the beta, [MCP tunnels](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview) and [dreaming](https://platform.claude.com/docs/en/managed-agents/dreams) are in a more limited research preview. To enable them, [request access to the research preview](https://claude.com/form/claude-managed-agents).
 
 Claude Managed Agents is stateful by design: sessions are long-running, resume cleanly after pauses, and store conversation history, sandbox state, and outputs server-side. Because of this, Managed Agents is not currently eligible for [Zero Data Retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) or HIPAA Business Associate Agreement (BAA) coverage. You retain control over this data: you can [delete sessions](https://platform.claude.com/docs/en/managed-agents/session-operations#deleting-a-session), and separately delete any [files](https://platform.claude.com/docs/en/build-with-claude/files#delete-a-file) you uploaded, at any time through the API. For eligibility across all features, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility).
 

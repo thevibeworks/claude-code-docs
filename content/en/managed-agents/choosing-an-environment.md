@@ -42,7 +42,7 @@ An environment sets where your agent’s tools and code run. They run in a sandb
 * **Cloud environment:** Anthropic runs the sandbox for you. Each session gets its own fresh Linux container on Anthropic-managed infrastructure, with common languages, databases, and utilities already installed. You choose its network rules and any extra packages to install.
 * **Self-hosted sandbox:** You run the sandbox on your own infrastructure. Claude still runs on Anthropic’s side and determines which tool to call next. A program that you run, called a worker, carries out the agent’s bash and file tool calls on your machines and sends each result back. It can also serve custom tools.
 
-The agent definition is the same whichever you choose. You set the model, prompt, and tools on the [agent](https://platform.claude.com/docs/en/managed-agents/agent-setup), not on the environment.
+The agent definition is the same whichever you choose. You set the model, prompt, and tools on the agent, not on the environment, as [Define your agent](https://platform.claude.com/docs/en/managed-agents/agent-setup) describes.
 
 ## Start with a cloud environment
 
@@ -98,7 +98,7 @@ If you use Claude Managed Agents through Claude Models on Google Cloud (Anthropi
 
 To switch to a self-hosted sandbox, you keep the agent, create a `self_hosted` environment, and reference its ID in new sessions and deployments.
 
-* **What carries over:** The agent definition, the API key, Google Cloud credentials, or AWS credentials your application uses, your skills, your MCP servers, and your [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory).
+* **What carries over:** The agent definition, the credentials your application uses (an API key, AWS credentials, or Google Cloud credentials), your skills, your MCP servers, and your [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory).
 * **What is new:** A `self_hosted` environment, an environment key that you generate in the Claude Console, and a worker that you run. The [self-hosted sandboxes quickstart](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#quickstart) covers all three.
 * **What stops working:** The features listed in [What you take on and give up with a self-hosted sandbox](https://platform.claude.com/docs/en/managed-agents/choosing-an-environment#what-you-take-on-and-give-up-with-a-self-hosted-sandbox).
 
