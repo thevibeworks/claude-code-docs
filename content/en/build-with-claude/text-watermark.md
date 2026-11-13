@@ -10,4 +10,8 @@ The watermark doesn’t change the meaning, quality, or readability of the outpu
 
 ## Sampling settings
 
-On Claude Sonnet 4.6, text generated for a request that sets `temperature`, `top_p`, or `top_k` to a non-default value might not carry the watermark. If you rely on the watermark, omit all three parameters from your requests, including any that a framework or client library sets for you.
+**This section applies to:** Claude Sonnet 4.6
+
+If you need your output to carry the watermark, omit `temperature`, `top_p`, and `top_k` from your requests. If a request sets any of them to a non-default value, the output might not carry the watermark.
+
+Your framework or client library might set these parameters for you. If you need the watermark, check its settings and the request body it sends, and remove any of the three that it sets.
