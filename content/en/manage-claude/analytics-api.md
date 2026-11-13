@@ -13,10 +13,10 @@ The two APIs use different key types, created in different places by different r
 
 ## Which API do you need?
 
-| API                                 | Key type                             | Created in                                                                                                                           | Who can create it  | What it covers                                                                                                                                     |
-| ----------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Claude Code Analytics API**       | Admin API key (`sk-ant-admin01-...`) | [Admin keys](https://platform.claude.com/settings/admin-keys) page (`platform.claude.com/settings/admin-keys`) in the Claude Console | Organization admin | Daily Claude Code metrics per user: sessions, lines of code, commits, pull requests, tool acceptance, and estimated cost by model                  |
-| **Claude Enterprise Analytics API** | Analytics API key                    | [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access)                                               | Primary owner      | Organization-wide engagement and adoption (user activity, active-user summaries, project, skill, and connector usage), plus cost and usage reports |
+| API                                 | Key type          | Created in                                                                               | Who can create it  | What it covers                                                                                                                                     |
+| ----------------------------------- | ----------------- | ---------------------------------------------------------------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Claude Code Analytics API**       | Admin API key     | [Admin keys](https://platform.claude.com/settings/admin-keys) page in the Claude Console | Organization admin | Daily Claude Code metrics for each user: sessions, lines of code, commits, pull requests, tool acceptance, and estimated cost by model             |
+| **Claude Enterprise Analytics API** | Analytics API key | [claude.ai > Organization settings > API](https://claude.ai/admin-settings/api-access)   | Primary owner      | Organization-wide engagement and adoption (user activity, active-user summaries, project, skill, and connector usage), plus cost and usage reports |
 
 The key types are not interchangeable: an Admin API key cannot call the Claude Enterprise Analytics API, and an Analytics API key cannot call the Admin API. The one exception is the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api), which Claude Enterprise organizations call with their Analytics API key. Both product analytics APIs appear under the [Admin API reference](https://platform.claude.com/docs/en/api/beta/organization), but they are separate APIs with separate key types. If your organization uses both the Claude Platform and Claude Enterprise, you can provision both keys and use each API for its own data.
 
@@ -25,7 +25,7 @@ The key types are not interchangeable: an Admin API key cannot call the Claude E
 </Note>
 
 <Note>
-  If you want to view engagement and adoption data in the product rather than programmatically, use the [Analytics dashboard](https://claude.ai/analytics/activity) in claude.ai. For governance and auditing use cases (individual user actions, raw activity events, conversation content), see the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+  If you want to view engagement and adoption data in the product rather than programmatically, use the [Analytics dashboard](https://claude.ai/analytics/activity) in claude.ai. For governance and auditing use cases (individual user actions, raw activity events, conversation content), see the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api).
 </Note>
 
 ## Get access to the Claude Code Analytics API

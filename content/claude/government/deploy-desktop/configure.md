@@ -24,7 +24,7 @@ Confirm each of the following before you start either path.
 * **The device meets Claude Desktop's requirements.** See the Claude Desktop [system requirements](https://claude.com/docs/third-party/claude-desktop/installation.md#system-requirements) for macOS and Windows device requirements. For a Windows fleet, work through the [Windows fleet checklist](https://claude.com/docs/government/deploy-desktop/windows-checklist.md).
 * **Devices used for Code have the software your users' work needs.** Code runs its commands with the software installed on the device. Cowork and Advanced file analysis in Chat run theirs in the app's own virtual machine, which includes Python. For Git on Windows, see [Installer and packaging](https://claude.com/docs/government/deploy-desktop/windows-checklist.md#installer-and-packaging).
 * **You have the installer.** The [macOS deployment guide](https://support.claude.com/en/articles/12611117-deploy-claude-desktop-for-macos) and the [Windows deployment guide](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows) cover where to download the installer and how to distribute it.
-* **The app is current.** Deploy Claude Desktop 1.46388.1 or later.
+* **The app is current.** Deploy Claude Desktop 3.1623.4 or later.
 
 ### Network access
 

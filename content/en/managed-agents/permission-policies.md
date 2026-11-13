@@ -659,7 +659,7 @@ Pass this `tools` (csharp, go: `Tools`) configuration when you create the agent.
 
 ## Let the server evaluate each call with `auto`
 
-With the `auto` permission policy, the server evaluates each call before it runs. Because the evaluation considers the tool, the call’s input, and the session’s content up to that point, the server can treat two calls to the same tool differently. Each call has one of three outcomes:
+With the `auto` permission policy, the server evaluates each call before it runs. The evaluation considers context such as the tool, the call’s input, the agent’s earlier calls, and your intent, meaning what you have asked for. As a result, the server can treat two calls to the same tool differently. Each call has one of three outcomes:
 
 * **The call runs.** When the server determines that the call is safe, the tool runs as it would under `always_allow`.
 * **The call is denied.** When the server evaluates the call as high-risk, the tool does not run. The agent receives an error tool result with the content `Permission to use {tool_name} has been denied.` and `is_error: true`. The session keeps running, and your client cannot override the denial.
@@ -985,7 +985,7 @@ The following example sets `auto` as the default for the agent toolset and for t
   ```
 </CodeGroup>
 
-What you post in `user.message` events counts as your intent, and it can lead the server to allow a call it would otherwise deny. The server does not read intent from a tool result, a fetched webpage, an MCP server’s response, or a message between [session threads](https://platform.claude.com/docs/en/managed-agents/session-threads#tool-permissions-and-custom-tools). It assesses that content but does not take instructions from it. The server evaluates some calls as high-risk no matter who asks. If you relay untrusted end-user input in `user.message` events, the server reads that input as your intent too, and it can get a call allowed. Configure `always_ask` on the tools you would not let that end user run without review.
+What you post in `user.message` events counts as your intent, and it can lead the server to allow a call it would otherwise deny. The server does not read intent from a tool result, a fetched webpage, an MCP server’s response, or a message between [session threads](https://platform.claude.com/docs/en/managed-agents/session-threads#tool-permissions-and-custom-tools). The server evaluates some calls as high-risk no matter who asks. If you relay untrusted end-user input in `user.message` events, the server reads that input as your intent too, and it can get a call allowed. Configure `always_ask` on the tools you would not let that end user run without review.
 
 <Warning>
   `auto` is not a human checkpoint. If the server determines that a call is safe, the call runs before anyone sees it, and its effects might not be reversible. If a person must review a tool’s calls before they run, configure `always_ask` on that tool.

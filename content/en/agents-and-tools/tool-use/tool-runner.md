@@ -43,9 +43,7 @@ Instead of manually handling tool calls, tool results, and conversation manageme
 * Manages conversation state
 * Provides type safety and validation
 
-<Note>
-  The tool runner is in beta and available in the [Python SDK](https://github.com/anthropics/anthropic-sdk-python/blob/main/tools.md), [TypeScript SDK](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/helpers.md#tool-helpers), [C# SDK](https://github.com/anthropics/anthropic-sdk-csharp/blob/main/examples/ToolRunnerExample/Program.cs), [Go SDK](https://github.com/anthropics/anthropic-sdk-go/blob/main/tools.md), [Java SDK](https://github.com/anthropics/anthropic-sdk-java/blob/main/anthropic-java-example/src/main/java/com/anthropic/example/BetaToolRunnerRunnableToolExample.java), [PHP SDK](https://github.com/anthropics/anthropic-sdk-php/blob/main/examples/beta/beta_tool_runner.php), and [Ruby SDK](https://github.com/anthropics/anthropic-sdk-ruby/blob/main/helpers.md#3-auto-looping-tool-runner-beta).
-</Note>
+The tool runner is available in the [Python SDK](https://github.com/anthropics/anthropic-sdk-python/blob/main/tools.md), [TypeScript SDK](https://github.com/anthropics/anthropic-sdk-typescript/blob/main/helpers.md#tool-helpers), [C# SDK](https://github.com/anthropics/anthropic-sdk-csharp/blob/main/examples/ToolRunnerExample/Program.cs), [Go SDK](https://github.com/anthropics/anthropic-sdk-go/blob/main/tools.md), [Java SDK](https://github.com/anthropics/anthropic-sdk-java/blob/main/anthropic-java-example/src/main/java/com/anthropic/example/BetaToolRunnerRunnableToolExample.java), [PHP SDK](https://github.com/anthropics/anthropic-sdk-php/blob/main/examples/beta/beta_tool_runner.php), and [Ruby SDK](https://github.com/anthropics/anthropic-sdk-ruby/blob/main/helpers.md#3-auto-looping-tool-runner-beta).
 
 ## Basic usage
 
@@ -844,7 +842,7 @@ By default, the runner manages conversation state for you: after each tool-call 
 
 You take over by modifying the runner’s messages from inside the loop body. The exact method depends on the SDK. See the per-language tabs that follow.
 
-When you take over for an iteration, the runner does not append the assistant message or tool results from that turn. You become responsible for keeping the conversation valid: append the assistant message and a tool result yourself (if you want the turn to count), modify state conditionally so the loop can still exit when there are no tool calls, and pass `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`) to bound the loop. The SDK supports `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`) in all seven languages.
+When you take over for an iteration, the runner does not append the assistant message or tool results from that turn. You become responsible for keeping the conversation valid. Append the assistant message and a tool result yourself if you want the turn to count. Modify state only conditionally, so that the loop can still exit when there are no tool calls. To bound the loop, pass `max_iterations` (csharp, php: `maxIterations`; java: `.maxIterations()`; go: `MaxIterations`).
 
 <Tabs exclude="shell">
   <Tab title="Python">
@@ -1124,9 +1122,14 @@ When you take over for an iteration, the runner does not append the assistant me
   </Tab>
 </Tabs>
 
-### Automatic context management
+### Compacting long conversations
 
-For long-running agentic tasks, the TypeScript and Ruby tool runners support automatic [compaction](https://platform.claude.com/docs/en/build-with-claude/context-editing#client-side-compaction-sdk), which generates summaries when token usage exceeds a threshold so the conversation can continue beyond context window limits. Both SDKs have deprecated this client-side option in favor of [server-side compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold), which works with every SDK’s tool runner through the `context_management` request parameter. The Python SDK (v1.0 and later) and the Go, Java, C#, and PHP tool runners don’t include client-side compaction. The tool runner has a `compact_before_next_turn()` (typescript, java, php: `compactBeforeNextTurn()`; csharp, go: `CompactBeforeNextTurn()`) helper for on-demand compaction. See [Compact in a loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop). Use it or a `context_management` compaction edit on a runner, not both.
+The tool runner supports two kinds of compaction. [Choose how to compact](https://platform.claude.com/docs/en/build-with-claude/compaction#choose-how-to-compact) compares them.
+
+* [Compaction at a token threshold](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold): when the conversation reaches a token threshold that you can set, the API summarizes it. The runner automatically sends the summary back on its later requests, so the task can continue beyond the context window. Add an entry of type [`compact_20260112`](https://platform.claude.com/docs/en/api/beta/messages#beta_compact_20260112_edit) to the `edits` array of the runner’s [`context_management`](https://platform.claude.com/docs/en/api/beta/messages/create#create.context_management) request parameter. Create the runner with the `compact-2026-01-12` beta, because the runner doesn’t add it.
+* [Compaction on demand](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand): you choose when to compact. Call the runner’s `compact_before_next_turn()` (ruby: `compact_before_next_turn`; typescript, java, php: `compactBeforeNextTurn()`; csharp, go: `CompactBeforeNextTurn()`) helper, and the runner compacts before its next turn. [Compact in a loop](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop) shows the call and names the beta header that it needs.
+
+A runner can’t compact on demand while its `context_management` holds a `compact_20260112` entry, so use one kind on a runner.
 
 ### Debugging tool execution
 

@@ -69,7 +69,7 @@ On the web and in the desktop apps, blocked users see a page titled **Your curre
   <Step title="Turn on the toggle">
     Go to your organization’s settings page:
 
-    * **Claude Platform:** The [Identity and access](https://platform.claude.com/settings/identity) page in the Claude Console
+    * **Claude Platform:** The [Security](https://platform.claude.com/settings/identity) page in the Claude Console
     * **Claude Enterprise:** [claude.ai > Organization settings > Organization and access](https://claude.ai/admin-settings/organization#ip-allowlist)
 
     Turn on the **IP allowlist** toggle. Nothing changes until you save.
@@ -102,5 +102,5 @@ In a Claude Enterprise organization, admins can’t change the list, so “admin
 
 1. **Reconnect from a listed network:** Connect to your office network or VPN, and then click **Try again**. If there is no **Try again** button, reload the page.
 2. **Ask another admin or owner:** An admin or owner on a listed network can add your address.
-3. **Fix the list from where you are:** If you are an admin or owner and the checkbox under [Keep a way back in](https://platform.claude.com/docs/en/manage-claude/ip-allowlist#avoid-locking-yourself-out) is selected, open the Claude Console or Claude in a browser and click **Open IP allowlist**, or go to the [Identity and access](https://platform.claude.com/settings/identity) page ([Organization and access](https://claude.ai/admin-settings/organization#ip-allowlist) in claude.ai). Click **Add it** to add your current address, or turn off the allowlist, and then click **Save** and confirm. Access can take up to 15 minutes to return.
+3. **Fix the list from where you are:** If you are an admin or owner and the checkbox under [Keep a way back in](https://platform.claude.com/docs/en/manage-claude/ip-allowlist#avoid-locking-yourself-out) is selected, you can still reach the settings page. Open the Claude Console or Claude in a browser and click **Open IP allowlist**, or go to the [Security](https://platform.claude.com/settings/identity) page ([Organization and access](https://claude.ai/admin-settings/organization#ip-allowlist) in claude.ai). Click **Add it** to add your current address, or turn off the allowlist, and then click **Save** and confirm. Access can take up to 15 minutes to return.
 4. **Contact Anthropic:** If no admin or owner can reach the page, ask [Anthropic support](https://support.claude.com) to turn off the allowlist.

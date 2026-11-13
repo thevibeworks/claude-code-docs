@@ -8,7 +8,7 @@
 
 A scheduled task is a prompt that a user saves with a schedule, such as every weekday at 8:00 AM, on the **Scheduled** page in Cowork or the **Routines** page in Code. Claude Desktop on third-party (3P) runs the prompt in a new session at each scheduled time, even when the user is away.
 
-Scheduled tasks run locally, in Claude Desktop on the user's device, which must be awake with the app open.
+Scheduled tasks run locally, in Claude Desktop on the user's device, which must be awake with the app open. The exception is a deployment that runs every session on a server and none on the device: that server keeps and runs the tasks, and this page doesn't describe them.
 
 ## What a scheduled task needs to run
 

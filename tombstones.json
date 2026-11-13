@@ -1471,6 +1471,10 @@
       "since": "2026-08-25",
       "reason": "soft-404 (HTML shell)"
     },
+    "https://support.claude.com/en/articles/14479288-claude-cowork-architecture-overview": {
+      "since": "2026-11-13",
+      "reason": "moved -> https://trust.anthropic.com/resources?s=3puokpm2aa1nn24nbcp0l&name=unified-claude-security-best-practices"
+    },
     "https://support.claude.com/en/articles/14479288-claude-cowork-desktop-architecture-overview": {
       "since": "2026-08-25",
       "reason": "moved -> https://support.claude.com/en/articles/14479288-claude-cowork-architecture-overview"

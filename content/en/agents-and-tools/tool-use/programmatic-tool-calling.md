@@ -462,7 +462,7 @@ Programmatic tool calling uses the same containers as code execution:
 * **Expiration:** Containers expire 30 days after creation. After about 5 minutes of inactivity a container is checkpointed, and sending a request with its ID inside the 30-day window restores it. The `expires_at` timestamp is a shorter rolling value and doesn’t report the 30-day limit.
 
 <Warning>
-  While Claude’s code is waiting for a programmatic tool result, the pending call times out after about 4 minutes and raises a `TimeoutError` inside the code. Return each tool result well before the `expires_at` timestamp on the paused response. See [Container expiration during tool call](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling#container-expiration-during-tool-call).
+  While Claude’s code is waiting for a programmatic tool result, the pending call times out after about 4 minutes and raises a `TimeoutError` inside the code. That time starts when Claude’s code makes the call, before the paused response reaches you. The `expires_at` timestamp on the paused response falls after the call times out, so it isn’t your deadline. See [Container expiration during tool call](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling#container-expiration-during-tool-call).
 </Warning>
 
 ## Example workflow
@@ -1321,7 +1321,6 @@ If your tool result doesn’t arrive within about 4 minutes, the pending call ra
 
 To prevent timeouts:
 
-* Monitor the `expires_at` field on paused responses.
 * Implement timeouts for your tool execution.
 * Consider breaking long operations into smaller chunks.
 
@@ -1482,7 +1481,7 @@ If you are unsure, measure billed input tokens with and without `allowed_callers
 
 **Container expiration**
 
-* Respond to each programmatic tool call well before the paused response’s `expires_at` timestamp. Claude’s code stops waiting for a result after about 4 minutes.
+* Respond to each programmatic tool call as soon as you can. Don’t treat the paused response’s `expires_at` timestamp as your deadline: it falls after the call times out. Claude’s code stops waiting for a result after about 4 minutes.
 * Consider implementing faster tool execution.
 
 **Tool result not parsed correctly**

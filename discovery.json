@@ -50,13 +50,20 @@
       "serves_llms_txt": false,
       "serves_sitemap": true,
       "serves_markdown": false
+    },
+    "trust.anthropic.com": {
+      "status": "UNKNOWN \u2014 seen only as a redirect target",
+      "serves_llms_txt": false,
+      "serves_sitemap": false,
+      "serves_markdown": false
     }
   },
   "redirect_targets": [
     "academy.claude.com",
     "claude.com",
     "code.claude.com",
-    "platform.claude.com"
+    "platform.claude.com",
+    "trust.anthropic.com"
   ],
   "github_org_anthropics": {
     "fetched": [
