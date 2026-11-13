@@ -5,689 +5,13 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/deployments/pause
 
 # Pause Deployment
 
-`client.beta.deployments.pause(deploymentID, params?, options?): BetaManagedAgentsDeployment`
+- Signature: `client.beta.deployments.pause(deploymentID: string, params?: DeploymentPauseParams, options?: RequestOptions): BetaManagedAgentsDeployment`
+- Endpoint: `POST /v1/deployments/{deployment_id}/pause`
+- Beta header: `anthropic-beta: managed-agents-2026-04-01`
 
-**POST** `/v1/deployments/{deployment_id}/pause`
+## Example request
 
-Pause Deployment
-
-## Parameters
-
-- `deploymentID: string` (path parameter)
-
-  Unique identifier of the deployment to pause.
-
-- `params: DeploymentPauseParams`
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-## Returns
-
-- `interface BetaManagedAgentsDeployment`
-
-  A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
-
-  - `type: "deployment"`
-
-  - `id: string`
-
-    Unique identifier for this deployment.
-
-  - `agent: BetaManagedAgentsAgentReference`
-
-    Reference to the agent this deployment runs, resolved to a concrete version.
-
-    - `type: "agent"`
-
-    - `id: string`
-
-    - `version: number`
-
-      format: int32
-
-  - `archived_at: string | null`
-
-    Time the deployment was archived. Null if not archived.
-
-    format: date-time
-
-  - `created_at: string`
-
-    Time the deployment was created.
-
-    format: date-time
-
-  - `description: string | null`
-
-    Description of what the deployment does.
-
-  - `environment_id: string`
-
-    ID of the `environment` where sessions run.
-
-  - `initial_events: Array<BetaManagedAgentsDeploymentInitialEvent>`
-
-    Events sent to each session immediately after creation.
-
-    - `interface BetaManagedAgentsDeploymentUserMessageEvent`
-
-      A user message sent to the session.
-
-      - `type: "user.message"`
-
-      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>`
-
-        Array of content blocks for the user message.
-
-        - `interface BetaManagedAgentsTextBlock`
-
-          Regular text content.
-
-          - `type: "text"`
-
-          - `text: string`
-
-            The text content.
-
-            minLength: 1
-
-        - `interface BetaManagedAgentsImageBlock`
-
-          Image content specified directly as base64 data or as a reference via a URL.
-
-          - `type: "image"`
-
-          - `source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource`
-
-            The source of the image data.
-
-            - `interface BetaManagedAgentsBase64ImageSource`
-
-              Base64-encoded image data.
-
-              - `type: "base64"`
-
-              - `data: string`
-
-                Base64-encoded image data.
-
-                minLength: 1
-
-              - `media_type: string`
-
-                MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
-
-                minLength: 1
-
-            - `interface BetaManagedAgentsURLImageSource`
-
-              Image referenced by URL.
-
-              - `type: "url"`
-
-              - `url: string`
-
-                URL of the image to fetch.
-
-                minLength: 1
-
-            - `interface BetaManagedAgentsFileImageSource`
-
-              Image referenced by file ID.
-
-              - `type: "file"`
-
-              - `file_id: string`
-
-                ID of a previously uploaded file.
-
-                minLength: 1
-
-        - `interface BetaManagedAgentsDocumentBlock`
-
-          Document content, either specified directly as base64 data, as text, or as a reference via a URL.
-
-          - `type: "document"`
-
-          - `source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource`
-
-            The source of the document data.
-
-            - `interface BetaManagedAgentsBase64DocumentSource`
-
-              Base64-encoded document data.
-
-              - `type: "base64"`
-
-              - `data: string`
-
-                Base64-encoded document data.
-
-                minLength: 1
-
-              - `media_type: string`
-
-                MIME type of the document (e.g., "application/pdf").
-
-                minLength: 1
-
-            - `interface BetaManagedAgentsPlainTextDocumentSource`
-
-              Plain text document content.
-
-              - `type: "text"`
-
-              - `data: string`
-
-                The plain text content.
-
-                minLength: 1
-
-              - `media_type: "text/plain"`
-
-                MIME type of the text content. Must be "text/plain".
-
-            - `interface BetaManagedAgentsURLDocumentSource`
-
-              Document referenced by URL.
-
-              - `type: "url"`
-
-              - `url: string`
-
-                URL of the document to fetch.
-
-                minLength: 1
-
-            - `interface BetaManagedAgentsFileDocumentSource`
-
-              Document referenced by file ID.
-
-              - `type: "file"`
-
-              - `file_id: string`
-
-                ID of a previously uploaded file.
-
-                minLength: 1
-
-          - `context?: string | null`
-
-            Additional context about the document for the model.
-
-          - `title?: string | null`
-
-            The title of the document.
-
-        - `interface BetaManagedAgentsRedactedBlock`
-
-          Placeholder for content withheld by Anthropic model policy.
-
-          - `type: "redacted"`
-
-    - `interface BetaManagedAgentsDeploymentUserDefineOutcomeEvent`
-
-      An outcome the agent should work toward. The agent begins work on receipt.
-
-      - `type: "user.define_outcome"`
-
-      - `description: string`
-
-        What the agent should produce. This is the task specification.
-
-      - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
-
-        How to grade the outcome. Text or file reference.
-
-        - `interface BetaManagedAgentsFileRubric`
-
-          Rubric referenced by a file uploaded via the Files API.
-
-          - `type: "file"`
-
-          - `file_id: string`
-
-            ID of the rubric file.
-
-        - `interface BetaManagedAgentsTextRubric`
-
-          Rubric content provided inline as text.
-
-          - `type: "text"`
-
-          - `content: string`
-
-            Rubric content. Plain text or markdown — the grader treats it as freeform text.
-
-      - `max_iterations?: number | null`
-
-        Eval→revision cycles before giving up. Default 3, max 20.
-
-        format: int32
-
-    - `interface BetaManagedAgentsDeploymentSystemMessageEvent`
-
-      Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt.
-
-      - `type: "system.message"`
-
-      - `content: Array<BetaManagedAgentsSystemContentBlock>`
-
-        System content blocks to append. Text-only.
-
-        - `type: "text"`
-
-        - `text: string`
-
-          The text content.
-
-          minLength: 1
-
-  - `metadata: Record<string, string>`
-
-    Arbitrary key-value metadata. Maximum 16 pairs.
-
-  - `name: string`
-
-    Human-readable name.
-
-  - `paused_reason: BetaManagedAgentsDeploymentPausedReason | null`
-
-    Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise.
-
-    - `interface BetaManagedAgentsManualDeploymentPausedReason`
-
-      The caller invoked the pause endpoint on the deployment.
-
-      - `type: "manual"`
-
-    - `interface BetaManagedAgentsErrorDeploymentPausedReason`
-
-      A scheduled fire recorded a failed run whose error auto-pauses the deployment.
-
-      - `type: "error"`
-
-      - `error: BetaManagedAgentsDeploymentPausedReasonError`
-
-        The failed run's error.
-
-        - `interface BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
-
-          The deployment's environment was archived.
-
-          - `type: "environment_archived_error"`
-
-        - `interface BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
-
-          The deployment's agent was archived.
-
-          - `type: "agent_archived_error"`
-
-        - `interface BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
-
-          The deployment's environment no longer exists.
-
-          - `type: "environment_not_found_error"`
-
-        - `interface BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
-
-          A vault referenced by the deployment no longer exists.
-
-          - `type: "vault_not_found_error"`
-
-        - `interface BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
-
-          A file resource referenced by the deployment no longer exists.
-
-          - `type: "file_not_found_error"`
-
-        - `interface BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
-
-          A referenced resource no longer exists and its kind was not reported.
-
-          - `type: "session_resource_not_found_error"`
-
-        - `interface BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
-
-          The deployment's workspace was archived.
-
-          - `type: "workspace_archived_error"`
-
-        - `interface BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
-
-          The deployment's organization is disabled.
-
-          - `type: "organization_disabled_error"`
-
-        - `interface BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
-
-          A memory store referenced by the deployment is archived.
-
-          - `type: "memory_store_archived_error"`
-
-        - `interface BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
-
-          A skill referenced by the deployment's agent no longer exists.
-
-          - `type: "skill_not_found_error"`
-
-        - `interface BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
-
-          A vault referenced by the deployment is archived.
-
-          - `type: "vault_archived_error"`
-
-        - `interface BetaManagedAgentsUnknownDeploymentPausedReasonError`
-
-          An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
-
-          - `type: "unknown_error"`
-
-        - `interface BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
-
-          The deployment configures resources, but its environment is self-hosted and cannot mount them.
-
-          - `type: "self_hosted_resources_unsupported_error"`
-
-        - `interface BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
-
-          An MCP server host used by the deployment's agent is blocked by the environment's network policy.
-
-          - `type: "mcp_egress_blocked_error"`
-
-  - `resources: Array<BetaManagedAgentsSessionResourceConfig>`
-
-    Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
-
-    - `interface BetaManagedAgentsGitHubRepositoryResourceConfig`
-
-      A GitHub repository mounted into each session's container. The authorization token is write-only and never returned.
-
-      - `type: "github_repository"`
-
-      - `url: string`
-
-        Github URL of the repository
-
-      - `checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null`
-
-        Branch or commit to check out. Defaults to the repository's default branch.
-
-        - `interface BetaManagedAgentsBranchCheckout`
-
-          - `type: "branch"`
-
-          - `name: string`
-
-            Branch name to check out.
-
-            minLength: 1, maxLength: 255
-
-        - `interface BetaManagedAgentsCommitCheckout`
-
-          - `type: "commit"`
-
-          - `sha: string`
-
-            Full commit SHA to check out.
-
-            minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
-
-      - `mount_path?: string | null`
-
-        Mount path in the container. Defaults to `/workspace/<repo-name>`.
-
-    - `interface BetaManagedAgentsFileResourceConfig`
-
-      A file mounted into each session's container.
-
-      - `type: "file"`
-
-      - `file_id: string`
-
-        ID of a previously uploaded file.
-
-      - `mount_path?: string | null`
-
-        Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
-
-    - `interface BetaManagedAgentsMemoryStoreResourceConfig`
-
-      A memory store attached to each session created from this deployment.
-
-      - `type: "memory_store"`
-
-      - `memory_store_id: string`
-
-        The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-      - `access?: "read_write" | "read_only" | null`
-
-        Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem.
-
-        - `"read_write"`
-
-        - `"read_only"`
-
-      - `instructions?: string | null`
-
-        Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-
-  - `schedule: BetaManagedAgentsSchedule | null`
-
-    Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant.
-
-    - `type: "cron"`
-
-    - `expression: string`
-
-      5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
-
-      minLength: 1, maxLength: 256
-
-    - `timezone: string`
-
-      IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
-
-      minLength: 1
-
-    - `last_run_at?: string | null`
-
-      Time the most recent scheduled run actually started. Null until one completes; preserved after the deployment is archived. Manual runs do not update this.
-
-      format: date-time
-
-    - `upcoming_runs_at?: Array<string>`
-
-      Up to 5 timestamps of upcoming cron occurrences. Non-empty for active and paused deployments (reflects what the schedule would do if unpaused); empty once the deployment is archived (`archived_at` set). Each fire is offset by a small per-schedule jitter, so a run will actually start at or shortly after its listed time.
-
-  - `status: BetaManagedAgentsDeploymentStatus`
-
-    Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set.
-
-    - `"active"`
-
-      The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them.
-
-    - `"paused"`
-
-      The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted.
-
-  - `updated_at: string`
-
-    Time the deployment was last updated.
-
-    format: date-time
-
-  - `vault_ids: Array<string>`
-
-    Vault IDs supplying stored credentials for sessions created from this deployment.
-
-  - `budget?: BetaManagedAgentsBudgetLimit | null`
-
-    Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set.
-
-    - `type: "limit"`
-
-    - `max_list_cost: BetaMonetaryAmount`
-
-      Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge.
-
-      - `amount: string`
-
-        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
-
-        pattern: ^(0|[1-9]\d*)$
-
-      - `currency: BetaCurrency`
-
-        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
-
-## Example
-
-```typescript
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -701,7 +25,7 @@ const betaManagedAgentsDeployment = await client.beta.deployments.pause(
 console.log(betaManagedAgentsDeployment.id);
 ```
 
-### Response (200)
+## Example response (200)
 
 ```json
 {
@@ -765,5 +89,435 @@ console.log(betaManagedAgentsDeployment.id);
     },
     "type": "limit"
   }
+}
+```
+
+## Parameters
+
+```ts
+/** Unique identifier of the deployment to pause. */
+deploymentID: string; // path parameter
+
+interface DeploymentPauseParams {
+  /** This endpoint is in beta: requests must send `managed-agents-2026-04-01` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
+## Returns
+
+```ts
+/** A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule. */
+interface BetaManagedAgentsDeployment {
+  type: "deployment";
+  /** Unique identifier for this deployment. */
+  id: string;
+  /** Reference to the agent this deployment runs, resolved to a concrete version. */
+  agent: BetaManagedAgentsAgentReference;
+  /** Time the deployment was archived. Null if not archived. */
+  archived_at: string | null; // format: date-time
+  /** Time the deployment was created. */
+  created_at: string; // format: date-time
+  /** Description of what the deployment does. */
+  description: string | null;
+  /** ID of the `environment` where sessions run. */
+  environment_id: string;
+  /** Events sent to each session immediately after creation. */
+  initial_events: Array<BetaManagedAgentsDeploymentInitialEvent>;
+  /** Arbitrary key-value metadata. Maximum 16 pairs. */
+  metadata: Record<string, string>;
+  /** Human-readable name. */
+  name: string;
+  /** Why the deployment is `paused`. Non-null exactly when `status` is `paused`; null otherwise. */
+  paused_reason: BetaManagedAgentsDeploymentPausedReason | null;
+  /** Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials. */
+  resources: Array<BetaManagedAgentsSessionResourceConfig>;
+  /** Recurring cron schedule. Presence enables scheduled execution; null means manual-only. Includes computed timestamps (next fire times, last run) on the cron variant. */
+  schedule: BetaManagedAgentsSchedule | null;
+  /** Computed status of the deployment: `active` or `paused`. Archived deployments report `active` with `archived_at` set. */
+  status: BetaManagedAgentsDeploymentStatus;
+  /** Time the deployment was last updated. */
+  updated_at: string; // format: date-time
+  /** Vault IDs supplying stored credentials for sessions created from this deployment. */
+  vault_ids: Array<string>;
+  /** Spend ceiling stamped onto each session created from this deployment. Absent when no budget is set. */
+  budget?: BetaManagedAgentsBudgetLimit | null;
+}
+```
+
+## Types
+
+```ts
+type AnthropicBeta =
+  | (string & {})
+  | "computer-use-2024-10-22"
+  | "computer-use-2025-01-24"
+  | "output-128k-2025-02-19"
+  | "mcp-client-2025-04-04"
+  | "mcp-client-2025-11-20"
+  | "dev-full-thinking-2025-05-14"
+  | "interleaved-thinking-2025-05-14"
+  | "code-execution-2025-05-22"
+  | "context-1m-2025-08-07"
+  | "context-management-2025-06-27"
+  | "model-context-window-exceeded-2025-08-26"
+  | "fast-mode-2026-02-01"
+  | "output-300k-2026-03-24"
+  | "user-profiles-2026-03-24"
+  | "user-profiles-2026-08-18"
+  | "user-profiles-2026-09-04"
+  | "advisor-tool-2026-03-01"
+  | "managed-agents-2026-04-01"
+  | "dreaming-2026-04-21"
+  | "thinking-token-count-2026-05-13"
+  | "server-side-fallback-2026-06-01"
+  | "server-side-fallback-2026-07-01"
+  | "fallback-credit-2026-06-01"
+  | "fallback-credit-2026-07-01"
+  | "agent-memory-2026-07-22"
+  | "mid-conversation-tool-changes-2026-07-01"
+  | "compact-2026-01-12"
+  | "computer-use-2025-11-24"
+  | "mcp-tunnels-2026-06-22"
+  | "structured-outputs-2025-11-13"
+  | "task-budgets-2026-03-13"
+  | "thinking-display-updates-2026-08-18"
+  | "mid-conversation-output-config-2026-07-01"
+  | "thinking-binding-controls-2026-08-01"
+  | "mid-conversation-system-clear-at-2026-08-21"
+  | "compact-2026-09-04"
+  | "inline-tools-2026-09-15"
+  | "mcp-client-2026-09-15"
+  | "ce-plugins-2026-09-01"
+  | "spend-limit-reads-2026-09-26"
+  | "telemetry-destinations-2026-08-11"
+  | "webhooks-2026-10-07"
+  | "admin-user-sign-out-2026-10-08"
+  | "message-threads-2026-08-12"
+  | "analytics-usage-cost-2026-08-24"
+  | "experimental-claude-tag-2026-10-21"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "message-batches-2024-09-24"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "prompt-caching-2024-07-31"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "pdfs-2024-09-25"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "token-counting-2024-11-01"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "token-efficient-tools-2025-02-19"
+  /** @deprecated Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14 */
+  | "files-api-2025-04-14"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "extended-cache-ttl-2025-04-11"
+  /** @deprecated Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02 */
+  | "skills-2025-10-02"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "cache-diagnosis-2026-04-07"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "ce-user-management-2026-07-13";
+
+interface BetaManagedAgentsAgentReference {
+  type: "agent";
+  id: string;
+  version: number; // format: int32
+}
+
+type BetaManagedAgentsDeploymentInitialEvent = BetaManagedAgentsDeploymentUserMessageEvent | BetaManagedAgentsDeploymentUserDefineOutcomeEvent | BetaManagedAgentsDeploymentSystemMessageEvent;
+
+type BetaManagedAgentsDeploymentPausedReason = BetaManagedAgentsManualDeploymentPausedReason | BetaManagedAgentsErrorDeploymentPausedReason;
+
+type BetaManagedAgentsSessionResourceConfig = BetaManagedAgentsGitHubRepositoryResourceConfig | BetaManagedAgentsFileResourceConfig | BetaManagedAgentsMemoryStoreResourceConfig;
+
+interface BetaManagedAgentsSchedule {
+  type: "cron";
+  /** 5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily). */
+  expression: string; // minLength: 1, maxLength: 256
+  /** IANA timezone identifier (e.g., "America/Los_Angeles", "UTC"). */
+  timezone: string; // minLength: 1
+  /** Time the most recent scheduled run actually started. Null until one completes; preserved after the deployment is archived. Manual runs do not update this. */
+  last_run_at?: string | null; // format: date-time
+  /** Up to 5 timestamps of upcoming cron occurrences. Non-empty for active and paused deployments (reflects what the schedule would do if unpaused); empty once the deployment is archived (`archived_at` set). Each fire is offset by a small per-schedule jitter, so a run will actually start at or shortly after its listed time. */
+  upcoming_runs_at?: Array<string>;
+}
+
+type BetaManagedAgentsDeploymentStatus =
+  /** The deployment is active and can run sessions. Archived deployments also report this status; check `archived_at` to distinguish them. */
+  | "active"
+  /** The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted. */
+  | "paused";
+
+interface BetaManagedAgentsBudgetLimit {
+  type: "limit";
+  /** Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge. */
+  max_list_cost: BetaMonetaryAmount;
+}
+
+/** A user message sent to the session. */
+interface BetaManagedAgentsDeploymentUserMessageEvent {
+  type: "user.message";
+  /** Array of content blocks for the user message. */
+  content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>;
+}
+
+/** An outcome the agent should work toward. The agent begins work on receipt. */
+interface BetaManagedAgentsDeploymentUserDefineOutcomeEvent {
+  type: "user.define_outcome";
+  /** What the agent should produce. This is the task specification. */
+  description: string;
+  /** How to grade the outcome. Text or file reference. */
+  rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric;
+  /** Eval→revision cycles before giving up. Default 3, max 20. */
+  max_iterations?: number | null; // format: int32
+}
+
+/** Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt. */
+interface BetaManagedAgentsDeploymentSystemMessageEvent {
+  type: "system.message";
+  /** System content blocks to append. Text-only. */
+  content: Array<BetaManagedAgentsSystemContentBlock>;
+}
+
+/** The caller invoked the pause endpoint on the deployment. */
+interface BetaManagedAgentsManualDeploymentPausedReason {
+  type: "manual";
+}
+
+/** A scheduled fire recorded a failed run whose error auto-pauses the deployment. */
+interface BetaManagedAgentsErrorDeploymentPausedReason {
+  type: "error";
+  /** The failed run's error. */
+  error: BetaManagedAgentsDeploymentPausedReasonError;
+}
+
+/** A GitHub repository mounted into each session's container. The authorization token is write-only and never returned. */
+interface BetaManagedAgentsGitHubRepositoryResourceConfig {
+  type: "github_repository";
+  /** Github URL of the repository */
+  url: string;
+  /** Branch or commit to check out. Defaults to the repository's default branch. */
+  checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null;
+  /** Mount path in the container. Defaults to `/workspace/<repo-name>`. */
+  mount_path?: string | null;
+}
+
+/** A file mounted into each session's container. */
+interface BetaManagedAgentsFileResourceConfig {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string;
+  /** Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`. */
+  mount_path?: string | null;
+}
+
+/** A memory store attached to each session created from this deployment. */
+interface BetaManagedAgentsMemoryStoreResourceConfig {
+  type: "memory_store";
+  /** The memory store ID (memstore_...). Must belong to the caller's organization and workspace. */
+  memory_store_id: string;
+  /** Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem. */
+  access?: "read_write" | "read_only" | null;
+  /** Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars. */
+  instructions?: string | null;
+}
+
+interface BetaMonetaryAmount {
+  /** Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied. */
+  amount: string; // pattern: ^(0|[1-9]\d*)$
+  /** Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced. */
+  currency: BetaCurrency;
+}
+
+/** Regular text content. */
+interface BetaManagedAgentsTextBlock {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
+/** Image content specified directly as base64 data or as a reference via a URL. */
+interface BetaManagedAgentsImageBlock {
+  type: "image";
+  /** The source of the image data. */
+  source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource;
+}
+
+/** Document content, either specified directly as base64 data, as text, or as a reference via a URL. */
+interface BetaManagedAgentsDocumentBlock {
+  type: "document";
+  /** The source of the document data. */
+  source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource;
+  /** Additional context about the document for the model. */
+  context?: string | null;
+  /** The title of the document. */
+  title?: string | null;
+}
+
+/** Placeholder for content withheld by Anthropic model policy. */
+interface BetaManagedAgentsRedactedBlock {
+  type: "redacted";
+}
+
+/** Rubric referenced by a file uploaded via the Files API. */
+interface BetaManagedAgentsFileRubric {
+  type: "file";
+  /** ID of the rubric file. */
+  file_id: string;
+}
+
+/** Rubric content provided inline as text. */
+interface BetaManagedAgentsTextRubric {
+  type: "text";
+  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. */
+  content: string;
+}
+
+interface BetaManagedAgentsSystemContentBlock {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
+type BetaManagedAgentsDeploymentPausedReasonError = BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError | BetaManagedAgentsAgentArchivedDeploymentPausedReasonError | BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError | BetaManagedAgentsFileNotFoundDeploymentPausedReasonError | BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError | BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError | BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError | BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError | BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultArchivedDeploymentPausedReasonError | BetaManagedAgentsUnknownDeploymentPausedReasonError | BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError | BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError;
+
+interface BetaManagedAgentsBranchCheckout {
+  type: "branch";
+  /** Branch name to check out. */
+  name: string; // minLength: 1, maxLength: 255
+}
+
+interface BetaManagedAgentsCommitCheckout {
+  type: "commit";
+  /** Full commit SHA to check out. */
+  sha: string; // minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
+}
+
+type BetaCurrency = "USD";
+
+/** Base64-encoded image data. */
+interface BetaManagedAgentsBase64ImageSource {
+  type: "base64";
+  /** Base64-encoded image data. */
+  data: string; // minLength: 1
+  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
+  media_type: string; // minLength: 1
+}
+
+/** Image referenced by URL. */
+interface BetaManagedAgentsURLImageSource {
+  type: "url";
+  /** URL of the image to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Image referenced by file ID. */
+interface BetaManagedAgentsFileImageSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
+
+/** Base64-encoded document data. */
+interface BetaManagedAgentsBase64DocumentSource {
+  type: "base64";
+  /** Base64-encoded document data. */
+  data: string; // minLength: 1
+  /** MIME type of the document (e.g., "application/pdf"). */
+  media_type: string; // minLength: 1
+}
+
+/** Plain text document content. */
+interface BetaManagedAgentsPlainTextDocumentSource {
+  type: "text";
+  /** The plain text content. */
+  data: string; // minLength: 1
+  /** MIME type of the text content. Must be "text/plain". */
+  media_type: "text/plain";
+}
+
+/** Document referenced by URL. */
+interface BetaManagedAgentsURLDocumentSource {
+  type: "url";
+  /** URL of the document to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Document referenced by file ID. */
+interface BetaManagedAgentsFileDocumentSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
+
+/** The deployment's environment was archived. */
+interface BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError {
+  type: "environment_archived_error";
+}
+
+/** The deployment's agent was archived. */
+interface BetaManagedAgentsAgentArchivedDeploymentPausedReasonError {
+  type: "agent_archived_error";
+}
+
+/** The deployment's environment no longer exists. */
+interface BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError {
+  type: "environment_not_found_error";
+}
+
+/** A vault referenced by the deployment no longer exists. */
+interface BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError {
+  type: "vault_not_found_error";
+}
+
+/** A file resource referenced by the deployment no longer exists. */
+interface BetaManagedAgentsFileNotFoundDeploymentPausedReasonError {
+  type: "file_not_found_error";
+}
+
+/** A referenced resource no longer exists and its kind was not reported. */
+interface BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError {
+  type: "session_resource_not_found_error";
+}
+
+/** The deployment's workspace was archived. */
+interface BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError {
+  type: "workspace_archived_error";
+}
+
+/** The deployment's organization is disabled. */
+interface BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError {
+  type: "organization_disabled_error";
+}
+
+/** A memory store referenced by the deployment is archived. */
+interface BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError {
+  type: "memory_store_archived_error";
+}
+
+/** A skill referenced by the deployment's agent no longer exists. */
+interface BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError {
+  type: "skill_not_found_error";
+}
+
+/** A vault referenced by the deployment is archived. */
+interface BetaManagedAgentsVaultArchivedDeploymentPausedReasonError {
+  type: "vault_archived_error";
+}
+
+/** An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`. */
+interface BetaManagedAgentsUnknownDeploymentPausedReasonError {
+  type: "unknown_error";
+}
+
+/** The deployment configures resources, but its environment is self-hosted and cannot mount them. */
+interface BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError {
+  type: "self_hosted_resources_unsupported_error";
+}
+
+/** An MCP server host used by the deployment's agent is blocked by the environment's network policy. */
+interface BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError {
+  type: "mcp_egress_blocked_error";
 }
 ```

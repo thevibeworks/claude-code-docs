@@ -10,43 +10,11 @@ On the MDM delivery model, the profile you deploy carries your organization's fu
 
 Before you start, install Claude Desktop on an admin workstation; see [Installation and setup](https://claude.com/docs/third-party/claude-desktop/installation.md). If you deliver configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) instead, follow that page; your profile then carries only the bootstrap keys, but it is exported and deployed the same way described here.
 
-## Recommended rollout
-
-Roll out in this order.
-
-**1. Build a configuration in the app**
-
-An admin builds and tests a working configuration in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) on their own device.
-
-**2. Export the profile**
-
-Export the validated configuration in the format your MDM expects.
-
-**3. Allow required network egress**
-
-Open the hostnames your configuration requires on your perimeter firewall; the configuration window lists them for the exact settings you chose.
-
-**4. Deploy the configuration, then the app**
-
-Distribute the profile through your MDM, then push the installer. Deploying the configuration first means users open Claude for the first time and land directly in the third-party deployment.
-
 ## 1. Build a configuration in the app
 
-Launch Claude Desktop. **Do not sign in or create an Anthropic account**; stay on the login screen. From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the configuration window.
+Launch Claude Desktop. **Do not sign in or create an Anthropic account**; stay on the login screen. From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md).
 
 The window is organized into sections in the left sidebar. Work through them in order; each maps to a group of [configuration keys](https://claude.com/docs/third-party/claude-desktop/configuration.md), and the window validates values as you enter them.
-
-| Section | What you set |
-| - | - |
-| **Connection** | Inference provider (Gateway, Claude API, Google Cloud's Agent Platform, Bedrock, Bedrock Mantle, or Foundry) and its credentials Model list Optional credential-helper script |
-| **Capabilities** | Which of Cowork, Code, and Chat are available Allowed egress hosts for the sandbox Disabled built-in tools Allowed workspace folders |
-| **Connectors** | Managed MCP servers pushed to all users Whether users can add their own local MCP servers Whether desktop extensions (`.mcpb`) are allowed Whether unsigned extensions are rejected |
-| **Telemetry & updates** | Organization UUID OpenTelemetry collector endpoint Whether auto-updates are blocked The enforcement window for downloaded updates, or the restart for versions you install yourself The three Anthropic-bound telemetry toggles (essential, nonessential, nonessential services) |
-| **Limits** | Per-device token cap and its window length Retention periods after which idle chats, Cowork tasks, and Code sessions are deleted |
-| **Appearance** | Persistent banner shown across the app window Announcement from your organization that each user can close Deployment display name, subtitle, and logo Whether the signed-in user's identity is shown and exported (end-user attribution) Whether feature announcements are shown |
-| **Plugins** | [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin), added by GitHub repo, git URL, or hosted `marketplace.json` URL Shows the org-plugins folder path for your platform; plugin bundles are mounted to that folder via your MDM, not through this window |
-| **Egress** | A read-only firewall allowlist derived from everything you've entered above, grouped by feature **Copy hostnames**, **Download .txt**, and **Test connectivity** actions |
-| **Source** | The bootstrap keys, if you are using the [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) delivery model instead of a full MDM profile |
 
 [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md#enabling-unified-claude) is on by default in current versions of Claude Desktop, even where your profile sets `chatTabEnabled`, `chatAdvancedFileAnalysisEnabled`, or `coworkTabEnabled` to `false`.
 
@@ -121,7 +89,7 @@ Open these hosts on your perimeter firewall before rolling out to devices. See [
 
 ## 4. Deploy the configuration
 
-Push the exported configuration through your MDM. The app reads from these locations:
+Push the exported configuration through your MDM. On macOS and Windows, put all of a device's managed keys in one location, either machine or user. The app reads from these locations:
 
 > [tab] macOS
 >
@@ -146,10 +114,6 @@ Push the exported configuration through your MDM. The app reads from these locat
 > > [!WARNING]
 > >
 > > Values must sit directly under `HKLM\SOFTWARE\Policies\Claude` or `HKCU\SOFTWARE\Policies\Claude`. The app never reads values nested in a subkey, as some ADMX-based and Policy CSP tooling writes them: they do not apply as configuration and do not count as machine policy being present. Write values as `REG_SZ` (`REG_DWORD` is also accepted for boolean and integer keys and is read as its decimal value). Avoid `REG_EXPAND_SZ`: the app counts it as machine policy being present but cannot read its contents, so a single `REG_EXPAND_SZ` value under `HKLM` disables user policy without supplying any configuration. The app cannot see `REG_QWORD`, `REG_MULTI_SZ`, or `REG_BINARY` values at all.
->
-> > [!NOTE]
-> >
-> > In releases before v1.19367.0, the app read both hives and merged them key by key, with the `HKLM` value winning where a key appeared in both. Fleets that split keys across both hives must consolidate the full configuration into one hive before updating to v1.19367.0 or later.
 
 When a managed source sets any key other than the [app-behavior keys and the keys treated like them](#update-keys-and-managed-precedence), the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 
@@ -175,7 +139,7 @@ While a fleet updates to 4.16336.0, plan for these cases:
 A small group of **app-behavior keys** is treated specially, so you can set an update policy, a restart window, or a network proxy from MDM without managing the whole configuration:
 
 * The update keys `disableAutoUpdates`, `autoUpdaterEnforcementHours`, `installedUpdateEnforcementEnabled`, `installedUpdateEnforcementHours`, `updateViaUpdatesHost`, and [`releaseChannel`](https://claude.com/docs/third-party/claude-desktop/configuration#releasechannel).
-* The configuration lifecycle keys [`relaunchEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) and [`configRecheckIntervalMinutes`](https://claude.com/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes), which MDM can set from version 1.46388.1.
+* The configuration lifecycle keys [`relaunchEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#relaunchenforcementhours) and [`configRecheckIntervalMinutes`](https://claude.com/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes).
 * The network proxy keys `egressProxyUrl` and `egressProxyPacUrl`. See [Network proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration).
 * The Code session keys [`disableWslSessions`](https://claude.com/docs/third-party/claude-desktop/configuration#disablewslsessions) and [`claudeCodeProcessWrapperEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#claudecodeprocesswrapperenabled). See [Start Code sessions through a corporate launcher](https://claude.com/docs/third-party/claude-desktop/code.md#start-code-sessions-through-a-corporate-launcher).
 

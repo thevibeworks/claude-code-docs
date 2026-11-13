@@ -76,7 +76,7 @@ Three behaviors to plan for:
 
 ## What is and is not routed
 
-The table summarizes which proxy source each kind of traffic follows. "App proxy" means the pinned key if one is set, otherwise the OS settings, with PAC rules applied per request.
+"App proxy" means the pinned key if one is set, otherwise the OS settings, with PAC rules applied per request.
 
 | Traffic | Proxy it follows |
 | - | - |
@@ -104,8 +104,8 @@ The table summarizes which proxy source each kind of traffic follows. "App proxy
 
 Some traffic doesn't follow the pinned key or the proxy the app resolved, or follows them only in some cases.
 
-* **App updates.** Checking for and downloading Claude Desktop updates is handled by the OS-native updater on macOS and Windows, which follows the OS proxy settings only. This is the one app-controlled path with no admin-side option other than the OS proxy: neither the pinned key nor Claude Code managed settings reach it. If updates must not traverse a direct path, configure the OS proxy on the device or distribute updates yourself with [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration) and your software-distribution tool. On Linux, updates come from your package manager, which has its own proxy configuration.
-* **Commands in Cowork's sandboxed shell.** No proxy settings reach the Cowork sandbox on Linux, so `curl`, `pip`, `npm`, `git`, and anything else the agent runs there connect directly. On macOS and Windows those commands follow the pinned key, or the OS proxy settings when no key is set. When the key or the OS settings name a PAC script, the commands follow it only while the sandbox has [its copy of the script](#pac-script-for-the-sandboxed-shell). If the download of a pinned PAC script fails when the sandbox starts, the commands connect directly until the sandbox next starts. On every platform, [`coworkEgressAllowedHosts`](https://claude.com/docs/third-party/claude-desktop/web-tools) still applies inside the sandbox and sits in front of any proxy.
+* **App updates.** Checking for and downloading Claude Desktop updates is handled by the OS-native updater on macOS and Windows, which follows the OS proxy settings only. If updates must not traverse a direct path, configure the OS proxy on the device or distribute updates yourself with [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration) and your software-distribution tool. On Linux, updates come from your package manager, which has its own proxy configuration.
+* **Commands in Cowork's sandboxed shell.** No proxy settings reach the Cowork sandbox on Linux, so `curl`, `pip`, `npm`, `git`, and anything else the agent runs there connect directly. On macOS and Windows those commands follow the pinned key, or the OS proxy settings when no key is set. When the key or the OS settings name a PAC script, the commands follow it only while the sandbox has [its copy of the script](#pac-script-for-the-sandboxed-shell). On every platform, [`coworkEgressAllowedHosts`](https://claude.com/docs/third-party/claude-desktop/web-tools) still applies inside the sandbox and sits in front of any proxy.
 * **SOCKS proxies in Cowork's sandboxed shell.** On macOS and Windows, the sandboxed shell skips SOCKS proxies. Its commands connect directly to a host for which a PAC script returns only SOCKS proxies, and to every host when the OS proxy settings name only a SOCKS proxy. Have the script return a `PROXY` or `HTTPS` entry for each host that must go through a proxy, or [pin a proxy from managed configuration](#pin-a-proxy-from-managed-configuration).
 * **Cowork's sandboxed shell when every host is allowed.** With a list of hosts in [`coworkEgressAllowedHosts`](https://claude.com/docs/third-party/claude-desktop/web-tools), the shell's commands reach the network only through a filter inside the sandbox, and a program that ignores proxy variables has no route around it. When the list contains `*`, that filter is off and commands make their own connections. On macOS and Windows they get the proxy setting only as `HTTPS_PROXY`, `HTTP_PROXY`, and `NO_PROXY`, so a program that ignores those variables connects directly.
 * **SSH remote Code sessions.** When a user runs a Code session on another machine through [`sshHostAllowlist`](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions), the agent runs on that host and connects to the inference endpoint from there. Claude Desktop passes the endpoint address to the remote agent but not the pinned key, the device's OS proxy settings, or proxy variables from Claude Code managed settings on the device. The host's own network route and any Claude Code managed settings installed on the host apply instead. See [Inference credentials on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#inference-credentials-on-the-remote-host).
@@ -121,9 +121,9 @@ Some traffic doesn't follow the pinned key or the proxy the app resolved, or fol
 
 ### The agent uses one proxy
 
-The agent sends all of its own traffic (inference, its remote MCP connections, and in Code sessions its web fetches and plugin installs) through the one proxy resolved for your inference endpoint. Per-host PAC rules are not re-evaluated inside the agent. For most organizations this is the desirable outcome: everything the agent does is logged and inspected at one place, with nothing further to configure.
+The agent sends all of its own traffic (inference, its remote MCP connections, and in Code sessions its web fetches and plugin installs) through the one proxy resolved for your inference endpoint. Per-host PAC rules are not re-evaluated inside the agent.
 
-It needs attention only when that one proxy is not right for everything the agent reaches: typically some hosts (an internal MCP server, a private package registry, a self-hosted plugin marketplace) must be reached directly while the proxy only carries public traffic, or the reverse. In order of preference:
+This needs attention only when that one proxy is not right for everything the agent reaches: typically some hosts (an internal MCP server, a private package registry, a self-hosted plugin marketplace) must be reached directly while the proxy only carries public traffic, or the reverse. In order of preference:
 
 1. Let the proxy these devices use carry both kinds of traffic. Nothing else needs configuring.
 2. Otherwise, list the domains that must connect directly in `NO_PROXY` through Claude Code managed settings (see the next section), using leading-dot suffixes such as `.example.corp`, and accept that everything not listed goes to the proxy.
@@ -218,10 +218,3 @@ For Cowork's sandboxed shell, open `cowork_vm_node.log` in the same directory an
 **Web fetches or MCP connections fail in Code sessions but inference works.** Either the proxy resolved for the inference endpoint does not carry that traffic, or the answer for the inference endpoint was `DIRECT` and the agent has no proxy. See [The agent uses one proxy](#the-agent-uses-one-proxy).
 
 **Certificate errors.** See [TLS-intercepting proxies](#tls-intercepting-proxies).
-
-## Related
-
-* [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md) for `egressProxyUrl`, `egressProxyPacUrl`, and `coworkEgressAllowedHosts`
-* [Telemetry and egress](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths) for the hosts your proxy must allow
-* [Claude Code in Claude Desktop on 3P](https://claude.com/docs/third-party/claude-desktop/code.md) for how Claude Code managed settings combine with Claude Desktop policy
-* [Web tools](https://claude.com/docs/third-party/claude-desktop/web-tools.md) for `coworkEgressAllowedHosts`

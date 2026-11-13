@@ -5,239 +5,12 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/files/upload
 
 # Upload File
 
-`client.beta.files.upload(params, options?): BetaFileMetadata`
+- Signature: `client.beta.files.upload(params: FileUploadParams, options?: RequestOptions): BetaFileMetadata`
+- Endpoint: `POST /v1/files`
 
-**POST** `/v1/files`
+## Example request
 
-Upload File
-
-## Parameters
-
-- `params: FileUploadParams`
-
-  - `file: Uploadable`
-
-    The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known.
-
-    format: binary
-
-  - `expires_in_seconds?: number`
-
-    Seconds from upload until the file expires and its bytes become permanently unavailable. Must be between 3600 (one hour) and 7776000 (ninety days).
-
-    minimum: 3600, maximum: 7776000
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-## Returns
-
-- `interface BetaFileMetadata`
-
-  - `type: "file"`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
-  - `id: string`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    RFC 3339 datetime string representing when the file was created.
-
-    format: date-time
-
-  - `filename: string`
-
-    Original filename of the uploaded file.
-
-    minLength: 1, maxLength: 500
-
-  - `mime_type: string`
-
-    MIME type of the file.
-
-    minLength: 1, maxLength: 255
-
-  - `size_bytes: number`
-
-    Size of the file in bytes.
-
-    minimum: 0
-
-  - `downloadable?: boolean`
-
-    Whether the file can be downloaded.
-
-    default: false
-
-  - `expires_at?: string | null`
-
-    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
-
-    format: date-time
-
-  - `scope?: BetaFileScope | null`
-
-    The scope of this file, indicating the context in which it was created (e.g., a session).
-
-    - `type: "session"`
-
-      The type of scope (e.g., `"session"`).
-
-    - `id: string`
-
-      The ID of the scoping resource (e.g., the session ID).
-
-## Example
-
-```typescript
+```ts
 import fs from "fs";
 import Anthropic from "@anthropic-ai/sdk";
 
@@ -252,7 +25,7 @@ const betaFileMetadata = await client.beta.files.upload({
 console.log(betaFileMetadata.id);
 ```
 
-### Response (200)
+## Example response (200)
 
 ```json
 {
@@ -268,5 +41,125 @@ console.log(betaFileMetadata.id);
     "id": "id",
     "type": "session"
   }
+}
+```
+
+## Parameters
+
+```ts
+interface FileUploadParams {
+  /** The file to upload. Only the final path component of the part's `filename` is kept; an absent or empty `filename` is replaced with `unnamed` plus the extension for the file's stored `mime_type`, when known. */
+  file: Uploadable; // format: binary
+  /** Seconds from upload until the file expires and its bytes become permanently unavailable. Must be between 3600 (one hour) and 7776000 (ninety days). */
+  expires_in_seconds?: number; // minimum: 3600, maximum: 7776000
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
+## Returns
+
+```ts
+interface BetaFileMetadata {
+  /** Object type. For files, this is always `"file"`. */
+  type: "file";
+  /** Unique object identifier. The format and length of IDs may change over time. */
+  id: string;
+  /** RFC 3339 datetime string representing when the file was created. */
+  created_at: string; // format: date-time
+  /** Original filename of the uploaded file. */
+  filename: string; // minLength: 1, maxLength: 500
+  /** MIME type of the file. */
+  mime_type: string; // minLength: 1, maxLength: 255
+  /** Size of the file in bytes. */
+  size_bytes: number; // minimum: 0
+  /** Whether the file can be downloaded. */
+  downloadable?: boolean; // default: false
+  /** RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value. */
+  expires_at?: string | null; // format: date-time
+  /** The scope of this file, indicating the context in which it was created (e.g., a session). */
+  scope?: BetaFileScope | null;
+}
+```
+
+## Types
+
+```ts
+type AnthropicBeta =
+  | (string & {})
+  | "computer-use-2024-10-22"
+  | "computer-use-2025-01-24"
+  | "output-128k-2025-02-19"
+  | "mcp-client-2025-04-04"
+  | "mcp-client-2025-11-20"
+  | "dev-full-thinking-2025-05-14"
+  | "interleaved-thinking-2025-05-14"
+  | "code-execution-2025-05-22"
+  | "context-1m-2025-08-07"
+  | "context-management-2025-06-27"
+  | "model-context-window-exceeded-2025-08-26"
+  | "fast-mode-2026-02-01"
+  | "output-300k-2026-03-24"
+  | "user-profiles-2026-03-24"
+  | "user-profiles-2026-08-18"
+  | "user-profiles-2026-09-04"
+  | "advisor-tool-2026-03-01"
+  | "managed-agents-2026-04-01"
+  | "dreaming-2026-04-21"
+  | "thinking-token-count-2026-05-13"
+  | "server-side-fallback-2026-06-01"
+  | "server-side-fallback-2026-07-01"
+  | "fallback-credit-2026-06-01"
+  | "fallback-credit-2026-07-01"
+  | "agent-memory-2026-07-22"
+  | "mid-conversation-tool-changes-2026-07-01"
+  | "compact-2026-01-12"
+  | "computer-use-2025-11-24"
+  | "mcp-tunnels-2026-06-22"
+  | "structured-outputs-2025-11-13"
+  | "task-budgets-2026-03-13"
+  | "thinking-display-updates-2026-08-18"
+  | "mid-conversation-output-config-2026-07-01"
+  | "thinking-binding-controls-2026-08-01"
+  | "mid-conversation-system-clear-at-2026-08-21"
+  | "compact-2026-09-04"
+  | "inline-tools-2026-09-15"
+  | "mcp-client-2026-09-15"
+  | "ce-plugins-2026-09-01"
+  | "spend-limit-reads-2026-09-26"
+  | "telemetry-destinations-2026-08-11"
+  | "webhooks-2026-10-07"
+  | "admin-user-sign-out-2026-10-08"
+  | "message-threads-2026-08-12"
+  | "analytics-usage-cost-2026-08-24"
+  | "experimental-claude-tag-2026-10-21"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "message-batches-2024-09-24"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "prompt-caching-2024-07-31"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "pdfs-2024-09-25"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "token-counting-2024-11-01"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "token-efficient-tools-2025-02-19"
+  /** @deprecated Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14 */
+  | "files-api-2025-04-14"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "extended-cache-ttl-2025-04-11"
+  /** @deprecated Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02 */
+  | "skills-2025-10-02"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "cache-diagnosis-2026-04-07"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "ce-user-management-2026-07-13";
+
+interface BetaFileScope {
+  /** The type of scope (e.g., `"session"`). */
+  type: "session";
+  /** The ID of the scoping resource (e.g., the session ID). */
+  id: string;
 }
 ```

@@ -100,6 +100,4 @@ The following configuration offers Claude Sonnet 5 and Claude Opus 5. It makes C
 
 With this configuration, a user who starts a new Cowork session sees Claude Sonnet 5 selected at medium effort. The **Effort** control offers low, medium, and high for every entry.
 
-In that session, the user can switch to Claude Opus 5, which starts at its recommended high effort, or raise Claude Sonnet 5 to high. The session keeps either choice. The user's next new conversation or session opens on Claude Sonnet 5 at medium effort again.
-
 The example is plain JSON, which is the form a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) response and the Linux managed file use. For a macOS profile or the Windows registry, encode the same values as the [Value types](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types) section describes.

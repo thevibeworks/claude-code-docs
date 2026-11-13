@@ -46,7 +46,7 @@ You do not have to finish the provider-side setup before moving on. Once your pr
 
 ### Organizations step
 
-You need at least one organization before you can route anyone anywhere. If Anthropic already created one, this step lists it and you can move on. To add one, fill in the **Add organization** form, described under [Adding an organization](https://claude.com/docs/government/tenant-admin/organizations.md#adding-an-organization). For **Primary Owner email**, choose someone on one of your verified domains who has no active account in your tenant yet. No invitation is sent, so let them know.
+You need at least one organization before you can route anyone anywhere. If Anthropic already created one, this step lists it and you can move on. To add one, fill in the **Add organization** form, described under [Adding an organization](https://claude.com/docs/government/tenant-admin/organizations.md#adding-an-organization).
 
 ### Seats and spend caps step
 

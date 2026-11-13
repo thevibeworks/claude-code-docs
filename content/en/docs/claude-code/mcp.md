@@ -835,8 +835,6 @@ Two URL spellings count as the same endpoint when they differ only in the letter
 
 A server your organization provides through the [`managedMcpServers`](https://code.claude.com/docs/en/managed-mcp#provide-servers-through-managed-settings) managed setting ranks above all of these, so when one of them duplicates it, Claude Code connects the organization's definition. Requires Claude Code v2.1.259 or later.
 
-If you open a local session in the [Desktop app's Code tab](https://code.claude.com/docs/en/desktop.md#mcp-servers-from-the-claude-desktop-chat-app) with the same stdio server name at the top level of `~/.claude.json` (user scope) and in `.mcp.json`, the Code tab uses the `~/.claude.json` definition.
-
 ### Environment variable expansion in `.mcp.json`
 
 Claude Code supports environment variable expansion in `.mcp.json` files, allowing teams to share configurations while maintaining flexibility for machine-specific paths and sensitive values like API keys.

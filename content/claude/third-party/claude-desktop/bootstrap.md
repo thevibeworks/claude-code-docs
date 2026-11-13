@@ -6,10 +6,6 @@
 
 > Host an HTTPS endpoint that returns each user's configuration, for organizations without MDM or with role-based configuration too complex for per-group profiles
 
-> [!NOTE]
->
-> Requires Claude Desktop **1.10628.0** or later. Earlier builds ignore the `bootstrapUrl` keys.
-
 A **bootstrap server** is an HTTPS endpoint you host that authenticates each user against your identity provider and returns that user's configuration as JSON. Use it when your organization doesn't have MDM, or when configuration varies too widely for per-group profiles: per-user gateway credentials, per-team model allowlists, or per-user OpenTelemetry attribution. When one configuration or a few group-scoped profiles cover your fleet, [deploying with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) is simpler; most MDMs support role-based distribution.
 
 When a bootstrap response is available, it **is** the effective configuration. The MDM profile supplies the trust anchor (`bootstrapUrl`, optional `bootstrapOidc` or `bootstrapHeaders`/`bootstrapHeadersHelper`, and the `bootstrapEnabled` opt-out), and Claude Desktop does not consult MDM for any key the bootstrap server is permitted to set. A bootstrap-settable key that your response **omits** is treated as unset, not inherited from MDM, so return every key you want applied.
@@ -21,9 +17,7 @@ When a bootstrap response is available, it **is** the effective configuration. T
 Before the server can take over, each device needs the bootstrap keys that point at it. There are two ways to get them onto a device:
 
 * **With MDM:** deploy a profile that sets `bootstrapUrl` (and `bootstrapOidc` if you use one).
-* **Without MDM:** give each user a small JSON file containing those keys, which they load from **Developer → Configure Third-Party Inference… → Import configuration**.
-
-Either way, the bootstrap server supplies everything else after the user signs in. See [Installation and setup](https://claude.com/docs/third-party/claude-desktop/installation.md) for the surrounding workflow.
+* **Without MDM:** give each user a small JSON file containing those keys, which they load from **Developer → Configure Third-Party Inference… → Import configuration**. A user can change or remove imported keys, so this path alone doesn't keep a device on your server's configuration.
 
 On a device whose MDM profile carries the bootstrap keys, a user who signs in to any organization that uses the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) can move the device to that organization's configuration. The app then stops contacting your server. To prevent that, restrict the device to Claude Desktop on 3P in the profile itself, as described under [Restrict a device to one deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode).
 
@@ -33,7 +27,7 @@ On a device whose MDM profile carries the bootstrap keys, a user who signs in to
 2. At launch, the app authenticates via one of the [modes below](#authentication) and sends `GET <bootstrapUrl>` with the resulting `Authorization: Bearer <token>` or the request headers you configured.
 3. Your server validates the token, **authorizes** the caller against your directory or entitlement source, and returns a JSON object whose keys are the same managed-configuration key names documented in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md).
 4. The app validates each key against the [response schema](#response-schema), drops anything it doesn't recognize or that fails validation, and applies the result as the effective configuration.
-5. The response is cached in memory (until your `expiresAt`, or 1 hour by default). The app also re-checks in the background every [`configRecheckIntervalMinutes`](https://claude.com/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes) (10 minutes by default, 2 to 30 allowed) with a conditional request, so an unchanged configuration costs your server a `304` (see [Caching and `expiresAt`](#caching-and-expiresat)). Releases before 1.46388.1 re-check every 30 minutes and ignore `configRecheckIntervalMinutes`.
+5. The response is cached in memory (until your `expiresAt`, or 1 hour by default). The app also re-checks in the background every [`configRecheckIntervalMinutes`](https://claude.com/docs/third-party/claude-desktop/configuration#configrecheckintervalminutes) (10 minutes by default, 2 to 30 allowed) with a conditional request, so an unchanged configuration costs your server a `304` (see [Caching and `expiresAt`](#caching-and-expiresat)).
 
 If the user has not yet signed in, or the fetch fails with no cached response from this session, the app starts in a degraded state with no inference provider configured and prompts the user to sign in.
 
@@ -53,7 +47,7 @@ Run the endpoint across multiple replicas or regions behind a load balancer. Do 
 
 When two refetches in a row return the same changed values, a few settings apply to the running app without a restart, such as the banner, the display name, and the token limit, as do the two lifecycle keys described below. Every other setting, including inference credentials, the egress allowlist, MCP servers, and the model list, stays on the values the app launched with. For those, the app prompts the user to restart and applies the new response when it relaunches.
 
-Claude Desktop 1.40609.0 and later enforce that restart. Once a background re-check returns a change that needs a restart and a second check about 30 seconds later confirms it, the user can keep working for [`relaunchEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#relaunchenforcementhours), 24 hours by default (1 hour in releases before 1.46388.1). After that window the app blocks further use until it restarts, and it relaunches on its own after two minutes with no keyboard or pointer input and no Claude task running.
+Claude Desktop 1.40609.0 and later enforce that restart. Once a background re-check returns a change that needs a restart and a second check about 30 seconds later confirms it, the user can keep working for [`relaunchEnforcementHours`](https://claude.com/docs/third-party/claude-desktop/configuration#relaunchenforcementhours), 24 hours by default. After that window the app blocks further use until it restarts, and it relaunches on its own after two minutes with no keyboard or pointer input and no Claude task running.
 
 Return `relaunchEnforcementHours` in the bootstrap response to change the window, and `configRecheckIntervalMinutes` to change how often running apps check for a new response. The app reads both keys from the newest response, so changing them does not itself require a restart. In the nested response format ([`bootstrap-config-v2`](#response-schema)) both keys sit under `lifecycle`, as `lifecycle.relaunchEnforcementHours` and `lifecycle.configRecheckIntervalMinutes`. Releases before 1.46388.1 read the window from `bootstrap.relaunchEnforcementHours` and do not read the `lifecycle` path, so move the value when your fleet updates (the flat-format key name is unchanged). On a device where `bootstrapUrl` came from an imported file rather than MDM, a device-management profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence), such as the update keys, supplies these two keys as well, so set them in that profile or the defaults apply there.
 
@@ -143,7 +137,7 @@ The bootstrap request is always authenticated: either each user signs in and the
 | - | - | - |
 | **Separate identity provider (PKCE)** | Users sign in through your existing OIDC provider (Microsoft Entra ID, Okta, Ping, or any compliant provider). The app runs an OAuth authorization-code grant with PKCE in the system browser. | `bootstrapUrl` and `bootstrapOidc` |
 | **Bootstrap server as authorization server (device code)** | Your bootstrap server (or the gateway it fronts) implements RFC 8414 discovery and the RFC 8628 device-code grant. One sign-in covers both the configuration fetch and inference when they share an origin. | `bootstrapUrl` only |
-| **Request headers (no per-user sign-in)** | The endpoint authenticates the device or a service account rather than the user: a static `Authorization: Basic …` or API-key header, or a short-lived token a script on the device fetches from your secrets manager. No browser step; the response cannot vary by signed-in user unless your headers identify one. | `bootstrapUrl` and `bootstrapHeaders` and/or `bootstrapHeadersHelper` (1.32885.1 or later) |
+| **Request headers (no per-user sign-in)** | The endpoint authenticates the device or a service account rather than the user: a static `Authorization: Basic …` or API-key header, or a short-lived token a script on the device fetches from your secrets manager. No browser step; the response cannot vary by signed-in user unless your headers identify one. | `bootstrapUrl` and `bootstrapHeaders` and/or `bootstrapHeadersHelper` |
 
 ### Separate identity provider (PKCE)
 
@@ -206,7 +200,7 @@ Click **Sign in** to test against your typed values. Once authenticated, the car
 
 Register the redirect URI with `127.0.0.1` rather than `localhost`, because the app sends `http://127.0.0.1:<port>/callback` by default. If your identity provider accepts only `localhost` in a registered redirect URI, set the `redirectHost` field of [`bootstrapOidc`](https://claude.com/docs/third-party/claude-desktop/configuration#bootstrapoidc) to `localhost` and register `http://localhost/callback` instead, or `http://localhost:<port>/callback` when you set a redirect port.
 
-This page covers only the bootstrap sign-in. Authentication for inference is independent of bootstrap and depends on what your response provisions; see the relevant provider page ([gateway SSO](https://claude.com/docs/third-party/claude-desktop/gateway.md#single-sign-on-with-your-identity-provider), [Google Cloud's Agent Platform](https://claude.com/docs/third-party/claude-desktop/vertex.md), [Amazon Bedrock](https://claude.com/docs/third-party/claude-desktop/bedrock.md), [Microsoft Foundry](https://claude.com/docs/third-party/claude-desktop/foundry.md)).
+Authentication for inference is independent of bootstrap and depends on what your response provisions; see the relevant provider page ([gateway SSO](https://claude.com/docs/third-party/claude-desktop/gateway.md#single-sign-on-with-your-identity-provider), [Google Cloud's Agent Platform](https://claude.com/docs/third-party/claude-desktop/vertex.md), [Amazon Bedrock](https://claude.com/docs/third-party/claude-desktop/bedrock.md), [Microsoft Foundry](https://claude.com/docs/third-party/claude-desktop/foundry.md)).
 
 ### Bootstrap server as authorization server (device code)
 
@@ -253,9 +247,9 @@ The app polls `token_endpoint` with `grant_type=urn:ietf:params:oauth:grant-type
 { "access_token": "eyJhbGciOiJSUzI1NiIs...", "expires_in": 3600 }
 ```
 
-The polling interval is clamped between 1 and 30 seconds; the grant times out after 5 minutes; the token lifetime you return is clamped between 5 minutes and 30 days (24 hours before 1.17377.1).
+The polling interval is clamped between 1 and 30 seconds; the grant times out after 5 minutes; the token lifetime you return is clamped between 5 minutes and 30 days.
 
-When `inferenceGatewayBaseUrl` shares the `bootstrapUrl` origin, so the same sign-in also serves inference, you may also return a `refresh_token` (optionally with `refresh_token_expires_in` in seconds): as the access token nears expiry during use, Claude Desktop 1.34493.0 and later renews it with an RFC 6749 `grant_type=refresh_token` POST to your `token_endpoint` rather than interrupting the user. The configuration fetch at launch still asks the user to sign in if the access token itself has already expired. Answer `400` with `{"error":"invalid_grant"}` to revoke the refresh token and require a fresh sign-in.
+When `inferenceGatewayBaseUrl` shares the `bootstrapUrl` origin, so the same sign-in also serves inference, you may also return a `refresh_token` (optionally with `refresh_token_expires_in` in seconds): as the access token nears expiry during use, Claude Desktop renews it with an RFC 6749 `grant_type=refresh_token` POST to your `token_endpoint` rather than interrupting the user. The configuration fetch at launch still asks the user to sign in if the access token itself has already expired. Answer `400` with `{"error":"invalid_grant"}` to revoke the refresh token and require a fresh sign-in.
 
 **3. Serve the configuration endpoint**
 
@@ -263,7 +257,7 @@ On `GET <bootstrapUrl>` with a valid bearer, look up the user from the token cla
 
 ### Request headers (no per-user sign-in)
 
-Requires Claude Desktop 1.32885.1 or later. Use this mode instead of embedding `user:password@` in `bootstrapUrl`, which the app refuses.
+Use this mode instead of embedding `user:password@` in `bootstrapUrl`, which the app refuses.
 
 Set one or both of these keys, described under [MDM configuration keys](#mdm-configuration-keys):
 
@@ -315,7 +309,7 @@ Return `200 OK` with `Content-Type: application/json` and a JSON object whose ke
 | - | - |
 | `200` | Parse and apply. |
 | `304` | Re-serve the cached response (the app sends `If-None-Match` when it has one). |
-| `401`, `403` | Discard the cached token and prompt the user to sign in again. A `401` on a background refresh keeps the running configuration. When the same sign-in also serves inference, the app treats it as an ended session and asks the user to sign in again (1.34493.0 and later); otherwise it retries at the next check without prompting. Return `401` when the token is missing, expired, or the wrong audience; return `403` when the token is valid but the caller is not entitled. |
+| `401`, `403` | Discard the cached token and prompt the user to sign in again. A `401` on a background refresh keeps the running configuration. When the same sign-in also serves inference, the app treats it as an ended session and asks the user to sign in again; otherwise it retries at the next check without prompting. Return `401` when the token is missing, expired, or the wrong audience; return `403` when the token is valid but the caller is not entitled. |
 | Other non-2xx, or `3xx` | Fetch error. Falls back to the last good response from this session if one exists; otherwise the app stays in the degraded sign-in state. |
 
 > [!WARNING]
@@ -333,8 +327,6 @@ Reference the schema with `"$schema"` in your response template, or with `# yaml
 
 Each configuration key in both schemas carries an `x-availableInVersion` annotation naming the first Claude Desktop release that reads it. The app sends its version as `Claude/<version>` in the `User-Agent` header of the bootstrap request, so a server can vary its response by client version if it needs to.
 
-The response can supply any key in that schema, including inference credentials, model allowlists, MCP servers, the egress allowlist, telemetry endpoints, and the organization banner.
-
 > [!NOTE]
 >
 > Organization plugins and skills can be delivered over the network by returning `allowedPluginMarketplaces` in the bootstrap response (see [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin)), or through the filesystem `org-plugins/` directory described in [Connectors and extensions](https://claude.com/docs/third-party/claude-desktop/extensions.md).
@@ -348,7 +340,7 @@ A small set of keys, labeled **MDM only** in the [configuration reference](https
 
 The app also ignores loopback hosts (`127.0.0.1`, `localhost`, `[::1]`) in any URL-valued key of a response, regardless of scheme.
 
-`managedMcpServers` entries are not restricted by transport in version 1.19367.0 and later: remote (`http`/`sse`) servers, local `stdio` commands, and the built-in `microsoft365` and `websearch` connectors can all be delivered in the bootstrap response. Earlier versions accept only remote entries and drop the rest. Because a `stdio` entry names a command that runs on the device, a bootstrap response can start local processes — part of why the warning at the top of this page says to treat this endpoint as fully trusted. Entries whose server URL or OAuth authorization-server URL is loopback or non-HTTPS are still dropped, and the desktop log (see [Troubleshooting](#troubleshooting)) records which keys were dropped and why.
+`managedMcpServers` entries are not restricted by transport: remote (`http`/`sse`) servers, local `stdio` commands, and the built-in `microsoft365` and `websearch` connectors can all be delivered in the bootstrap response. Because a `stdio` entry names a command that runs on the device, a bootstrap response can start local processes. Entries whose server URL or OAuth authorization-server URL is loopback or non-HTTPS are still dropped, and the desktop log (see [Troubleshooting](#troubleshooting)) records which keys were dropped and why.
 
 ### Keys that require user consent
 
@@ -358,7 +350,7 @@ When a response delivers such a value for the first time, the app applies none o
 
 Approval is per delivered value. If the server later changes an approved value, the dialog appears again. For a `managedMcpServers` or `allowedPluginMarketplaces` entry, one approval covers the entry's executable-related fields as a unit.
 
-The desktop log (see [Troubleshooting](#troubleshooting)) names the keys awaiting consent and records the user's decision. In versions earlier than 1.32352.0 that show this dialog, the app applied the rest of the response while the dialog waited and held back only the pending keys.
+The desktop log (see [Troubleshooting](#troubleshooting)) names the keys awaiting consent and records the user's decision.
 
 Whether the dialog appears depends on how `bootstrapUrl` reached the device:
 
@@ -390,7 +382,7 @@ Consent gates only bootstrap-delivered values. The same keys delivered through d
 
 When no `bootstrapOidc` is set (device-code or request-headers mode), the response is fenced: `inferenceGatewayBaseUrl`, `inferenceVertexBaseUrl`, `inferenceBedrockBaseUrl`, and `inferenceFoundryBaseUrl` must share the `bootstrapUrl` origin or the field is dropped. A compromised configuration response cannot redirect inference to an attacker-controlled host because the only host it can name is your bootstrap server's own origin.
 
-When you supply `bootstrapOidc`, your configuration server and gateway are independent hosts you control, so origin pinning is disabled and the response can name any HTTPS host. In this mode the bootstrap server's integrity is the only control on where inference and MCP traffic are sent.
+When you supply `bootstrapOidc`, your bootstrap server and gateway are independent hosts you control, so origin pinning is disabled and the response can name any HTTPS host. In this mode the bootstrap server's integrity is the only control on where inference and MCP traffic are sent.
 
 ## MDM configuration keys
 

@@ -4,7 +4,7 @@ Claude Data turns questions about your company’s data into dashboards, data st
 
 This guide covers connecting your data, creating and refining your work, and sharing it. Claude Data was previously called Claude Dashboards, and dashboards you’ve already made keep working.
 
-Claude Data is available on Pro, Max, Ultra, Team, and Enterprise plans. Certified queries and live sharing are in beta. On Team plans, Claude Data and both beta features are on by default. On Enterprise plans, Claude Data turns on by default on November 19, 2026, unless an owner has already saved a setting, and both beta features are off by default.
+Claude Data is available on Pro, Max, Ultra, Team, and Enterprise plans. Certified queries and live sharing are in beta. On Team plans, Claude Data and both beta features are on by default. On Enterprise plans, Claude Data turns on by default on November 20, 2026, unless an owner has already saved a setting, and both beta features are off by default.
 
 ## How Claude Data works
 

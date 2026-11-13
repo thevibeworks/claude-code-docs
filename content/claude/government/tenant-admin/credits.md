@@ -16,12 +16,12 @@ The **Billing** page shows each billing account's **available balance** and any 
 
 ## How billing works
 
-A **billing account** is a funding pool that Anthropic sets up for your tenant. It holds a dollar balance of credit, and Anthropic adds credit to the account as part of your agency's procurement. Each organization is linked to exactly one billing account, and several organizations may share the same one. Usage on [self-managed seat tiers](https://claude.com/docs/government/org-admin/seat-tiers.md#anthropic-managed-versus-self-managed-tiers) draws directly from the billing account's balance.
+A **billing account** is a funding pool that Anthropic sets up for your tenant. It holds a dollar balance of credit, and Anthropic adds credit to the account as part of your agency's procurement. Each organization is linked to exactly one billing account, and several organizations may share the same one. Usage on [self-managed seat tiers](https://claude.com/docs/government/org-admin/seat-tiers.md#anthropic-managed-versus-self-managed-tiers) draws directly from the billing account's balance. When the balance runs low, [alerts](https://claude.com/docs/government/org-admin/billing.md#billing-account) are emailed to an organization's owners, or to tenant administrators if it has no owners.
 
 A spend cap limits how much one organization can spend from its billing account in a 5-hour or 7-day window.
 
 * **What a cap counts.** Spend caps apply to usage on self-managed seat tiers. Usage on Anthropic-managed seat tiers is covered by the seat price rather than drawn from the account balance, so it is not counted against a cap.
-* **Who is affected.** An organization that hits a spend cap does not affect other organizations on the same account. An account running out of balance stops usage on self-managed tiers in every organization on it. Low-balance alerts go to organization Owners and Primary Owners, as described under [Billing account](https://claude.com/docs/government/org-admin/billing.md#billing-account).
+* **Who is affected.** An organization that hits a spend cap does not affect other organizations on the same account. An account running out of balance stops usage on self-managed tiers in every organization on it.
 * **Who sets caps.** Spend caps are set by tenant administrators. Organization owners can see their own caps on their organization's [Billing](https://claude.com/docs/government/org-admin/billing.md) page, but cannot change them.
 
 ## Setting a spend cap

@@ -18,11 +18,9 @@ A built-in entry names the bundled server in a `server` field, in place of the `
 | Web search | `websearch` | Web search through Brave, Tavily, Exa, or a search endpoint you host | [Built-in web search](https://claude.com/docs/third-party/claude-desktop/web-tools.md#built-in-web-search) |
 | GitHub | `github` | Repositories, issues, pull requests, and other GitHub data, on github.com or GitHub Enterprise Server | [Connect to GitHub, local connector](https://claude.com/docs/third-party/claude-desktop/connectors-github.md#local-connector) |
 
-Each guide covers its server in full, including how the built-in server compares with the remote alternative where one exists.
-
 > [!NOTE]
 >
-> In the in-app configuration window, the **Add server** menu lists built-in servers separately from remote templates. A remote template (Box, or the Microsoft 365 remote connector) only pre-fills the form for a server that runs outside the app. The servers on this page are the ones bundled inside the app.
+> In the in-app configuration window, the **Add server** menu lists built-in servers separately from remote templates. A remote template (Box, or the Microsoft 365 remote connector) only pre-fills the form for a server that runs outside the app.
 
 ## How built-in servers behave
 

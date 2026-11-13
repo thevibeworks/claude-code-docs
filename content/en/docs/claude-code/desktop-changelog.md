@@ -2261,10 +2261,6 @@ Desktop and CLI read the same configuration files, so your setup carries over:
 
 The Desktop app loads MCP servers from `claude_desktop_config.json` into local Code tab sessions, alongside servers from `~/.claude.json` and `.mcp.json`. A server you define in `claude_desktop_config.json` is available in both the Desktop chat surface and local Code tab sessions.
 
-If you define the same server name in `claude_desktop_config.json` and in `~/.claude.json` or `.mcp.json`, the Code tab in local sessions connects once and uses the `claude_desktop_config.json` definition.
-
-The app also re-delivers stdio servers from `~/.claude.json` to the embedded CLI in local sessions. When the top level of `~/.claude.json` (user scope) and `.mcp.json` define the same stdio server name, the Code tab uses the `~/.claude.json` definition, departing from the CLI [scope hierarchy](https://code.claude.com/docs/en/mcp.md#scope-hierarchy-and-precedence).
-
 > [!NOTE]
 >
 > The standalone CLI does not read `claude_desktop_config.json`. On macOS and WSL, run `claude mcp add-from-claude-desktop` to copy those servers into `~/.claude.json`. See [Import MCP servers from Claude Desktop](https://code.claude.com/docs/en/mcp.md#import-mcp-servers-from-claude-desktop) for the import flow and scope options.

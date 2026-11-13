@@ -10,17 +10,17 @@ This page walks an IT administrator through a complete Amazon Bedrock deployment
 
 ## Choose an authentication approach
 
-Amazon Bedrock supports several ways to authenticate, and the right one depends on whether your end users already work with AWS and whether you need per-user identity in CloudTrail. Use the table below to pick a path before doing any AWS or device setup.
+Amazon Bedrock supports several ways to authenticate, and the right one depends on whether your end users already work with AWS and whether you need per-user identity in CloudTrail.
 
 | Scenario | Use | Per-device prerequisite | Per-user CloudTrail identity | Notes |
 | - | - | - | - | - |
 | Proof of concept, single team | [Bearer token](#bearer-token) (`inferenceBedrockBearerToken`) | None | No (shared key) | A long-lived secret distributed in the managed profile. Simplest to start; not recommended for broad rollout. |
-| Broad rollout to users without AWS tooling | [In-app AWS sign-in](#in-app-aws-sign-in) (`inferenceBedrockSso*`) | None | Yes | Users sign in through IAM Identity Center inside the app. No AWS CLI required. Requires app version 1.6259.0 or later. |
+| Broad rollout to users without AWS tooling | [In-app AWS sign-in](#in-app-aws-sign-in) (`inferenceBedrockSso*`) | None | Yes | Users sign in through IAM Identity Center inside the app. No AWS CLI required. |
 | Developers who already use the AWS CLI | [Named profile](#named-profile) (`inferenceBedrockProfile`) | AWS CLI v2 and a pushed `~/.aws/config` | Yes | IT can distribute the AWS config file directly; the app runs `aws sso login` for the user when the session expires. |
 | You run an authenticating proxy in front of Amazon Bedrock | [Identity provider sign-in](#sign-in-with-your-identity-provider) (`inferenceIdpOidc`) | None | At your proxy | Users sign in with your identity provider; the proxy calls Amazon Bedrock with its own AWS credentials. Requires app version 2.7032.0 or later. |
 | You already operate an LLM gateway (Anthropic Messages API) | [Gateway provider](https://claude.com/docs/third-party/claude-desktop/gateway.md) instead of Amazon Bedrock | None | At your gateway | The gateway holds the AWS credentials; the app authenticates only to the gateway. |
 
-If a static credential in the managed profile is acceptable but an Amazon Bedrock API key is not, you can also set [`inferenceCredentialHelper`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) to an executable that prints an Amazon Bedrock bearer token to stdout at runtime.
+Where a long-lived key in the managed profile isn't acceptable, you can also set [`inferenceCredentialHelper`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) to an executable that prints an Amazon Bedrock bearer token to stdout at runtime.
 
 When more than one credential is configured, the app uses the first one present in this order: identity provider sign-in, in-app AWS sign-in, named profile, credential helper, bearer token. To remove ambiguity, set `inferenceCredentialKind` explicitly (see the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialkind)).
 
@@ -73,8 +73,6 @@ From the IAM Identity Center **Settings** page, note:
 
 ## Prepare devices
 
-What each end-user device needs depends on the authentication approach you chose.
-
 ### Bearer token
 
 No per-device preparation is required. In the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/home#/api-keys), generate an API key. The key's underlying IAM principal must be allowed the `bedrock:CallWithBearerToken` action; without it, requests return an authorization error even though the key was created. You will place the key in the managed configuration; see [Configure the app](#configure-the-app).
@@ -106,7 +104,7 @@ These hosts are included automatically in the **Egress** section of the in-app c
 
 * **All four keys required.** A partial set does not enable in-app sign-in. If `inferenceCredentialKind` is set to `interactive`, the app treats the configuration as invalid, logs an error that names the missing keys, and does not connect until they are supplied. If `inferenceCredentialKind` is not set, the app uses whichever other credential the configuration provides, or reports that no credential is configured.
 * **One account and role per deployment.** Every user in a given managed configuration signs in to the same AWS account and assumes the same permission set. To give different groups different Amazon Bedrock permissions, deploy distinct configuration profiles with different `inferenceBedrockSsoRoleName` values.
-* **Mid-session credential refresh.** The app checks the AWS credentials' expiry before each turn and silently mints new ones from the stored IAM Identity Center token when they are close to expiring. The access portal session duration in IAM Identity Center sets how long the Identity Center sign-in itself lasts, as described under [What users experience](#what-users-experience).
+* **Mid-session credential refresh.** The app checks the AWS credentials' expiry before each turn and silently mints new ones from the stored IAM Identity Center token when they are close to expiring.
 * **Connection probe.** The in-app **Test connection** button completes the AWS sign-in if needed, then sends a short test request to a model from your **Models** list through the app's Claude Code runtime. Add at least one model first, because this credential type cannot discover models automatically. If the app has not yet finished downloading its Claude Code runtime, the test reports that it cannot run; wait a moment and try again. Named-profile mode behaves the same way.
 
 ### Named profile
@@ -187,7 +185,7 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
 ### Configuration keys
 
-The full set of `inferenceBedrock*` keys is below. Set `inferenceProvider` to `bedrock`, supply a region, and provide exactly one credential source.
+Set `inferenceProvider` to `bedrock`, supply a region, and provide exactly one credential source.
 
 [Entry labels](https://claude.com/docs/third-party/claude-desktop/configuration.md#entry-labels) says what each label means.
 
@@ -318,8 +316,6 @@ Since 1.13576.0
 Set `inferenceModels` to a list of Amazon Bedrock inference-profile IDs, for example `us.anthropic.claude-sonnet-5`. When using a bearer token or credential helper, Claude Desktop auto-discovers available Claude models from your account if this is unset; otherwise the list is required. Application-inference-profile ARNs and provisioned-throughput ARNs are also accepted; pair them with a [`labelOverride`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodels) so the picker shows a readable name instead of the raw ARN. See the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemodels).
 
 ## What users experience
-
-The first-launch and re-authentication behavior depends on the authentication approach.
 
 | Approach | First launch | Re-authentication |
 | - | - | - |

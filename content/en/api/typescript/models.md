@@ -7,255 +7,16 @@ url: https://platform.claude.com/docs/en/api/typescript/models
 
 ## List Models
 
-`client.models.list(params?, options?): Page<ModelInfo>`
-
-**GET** `/v1/models`
+- Signature: `client.models.list(params?: ModelListParams, options?: RequestOptions): Page<ModelInfo>`
+- Endpoint: `GET /v1/models`
 
 List available models.
 
 The Models API response can be used to determine which models are available for use in the API. More recently released models are listed first.
 
-### Parameters
+### Example request
 
-- `params: ModelListParams`
-
-  - `after_id?: string` (query parameter)
-
-    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
-
-  - `before_id?: string` (query parameter)
-
-    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
-
-  - `lifecycle?: Array<"active" | "deprecated" | "retired">` (query parameter)
-
-    Filter the list to models in any of the given lifecycle stages (`active`, `deprecated`, or `retired`). Up to 3 values. When omitted, the list contains the `active` and `deprecated` models; `retired` models appear only when `retired` is requested explicitly.
-
-    maxItems: 3
-
-    - `"active"`
-
-    - `"deprecated"`
-
-    - `"retired"`
-
-  - `limit?: number` (query parameter)
-
-    Number of items to return per page.
-
-    Defaults to `20`. Ranges from `1` to `1000`.
-
-    minimum: 1, maximum: 1000
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-### Returns
-
-- `interface ModelInfo`
-
-  - `type: "model"`
-
-    Object type.
-
-    For Models, this is always `"model"`.
-
-    default: model
-
-  - `id: string`
-
-    Unique model identifier.
-
-  - `capabilities: ModelCapabilities | null`
-
-    Object mapping capability names to their support details. Keys are always present for all known capabilities.
-
-    - `batch: CapabilitySupport`
-
-      Whether the model supports the Batch API.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-    - `citations: CapabilitySupport`
-
-      Whether the model supports citation generation.
-
-    - `code_execution: CapabilitySupport`
-
-      Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
-
-    - `context_management: ContextManagementCapability`
-
-      Context management support and available strategies.
-
-      - `clear_thinking_20251015: CapabilitySupport | null`
-
-        Whether the clear_thinking_20251015 strategy is supported.
-
-      - `clear_tool_uses_20250919: CapabilitySupport | null`
-
-        Whether the clear_tool_uses_20250919 strategy is supported.
-
-      - `compact_20260112: CapabilitySupport | null`
-
-        Whether the compact_20260112 strategy is supported.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-    - `effort: EffortCapability`
-
-      Effort (reasoning_effort) support and available levels.
-
-      - `high: CapabilitySupport`
-
-        Whether the model supports high effort level.
-
-      - `low: CapabilitySupport`
-
-        Whether the model supports low effort level.
-
-      - `max: CapabilitySupport`
-
-        Whether the model supports max effort level.
-
-      - `medium: CapabilitySupport`
-
-        Whether the model supports medium effort level.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `xhigh: CapabilitySupport | null`
-
-        Whether the model supports xhigh effort level.
-
-    - `image_input: CapabilitySupport`
-
-      Whether the model accepts image content blocks.
-
-    - `pdf_input: CapabilitySupport`
-
-      Whether the model accepts PDF content blocks.
-
-    - `server_tools: ServerToolsCapability`
-
-      Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
-
-      - `code_execution: CapabilitySupport`
-
-        Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `web_search: CapabilitySupport`
-
-        Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-    - `structured_outputs: CapabilitySupport`
-
-      Whether the model supports structured output / JSON mode / strict tool schemas.
-
-    - `thinking: ThinkingCapability`
-
-      Thinking capability and supported type configurations.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `types: ThinkingTypes`
-
-        Supported thinking type configurations.
-
-        - `adaptive: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
-
-        - `between_tools: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-        - `disabled: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-        - `enabled: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
-
-  - `created_at: string`
-
-    RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
-
-    format: date-time
-
-  - `deprecated_at: string | null`
-
-    RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
-
-    format: date-time
-
-  - `display_name: string`
-
-    A human-readable name for the model.
-
-  - `lifecycle: "active" | "deprecated" | "retired"`
-
-    The model's current lifecycle stage.
-
-    - `active`: The model is available for use, open to new adopters, and not scheduled for retirement.
-    - `deprecated`: The model remains callable for organizations with existing access, but is headed for retirement and closed to new adopters.
-    - `retired`: The model is no longer available for use; inference requests naming it fail. It remains in the catalogue as the historical record of its retirement.
-
-    default: active
-
-    - `"active"`
-
-    - `"deprecated"`
-
-    - `"retired"`
-
-  - `line: ModelLine | null`
-
-    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
-
-    - `"haiku"`
-
-    - `"sonnet"`
-
-    - `"opus"`
-
-    - `"fable"`
-
-    - `"mythos"`
-
-  - `max_input_tokens: number | null`
-
-    Maximum input context window size in tokens for this model.
-
-  - `max_tokens: number | null`
-
-    Maximum value for the `max_tokens` parameter when using this model.
-
-  - `retires_at: string | null`
-
-    RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
-
-    format: date-time
-
-### Example
-
-```typescript
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -268,7 +29,7 @@ for await (const modelInfo of client.models.list()) {
 }
 ```
 
-#### Response (200)
+### Example response (200)
 
 ```json
 {
@@ -368,233 +129,167 @@ for await (const modelInfo of client.models.list()) {
 }
 ```
 
+### Parameters
+
+```ts
+// This page declares each type one time, in the first method that uses it.
+
+interface ModelListParams {
+  /** ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object. */
+  after_id?: string; // query parameter
+  /** ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object. */
+  before_id?: string; // query parameter
+  /** Filter the list to models in any of the given lifecycle stages (`active`, `deprecated`, or `retired`). Up to 3 values. When omitted, the list contains the `active` and `deprecated` models; `retired` models appear only when `retired` is requested explicitly. */
+  lifecycle?: Array<"active" | "deprecated" | "retired">; // query parameter, maxItems: 3
+  /** Number of items to return per page. Defaults to `20`. Ranges from `1` to `1000`. */
+  limit?: number; // query parameter, minimum: 1, maximum: 1000
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
+### Returns
+
+```ts
+interface ModelInfo {
+  /** Object type. For Models, this is always `"model"`. */
+  type: "model";
+  /** Unique model identifier. */
+  id: string;
+  /** Object mapping capability names to their support details. Keys are always present for all known capabilities. */
+  capabilities: ModelCapabilities | null;
+  /** RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown. */
+  created_at: string; // format: date-time
+  /** RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`. */
+  deprecated_at: string | null; // format: date-time
+  /** A human-readable name for the model. */
+  display_name: string;
+  /**
+   * The model's current lifecycle stage.
+   *
+   * - `active`: The model is available for use, open to new adopters, and not scheduled for retirement.
+   * - `deprecated`: The model remains callable for organizations with existing access, but is headed for retirement and closed to new adopters.
+   * - `retired`: The model is no longer available for use; inference requests naming it fail. It remains in the catalogue as the historical record of its retirement.
+   */
+  lifecycle: "active" | "deprecated" | "retired"; // default: active
+  /** The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`. */
+  line: ModelLine | null;
+  /** Maximum input context window size in tokens for this model. */
+  max_input_tokens: number | null;
+  /** Maximum value for the `max_tokens` parameter when using this model. */
+  max_tokens: number | null;
+  /** RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal. */
+  retires_at: string | null; // format: date-time
+}
+```
+
+### Types
+
+```ts
+/** Model capability information. */
+interface ModelCapabilities {
+  /** Whether the model supports the Batch API. */
+  batch: CapabilitySupport;
+  /** Whether the model supports citation generation. */
+  citations: CapabilitySupport;
+  /** Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`. */
+  code_execution: CapabilitySupport;
+  /** Context management support and available strategies. */
+  context_management: ContextManagementCapability;
+  /** Effort (reasoning_effort) support and available levels. */
+  effort: EffortCapability;
+  /** Whether the model accepts image content blocks. */
+  image_input: CapabilitySupport;
+  /** Whether the model accepts PDF content blocks. */
+  pdf_input: CapabilitySupport;
+  /** Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off. */
+  server_tools: ServerToolsCapability;
+  /** Whether the model supports structured output / JSON mode / strict tool schemas. */
+  structured_outputs: CapabilitySupport;
+  /** Thinking capability and supported type configurations. */
+  thinking: ThinkingCapability;
+}
+
+/** A Claude model line, such as `opus` or `sonnet`. More lines may be added as new values. */
+type ModelLine = "haiku" | "sonnet" | "opus" | "fable" | "mythos";
+
+/** Indicates whether a capability is supported. */
+interface CapabilitySupport {
+  /** Whether this capability is supported by the model. */
+  supported: boolean;
+}
+
+/** Context management capability details. */
+interface ContextManagementCapability {
+  /** Whether the clear_thinking_20251015 strategy is supported. */
+  clear_thinking_20251015: CapabilitySupport | null;
+  /** Whether the clear_tool_uses_20250919 strategy is supported. */
+  clear_tool_uses_20250919: CapabilitySupport | null;
+  /** Whether the compact_20260112 strategy is supported. */
+  compact_20260112: CapabilitySupport | null;
+  /** Whether this capability is supported by the model. */
+  supported: boolean;
+}
+
+/** Effort (reasoning_effort) capability details. */
+interface EffortCapability {
+  /** Whether the model supports high effort level. */
+  high: CapabilitySupport;
+  /** Whether the model supports low effort level. */
+  low: CapabilitySupport;
+  /** Whether the model supports max effort level. */
+  max: CapabilitySupport;
+  /** Whether the model supports medium effort level. */
+  medium: CapabilitySupport;
+  /** Whether this capability is supported by the model. */
+  supported: boolean;
+  /** Whether the model supports xhigh effort level. */
+  xhigh: CapabilitySupport | null;
+}
+
+/** Web search and code execution tool support, with one entry per tool. */
+interface ServerToolsCapability {
+  /** Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version. */
+  code_execution: CapabilitySupport;
+  /** Whether this capability is supported by the model. */
+  supported: boolean;
+  /** Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version. */
+  web_search: CapabilitySupport;
+}
+
+/** Thinking capability details. */
+interface ThinkingCapability {
+  /** Whether this capability is supported by the model. */
+  supported: boolean;
+  /** Supported thinking type configurations. */
+  types: ThinkingTypes;
+}
+
+/** Which `thinking.type` values the model accepts on requests. Read each key on its own: for example, `enabled` can be false while `disabled` is true. */
+interface ThinkingTypes {
+  /** Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think). */
+  adaptive: CapabilitySupport;
+  /** Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off. */
+  between_tools: CapabilitySupport;
+  /** Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off. */
+  disabled: CapabilitySupport;
+  /** Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`). */
+  enabled: CapabilitySupport;
+}
+```
+
 ## Get a Model
 
-`client.models.retrieve(modelID, params?, options?): ModelInfo`
-
-**GET** `/v1/models/{model_id}`
+- Signature: `client.models.retrieve(modelID: string, params?: ModelRetrieveParams, options?: RequestOptions): ModelInfo`
+- Endpoint: `GET /v1/models/{model_id}`
 
 Get a specific model.
 
 The Models API response can be used to determine information about a specific model or resolve a model alias to a model ID.
 
-### Parameters
+### Example request
 
-- `modelID: string` (path parameter)
-
-  Model identifier or alias.
-
-- `params: ModelRetrieveParams`
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-### Returns
-
-- `interface ModelInfo`
-
-  - `type: "model"`
-
-    Object type.
-
-    For Models, this is always `"model"`.
-
-    default: model
-
-  - `id: string`
-
-    Unique model identifier.
-
-  - `capabilities: ModelCapabilities | null`
-
-    Object mapping capability names to their support details. Keys are always present for all known capabilities.
-
-    - `batch: CapabilitySupport`
-
-      Whether the model supports the Batch API.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-    - `citations: CapabilitySupport`
-
-      Whether the model supports citation generation.
-
-    - `code_execution: CapabilitySupport`
-
-      Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
-
-    - `context_management: ContextManagementCapability`
-
-      Context management support and available strategies.
-
-      - `clear_thinking_20251015: CapabilitySupport | null`
-
-        Whether the clear_thinking_20251015 strategy is supported.
-
-      - `clear_tool_uses_20250919: CapabilitySupport | null`
-
-        Whether the clear_tool_uses_20250919 strategy is supported.
-
-      - `compact_20260112: CapabilitySupport | null`
-
-        Whether the compact_20260112 strategy is supported.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-    - `effort: EffortCapability`
-
-      Effort (reasoning_effort) support and available levels.
-
-      - `high: CapabilitySupport`
-
-        Whether the model supports high effort level.
-
-      - `low: CapabilitySupport`
-
-        Whether the model supports low effort level.
-
-      - `max: CapabilitySupport`
-
-        Whether the model supports max effort level.
-
-      - `medium: CapabilitySupport`
-
-        Whether the model supports medium effort level.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `xhigh: CapabilitySupport | null`
-
-        Whether the model supports xhigh effort level.
-
-    - `image_input: CapabilitySupport`
-
-      Whether the model accepts image content blocks.
-
-    - `pdf_input: CapabilitySupport`
-
-      Whether the model accepts PDF content blocks.
-
-    - `server_tools: ServerToolsCapability`
-
-      Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
-
-      - `code_execution: CapabilitySupport`
-
-        Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `web_search: CapabilitySupport`
-
-        Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-    - `structured_outputs: CapabilitySupport`
-
-      Whether the model supports structured output / JSON mode / strict tool schemas.
-
-    - `thinking: ThinkingCapability`
-
-      Thinking capability and supported type configurations.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `types: ThinkingTypes`
-
-        Supported thinking type configurations.
-
-        - `adaptive: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
-
-        - `between_tools: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-        - `disabled: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-        - `enabled: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
-
-  - `created_at: string`
-
-    RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
-
-    format: date-time
-
-  - `deprecated_at: string | null`
-
-    RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
-
-    format: date-time
-
-  - `display_name: string`
-
-    A human-readable name for the model.
-
-  - `lifecycle: "active" | "deprecated" | "retired"`
-
-    The model's current lifecycle stage.
-
-    - `active`: The model is available for use, open to new adopters, and not scheduled for retirement.
-    - `deprecated`: The model remains callable for organizations with existing access, but is headed for retirement and closed to new adopters.
-    - `retired`: The model is no longer available for use; inference requests naming it fail. It remains in the catalogue as the historical record of its retirement.
-
-    default: active
-
-    - `"active"`
-
-    - `"deprecated"`
-
-    - `"retired"`
-
-  - `line: ModelLine | null`
-
-    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
-
-    - `"haiku"`
-
-    - `"sonnet"`
-
-    - `"opus"`
-
-    - `"fable"`
-
-    - `"mythos"`
-
-  - `max_input_tokens: number | null`
-
-    Maximum input context window size in tokens for this model.
-
-  - `max_tokens: number | null`
-
-    Maximum value for the `max_tokens` parameter when using this model.
-
-  - `retires_at: string | null`
-
-    RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
-
-    format: date-time
-
-### Example
-
-```typescript
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -606,7 +301,7 @@ const modelInfo = await client.models.retrieve("model_id");
 console.log(modelInfo.id);
 ```
 
-#### Response (200)
+### Example response (200)
 
 ```json
 {
@@ -699,498 +394,14 @@ console.log(modelInfo.id);
 }
 ```
 
-## Domain types
-
-### Capability Support
-
-- `interface CapabilitySupport`
-
-  Indicates whether a capability is supported.
-
-  - `supported: boolean`
-
-    Whether this capability is supported by the model.
-
-### Context Management Capability
-
-- `interface ContextManagementCapability`
-
-  Context management capability details.
-
-  - `clear_thinking_20251015: CapabilitySupport | null`
-
-    Whether the clear_thinking_20251015 strategy is supported.
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-  - `clear_tool_uses_20250919: CapabilitySupport | null`
-
-    Whether the clear_tool_uses_20250919 strategy is supported.
-
-  - `compact_20260112: CapabilitySupport | null`
-
-    Whether the compact_20260112 strategy is supported.
-
-  - `supported: boolean`
-
-    Whether this capability is supported by the model.
-
-### Effort Capability
-
-- `interface EffortCapability`
-
-  Effort (reasoning_effort) capability details.
-
-  - `high: CapabilitySupport`
-
-    Whether the model supports high effort level.
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-  - `low: CapabilitySupport`
-
-    Whether the model supports low effort level.
-
-  - `max: CapabilitySupport`
-
-    Whether the model supports max effort level.
-
-  - `medium: CapabilitySupport`
-
-    Whether the model supports medium effort level.
-
-  - `supported: boolean`
-
-    Whether this capability is supported by the model.
-
-  - `xhigh: CapabilitySupport | null`
-
-    Whether the model supports xhigh effort level.
-
-### Model Capabilities
-
-- `interface ModelCapabilities`
-
-  Model capability information.
-
-  - `batch: CapabilitySupport`
-
-    Whether the model supports the Batch API.
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-  - `citations: CapabilitySupport`
-
-    Whether the model supports citation generation.
-
-  - `code_execution: CapabilitySupport`
-
-    Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
-
-  - `context_management: ContextManagementCapability`
-
-    Context management support and available strategies.
-
-    - `clear_thinking_20251015: CapabilitySupport | null`
-
-      Whether the clear_thinking_20251015 strategy is supported.
-
-    - `clear_tool_uses_20250919: CapabilitySupport | null`
-
-      Whether the clear_tool_uses_20250919 strategy is supported.
-
-    - `compact_20260112: CapabilitySupport | null`
-
-      Whether the compact_20260112 strategy is supported.
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-  - `effort: EffortCapability`
-
-    Effort (reasoning_effort) support and available levels.
-
-    - `high: CapabilitySupport`
-
-      Whether the model supports high effort level.
-
-    - `low: CapabilitySupport`
-
-      Whether the model supports low effort level.
-
-    - `max: CapabilitySupport`
-
-      Whether the model supports max effort level.
-
-    - `medium: CapabilitySupport`
-
-      Whether the model supports medium effort level.
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-    - `xhigh: CapabilitySupport | null`
-
-      Whether the model supports xhigh effort level.
-
-  - `image_input: CapabilitySupport`
-
-    Whether the model accepts image content blocks.
-
-  - `pdf_input: CapabilitySupport`
-
-    Whether the model accepts PDF content blocks.
-
-  - `server_tools: ServerToolsCapability`
-
-    Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
-
-    - `code_execution: CapabilitySupport`
-
-      Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-    - `web_search: CapabilitySupport`
-
-      Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-  - `structured_outputs: CapabilitySupport`
-
-    Whether the model supports structured output / JSON mode / strict tool schemas.
-
-  - `thinking: ThinkingCapability`
-
-    Thinking capability and supported type configurations.
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-    - `types: ThinkingTypes`
-
-      Supported thinking type configurations.
-
-      - `adaptive: CapabilitySupport`
-
-        Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
-
-      - `between_tools: CapabilitySupport`
-
-        Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-      - `disabled: CapabilitySupport`
-
-        Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-      - `enabled: CapabilitySupport`
-
-        Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
-
-### Model Info
-
-- `interface ModelInfo`
-
-  - `type: "model"`
-
-    Object type.
-
-    For Models, this is always `"model"`.
-
-    default: model
-
-  - `id: string`
-
-    Unique model identifier.
-
-  - `capabilities: ModelCapabilities | null`
-
-    Object mapping capability names to their support details. Keys are always present for all known capabilities.
-
-    - `batch: CapabilitySupport`
-
-      Whether the model supports the Batch API.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-    - `citations: CapabilitySupport`
-
-      Whether the model supports citation generation.
-
-    - `code_execution: CapabilitySupport`
-
-      Whether code that the model runs in the code execution tool can call the request's other tools, as in programmatic tool calling and dynamic filtering for web search and web fetch. Support for the code execution tool itself is in `server_tools.code_execution`.
-
-    - `context_management: ContextManagementCapability`
-
-      Context management support and available strategies.
-
-      - `clear_thinking_20251015: CapabilitySupport | null`
-
-        Whether the clear_thinking_20251015 strategy is supported.
-
-      - `clear_tool_uses_20250919: CapabilitySupport | null`
-
-        Whether the clear_tool_uses_20250919 strategy is supported.
-
-      - `compact_20260112: CapabilitySupport | null`
-
-        Whether the compact_20260112 strategy is supported.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-    - `effort: EffortCapability`
-
-      Effort (reasoning_effort) support and available levels.
-
-      - `high: CapabilitySupport`
-
-        Whether the model supports high effort level.
-
-      - `low: CapabilitySupport`
-
-        Whether the model supports low effort level.
-
-      - `max: CapabilitySupport`
-
-        Whether the model supports max effort level.
-
-      - `medium: CapabilitySupport`
-
-        Whether the model supports medium effort level.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `xhigh: CapabilitySupport | null`
-
-        Whether the model supports xhigh effort level.
-
-    - `image_input: CapabilitySupport`
-
-      Whether the model accepts image content blocks.
-
-    - `pdf_input: CapabilitySupport`
-
-      Whether the model accepts PDF content blocks.
-
-    - `server_tools: ServerToolsCapability`
-
-      Whether this model supports the web search and code execution server tools. `supported` is true when the model supports at least one of the tools. A supported tool can still be rejected for your organization, for example when an admin has turned web search off.
-
-      - `code_execution: CapabilitySupport`
-
-        Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `web_search: CapabilitySupport`
-
-        Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-    - `structured_outputs: CapabilitySupport`
-
-      Whether the model supports structured output / JSON mode / strict tool schemas.
-
-    - `thinking: ThinkingCapability`
-
-      Thinking capability and supported type configurations.
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-      - `types: ThinkingTypes`
-
-        Supported thinking type configurations.
-
-        - `adaptive: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
-
-        - `between_tools: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-        - `disabled: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-        - `enabled: CapabilitySupport`
-
-          Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
-
-  - `created_at: string`
-
-    RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
-
-    format: date-time
-
-  - `deprecated_at: string | null`
-
-    RFC 3339 datetime string representing the time of the model's most recent deprecation. Populated for `deprecated` and `retired` models; `null` while the model is `active`.
-
-    format: date-time
-
-  - `display_name: string`
-
-    A human-readable name for the model.
-
-  - `lifecycle: "active" | "deprecated" | "retired"`
-
-    The model's current lifecycle stage.
-
-    - `active`: The model is available for use, open to new adopters, and not scheduled for retirement.
-    - `deprecated`: The model remains callable for organizations with existing access, but is headed for retirement and closed to new adopters.
-    - `retired`: The model is no longer available for use; inference requests naming it fail. It remains in the catalogue as the historical record of its retirement.
-
-    default: active
-
-    - `"active"`
-
-    - `"deprecated"`
-
-    - `"retired"`
-
-  - `line: ModelLine | null`
-
-    The model line this model belongs to, such as `opus` for both Claude Opus 4.5 and Claude Opus 4.6. More lines may be added. `null` when the model belongs to no line; do not infer a line from the `id`.
-
-    - `"haiku"`
-
-    - `"sonnet"`
-
-    - `"opus"`
-
-    - `"fable"`
-
-    - `"mythos"`
-
-  - `max_input_tokens: number | null`
-
-    Maximum input context window size in tokens for this model.
-
-  - `max_tokens: number | null`
-
-    Maximum value for the `max_tokens` parameter when using this model.
-
-  - `retires_at: string | null`
-
-    RFC 3339 datetime string representing the model's currently scheduled retirement date. The schedule can be revised until retirement occurs; `null` while the model is `active` or while no retirement is scheduled. A past date on a `deprecated` model means retirement is overdue, not that it has occurred: `lifecycle` is the retirement signal.
-
-    format: date-time
-
-### Model Line
-
-- `type ModelLine = "haiku" | "sonnet" | "opus" | 2 more`
-
-  A Claude model line, such as `opus` or `sonnet`. More lines may be added as new values.
-
-  - `"haiku"`
-
-  - `"sonnet"`
-
-  - `"opus"`
-
-  - `"fable"`
-
-  - `"mythos"`
-
-### Server Tools Capability
-
-- `interface ServerToolsCapability`
-
-  Web search and code execution tool support, with one entry per tool.
-
-  - `code_execution: CapabilitySupport`
-
-    Whether the model supports the code execution tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-  - `supported: boolean`
-
-    Whether this capability is supported by the model.
-
-  - `web_search: CapabilitySupport`
-
-    Whether the model supports the web search tool: true when the model supports at least one version of the tool, not necessarily every version.
-
-### Thinking Capability
-
-- `interface ThinkingCapability`
-
-  Thinking capability details.
-
-  - `supported: boolean`
-
-    Whether this capability is supported by the model.
-
-  - `types: ThinkingTypes`
-
-    Supported thinking type configurations.
-
-    - `adaptive: CapabilitySupport`
-
-      Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
-
-      - `supported: boolean`
-
-        Whether this capability is supported by the model.
-
-    - `between_tools: CapabilitySupport`
-
-      Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-    - `disabled: CapabilitySupport`
-
-      Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-    - `enabled: CapabilitySupport`
-
-      Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
-
-### Thinking Types
-
-- `interface ThinkingTypes`
-
-  Which `thinking.type` values the model accepts on requests. Read each key on its own: for example, `enabled` can be false while `disabled` is true.
-
-  - `adaptive: CapabilitySupport`
-
-    Whether the model accepts thinking with type 'adaptive' (the model decides whether and how much to think).
-
-    - `supported: boolean`
-
-      Whether this capability is supported by the model.
-
-  - `between_tools: CapabilitySupport`
-
-    Whether the model accepts thinking with type 'between_tools' (thinking turned off, and any short progress updates the model writes between tool calls come back as thinking blocks). False exactly when a request that sends it gets a 400 from this model. A request that sends 'between_tools' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-  - `disabled: CapabilitySupport`
-
-    Whether the model accepts thinking with type 'disabled' (thinking turned off). False exactly when a request that sends it gets a 400 from this model. True on a model that does not support thinking. A request that sends 'disabled' can still be rejected for another reason, such as an effort level the model does not allow with thinking off.
-
-  - `enabled: CapabilitySupport`
-
-    Whether the model accepts thinking with type 'enabled' (extended thinking with a caller-set `budget_tokens`).
+### Parameters
+
+```ts
+/** Model identifier or alias. */
+modelID: string; // path parameter
+
+interface ModelRetrieveParams {
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```

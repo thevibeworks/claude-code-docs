@@ -139,7 +139,7 @@ The test kit has a few rules of its own, and breaking one produces the errors ne
   on('ui.render', () => ({ type: 'Text', props: {}, children: ['drawn by Claude Code'] }))
   ```
 
-  With the stub registered, the mount succeeds, and `ui.find({ type: 'Text' })` returns that element whenever your hook returned `next(e)`.
+  With the stub registered, the mount succeeds, and `ui.find({ type: 'Text' })` returns that element whenever your hook returned `next(e)`. On v2.1.323 or later, for the band, pass your mod's name as the second argument to `on`, as in `{ plugin: 'my-mod' }`. Without it, the stub doesn't answer your `next(e)`.
 
 * **A stub for `turn.step` is an async generator**, and the test reads the stream to its end to get the result:
 
@@ -192,7 +192,7 @@ This table lists the ones mods use most. The first column is the call your mod m
 | `$.session.id`, `$.agent.list` | `() => ({ value: 'abc123' })`, `() => ({ value: [] })` |
 | `session.send` | `() => ({ isDelivered: true })`. `e.to` arrives as a string even when your mod passed `{ sessionId }`. |
 | `session.receive` | `($, e) => ({ text: e.text })`. Fire it with `$.session.receive({ origin: { kind: 'peer-send-message' }, text })`. |
-| `ui.render` | `() => ({ type: 'Text', props: {}, children: ['...'] })` |
+| `ui.render` | `() => ({ type: 'Text', props: {}, children: ['...'] })`. For the band, see the matcher in [Follow the test kit's rules](#follow-the-test-kit’s-rules). |
 
 ### Check a result with `expect`
 
