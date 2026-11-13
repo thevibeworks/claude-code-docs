@@ -4,7 +4,7 @@ An **[artifact](https://claude.com/features/artifacts)** is anything Claude make
 
 Artifacts are available on Free, Pro, Max, Ultra, Team, and Enterprise plans, and in Claude Code on every plan that includes Claude Code. The Docs, Slides, and Design templates are available on all plans and are on by default. On Enterprise plans, they turn on by default on October 15, 2026, and owners can turn them on before then.
 
-The Data template is available on Pro, Max, Ultra, Team, and Enterprise plans. On Enterprise plans, it turns on by default on November 19, 2026, unless an owner has already saved a setting.
+The Data template is available on Pro, Max, Ultra, Team, and Enterprise plans. On Enterprise plans, it turns on by default on November 20, 2026, unless an owner has already saved a setting.
 
 The Sheets and Whiteboards templates are in beta on Pro, Max, Ultra, Team, and Enterprise plans. They’re on by default on Team plans and off on Enterprise plans until an owner turns them on. The Motion template is in beta on Team and Enterprise plans. It's on by default on Team plans and off on Enterprise plans until an owner turns it on.
 

@@ -179,7 +179,7 @@ Import complete. Imported chats appear in the sidebar and imported projects appe
 
 ## If a project already exists
 
-When an imported project has the same name as a project already in Claude Desktop, the wizard adds a **Duplicates** step after the import finishes. This happens, for example, when you set up **Northwind** on this machine and then bring over history from another machine that also has a Northwind project. The step lists each match with two choices.
+When an imported project has the same name as a project already in Claude Desktop, the wizard adds a **Duplicates** step after the import finishes. The step lists each match with two choices.
 
 ![Import from Claude wizard step 4, Duplicates, headed These projects already exist, listing five Northwind projects each with Merge into existing and Keep separate buttons and a Continue button.](https://mintcdn.com/claude-ai/XDpDaIQ3J0Amhn8h/images/third-party/import/import-duplicates.png?fit=max\&auto=format\&n=XDpDaIQ3J0Amhn8h\&q=85\&s=798f75d5a508ebcb7082373b5cf95d84)
 
@@ -327,8 +327,6 @@ For an export file from another device, see [What a Claude Desktop export moves]
 * **Chats and projects come over.** Each imported project appears on the **Projects** page. If the project has custom instructions, Claude Desktop shows them in the project for you to review and accept before they take effect. In Chat, Claude can't read a folder that the import put on a project until you [add the folder to the project again](#make-an-imported-project-folder-readable-in-chat).
 * **Artifacts come over as files.** For artifacts Claude created in a conversation, and files Claude wrote with its file-creation tool, the import saves the final version as one of the imported conversation's output files. Earlier versions aren't kept. Past a size limit, the rest of a conversation's artifact content isn't imported, and the conversation says so.
 * **Project knowledge files and conversation attachments do not.** A member's own export never includes the contents of files uploaded to a project's knowledge or attached to a conversation. This is a security policy on claude.ai, and it applies to both the **Sign in to claude.ai** and **Choose a downloaded file** paths. Imported chats keep the messages that referenced an attachment, but not the file itself. The only export that includes file contents is an organization-level export, which only a workspace owner can request.
-* **One-time copy.** Imported history does not stay in sync with claude.ai. Run the import again to pick up newer conversations; existing imports are matched and skipped, so you won't get duplicates.
-* **Download links expire.** The email link from claude.ai is valid for 24 hours. Request a new export if it lapses.
 
 ## Troubleshoot an import or export
 

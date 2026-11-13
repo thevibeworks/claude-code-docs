@@ -10,7 +10,7 @@ When Claude Desktop is deployed on third-party inference, Claude can work with y
 
 ## How the connection works
 
-Google's remote MCP servers don't support dynamic client registration, and Google's token endpoint requires the client secret even for a client of the **Desktop app** type. You create one Desktop-app OAuth client in your Google Cloud project, enter its client ID and client secret in the server's entry, and each user signs in with their own Google account. Google doesn't treat a Desktop-app client secret as confidential, so the Enterprise Admin Console stores it with the entry, as described under [Where the client secret goes](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md#where-the-client-secret-goes). That page also explains each **OAuth** field.
+Google's remote MCP servers don't support dynamic client registration, and Google's token endpoint requires the client secret even for a client of the **Desktop app** type. Google doesn't treat a Desktop-app client secret as confidential, so the Enterprise Admin Console stores it with the entry, as described under [Where the client secret goes](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md#where-the-client-secret-goes). That page also explains each **OAuth** field.
 
 ## Set up the BigQuery server
 

@@ -23,9 +23,9 @@ A **role** controls what a person can do in the admin portal. It has no effect o
 
 * A **User** can use the Claude products but has no admin access.
 * An **Owner** can access this organization admin portal and manage its users, seats, and settings.
-* A **Primary Owner** can do everything an Owner can, and can grant or remove the Primary Owner role.
+* A **Primary Owner** can do everything an Owner can, and can also grant or remove the Primary Owner role and change a Primary Owner's seat tier.
 
-There are no additional roles such as Billing or Developer. Tenant administrator access is a separate tenant-level membership managed on the [Admins](https://claude.com/docs/government/tenant-admin/admins.md) page, not an organization role.
+There are no additional roles such as Billing or Developer. Tenant administrator access is a separate tenant-level membership managed on the [Admins](https://claude.com/docs/government/tenant-admin/admins.md) page, not an organization role. A tenant administrator can grant or remove the Primary Owner role and change a Primary Owner's seat tier, unless your organization [manages its own billing account](https://claude.com/docs/government/org-admin/billing.md#seats).
 
 An organization may have up to three active Primary Owners. If your organization no longer has a Primary Owner who can sign in, ask a tenant administrator to promote a replacement, unless your organization [manages its own billing account](https://claude.com/docs/government/org-admin/billing.md#seats). If it does, contact Anthropic instead to have a new Primary Owner appointed. Until then, your Owners and tenant administrators can keep managing users and settings.
 
@@ -36,13 +36,17 @@ Use the **Role** dropdown on a user's card to change their role. The change appl
 The following safeguards apply and the dropdown will refuse the change if any of them would be violated.
 
 * You cannot change your own role.
-* An Owner can freely move people between User and Owner, but can't grant or remove the Primary Owner role. A Primary Owner can grant or remove it. A tenant administrator can too, unless your organization [manages its own billing account](https://claude.com/docs/government/org-admin/billing.md#seats).
+* An Owner can freely move people between User and Owner, but can't grant or remove the [Primary Owner](#understanding-roles) role.
 * You cannot demote the organization's only active Primary Owner. Promote a second person to Primary Owner first, then demote the original.
 * You cannot promote a deactivated user to Primary Owner. Reactivate them first.
 
 ## Assigning a seat tier
 
-Use the **Seat tier** dropdown to move a user onto a different tier or back to **Unassigned**. An unassigned user has no model access at all, but keeps their account and any admin access. If a tier has no seats remaining it appears marked **(at capacity)** and cannot be selected, unless the user is already on it. Only a Primary Owner can change a Primary Owner's seat tier here. If one of the user's directory groups is mapped to another seat tier, the mapping puts them back on it, so first change the [mapping](https://claude.com/docs/government/org-admin/provisioning.md#group-to-seat-tier) or the user's groups.
+Use the **Seat tier** dropdown to move a user onto a different tier or back to **Unassigned**. An unassigned user has no model access, but keeps their account and any admin access.
+
+* A tier marked **(at capacity)** has no seats remaining and can't be selected.
+* An Owner can't change a [Primary Owner's](#understanding-roles) seat tier.
+* If one of the user's directory groups is mapped to another seat tier, the mapping puts them back on it, so first change the [mapping](https://claude.com/docs/government/org-admin/provisioning.md#group-to-seat-tier) or the user's groups.
 
 Changing a user's tier takes effect on their very next request. If you move someone to a tier with a different set of allowed models, any model that is not among their new tier's allowed models becomes unavailable to them immediately. Moving a user between tiers does not reset their usage counters, which are measured against the new tier's limit on their next request.
 

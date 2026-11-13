@@ -8,8 +8,6 @@
 
 Like [Cowork](https://claude.com/docs/cowork/overview.md) in standard Claude Desktop, Claude Desktop on third-party (3P) works directly with files on the user's computer. Users attach one or more **workspace folders** to a session; the agent can then read, create, and modify files anywhere inside those folders, and run code against them inside the sandbox VM.
 
-In Claude Desktop on 3P, administrators can constrain which folders users are allowed to attach.
-
 ## Workspace folder allowlist
 
 Set [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) in the managed configuration to restrict which paths users may attach as workspace folders. The [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md) covers where the managed configuration lives on each platform and how to deploy it.
@@ -51,7 +49,7 @@ The sandbox can stay running between sessions. A drive the user maps while the s
 
 The agent cannot attach a network-drive path on its own; only the user can, through the folder picker. This is a security boundary.
 
-On macOS, network mounts under `/Volumes/` are currently treated as local folders.
+On macOS, network mounts under `/Volumes/` are treated as local folders.
 
 ## Removable drives on Windows
 
@@ -59,6 +57,6 @@ Users can attach a folder on a removable drive, such as a USB stick or an SD car
 
 ## WSL
 
-You do not need Windows Subsystem for Linux (WSL) to run Claude Desktop or Cowork. On Windows, Cowork's sandbox runs on the operating system's built-in virtualization, which the [readiness check](https://claude.com/docs/third-party/claude-desktop/installation.md#check-device-readiness) verifies. Install the macOS or Windows package (see [System requirements](https://claude.com/docs/third-party/claude-desktop/installation.md#system-requirements)); there is no installation path inside WSL. Run the Windows app and work with WSL files from there.
+You do not need Windows Subsystem for Linux (WSL) to run Claude Desktop or Cowork. On Windows, Cowork's sandbox runs on the operating system's built-in virtualization, which the [readiness check](https://claude.com/docs/third-party/claude-desktop/installation.md#check-device-readiness) verifies. There is no installation path inside WSL, so run the Windows app and work with WSL files from there.
 
 Windows exposes a WSL distribution's filesystem as a UNC path (`\\wsl$\<distro>` or `\\wsl.localhost\<distro>`). Like any other raw UNC path, these cannot be attached as workspace folders directly. To attach files that live inside WSL as a workspace folder, map the share to a drive letter and attach the mapped drive, or copy the files to a local Windows folder. [Network drives on Windows](#network-drives-on-windows) describes what the agent can do on a mapped drive.

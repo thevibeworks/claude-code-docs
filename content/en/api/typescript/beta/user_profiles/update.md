@@ -5,389 +5,12 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/user_profiles/updat
 
 # Update User Profile
 
-`client.beta.userProfiles.update(userProfileID, params, options?): BetaUserProfile`
+- Signature: `client.beta.userProfiles.update(userProfileID: string, params: UserProfileUpdateParams, options?: RequestOptions): BetaUserProfile`
+- Endpoint: `POST /v1/user_profiles/{user_profile_id}`
 
-**POST** `/v1/user_profiles/{user_profile_id}`
+## Example request
 
-Update User Profile
-
-## Parameters
-
-- `userProfileID: string` (path parameter)
-
-  The ID of the user profile to update (`uprof_...`).
-
-- `params: UserProfileUpdateParams`
-
-  - `access_type?: "application" | "passthrough" | null`
-
-    If present, replaces the stored access type. Omit to leave unchanged.
-
-    - `"application"`
-
-      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
-
-    - `"passthrough"`
-
-      The user profile represents a company that the platform resells Claude access to.
-
-  - `external_id?: string | null`
-
-    If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters. Legacy field, accepted only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, send `external_user_details.reference_id`.
-
-    minLength: 1, maxLength: 255
-
-  - `external_user_details?: BetaUserProfileExternalUserDetailsParams`
-
-    Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Not accepted under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers.
-
-    - `account_status?: "active" | "suspended" | "blocked" | null`
-
-      The status of the entity's account on the platform: `active`, `suspended` or `blocked`.
-
-      - `"active"`
-
-        The platform has neither restricted nor barred the account of the entity that the user profile represents.
-
-      - `"suspended"`
-
-        The platform has restricted the account of the entity that the user profile represents and may restore it.
-
-      - `"blocked"`
-
-        The platform has barred the account of the entity that the user profile represents.
-
-    - `country?: string | null`
-
-      The country of the entity (not of the platform), as the platform determines it: an ISO 3166-1 alpha-2 code in upper case, for example `US`. Only the form, two uppercase ASCII letters, is checked.
-
-      pattern: ^[A-Z]{2}$
-
-    - `email_hash?: string | null`
-
-      A hash of the entity's email address, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
-
-      minLength: 1, maxLength: 255
-
-    - `entity_type?: "individual" | "business" | "non_profit" | "government" | null`
-
-      What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`.
-
-      - `"individual"`
-
-      - `"business"`
-
-      - `"non_profit"`
-
-      - `"government"`
-
-    - `name_hash?: string | null`
-
-      A hash of the entity's name, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters.
-
-      minLength: 1, maxLength: 255
-
-    - `onboarded_at?: string`
-
-      When the entity opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future.
-
-      format: date-time
-
-    - `reference_id?: string | null`
-
-      The platform's own reference for the entity, for example the key of the end-user's row in the platform's database. Not interpreted by Anthropic and not enforced unique. 1 to 255 characters.
-
-      minLength: 1, maxLength: 255
-
-  - `external_user_onboarded_at?: string`
-
-    If present, replaces the stored account creation time. Omit to leave unchanged; once set, the value cannot be cleared and `null` is rejected. Must be a complete RFC 3339 timestamp no more than 1 minute in the future. Legacy field, accepted only under the `user-profiles-2026-08-18` beta header; without a legacy header, send `external_user_details.onboarded_at`.
-
-    format: date-time
-
-  - `metadata?: Record<string, string>`
-
-    Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
-
-  - `name?: string | null`
-
-    If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
-
-    minLength: 1, maxLength: 255
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-## Returns
-
-- `interface BetaUserProfile`
-
-  A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to.
-
-  A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity.
-
-  - `type: "user_profile"`
-
-    Object type. Always `user_profile`.
-
-  - `id: string`
-
-    Unique identifier for this user profile, prefixed `uprof_`.
-
-  - `created_at: string`
-
-    When this user profile was created, in RFC 3339 format.
-
-    format: date-time
-
-  - `metadata: Record<string, string>`
-
-    Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `name: string | null`
-
-    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one.
-
-  - `trust_grants: Record<string, BetaUserProfileTrustGrant>`
-
-    Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
-
-    - `status: "active" | "pending" | "rejected"`
-
-      Status of the trust grant.
-
-      - `"active"`
-
-      - `"pending"`
-
-      - `"rejected"`
-
-  - `updated_at: string`
-
-    When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp.
-
-    format: date-time
-
-  - `access_type?: "application" | "passthrough"`
-
-    How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
-
-    - `"application"`
-
-      The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
-
-    - `"passthrough"`
-
-      The user profile represents a company that the platform resells Claude access to.
-
-  - `external_id?: string | null`
-
-    Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`.
-
-  - `external_user_details?: BetaUserProfileExternalUserDetails`
-
-    Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`.
-
-    - `account_status: "active" | "suspended" | "blocked" | null`
-
-      The status of the entity's account on the platform: `active`, `suspended` or `blocked`. `null` until the platform supplies one.
-
-      - `"active"`
-
-        The platform has neither restricted nor barred the account of the entity that the user profile represents.
-
-      - `"suspended"`
-
-        The platform has restricted the account of the entity that the user profile represents and may restore it.
-
-      - `"blocked"`
-
-        The platform has barred the account of the entity that the user profile represents.
-
-    - `country: string | null`
-
-      The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one.
-
-    - `email_hash: string | null`
-
-      The platform-computed hash of the entity's email address. `null` until the platform supplies one.
-
-    - `entity_type: "individual" | "business" | "non_profit" | "government" | null`
-
-      What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`. `null` until the platform supplies one.
-
-      - `"individual"`
-
-      - `"business"`
-
-      - `"non_profit"`
-
-      - `"government"`
-
-    - `name_hash: string | null`
-
-      The platform-computed hash of the entity's name. `null` until the platform supplies one.
-
-    - `onboarded_at: string | null`
-
-      When the entity opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one.
-
-      format: date-time
-
-    - `reference_id: string | null`
-
-      The platform's own reference for the entity. `null` until the platform supplies one.
-
-  - `external_user_onboarded_at?: string | null`
-
-    When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`.
-
-    format: date-time
-
-## Example
-
-```typescript
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -402,7 +25,7 @@ const betaUserProfile = await client.beta.userProfiles.update(
 console.log(betaUserProfile.id);
 ```
 
-### Response (200)
+## Example response (200)
 
 ```json
 {
@@ -429,5 +52,191 @@ console.log(betaUserProfile.id);
     "reference_id": "user_12345"
   },
   "external_user_onboarded_at": "2024-11-02T08:15:00Z"
+}
+```
+
+## Parameters
+
+```ts
+/** The ID of the user profile to update (`uprof_...`). */
+userProfileID: string; // path parameter
+
+interface UserProfileUpdateParams {
+  /**
+   * If present, replaces the stored access type. Omit to leave unchanged.
+   * - `"application"`: The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+   * - `"passthrough"`: The user profile represents a company that the platform resells Claude access to.
+   */
+  access_type?: "application" | "passthrough" | null;
+  /** If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters. Legacy field, accepted only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, send `external_user_details.reference_id`. */
+  external_id?: string | null; // minLength: 1, maxLength: 255, beta header: user-profiles-2026-03-24 or user-profiles-2026-08-18
+  /** Details about the entity this profile represents, as the platform states them. Each field sent replaces the stored value; omit a field to leave it unchanged. Once set, a value cannot be cleared and `null` is rejected. Not accepted under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers. */
+  external_user_details?: BetaUserProfileExternalUserDetailsParams;
+  /** If present, replaces the stored account creation time. Omit to leave unchanged; once set, the value cannot be cleared and `null` is rejected. Must be a complete RFC 3339 timestamp no more than 1 minute in the future. Legacy field, accepted only under the `user-profiles-2026-08-18` beta header; without a legacy header, send `external_user_details.onboarded_at`. */
+  external_user_onboarded_at?: string; // format: date-time, beta header: user-profiles-2026-08-18
+  /** Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. */
+  metadata?: Record<string, string>;
+  /** If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters. */
+  name?: string | null; // minLength: 1, maxLength: 255
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
+## Returns
+
+```ts
+/** A record of an entity that the platform serves through the API, such as an end-user of the platform's product or a company that the platform resells Claude access to. A Messages, Message Batches or token counting request can send a profile's `id` in the `anthropic-user-profile-id` header to attribute the request to that entity. */
+interface BetaUserProfile {
+  /** Object type. Always `user_profile`. */
+  type: "user_profile";
+  /** Unique identifier for this user profile, prefixed `uprof_`. */
+  id: string;
+  /** When this user profile was created, in RFC 3339 format. */
+  created_at: string; // format: date-time
+  /** Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars. */
+  metadata: Record<string, string>;
+  /** Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name. `null` until the platform supplies one. */
+  name: string | null;
+  /** Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight. */
+  trust_grants: Record<string, BetaUserProfileTrustGrant>; // beta header: user-profiles-2026-03-24 or user-profiles-2026-08-18 or user-profiles-2026-09-04
+  /** When this user profile was last modified, in RFC 3339 format. It normally also updates shortly after Anthropic gives the profile an approval or withdraws one. Other changes to the statuses that Anthropic reports do not always update it, so read the status itself rather than watching this timestamp. */
+  updated_at: string; // format: date-time
+  /**
+   * How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
+   * - `"application"`: The user profile represents an individual end-user of a product that the platform builds on the API. New profiles get this value by default.
+   * - `"passthrough"`: The user profile represents a company that the platform resells Claude access to.
+   */
+  access_type?: "application" | "passthrough";
+  /** Platform's own identifier for this user. Not enforced unique. Legacy field, present only under the `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers; without one of them, the value is `external_user_details.reference_id`. */
+  external_id?: string | null; // beta header: user-profiles-2026-03-24 or user-profiles-2026-08-18
+  /** Details about the entity this profile represents, as the platform states them; not verified by Anthropic. Every field is present, `null` until the platform supplies a value. Absent under the legacy `user-profiles-2026-03-24` and `user-profiles-2026-08-18` beta headers, which serve `reference_id` as the top-level `external_id` and, under `user-profiles-2026-08-18`, `onboarded_at` as `external_user_onboarded_at`. */
+  external_user_details?: BetaUserProfileExternalUserDetails;
+  /** When the entity this profile represents opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. Legacy field, present only under the `user-profiles-2026-08-18` beta header; without a legacy header, the value is `external_user_details.onboarded_at`. */
+  external_user_onboarded_at?: string | null; // format: date-time, beta header: user-profiles-2026-08-18
+}
+```
+
+## Types
+
+```ts
+interface BetaUserProfileExternalUserDetailsParams {
+  /**
+   * The status of the entity's account on the platform: `active`, `suspended` or `blocked`.
+   * - `"active"`: The platform has neither restricted nor barred the account of the entity that the user profile represents.
+   * - `"suspended"`: The platform has restricted the account of the entity that the user profile represents and may restore it.
+   * - `"blocked"`: The platform has barred the account of the entity that the user profile represents.
+   */
+  account_status?: "active" | "suspended" | "blocked" | null;
+  /** The country of the entity (not of the platform), as the platform determines it: an ISO 3166-1 alpha-2 code in upper case, for example `US`. Only the form, two uppercase ASCII letters, is checked. */
+  country?: string | null; // pattern: ^[A-Z]{2}$
+  /** A hash of the entity's email address, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters. */
+  email_hash?: string | null; // minLength: 1, maxLength: 255
+  /** What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`. */
+  entity_type?: "individual" | "business" | "non_profit" | "government" | null;
+  /** A hash of the entity's name, computed by the platform. Anthropic treats it as an opaque string and does not prescribe the hash function. 1 to 255 characters. */
+  name_hash?: string | null; // minLength: 1, maxLength: 255
+  /** When the entity opened its account with the platform, in RFC 3339 format: for an `application` profile, when the end-user signed up; for a `passthrough` profile, when the company became the platform's customer. Must be a complete timestamp no more than 1 minute in the future. */
+  onboarded_at?: string; // format: date-time
+  /** The platform's own reference for the entity, for example the key of the end-user's row in the platform's database. Not interpreted by Anthropic and not enforced unique. 1 to 255 characters. */
+  reference_id?: string | null; // minLength: 1, maxLength: 255
+}
+
+type AnthropicBeta =
+  | (string & {})
+  | "computer-use-2024-10-22"
+  | "computer-use-2025-01-24"
+  | "output-128k-2025-02-19"
+  | "mcp-client-2025-04-04"
+  | "mcp-client-2025-11-20"
+  | "dev-full-thinking-2025-05-14"
+  | "interleaved-thinking-2025-05-14"
+  | "code-execution-2025-05-22"
+  | "context-1m-2025-08-07"
+  | "context-management-2025-06-27"
+  | "model-context-window-exceeded-2025-08-26"
+  | "fast-mode-2026-02-01"
+  | "output-300k-2026-03-24"
+  | "user-profiles-2026-03-24"
+  | "user-profiles-2026-08-18"
+  | "user-profiles-2026-09-04"
+  | "advisor-tool-2026-03-01"
+  | "managed-agents-2026-04-01"
+  | "dreaming-2026-04-21"
+  | "thinking-token-count-2026-05-13"
+  | "server-side-fallback-2026-06-01"
+  | "server-side-fallback-2026-07-01"
+  | "fallback-credit-2026-06-01"
+  | "fallback-credit-2026-07-01"
+  | "agent-memory-2026-07-22"
+  | "mid-conversation-tool-changes-2026-07-01"
+  | "compact-2026-01-12"
+  | "computer-use-2025-11-24"
+  | "mcp-tunnels-2026-06-22"
+  | "structured-outputs-2025-11-13"
+  | "task-budgets-2026-03-13"
+  | "thinking-display-updates-2026-08-18"
+  | "mid-conversation-output-config-2026-07-01"
+  | "thinking-binding-controls-2026-08-01"
+  | "mid-conversation-system-clear-at-2026-08-21"
+  | "compact-2026-09-04"
+  | "inline-tools-2026-09-15"
+  | "mcp-client-2026-09-15"
+  | "ce-plugins-2026-09-01"
+  | "spend-limit-reads-2026-09-26"
+  | "telemetry-destinations-2026-08-11"
+  | "webhooks-2026-10-07"
+  | "admin-user-sign-out-2026-10-08"
+  | "message-threads-2026-08-12"
+  | "analytics-usage-cost-2026-08-24"
+  | "experimental-claude-tag-2026-10-21"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "message-batches-2024-09-24"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "prompt-caching-2024-07-31"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "pdfs-2024-09-25"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "token-counting-2024-11-01"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "token-efficient-tools-2025-02-19"
+  /** @deprecated Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14 */
+  | "files-api-2025-04-14"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "extended-cache-ttl-2025-04-11"
+  /** @deprecated Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02 */
+  | "skills-2025-10-02"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "cache-diagnosis-2026-04-07"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "ce-user-management-2026-07-13";
+
+interface BetaUserProfileTrustGrant {
+  /** Status of the trust grant. */
+  status: "active" | "pending" | "rejected";
+}
+
+interface BetaUserProfileExternalUserDetails {
+  /**
+   * The status of the entity's account on the platform: `active`, `suspended` or `blocked`. `null` until the platform supplies one.
+   * - `"active"`: The platform has neither restricted nor barred the account of the entity that the user profile represents.
+   * - `"suspended"`: The platform has restricted the account of the entity that the user profile represents and may restore it.
+   * - `"blocked"`: The platform has barred the account of the entity that the user profile represents.
+   */
+  account_status: "active" | "suspended" | "blocked" | null;
+  /** The country the platform associates with the entity, as an ISO 3166-1 alpha-2 code. `null` until the platform supplies one. */
+  country: string | null;
+  /** The platform-computed hash of the entity's email address. `null` until the platform supplies one. */
+  email_hash: string | null;
+  /** What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`. `null` until the platform supplies one. */
+  entity_type: "individual" | "business" | "non_profit" | "government" | null;
+  /** The platform-computed hash of the entity's name. `null` until the platform supplies one. */
+  name_hash: string | null;
+  /** When the entity opened its account with the platform, as stated by the platform, in RFC 3339 format (UTC). `null` until the platform supplies one. */
+  onboarded_at: string | null; // format: date-time
+  /** The platform's own reference for the entity. `null` until the platform supplies one. */
+  reference_id: string | null;
 }
 ```

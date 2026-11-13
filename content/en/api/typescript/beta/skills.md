@@ -7,245 +7,12 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/skills
 
 ## Create Skill
 
-`client.beta.skills.create(params, options?): BetaSkill`
+- Signature: `client.beta.skills.create(params: SkillCreateParams, options?: RequestOptions): BetaSkill`
+- Endpoint: `POST /v1/skills`
 
-**POST** `/v1/skills`
+### Example request
 
-Create Skill
-
-### Parameters
-
-- `params: SkillCreateParams`
-
-  - `files: Array<Uploadable>`
-
-    Files to upload for the skill.
-
-    All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
-
-  - `display_name?: string | null`
-
-    Human-readable, single-line label for the Skill. Maximum 255 characters.
-    Always set: derived from the SKILL.md frontmatter `name` when omitted at
-    creation. Not unique.
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-### Returns
-
-- `interface BetaSkill`
-
-  - `type: "skill"`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
-    default: skill
-
-  - `id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-    format: date-time
-
-  - `display_name: string`
-
-    Human-readable, single-line label for the Skill. Maximum 255 characters.
-    Always set: derived from the SKILL.md frontmatter `name` when omitted at
-    creation. Not unique.
-
-  - `latest_version_id: string`
-
-    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
-
-  - `source: BetaSkillSource`
-
-    Where the Skill comes from.
-
-    Possible values:
-
-    * `"custom"`: authored by the platform user; private to their workspace
-    * `"anthropic"`: published by Anthropic; shared and read-only
-    * `"anthropic_example"`: Anthropic-published sample Skill
-    * `"plugin"`: resolved from an installed plugin
-
-    - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
-
-      Where the Skill comes from.
-
-      Possible values:
-
-      * `"custom"`: authored by the platform user; private to their workspace
-      * `"anthropic"`: published by Anthropic; shared and read-only
-      * `"anthropic_example"`: Anthropic-published sample Skill
-      * `"plugin"`: resolved from an installed plugin
-
-      - `"custom"`
-
-      - `"anthropic"`
-
-      - `"anthropic_example"`
-
-      - `"plugin"`
-
-  - `updated_at: string`
-
-    ISO 8601 timestamp of when the skill was last updated.
-
-    format: date-time
-
-### Example
-
-```typescript
+```ts
 import fs from "fs";
 import Anthropic from "@anthropic-ai/sdk";
 
@@ -260,7 +27,7 @@ const betaSkill = await client.beta.skills.create({
 console.log(betaSkill.id);
 ```
 
-#### Response (200)
+### Example response (200)
 
 ```json
 {
@@ -276,258 +43,148 @@ console.log(betaSkill.id);
 }
 ```
 
-## List Skills
-
-`client.beta.skills.list(params?, options?): PageCursor<BetaSkill>`
-
-**GET** `/v1/skills`
-
-List Skills
-
 ### Parameters
 
-- `params: SkillListParams`
-
-  - `limit?: number` (query parameter)
-
-    Number of results to return per page.
-
-    Ranges from `1` to `1000`. Defaults to `20`.
-
-    minimum: 1, maximum: 1000
-
-  - `page?: string | null` (query parameter)
-
-    Pagination token for fetching a specific page of results.
-
-    Pass the value from a previous response's `next_page` field to get the next page of results.
-
-  - `source?: string | null` (query parameter)
-
-    Filter skills by source.
-
-    If provided, only skills from the specified source will be returned:
-
-    * `"custom"`: only return user-created skills
-    * `"anthropic"`: only return Anthropic-created skills
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+```ts
+// This page declares each type one time, in the first method that uses it.
+
+interface SkillCreateParams {
+  /** Files to upload for the skill. All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory. */
+  files: Array<Uploadable>;
+  /** Human-readable, single-line label for the Skill. Maximum 255 characters. Always set: derived from the SKILL.md frontmatter `name` when omitted at creation. Not unique. */
+  display_name?: string | null;
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
 
 ### Returns
 
-- `interface BetaSkill`
+```ts
+interface BetaSkill {
+  /** Object type. For Skills, this is always `"skill"`. */
+  type: "skill";
+  /** Unique identifier for the skill. The format and length of IDs may change over time. */
+  id: string;
+  /** ISO 8601 timestamp of when the skill was created. */
+  created_at: string; // format: date-time
+  /** Human-readable, single-line label for the Skill. Maximum 255 characters. Always set: derived from the SKILL.md frontmatter `name` when omitted at creation. Not unique. */
+  display_name: string;
+  /** ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version. */
+  latest_version_id: string;
+  /**
+   * Where the Skill comes from.
+   *
+   * Possible values:
+   *
+   * * `"custom"`: authored by the platform user; private to their workspace
+   * * `"anthropic"`: published by Anthropic; shared and read-only
+   * * `"anthropic_example"`: Anthropic-published sample Skill
+   * * `"plugin"`: resolved from an installed plugin
+   */
+  source: BetaSkillSource;
+  /** ISO 8601 timestamp of when the skill was last updated. */
+  updated_at: string; // format: date-time
+}
+```
 
-  - `type: "skill"`
+### Types
 
-    Object type.
+```ts
+type AnthropicBeta =
+  | (string & {})
+  | "computer-use-2024-10-22"
+  | "computer-use-2025-01-24"
+  | "output-128k-2025-02-19"
+  | "mcp-client-2025-04-04"
+  | "mcp-client-2025-11-20"
+  | "dev-full-thinking-2025-05-14"
+  | "interleaved-thinking-2025-05-14"
+  | "code-execution-2025-05-22"
+  | "context-1m-2025-08-07"
+  | "context-management-2025-06-27"
+  | "model-context-window-exceeded-2025-08-26"
+  | "fast-mode-2026-02-01"
+  | "output-300k-2026-03-24"
+  | "user-profiles-2026-03-24"
+  | "user-profiles-2026-08-18"
+  | "user-profiles-2026-09-04"
+  | "advisor-tool-2026-03-01"
+  | "managed-agents-2026-04-01"
+  | "dreaming-2026-04-21"
+  | "thinking-token-count-2026-05-13"
+  | "server-side-fallback-2026-06-01"
+  | "server-side-fallback-2026-07-01"
+  | "fallback-credit-2026-06-01"
+  | "fallback-credit-2026-07-01"
+  | "agent-memory-2026-07-22"
+  | "mid-conversation-tool-changes-2026-07-01"
+  | "compact-2026-01-12"
+  | "computer-use-2025-11-24"
+  | "mcp-tunnels-2026-06-22"
+  | "structured-outputs-2025-11-13"
+  | "task-budgets-2026-03-13"
+  | "thinking-display-updates-2026-08-18"
+  | "mid-conversation-output-config-2026-07-01"
+  | "thinking-binding-controls-2026-08-01"
+  | "mid-conversation-system-clear-at-2026-08-21"
+  | "compact-2026-09-04"
+  | "inline-tools-2026-09-15"
+  | "mcp-client-2026-09-15"
+  | "ce-plugins-2026-09-01"
+  | "spend-limit-reads-2026-09-26"
+  | "telemetry-destinations-2026-08-11"
+  | "webhooks-2026-10-07"
+  | "admin-user-sign-out-2026-10-08"
+  | "message-threads-2026-08-12"
+  | "analytics-usage-cost-2026-08-24"
+  | "experimental-claude-tag-2026-10-21"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "message-batches-2024-09-24"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "prompt-caching-2024-07-31"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "pdfs-2024-09-25"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "token-counting-2024-11-01"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "token-efficient-tools-2025-02-19"
+  /** @deprecated Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14 */
+  | "files-api-2025-04-14"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "extended-cache-ttl-2025-04-11"
+  /** @deprecated Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02 */
+  | "skills-2025-10-02"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "cache-diagnosis-2026-04-07"
+  /** @deprecated This value is no longer needed. Remove it from your requests. */
+  | "ce-user-management-2026-07-13";
 
-    For Skills, this is always `"skill"`.
+interface BetaSkillSource {
+  /**
+   * Where the Skill comes from.
+   *
+   * Possible values:
+   *
+   * * `"custom"`: authored by the platform user; private to their workspace
+   * * `"anthropic"`: published by Anthropic; shared and read-only
+   * * `"anthropic_example"`: Anthropic-published sample Skill
+   * * `"plugin"`: resolved from an installed plugin
+   */
+  type: "custom" | "anthropic" | "anthropic_example" | "plugin";
+}
+```
 
-    default: skill
+## List Skills
 
-  - `id: string`
+- Signature: `client.beta.skills.list(params?: SkillListParams, options?: RequestOptions): PageCursor<BetaSkill>`
+- Endpoint: `GET /v1/skills`
 
-    Unique identifier for the skill.
+### Example request
 
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-    format: date-time
-
-  - `display_name: string`
-
-    Human-readable, single-line label for the Skill. Maximum 255 characters.
-    Always set: derived from the SKILL.md frontmatter `name` when omitted at
-    creation. Not unique.
-
-  - `latest_version_id: string`
-
-    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
-
-  - `source: BetaSkillSource`
-
-    Where the Skill comes from.
-
-    Possible values:
-
-    * `"custom"`: authored by the platform user; private to their workspace
-    * `"anthropic"`: published by Anthropic; shared and read-only
-    * `"anthropic_example"`: Anthropic-published sample Skill
-    * `"plugin"`: resolved from an installed plugin
-
-    - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
-
-      Where the Skill comes from.
-
-      Possible values:
-
-      * `"custom"`: authored by the platform user; private to their workspace
-      * `"anthropic"`: published by Anthropic; shared and read-only
-      * `"anthropic_example"`: Anthropic-published sample Skill
-      * `"plugin"`: resolved from an installed plugin
-
-      - `"custom"`
-
-      - `"anthropic"`
-
-      - `"anthropic_example"`
-
-      - `"plugin"`
-
-  - `updated_at: string`
-
-    ISO 8601 timestamp of when the skill was last updated.
-
-    format: date-time
-
-### Example
-
-```typescript
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -540,7 +197,7 @@ for await (const betaSkill of client.beta.skills.list()) {
 }
 ```
 
-#### Response (200)
+### Example response (200)
 
 ```json
 {
@@ -561,241 +218,38 @@ for await (const betaSkill of client.beta.skills.list()) {
 }
 ```
 
-## Get Skill
-
-`client.beta.skills.retrieve(skillID, params?, options?): BetaSkill`
-
-**GET** `/v1/skills/{skill_id}`
-
-Get Skill
-
 ### Parameters
 
-- `skillID: string` (path parameter)
-
-  Unique identifier for the skill.
-
-  The format and length of IDs may change over time.
-
-- `params: SkillRetrieveParams`
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-### Returns
-
-- `interface BetaSkill`
-
-  - `type: "skill"`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
-    default: skill
-
-  - `id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-    format: date-time
-
-  - `display_name: string`
-
-    Human-readable, single-line label for the Skill. Maximum 255 characters.
-    Always set: derived from the SKILL.md frontmatter `name` when omitted at
-    creation. Not unique.
-
-  - `latest_version_id: string`
-
-    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
-
-  - `source: BetaSkillSource`
-
-    Where the Skill comes from.
-
-    Possible values:
-
-    * `"custom"`: authored by the platform user; private to their workspace
-    * `"anthropic"`: published by Anthropic; shared and read-only
-    * `"anthropic_example"`: Anthropic-published sample Skill
-    * `"plugin"`: resolved from an installed plugin
-
-    - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
-
-      Where the Skill comes from.
-
-      Possible values:
-
-      * `"custom"`: authored by the platform user; private to their workspace
-      * `"anthropic"`: published by Anthropic; shared and read-only
-      * `"anthropic_example"`: Anthropic-published sample Skill
-      * `"plugin"`: resolved from an installed plugin
-
-      - `"custom"`
-
-      - `"anthropic"`
-
-      - `"anthropic_example"`
-
-      - `"plugin"`
-
-  - `updated_at: string`
-
-    ISO 8601 timestamp of when the skill was last updated.
-
-    format: date-time
-
-### Example
-
-```typescript
+```ts
+interface SkillListParams {
+  /** Number of results to return per page. Ranges from `1` to `1000`. Defaults to `20`. */
+  limit?: number; // query parameter, minimum: 1, maximum: 1000
+  /** Pagination token for fetching a specific page of results. Pass the value from a previous response's `next_page` field to get the next page of results. */
+  page?: string | null; // query parameter
+  /**
+   * Filter skills by source.
+   *
+   * If provided, only skills from the specified source will be returned:
+   *
+   * * `"custom"`: only return user-created skills
+   * * `"anthropic"`: only return Anthropic-created skills
+   */
+  source?: string | null; // query parameter
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
+## Get Skill
+
+- Signature: `client.beta.skills.retrieve(skillID: string, params?: SkillRetrieveParams, options?: RequestOptions): BetaSkill`
+- Endpoint: `GET /v1/skills/{skill_id}`
+
+### Example request
+
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -807,7 +261,7 @@ const betaSkill = await client.beta.skills.retrieve("skill_id");
 console.log(betaSkill.id);
 ```
 
-#### Response (200)
+### Example response (200)
 
 ```json
 {
@@ -823,189 +277,28 @@ console.log(betaSkill.id);
 }
 ```
 
-## Delete Skill
-
-`client.beta.skills.delete(skillID, params?, options?): BetaDeletedSkill`
-
-**DELETE** `/v1/skills/{skill_id}`
-
-Delete Skill
-
 ### Parameters
 
-- `skillID: string` (path parameter)
+```ts
+/** Unique identifier for the skill. The format and length of IDs may change over time. */
+skillID: string; // path parameter
 
-  Unique identifier for the skill.
+interface SkillRetrieveParams {
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
 
-  The format and length of IDs may change over time.
+## Delete Skill
 
-- `params: SkillDeleteParams`
+- Signature: `client.beta.skills.delete(skillID: string, params?: SkillDeleteParams, options?: RequestOptions): BetaDeletedSkill`
+- Endpoint: `DELETE /v1/skills/{skill_id}`
 
-  - `betas?: Array<AnthropicBeta>` (header parameter)
+### Example request
 
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-### Returns
-
-- `interface BetaDeletedSkill`
-
-  - `type: "skill_deleted"`
-
-    Deleted object type.
-
-    For Skills, this is always `"skill_deleted"`.
-
-    default: skill_deleted
-
-  - `id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-### Example
-
-```typescript
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -1017,7 +310,7 @@ const betaDeletedSkill = await client.beta.skills.delete("skill_id");
 console.log(betaDeletedSkill.id);
 ```
 
-#### Response (200)
+### Example response (200)
 
 ```json
 {
@@ -1026,334 +319,41 @@ console.log(betaDeletedSkill.id);
 }
 ```
 
-## Domain types
+### Parameters
 
-### Beta Deleted Skill
+```ts
+/** Unique identifier for the skill. The format and length of IDs may change over time. */
+skillID: string; // path parameter
 
-- `interface BetaDeletedSkill`
+interface SkillDeleteParams {
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
 
-  - `type: "skill_deleted"`
+### Returns
 
-    Deleted object type.
-
-    For Skills, this is always `"skill_deleted"`.
-
-    default: skill_deleted
-
-  - `id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-### Beta Skill
-
-- `interface BetaSkill`
-
-  - `type: "skill"`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
-    default: skill
-
-  - `id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-    format: date-time
-
-  - `display_name: string`
-
-    Human-readable, single-line label for the Skill. Maximum 255 characters.
-    Always set: derived from the SKILL.md frontmatter `name` when omitted at
-    creation. Not unique.
-
-  - `latest_version_id: string`
-
-    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
-
-  - `source: BetaSkillSource`
-
-    Where the Skill comes from.
-
-    Possible values:
-
-    * `"custom"`: authored by the platform user; private to their workspace
-    * `"anthropic"`: published by Anthropic; shared and read-only
-    * `"anthropic_example"`: Anthropic-published sample Skill
-    * `"plugin"`: resolved from an installed plugin
-
-    - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
-
-      Where the Skill comes from.
-
-      Possible values:
-
-      * `"custom"`: authored by the platform user; private to their workspace
-      * `"anthropic"`: published by Anthropic; shared and read-only
-      * `"anthropic_example"`: Anthropic-published sample Skill
-      * `"plugin"`: resolved from an installed plugin
-
-      - `"custom"`
-
-      - `"anthropic"`
-
-      - `"anthropic_example"`
-
-      - `"plugin"`
-
-  - `updated_at: string`
-
-    ISO 8601 timestamp of when the skill was last updated.
-
-    format: date-time
-
-### Beta Skill Source
-
-- `interface BetaSkillSource`
-
-  - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
-
-    Where the Skill comes from.
-
-    Possible values:
-
-    * `"custom"`: authored by the platform user; private to their workspace
-    * `"anthropic"`: published by Anthropic; shared and read-only
-    * `"anthropic_example"`: Anthropic-published sample Skill
-    * `"plugin"`: resolved from an installed plugin
-
-    - `"custom"`
-
-    - `"anthropic"`
-
-    - `"anthropic_example"`
-
-    - `"plugin"`
+```ts
+interface BetaDeletedSkill {
+  /** Deleted object type. For Skills, this is always `"skill_deleted"`. */
+  type: "skill_deleted";
+  /** Unique identifier for the skill. The format and length of IDs may change over time. */
+  id: string;
+}
+```
 
 ## Skills › Versions
 
 ### Create Skill Version
 
-`client.beta.skills.versions.create(skillID, params, options?): BetaSkillVersion`
+- Signature: `client.beta.skills.versions.create(skillID: string, params: VersionCreateParams, options?: RequestOptions): BetaSkillVersion`
+- Endpoint: `POST /v1/skills/{skill_id}/versions`
 
-**POST** `/v1/skills/{skill_id}/versions`
+#### Example request
 
-Create Skill Version
-
-#### Parameters
-
-- `skillID: string` (path parameter)
-
-  Unique identifier for the skill.
-
-  The format and length of IDs may change over time.
-
-- `params: VersionCreateParams`
-
-  - `files: Array<Uploadable>`
-
-    Files to upload for the skill.
-
-    All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-#### Returns
-
-- `interface BetaSkillVersion`
-
-  - `type: "skill_version"`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-    default: skill_version
-
-  - `id: string`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-    format: date-time
-
-  - `description: string`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `name: string`
-
-    The Skill's immutable kebab-case slug, set at creation from the first
-    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
-    later upload must resolve to the same value. Also the top-level directory
-    of the Skill's mounted files and the base name of a downloaded archive.
-
-  - `skill_id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-#### Example
-
-```typescript
+```ts
 import fs from "fs";
 import Anthropic from "@anthropic-ai/sdk";
 
@@ -1368,7 +368,7 @@ const betaSkillVersion = await client.beta.skills.versions.create("skill_id", {
 console.log(betaSkillVersion.id);
 ```
 
-##### Response (200)
+#### Example response (200)
 
 ```json
 {
@@ -1381,225 +381,49 @@ console.log(betaSkillVersion.id);
 }
 ```
 
-### List Skill Versions
-
-`client.beta.skills.versions.list(skillID, params?, options?): PageCursor<BetaSkillVersion>`
-
-**GET** `/v1/skills/{skill_id}/versions`
-
-List Skill Versions
-
 #### Parameters
 
-- `skillID: string` (path parameter)
-
-  Unique identifier for the skill.
-
-  The format and length of IDs may change over time.
-
-- `params: VersionListParams`
-
-  - `limit?: number | null` (query parameter)
-
-    Number of results to return per page.
-
-    Ranges from `1` to `1000`. Defaults to `20`.
-
-    minimum: 1, maximum: 1000
-
-  - `page?: string | null` (query parameter)
-
-    Optionally set to the `next_page` token from the previous response.
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
+```ts
+/** Unique identifier for the skill. The format and length of IDs may change over time. */
+skillID: string; // path parameter
+
+interface VersionCreateParams {
+  /** Files to upload for the skill. All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory. */
+  files: Array<Uploadable>;
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
 
 #### Returns
 
-- `interface BetaSkillVersion`
+```ts
+interface BetaSkillVersion {
+  /** Object type. For Skill Versions, this is always `"skill_version"`. */
+  type: "skill_version";
+  /** Unique identifier for this Skill Version. The id addresses the version in paths and pins it in references. */
+  id: string;
+  /** ISO 8601 timestamp of when the skill was created. */
+  created_at: string; // format: date-time
+  /** Description of the skill version. This is extracted from the SKILL.md file in the skill upload. */
+  description: string;
+  /** The Skill's immutable kebab-case slug, set at creation from the first upload's SKILL.md frontmatter `name` (or its enclosing directory). Every later upload must resolve to the same value. Also the top-level directory of the Skill's mounted files and the base name of a downloaded archive. */
+  name: string;
+  /** Unique identifier for the skill. The format and length of IDs may change over time. */
+  skill_id: string;
+}
+```
 
-  - `type: "skill_version"`
+### List Skill Versions
 
-    Object type.
+- Signature: `client.beta.skills.versions.list(skillID: string, params?: VersionListParams, options?: RequestOptions): PageCursor<BetaSkillVersion>`
+- Endpoint: `GET /v1/skills/{skill_id}/versions`
 
-    For Skill Versions, this is always `"skill_version"`.
+#### Example request
 
-    default: skill_version
-
-  - `id: string`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-    format: date-time
-
-  - `description: string`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `name: string`
-
-    The Skill's immutable kebab-case slug, set at creation from the first
-    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
-    later upload must resolve to the same value. Also the top-level directory
-    of the Skill's mounted files and the base name of a downloaded archive.
-
-  - `skill_id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-#### Example
-
-```typescript
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -1612,7 +436,7 @@ for await (const betaSkillVersion of client.beta.skills.versions.list("skill_id"
 }
 ```
 
-##### Response (200)
+#### Example response (200)
 
 ```json
 {
@@ -1630,181 +454,34 @@ for await (const betaSkillVersion of client.beta.skills.versions.list("skill_id"
 }
 ```
 
+#### Parameters
+
+```ts
+/** Unique identifier for the skill. The format and length of IDs may change over time. */
+skillID: string; // path parameter
+
+interface VersionListParams {
+  /** Number of results to return per page. Ranges from `1` to `1000`. Defaults to `20`. */
+  limit?: number | null; // query parameter, minimum: 1, maximum: 1000
+  /** Optionally set to the `next_page` token from the previous response. */
+  page?: string | null; // query parameter
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
 ### Download Skill Version Content
 
-`client.beta.skills.versions.download(version, params, options?): Response`
-
-**GET** `/v1/skills/{skill_id}/versions/{version}/content`
+- Signature: `client.beta.skills.versions.download(version: string, params: VersionDownloadParams, options?: RequestOptions): Response`
+- Endpoint: `GET /v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
-#### Parameters
+#### Example request
 
-- `version: string` (path parameter)
-
-  Identifies the skill version by its version ID.
-
-  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
-
-- `params: VersionDownloadParams`
-
-  - `skill_id: string` (path parameter)
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-#### Returns
-
-- `type unnamed_schema_2 = Response`
-
-#### Example
-
-```typescript
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -1821,219 +498,30 @@ const content = await response.blob();
 console.log(content);
 ```
 
-### Get Skill Version
-
-`client.beta.skills.versions.retrieve(version, params, options?): BetaSkillVersion`
-
-**GET** `/v1/skills/{skill_id}/versions/{version}`
-
-Get Skill Version
-
 #### Parameters
 
-- `version: string` (path parameter)
-
-  Identifies the skill version: a version ID, or the literal `latest` for the skill's most recent version.
-
-  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
-
-- `params: VersionRetrieveParams`
-
-  - `skill_id: string` (path parameter)
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-#### Returns
-
-- `interface BetaSkillVersion`
-
-  - `type: "skill_version"`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-    default: skill_version
-
-  - `id: string`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-    format: date-time
-
-  - `description: string`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `name: string`
-
-    The Skill's immutable kebab-case slug, set at creation from the first
-    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
-    later upload must resolve to the same value. Also the top-level directory
-    of the Skill's mounted files and the base name of a downloaded archive.
-
-  - `skill_id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-#### Example
-
-```typescript
+```ts
+/** Identifies the skill version by its version ID. Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129"). */
+version: string; // path parameter
+
+interface VersionDownloadParams {
+  /** Unique identifier for the skill. The format and length of IDs may change over time. */
+  skill_id: string; // path parameter
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
+### Get Skill Version
+
+- Signature: `client.beta.skills.versions.retrieve(version: string, params: VersionRetrieveParams, options?: RequestOptions): BetaSkillVersion`
+- Endpoint: `GET /v1/skills/{skill_id}/versions/{version}`
+
+#### Example request
+
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -2047,7 +535,7 @@ const betaSkillVersion = await client.beta.skills.versions.retrieve("version", {
 console.log(betaSkillVersion.id);
 ```
 
-##### Response (200)
+#### Example response (200)
 
 ```json
 {
@@ -2060,194 +548,30 @@ console.log(betaSkillVersion.id);
 }
 ```
 
-### Delete Skill Version
-
-`client.beta.skills.versions.delete(version, params, options?): BetaDeletedSkillVersion`
-
-**DELETE** `/v1/skills/{skill_id}/versions/{version}`
-
-Delete Skill Version
-
 #### Parameters
 
-- `version: string` (path parameter)
-
-  Identifies the skill version by its version ID.
-
-  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
-
-- `params: VersionDeleteParams`
-
-  - `skill_id: string` (path parameter)
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `betas?: Array<AnthropicBeta>` (header parameter)
-
-    Optional header to specify the beta version(s) you want to use.
-
-    - `(string & {})`
-
-    - `"computer-use-2024-10-22"`
-
-    - `"computer-use-2025-01-24"`
-
-    - `"output-128k-2025-02-19"`
-
-    - `"mcp-client-2025-04-04"`
-
-    - `"mcp-client-2025-11-20"`
-
-    - `"dev-full-thinking-2025-05-14"`
-
-    - `"interleaved-thinking-2025-05-14"`
-
-    - `"code-execution-2025-05-22"`
-
-    - `"context-1m-2025-08-07"`
-
-    - `"context-management-2025-06-27"`
-
-    - `"model-context-window-exceeded-2025-08-26"`
-
-    - `"fast-mode-2026-02-01"`
-
-    - `"output-300k-2026-03-24"`
-
-    - `"user-profiles-2026-03-24"`
-
-    - `"user-profiles-2026-08-18"`
-
-    - `"user-profiles-2026-09-04"`
-
-    - `"advisor-tool-2026-03-01"`
-
-    - `"managed-agents-2026-04-01"`
-
-    - `"dreaming-2026-04-21"`
-
-    - `"thinking-token-count-2026-05-13"`
-
-    - `"server-side-fallback-2026-06-01"`
-
-    - `"server-side-fallback-2026-07-01"`
-
-    - `"fallback-credit-2026-06-01"`
-
-    - `"fallback-credit-2026-07-01"`
-
-    - `"agent-memory-2026-07-22"`
-
-    - `"mid-conversation-tool-changes-2026-07-01"`
-
-    - `"compact-2026-01-12"`
-
-    - `"computer-use-2025-11-24"`
-
-    - `"mcp-tunnels-2026-06-22"`
-
-    - `"structured-outputs-2025-11-13"`
-
-    - `"task-budgets-2026-03-13"`
-
-    - `"thinking-display-updates-2026-08-18"`
-
-    - `"mid-conversation-output-config-2026-07-01"`
-
-    - `"thinking-binding-controls-2026-08-01"`
-
-    - `"mid-conversation-system-clear-at-2026-08-21"`
-
-    - `"compact-2026-09-04"`
-
-    - `"inline-tools-2026-09-15"`
-
-    - `"mcp-client-2026-09-15"`
-
-    - `"ce-plugins-2026-09-01"`
-
-    - `"spend-limit-reads-2026-09-26"`
-
-    - `"telemetry-destinations-2026-08-11"`
-
-    - `"webhooks-2026-10-07"`
-
-    - `"admin-user-sign-out-2026-10-08"`
-
-    - `"message-threads-2026-08-12"`
-
-    - `"analytics-usage-cost-2026-08-24"`
-
-    - `"experimental-claude-tag-2026-10-21"`
-
-    - `"message-batches-2024-09-24"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"prompt-caching-2024-07-31"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"pdfs-2024-09-25"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-counting-2024-11-01"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"token-efficient-tools-2025-02-19"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"files-api-2025-04-14"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
-
-    - `"extended-cache-ttl-2025-04-11"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"skills-2025-10-02"`
-
-      **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
-
-    - `"cache-diagnosis-2026-04-07"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-    - `"ce-user-management-2026-07-13"`
-
-      **Deprecated**: This value is no longer needed. Remove it from your requests.
-
-  - `workspace_id?: string` (header parameter)
-
-    Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`).
-
-    Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace.
-
-#### Returns
-
-- `interface BetaDeletedSkillVersion`
-
-  - `type: "skill_version_deleted"`
-
-    Deleted object type.
-
-    For Skill Versions, this is always `"skill_version_deleted"`.
-
-    default: skill_version_deleted
-
-  - `id: string`
-
-    Unique identifier for this Skill Version. The id addresses the version in
-    paths and pins it in references.
-
-#### Example
-
-```typescript
+```ts
+/** Identifies the skill version: a version ID, or the literal `latest` for the skill's most recent version. Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129"). */
+version: string; // path parameter
+
+interface VersionRetrieveParams {
+  /** Unique identifier for the skill. The format and length of IDs may change over time. */
+  skill_id: string; // path parameter
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
+### Delete Skill Version
+
+- Signature: `client.beta.skills.versions.delete(version: string, params: VersionDeleteParams, options?: RequestOptions): BetaDeletedSkillVersion`
+- Endpoint: `DELETE /v1/skills/{skill_id}/versions/{version}`
+
+#### Example request
+
+```ts
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
@@ -2261,11 +585,38 @@ const betaDeletedSkillVersion = await client.beta.skills.versions.delete("versio
 console.log(betaDeletedSkillVersion.id);
 ```
 
-##### Response (200)
+#### Example response (200)
 
 ```json
 {
   "id": "id",
   "type": "skill_version_deleted"
+}
+```
+
+#### Parameters
+
+```ts
+/** Identifies the skill version by its version ID. Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129"). */
+version: string; // path parameter
+
+interface VersionDeleteParams {
+  /** Unique identifier for the skill. The format and length of IDs may change over time. */
+  skill_id: string; // path parameter
+  /** Optional header to specify the beta version(s) you want to use. */
+  betas?: Array<AnthropicBeta>; // header parameter
+  /** Optional header to select the Workspace for this request. The value is a Workspace ID (for example, `wrkspc_011CZkZaBF1tNoB5wlCeusgy`). Only needed for credentials that can act on more than one Workspace. A credential that belongs to a specific Workspace may omit it; if sent, it must match that Workspace. */
+  workspace_id?: string; // header parameter
+}
+```
+
+#### Returns
+
+```ts
+interface BetaDeletedSkillVersion {
+  /** Deleted object type. For Skill Versions, this is always `"skill_version_deleted"`. */
+  type: "skill_version_deleted";
+  /** Unique identifier for this Skill Version. The id addresses the version in paths and pins it in references. */
+  id: string;
 }
 ```

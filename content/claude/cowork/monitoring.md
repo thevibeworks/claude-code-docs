@@ -70,8 +70,11 @@ When a user submits a prompt, Cowork may make multiple API calls and run several
 | Attribute | Description |
 | - | - |
 | `prompt.id` | UUID v4 identifier linking all events produced while processing a single user prompt |
+| `event.sequence` | Counter for ordering events that share an `event.timestamp` |
 
 To trace all activity triggered by a single prompt, filter your events by a specific `prompt.id` value.
+
+To order a session's events, sort by `event.timestamp` and use `event.sequence` to order events that share a timestamp. A session can stop running between prompts, for example when a task sits idle or Claude Desktop restarts. When the session resumes, it keeps its [`session.id`](#standard-attributes) and `event.sequence` starts over. A later event in the session can therefore carry a lower value than an earlier one, or repeat one.
 
 On third-party deployments, you can additionally enable OpenTelemetry trace export with the [`otlpTracesEnabled`](https://claude.com/docs/third-party/claude-desktop/telemetry#traces-beta) setting (beta). When it is enabled, events emitted while a prompt is processed also carry `trace_id` and `span_id`, linking them to the session's trace spans for end-to-end correlation in your observability backend.
 
@@ -107,7 +110,7 @@ All [standard attributes](#standard-attributes), plus:
 | Attribute | Description |
 | - | - |
 | `event.timestamp` | ISO 8601 timestamp |
-| `event.sequence` | Monotonically increasing counter for ordering events within a session |
+| `event.sequence` | Counter for ordering events that share an `event.timestamp`, described under [Event correlation](#event-correlation) |
 | `prompt_length` | Length of the prompt |
 | `prompt` | Prompt content |
 
@@ -124,7 +127,7 @@ All [standard attributes](#standard-attributes), plus:
 | Attribute | Description |
 | - | - |
 | `event.timestamp` | ISO 8601 timestamp |
-| `event.sequence` | Monotonically increasing counter for ordering events within a session |
+| `event.sequence` | Counter for ordering events that share an `event.timestamp`, described under [Event correlation](#event-correlation) |
 | `model` | Model that produced the response |
 | `request_id` | API request identifier |
 | `response_length` | Length of the response |
@@ -145,16 +148,15 @@ All [standard attributes](#standard-attributes), plus:
 | Attribute | Description |
 | - | - |
 | `event.timestamp` | ISO 8601 timestamp |
-| `event.sequence` | Monotonically increasing counter for ordering events within a session |
-| `tool_name` | Name of the tool |
+| `event.sequence` | Counter for ordering events that share an `event.timestamp`, described under [Event correlation](#event-correlation) |
+| `tool_name` | Name of the tool. A tool from an MCP server, such as a connector, is recorded as the literal `mcp_tool`, unless it replaces a built-in tool such as `Bash` and takes that tool's name. |
+| `tool_use_id` | Unique identifier for this tool call. To see how the call was approved, find the [tool decision event](#tool-decision-event) with the same value. |
 | `success` | `"true"` or `"false"` |
 | `duration_ms` | Execution time in milliseconds |
 | `error` | Error message (if failed) |
-| `decision_type` | Either `"accept"` or `"reject"` |
-| `decision_source` | How the decision was made. One of `"config"`, `"hook"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"` |
 | `tool_result_size_bytes` | Size of the tool result in bytes |
 | `mcp_server_scope` | MCP server scope identifier (for MCP tools) |
-| `tool_parameters` | JSON string containing tool-specific parameters, including `mcp_server_name` and `mcp_tool_name` for MCP tools |
+| `tool_parameters` | JSON string containing tool-specific parameters, including `mcp_server_name` and `mcp_tool_name` for MCP tools. When [content capture](#content-capture) doesn't include `toolDetails`, this attribute, including those two names, can be absent. |
 | `tool_input` | JSON-serialized tool arguments. Individual strings over 512 characters are truncated; entire string limited to \~4K characters. Applies to all tools including MCP tools. |
 
 ### API request event
@@ -170,7 +172,7 @@ All [standard attributes](#standard-attributes), plus:
 | Attribute | Description |
 | - | - |
 | `event.timestamp` | ISO 8601 timestamp |
-| `event.sequence` | Monotonically increasing counter for ordering events within a session |
+| `event.sequence` | Counter for ordering events that share an `event.timestamp`, described under [Event correlation](#event-correlation) |
 | `model` | Model used (e.g., `claude-sonnet-5`) |
 | `cost_usd` | Estimated cost in USD |
 | `duration_ms` | Request duration in milliseconds |
@@ -197,7 +199,7 @@ All [standard attributes](#standard-attributes), plus:
 | Attribute | Description |
 | - | - |
 | `event.timestamp` | ISO 8601 timestamp |
-| `event.sequence` | Monotonically increasing counter for ordering events within a session |
+| `event.sequence` | Counter for ordering events that share an `event.timestamp`, described under [Event correlation](#event-correlation) |
 | `model` | Model used |
 | `error` | Error message |
 | `status_code` | HTTP status code as a string, or `"undefined"` for non-HTTP errors |
@@ -218,10 +220,28 @@ All [standard attributes](#standard-attributes), plus:
 | Attribute | Description |
 | - | - |
 | `event.timestamp` | ISO 8601 timestamp |
-| `event.sequence` | Monotonically increasing counter for ordering events within a session |
-| `tool_name` | Name of the tool |
+| `event.sequence` | Counter for ordering events that share an `event.timestamp`, described under [Event correlation](#event-correlation) |
+| `tool_name` | Name of the tool. A tool from an MCP server, such as a connector, is recorded as the literal `mcp_tool`, unless it replaces a built-in tool such as `Bash` and takes that tool's name. |
+| `tool_use_id` | Unique identifier for this tool call. A [tool result event](#tool-result-event) for the same call has the same value. |
+| `tool_source` | `"builtin"` for a built-in tool, or `"mcp"` or `"sdk_host_builtin_mcp"` for a tool from an MCP server |
 | `decision` | Either `"accept"` or `"reject"` |
 | `source` | Decision source. One of `"config"`, `"hook"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"` |
+| `permission_mode` | [Permission mode](https://code.claude.com/docs/en/permission-modes) active when the call's permission check began, such as `"default"` for **Manually approve**, `"auto"` for **Automatically approve**, or `"bypassPermissions"` for **Skip all approvals** |
+| `classifier_verdict` | The [Auto mode](https://code.claude.com/docs/en/permission-modes#eliminate-prompts-with-auto-mode) classifier's verdict on the call, or why Cowork denies the call when the classifier gives no verdict |
+| `classifier_category` | Built-in rule that the classifier names when it blocks the call, such as `"data_exfiltration"`. Sent when [content capture](#content-capture) includes `toolDetails`. |
+| `request_id` | API request identifier of the model response that contained this tool call. Absent when that response has no request ID, or when no model response contained the call. |
+| `tool_parameters` | JSON string containing tool-specific parameters, including `mcp_server_name` and `mcp_tool_name` for MCP tools. When [content capture](#content-capture) doesn't include `toolDetails`, this attribute, including those two names, can be absent. |
+
+Cowork shows Auto mode as **Automatically approve**. An event has `classifier_verdict` when the Auto mode classifier decides the call, or when Cowork denies the call because the classifier gives no verdict. An event with `classifier_verdict` reports `source` as `"config"`. The attribute takes one of these values:
+
+* `"allow"`: the classifier approves the call
+* `"block"`: the classifier blocks the call. A check that fails partway through can also end as `"block"`.
+* `"no_verdict"`: the classifier's check runs but gives no usable verdict, so Cowork denies the call
+* `"unavailable"`: the check can't run or can't finish, for example because the request to the classifier fails, so Cowork denies the call
+
+For what each `source` and `classifier_verdict` value covers, and for the Auto mode calls that have no `classifier_verdict`, see [Tool decision event](https://code.claude.com/docs/en/monitoring-usage#tool-decision-event) in the Claude Code documentation. Cowork tasks follow what that section says for Agent SDK sessions.
+
+Claude Desktop 3.1623.0 and later send `permission_mode`, `classifier_verdict`, and `classifier_category`. Claude Desktop 4.16336.0 and later send `request_id`.
 
 ## Event analysis
 
@@ -265,7 +285,7 @@ All events are exported with the following resource attributes:
 * The [`otlpContentCapture`](#content-capture) key on each device sets which content events carry. Each category you list in the key adds its content. The [full category list](https://claude.com/docs/third-party/claude-desktop/telemetry.md#content-capture) has two more than these three:
   * `userPrompts`: user prompt text
   * `assistantResponses`: model response text
-  * `toolDetails`: the arguments a tool was called with, in `tool_input` and `tool_parameters`, such as shell commands, file paths, URLs, and search patterns. It also covers the text of a failed tool's error message, in `error` on the [tool result event](#tool-result-event)
+  * `toolDetails`: the arguments a tool was called with, in `tool_input` and `tool_parameters`, such as shell commands, file paths, URLs, and search patterns. It also covers the text of a failed tool's error message, in `error` on the [tool result event](#tool-result-event), and the classifier's rule name in `classifier_category` on the [tool decision event](#tool-decision-event)
 * On Claude Desktop version 1.17377 or later, events that carry user prompt text also carry model response text by default, even when the key doesn't list `assistantResponses`
 * When `otlpContentCapture` isn't set, current versions of Claude Desktop send metadata only. To make sure a device sends metadata only, set the key to `[]`
 * Metadata includes `workspace.host_paths`, the paths of the folders a user connects to a task. `otlpContentCapture` doesn't control this attribute, so events carry the paths even when the key is `[]`. If folder names can be sensitive, configure your telemetry backend to filter or redact it

@@ -55,7 +55,7 @@ Download the installer for your platform:
 
 On claude.com/download, the Windows download of Claude Desktop is Claude Setup (`Claude Setup.exe`), an interactive installer for a single device. On Windows devices that you manage, deploy the `.msix` package or the [offline installer](#offline-installation), and tell users not to run Claude Setup. Without an administrator's approval, Claude Setup can offer the legacy `.exe` install, which doesn't include Cowork.
 
-For fleet rollouts, distribute the installer through your standard software-distribution mechanism. On the MDM and bootstrap paths, distribute it after the configuration reaches devices; [Choose a configuration delivery model](#choose-a-configuration-delivery-model) covers how the configuration gets there.
+For fleet rollouts, distribute the installer through your standard software-distribution mechanism.
 
 On Windows, installing the `.msix` package requires administrator rights. Provision the package for all users of each device:
 
@@ -65,7 +65,7 @@ On Windows, installing the `.msix` package requires administrator rights. Provis
 
 Users, including standard users, get the app after they next sign in to Windows.
 
-Provisioning leaves an existing legacy `.exe` install in place, and users who open it don't get Cowork. Remove it as each affected user:
+Provisioning leaves an existing legacy `.exe` install in place, and users who open it don't get Cowork. Remove it as each affected user, not from the system account or an elevated session:
 
 1. Quit Claude Desktop.
 2. In a Command Prompt, run `"%LOCALAPPDATA%\AnthropicClaude\Update.exe" --uninstall -s`.
@@ -86,11 +86,9 @@ Choose the Enterprise Admin Console when you want to manage the configuration ce
 
 Choose an MDM profile when one configuration, or a few group-scoped profiles, covers your fleet and no device should depend on a sign-in to Anthropic. Most MDMs support role-based distribution, so per-group configuration doesn't require a bootstrap server.
 
-Building the configuration in the app is optional. The [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) can also export schema-only templates (an ADMX template for Windows, a Profile Manifest `.plist` for macOS) from its **Export** menu, so you can enter values in your management console or profile editor instead. See [Export the profile](https://claude.com/docs/third-party/claude-desktop/mdm.md#2-export-the-profile) for all formats.
-
 Choose a bootstrap server when your organization doesn't use MDM, or when per-user credentials or frequently changing settings would make per-group profiles unwieldy. The tradeoff is that you operate the endpoint.
 
-A device whose MDM profile or registry policy sets any key other than the [app-behavior keys and the keys treated like them](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) uses that configuration, except as described under [Devices with a managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#devices-with-a-managed-profile). When a bootstrap response is in effect, it replaces MDM-delivered values wholesale, and a few device-level keys are only available via MDM (the keys labeled **MDM only** in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md)).
+On a device that has more than one of these sources, see [Which configuration source applies on a device](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device) and [Devices with a managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#devices-with-a-managed-profile).
 
 Pick your path:
 
@@ -223,7 +221,7 @@ For AppLocker, allowlist by publisher rather than path. Publisher rules match th
 
 ## Offline installation
 
-Standard installs fetch two large runtime components from `downloads.claude.ai`: the VM workspace bundle that Cowork sessions run in, and the Claude CLI binary. For networks that cannot reach `downloads.claude.ai`, Anthropic publishes an offline installer variant with both components built into the installer package and verified against checksums compiled into the application, so sessions can start without any connection to Anthropic. The offline installers are several gigabytes larger than the standard ones.
+Standard installs fetch two large runtime components from `downloads.claude.ai`: the VM workspace bundle that Cowork uses, and the Claude CLI binary. For networks that cannot reach `downloads.claude.ai`, Anthropic publishes an offline installer variant with both components built into the installer package and verified against checksums compiled into the application, so sessions can start without any connection to Anthropic. The offline installers are several gigabytes larger than the standard ones.
 
 Each supported platform and architecture has a fixed download URL that serves the current offline installer:
 

@@ -1,6 +1,6 @@
 # Set up Claude for Teachers for your school or district
 
-**[Claude for Teachers](https://claude.com/solutions/teachers)** is free for verified US K-12 educators, whether you sign up as an individual teacher or your school or district sets up an organization for everyone. Qualifying teachers or organizations that sign up by June 30, 2027 get a full year of free access.
+**[Claude for Teachers](https://claude.com/solutions/teachers)** is free for verified US K-12 educators through July 30, 2028, whether you sign up as an individual teacher or your school or district sets up an organization for everyone.
 
 This guide explains how an authorized administrator sets up a free Claude Enterprise organization for their teachers and what comes with it. It's written for district technology leaders and school IT staff.
 
@@ -26,7 +26,7 @@ You'll need your school or district email, a document showing your role (such as
 
 2. **Verify your school or district.** Our partner Goodstack confirms your affiliation. When approved, you'll get an email link to your new organization.
 
-3. **Verify your email domain**. Add your district's email domain, publish the DNS TXT record shown on the page, and click Verify. Seats open and the free first-year plan applies automatically.
+3. **Verify your email domain**. Add your district's email domain, publish the DNS TXT record shown on the page, and click Verify. Seats open and the free Claude for Teachers plan applies automatically.
 
 4. **Set up SSO and automatic account creation.** Connect your identity provider, turn on Require SSO, turn on just-in-time or SCIM provisioning, and turn on Restrict organization creation so district emails can't create personal Claude accounts. Once automatic account creation is on, email invitations are disabled. See **[Set up JIT or SCIM provisioning](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)**.
 

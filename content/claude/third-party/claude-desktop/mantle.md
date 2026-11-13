@@ -6,7 +6,7 @@
 
 > Configure Claude Desktop on 3P to use Claude models through Amazon Bedrock Mantle's Anthropic-native API surface
 
-Amazon Bedrock Mantle is Amazon Bedrock's Anthropic-native API surface. Unlike the standard [Amazon Bedrock provider](https://claude.com/docs/third-party/claude-desktop/bedrock.md), Mantle speaks the Anthropic Messages API directly and authenticates with a bearer token rather than the AWS SigV4 credential chain, so no AWS CLI, named profile, or IAM Identity Center setup is needed on the device. In practice, Mantle is the Amazon Bedrock provider with a different runtime endpoint and a single bearer-token credential path.
+Amazon Bedrock Mantle is Amazon Bedrock's Anthropic-native API surface. Unlike the standard [Amazon Bedrock provider](https://claude.com/docs/third-party/claude-desktop/bedrock.md), Mantle speaks the Anthropic Messages API directly and authenticates with a bearer token rather than the AWS SigV4 credential chain, so no AWS CLI, named profile, or IAM Identity Center setup is needed on the device.
 
 ## Choose an authentication approach
 
@@ -175,7 +175,7 @@ Since 1.13576.0
 
 ***
 
-You must also set `inferenceModels`. As with the standard Amazon Bedrock provider, server-side Web Search is not supported. See the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemodels).
+As with the standard Amazon Bedrock provider, server-side Web Search is not supported.
 
 ## What users experience
 

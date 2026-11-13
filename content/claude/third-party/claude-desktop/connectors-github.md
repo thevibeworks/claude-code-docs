@@ -10,7 +10,7 @@ When Claude Desktop is deployed on third-party inference, Claude can work with y
 
 ## Choose a connector
 
-Both connectors expose the same family of GitHub tools; they differ in where the server runs and how users authenticate. Use this table to pick one, then follow that connector's section below.
+Both connectors expose the same family of GitHub tools; they differ in where the server runs and how users authenticate.
 
 | | Remote connector | Local connector |
 | - | - | - |
@@ -36,7 +36,7 @@ GitHub hosts a copy of github-mcp-server on its own infrastructure. Claude Deskt
 
 The `headersHelper` executable prints the request headers as a flat JSON object to stdout, for example `{"Authorization": "Bearer GITHUB_PAT"}`, and follows the execution model described under [short-lived credentials with a headers helper](https://claude.com/docs/third-party/claude-desktop/extensions.md#short-lived-credentials-with-a-headers-helper). Use it to fetch a per-user fine-grained token from your secrets manager. A static `headers` object also works, but it puts the same token on every device, so every session acts as that one identity; prefer the helper, a narrowly scoped fine-grained token, or the [local connector](#local-connector), which needs no tokens at all.
 
-Check the endpoint URL, the supported authentication methods, and the token scopes your tools need against [GitHub's github-mcp-server documentation](https://github.com/github/github-mcp-server), which is the source of truth for the hosted server. GitHub Enterprise Server instances are not reachable through GitHub's hosted endpoint; use the local connector instead.
+Check the endpoint URL, the supported authentication methods, and the token scopes your tools need against [GitHub's github-mcp-server documentation](https://github.com/github/github-mcp-server), which is the source of truth for the hosted server.
 
 ## Local connector
 

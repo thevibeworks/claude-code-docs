@@ -267,7 +267,7 @@ Removing someone from your organization, including through your identity provide
 
 ### Organizations with special configurations
 
-- **HIPAA-ready configurations:** An Owner can turn on Claude Docs, Slides, Design, Dashboards, and Motion in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)** after accepting the terms. These aren't covered under your Business Associate Agreement (BAA), so keep protected health information (PHI) out of them.
+- **HIPAA-ready configurations:** An Owner can turn on Claude Docs, Slides, Design, Data, and Motion in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)** after accepting the terms. These aren't covered under your Business Associate Agreement (BAA), so keep protected health information (PHI) out of them.
 
 - **CMEK:** Artifacts are available.
 
@@ -305,4 +305,4 @@ The **Claude Design Admin** permission applies only in the standalone Claude Des
 
 ### Can users export what they make?
 
-Yes. For more information, refer to **[View and export](https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them#h_71205f2c4b)** in **[What are artifacts and how do I use them?](https://support.claude.com/en/articles/9487310)**
+Yes. For more information, refer to **[View and export](https://support.claude.com/en/articles/9487310-what-are-artifacts-and-how-do-i-use-them#h_71205f2c4b)** in **[What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992)**

@@ -208,7 +208,9 @@ Each [settings hook event](https://code.claude.com/docs/en/hooks.md#hook-events)
 
 ### Mods API calls
 
-Every [mods API method](#mods-api-methods) is also an event, named for its namespace and method, such as `fs.read`, `model.complete`, or `ui.open`. A hook on one intercepts calls from the mods that run after it, and can return `next(e)`, `{ deny: reason }`, or `{ value }`.
+Every [mods API method](#mods-api-methods) is also an event, named for its namespace and method, such as `fs.read`, `model.complete`, or `ui.open`. A hook on one can return `next(e)`, `{ deny: reason }`, or `{ value }`.
+
+Some of these events also fire for Claude Code's own actions, so check whether `next.origin.plugin` is `engine` before you refuse one.
 
 ## Mods API methods
 
@@ -249,8 +251,9 @@ Rendering in the VS Code extension requires extension version 2.1.299 or later. 
 | :- | :- | :- | :- |
 | [`Pane`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `title`, `isFocused`, `bodyColumns`, `placement`, `scroll`, `view` | The pane's `id` | Terminal, Desktop, VS Code |
 | [`AbovePrompt`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `hasSurvey`, `isWorking`, `maxRows`, `bodyColumns`, `scroll`, `view` | One instance | Terminal, Desktop |
+| `AbovePromptList`, the stack of `AbovePrompt` rows | `rows`, a list with one `{ plugin, tree }` for each mod's row, plus the `AbovePrompt` props | One instance | Terminal, Desktop. Requires Claude Code v2.1.323 or later. |
 | [`Placed`](https://code.claude.com/docs/en/plugins/mods/interface#place-a-row-in-the-transcript) | `id`, `plugin`, `onScreen` | The `requestId` that `$.ui.place` returned | Terminal |
-| [`Backdrop`](https://code.claude.com/docs/en/plugins/mods/interface#put-a-backdrop-behind-the-conversation) | `id`, `plugin`, `glass`, `colorScheme` | `backdrop` | `desktop` and `mobile` surfaces. Your hook runs when the Desktop or mobile app asks to draw a backdrop. |
+| [`Backdrop`](https://code.claude.com/docs/en/plugins/mods/interface#put-a-backdrop-behind-the-conversation) | `scene`, `plugin`, `glass`, `overrideColorScheme`. Before v2.1.323, `scene` was `id` and `overrideColorScheme` was `colorScheme`. | `backdrop` | `desktop` and `mobile` surfaces. Your hook runs when the Desktop or mobile app asks to draw a backdrop. |
 | `UserMessage` | `text`, `origin`, `isExpanded`, and `task` or `from` by origin | The drawn row's id | Terminal, Desktop, VS Code |
 | `AssistantMessage` | The reply's text | The drawn row's id | Terminal, Desktop, VS Code |
 | `ToolUse`, `ToolResult`, `ToolGroup` | The tool's name, input, and result | The tool call id | Terminal, Desktop, VS Code |
@@ -297,7 +300,7 @@ More `Button` rules:
 * **`action`**: names one of Claude Code's own [keybinding actions](https://code.claude.com/docs/en/keybindings.md), and the user's binding for it presses the button when that binding is a chord or a modified key
 * **Digit hotkeys on the band**: a digit `hotkey` on a button in the band also fires when the user types that digit alone into an empty prompt and pauses
 * **A collapsed band**: while the band is [collapsed](https://code.claude.com/docs/en/plugins/mods/interface.md#when-the-user-collapses-the-band), neither an `action` binding nor a hotkey presses a button in it
-* **Two buttons on one hotkey**: when two buttons in one drawing name the same `hotkey`, the later one gets it
+* **Two buttons on one hotkey**: when two of your buttons in one drawing name the same `hotkey`, the later one gets it. For another mod's button on the same key, see [Hotkeys do nothing](https://code.claude.com/docs/en/plugins/mods/troubleshoot.md#hotkeys-do-nothing).
 * **`variant`**: `primary` or `secondary`, and any other value throws. In the terminal, a `primary` button draws in the accent color unless it's `plain`.
 * **`role`**: `dismiss` marks a close button, and any other value throws. Do the closing in your `onPress`. In a band that holds text and a row of buttons, the Desktop app can draw the row's first `dismiss` button as its own close control. The terminal draws the button as it would without `role`.
 
@@ -401,6 +404,7 @@ Hooks and mods API calls run under time and size limits. Claude Code skips a hoo
 | Nesting depth of one tree | 32 levels below the root element |
 | Elements and text children in one tree | 20,000 |
 | `Raster` cells in one tree, each `Raster`'s `columns` times its `rows` | 262,144 |
+| The rows above the prompt, stacked | Elements, `Raster` cells, and `Image` bytes add up across the rows, against the limits for one tree |
 | PNG or RGBA bytes of all the `Image`s in one tree | 2 MiB |
 | `$.store` | 4 MiB of JSON in total |
 | `$.session.messages()` | The newest 4,096 entries |
@@ -412,7 +416,7 @@ Hooks and mods API calls run under time and size limits. Claude Code skips a hoo
 | Nesting depth of a changed event passed to `next`, outside [async generator hooks](#events) such as one on `turn.step` | 28,000 levels. Past that, `next` rejects with a message ending `nesting deeper than 28000 levels is not supported`. Requires Claude Code v2.1.299 or later. |
 | Nesting depth of a hook's return value, outside `ui.render`, `ui.resolve`, and async generator hooks | 28,000 levels. Past that, the hook's result is refused, and [the notice that reports it](https://code.claude.com/docs/en/plugins/mods/troubleshoot.md#find-out-why-a-mod-does-nothing) includes `nesting deeper than 28000 levels is not supported`. Requires Claude Code v2.1.299 or later. |
 | Scopes, such as functions, blocks, and loops, nested inside one another in one file of a hooks module | 2,000 |
-| Command, tool, subagent type, and pane names, and the `id` of a placed row or a backdrop | Letters, digits, `_`, and `-`, up to 64 characters |
+| Command, tool, subagent type, and pane names, the `id` of a placed row, and the `scene` of a backdrop | Letters, digits, `_`, and `-`, up to 64 characters |
 | One `claude plugin test` test | 5 seconds unless the test sets `timeoutMs` |
 
 ## Settings and environment variables

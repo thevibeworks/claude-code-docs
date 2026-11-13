@@ -6,7 +6,7 @@
 
 > Configuring Claude in Chrome and the built-in browser in Cowork and Code for Claude Desktop 3P
 
-In Claude Desktop on third-party (3P), Claude can work with web pages in Cowork and Code sessions through Claude in Chrome or through the built-in browser. [Claude in Chrome](#claude-in-chrome) lets Claude work in the user's own Google Chrome or Microsoft Edge and is available to organizations managed from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md). The [built-in browser](#built-in-browser) is a pane inside Claude Desktop that any deployment can turn on with the [`builtinBrowserEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserenabled) key, and three related keys control which sites Claude can open in it. This page explains how to configure both for Claude Desktop on 3P and how they work there. To learn how to use them, see [Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400-use-the-built-in-browser-in-claude-cowork) and [Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome).
+In Claude Desktop on third-party (3P), Claude can work with web pages in Cowork and Code sessions through [Claude in Chrome](#claude-in-chrome) or through the [built-in browser](#built-in-browser). To learn how to use them, see [Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400-use-the-built-in-browser-in-claude-cowork) and [Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome).
 
 ## Claude in Chrome
 
@@ -49,7 +49,7 @@ If your devices use a [bootstrap server](https://claude.com/docs/third-party/cla
 | Unset or `allow` | Claude can open every site except the entries in [`builtinBrowserBlockedDomains`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserblockeddomains) |
 | `block` | Claude can open only the entries in [`builtinBrowserAllowedDomains`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowseralloweddomains) |
 
-The policy also governs sites that the site safety check flags for confirmation rather than blocks. Under the default `allow` policy, Claude asks the user before each of its actions on such a site. Under `block`, listing the site in `builtinBrowserAllowedDomains` is your organization vouching for it, so Claude works with it without asking before each action. For a site on your private network, Claude Desktop still asks before each action until the user chooses **Always allow** for that site.
+The policy also governs sites that the site safety check flags for confirmation rather than blocks. Under the default `allow` policy, Claude asks the user before each of its actions on such a site. Under `block`, listing the site in `builtinBrowserAllowedDomains` is your organization vouching for it, so Claude works with it without asking before each action. For a site on your private network, Claude Desktop still asks before each action, but in a Code session the user can stop these questions for that site.
 
 For example, this configuration lets Claude open only a documentation site and a wiki:
 
@@ -78,10 +78,3 @@ Once the switch is on, **Browser site permissions** appears below it. Click the 
 ## Site safety check
 
 Claude in Chrome and the built-in browser both check public website addresses against Anthropic's site safety list. Anthropic retains basic Claude in Chrome safety check logs, containing the user's account ID, IP address, timestamp of the request, and their OS/Chrome version. No URL, page content, prompt content, or anything else about the request is stored. For the built-in browser, the account ID is empty unless your organization uses the Enterprise Admin Console, because only a console-managed app sends the check as a signed-in user.
-
-## Related
-
-* [`builtinBrowserEnabled` in the configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserenabled)
-* [Web search and web fetch](https://claude.com/docs/third-party/claude-desktop/web-tools.md)
-* [Telemetry and egress](https://claude.com/docs/third-party/claude-desktop/telemetry.md)
-* [Deploy with Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)

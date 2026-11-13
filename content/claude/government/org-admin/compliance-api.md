@@ -92,7 +92,7 @@ On every `user.*` activity, two top-level fields identify the user the event is 
 | `user_id` | The Claude for Government user ID, in the same `usr_` format as `actor.user_id`. |
 | `user_email` | The user's email address at the time of the event. |
 
-The user an event is about is not always the actor. When an owner changes someone's role, the `actor` block names the owner and these fields name the user whose role changed. When a tenant administrator who isn't one of the organization's Primary Owners grants or removes the Primary Owner role, the `user.role_changed` event also carries a `by_tenant_admin` field set to `true`.
+The user an event is about is not always the actor. When an administrator changes someone's role, the `actor` block names the administrator and these fields name the user whose role changed.
 
 ```json theme={null}
 {
@@ -104,20 +104,23 @@ The user an event is about is not always the actor. When an owner changes someon
   "actor": {
     "type": "user_actor",
     "user_id": "usr_00000000-0000-0000-0000-000000000001",
-    "email_address": "owner@agency.example.com"
+    "email_address": "tenant-admin@agency.example.com"
   },
   "user_id": "usr_00000000-0000-0000-0000-000000000002",
   "user_email": "person@agency.example.com",
-  "old": "user",
-  "new": "owner"
+  "old": "owner",
+  "new": "primary_owner",
+  "by_tenant_admin": true
 }
 ```
+
+On `user.role_changed` or `user.seat_tier_changed`, `by_tenant_admin: true` means that a tenant administrator who isn't a [Primary Owner](https://claude.com/docs/government/org-admin/users.md#understanding-roles) of the organization made a change that an Owner can't make, such as granting the Primary Owner role. Otherwise, the field is absent.
 
 ### Activity types
 
 Event types use a dotted `resource.action` naming convention. The categories emitted today include:
 
-* **Users** such as `user.created`, `user.signed_in`, `user.role_changed`, `user.deactivated`, and `user.reactivated`.
+* **Users** such as `user.created`, `user.signed_in`, `user.role_changed`, `user.seat_tier_changed`, `user.deactivated`, and `user.reactivated`.
 * **Organizations** such as `org.created`, `org.renamed`, and `org.deactivated`.
 * **Credentials** such as `api_key.created` and `api_key.revoked`.
 * **Seats and tiers** such as `seat_allocation.set`, `seat_allocation.tier_assigned`, `seat_tier.created`, and `seat_tier.updated`.
