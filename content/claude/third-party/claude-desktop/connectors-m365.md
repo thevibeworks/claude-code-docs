@@ -31,6 +31,7 @@ Use this table to pick a connector.
 | Device-based Conditional Access | Not supported (the server-side exchange has no device identity) | Supported on managed Windows and Mac devices through brokered sign-in |
 | Write actions | Available with [write scopes on the Anthropic connector app](#control-write-actions-on-the-remote-connector) | Available with [write scopes](#grant-write-scopes) |
 | US Government clouds | Separate connector deployment; contact your Anthropic representative | Built in; set `azureCloud` for GCC High and DoD |
+| Blocking by Microsoft Purview sensitivity label | The label list doesn't apply to remote connector entries | [List the labels to block](#block-content-by-sensitivity-label) in the connector's configuration |
 
 ## Remote connector
 
@@ -281,6 +282,7 @@ In the Claude Desktop [in-app configuration window](https://claude.com/docs/thir
 | Client ID | The Application (client) ID from step 1 |
 | Azure cloud | `global` (default), `us-gov-high`, or `us-gov-dod` |
 | Access | Leave empty for standard read access, or list scopes explicitly (see [Configure scopes](#configure-scopes)) |
+| Sensitivity labels | Leave empty, or list the labels to block (see [Block content by sensitivity label](#block-content-by-sensitivity-label)) |
 
 If you manage configuration through JSON or a plist directly, add an entry to [`managedMcpServers`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) with the `server` field set to `microsoft365`:
 
@@ -302,6 +304,7 @@ If you manage configuration through JSON or a plist directly, add an entry to [`
 | `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for GCC High and DoD. |
 | `continuousAccessEvaluation` | No | `enabled` (default) or `disabled`. When enabled, the connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours and stop working within minutes after an administrator revokes the user's sessions or disables the account in Entra, and, where your tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is used from outside that network. `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts, and an already-issued token stays in use until it expires (select **Disconnect**, then **Connect**, to sign in again immediately). Requires Claude Desktop 1.49585.0 or later; earlier versions ignore the field and request standard one-hour tokens. |
 | `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. The app rejects an entry that has a `scopes` array, so write the scopes as one string. See [Configure scopes](#configure-scopes). |
+| `sensitivityLabels` | No | The Microsoft Purview sensitivity labels that the connector blocks. See [Block content by sensitivity label](#block-content-by-sensitivity-label). |
 | `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers). |
 
 The server ships inside the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.
@@ -391,6 +394,77 @@ Sending drafts and forwarding mail also require a mail read scope (one of `Mail.
 
 Every write tool requires user approval on each call by default. Administrators can change a tool's approval state with [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers), except for the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`, `teams_send_chat_message`, `teams_send_channel_message`, `teams_reply_channel_message`): an `allow` setting for them resolves to `ask`, so they always require approval on each call.
 
+### Block content by sensitivity label
+
+You can keep Claude from reading or changing content that carries certain Microsoft Purview sensitivity labels. You add the labels to the local connector's configuration. The connector then checks the label of a file or email before it gives the item to Claude or changes it, and blocks the request if the label is on your list.
+
+The connector blocks this content when it carries a listed label:
+
+* **Files**: Word, Excel, PowerPoint, PDF, and MP4 files in SharePoint and OneDrive. The connector identifies the file type by its extension.
+* **Email**: Outlook email, including drafts. When an email is blocked, so are its attachments.
+* **Attachments**: a Word, Excel, PowerPoint, or PDF attachment that carries a listed label itself, even if its email doesn't. Attachments in the older `.doc`, `.xls`, and `.ppt` formats aren't checked for a label of their own.
+
+Once you set a list, the connector also blocks all OneNote, Loop, and Whiteboard items, and any item it checks whose label it can't read, such as a password-encrypted file. Results of a file search or a whole-mailbox search also stop showing text excerpts. With or without a list, the connector refuses to overwrite a Word, Excel, PowerPoint, PDF, or MP4 file that Microsoft reports as labeled, because replacing the content could remove the label.
+
+#### Set up the label list
+
+Update Claude Desktop first. Files are checked starting with version 2.37337.1, and email starting with version 5.1231.0. Versions before 2.37337.1 ignore the list. Devices on the [`staggered` release channel](https://claude.com/docs/third-party/claude-desktop/installation#updates) get releases later.
+
+> [!WARNING]
+>
+> If a [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) serves your Claude Desktop settings, upgrade every gateway replica to Claude Code v2.1.321 or later before you add `sensitivityLabels`. An earlier gateway won't start if the field is there. In the gateway's policy, write `managedMcpServers` as a YAML list, not as one quoted string. If more than one policy has a Microsoft 365 entry, add the labels to each.
+
+**1. Find the label GUIDs**
+
+You list each label by its GUID, not its name. Connect to [Security & Compliance PowerShell](https://learn.microsoft.com/en-us/powershell/exchange/connect-to-scc-powershell) and run this command:
+
+```powershell theme={null}
+Get-Label | Format-Table DisplayName, Name, Guid
+```
+
+Listing a parent label doesn't block its sublabels, so list each sublabel you want blocked.
+
+**2. Add the labels to the connector's entry**
+
+In the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) or the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#what-you-can-configure), go to **Connectors** and open your Microsoft 365 server. Under **Sensitivity labels**, click **Add** for each label. Paste the GUID into **Label GUID**, and make sure that **Effect** is set to `block`.
+
+If you write the JSON, plist, or registry value yourself, add `sensitivityLabels` inside the Microsoft 365 entry in `managedMcpServers`:
+
+```json theme={null}
+{
+  "name": "Microsoft 365",
+  "server": "microsoft365",
+  "tenantId": "DIRECTORY_TENANT_ID",
+  "clientId": "APPLICATION_CLIENT_ID",
+  "sensitivityLabels": [
+    { "labelId": "LABEL_GUID_1", "effect": "block" },
+    { "labelId": "LABEL_GUID_2", "effect": "block" }
+  ]
+}
+```
+
+You can list up to 48 labels. With a label list, the entry's `tenantId` must be your tenant's GUID, not `common`, `organizations`, or `consumers`. If you have more than one local Microsoft 365 entry, add the list to each, because a list covers only its own entry.
+
+**3. Restart and test**
+
+The list takes effect when Claude Desktop restarts. On one device, ask Claude to read a file that carries a listed label and a file that doesn't. If the list works, Claude can't read the first file but can read the second. The connector's log, `mcp-server-office365-builtin.log`, also has a line with `"event":"local_label_policy_loaded"`, where `"labelCount"` is the number of labels you listed.
+
+If the list isn't valid, the connector stays turned off until you fix it. If the list is in the wrong place or its field name is misspelled, nothing is blocked and managed devices show no error. In both cases, `main.log` says what is wrong. See [Troubleshoot the local connector](#troubleshoot-the-local-connector).
+
+#### What label blocking doesn't cover
+
+The list doesn't block the following:
+
+* **Other file types**: such as text files, images, and archives, whether they're in SharePoint or OneDrive or attached to an email that isn't blocked
+* **Other Microsoft 365 content**: Teams messages, SharePoint site pages, meeting transcripts, and calendar events, even for an invitation that is blocked as an email
+* **Quoted email**: a reply or forward that quotes a blocked email, unless it carries a listed label itself
+* **Names**: Claude can still see file and attachment names in listings, and file names and email headers, such as the subject and sender, in search results
+* **Files inside a folder**: when Claude moves, copies, or deletes a folder, the files inside aren't checked
+* **Other routes to Claude**: files users upload, folders on the device, other connectors, and the remote Microsoft 365 connector
+* **Devices without a device-management profile**: the user can edit the configuration and remove the list
+
+Purview label blocking relies on sensitivity-label information returned by Microsoft's APIs or stored in the document itself. Anthropic does not control or independently verify the accuracy, completeness, or timeliness of the label information. Label blocking is a retrieval filter, not a security control: it supplements, and does not replace, your organization's own access controls, data loss prevention, and data-handling policies.
+
 ### How users sign in
 
 After the configuration is deployed, the connector appears in **Customize → Connectors** in Claude Desktop. Sign-in starts when the user selects **Connect**.
@@ -450,7 +524,7 @@ Selecting **Disconnect** next to the connector signs the user out and deletes it
 | - | - | - |
 | **Test this connection** reports that the built-in server is not included | The installed Claude Desktop version predates the built-in connector | Upgrade Claude Desktop |
 | **Microsoft 365** is missing from the **Add server** options | The installed Claude Desktop version predates the built-in connector | Upgrade Claude Desktop, or author the JSON entry directly |
-| Connector missing from settings | The entry was rejected during configuration parsing: an unrecognized scope name in `scope`, a missing `tenantId` or `clientId`, or a `url`, `transport`, or `command` field mixed into the entry | Check the app's main log for a line naming the dropped entry |
+| Connector missing from settings | The entry was rejected during configuration parsing: an unrecognized scope name in `scope`, a missing `tenantId` or `clientId`, a [`sensitivityLabels` list](#block-content-by-sensitivity-label) that isn't valid, or a `url`, `transport`, or `command` field mixed into the entry. If an entry with an invalid label list was the only entry in `managedMcpServers`, the app also blocks the tools of every plugin's MCP servers until you fix it. | Check the app's main log for a line naming the dropped entry |
 | Sign-in opens the browser on a managed device where the broker was expected | macOS: Claude Desktop is older than 1.19367.0, Company Portal is not installed, the SSO configuration profile is not deployed, or the broker redirect URI is not registered. Windows: Claude Desktop is older than 1.13576.0, the device is not Entra-joined or Entra-registered, or `microsoftAuthBroker` is set to `disabled` | Re-check the brokered sign-in requirements above |
 | `AADSTS50011` redirect mismatch | The redirect URI named in the error message (`http://localhost` for browser sign-in, or the platform's broker redirect URI for brokered sign-in) is missing from the local-mode app registration, was entered with a different value, or was added under *Web* instead of *Mobile and desktop applications* | Add or correct that URI under *Mobile and desktop applications* (step 1.2, or the brokered sign-in requirements above) |
 | `AADSTS900971` no reply address provided | The macOS broker redirect URI is not registered on the local-mode app | Register `msauth.com.anthropic.claudefordesktop://auth` as described in step 1.2 (after you save, it appears under the **iOS / macOS** section) |
@@ -458,6 +532,8 @@ Selecting **Disconnect** next to the connector signs the user out and deletes it
 | `AADSTS53003` blocked by Conditional Access | A device-compliance policy is evaluating a sign-in that carries no device claim | Meet the brokered sign-in requirements for the platform, then restart Claude Desktop |
 | `AADSTS7000218` request body must contain client\_assertion or client\_secret | **Allow public client flows** is set to No on the local-mode app registration, so brokered token requests are classified as confidential | Set **Allow public client flows** to **Yes** (step 1.3) |
 | Tools return a permission error or Graph `403` | A scope the tool needs is not consented on the app registration, or is excluded by an explicit `scope` list | Add the scope in both places and grant admin consent |
+| Claude reads content that carries a listed sensitivity label | The list is inside `toolPolicy`, on another kind of entry, or under a misspelled field name. Or the device runs an earlier Claude Desktop version. Or Microsoft reported no label, or a different label, for the item. | Look in `main.log` for a line that names the list's field as you spelled it. Then find the `read_sensitivity_labels_observed` line (files) or the `mail_sensitivity_label_checked` line (email) in the connector's log, and compare its `observedLabelIds` with your list. If a file shows no label, check that [sensitivity labels are enabled for SharePoint and OneDrive files](https://learn.microsoft.com/en-us/purview/sensitivity-labels-sharepoint-onedrive-files). |
+| Claude can't read content that carries no listed sensitivity label | The connector couldn't read the item's label | Find the `read_blocked_by_sensitivity_label` line (files) or the `mail_blocked_by_sensitivity_label` line (email) in the connector's log. Its `code` names the cause. |
 | Write tools are missing or fail | The matching write scope is not listed in the entry's `scope` field, or the installed Claude Desktop version predates write support | Add the scope to the entry and consent it on the app registration (see [Grant write scopes](#grant-write-scopes)), and upgrade Claude Desktop |
 
 The connector writes its sign-in and Microsoft Graph errors to its own log file in the Claude Desktop logs directory (`~/Library/Logs/Claude-3p/` on macOS, `%LOCALAPPDATA%\Claude-3p\logs\` on Windows), named `mcp-server-office365-builtin.log`. Configuration parsing and connection lifecycle messages appear in `main.log` in the same directory.

@@ -33,7 +33,7 @@ Configure monitoring from **Organization settings > Data and privacy**:
 
 4. Save your settings
 
-5. Start a new Cowork session — settings are loaded at session start, so existing sessions won't pick up the new configuration
+5. Start a new Cowork session. Cowork loads settings when a session starts, so sessions that are already running keep the old configuration.
 
 > [!NOTE]
 >
@@ -92,7 +92,7 @@ All events include these attributes:
 
 > [!NOTE]
 >
-> The account attributes — `organization.id`, `user.account_uuid`, `user.account_id`, and `user.email` — are populated from the user's Anthropic account, so they appear on first-party deployments only. On [third-party deployments](https://claude.com/docs/third-party/claude-desktop/overview.md) there is no Anthropic account and these attributes are absent; instead, the export carries the signed-in user's identity as the `enduser.id` resource attribute, described under [User attribution](https://claude.com/docs/third-party/claude-desktop/telemetry.md#user-attribution). The `process.owner` resource attribute (the operating-system login name) is standard OpenTelemetry process metadata and is present on all deployments.
+> The account attributes (`organization.id`, `user.account_uuid`, `user.account_id`, and `user.email`) are populated from the user's Anthropic account, so they appear on first-party deployments only. On [third-party deployments](https://claude.com/docs/third-party/claude-desktop/overview.md) there is no Anthropic account and these attributes are absent; instead, the export carries the signed-in user's identity as the `enduser.id` resource attribute, described under [User attribution](https://claude.com/docs/third-party/claude-desktop/telemetry.md#user-attribution). The `process.owner` resource attribute (the operating-system login name) is standard OpenTelemetry process metadata and is present on all deployments.
 
 ### User prompt event
 
@@ -151,7 +151,7 @@ All [standard attributes](#standard-attributes), plus:
 | `duration_ms` | Execution time in milliseconds |
 | `error` | Error message (if failed) |
 | `decision_type` | Either `"accept"` or `"reject"` |
-| `decision_source` | How the decision was made — `"config"`, `"hook"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"` |
+| `decision_source` | How the decision was made. One of `"config"`, `"hook"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"` |
 | `tool_result_size_bytes` | Size of the tool result in bytes |
 | `mcp_server_scope` | MCP server scope identifier (for MCP tools) |
 | `tool_parameters` | JSON string containing tool-specific parameters, including `mcp_server_name` and `mcp_tool_name` for MCP tools |
@@ -221,17 +221,17 @@ All [standard attributes](#standard-attributes), plus:
 | `event.sequence` | Monotonically increasing counter for ordering events within a session |
 | `tool_name` | Name of the tool |
 | `decision` | Either `"accept"` or `"reject"` |
-| `source` | Decision source — `"config"`, `"hook"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"` |
+| `source` | Decision source. One of `"config"`, `"hook"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"` |
 
 ## Event analysis
 
 The exported events support a range of analyses:
 
-**Tool usage patterns** — Analyze tool result events to identify most frequently used tools, success rates, average execution times, and error patterns.
+**Tool usage patterns**: Analyze tool result events to identify most frequently used tools, success rates, average execution times, and error patterns.
 
-**Cost monitoring** — Track `cost_usd` from API request events to understand usage trends across users and teams. Group by `user.account_uuid` or `organization.id` for per-user or per-team breakdowns.
+**Cost monitoring**: Track `cost_usd` from API request events to understand usage trends across users and teams. Group by `user.account_uuid` or `organization.id` for per-user or per-team breakdowns.
 
-**Performance monitoring** — Track API request durations and tool execution times to identify performance bottlenecks.
+**Performance monitoring**: Track API request durations and tool execution times to identify performance bottlenecks.
 
 > [!NOTE]
 >

@@ -101,7 +101,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->create(
   name: 'x',
   description: 'description',
   metadata: ['foo' => 'string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -225,7 +225,7 @@ $page = $client->beta->memoryStores->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -332,7 +332,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsMemoryStore = $client->beta->memoryStores->retrieve(
   'memory_store_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -457,7 +457,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->update(
   description: 'description',
   metadata: ['foo' => 'string'],
   name: 'x',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -531,7 +531,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeletedMemoryStore = $client->beta->memoryStores->delete(
   'memory_store_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -629,7 +629,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsMemoryStore = $client->beta->memoryStores->archive(
   'memory_store_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -821,7 +821,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
   content: 'content',
   path: '/P',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -979,7 +979,7 @@ $page = $client->beta->memoryStores->memories->list(
   page: 'page',
   pathPrefix: 'path_prefix',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1111,7 +1111,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->retrieve(
   'memory_id',
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1260,7 +1260,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
     'type' => 'content_sha256',
     'contentSha256' => '210b9798eb53baa4e69d31c1071cf03d212b8ad0ca30cf321e0ea82e120aac26',
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1344,7 +1344,7 @@ $betaManagedAgentsDeletedMemory = $client->beta->memoryStores->memories->delete(
   'memory_id',
   memoryStoreID: 'memory_store_id',
   expectedContentSha256: 'expected_content_sha256',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1522,7 +1522,7 @@ $page = $client->beta->memoryStores->memoryVersions->list(
   serviceAccountID: 'service_account_id',
   sessionID: 'session_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1679,7 +1679,7 @@ $betaManagedAgentsMemoryVersion = $client
   'memory_version_id',
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1823,7 +1823,7 @@ $betaManagedAgentsMemoryVersion = $client
   ->redact(
   'memory_version_id',
   memoryStoreID: 'memory_store_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 

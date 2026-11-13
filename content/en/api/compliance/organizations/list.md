@@ -27,11 +27,11 @@ Returns organizations sorted by creation date in ascending order. Use
 
 ## Headers
 
-- `"anthropic-version": optional string`
+- `"anthropic-version": string`
 
-  The version of the Claude API you want to use.
+  The version of the Claude API to use. Send an available version on every request. A request that sends any other value, including an empty one, returns a 400 error. This endpoint treats a request that omits this header as version `2023-06-01`; some other Compliance API endpoints return a 400 error instead.
 
-  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+  See [API versions](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http) for the available versions.
 
 - `"x-api-key": optional string`
 
@@ -53,6 +53,16 @@ Returns organizations sorted by creation date in ascending order. Use
 
     Unique identifier for the organization (UUID format)
 
+  - `organization_type: optional "claude_enterprise" or "claude_platform" or "claude_team" or null`
+
+    The kind of organization: `claude_enterprise` for a claude.ai organization on the Enterprise plan, `claude_team` for a claude.ai organization on the Team plan, or `claude_platform` for a Claude Console organization. Null for an organization of any other kind. More values can be added; treat a value you don't recognize as you would null.
+
+    - `"claude_enterprise"`
+
+    - `"claude_platform"`
+
+    - `"claude_team"`
+
 - `has_more: boolean`
 
   Whether more records exist beyond the current result set
@@ -65,7 +75,7 @@ Returns organizations sorted by creation date in ascending order. Use
 
 ```bash
 curl https://api.anthropic.com/v1/compliance/organizations \
-    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-version: 2026-10-21' \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
@@ -77,7 +87,8 @@ curl https://api.anthropic.com/v1/compliance/organizations \
     {
       "created_at": "2025-03-12T18:22:41.123456+00:00",
       "name": "Acme Corp",
-      "uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde"
+      "uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
+      "organization_type": "claude_enterprise"
     }
   ],
   "has_more": true,

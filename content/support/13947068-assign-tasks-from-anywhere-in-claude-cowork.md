@@ -8,7 +8,7 @@ Dispatch runs your tasks on your desktop, so your computer needs to be awake and
 
 Dispatch is in limited beta on some Pro, Max, and Ultra plans, and it isn't available to new users. If you already use Dispatch, you can keep using it for now, and this article still applies. It requires both the Claude Desktop app and the Claude mobile app. If you don't see Dispatch in the Cowork side panel, use Cowork in the cloud instead of the pairing flow described here.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -52,11 +52,11 @@ Follow these steps to get started:
 
 5. You’ll land on a page describing the functionality. Click “Get started”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169954086/419674f781edb2977b93cce062b4/93b1893c-d79a-4eb6-b2f1-2fe3e043bd90?expires=1794510900&amp;signature=149d8cafa4e8913a6853ac8d3f6e14070cad8dd87afa2a33d88033a0b7b37fb0&amp;req=diEhH8B7mYFXX%2FMW1HO4zSZP05aOFA72B32drIe5EDn3EHBVZZJ9fWJaEG2E%0AJLCn%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169954086/419674f781edb2977b93cce062b4/93b1893c-d79a-4eb6-b2f1-2fe3e043bd90?expires=1794636000&amp;signature=95508905969efe8e33376a9c652462c7c9d1d86d850bcf95154d5585ca2659db&amp;req=diEhH8B7mYFXX%2FMW3nq%2BgUgtmyefWo8xB5S4NuMmOh6pHHwMqzI42ZaqbXZd%0AmQqhoh5ZfHwPtRIPG790p7L06o0%3D%0A)
 
 6. On the next screen, you can give Claude access to your files and keep your computer awake by toggling those on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169955082/de4053ee0eab8fcb9263584bb171/d39b77da-1a69-4682-9fdb-7ed488f236b0?expires=1794510900&amp;signature=c02b94a0b1250eecc53cb3535fcc286427c17bd9ef6c69826c6775ef73115623&amp;req=diEhH8B7mIFXW%2FMW1HO4zaZWst6dXAEXepuGRb1rD3LP68QwiXw7UkFQCrto%0AQOMt%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169955082/de4053ee0eab8fcb9263584bb171/d39b77da-1a69-4682-9fdb-7ed488f236b0?expires=1794636000&amp;signature=966768e06db38e27679b4d017c50be3088b003738f57481610ac9f10e4785e37&amp;req=diEhH8B7mIFXW%2FMW3nq%2BgctAEttCzPVuDPoGaHdOkUSMh%2BsLtpWamTFQFWEL%0AUfvj3Kpg%2Fa48mbIraZYcTPUxzNc%3D%0A)
 
 7. Click “Finish setup.”
 

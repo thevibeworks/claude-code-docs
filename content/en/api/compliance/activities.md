@@ -798,11 +798,11 @@ compliance activities that can be filtered by various criteria.
 
   - `"claude_skill_auto_disabled"`
 
-    A skill that had been turned on for a member automatically was turned off for them automatically, not by the member; reason says why. A member turning a skill off themselves is recorded as claude_skill_disabled.
+    A skill that had been turned on for a member automatically was turned off for them automatically, not by the member; reason says why.
 
   - `"claude_skill_auto_enabled"`
 
-    A skill was turned on for a member automatically, not by the member; trigger gives the cause, such as another member sharing an eligible skill with them. A member turning a skill on themselves is recorded as claude_skill_enabled.
+    A skill was turned on for a member automatically, not by the member; trigger gives the cause, such as another member sharing an eligible skill with them.
 
   - `"claude_skill_created"`
 
@@ -1214,11 +1214,11 @@ compliance activities that can be filtered by various criteria.
 
   - `"mcp_server_managed_auth_token_exchanged"`
 
-    A user attempted to obtain an access token for an MCP server via enterprise managed authorization. This event reports the outcomes of attempted token exchanges. Repeated failures with the same cause may be reported once until the cause changes, and requests refused before a token exchange is attempted are not reported, except the "connector_scope_not_granted" and "identity_assertion_refused" failures described under error_type.
+    A user attempted to obtain an access token for an MCP server via enterprise managed authorization (auto-connect). This event reports the outcomes of attempted token exchanges. Repeated failures with the same cause may be reported once until the cause changes, and requests refused before a token exchange is attempted are not reported, except the "connector_scope_not_granted" and "identity_assertion_refused" failures described under error_type.
 
   - `"mcp_server_managed_auth_updated"`
 
-    An MCP server's enterprise managed authorization settings were set, changed, or cleared, including when they were supplied while the server was being added or edited. Fields without a "previous_" prefix describe the settings after the change and are null when the server has no managed authorization settings afterwards; "previous_" fields describe the settings before the change and are null when the server had none before (always the case for a newly added server).
+    An MCP server's enterprise managed authorization (auto-connect) settings were set, changed, or cleared, including when they were supplied while the server was being added or edited. Fields without a "previous_" prefix describe the settings after the change and are null when the server has no managed authorization settings afterwards; "previous_" fields describe the settings before the change and are null when the server had none before (always the case for a newly added server).
 
   - `"mcp_server_updated"`
 
@@ -2165,17 +2165,17 @@ compliance activities that can be filtered by various criteria.
 
   - `"rbac_role_permission_added"`
 
-    Admin added a permission to an RBAC custom role.
+    A permission was added to an RBAC custom role.
 
-    Emitted once per requested permission, including permissions the role
-    already had, so a retried request still produces a complete audit record.
+    A request records one activity per permission it asks to add, including any
+    the role already had, so a retry still leaves a complete audit record.
 
   - `"rbac_role_permission_removed"`
 
-    Admin removed a permission from an RBAC custom role.
+    A permission was removed from an RBAC custom role.
 
-    Emitted once per requested permission, including permissions the role
-    already lacked, so a retried request still produces a complete audit
+    A request records one activity per permission it asks to remove, including
+    any the role already lacked, so a retry still leaves a complete audit
     record.
 
   - `"rbac_role_unassigned"`
@@ -3228,11 +3228,11 @@ compliance activities that can be filtered by various criteria.
 
   - `"claude_skill_auto_disabled"`
 
-    A skill that had been turned on for a member automatically was turned off for them automatically, not by the member; reason says why. A member turning a skill off themselves is recorded as claude_skill_disabled.
+    A skill that had been turned on for a member automatically was turned off for them automatically, not by the member; reason says why.
 
   - `"claude_skill_auto_enabled"`
 
-    A skill was turned on for a member automatically, not by the member; trigger gives the cause, such as another member sharing an eligible skill with them. A member turning a skill on themselves is recorded as claude_skill_enabled.
+    A skill was turned on for a member automatically, not by the member; trigger gives the cause, such as another member sharing an eligible skill with them.
 
   - `"claude_skill_created"`
 
@@ -3644,11 +3644,11 @@ compliance activities that can be filtered by various criteria.
 
   - `"mcp_server_managed_auth_token_exchanged"`
 
-    A user attempted to obtain an access token for an MCP server via enterprise managed authorization. This event reports the outcomes of attempted token exchanges. Repeated failures with the same cause may be reported once until the cause changes, and requests refused before a token exchange is attempted are not reported, except the "connector_scope_not_granted" and "identity_assertion_refused" failures described under error_type.
+    A user attempted to obtain an access token for an MCP server via enterprise managed authorization (auto-connect). This event reports the outcomes of attempted token exchanges. Repeated failures with the same cause may be reported once until the cause changes, and requests refused before a token exchange is attempted are not reported, except the "connector_scope_not_granted" and "identity_assertion_refused" failures described under error_type.
 
   - `"mcp_server_managed_auth_updated"`
 
-    An MCP server's enterprise managed authorization settings were set, changed, or cleared, including when they were supplied while the server was being added or edited. Fields without a "previous_" prefix describe the settings after the change and are null when the server has no managed authorization settings afterwards; "previous_" fields describe the settings before the change and are null when the server had none before (always the case for a newly added server).
+    An MCP server's enterprise managed authorization (auto-connect) settings were set, changed, or cleared, including when they were supplied while the server was being added or edited. Fields without a "previous_" prefix describe the settings after the change and are null when the server has no managed authorization settings afterwards; "previous_" fields describe the settings before the change and are null when the server had none before (always the case for a newly added server).
 
   - `"mcp_server_updated"`
 
@@ -4595,17 +4595,17 @@ compliance activities that can be filtered by various criteria.
 
   - `"rbac_role_permission_added"`
 
-    Admin added a permission to an RBAC custom role.
+    A permission was added to an RBAC custom role.
 
-    Emitted once per requested permission, including permissions the role
-    already had, so a retried request still produces a complete audit record.
+    A request records one activity per permission it asks to add, including any
+    the role already had, so a retry still leaves a complete audit record.
 
   - `"rbac_role_permission_removed"`
 
-    Admin removed a permission from an RBAC custom role.
+    A permission was removed from an RBAC custom role.
 
-    Emitted once per requested permission, including permissions the role
-    already lacked, so a retried request still produces a complete audit
+    A request records one activity per permission it asks to remove, including
+    any the role already lacked, so a retry still leaves a complete audit
     record.
 
   - `"rbac_role_unassigned"`
@@ -4865,11 +4865,11 @@ compliance activities that can be filtered by various criteria.
 
 ### Headers
 
-- `"anthropic-version": optional string`
+- `"anthropic-version": string`
 
-  The version of the Claude API you want to use.
+  The version of the Claude API to use. Send an available version on every request. A request that sends any other value, including an empty one, returns a 400 error. This endpoint treats a request that omits this header as version `2023-06-01`; some other Compliance API endpoints return a 400 error instead.
 
-  Read more about versioning and our version history [here](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http).
+  See [API versions](https://platform.claude.com/docs/en/api/versioning?sdk_languages=http) for the available versions.
 
 - `"x-api-key": optional string`
 
@@ -44140,7 +44140,7 @@ compliance activities that can be filtered by various criteria.
 
   - `ClaudeSkillAutoDisabled object`
 
-    A skill that had been turned on for a member automatically was turned off for them automatically, not by the member; reason says why. A member turning a skill off themselves is recorded as claude_skill_disabled.
+    A skill that had been turned on for a member automatically was turned off for them automatically, not by the member; reason says why.
 
     - `type: optional "claude_skill_auto_disabled"`
 
@@ -44402,7 +44402,7 @@ compliance activities that can be filtered by various criteria.
 
   - `ClaudeSkillAutoEnabled object`
 
-    A skill was turned on for a member automatically, not by the member; trigger gives the cause, such as another member sharing an eligible skill with them. A member turning a skill on themselves is recorded as claude_skill_enabled.
+    A skill was turned on for a member automatically, not by the member; trigger gives the cause, such as another member sharing an eligible skill with them.
 
     - `type: optional "claude_skill_auto_enabled"`
 
@@ -70568,7 +70568,7 @@ compliance activities that can be filtered by various criteria.
 
   - `McpServerManagedAuthTokenExchanged object`
 
-    A user attempted to obtain an access token for an MCP server via enterprise managed authorization. This event reports the outcomes of attempted token exchanges. Repeated failures with the same cause may be reported once until the cause changes, and requests refused before a token exchange is attempted are not reported, except the "connector_scope_not_granted" and "identity_assertion_refused" failures described under error_type.
+    A user attempted to obtain an access token for an MCP server via enterprise managed authorization (auto-connect). This event reports the outcomes of attempted token exchanges. Repeated failures with the same cause may be reported once until the cause changes, and requests refused before a token exchange is attempted are not reported, except the "connector_scope_not_granted" and "identity_assertion_refused" failures described under error_type.
 
     - `type: optional "mcp_server_managed_auth_token_exchanged"`
 
@@ -70782,7 +70782,7 @@ compliance activities that can be filtered by various criteria.
 
     - `managed_auth_mode: string`
 
-      The managed-authorization mode used for the exchange ("claude" or "sso").
+      The managed-authorization mode used for the exchange: "claude" (Claude-issued auth, where Claude issues the identity assertion) or "sso" (IdP-managed auth, where the organization's identity provider issues it).
 
     - `mcp_server_id: string`
 
@@ -70794,7 +70794,7 @@ compliance activities that can be filtered by various criteria.
 
     - `assertion_jti: optional string or null`
 
-      The JWT ID of the identity assertion presented to the authorization server, when one was minted, for cross-reference with the identity provider's own logs.
+      The JWT ID of the identity assertion presented to the authorization server, when one was issued, for cross-reference with the logs of the identity provider or the authorization server.
 
     - `authorization_server_issuer: optional string or null`
 
@@ -70812,11 +70812,11 @@ compliance activities that can be filtered by various criteria.
 
     - `error_subtype: optional string or null`
 
-      A more specific classification of the failure, when available. For authorization-server rejections this is the OAuth error code the server returned (for example "invalid_grant"); for identity-provider rejections this is the error code the identity provider returned; for refused identity assertions this is a short reason code such as "not_org_member" (the user's membership in the organization could not be confirmed). Values may be added over time; treat an unrecognized value as a generic failure.
+      A more specific classification of the failure, when available. For authorization-server rejections this is the OAuth error code the server returned (for example "invalid_grant"); for identity-provider rejections this is the error code the identity provider returned; for refused identity assertions, which occur with Claude-issued auth, this is a reason code: "not_org_member" (the user's membership in the organization could not be confirmed), "email_missing" (the user's account has no email address), "email_unsupported" (the user's email address has a non-ASCII character), "audience_not_pinned" (no authorization server is confirmed for the MCP server, for example because its URL was changed; see authorization_server_issuer on mcp_server_managed_auth_updated), "audience_changed" (the authorization server's issuer identifier is no longer the confirmed one), "audience_invalid" (Claude does not issue assertions for that issuer identifier, for example because it is not a plain https URL on a public host name), "audience_anthropic_host" (that issuer identifier is on a host that Anthropic controls) or "connector_on_tunnel" (Claude-issued auth is not available at the MCP server's URL, for example because the server is reached through an MCP tunnel). Values may be added over time; treat an unrecognized value as a generic failure.
 
     - `error_type: optional string or null`
 
-      A short classification of why the exchange failed, when outcome is "failure". Values include "authorization_server_rejected", "authorization_server_unavailable", "identity_provider_rejected", "sso_session_invalid", "sso_connection_unsupported", "connector_scope_not_granted" and "identity_assertion_refused". The last two are refusals made before a token exchange was attempted: "connector_scope_not_granted" means the organization's role configuration grants no scopes on this connector; "identity_assertion_refused" means no identity assertion could be issued for this user and server (for example, the user's membership in the organization could not be confirmed), and is reported when access the user already had could not be renewed and, depending on the reason, when first connecting; error_subtype names the reason. Values may be added over time; treat an unrecognized value as a generic failure.
+      A short classification of why the exchange failed, when outcome is "failure". Values include "authorization_server_rejected", "authorization_server_unavailable", "identity_provider_rejected", "sso_session_invalid", "sso_connection_unsupported", "connector_scope_not_granted" and "identity_assertion_refused". The last two are refusals made before a token exchange was attempted: "connector_scope_not_granted" means the organization's role configuration grants no scopes on this connector; "identity_assertion_refused" means no identity assertion could be issued for this user and server (for example, the user's membership in the organization could not be confirmed, or the MCP server's authorization server is not the one an administrator confirmed), and is reported when access the user already had could not be renewed and, depending on the reason, when first connecting; error_subtype names the reason. Values may be added over time; treat an unrecognized value as a generic failure.
 
     - `mcp_server_name: optional string or null`
 
@@ -70836,7 +70836,7 @@ compliance activities that can be filtered by various criteria.
 
   - `McpServerManagedAuthUpdated object`
 
-    An MCP server's enterprise managed authorization settings were set, changed, or cleared, including when they were supplied while the server was being added or edited. Fields without a "previous_" prefix describe the settings after the change and are null when the server has no managed authorization settings afterwards; "previous_" fields describe the settings before the change and are null when the server had none before (always the case for a newly added server).
+    An MCP server's enterprise managed authorization (auto-connect) settings were set, changed, or cleared, including when they were supplied while the server was being added or edited. Fields without a "previous_" prefix describe the settings after the change and are null when the server has no managed authorization settings afterwards; "previous_" fields describe the settings before the change and are null when the server had none before (always the case for a newly added server).
 
     - `type: optional "mcp_server_managed_auth_updated"`
 
@@ -71064,6 +71064,10 @@ compliance activities that can be filtered by various criteria.
 
       The OAuth scopes managed authorization may request for the server after the change, as a space-delimited list. Null when no scope restriction is configured (or the server has no managed authorization settings); an empty string when the restriction permits no scopes.
 
+    - `authorization_server_issuer: optional string or null`
+
+      The issuer identifier of the authorization server an administrator has confirmed for the server's managed authorization, after the change. Used with Claude-issued auth (managed_auth_mode "claude"), where identity assertions for the server are issued only to this authorization server. Null when none is confirmed: always in other modes, and with Claude-issued auth, for example, after the server's URL changes, until an administrator confirms one again.
+
     - `built_in_roles_included: optional boolean or null`
 
       Whether, after the change, managed authorization extends to members who hold one of the organization's built-in roles (such as User, Admin, or Owner) rather than a custom role, in addition to members whose custom role grants it. This describes whom managed authorization reaches and is reported on every change, independent of how built-in role access is configured.
@@ -71080,11 +71084,11 @@ compliance activities that can be filtered by various criteria.
 
     - `managed_auth_enabled: optional boolean or null`
 
-      Whether managed authorization is enabled for the server after the change, so that members whose role permits it are authorized through the organization's identity provider.
+      Whether managed authorization is enabled for the server after the change, so that members whose role permits it are authorized with an identity assertion issued on their behalf; managed_auth_mode says who issues it.
 
     - `managed_auth_mode: optional string or null`
 
-      The managed-authorization mode after the change ("claude" or "sso"): how the identity assertion presented on members' behalf is issued. Recorded whenever managed authorization settings exist, whether or not managed authorization is enabled; null when the server has no managed authorization settings after the change.
+      The managed-authorization mode after the change: who issues the identity assertion presented on members' behalf. "claude" (Claude-issued auth) means Claude; "sso" (IdP-managed auth) means the organization's identity provider. Recorded whenever managed authorization settings exist, whether or not managed authorization is enabled; null when the server has no managed authorization settings after the change.
 
     - `mcp_server_url: optional string or null`
 
@@ -71098,9 +71102,17 @@ compliance activities that can be filtered by various criteria.
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
 
+    - `partner_tenant_id: optional string or null`
+
+      The organization's tenant ID at the connected service behind the MCP server, as set by an administrator in the Tenant ID field of the server's managed authorization setup, after the change. Used with Claude-issued auth (managed_auth_mode "claude"), where it is included in identity assertions so the connected service can route them to the organization's tenant. Null when none is set, which is always the case in other modes.
+
     - `previous_allowed_scopes: optional string or null`
 
       The OAuth scope restriction before the change, as a space-delimited list; null when no scope restriction was configured.
+
+    - `previous_authorization_server_issuer: optional string or null`
+
+      The confirmed authorization server issuer before the change; null when none was confirmed.
 
     - `previous_built_in_roles_included: optional boolean or null`
 
@@ -71113,6 +71125,10 @@ compliance activities that can be filtered by various criteria.
     - `previous_managed_auth_enabled: optional boolean or null`
 
       Whether managed authorization was enabled for the server before the change.
+
+    - `previous_partner_tenant_id: optional string or null`
+
+      The tenant ID at the connected service before the change; null when none was set.
 
   - `McpServerUpdated object`
 
@@ -94732,7 +94748,7 @@ compliance activities that can be filtered by various criteria.
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
 
-    - `previous_status: optional "accepted_risk" or "completed" or "unspecified" or null`
+    - `previous_status: optional "accepted_risk" or "completed" or "control_failed" or "unspecified" or null`
 
       The status before this change; absent when action is "attested".
 
@@ -94744,6 +94760,10 @@ compliance activities that can be filtered by various criteria.
 
         An administrator attested that the organization meets the control.
 
+      - `"control_failed"`
+
+        An administrator attested that the organization does not meet the control.
+
       - `"unspecified"`
 
         Not used. No activity is recorded with this value.
@@ -94752,7 +94772,7 @@ compliance activities that can be filtered by various criteria.
 
       The UTC day (ISO 8601 date) on which the attestation was due to stop taking effect; absent when it had no end date or was cleared.
 
-    - `status: optional "accepted_risk" or "completed" or "unspecified" or null`
+    - `status: optional "accepted_risk" or "completed" or "control_failed" or "unspecified" or null`
 
       The attested status; absent when the attestation was cleared.
 
@@ -94763,6 +94783,10 @@ compliance activities that can be filtered by various criteria.
       - `"completed"`
 
         An administrator attested that the organization meets the control.
+
+      - `"control_failed"`
+
+        An administrator attested that the organization does not meet the control.
 
       - `"unspecified"`
 
@@ -99774,7 +99798,7 @@ compliance activities that can be filtered by various criteria.
 
         - `user_agent: optional string or null`
 
-    - `updates: array of Name or Capabilities or RedactContent or 114 more`
+    - `updates: array of Name or Capabilities or RedactContent or 116 more`
 
       - `Name object`
 
@@ -100420,8 +100444,10 @@ compliance activities that can be filtered by various criteria.
 
         The organization's Claude Code managed settings were changed.
 
-        The full previous and current settings content is provided in the
-        `previous_value` and `current_value` fields.
+        The settings' contents are not returned: `previous_value` and
+        `current_value` are always null. When present, `settings_uuid`,
+        `previous_version` and `current_version` identify the settings and
+        their version numbers before and after the change.
 
         - `type: optional "claude_code_managed_settings"`
 
@@ -101852,6 +101878,38 @@ compliance activities that can be filtered by various criteria.
         - `previous_value: optional boolean or null`
 
           Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `ArtifactTypeSheetsEnabled object`
+
+        The setting that lets members create Sheets, one of Anthropic's built-in Artifact types, was changed for the organization.
+
+        - `type: optional "artifact_type_sheets_enabled"`
+
+          default: artifact_type_sheets_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `OrganizationInstructions object`
+
+        The organization instructions, standing instructions for Claude that apply to every member, were added, edited or cleared. This entry shows only whether instructions were saved, never their text.
+
+        - `type: optional "organization_instructions"`
+
+          default: organization_instructions
+
+        - `current_value: optional boolean or null`
+
+          True if the organization has instructions saved immediately after this change. Read with previous_value: false then true means that instructions were added, true then true that their text was edited, and true then false that they were cleared.
+
+        - `previous_value: optional boolean or null`
+
+          True if the organization had instructions saved immediately before this change
 
     - `id: optional string`
 
@@ -136844,10 +136902,10 @@ compliance activities that can be filtered by various criteria.
 
   - `RbacRolePermissionAdded object`
 
-    Admin added a permission to an RBAC custom role.
+    A permission was added to an RBAC custom role.
 
-    Emitted once per requested permission, including permissions the role
-    already had, so a retried request still produces a complete audit record.
+    A request records one activity per permission it asks to add, including any
+    the role already had, so a retry still leaves a complete audit record.
 
     - `type: optional "rbac_role_permission_added"`
 
@@ -137095,10 +137153,10 @@ compliance activities that can be filtered by various criteria.
 
   - `RbacRolePermissionRemoved object`
 
-    Admin removed a permission from an RBAC custom role.
+    A permission was removed from an RBAC custom role.
 
-    Emitted once per requested permission, including permissions the role
-    already lacked, so a retried request still produces a complete audit
+    A request records one activity per permission it asks to remove, including
+    any the role already lacked, so a retry still leaves a complete audit
     record.
 
     - `type: optional "rbac_role_permission_removed"`
@@ -153198,7 +153256,7 @@ compliance activities that can be filtered by various criteria.
 
 ```bash
 curl https://api.anthropic.com/v1/compliance/activities \
-    -H 'anthropic-version: 2023-06-01' \
+    -H 'anthropic-version: 2026-10-21' \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
@@ -192496,7 +192554,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
   - `ClaudeSkillAutoDisabled object`
 
-    A skill that had been turned on for a member automatically was turned off for them automatically, not by the member; reason says why. A member turning a skill off themselves is recorded as claude_skill_disabled.
+    A skill that had been turned on for a member automatically was turned off for them automatically, not by the member; reason says why.
 
     - `type: optional "claude_skill_auto_disabled"`
 
@@ -192758,7 +192816,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
   - `ClaudeSkillAutoEnabled object`
 
-    A skill was turned on for a member automatically, not by the member; trigger gives the cause, such as another member sharing an eligible skill with them. A member turning a skill on themselves is recorded as claude_skill_enabled.
+    A skill was turned on for a member automatically, not by the member; trigger gives the cause, such as another member sharing an eligible skill with them.
 
     - `type: optional "claude_skill_auto_enabled"`
 
@@ -218924,7 +218982,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
   - `McpServerManagedAuthTokenExchanged object`
 
-    A user attempted to obtain an access token for an MCP server via enterprise managed authorization. This event reports the outcomes of attempted token exchanges. Repeated failures with the same cause may be reported once until the cause changes, and requests refused before a token exchange is attempted are not reported, except the "connector_scope_not_granted" and "identity_assertion_refused" failures described under error_type.
+    A user attempted to obtain an access token for an MCP server via enterprise managed authorization (auto-connect). This event reports the outcomes of attempted token exchanges. Repeated failures with the same cause may be reported once until the cause changes, and requests refused before a token exchange is attempted are not reported, except the "connector_scope_not_granted" and "identity_assertion_refused" failures described under error_type.
 
     - `type: optional "mcp_server_managed_auth_token_exchanged"`
 
@@ -219138,7 +219196,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
     - `managed_auth_mode: string`
 
-      The managed-authorization mode used for the exchange ("claude" or "sso").
+      The managed-authorization mode used for the exchange: "claude" (Claude-issued auth, where Claude issues the identity assertion) or "sso" (IdP-managed auth, where the organization's identity provider issues it).
 
     - `mcp_server_id: string`
 
@@ -219150,7 +219208,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
     - `assertion_jti: optional string or null`
 
-      The JWT ID of the identity assertion presented to the authorization server, when one was minted, for cross-reference with the identity provider's own logs.
+      The JWT ID of the identity assertion presented to the authorization server, when one was issued, for cross-reference with the logs of the identity provider or the authorization server.
 
     - `authorization_server_issuer: optional string or null`
 
@@ -219168,11 +219226,11 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
     - `error_subtype: optional string or null`
 
-      A more specific classification of the failure, when available. For authorization-server rejections this is the OAuth error code the server returned (for example "invalid_grant"); for identity-provider rejections this is the error code the identity provider returned; for refused identity assertions this is a short reason code such as "not_org_member" (the user's membership in the organization could not be confirmed). Values may be added over time; treat an unrecognized value as a generic failure.
+      A more specific classification of the failure, when available. For authorization-server rejections this is the OAuth error code the server returned (for example "invalid_grant"); for identity-provider rejections this is the error code the identity provider returned; for refused identity assertions, which occur with Claude-issued auth, this is a reason code: "not_org_member" (the user's membership in the organization could not be confirmed), "email_missing" (the user's account has no email address), "email_unsupported" (the user's email address has a non-ASCII character), "audience_not_pinned" (no authorization server is confirmed for the MCP server, for example because its URL was changed; see authorization_server_issuer on mcp_server_managed_auth_updated), "audience_changed" (the authorization server's issuer identifier is no longer the confirmed one), "audience_invalid" (Claude does not issue assertions for that issuer identifier, for example because it is not a plain https URL on a public host name), "audience_anthropic_host" (that issuer identifier is on a host that Anthropic controls) or "connector_on_tunnel" (Claude-issued auth is not available at the MCP server's URL, for example because the server is reached through an MCP tunnel). Values may be added over time; treat an unrecognized value as a generic failure.
 
     - `error_type: optional string or null`
 
-      A short classification of why the exchange failed, when outcome is "failure". Values include "authorization_server_rejected", "authorization_server_unavailable", "identity_provider_rejected", "sso_session_invalid", "sso_connection_unsupported", "connector_scope_not_granted" and "identity_assertion_refused". The last two are refusals made before a token exchange was attempted: "connector_scope_not_granted" means the organization's role configuration grants no scopes on this connector; "identity_assertion_refused" means no identity assertion could be issued for this user and server (for example, the user's membership in the organization could not be confirmed), and is reported when access the user already had could not be renewed and, depending on the reason, when first connecting; error_subtype names the reason. Values may be added over time; treat an unrecognized value as a generic failure.
+      A short classification of why the exchange failed, when outcome is "failure". Values include "authorization_server_rejected", "authorization_server_unavailable", "identity_provider_rejected", "sso_session_invalid", "sso_connection_unsupported", "connector_scope_not_granted" and "identity_assertion_refused". The last two are refusals made before a token exchange was attempted: "connector_scope_not_granted" means the organization's role configuration grants no scopes on this connector; "identity_assertion_refused" means no identity assertion could be issued for this user and server (for example, the user's membership in the organization could not be confirmed, or the MCP server's authorization server is not the one an administrator confirmed), and is reported when access the user already had could not be renewed and, depending on the reason, when first connecting; error_subtype names the reason. Values may be added over time; treat an unrecognized value as a generic failure.
 
     - `mcp_server_name: optional string or null`
 
@@ -219192,7 +219250,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
   - `McpServerManagedAuthUpdated object`
 
-    An MCP server's enterprise managed authorization settings were set, changed, or cleared, including when they were supplied while the server was being added or edited. Fields without a "previous_" prefix describe the settings after the change and are null when the server has no managed authorization settings afterwards; "previous_" fields describe the settings before the change and are null when the server had none before (always the case for a newly added server).
+    An MCP server's enterprise managed authorization (auto-connect) settings were set, changed, or cleared, including when they were supplied while the server was being added or edited. Fields without a "previous_" prefix describe the settings after the change and are null when the server has no managed authorization settings afterwards; "previous_" fields describe the settings before the change and are null when the server had none before (always the case for a newly added server).
 
     - `type: optional "mcp_server_managed_auth_updated"`
 
@@ -219420,6 +219478,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       The OAuth scopes managed authorization may request for the server after the change, as a space-delimited list. Null when no scope restriction is configured (or the server has no managed authorization settings); an empty string when the restriction permits no scopes.
 
+    - `authorization_server_issuer: optional string or null`
+
+      The issuer identifier of the authorization server an administrator has confirmed for the server's managed authorization, after the change. Used with Claude-issued auth (managed_auth_mode "claude"), where identity assertions for the server are issued only to this authorization server. Null when none is confirmed: always in other modes, and with Claude-issued auth, for example, after the server's URL changes, until an administrator confirms one again.
+
     - `built_in_roles_included: optional boolean or null`
 
       Whether, after the change, managed authorization extends to members who hold one of the organization's built-in roles (such as User, Admin, or Owner) rather than a custom role, in addition to members whose custom role grants it. This describes whom managed authorization reaches and is reported on every change, independent of how built-in role access is configured.
@@ -219436,11 +219498,11 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
     - `managed_auth_enabled: optional boolean or null`
 
-      Whether managed authorization is enabled for the server after the change, so that members whose role permits it are authorized through the organization's identity provider.
+      Whether managed authorization is enabled for the server after the change, so that members whose role permits it are authorized with an identity assertion issued on their behalf; managed_auth_mode says who issues it.
 
     - `managed_auth_mode: optional string or null`
 
-      The managed-authorization mode after the change ("claude" or "sso"): how the identity assertion presented on members' behalf is issued. Recorded whenever managed authorization settings exist, whether or not managed authorization is enabled; null when the server has no managed authorization settings after the change.
+      The managed-authorization mode after the change: who issues the identity assertion presented on members' behalf. "claude" (Claude-issued auth) means Claude; "sso" (IdP-managed auth) means the organization's identity provider. Recorded whenever managed authorization settings exist, whether or not managed authorization is enabled; null when the server has no managed authorization settings after the change.
 
     - `mcp_server_url: optional string or null`
 
@@ -219454,9 +219516,17 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
 
+    - `partner_tenant_id: optional string or null`
+
+      The organization's tenant ID at the connected service behind the MCP server, as set by an administrator in the Tenant ID field of the server's managed authorization setup, after the change. Used with Claude-issued auth (managed_auth_mode "claude"), where it is included in identity assertions so the connected service can route them to the organization's tenant. Null when none is set, which is always the case in other modes.
+
     - `previous_allowed_scopes: optional string or null`
 
       The OAuth scope restriction before the change, as a space-delimited list; null when no scope restriction was configured.
+
+    - `previous_authorization_server_issuer: optional string or null`
+
+      The confirmed authorization server issuer before the change; null when none was confirmed.
 
     - `previous_built_in_roles_included: optional boolean or null`
 
@@ -219469,6 +219539,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
     - `previous_managed_auth_enabled: optional boolean or null`
 
       Whether managed authorization was enabled for the server before the change.
+
+    - `previous_partner_tenant_id: optional string or null`
+
+      The tenant ID at the connected service before the change; null when none was set.
 
   - `McpServerUpdated object`
 
@@ -243088,7 +243162,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       Organization UUID where the activity occurred. Null when the activity is not tied to an organization (for example, login and logout events or calls to the Compliance API).
 
-    - `previous_status: optional "accepted_risk" or "completed" or "unspecified" or null`
+    - `previous_status: optional "accepted_risk" or "completed" or "control_failed" or "unspecified" or null`
 
       The status before this change; absent when action is "attested".
 
@@ -243100,6 +243174,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
         An administrator attested that the organization meets the control.
 
+      - `"control_failed"`
+
+        An administrator attested that the organization does not meet the control.
+
       - `"unspecified"`
 
         Not used. No activity is recorded with this value.
@@ -243108,7 +243186,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
       The UTC day (ISO 8601 date) on which the attestation was due to stop taking effect; absent when it had no end date or was cleared.
 
-    - `status: optional "accepted_risk" or "completed" or "unspecified" or null`
+    - `status: optional "accepted_risk" or "completed" or "control_failed" or "unspecified" or null`
 
       The attested status; absent when the attestation was cleared.
 
@@ -243119,6 +243197,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
       - `"completed"`
 
         An administrator attested that the organization meets the control.
+
+      - `"control_failed"`
+
+        An administrator attested that the organization does not meet the control.
 
       - `"unspecified"`
 
@@ -248130,7 +248212,7 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
         - `user_agent: optional string or null`
 
-    - `updates: array of Name or Capabilities or RedactContent or 114 more`
+    - `updates: array of Name or Capabilities or RedactContent or 116 more`
 
       - `Name object`
 
@@ -248776,8 +248858,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
         The organization's Claude Code managed settings were changed.
 
-        The full previous and current settings content is provided in the
-        `previous_value` and `current_value` fields.
+        The settings' contents are not returned: `previous_value` and
+        `current_value` are always null. When present, `settings_uuid`,
+        `previous_version` and `current_version` identify the settings and
+        their version numbers before and after the change.
 
         - `type: optional "claude_code_managed_settings"`
 
@@ -250208,6 +250292,38 @@ curl https://api.anthropic.com/v1/compliance/activities \
         - `previous_value: optional boolean or null`
 
           Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `ArtifactTypeSheetsEnabled object`
+
+        The setting that lets members create Sheets, one of Anthropic's built-in Artifact types, was changed for the organization.
+
+        - `type: optional "artifact_type_sheets_enabled"`
+
+          default: artifact_type_sheets_enabled
+
+        - `current_value: optional boolean or null`
+
+          Setting value immediately after this change
+
+        - `previous_value: optional boolean or null`
+
+          Setting value immediately before this change. Null means the setting had not been set for the organization, so the plan default applied.
+
+      - `OrganizationInstructions object`
+
+        The organization instructions, standing instructions for Claude that apply to every member, were added, edited or cleared. This entry shows only whether instructions were saved, never their text.
+
+        - `type: optional "organization_instructions"`
+
+          default: organization_instructions
+
+        - `current_value: optional boolean or null`
+
+          True if the organization has instructions saved immediately after this change. Read with previous_value: false then true means that instructions were added, true then true that their text was edited, and true then false that they were cleared.
+
+        - `previous_value: optional boolean or null`
+
+          True if the organization had instructions saved immediately before this change
 
     - `id: optional string`
 
@@ -285200,10 +285316,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
   - `RbacRolePermissionAdded object`
 
-    Admin added a permission to an RBAC custom role.
+    A permission was added to an RBAC custom role.
 
-    Emitted once per requested permission, including permissions the role
-    already had, so a retried request still produces a complete audit record.
+    A request records one activity per permission it asks to add, including any
+    the role already had, so a retry still leaves a complete audit record.
 
     - `type: optional "rbac_role_permission_added"`
 
@@ -285451,10 +285567,10 @@ curl https://api.anthropic.com/v1/compliance/activities \
 
   - `RbacRolePermissionRemoved object`
 
-    Admin removed a permission from an RBAC custom role.
+    A permission was removed from an RBAC custom role.
 
-    Emitted once per requested permission, including permissions the role
-    already lacked, so a retried request still produces a complete audit
+    A request records one activity per permission it asks to remove, including
+    any the role already lacked, so a retry still leaves a complete audit
     record.
 
     - `type: optional "rbac_role_permission_removed"`

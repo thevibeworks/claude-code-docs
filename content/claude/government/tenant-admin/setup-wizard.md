@@ -22,7 +22,7 @@ The first step is a read-only summary of what Anthropic has already set up for y
 
 ### Domains step
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-02-verify-your-domain-and-connect-single-sign-on.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=bf307a4d18d646cbce35d3c269be51b7" aria-label="Video walkthrough: Verify your domain and connect single sign-on" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/KCl5HZFMS3Q5oYkr/images/government/videos/admin-02-verify-your-domain-and-connect-single-sign-on-v2.mp4?fit=max&auto=format&n=KCl5HZFMS3Q5oYkr&q=85&s=2a78c1fdc3d2036f5fe723047931d514" aria-label="Video walkthrough: Verify your domain and connect single sign-on" />
 
 Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
 

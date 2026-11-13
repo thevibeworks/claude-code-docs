@@ -72,7 +72,7 @@ $betaManagedAgentsFileResource = $client->beta->sessions->resources->add(
   fileID: 'file_011CNha8iCJcU1wXNR6q4V8w',
   type: 'file',
   mountPath: '/uploads/receipt.pdf',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 

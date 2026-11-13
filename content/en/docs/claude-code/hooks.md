@@ -257,7 +257,7 @@ Hooks from settings files, managed policy settings, and plugins also run inside 
 Administrators can use [`allowManagedHooksOnly`](https://code.claude.com/docs/en/settings-reference#allowmanagedhooksonly) in [managed settings](https://code.claude.com/docs/en/managed-settings.md) to restrict which hooks run:
 
 * Your user, project, local, and plugin hooks are blocked. Hooks from plugins force-enabled in managed settings `enabledPlugins` are exempt
-* Claude Code also narrows your [`statusLine`](https://code.claude.com/docs/en/statusline), [`fileSuggestion`](https://code.claude.com/docs/en/settings-reference#filesuggestion), and [`subagentStatusLine`](https://code.claude.com/docs/en/statusline#subagent-status-lines) settings to managed settings
+* Claude Code also narrows your [`statusLine`](https://code.claude.com/docs/en/statusline) and [`fileSuggestion`](https://code.claude.com/docs/en/settings-reference#filesuggestion) settings to managed settings
 * Claude Code also disables plugins with a [`command` source](https://code.claude.com/docs/en/plugins/marketplace-reference#command-plugin-source), including plugins force-enabled in managed settings `enabledPlugins`, unless [`disableCommandPluginSources`](https://code.claude.com/docs/en/settings-reference#disablecommandpluginsources) is explicitly set to `false`. `command` sources require Claude Code v2.1.229 or later
 * Claude Code also blocks marketplace [`headersHelper` commands](https://code.claude.com/docs/en/plugins/host-marketplace#authenticate-archive-downloads) unless [`disableCommandPluginSources`](https://code.claude.com/docs/en/settings-reference#disablecommandpluginsources) is explicitly set to `false`, except for a marketplace that managed settings themselves declare
 
@@ -3000,7 +3000,7 @@ exit 0
 
 Runs when a configuration file changes during a session. Use this to audit settings changes, enforce security policies, or block unauthorized modifications to configuration files.
 
-Claude Code runs ConfigChange hooks when a settings file, a managed policy file, or a skill file changes. For managed policy, it runs them only when `managed-settings.json` or a file in `managed-settings.d/` changes. It applies [server-managed settings](https://code.claude.com/docs/en/server-managed-settings.md) and changes to macOS managed preferences or Windows registry policy without running them. On WSL with [`wslInheritsWindowsSettings`](https://code.claude.com/docs/en/settings-reference#wslinheritswindowssettings), it also applies a changed Windows-side managed settings file on its policy poll without running them.
+Claude Code runs ConfigChange hooks when a settings file, a managed policy file, or a skill file changes. For managed policy, it runs them only when `managed-settings.json` or a file in `managed-settings.d/` changes.
 
 The matcher filters on the configuration source:
 
@@ -3012,7 +3012,13 @@ The matcher filters on the configuration source:
 | `policy_settings` | `managed-settings.json` or a file in `managed-settings.d/` changes |
 | `skills` | A skill file in `.claude/skills/` changes |
 
-This example logs all configuration changes for security auditing:
+Changes such as these take effect without running the hooks:
+
+* Rules and settings you save with **Yes, and don't ask again**, `/permissions`, or `/model`, in the session you saved them from. If another open session loads the same file, the hooks run there.
+* Updates to [server-managed settings](https://code.claude.com/docs/en/server-managed-settings.md), macOS managed preferences, or Windows registry policy
+* On WSL with [`wslInheritsWindowsSettings`](https://code.claude.com/docs/en/settings-reference#wslinheritswindowssettings), a changed Windows-side managed settings file, which Claude Code picks up on its policy poll
+
+This example logs configuration changes for security auditing:
 
 ```json theme={null}
 {
@@ -3335,7 +3341,7 @@ Claude Code passes the path returned by WorktreeCreate as `worktree_path` in the
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'jq -r .worktree_path | xargs rm -rf'"
+            "command": "bash -c 'p=$(jq -er .worktree_path) && rm -rf -- \"$p\"'"
           }
         ]
       }

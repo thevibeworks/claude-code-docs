@@ -94,7 +94,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWork = $client->beta->environments->work->ack(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaSelfHostedWork);

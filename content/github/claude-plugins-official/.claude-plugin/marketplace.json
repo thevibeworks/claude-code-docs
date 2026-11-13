@@ -89,7 +89,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/AikidoSec/aikido-claude-plugin.git",
-        "sha": "8fdc995a44102a30ad54164e0bdd249d158c725c"
+        "sha": "75e45f337568bf3e0f5d99bc1b41d8844492df19"
       },
       "homepage": "https://github.com/AikidoSec/aikido-claude-plugin"
     },
@@ -121,22 +121,6 @@
         "source": "git-subdir",
         "url": "https://github.com/airwallex/airwallex-marketplace.git",
         "path": "plugins/airwallex-agentos",
-        "ref": "master",
-        "sha": "877551077786664d1cbeb32013443291c66e69e6"
-      },
-      "homepage": "https://www.airwallex.com/docs"
-    },
-    {
-      "name": "airwallex-dev",
-      "description": "Build Airwallex payment integrations in your own codebase. Generates the checkout, card-element, onboarding, and subscription-billing code for an Airwallex integration and wires it into your project: Hosted Payment Page, Drop-in and Split Card elements, connected-account KYC onboarding, and Billing Hosted Checkout for subscriptions and card-saving. Also plans card-on-file merchant-initiated flows for AI providers such as top-ups and auto-recharge.",
-      "author": {
-        "name": "Airwallex"
-      },
-      "category": "development",
-      "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/airwallex/airwallex-marketplace.git",
-        "path": "plugins/airwallex-dev",
         "ref": "master",
         "sha": "877551077786664d1cbeb32013443291c66e69e6"
       },
@@ -3499,7 +3483,7 @@
     {
       "name": "security-guidance",
       "description": "Security review for Claude-generated code. Pattern-based warnings on edits, LLM-powered diff review on Stop, and an agentic commit reviewer that catches injection, XSS, SSRF, hardcoded secrets, and 25+ other vulnerability classes.",
-      "version": "2.0.19",
+      "version": "2.0.20",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"
@@ -3847,7 +3831,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/obra/superpowers.git",
-        "sha": "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+        "sha": "22f0b463e7a5e579904dd6211a520321035526f7"
       },
       "homepage": "https://github.com/obra/superpowers.git"
     },

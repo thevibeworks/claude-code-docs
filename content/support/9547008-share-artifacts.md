@@ -57,7 +57,7 @@ You can invite specific people by email to access an artifact. They sign in to C
 
 ### Before you invite someone
 
-- **Who can invite:** The artifact's owner. On Team and Enterprise plans, anyone in your organization who can edit the artifact can also invite people. The owner gets an email when someone else sends an invitation.
+- **Who can invite:** The artifact's owner. On Team and Enterprise plans, anyone who can edit the artifact can also invite people, including people invited from outside your organization. The owner is notified of any sharing changes someone else makes.
 
 - **Team and Enterprise plans:** **Email invitations outside your organization** needs to be on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. It's on by default on Team plans and off on Enterprise plans. If you don't see the option, ask an Owner or Primary Owner.
 
@@ -85,11 +85,9 @@ On Team and Enterprise plans, if you type the address of someone in your organiz
 
 ### What people you invite can do
 
-People you invite from outside your organization can't invite others or change sharing settings. Parts of the artifact that use Claude or your connectors don't work for them. People with “Can edit” access can't delete the artifact, and they can upload only images and videos to it.
+People you invite from outside your organization with "Can edit" access can invite others, the same as people in your organization who can edit the artifact. The artifact’s owner is notified of any sharing changes. Parts of the artifact that use Claude or your connectors don't work for them. Docs are different: people you invite to a doc can ask their own Claude to work on it. Learn more about **[how people you invite can use Claude in a doc](https://support.claude.com/en/articles/16923645)**. People with "Can edit" access can't delete the artifact, and they can upload only images and videos to it.
 
-People you invite with “Commenter” or “Can edit” access can comment, but they can't mention people or ask Claude in a comment, and they don't get email notifications about comments. They can't comment on an artifact that's also shared with "Anyone with the link."
-
-If the artifact is also shared with "Anyone with the link," the people you invited have the same access as anyone with the link, whatever level you gave them.
+People you invite with “Commenter” or "Can edit" access can comment, but they can't mention people, and they don’t get email notifications about comments. They can’t ask Claude in a comment, except in a doc, where people with "Can edit" access can. They can't comment on an artifact that's also shared with "Anyone with the link."
 
 ### Manage people you've invited
 
@@ -159,7 +157,7 @@ On Team and Enterprise plans, owners can also remove outside access to individua
 
 3. Click "Accept and open."
 
-To come back to the artifact later, open the link in the invitation email again or bookmark the artifact.
+To come back to the artifact later, open the link in the invitation email again or bookmark the artifact. If you were invited to a doc made with Claude Docs, you can ask Claude to work on it with you. Click "Start chat" at the top of the doc (the button reads "Chat" once you’ve started one). Claude can do some of what your access allows. What it reads becomes part of a chat in your account.
 
 ### Report an invitation you didn't expect
 

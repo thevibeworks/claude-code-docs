@@ -16,7 +16,7 @@ A doc is a rich-text document saved to your Claude account. It can include headi
 
 Claude starts from the context it already has. When you ask for a doc, Claude can draw on your files, memory, projects, skills, and the apps you've connected, so you don't start from a blank page.
 
-The person who creates a doc is its owner. Anyone the owner shares it with can view or edit it. Claude works on a doc only when a signed-in person asks it to, and it can't do anything that person doesn't have permission to do. Every change is attributed to whoever made it, whether that's a person or Claude.
+The person who creates a doc is its owner. Anyone the owner shares it with can view, comment on, or edit it. Claude works on a doc only when a signed-in person asks it to, and it can't do anything that person doesn't have permission to do. Every change is attributed to whoever made it, whether that's a person or Claude.
 
 ## Create a doc
 
@@ -162,9 +162,11 @@ Docs start private to you. Share a doc the way you share any artifact: open it a
 
 A few things are different for docs:
 
-- **Access levels:** People you share a doc with can view or edit it. Viewers can read the doc. Editors can read, edit, comment on, and export it. There's no comment-only access level yet.
+- **Access levels:** People you share a doc with can view, comment on, or edit it. Viewers can read the doc. Commenters can read and comment on it. Editors can read, edit, comment on, and export it.
 
 - **Outside your organization:** Where your plan and your organization's settings allow it, you can invite people by email or turn on "Anyone with the link." People you invite sign in to Claude with the address you invited. People who use the link sign in to Claude and can only view the doc. Free plans can't send invitations, and email invitations are off by default on Enterprise plans.
+
+- **People you invite from outside your organization:** They can ask their own Claude to work on the doc, within the access you gave them. Learn more about **[what people you invite can do](https://support.claude.com/en/articles/9547008-share-artifacts#h_13ad8c9c2c)**.
 
 - **Renaming and deleting:** Only the owner can rename or delete a doc.
 
@@ -180,9 +182,11 @@ Opening a shared doc requires a Claude account.
 
 - **Viewers** can read the doc.
 
+- **Commenters** can read and comment on the doc.
+
 - **Editors** can read, edit, comment on, and export the doc.
 
-There's no comment-only access level yet. Only the owner can rename or delete a doc.
+Only the owner can rename or delete a doc.
 
 **Important:** Deleting a doc is permanent. There's no trash, and the doc becomes unavailable to everyone you shared it with after you delete it.
 
@@ -221,8 +225,6 @@ Owners turn Claude Docs on or off in **[Organization settings > Artifacts](https
 A few things to be aware of:
 
 - **Version history:** When the artifact panel is too narrow to show version history beside the text, version history opens over the text, and Tab from the doc's toolbar doesn't reach it yet.
-
-- **Access levels:** There's no comment-only access level.
 
 - **Charts and diagrams:** Charts and diagrams don't update automatically. Ask Claude to pull the latest data from your connected apps.
 

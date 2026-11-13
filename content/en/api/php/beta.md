@@ -13,23 +13,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `string`
 
-  - `"message-batches-2024-09-24"`
-
-  - `"prompt-caching-2024-07-31"`
-
   - `"computer-use-2024-10-22"`
 
   - `"computer-use-2025-01-24"`
 
-  - `"pdfs-2024-09-25"`
-
-  - `"token-counting-2024-11-01"`
-
-  - `"token-efficient-tools-2025-02-19"`
-
   - `"output-128k-2025-02-19"`
-
-  - `"files-api-2025-04-14"`
 
   - `"mcp-client-2025-04-04"`
 
@@ -41,15 +29,11 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"code-execution-2025-05-22"`
 
-  - `"extended-cache-ttl-2025-04-11"`
-
   - `"context-1m-2025-08-07"`
 
   - `"context-management-2025-06-27"`
 
   - `"model-context-window-exceeded-2025-08-26"`
-
-  - `"skills-2025-10-02"`
 
   - `"fast-mode-2026-02-01"`
 
@@ -64,8 +48,6 @@ url: https://platform.claude.com/docs/en/api/php/beta
   - `"advisor-tool-2026-03-01"`
 
   - `"managed-agents-2026-04-01"`
-
-  - `"cache-diagnosis-2026-04-07"`
 
   - `"dreaming-2026-04-21"`
 
@@ -95,8 +77,6 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"thinking-display-updates-2026-08-18"`
 
-  - `"ce-user-management-2026-07-13"`
-
   - `"mid-conversation-output-config-2026-07-01"`
 
   - `"thinking-binding-controls-2026-08-01"`
@@ -124,6 +104,46 @@ url: https://platform.claude.com/docs/en/api/php/beta
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 ### Beta API Error
 
@@ -484,7 +504,7 @@ $page = $client->beta->models->list(
   beforeID: 'before_id',
   lifecycle: ['active'],
   limit: 1,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -698,7 +718,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaModelInfo = $client->beta->models->retrieve(
   'model_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1407,7 +1427,7 @@ $betaMessage = $client->beta->messages->create(
       'type' => 'custom',
     ],
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   userProfileID: 'anthropic-user-profile-id',
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
@@ -1832,7 +1852,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
       'type' => 'custom',
     ],
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   userProfileID: 'anthropic-user-profile-id',
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
@@ -2060,7 +2080,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       ],
     ],
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   userProfileID: 'anthropic-user-profile-id',
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
@@ -2185,7 +2205,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageBatch = $client->beta->messages->batches->retrieve(
   'message_batch_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -2323,7 +2343,7 @@ $page = $client->beta->messages->batches->list(
   afterID: 'after_id',
   beforeID: 'before_id',
   limit: 1,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -2456,7 +2476,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageBatch = $client->beta->messages->batches->cancel(
   'message_batch_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -2542,7 +2562,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedMessageBatch = $client->beta->messages->batches->delete(
   'message_batch_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -2620,7 +2640,7 @@ $betaMessageBatchIndividualResponse = $client
   ->batches
   ->resultsStream(
   'message_batch_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -2805,7 +2825,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
       ],
     ],
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -3022,7 +3042,7 @@ $page = $client->beta->agents->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -3229,7 +3249,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsAgent = $client->beta->agents->retrieve(
   'agent_011CZkYpogX7uDKUyvBTophP',
   version: 0,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -3513,7 +3533,7 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
     ],
   ],
   version: 1,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -3710,7 +3730,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsAgent = $client->beta->agents->archive(
   'agent_011CZkYpogX7uDKUyvBTophP',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -3919,7 +3939,7 @@ $page = $client->beta->agents->versions->list(
   'agent_011CZkYpogX7uDKUyvBTophP',
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -4154,7 +4174,7 @@ $betaEnvironment = $client->beta->environments->create(
   description: 'Python environment with data-analysis packages.',
   metadata: ['foo' => 'string'],
   scope: 'organization',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -4306,7 +4326,7 @@ $page = $client->beta->environments->list(
   includeArchived: true,
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -4447,7 +4467,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironment = $client->beta->environments->retrieve(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -4625,7 +4645,7 @@ $betaEnvironment = $client->beta->environments->update(
   metadata: ['foo' => 'string'],
   name: 'x',
   scope: 'organization',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -4729,7 +4749,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironmentDeleteResponse = $client->beta->environments->delete(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -4825,7 +4845,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironment = $client->beta->environments->archive(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -4980,7 +5000,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWork = $client->beta->environments->work->retrieve(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -5114,7 +5134,7 @@ $betaSelfHostedWork = $client->beta->environments->work->poll(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   blockMs: 1,
   reclaimOlderThanMs: 1,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   anthropicWorkerID: 'Anthropic-Worker-ID',
 );
 
@@ -5237,7 +5257,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWork = $client->beta->environments->work->ack(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaSelfHostedWork);
@@ -5341,7 +5361,7 @@ $betaSelfHostedWorkHeartbeatResponse = $client
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   desiredTTLSeconds: 0,
   expectedLastHeartbeat: 'expected_last_heartbeat',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaSelfHostedWorkHeartbeatResponse);
@@ -5463,7 +5483,7 @@ $betaSelfHostedWork = $client->beta->environments->work->stop(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   force: true,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -5595,7 +5615,7 @@ $page = $client->beta->environments->work->list(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -5733,7 +5753,7 @@ $betaSelfHostedWork = $client->beta->environments->work->update(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   metadata: ['foo' => 'string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -5825,7 +5845,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSelfHostedWorkQueueStats = $client->beta->environments->work->stats(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -5992,7 +6012,7 @@ $betaManagedAgentsSession = $client->beta->sessions->create(
   ],
   title: 'Order #1234 inquiry',
   vaultIDs: ['string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -6355,7 +6375,7 @@ $page = $client->beta->sessions->list(
   order: 'asc',
   page: 'page',
   statuses: ['rescheduling'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -6662,7 +6682,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsSession = $client->beta->sessions->retrieve(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -7016,7 +7036,7 @@ $betaManagedAgentsSession = $client->beta->sessions->update(
   metadata: ['foo' => 'string'],
   title: 'Order #1234 inquiry',
   vaultIDs: ['string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -7267,7 +7287,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeletedSession = $client->beta->sessions->delete(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -7377,7 +7397,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsSession = $client->beta->sessions->archive(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -8547,7 +8567,7 @@ $page = $client->beta->sessions->events->list(
   order: 'asc',
   page: 'page',
   types: [ManagedAgentsSessionEventType::USER_MESSAGE],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -8640,7 +8660,7 @@ $betaManagedAgentsSendSessionEvents = $client->beta->sessions->events->send(
       'type' => 'user.message',
     ],
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -9619,7 +9639,7 @@ $betaManagedAgentsStreamSessionEvents = $client
   ->streamStream(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   eventDeltas: [BetaManagedAgentsDeltaType::AGENT_MESSAGE],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -9713,7 +9733,7 @@ $betaManagedAgentsFileResource = $client->beta->sessions->resources->add(
   fileID: 'file_011CNha8iCJcU1wXNR6q4V8w',
   type: 'file',
   mountPath: '/uploads/receipt.pdf',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -9849,7 +9869,7 @@ $page = $client->beta->sessions->resources->list(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -9995,7 +10015,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $resource = $client->beta->sessions->resources->retrieve(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -10133,7 +10153,7 @@ $resource = $client->beta->sessions->resources->update(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   authorizationToken: 'ghp_exampletoken',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -10208,7 +10228,7 @@ $betaManagedAgentsDeleteSessionResource = $client
   ->delete(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -10330,7 +10350,7 @@ $page = $client->beta->sessions->threads->list(
   limit: 0,
   page: 'page',
   statuses: [ManagedAgentsSessionThreadStatus::RUNNING],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -10524,7 +10544,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsSessionThread = $client->beta->sessions->threads->retrieve(
   'sthr_011CZkZVWa6oJjw1rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -10713,7 +10733,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsSessionThread = $client->beta->sessions->threads->archive(
   'sthr_011CZkZVWa6oJjw1rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -11746,7 +11766,7 @@ $page = $client->beta->sessions->threads->events->list(
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -12741,7 +12761,7 @@ $betaManagedAgentsStreamSessionThreadEvents = $client
   'sthr_011CZkZVWa6oJjw1rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   eventDeltas: [BetaManagedAgentsDeltaType::AGENT_MESSAGE],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -12938,7 +12958,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
     'type' => 'cron',
   ],
   vaultIDs: ['string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -13151,7 +13171,7 @@ $page = $client->beta->deployments->list(
   limit: 0,
   page: 'page',
   status: BetaManagedAgentsDeploymentStatus::ACTIVE,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -13338,7 +13358,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->retrieve(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -13589,7 +13609,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->update(
     'type' => 'cron',
   ],
   vaultIDs: ['string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -13771,7 +13791,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->archive(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -13917,7 +13937,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -14057,7 +14077,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->pause(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -14239,7 +14259,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->unpause(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -14428,7 +14448,7 @@ $page = $client->beta->deploymentRuns->list(
   limit: 0,
   page: 'page',
   triggerType: BetaManagedAgentsTriggerType::SCHEDULE,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -14537,7 +14557,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deploymentRuns->retrieve(
   'deployment_run_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -14644,7 +14664,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsVault = $client->beta->vaults->create(
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -14745,7 +14765,7 @@ $page = $client->beta->vaults->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -14841,7 +14861,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsVault = $client->beta->vaults->retrieve(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -14942,7 +14962,7 @@ $betaManagedAgentsVault = $client->beta->vaults->update(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15013,7 +15033,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeletedVault = $client->beta->vaults->delete(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15097,7 +15117,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsVault = $client->beta->vaults->archive(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15217,7 +15237,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->create(
   ],
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15336,7 +15356,7 @@ $page = $client->beta->vaults->credentials->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15450,7 +15470,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsCredential = $client->beta->vaults->credentials->retrieve(
   'vcrd_011CZkZEMt8gZan2iYPQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15585,7 +15605,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->update(
   ],
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15670,7 +15690,7 @@ $betaManagedAgentsDeletedCredential = $client
   ->delete(
   'vcrd_011CZkZEMt8gZan2iYPQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15767,7 +15787,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsCredential = $client->beta->vaults->credentials->archive(
   'vcrd_011CZkZEMt8gZan2iYPQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -15876,7 +15896,7 @@ $betaManagedAgentsCredentialValidation = $client
   ->mcpOAuthValidate(
   'vcrd_011CZkZEMt8gZan2iYPQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16012,7 +16032,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->create(
   name: 'x',
   description: 'description',
   metadata: ['foo' => 'string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16136,7 +16156,7 @@ $page = $client->beta->memoryStores->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16243,7 +16263,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsMemoryStore = $client->beta->memoryStores->retrieve(
   'memory_store_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16368,7 +16388,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->update(
   description: 'description',
   metadata: ['foo' => 'string'],
   name: 'x',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16442,7 +16462,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeletedMemoryStore = $client->beta->memoryStores->delete(
   'memory_store_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16540,7 +16560,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsMemoryStore = $client->beta->memoryStores->archive(
   'memory_store_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16678,7 +16698,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
   content: 'content',
   path: '/P',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16836,7 +16856,7 @@ $page = $client->beta->memoryStores->memories->list(
   page: 'page',
   pathPrefix: 'path_prefix',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -16968,7 +16988,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->retrieve(
   'memory_id',
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -17117,7 +17137,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
     'type' => 'content_sha256',
     'contentSha256' => '210b9798eb53baa4e69d31c1071cf03d212b8ad0ca30cf321e0ea82e120aac26',
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -17201,7 +17221,7 @@ $betaManagedAgentsDeletedMemory = $client->beta->memoryStores->memories->delete(
   'memory_id',
   memoryStoreID: 'memory_store_id',
   expectedContentSha256: 'expected_content_sha256',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -17379,7 +17399,7 @@ $page = $client->beta->memoryStores->memoryVersions->list(
   serviceAccountID: 'service_account_id',
   sessionID: 'session_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -17536,7 +17556,7 @@ $betaManagedAgentsMemoryVersion = $client
   'memory_version_id',
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -17680,7 +17700,7 @@ $betaManagedAgentsMemoryVersion = $client
   ->redact(
   'memory_version_id',
   memoryStoreID: 'memory_store_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -17803,7 +17823,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaFileMetadata = $client->beta->files->upload(
   file: FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   expiresInSeconds: 3600,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -17930,7 +17950,7 @@ $page = $client->beta->files->list(
   limit: 1,
   page: 'page',
   scopeID: 'scope_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18003,7 +18023,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $response = $client->beta->files->download(
   'file_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18092,7 +18112,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaFileMetadata = $client->beta->files->retrieveMetadata(
   'file_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18170,7 +18190,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedFile = $client->beta->files->delete(
   'file_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18283,7 +18303,7 @@ $betaSkill = $client->beta->skills->create(
     FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   ],
   displayName: 'display_name',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18410,7 +18430,7 @@ $page = $client->beta->skills->list(
   limit: 1,
   page: 'page',
   source: 'source',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18523,7 +18543,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSkill = $client->beta->skills->retrieve(
   'skill_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18602,7 +18622,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedSkill = $client->beta->skills->delete(
   'skill_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18708,7 +18728,7 @@ $betaSkillVersion = $client->beta->skills->versions->create(
   files: [
     FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18820,7 +18840,7 @@ $page = $client->beta->skills->versions->list(
   'skill_id',
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18896,7 +18916,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $response = $client->beta->skills->versions->download(
   'version',
   skillID: 'skill_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -18988,7 +19008,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSkillVersion = $client->beta->skills->versions->retrieve(
   'version',
   skillID: 'skill_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -19070,7 +19090,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaDeletedSkillVersion = $client->beta->skills->versions->delete(
   'version',
   skillID: 'skill_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -19314,7 +19334,7 @@ $betaUserProfile = $client->beta->userProfiles->create(
   externalUserOnboardedAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
   metadata: [],
   name: 'Example User',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -19454,7 +19474,7 @@ $page = $client->beta->userProfiles->list(
   order: 'asc',
   orderBy: 'created_at',
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -19582,7 +19602,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaUserProfile = $client->beta->userProfiles->retrieve(
   'uprof_011CZkZCu8hGbp5mYRQgUmz9',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -19743,7 +19763,7 @@ $betaUserProfile = $client->beta->userProfiles->update(
   externalUserOnboardedAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
   metadata: ['foo' => 'string'],
   name: 'x',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -19830,7 +19850,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedUserProfile = $client->beta->userProfiles->delete(
   'uprof_011CZkZCu8hGbp5mYRQgUmz9',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -19903,7 +19923,7 @@ $betaUserProfileEnrollmentURL = $client
   ->userProfiles
   ->createEnrollmentURL(
   'uprof_011CZkZCu8hGbp5mYRQgUmz9',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -19981,7 +20001,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaUserProfileActionURL = $client->beta->userProfiles->actionURLs->create(
   'uprof_011CZkZCu8hGbp5mYRQgUmz9',
   action: ['type' => 'enroll_end_user'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -20137,7 +20157,7 @@ $betaDream = $client->beta->dreams->create(
   model: 'string',
   instructions: 'x',
   outputBehavior: ['type' => 'create_new'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -20334,7 +20354,7 @@ $page = $client->beta->dreams->list(
   limit: 0,
   page: 'page',
   statuses: [BetaDreamStatus::PENDING],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -20506,7 +20526,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDream = $client->beta->dreams->retrieve(
   'dream_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -20673,7 +20693,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDream = $client->beta->dreams->cancel(
   'dream_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -20840,7 +20860,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDream = $client->beta->dreams->archive(
   'dream_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -20959,7 +20979,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->create(
   displayName: 'x',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21045,7 +21065,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->retrieve(
   'tunnel_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21141,7 +21161,7 @@ $page = $client->beta->tunnels->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21232,7 +21252,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnel = $client->beta->tunnels->archive(
   'tunnel_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21306,7 +21326,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnelToken = $client->beta->tunnels->revealToken(
   'tunnel_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21382,7 +21402,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaTunnelToken = $client->beta->tunnels->rotateToken(
   'tunnel_id',
   reason: 'reason',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21476,7 +21496,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
   'tunnel_id',
   caCertificatePEM: 'ca_certificate_pem',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21572,7 +21592,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaTunnelCertificate = $client->beta->tunnels->certificates->retrieve(
   'certificate_id',
   tunnelID: 'tunnel_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21678,7 +21698,7 @@ $page = $client->beta->tunnels->certificates->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -21779,7 +21799,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(
   'certificate_id',
   tunnelID: 'tunnel_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -22881,7 +22901,7 @@ $betaFederationIssuer = $client
     'discoveryBase' => 'discovery_base',
   ],
   maxJWTLifetimeSeconds: 1,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaFederationIssuer);
@@ -23029,7 +23049,7 @@ $page = $client->beta->organization->federation->issuers->list(
   includeArchived: true,
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -23170,7 +23190,7 @@ $betaFederationIssuer = $client
   ->federation
   ->issuers
   ->retrieve(
-  'federation_issuer_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'federation_issuer_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaFederationIssuer);
@@ -23348,7 +23368,7 @@ $betaFederationIssuer = $client
   jwksPollingDisabled: true,
   maxJWTLifetimeSeconds: 1,
   name: 'x',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaFederationIssuer);
@@ -23489,7 +23509,7 @@ $betaFederationIssuer = $client
   ->federation
   ->issuers
   ->archive(
-  'federation_issuer_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'federation_issuer_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaFederationIssuer);
@@ -23711,7 +23731,7 @@ $betaFederationRule = $client->beta->organization->federation->rules->create(
   description: 'description',
   tokenLifetimeSeconds: 60,
   workspaceID: 'workspace_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaFederationRule);
@@ -23897,7 +23917,7 @@ $page = $client->beta->organization->federation->rules->list(
   issuerID: 'issuer_id',
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -24065,7 +24085,7 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaFederationRule = $client->beta->organization->federation->rules->retrieve(
-  'federation_rule_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'federation_rule_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaFederationRule);
@@ -24299,7 +24319,7 @@ $betaFederationRule = $client->beta->organization->federation->rules->update(
   ],
   tokenLifetimeSeconds: 60,
   workspaceID: 'workspace_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaFederationRule);
@@ -24470,7 +24490,7 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaFederationRule = $client->beta->organization->federation->rules->archive(
-  'federation_rule_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'federation_rule_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaFederationRule);
@@ -24600,7 +24620,7 @@ $betaFederationRuleWorkspace = $client
   ->add(
   'federation_rule_id',
   workspaceID: 'workspace_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaFederationRuleWorkspace);
@@ -24697,7 +24717,7 @@ $page = $client->beta->organization->federation->rules->workspaces->list(
   'federation_rule_id',
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -24779,7 +24799,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $workspace = $client->beta->organization->federation->rules->workspaces->remove(
   'workspace_id',
   federationRuleID: 'federation_rule_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($workspace);
@@ -25276,7 +25296,7 @@ $betaServiceAccount = $client->beta->organization->serviceAccounts->create(
   name: 'ci-deploy-bot',
   description: 'description',
   organizationRole: 'admin',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaServiceAccount);
@@ -25398,7 +25418,7 @@ $page = $client->beta->organization->serviceAccounts->list(
   includeArchived: true,
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -25506,7 +25526,7 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaServiceAccount = $client->beta->organization->serviceAccounts->retrieve(
-  'service_account_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'service_account_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaServiceAccount);
@@ -25625,7 +25645,7 @@ $betaServiceAccount = $client->beta->organization->serviceAccounts->update(
   'service_account_id',
   description: 'description',
   organizationRole: 'admin',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaServiceAccount);
@@ -25733,7 +25753,7 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaServiceAccount = $client->beta->organization->serviceAccounts->archive(
-  'service_account_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'service_account_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaServiceAccount);
@@ -25842,7 +25862,7 @@ $betaServiceAccountWorkspaceMember = $client
   'service_account_id',
   workspaceID: 'workspace_id',
   workspaceRole: NoBillingWorkspaceRole::WORKSPACE_ADMIN,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaServiceAccountWorkspaceMember);
@@ -25947,7 +25967,7 @@ $page = $client->beta->organization->serviceAccounts->workspaces->list(
   'service_account_id',
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -26032,7 +26052,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $workspace = $client->beta->organization->serviceAccounts->workspaces->remove(
   'workspace_id',
   serviceAccountID: 'service_account_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($workspace);
@@ -26432,7 +26452,7 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaOrganizationUser = $client->beta->organization->users->signOut(
-  'user_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'user_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaOrganizationUser);
@@ -26761,7 +26781,7 @@ $betaWorkspace = $client->beta->organization->workspaces->create(
   externalKeyID: 'ekey_01SDCCSbTxrXDpWc1phhtcfK',
   tags: ['env' => 'prod', 'team' => 'platform'],
   userProfileID: 'uprof_01SDCCSbTxrXDpWc1phhtcfK',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaWorkspace);
@@ -27913,7 +27933,7 @@ $page = $client->beta->organization->workspaces->serviceAccounts->list(
   'workspace_id',
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -28022,7 +28042,7 @@ $betaServiceAccountWorkspaceMember = $client
   'workspace_id',
   serviceAccountID: 'service_account_id',
   workspaceRole: NoBillingWorkspaceRole::WORKSPACE_ADMIN,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaServiceAccountWorkspaceMember);
@@ -28118,7 +28138,7 @@ $betaServiceAccountWorkspaceMember = $client
   ->retrieve(
   'service_account_id',
   workspaceID: 'workspace_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaServiceAccountWorkspaceMember);
@@ -28220,7 +28240,7 @@ $betaServiceAccountWorkspaceMember = $client
   'service_account_id',
   workspaceID: 'workspace_id',
   workspaceRole: NoBillingWorkspaceRole::WORKSPACE_ADMIN,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaServiceAccountWorkspaceMember);
@@ -28303,7 +28323,7 @@ $serviceAccount = $client
   ->remove(
   'service_account_id',
   workspaceID: 'workspace_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($serviceAccount);
@@ -28701,6 +28721,18 @@ Enterprise plan. Requires an API key with the `read:analytics` scope.
 
     Number of users with Claude Design activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
 
+  - `?int claudeTagDailyActiveUserCount`
+
+    Number of Slack users active in Claude Tag on the requested day. Counts distinct Slack users, including users who have not linked a Claude account, so it can exceed `daily_active_user_count` and `assigned_seat_count`. Null on a day with no measured value, when Claude Tag data cannot be read for the request, and when the response is scoped to an RBAC group, because an unlinked user belongs to no group. Omitted from the response on deployments that do not offer Claude Tag reporting.
+
+  - `?int claudeTagMonthlyActiveUserCount`
+
+    Number of Slack users active in Claude Tag in the 28-day rolling window. Counts distinct Slack users, including users who have not linked a Claude account, so it can exceed `daily_active_user_count` and `assigned_seat_count`. Null on a day with no measured value, when Claude Tag data cannot be read for the request, and when the response is scoped to an RBAC group, because an unlinked user belongs to no group. Omitted from the response on deployments that do not offer Claude Tag reporting.
+
+  - `?int claudeTagWeeklyActiveUserCount`
+
+    Number of Slack users active in Claude Tag in the 7-day rolling window. Counts distinct Slack users, including users who have not linked a Claude account, so it can exceed `daily_active_user_count` and `assigned_seat_count`. Null on a day with no measured value, when Claude Tag data cannot be read for the request, and when the response is scoped to an RBAC group, because an unlinked user belongs to no group. Omitted from the response on deployments that do not offer Claude Tag reporting.
+
   - `?int officeAgentDailyActiveUserCount`
 
     Number of users with Claude in Office activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
@@ -28782,6 +28814,9 @@ var_dump($page);
       "claude_design_daily_active_user_count": 0,
       "claude_design_monthly_active_user_count": 0,
       "claude_design_weekly_active_user_count": 0,
+      "claude_tag_daily_active_user_count": 0,
+      "claude_tag_monthly_active_user_count": 0,
+      "claude_tag_weekly_active_user_count": 0,
       "office_agent_daily_active_user_count": 0,
       "office_agent_monthly_active_user_count": 0,
       "office_agent_weekly_active_user_count": 0,
@@ -28892,6 +28927,10 @@ the `read:analytics` scope.
   - `?AnalyticsChatCoworkUnifiedMetrics chatCoworkUnifiedMetrics`
 
     Activity recorded while the member had Chat and Cowork unified (Cowork's features inside claude.ai chat) turned on, split into `chat` (chat activity) and `sessions` (Cowork activity). Omitted from the response where Chat and Cowork unified is not available.
+
+  - `?AnalyticsClaudeTagMetrics claudeTagMetrics`
+
+    Claude Tag activity in Slack by a user who has linked a Claude account. Activity by Slack users who have not linked an account appears only in the `/summaries` Claude Tag counts, so these rows do not add up to those counts. Omitted from the response on deployments that do not offer Claude Tag reporting.
 
   - `?\Datetime lastActivityDate`
 
@@ -29090,6 +29129,10 @@ var_dump($page);
           "skills_used_count": 0,
           "write_tool_count": 0
         }
+      },
+      "claude_tag_metrics": {
+        "active_day_count": 0,
+        "active_message_count": 0
       },
       "last_activity_date": "2019-12-27",
       "rbac_group_id": "rbac_group_id",
@@ -30188,7 +30231,7 @@ $page = $client->beta->organization->analytics->usage->list(
   timeBucketWidth: AnalyticsTimeBucketWidth::DAY,
   userProfileIDs: ['uprof_01M33NeYUQK2WV9PpYcsPHLi'],
   workspaceIDs: ['wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -30469,7 +30512,7 @@ $page = $client->beta->organization->analytics->cost->list(
   timeBucketWidth: AnalyticsTimeBucketWidth::DAY,
   userProfileIDs: ['uprof_01M33NeYUQK2WV9PpYcsPHLi'],
   workspaceIDs: ['wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -31485,7 +31528,7 @@ $betaSpendLimit = $client->beta->organization->spendLimits->set(
   amount: '50000',
   scope: ['type' => 'user', 'userID' => 'user_01WxYzAbCdEfGhJkMnPqRsTu'],
   period: SpendLimitPeriod::MONTHLY,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaSpendLimit);
@@ -31753,7 +31796,7 @@ $page = $client->beta->organization->spendLimits->list(
   page: 'page',
   scopeType: ['organization'],
   workspaceID: 'workspace_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -33103,7 +33146,11 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
   - `string displayName`
 
-    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a built-in role, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+
+  - `RBACRoleSource source`
+
+    Whether the RBAC Role is built-in or custom. More values of `type` may be added, so do not treat every role that is not `built_in` as `custom`.
 
   - `\Datetime updatedAt`
 
@@ -33136,6 +33183,9 @@ var_dump($page);
       "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
       "created_at": "2024-10-30T23:58:27.427722Z",
       "display_name": "Project Editor",
+      "source": {
+        "type": "built_in"
+      },
       "type": "rbac_role",
       "updated_at": "2024-10-30T23:58:27.427722Z"
     }
@@ -33181,7 +33231,11 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
   - `string displayName`
 
-    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a built-in role, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+
+  - `RBACRoleSource source`
+
+    Whether the RBAC Role is built-in or custom. More values of `type` may be added, so do not treat every role that is not `built_in` as `custom`.
 
   - `\Datetime updatedAt`
 
@@ -33212,6 +33266,9 @@ var_dump($betaRBACRole);
   "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
   "created_at": "2024-10-30T23:58:27.427722Z",
   "display_name": "Project Editor",
+  "source": {
+    "type": "built_in"
+  },
   "type": "rbac_role",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
@@ -33481,7 +33538,7 @@ $betaPlugin = $client->beta->organization->plugins->create(
   ],
   marketplaceID: 'marketplace_id',
   releaseNotes: 'release_notes',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPlugin);
@@ -33549,7 +33606,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -33654,7 +33711,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaPlugin = $client->beta->organization->plugins->retrieve(
   'plugin_id',
   organizationID: 'organization_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPlugin);
@@ -33849,7 +33906,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaPlugin = $client->beta->organization->plugins->update(
   'plugin_id',
   servedVersionID: 'pluginver_01KaZmQpRsTuVwXyZ2b4c6d8',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPlugin);
@@ -33947,7 +34004,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `ownerType?: optional OwnerType` (query parameter)
 
@@ -34072,7 +34129,7 @@ $page = $client->beta->organization->plugins->list(
   ownerType: 'organization',
   ownerUserID: 'owner_user_id',
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -34185,7 +34242,7 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedPlugin = $client->beta->organization->plugins->delete(
-  'plugin_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'plugin_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaDeletedPlugin);
@@ -34321,7 +34378,7 @@ $betaPluginVersion = $client->beta->organization->plugins->versions->create(
     FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   ],
   releaseNotes: 'release_notes',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPluginVersion);
@@ -34391,7 +34448,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `page?: optional string` (query parameter)
 
@@ -34470,7 +34527,7 @@ $page = $client->beta->organization->plugins->versions->list(
   limit: 1,
   organizationID: 'organization_id',
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -34538,7 +34595,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -34612,7 +34669,7 @@ $betaPluginVersion = $client->beta->organization->plugins->versions->retrieve(
   'version',
   pluginID: 'plugin_id',
   organizationID: 'organization_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPluginVersion);
@@ -34691,7 +34748,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -34717,7 +34774,7 @@ $response = $client->beta->organization->plugins->versions->download(
   'version',
   pluginID: 'plugin_id',
   organizationID: 'organization_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($response);
@@ -34758,7 +34815,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `page?: optional string` (query parameter)
 
@@ -34818,7 +34875,7 @@ $page = $client->beta->organization->plugins->installationSettings->list(
   organizationID: 'organization_id',
   page: 'page',
   targetType: 'organization',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -34935,7 +34992,7 @@ $betaPluginInstallationSetting = $client
   'target',
   pluginID: 'plugin_id',
   installationPreference: 'required',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPluginInstallationSetting);
@@ -35034,7 +35091,7 @@ $betaDeletedPluginInstallationSetting = $client
   ->remove(
   'target',
   pluginID: 'plugin_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaDeletedPluginInstallationSetting);
@@ -35089,7 +35146,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `page?: optional string` (query parameter)
 
@@ -35141,7 +35198,7 @@ $page = $client->beta->organization->plugins->shares->list(
   organizationID: 'organization_id',
   page: 'page',
   targetType: 'organization',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -35197,7 +35254,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `ownerType?: optional OwnerType` (query parameter)
 
@@ -35277,7 +35334,7 @@ $page = $client->beta->organization->pluginMarketplaces->list(
   ownerType: 'organization',
   page: 'page',
   source: 'directory',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -35327,7 +35384,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organizationID?: optional string` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -35396,7 +35453,7 @@ $betaPluginMarketplace = $client
   ->retrieve(
   'marketplace_id',
   organizationID: 'organization_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPluginMarketplace);
@@ -35515,7 +35572,7 @@ $betaPluginMarketplace = $client
   ->update(
   'marketplace_id',
   defaultInstallationPreference: 'available',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPluginMarketplace);
@@ -35640,7 +35697,7 @@ $betaPluginMarketplaceValidationReport = $client
   ->validateRepository(
   repositoryURL: 'https://github.com/example-org/example-marketplace',
   ref: 'main',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPluginMarketplaceValidationReport);
@@ -35774,7 +35831,7 @@ $betaPluginMarketplaceValidationReport = $client
   ->pluginMarketplaces
   ->validateArchive(
   archive: FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaPluginMarketplaceValidationReport);
@@ -35940,7 +35997,7 @@ $betaTelemetryDestination = $client
     'endpointURL' => 'endpoint_url',
     'maxContentBytes' => 0,
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaTelemetryDestination);
@@ -36075,7 +36132,7 @@ $page = $client->beta->organization->telemetryDestinations->list(
   limit: 0,
   page: 'page',
   workspaceIDs: ['string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -36205,9 +36262,7 @@ $betaTelemetryDestination = $client
   ->beta
   ->organization
   ->telemetryDestinations
-  ->retrieve(
-  'destination_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
-);
+  ->retrieve('destination_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]);
 
 var_dump($betaTelemetryDestination);
 ```
@@ -36385,7 +36440,7 @@ $betaTelemetryDestination = $client
     'maxContentBytes' => 0,
   ],
   workspaces: ['type' => 'all'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaTelemetryDestination);
@@ -36472,9 +36527,7 @@ $betaDeletedTelemetryDestination = $client
   ->beta
   ->organization
   ->telemetryDestinations
-  ->delete(
-  'destination_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
-);
+  ->delete('destination_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]);
 
 var_dump($betaDeletedTelemetryDestination);
 ```
@@ -36532,7 +36585,7 @@ $betaTelemetryDestinationTestResponse = $client
   ->beta
   ->organization
   ->telemetryDestinations
-  ->test('destination_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]);
+  ->test('destination_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]);
 
 var_dump($betaTelemetryDestinationTestResponse);
 ```
@@ -36614,7 +36667,7 @@ $page = $client->beta->organization->telemetryDestinations->workspaces->list(
   'destination_id',
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -36702,7 +36755,7 @@ $betaTelemetryDestinationWorkspace = $client
   ->add(
   'workspace_id',
   destinationID: 'destination_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaTelemetryDestinationWorkspace);
@@ -36781,7 +36834,7 @@ $betaDeletedTelemetryDestinationWorkspace = $client
   ->remove(
   'workspace_id',
   destinationID: 'destination_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaDeletedTelemetryDestinationWorkspace);
@@ -36902,7 +36955,7 @@ $betaNewOrganizationWebhookEndpoint = $client
   url: 'x',
   description: 'description',
   name: 'name',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaNewOrganizationWebhookEndpoint);
@@ -37021,7 +37074,7 @@ $page = $client->beta->organization->webhooks->list(
   beforeID: 'before_id',
   limit: 0,
   order: 'asc',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -37129,7 +37182,7 @@ $betaOrganizationWebhookEndpoint = $client
   ->organization
   ->webhooks
   ->retrieve(
-  'webhook_endpoint_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'webhook_endpoint_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaOrganizationWebhookEndpoint);
@@ -37256,7 +37309,7 @@ $betaOrganizationWebhookEndpoint = $client
   name: 'name',
   state: 'disabled',
   url: 'x',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaOrganizationWebhookEndpoint);
@@ -37329,7 +37382,7 @@ $betaDeletedOrganizationWebhookEndpoint = $client
   ->organization
   ->webhooks
   ->delete(
-  'webhook_endpoint_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'webhook_endpoint_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaDeletedOrganizationWebhookEndpoint);
@@ -37390,7 +37443,7 @@ $betaOrganizationWebhookEndpointSigningSecret = $client
   ->organization
   ->webhooks
   ->regenerateSigningSecret(
-  'webhook_endpoint_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  'webhook_endpoint_id', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($betaOrganizationWebhookEndpointSigningSecret);
@@ -37485,7 +37538,7 @@ $betaClaudeTagSlackChannel = $client
     'model' => 'x',
     'replyMode' => ['type' => 'automatic'],
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagSlackChannel);
@@ -37628,7 +37681,7 @@ $page = $client->beta->organization->claudeTag->slackChannels->list(
   limit: 0,
   page: 'page',
   slackChannelID: 'slack_channel_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -37766,7 +37819,7 @@ $betaClaudeTagSlackChannel = $client
   ->retrieve(
   'slch_01SvpyRQK3nN6eH9uhRA7n1q',
   includeInherited: true,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagSlackChannel);
@@ -37906,7 +37959,7 @@ $betaClaudeTagSlackChannel = $client
     'model' => 'x',
     'replyMode' => ['type' => 'automatic'],
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagSlackChannel);
@@ -38014,7 +38067,7 @@ $betaClaudeTagDeletedSlackChannel = $client
   ->slackChannels
   ->delete(
   'slch_01SvpyRQK3nN6eH9uhRA7n1q',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagDeletedSlackChannel);
@@ -38108,7 +38161,7 @@ $page = $client->beta->organization->claudeTag->slackWorkspaces->list(
   limit: 0,
   page: 'page',
   slackWorkspaceID: 'slack_workspace_id',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -38245,7 +38298,7 @@ $betaClaudeTagSlackWorkspace = $client
   ->retrieve(
   'slws_01Hq8TzW5mKc2YbX7vNd4RfJ',
   includeInherited: true,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagSlackWorkspace);
@@ -38384,7 +38437,7 @@ $betaClaudeTagSlackWorkspace = $client
     'model' => 'x',
     'replyMode' => ['type' => 'automatic'],
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagSlackWorkspace);
@@ -38507,7 +38560,7 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->organization->claudeTag->bundles->list(
-  limit: 0, page: 'page', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+  limit: 0, page: 'page', betas: [AnthropicBeta::COMPUTER_USE_2024_10_22]
 );
 
 var_dump($page);
@@ -38594,7 +38647,7 @@ $betaClaudeTagBundle = $client
   ->bundles
   ->retrieve(
   'capp_011CZkZjLP1cWxj5EtMmdgbq',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagBundle);
@@ -38693,7 +38746,7 @@ $page = $client->beta->organization->claudeTag->bundles->targets->list(
   'capp_011CZkZjLP1cWxj5EtMmdgbq',
   limit: 0,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -38792,7 +38845,7 @@ $betaClaudeTagBundleTarget = $client
   ->create(
   'capp_011CZkZjLP1cWxj5EtMmdgbq',
   target: ['slackChannelID' => 'xxxxxxxx', 'type' => 'slack_channel'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagBundleTarget);
@@ -38888,7 +38941,7 @@ $betaClaudeTagBundleTarget = $client
   ->retrieve(
   'btgt_01SvpyRQK3nN6eH9uhRA7n1qHq8TzW5mKc2YbX7vNd4RfJ',
   bundleID: 'capp_011CZkZjLP1cWxj5EtMmdgbq',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagBundleTarget);
@@ -38958,7 +39011,7 @@ $betaClaudeTagDeletedBundleTarget = $client
   ->delete(
   'btgt_01SvpyRQK3nN6eH9uhRA7n1qHq8TzW5mKc2YbX7vNd4RfJ',
   bundleID: 'capp_011CZkZjLP1cWxj5EtMmdgbq',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaClaudeTagDeletedBundleTarget);

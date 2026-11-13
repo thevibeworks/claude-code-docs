@@ -4,7 +4,7 @@
 
 # Analytics API
 
-> The Analytics API returns your organization's token usage and estimated cost by day, hour, member, product, or model. A Primary Owner creates the key.
+> The Analytics API returns your organization's token usage and estimated cost by day, hour, member, product, or model.
 
 > **Who this is for:** Organization owners and the teams who need their organization's usage and estimated cost in their own tools.
 
@@ -14,8 +14,8 @@ The Analytics API is a read-only HTTP API that returns your organization's token
 
 The API is off by default. To start using it:
 
-1. As an Owner or a Primary Owner, go to **Settings > Config** in the [organization admin portal](https://claude.com/docs/government/org-admin/overview.md#who-can-access-it), expand **Analytics API** under **Admin Console**, turn on its switch, and click **Save changes**.
-2. As a [Primary Owner](https://claude.com/docs/government/org-admin/users.md#understanding-roles), [create an admin API key](https://claude.com/docs/government/org-admin/admin-api-keys.md#create-a-key) with **Usage and cost reports** selected.
+1. Go to **Settings > Config** in the [organization admin portal](https://claude.com/docs/government/org-admin/overview.md#who-can-access-it), expand **Analytics API** under **Admin Console**, turn on its switch, and click **Save changes**.
+2. [Create an admin API key](https://claude.com/docs/government/org-admin/admin-api-keys.md#create-a-key) with **Usage and cost reports** selected.
 
 A key reads only its own organization, so to cover several organizations, create a key in each. Keys from the tenant admin portal don't read usage.
 
@@ -198,7 +198,8 @@ An error response is JSON. Its `error` object has a `message`, and can have a `c
 | 400 | `query_too_large` | Use a shorter range. |
 | 401 | `x-api-key header is required` | Send the key in the `x-api-key` header. A key sent as `Authorization: Bearer` isn't read, so set the header yourself if your client or SDK sends only that. |
 | 401 | `invalid or revoked admin API key` | Check the key, or [create a new one](https://claude.com/docs/government/org-admin/admin-api-keys.md#create-a-key). |
-| 403 | `missing_scope` | Use a key from the organization's **Admin API keys** page that was created with **Usage and cost reports**. |
+| 403 | `missing_scope` for `read:analytics` | Use a key from the organization's **Admin API keys** page that was created with **Usage and cost reports**. |
+| 403 or 404 | `missing_scope` for `read:compliance_activities`, or `no such Compliance API endpoint` | The request went to the Compliance API's address, so a new key won't help. Send it to the [Analytics API's address](#send-a-request-to-the-analytics-api). |
 | 403 | `tenant_restriction_violation` | See [Tenant restrictions](https://claude.com/docs/government/tenant-admin/tenant-restrictions.md). |
 | 404 | `no such Analytics API endpoint` | Use a path that ends in `/usage` or `/cost`. |
 | 414 | `Request URL is over 8 KiB or has more than 256 query parameters` | Send fewer values, in several requests. |

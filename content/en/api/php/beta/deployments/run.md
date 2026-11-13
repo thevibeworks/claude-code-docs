@@ -75,7 +75,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 

@@ -122,7 +122,7 @@ $betaUserProfile = $client->beta->userProfiles->create(
   externalUserOnboardedAt: new \DateTimeImmutable('2019-12-27T18:11:19.117Z'),
   metadata: [],
   name: 'Example User',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 

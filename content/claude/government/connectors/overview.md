@@ -19,7 +19,7 @@ A **connector** is a link between Claude and an external service. The service, y
 > * **The Microsoft 365 connector**: see [Set up the Microsoft 365 connector](https://claude.com/docs/government/connectors/microsoft-365.md)
 > * **Plugins**: see [Manage plugins and connectors](https://claude.com/docs/government/config/plugins-and-connectors.md)
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-07-connectors-and-plugins.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=43f78d15928eea46d27229f8dbc04db6" aria-label="Video walkthrough: Connectors and plugins" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gD-HYL0vu0KeXwJ7/images/government/videos/admin-07-connectors-and-plugins-v2.mp4?fit=max&auto=format&n=gD-HYL0vu0KeXwJ7&q=85&s=866ea1837528556e88cc16614105dc19" aria-label="Video walkthrough: Connectors and plugins" />
 
 Video: Connectors and plugins (2 min 8 s). Narrated with an AI-generated voice, with on-screen captions.
 

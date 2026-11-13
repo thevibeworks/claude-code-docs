@@ -124,7 +124,7 @@ $betaEnvironment = $client->beta->environments->create(
   description: 'Python environment with data-analysis packages.',
   metadata: ['foo' => 'string'],
   scope: 'organization',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -276,7 +276,7 @@ $page = $client->beta->environments->list(
   includeArchived: true,
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -417,7 +417,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironment = $client->beta->environments->retrieve(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -595,7 +595,7 @@ $betaEnvironment = $client->beta->environments->update(
   metadata: ['foo' => 'string'],
   name: 'x',
   scope: 'organization',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -699,7 +699,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironmentDeleteResponse = $client->beta->environments->delete(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -795,7 +795,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironment = $client->beta->environments->archive(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1204,7 +1204,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWork = $client->beta->environments->work->retrieve(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1338,7 +1338,7 @@ $betaSelfHostedWork = $client->beta->environments->work->poll(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   blockMs: 1,
   reclaimOlderThanMs: 1,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   anthropicWorkerID: 'Anthropic-Worker-ID',
 );
 
@@ -1461,7 +1461,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWork = $client->beta->environments->work->ack(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaSelfHostedWork);
@@ -1565,7 +1565,7 @@ $betaSelfHostedWorkHeartbeatResponse = $client
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   desiredTTLSeconds: 0,
   expectedLastHeartbeat: 'expected_last_heartbeat',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($betaSelfHostedWorkHeartbeatResponse);
@@ -1687,7 +1687,7 @@ $betaSelfHostedWork = $client->beta->environments->work->stop(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   force: true,
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -1819,7 +1819,7 @@ $page = $client->beta->environments->work->list(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   limit: 1,
   page: 'page',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
 var_dump($page);
@@ -1957,7 +1957,7 @@ $betaSelfHostedWork = $client->beta->environments->work->update(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   metadata: ['foo' => 'string'],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 
@@ -2049,7 +2049,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSelfHostedWorkQueueStats = $client->beta->environments->work->stats(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 

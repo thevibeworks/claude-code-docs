@@ -44,9 +44,9 @@ To remove access, clear the box in the **Grants** section in the custom role and
 
 ## Where the model appears
 
-Users get access to the model through the grant. Once the role has the grant, users whose role type is "Custom" and who are in one of the role’s groups can use the model. A model that comes with a grant isn’t listed on the **Models** page or in a role’s **Add model** list, and you don’t add it there.
+Users get access to the model through the grant. Once the role has the grant, users whose role type is "Custom" and who are in one of the role’s groups can use the model. In chat, open the model menu and look under "More models." In Claude Code 2.1.251 or later, start it with `claude --model claude-mythos-5-1`, because `/model` may not list it.
 
-Owners, Primary Owners, and Admins who keep their built-in role don’t get the model, even if they’re in one of the role’s groups.
+A model that comes with a grant isn’t listed on the **Models** page or in a role’s **Add model** list, and you don’t add it there. Owners, Primary Owners, and Admins who keep their built-in role don’t get the model, even if they’re in one of the role’s groups.
 
 ## Troubleshooting
 

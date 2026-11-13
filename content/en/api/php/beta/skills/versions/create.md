@@ -91,7 +91,7 @@ $betaSkillVersion = $client->beta->skills->versions->create(
   files: [
     FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   ],
-  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
   workspaceID: 'wrkspc_011CZkZaBF1tNoB5wlCeusgy',
 );
 

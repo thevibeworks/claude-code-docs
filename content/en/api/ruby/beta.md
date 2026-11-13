@@ -9,7 +9,7 @@ url: https://platform.claude.com/docs/en/api/ruby/beta
 
 ### Anthropic Beta
 
-- `type AnthropicBeta = String | :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 53 more`
+- `type AnthropicBeta = String | :"computer-use-2024-10-22" | :"computer-use-2025-01-24" | :"output-128k-2025-02-19" | 53 more`
 
   Beta names you can send in the `anthropic-beta` header.
 
@@ -17,23 +17,11 @@ url: https://platform.claude.com/docs/en/api/ruby/beta
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -45,15 +33,11 @@ url: https://platform.claude.com/docs/en/api/ruby/beta
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -68,8 +52,6 @@ url: https://platform.claude.com/docs/en/api/ruby/beta
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -99,8 +81,6 @@ url: https://platform.claude.com/docs/en/api/ruby/beta
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -128,6 +108,46 @@ url: https://platform.claude.com/docs/en/api/ruby/beta
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 ### Beta API Error
 
@@ -515,23 +535,11 @@ The Models API response can be used to determine which models are available for 
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -543,15 +551,11 @@ The Models API response can be used to determine which models are available for 
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -566,8 +570,6 @@ The Models API response can be used to determine which models are available for 
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -597,8 +599,6 @@ The Models API response can be used to determine which models are available for 
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -626,6 +626,46 @@ The Models API response can be used to determine which models are available for 
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -988,23 +1028,11 @@ The Models API response can be used to determine information about a specific mo
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -1016,15 +1044,11 @@ The Models API response can be used to determine information about a specific mo
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -1039,8 +1063,6 @@ The Models API response can be used to determine information about a specific mo
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -1070,8 +1092,6 @@ The Models API response can be used to determine information about a specific mo
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -1099,6 +1119,46 @@ The Models API response can be used to determine information about a specific mo
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -5610,23 +5670,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -5638,15 +5686,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -5661,8 +5705,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -5692,8 +5734,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -5721,6 +5761,46 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `user_profile_id: optional String` (header parameter)
 
@@ -13812,23 +13892,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -13840,15 +13908,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -13863,8 +13927,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -13894,8 +13956,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -13923,6 +13983,46 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `user_profile_id: optional String` (header parameter)
 
@@ -18154,23 +18254,11 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -18182,15 +18270,11 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -18205,8 +18289,6 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -18236,8 +18318,6 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -18265,6 +18345,46 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `user_profile_id: optional String` (header parameter)
 
@@ -22512,23 +22632,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -22540,15 +22648,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -22563,8 +22667,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -22594,8 +22696,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -22623,6 +22723,46 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `user_profile_id: optional String` (header parameter)
 
@@ -22796,23 +22936,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -22824,15 +22952,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -22847,8 +22971,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -22878,8 +23000,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -22907,6 +23027,46 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -23081,23 +23241,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -23109,15 +23257,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -23132,8 +23276,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -23163,8 +23305,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -23192,6 +23332,46 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -23363,23 +23543,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -23391,15 +23559,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -23414,8 +23578,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -23445,8 +23607,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -23474,6 +23634,46 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -23638,23 +23838,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -23666,15 +23854,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -23689,8 +23873,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -23720,8 +23902,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -23749,6 +23929,46 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -23815,23 +24035,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -23843,15 +24051,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -23866,8 +24070,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -23897,8 +24099,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -23926,6 +24126,46 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -28283,7 +28523,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `type: :auto`
 
@@ -28315,7 +28555,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsReadToolConfigParams`
 
@@ -28345,7 +28585,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsWriteToolConfigParams`
 
@@ -28375,7 +28615,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsGlobToolConfigParams`
 
@@ -28405,7 +28645,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsGrepToolConfigParams`
 
@@ -28435,7 +28675,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsWebFetchToolConfigParams`
 
@@ -28479,7 +28719,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
@@ -28613,7 +28853,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
@@ -28669,7 +28909,7 @@ Create Agent
 
         - `class BetaManagedAgentsAutoPolicy`
 
-          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
   - `class BetaManagedAgentsMCPToolsetParams`
 
@@ -28711,7 +28951,7 @@ Create Agent
 
         - `class BetaManagedAgentsAutoPolicy`
 
-          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams | nil`
 
@@ -28735,7 +28975,7 @@ Create Agent
 
         - `class BetaManagedAgentsAutoPolicy`
 
-          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
   - `class BetaManagedAgentsCustomToolParams`
 
@@ -28771,23 +29011,11 @@ Create Agent
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -28799,15 +29027,11 @@ Create Agent
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -28822,8 +29046,6 @@ Create Agent
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -28853,8 +29075,6 @@ Create Agent
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -28882,6 +29102,46 @@ Create Agent
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -29273,7 +29533,7 @@ Create Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `type: :auto`
 
@@ -29301,7 +29561,7 @@ Create Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsReadToolConfig`
 
@@ -29327,7 +29587,7 @@ Create Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
@@ -29353,7 +29613,7 @@ Create Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
@@ -29379,7 +29639,7 @@ Create Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
@@ -29405,7 +29665,7 @@ Create Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -29431,7 +29691,7 @@ Create Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -29541,7 +29801,7 @@ Create Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `allowed_domains: optional Array[String]`
 
@@ -29599,7 +29859,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `class BetaManagedAgentsMCPToolset`
 
@@ -29625,7 +29885,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -29647,7 +29907,7 @@ Create Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `mcp_server_name: String`
 
@@ -29842,23 +30102,11 @@ List Agents
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -29870,15 +30118,11 @@ List Agents
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -29893,8 +30137,6 @@ List Agents
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -29924,8 +30166,6 @@ List Agents
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -29953,6 +30193,46 @@ List Agents
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -30344,7 +30624,7 @@ List Agents
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `type: :auto`
 
@@ -30372,7 +30652,7 @@ List Agents
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsReadToolConfig`
 
@@ -30398,7 +30678,7 @@ List Agents
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
@@ -30424,7 +30704,7 @@ List Agents
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
@@ -30450,7 +30730,7 @@ List Agents
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
@@ -30476,7 +30756,7 @@ List Agents
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -30502,7 +30782,7 @@ List Agents
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -30612,7 +30892,7 @@ List Agents
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `allowed_domains: optional Array[String]`
 
@@ -30670,7 +30950,7 @@ List Agents
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `class BetaManagedAgentsMCPToolset`
 
@@ -30696,7 +30976,7 @@ List Agents
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -30718,7 +30998,7 @@ List Agents
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `mcp_server_name: String`
 
@@ -30899,23 +31179,11 @@ Get Agent
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -30927,15 +31195,11 @@ Get Agent
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -30950,8 +31214,6 @@ Get Agent
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -30981,8 +31243,6 @@ Get Agent
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -31010,6 +31270,46 @@ Get Agent
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -31401,7 +31701,7 @@ Get Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `type: :auto`
 
@@ -31429,7 +31729,7 @@ Get Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsReadToolConfig`
 
@@ -31455,7 +31755,7 @@ Get Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
@@ -31481,7 +31781,7 @@ Get Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
@@ -31507,7 +31807,7 @@ Get Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
@@ -31533,7 +31833,7 @@ Get Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -31559,7 +31859,7 @@ Get Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -31669,7 +31969,7 @@ Get Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `allowed_domains: optional Array[String]`
 
@@ -31727,7 +32027,7 @@ Get Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `class BetaManagedAgentsMCPToolset`
 
@@ -31753,7 +32053,7 @@ Get Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -31775,7 +32075,7 @@ Get Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `mcp_server_name: String`
 
@@ -32411,7 +32711,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `type: :auto`
 
@@ -32443,7 +32743,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsReadToolConfigParams`
 
@@ -32473,7 +32773,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsWriteToolConfigParams`
 
@@ -32503,7 +32803,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsGlobToolConfigParams`
 
@@ -32533,7 +32833,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsGrepToolConfigParams`
 
@@ -32563,7 +32863,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsWebFetchToolConfigParams`
 
@@ -32607,7 +32907,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
@@ -32741,7 +33041,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
@@ -32797,7 +33097,7 @@ Update Agent
 
         - `class BetaManagedAgentsAutoPolicy`
 
-          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
   - `class BetaManagedAgentsMCPToolsetParams`
 
@@ -32839,7 +33139,7 @@ Update Agent
 
         - `class BetaManagedAgentsAutoPolicy`
 
-          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams | nil`
 
@@ -32863,7 +33163,7 @@ Update Agent
 
         - `class BetaManagedAgentsAutoPolicy`
 
-          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
   - `class BetaManagedAgentsCustomToolParams`
 
@@ -32905,23 +33205,11 @@ Update Agent
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -32933,15 +33221,11 @@ Update Agent
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -32956,8 +33240,6 @@ Update Agent
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -32987,8 +33269,6 @@ Update Agent
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -33016,6 +33296,46 @@ Update Agent
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -33407,7 +33727,7 @@ Update Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `type: :auto`
 
@@ -33435,7 +33755,7 @@ Update Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsReadToolConfig`
 
@@ -33461,7 +33781,7 @@ Update Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
@@ -33487,7 +33807,7 @@ Update Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
@@ -33513,7 +33833,7 @@ Update Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
@@ -33539,7 +33859,7 @@ Update Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -33565,7 +33885,7 @@ Update Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -33675,7 +33995,7 @@ Update Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `allowed_domains: optional Array[String]`
 
@@ -33733,7 +34053,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `class BetaManagedAgentsMCPToolset`
 
@@ -33759,7 +34079,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -33781,7 +34101,7 @@ Update Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `mcp_server_name: String`
 
@@ -33951,23 +34271,11 @@ Archive Agent
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -33979,15 +34287,11 @@ Archive Agent
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -34002,8 +34306,6 @@ Archive Agent
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -34033,8 +34335,6 @@ Archive Agent
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -34062,6 +34362,46 @@ Archive Agent
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -34453,7 +34793,7 @@ Archive Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `type: :auto`
 
@@ -34481,7 +34821,7 @@ Archive Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsReadToolConfig`
 
@@ -34507,7 +34847,7 @@ Archive Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
@@ -34533,7 +34873,7 @@ Archive Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
@@ -34559,7 +34899,7 @@ Archive Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
@@ -34585,7 +34925,7 @@ Archive Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -34611,7 +34951,7 @@ Archive Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -34721,7 +35061,7 @@ Archive Agent
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `allowed_domains: optional Array[String]`
 
@@ -34779,7 +35119,7 @@ Archive Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `class BetaManagedAgentsMCPToolset`
 
@@ -34805,7 +35145,7 @@ Archive Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -34827,7 +35167,7 @@ Archive Agent
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `mcp_server_name: String`
 
@@ -35009,23 +35349,11 @@ List Agent Versions
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -35037,15 +35365,11 @@ List Agent Versions
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -35060,8 +35384,6 @@ List Agent Versions
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -35091,8 +35413,6 @@ List Agent Versions
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -35120,6 +35440,46 @@ List Agent Versions
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -35511,7 +35871,7 @@ List Agent Versions
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `type: :auto`
 
@@ -35539,7 +35899,7 @@ List Agent Versions
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsReadToolConfig`
 
@@ -35565,7 +35925,7 @@ List Agent Versions
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWriteToolConfig`
 
@@ -35591,7 +35951,7 @@ List Agent Versions
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGlobToolConfig`
 
@@ -35617,7 +35977,7 @@ List Agent Versions
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGrepToolConfig`
 
@@ -35643,7 +36003,7 @@ List Agent Versions
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -35669,7 +36029,7 @@ List Agent Versions
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -35779,7 +36139,7 @@ List Agent Versions
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `allowed_domains: optional Array[String]`
 
@@ -35837,7 +36197,7 @@ List Agent Versions
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `class BetaManagedAgentsMCPToolset`
 
@@ -35863,7 +36223,7 @@ List Agent Versions
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -35885,7 +36245,7 @@ List Agent Versions
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `mcp_server_name: String`
 
@@ -36172,23 +36532,11 @@ Create a new environment with the specified configuration.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -36200,15 +36548,11 @@ Create a new environment with the specified configuration.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -36223,8 +36567,6 @@ Create a new environment with the specified configuration.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -36254,8 +36596,6 @@ Create a new environment with the specified configuration.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -36283,6 +36623,46 @@ Create a new environment with the specified configuration.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -36511,23 +36891,11 @@ List environments with pagination support.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -36539,15 +36907,11 @@ List environments with pagination support.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -36562,8 +36926,6 @@ List environments with pagination support.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -36593,8 +36955,6 @@ List environments with pagination support.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -36622,6 +36982,46 @@ List environments with pagination support.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -36843,23 +37243,11 @@ Retrieve a specific environment by ID.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -36871,15 +37259,11 @@ Retrieve a specific environment by ID.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -36894,8 +37278,6 @@ Retrieve a specific environment by ID.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -36925,8 +37307,6 @@ Retrieve a specific environment by ID.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -36954,6 +37334,46 @@ Retrieve a specific environment by ID.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -37284,23 +37704,11 @@ Update an existing environment's configuration.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -37312,15 +37720,11 @@ Update an existing environment's configuration.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -37335,8 +37739,6 @@ Update an existing environment's configuration.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -37366,8 +37768,6 @@ Update an existing environment's configuration.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -37395,6 +37795,46 @@ Update an existing environment's configuration.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -37611,23 +38051,11 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -37639,15 +38067,11 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -37662,8 +38086,6 @@ Delete an environment by ID. Returns a confirmation of the deletion.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -37693,8 +38115,6 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -37722,6 +38142,46 @@ Delete an environment by ID. Returns a confirmation of the deletion.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -37782,23 +38242,11 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -37810,15 +38258,11 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -37833,8 +38277,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -37864,8 +38306,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -37893,6 +38333,46 @@ Archive an environment by ID. Archived environments cannot be used to create new
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -38115,23 +38595,11 @@ Retrieve detailed information about a specific work item.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -38143,15 +38611,11 @@ Retrieve detailed information about a specific work item.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -38166,8 +38630,6 @@ Retrieve detailed information about a specific work item.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -38197,8 +38659,6 @@ Retrieve detailed information about a specific work item.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -38226,6 +38686,46 @@ Retrieve detailed information about a specific work item.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -38382,23 +38882,11 @@ Long poll for work items in the queue.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -38410,15 +38898,11 @@ Long poll for work items in the queue.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -38433,8 +38917,6 @@ Long poll for work items in the queue.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -38464,8 +38946,6 @@ Long poll for work items in the queue.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -38493,6 +38973,46 @@ Long poll for work items in the queue.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `anthropic_worker_id: optional String` (header parameter)
 
@@ -38637,23 +39157,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -38665,15 +39173,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -38688,8 +39192,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -38719,8 +39221,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -38748,6 +39248,46 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -38896,23 +39436,11 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -38924,15 +39452,11 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -38947,8 +39471,6 @@ Record a heartbeat for a work item to maintain the lease.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -38978,8 +39500,6 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -39007,6 +39527,46 @@ Record a heartbeat for a work item to maintain the lease.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -39094,23 +39654,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -39122,15 +39670,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -39145,8 +39689,6 @@ Stop a work item, initiating graceful or forced shutdown.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -39176,8 +39718,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -39205,6 +39745,46 @@ Stop a work item, initiating graceful or forced shutdown.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -39359,23 +39939,11 @@ List work items in an environment.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -39387,15 +39955,11 @@ List work items in an environment.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -39410,8 +39974,6 @@ List work items in an environment.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -39441,8 +40003,6 @@ List work items in an environment.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -39470,6 +40030,46 @@ List work items in an environment.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -39619,23 +40219,11 @@ Update work item metadata with merge semantics.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -39647,15 +40235,11 @@ Update work item metadata with merge semantics.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -39670,8 +40254,6 @@ Update work item metadata with merge semantics.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -39701,8 +40283,6 @@ Update work item metadata with merge semantics.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -39730,6 +40310,46 @@ Update work item metadata with merge semantics.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -39876,23 +40496,11 @@ Get statistics about the work queue for an environment.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -39904,15 +40512,11 @@ Get statistics about the work queue for an environment.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -39927,8 +40531,6 @@ Get statistics about the work queue for an environment.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -39958,8 +40560,6 @@ Get statistics about the work queue for an environment.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -39987,6 +40587,46 @@ Get statistics about the work queue for an environment.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -40366,7 +41006,7 @@ Create Session
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `type: :auto`
 
@@ -40398,7 +41038,7 @@ Create Session
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `class BetaManagedAgentsReadToolConfigParams`
 
@@ -40428,7 +41068,7 @@ Create Session
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `class BetaManagedAgentsWriteToolConfigParams`
 
@@ -40458,7 +41098,7 @@ Create Session
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `class BetaManagedAgentsGlobToolConfigParams`
 
@@ -40488,7 +41128,7 @@ Create Session
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `class BetaManagedAgentsGrepToolConfigParams`
 
@@ -40518,7 +41158,7 @@ Create Session
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `class BetaManagedAgentsWebFetchToolConfigParams`
 
@@ -40562,7 +41202,7 @@ Create Session
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
@@ -40696,7 +41336,7 @@ Create Session
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
@@ -40752,7 +41392,7 @@ Create Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsMCPToolsetParams`
 
@@ -40794,7 +41434,7 @@ Create Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams | nil`
 
@@ -40818,7 +41458,7 @@ Create Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `class BetaManagedAgentsCustomToolParams`
 
@@ -41198,23 +41838,11 @@ Create Session
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -41226,15 +41854,11 @@ Create Session
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -41249,8 +41873,6 @@ Create Session
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -41280,8 +41902,6 @@ Create Session
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -41309,6 +41929,46 @@ Create Session
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -41596,7 +42256,7 @@ Create Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                         - `type: :auto`
 
@@ -41624,7 +42284,7 @@ Create Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsReadToolConfig`
 
@@ -41650,7 +42310,7 @@ Create Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWriteToolConfig`
 
@@ -41676,7 +42336,7 @@ Create Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGlobToolConfig`
 
@@ -41702,7 +42362,7 @@ Create Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGrepToolConfig`
 
@@ -41728,7 +42388,7 @@ Create Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -41754,7 +42414,7 @@ Create Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -41864,7 +42524,7 @@ Create Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `allowed_domains: optional Array[String]`
 
@@ -41922,7 +42582,7 @@ Create Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `class BetaManagedAgentsMCPToolset`
 
@@ -41948,7 +42608,7 @@ Create Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -41970,7 +42630,7 @@ Create Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `mcp_server_name: String`
 
@@ -42783,23 +43443,11 @@ List Sessions
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -42811,15 +43459,11 @@ List Sessions
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -42834,8 +43478,6 @@ List Sessions
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -42865,8 +43507,6 @@ List Sessions
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -42894,6 +43534,46 @@ List Sessions
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -43181,7 +43861,7 @@ List Sessions
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                         - `type: :auto`
 
@@ -43209,7 +43889,7 @@ List Sessions
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsReadToolConfig`
 
@@ -43235,7 +43915,7 @@ List Sessions
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWriteToolConfig`
 
@@ -43261,7 +43941,7 @@ List Sessions
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGlobToolConfig`
 
@@ -43287,7 +43967,7 @@ List Sessions
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGrepToolConfig`
 
@@ -43313,7 +43993,7 @@ List Sessions
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -43339,7 +44019,7 @@ List Sessions
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -43449,7 +44129,7 @@ List Sessions
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `allowed_domains: optional Array[String]`
 
@@ -43507,7 +44187,7 @@ List Sessions
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `class BetaManagedAgentsMCPToolset`
 
@@ -43533,7 +44213,7 @@ List Sessions
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -43555,7 +44235,7 @@ List Sessions
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `mcp_server_name: String`
 
@@ -44289,23 +44969,11 @@ Get Session
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -44317,15 +44985,11 @@ Get Session
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -44340,8 +45004,6 @@ Get Session
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -44371,8 +45033,6 @@ Get Session
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -44400,6 +45060,46 @@ Get Session
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -44687,7 +45387,7 @@ Get Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                         - `type: :auto`
 
@@ -44715,7 +45415,7 @@ Get Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsReadToolConfig`
 
@@ -44741,7 +45441,7 @@ Get Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWriteToolConfig`
 
@@ -44767,7 +45467,7 @@ Get Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGlobToolConfig`
 
@@ -44793,7 +45493,7 @@ Get Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGrepToolConfig`
 
@@ -44819,7 +45519,7 @@ Get Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -44845,7 +45545,7 @@ Get Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -44955,7 +45655,7 @@ Get Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `allowed_domains: optional Array[String]`
 
@@ -45013,7 +45713,7 @@ Get Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `class BetaManagedAgentsMCPToolset`
 
@@ -45039,7 +45739,7 @@ Get Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -45061,7 +45761,7 @@ Get Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `mcp_server_name: String`
 
@@ -45851,7 +46551,7 @@ Update Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `type: :auto`
 
@@ -45883,7 +46583,7 @@ Update Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsReadToolConfigParams`
 
@@ -45913,7 +46613,7 @@ Update Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWriteToolConfigParams`
 
@@ -45943,7 +46643,7 @@ Update Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGlobToolConfigParams`
 
@@ -45973,7 +46673,7 @@ Update Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsGrepToolConfigParams`
 
@@ -46003,7 +46703,7 @@ Update Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsWebFetchToolConfigParams`
 
@@ -46047,7 +46747,7 @@ Update Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `url_sources: optional BetaManagedAgentsWebFetchURLSourcesParams | nil`
 
@@ -46181,7 +46881,7 @@ Update Session
 
             - `class BetaManagedAgentsAutoPolicy`
 
-              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+              The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `user_location: optional BetaManagedAgentsUserLocation | nil`
 
@@ -46237,7 +46937,7 @@ Update Session
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `class BetaManagedAgentsMCPToolsetParams`
 
@@ -46279,7 +46979,7 @@ Update Session
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
       - `default_config: optional BetaManagedAgentsMCPToolsetDefaultConfigParams | nil`
 
@@ -46303,7 +47003,7 @@ Update Session
 
           - `class BetaManagedAgentsAutoPolicy`
 
-            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+            The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
     - `class BetaManagedAgentsCustomToolParams`
 
@@ -46373,23 +47073,11 @@ Update Session
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -46401,15 +47089,11 @@ Update Session
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -46424,8 +47108,6 @@ Update Session
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -46455,8 +47137,6 @@ Update Session
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -46484,6 +47164,46 @@ Update Session
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -46771,7 +47491,7 @@ Update Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                         - `type: :auto`
 
@@ -46799,7 +47519,7 @@ Update Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsReadToolConfig`
 
@@ -46825,7 +47545,7 @@ Update Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWriteToolConfig`
 
@@ -46851,7 +47571,7 @@ Update Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGlobToolConfig`
 
@@ -46877,7 +47597,7 @@ Update Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGrepToolConfig`
 
@@ -46903,7 +47623,7 @@ Update Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -46929,7 +47649,7 @@ Update Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -47039,7 +47759,7 @@ Update Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `allowed_domains: optional Array[String]`
 
@@ -47097,7 +47817,7 @@ Update Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `class BetaManagedAgentsMCPToolset`
 
@@ -47123,7 +47843,7 @@ Update Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -47145,7 +47865,7 @@ Update Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `mcp_server_name: String`
 
@@ -47873,23 +48593,11 @@ Delete Session
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -47901,15 +48609,11 @@ Delete Session
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -47924,8 +48628,6 @@ Delete Session
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -47955,8 +48657,6 @@ Delete Session
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -47984,6 +48684,46 @@ Delete Session
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -48040,23 +48780,11 @@ Archive Session
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -48068,15 +48796,11 @@ Archive Session
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -48091,8 +48815,6 @@ Archive Session
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -48122,8 +48844,6 @@ Archive Session
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -48151,6 +48871,46 @@ Archive Session
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -48438,7 +49198,7 @@ Archive Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                         - `type: :auto`
 
@@ -48466,7 +49226,7 @@ Archive Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsReadToolConfig`
 
@@ -48492,7 +49252,7 @@ Archive Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWriteToolConfig`
 
@@ -48518,7 +49278,7 @@ Archive Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGlobToolConfig`
 
@@ -48544,7 +49304,7 @@ Archive Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsGrepToolConfig`
 
@@ -48570,7 +49330,7 @@ Archive Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -48596,7 +49356,7 @@ Archive Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -48706,7 +49466,7 @@ Archive Session
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `allowed_domains: optional Array[String]`
 
@@ -48764,7 +49524,7 @@ Archive Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `class BetaManagedAgentsMCPToolset`
 
@@ -48790,7 +49550,7 @@ Archive Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -48812,7 +49572,7 @@ Archive Session
 
                     - `class BetaManagedAgentsAutoPolicy`
 
-                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                      The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `mcp_server_name: String`
 
@@ -49668,23 +50428,11 @@ List Events
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -49696,15 +50444,11 @@ List Events
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -49719,8 +50463,6 @@ List Events
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -49750,8 +50492,6 @@ List Events
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -49779,6 +50519,46 @@ List Events
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -50254,13 +51034,13 @@ List Events
 
           - `class BetaManagedAgentsAgentAutoEvaluatedPermissionDeny`
 
-            The server judged the invocation high-risk; it does not execute and a synthetic error tool result is appended.
+            The server judged the invocation high-risk, or reached no judgement and did not hold it for client approval (for example, because the organization is out of credits or has reached a spend limit); it does not execute and a synthetic error tool result is appended.
 
             - `type: :deny`
 
             - `reason_code: String`
 
-              The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run). Clients must tolerate values outside this set.
+              The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run) and "indeterminate" (no judgement was reached; the call does not run). Clients must tolerate values outside this set.
 
               maxLength: 64
 
@@ -51794,7 +52574,7 @@ List Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                           - `type: :auto`
 
@@ -51822,7 +52602,7 @@ List Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsReadToolConfig`
 
@@ -51848,7 +52628,7 @@ List Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsWriteToolConfig`
 
@@ -51874,7 +52654,7 @@ List Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsGlobToolConfig`
 
@@ -51900,7 +52680,7 @@ List Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsGrepToolConfig`
 
@@ -51926,7 +52706,7 @@ List Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -51952,7 +52732,7 @@ List Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                       - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -52062,7 +52842,7 @@ List Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                       - `allowed_domains: optional Array[String]`
 
@@ -52120,7 +52900,7 @@ List Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `class BetaManagedAgentsMCPToolset`
 
@@ -52146,7 +52926,7 @@ List Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -52168,7 +52948,7 @@ List Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `mcp_server_name: String`
 
@@ -53196,23 +53976,11 @@ Send Events
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -53224,15 +53992,11 @@ Send Events
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -53247,8 +54011,6 @@ Send Events
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -53278,8 +54040,6 @@ Send Events
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -53307,6 +54067,46 @@ Send Events
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -53821,23 +54621,11 @@ Stream Events
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -53849,15 +54637,11 @@ Stream Events
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -53872,8 +54656,6 @@ Stream Events
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -53903,8 +54685,6 @@ Stream Events
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -53932,6 +54712,46 @@ Stream Events
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -54407,13 +55227,13 @@ Stream Events
 
           - `class BetaManagedAgentsAgentAutoEvaluatedPermissionDeny`
 
-            The server judged the invocation high-risk; it does not execute and a synthetic error tool result is appended.
+            The server judged the invocation high-risk, or reached no judgement and did not hold it for client approval (for example, because the organization is out of credits or has reached a spend limit); it does not execute and a synthetic error tool result is appended.
 
             - `type: :deny`
 
             - `reason_code: String`
 
-              The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run). Clients must tolerate values outside this set.
+              The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run) and "indeterminate" (no judgement was reached; the call does not run). Clients must tolerate values outside this set.
 
               maxLength: 64
 
@@ -55947,7 +56767,7 @@ Stream Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                           - `type: :auto`
 
@@ -55975,7 +56795,7 @@ Stream Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsReadToolConfig`
 
@@ -56001,7 +56821,7 @@ Stream Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsWriteToolConfig`
 
@@ -56027,7 +56847,7 @@ Stream Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsGlobToolConfig`
 
@@ -56053,7 +56873,7 @@ Stream Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsGrepToolConfig`
 
@@ -56079,7 +56899,7 @@ Stream Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -56105,7 +56925,7 @@ Stream Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                       - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -56215,7 +57035,7 @@ Stream Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                       - `allowed_domains: optional Array[String]`
 
@@ -56273,7 +57093,7 @@ Stream Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `class BetaManagedAgentsMCPToolset`
 
@@ -56299,7 +57119,7 @@ Stream Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -56321,7 +57141,7 @@ Stream Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `mcp_server_name: String`
 
@@ -57039,23 +57859,11 @@ Add Session Resource
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -57067,15 +57875,11 @@ Add Session Resource
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -57090,8 +57894,6 @@ Add Session Resource
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -57121,8 +57923,6 @@ Add Session Resource
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -57150,6 +57950,46 @@ Add Session Resource
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -57238,23 +58078,11 @@ List Session Resources
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -57266,15 +58094,11 @@ List Session Resources
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -57289,8 +58113,6 @@ List Session Resources
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -57320,8 +58142,6 @@ List Session Resources
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -57349,6 +58169,46 @@ List Session Resources
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -57526,23 +58386,11 @@ Get Session Resource
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -57554,15 +58402,11 @@ Get Session Resource
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -57577,8 +58421,6 @@ Get Session Resource
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -57608,8 +58450,6 @@ Get Session Resource
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -57637,6 +58477,46 @@ Get Session Resource
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -57812,23 +58692,11 @@ Update Session Resource
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -57840,15 +58708,11 @@ Update Session Resource
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -57863,8 +58727,6 @@ Update Session Resource
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -57894,8 +58756,6 @@ Update Session Resource
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -57923,6 +58783,46 @@ Update Session Resource
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -58093,23 +58993,11 @@ Delete Session Resource
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -58121,15 +59009,11 @@ Delete Session Resource
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -58144,8 +59028,6 @@ Delete Session Resource
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -58175,8 +59057,6 @@ Delete Session Resource
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -58204,6 +59084,46 @@ Delete Session Resource
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -58289,23 +59209,11 @@ List Session Threads
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -58317,15 +59225,11 @@ List Session Threads
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -58340,8 +59244,6 @@ List Session Threads
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -58371,8 +59273,6 @@ List Session Threads
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -58400,6 +59300,46 @@ List Session Threads
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -58653,7 +59593,7 @@ List Session Threads
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `type: :auto`
 
@@ -58681,7 +59621,7 @@ List Session Threads
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsReadToolConfig`
 
@@ -58707,7 +59647,7 @@ List Session Threads
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsWriteToolConfig`
 
@@ -58733,7 +59673,7 @@ List Session Threads
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsGlobToolConfig`
 
@@ -58759,7 +59699,7 @@ List Session Threads
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsGrepToolConfig`
 
@@ -58785,7 +59725,7 @@ List Session Threads
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -58811,7 +59751,7 @@ List Session Threads
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -58921,7 +59861,7 @@ List Session Threads
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `allowed_domains: optional Array[String]`
 
@@ -58979,7 +59919,7 @@ List Session Threads
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsMCPToolset`
 
@@ -59005,7 +59945,7 @@ List Session Threads
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -59027,7 +59967,7 @@ List Session Threads
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `mcp_server_name: String`
 
@@ -59383,23 +60323,11 @@ Get Session Thread
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -59411,15 +60339,11 @@ Get Session Thread
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -59434,8 +60358,6 @@ Get Session Thread
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -59465,8 +60387,6 @@ Get Session Thread
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -59494,6 +60414,46 @@ Get Session Thread
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -59747,7 +60707,7 @@ Get Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `type: :auto`
 
@@ -59775,7 +60735,7 @@ Get Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsReadToolConfig`
 
@@ -59801,7 +60761,7 @@ Get Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsWriteToolConfig`
 
@@ -59827,7 +60787,7 @@ Get Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsGlobToolConfig`
 
@@ -59853,7 +60813,7 @@ Get Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsGrepToolConfig`
 
@@ -59879,7 +60839,7 @@ Get Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -59905,7 +60865,7 @@ Get Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -60015,7 +60975,7 @@ Get Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `allowed_domains: optional Array[String]`
 
@@ -60073,7 +61033,7 @@ Get Session Thread
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsMCPToolset`
 
@@ -60099,7 +61059,7 @@ Get Session Thread
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -60121,7 +61081,7 @@ Get Session Thread
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `mcp_server_name: String`
 
@@ -60475,23 +61435,11 @@ Archive Session Thread
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -60503,15 +61451,11 @@ Archive Session Thread
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -60526,8 +61470,6 @@ Archive Session Thread
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -60557,8 +61499,6 @@ Archive Session Thread
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -60586,6 +61526,46 @@ Archive Session Thread
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -60839,7 +61819,7 @@ Archive Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `type: :auto`
 
@@ -60867,7 +61847,7 @@ Archive Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsReadToolConfig`
 
@@ -60893,7 +61873,7 @@ Archive Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsWriteToolConfig`
 
@@ -60919,7 +61899,7 @@ Archive Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsGlobToolConfig`
 
@@ -60945,7 +61925,7 @@ Archive Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsGrepToolConfig`
 
@@ -60971,7 +61951,7 @@ Archive Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
             - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -60997,7 +61977,7 @@ Archive Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -61107,7 +62087,7 @@ Archive Session Thread
 
                 - `class BetaManagedAgentsAutoPolicy`
 
-                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                  The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
               - `allowed_domains: optional Array[String]`
 
@@ -61165,7 +62145,7 @@ Archive Session Thread
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
         - `class BetaManagedAgentsMCPToolset`
 
@@ -61191,7 +62171,7 @@ Archive Session Thread
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -61213,7 +62193,7 @@ Archive Session Thread
 
               - `class BetaManagedAgentsAutoPolicy`
 
-                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
           - `mcp_server_name: String`
 
@@ -61575,23 +62555,11 @@ List Session Thread Events
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -61603,15 +62571,11 @@ List Session Thread Events
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -61626,8 +62590,6 @@ List Session Thread Events
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -61657,8 +62619,6 @@ List Session Thread Events
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -61686,6 +62646,46 @@ List Session Thread Events
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -62161,13 +63161,13 @@ List Session Thread Events
 
           - `class BetaManagedAgentsAgentAutoEvaluatedPermissionDeny`
 
-            The server judged the invocation high-risk; it does not execute and a synthetic error tool result is appended.
+            The server judged the invocation high-risk, or reached no judgement and did not hold it for client approval (for example, because the organization is out of credits or has reached a spend limit); it does not execute and a synthetic error tool result is appended.
 
             - `type: :deny`
 
             - `reason_code: String`
 
-              The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run). Clients must tolerate values outside this set.
+              The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run) and "indeterminate" (no judgement was reached; the call does not run). Clients must tolerate values outside this set.
 
               maxLength: 64
 
@@ -63701,7 +64701,7 @@ List Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                           - `type: :auto`
 
@@ -63729,7 +64729,7 @@ List Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsReadToolConfig`
 
@@ -63755,7 +64755,7 @@ List Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsWriteToolConfig`
 
@@ -63781,7 +64781,7 @@ List Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsGlobToolConfig`
 
@@ -63807,7 +64807,7 @@ List Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsGrepToolConfig`
 
@@ -63833,7 +64833,7 @@ List Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -63859,7 +64859,7 @@ List Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                       - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -63969,7 +64969,7 @@ List Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                       - `allowed_domains: optional Array[String]`
 
@@ -64027,7 +65027,7 @@ List Session Thread Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `class BetaManagedAgentsMCPToolset`
 
@@ -64053,7 +65053,7 @@ List Session Thread Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -64075,7 +65075,7 @@ List Session Thread Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `mcp_server_name: String`
 
@@ -64754,23 +65754,11 @@ Stream Session Thread Events
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -64782,15 +65770,11 @@ Stream Session Thread Events
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -64805,8 +65789,6 @@ Stream Session Thread Events
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -64836,8 +65818,6 @@ Stream Session Thread Events
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -64865,6 +65845,46 @@ Stream Session Thread Events
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -65340,13 +66360,13 @@ Stream Session Thread Events
 
           - `class BetaManagedAgentsAgentAutoEvaluatedPermissionDeny`
 
-            The server judged the invocation high-risk; it does not execute and a synthetic error tool result is appended.
+            The server judged the invocation high-risk, or reached no judgement and did not hold it for client approval (for example, because the organization is out of credits or has reached a spend limit); it does not execute and a synthetic error tool result is appended.
 
             - `type: :deny`
 
             - `reason_code: String`
 
-              The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run). Clients must tolerate values outside this set.
+              The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run) and "indeterminate" (no judgement was reached; the call does not run). Clients must tolerate values outside this set.
 
               maxLength: 64
 
@@ -66880,7 +67900,7 @@ Stream Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                           - `type: :auto`
 
@@ -66908,7 +67928,7 @@ Stream Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsReadToolConfig`
 
@@ -66934,7 +67954,7 @@ Stream Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsWriteToolConfig`
 
@@ -66960,7 +67980,7 @@ Stream Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsGlobToolConfig`
 
@@ -66986,7 +68006,7 @@ Stream Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsGrepToolConfig`
 
@@ -67012,7 +68032,7 @@ Stream Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                     - `class BetaManagedAgentsWebFetchToolConfig`
 
@@ -67038,7 +68058,7 @@ Stream Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                       - `url_sources: BetaManagedAgentsWebFetchURLSources | nil`
 
@@ -67148,7 +68168,7 @@ Stream Session Thread Events
 
                         - `class BetaManagedAgentsAutoPolicy`
 
-                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                          The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                       - `allowed_domains: optional Array[String]`
 
@@ -67206,7 +68226,7 @@ Stream Session Thread Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                 - `class BetaManagedAgentsMCPToolset`
 
@@ -67232,7 +68252,7 @@ Stream Session Thread Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
 
@@ -67254,7 +68274,7 @@ Stream Session Thread Events
 
                       - `class BetaManagedAgentsAutoPolicy`
 
-                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask.
+                        The server decides each tool call individually: it judges, from the tool, its input, and the session content so far, whether the call is safe to execute or high-risk, and evaluates it to allow when judged safe and to deny when judged high-risk. A call the server cannot reach a judgement on evaluates to ask, or for some causes to deny, for example when the organization is out of credits or has reached a spend limit.
 
                   - `mcp_server_name: String`
 
@@ -68363,23 +69383,11 @@ Create Deployment
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -68391,15 +69399,11 @@ Create Deployment
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -68414,8 +69418,6 @@ Create Deployment
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -68445,8 +69447,6 @@ Create Deployment
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -68474,6 +69474,46 @@ Create Deployment
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -69145,23 +70185,11 @@ List Deployments
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -69173,15 +70201,11 @@ List Deployments
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -69196,8 +70220,6 @@ List Deployments
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -69227,8 +70249,6 @@ List Deployments
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -69256,6 +70276,46 @@ List Deployments
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -69889,23 +70949,11 @@ Get Deployment
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -69917,15 +70965,11 @@ Get Deployment
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -69940,8 +70984,6 @@ Get Deployment
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -69971,8 +71013,6 @@ Get Deployment
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -70000,6 +71040,46 @@ Get Deployment
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -71032,23 +72112,11 @@ Update Deployment
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -71060,15 +72128,11 @@ Update Deployment
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -71083,8 +72147,6 @@ Update Deployment
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -71114,8 +72176,6 @@ Update Deployment
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -71143,6 +72203,46 @@ Update Deployment
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -71771,23 +72871,11 @@ Archive Deployment
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -71799,15 +72887,11 @@ Archive Deployment
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -71822,8 +72906,6 @@ Archive Deployment
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -71853,8 +72935,6 @@ Archive Deployment
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -71882,6 +72962,46 @@ Archive Deployment
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -72510,23 +73630,11 @@ Run Deployment Now
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -72538,15 +73646,11 @@ Run Deployment Now
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -72561,8 +73665,6 @@ Run Deployment Now
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -72592,8 +73694,6 @@ Run Deployment Now
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -72621,6 +73721,46 @@ Run Deployment Now
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -72909,23 +74049,11 @@ Pause Deployment
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -72937,15 +74065,11 @@ Pause Deployment
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -72960,8 +74084,6 @@ Pause Deployment
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -72991,8 +74113,6 @@ Pause Deployment
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -73020,6 +74140,46 @@ Pause Deployment
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -73648,23 +74808,11 @@ Unpause Deployment
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -73676,15 +74824,11 @@ Unpause Deployment
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -73699,8 +74843,6 @@ Unpause Deployment
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -73730,8 +74872,6 @@ Unpause Deployment
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -73759,6 +74899,46 @@ Unpause Deployment
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -74439,23 +75619,11 @@ List Deployment Runs
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -74467,15 +75635,11 @@ List Deployment Runs
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -74490,8 +75654,6 @@ List Deployment Runs
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -74521,8 +75683,6 @@ List Deployment Runs
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -74550,6 +75710,46 @@ List Deployment Runs
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -74843,23 +76043,11 @@ Get Deployment Run
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -74871,15 +76059,11 @@ Get Deployment Run
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -74894,8 +76078,6 @@ Get Deployment Run
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -74925,8 +76107,6 @@ Get Deployment Run
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -74954,6 +76134,46 @@ Get Deployment Run
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -75250,23 +76470,11 @@ Create a Vault
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -75278,15 +76486,11 @@ Create a Vault
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -75301,8 +76505,6 @@ Create a Vault
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -75332,8 +76534,6 @@ Create a Vault
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -75361,6 +76561,46 @@ Create a Vault
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -75464,23 +76704,11 @@ List Vaults
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -75492,15 +76720,11 @@ List Vaults
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -75515,8 +76739,6 @@ List Vaults
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -75546,8 +76768,6 @@ List Vaults
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -75575,6 +76795,46 @@ List Vaults
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -75673,23 +76933,11 @@ Retrieve a Vault
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -75701,15 +76949,11 @@ Retrieve a Vault
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -75724,8 +76968,6 @@ Retrieve a Vault
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -75755,8 +76997,6 @@ Retrieve a Vault
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -75784,6 +77024,46 @@ Retrieve a Vault
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -75887,23 +77167,11 @@ Update a Vault
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -75915,15 +77183,11 @@ Update a Vault
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -75938,8 +77202,6 @@ Update a Vault
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -75969,8 +77231,6 @@ Update a Vault
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -75998,6 +77258,46 @@ Update a Vault
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -76091,23 +77391,11 @@ Delete a Vault
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -76119,15 +77407,11 @@ Delete a Vault
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -76142,8 +77426,6 @@ Delete a Vault
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -76173,8 +77455,6 @@ Delete a Vault
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -76202,6 +77482,46 @@ Delete a Vault
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -76262,23 +77582,11 @@ Archive a Vault
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -76290,15 +77598,11 @@ Archive a Vault
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -76313,8 +77617,6 @@ Archive a Vault
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -76344,8 +77646,6 @@ Archive a Vault
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -76373,6 +77673,46 @@ Archive a Vault
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -76644,23 +77984,11 @@ Create a Credential
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -76672,15 +78000,11 @@ Create a Credential
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -76695,8 +78019,6 @@ Create a Credential
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -76726,8 +78048,6 @@ Create a Credential
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -76755,6 +78075,46 @@ Create a Credential
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -76992,23 +78352,11 @@ List Credentials
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -77020,15 +78368,11 @@ List Credentials
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -77043,8 +78387,6 @@ List Credentials
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -77074,8 +78416,6 @@ List Credentials
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -77103,6 +78443,46 @@ List Credentials
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -77328,23 +78708,11 @@ Retrieve a Credential
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -77356,15 +78724,11 @@ Retrieve a Credential
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -77379,8 +78743,6 @@ Retrieve a Credential
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -77410,8 +78772,6 @@ Retrieve a Credential
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -77439,6 +78799,46 @@ Retrieve a Credential
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -77802,23 +79202,11 @@ Update a Credential
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -77830,15 +79218,11 @@ Update a Credential
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -77853,8 +79237,6 @@ Update a Credential
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -77884,8 +79266,6 @@ Update a Credential
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -77913,6 +79293,46 @@ Update a Credential
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -78136,23 +79556,11 @@ Delete a Credential
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -78164,15 +79572,11 @@ Delete a Credential
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -78187,8 +79591,6 @@ Delete a Credential
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -78218,8 +79620,6 @@ Delete a Credential
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -78247,6 +79647,46 @@ Delete a Credential
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -78314,23 +79754,11 @@ Archive a Credential
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -78342,15 +79770,11 @@ Archive a Credential
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -78365,8 +79789,6 @@ Archive a Credential
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -78396,8 +79818,6 @@ Archive a Credential
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -78425,6 +79845,46 @@ Archive a Credential
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -78648,23 +80108,11 @@ Validate an MCP OAuth Credential
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -78676,15 +80124,11 @@ Validate an MCP OAuth Credential
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -78699,8 +80143,6 @@ Validate an MCP OAuth Credential
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -78730,8 +80172,6 @@ Validate an MCP OAuth Credential
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -78759,6 +80199,46 @@ Validate an MCP OAuth Credential
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -78952,23 +80432,11 @@ Create a Memory Store
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -78980,15 +80448,11 @@ Create a Memory Store
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -79003,8 +80467,6 @@ Create a Memory Store
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -79034,8 +80496,6 @@ Create a Memory Store
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -79063,6 +80523,46 @@ Create a Memory Store
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -79191,23 +80691,11 @@ List Memory Stores
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -79219,15 +80707,11 @@ List Memory Stores
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -79242,8 +80726,6 @@ List Memory Stores
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -79273,8 +80755,6 @@ List Memory Stores
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -79302,6 +80782,46 @@ List Memory Stores
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -79411,23 +80931,11 @@ Retrieve a Memory Store
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -79439,15 +80947,11 @@ Retrieve a Memory Store
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -79462,8 +80966,6 @@ Retrieve a Memory Store
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -79493,8 +80995,6 @@ Retrieve a Memory Store
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -79522,6 +81022,46 @@ Retrieve a Memory Store
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -79650,23 +81190,11 @@ Update a Memory Store
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -79678,15 +81206,11 @@ Update a Memory Store
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -79701,8 +81225,6 @@ Update a Memory Store
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -79732,8 +81254,6 @@ Update a Memory Store
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -79761,6 +81281,46 @@ Update a Memory Store
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -79869,23 +81429,11 @@ Delete a Memory Store
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -79897,15 +81445,11 @@ Delete a Memory Store
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -79920,8 +81464,6 @@ Delete a Memory Store
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -79951,8 +81493,6 @@ Delete a Memory Store
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -79980,6 +81520,46 @@ Delete a Memory Store
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -80042,23 +81622,11 @@ Archive a Memory Store
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -80070,15 +81638,11 @@ Archive a Memory Store
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -80093,8 +81657,6 @@ Archive a Memory Store
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -80124,8 +81686,6 @@ Archive a Memory Store
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -80153,6 +81713,46 @@ Archive a Memory Store
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -80289,23 +81889,11 @@ Create a Memory
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -80317,15 +81905,11 @@ Create a Memory
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -80340,8 +81924,6 @@ Create a Memory
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -80371,8 +81953,6 @@ Create a Memory
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -80400,6 +81980,46 @@ Create a Memory
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -80560,23 +82180,11 @@ List Memories
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -80588,15 +82196,11 @@ List Memories
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -80611,8 +82215,6 @@ List Memories
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -80642,8 +82244,6 @@ List Memories
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -80671,6 +82271,46 @@ List Memories
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -80830,23 +82470,11 @@ Retrieve a Memory
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -80858,15 +82486,11 @@ Retrieve a Memory
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -80881,8 +82505,6 @@ Retrieve a Memory
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -80912,8 +82534,6 @@ Retrieve a Memory
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -80941,6 +82561,46 @@ Retrieve a Memory
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -81105,23 +82765,11 @@ Update a Memory
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -81133,15 +82781,11 @@ Update a Memory
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -81156,8 +82800,6 @@ Update a Memory
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -81187,8 +82829,6 @@ Update a Memory
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -81216,6 +82856,46 @@ Update a Memory
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -81346,23 +83026,11 @@ Delete a Memory
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -81374,15 +83042,11 @@ Delete a Memory
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -81397,8 +83061,6 @@ Delete a Memory
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -81428,8 +83090,6 @@ Delete a Memory
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -81457,6 +83117,46 @@ Delete a Memory
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -81595,23 +83295,11 @@ List Memory Versions
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -81623,15 +83311,11 @@ List Memory Versions
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -81646,8 +83330,6 @@ List Memory Versions
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -81677,8 +83359,6 @@ List Memory Versions
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -81706,6 +83386,46 @@ List Memory Versions
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -81932,23 +83652,11 @@ Retrieve a Memory Version
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -81960,15 +83668,11 @@ Retrieve a Memory Version
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -81983,8 +83687,6 @@ Retrieve a Memory Version
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -82014,8 +83716,6 @@ Retrieve a Memory Version
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -82043,6 +83743,46 @@ Retrieve a Memory Version
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -82253,23 +83993,11 @@ Redact a Memory Version
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -82281,15 +84009,11 @@ Redact a Memory Version
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -82304,8 +84028,6 @@ Redact a Memory Version
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -82335,8 +84057,6 @@ Redact a Memory Version
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -82364,6 +84084,46 @@ Redact a Memory Version
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -82580,23 +84340,11 @@ Upload File
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -82608,15 +84356,11 @@ Upload File
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -82631,8 +84375,6 @@ Upload File
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -82662,8 +84404,6 @@ Upload File
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -82691,6 +84431,46 @@ Upload File
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -82827,23 +84607,11 @@ List Files
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -82855,15 +84623,11 @@ List Files
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -82878,8 +84642,6 @@ List Files
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -82909,8 +84671,6 @@ List Files
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -82938,6 +84698,46 @@ List Files
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -83063,23 +84863,11 @@ Download File
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -83091,15 +84879,11 @@ Download File
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -83114,8 +84898,6 @@ Download File
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -83145,8 +84927,6 @@ Download File
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -83174,6 +84954,46 @@ Download File
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -83217,23 +85037,11 @@ Get File Metadata
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -83245,15 +85053,11 @@ Get File Metadata
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -83268,8 +85072,6 @@ Get File Metadata
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -83299,8 +85101,6 @@ Get File Metadata
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -83328,6 +85128,46 @@ Get File Metadata
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -83448,23 +85288,11 @@ Delete File
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -83476,15 +85304,11 @@ Delete File
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -83499,8 +85323,6 @@ Delete File
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -83530,8 +85352,6 @@ Delete File
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -83559,6 +85379,46 @@ Delete File
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -83631,23 +85491,11 @@ Create Skill
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -83659,15 +85507,11 @@ Create Skill
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -83682,8 +85526,6 @@ Create Skill
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -83713,8 +85555,6 @@ Create Skill
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -83742,6 +85582,46 @@ Create Skill
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -83884,23 +85764,11 @@ List Skills
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -83912,15 +85780,11 @@ List Skills
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -83935,8 +85799,6 @@ List Skills
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -83966,8 +85828,6 @@ List Skills
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -83995,6 +85855,46 @@ List Skills
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -84125,23 +86025,11 @@ Get Skill
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -84153,15 +86041,11 @@ Get Skill
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -84176,8 +86060,6 @@ Get Skill
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -84207,8 +86089,6 @@ Get Skill
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -84236,6 +86116,46 @@ Get Skill
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -84361,23 +86281,11 @@ Delete Skill
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -84389,15 +86297,11 @@ Delete Skill
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -84412,8 +86316,6 @@ Delete Skill
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -84443,8 +86345,6 @@ Delete Skill
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -84472,6 +86372,46 @@ Delete Skill
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -84546,23 +86486,11 @@ Create Skill Version
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -84574,15 +86502,11 @@ Create Skill Version
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -84597,8 +86521,6 @@ Create Skill Version
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -84628,8 +86550,6 @@ Create Skill Version
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -84657,6 +86577,46 @@ Create Skill Version
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -84763,23 +86723,11 @@ List Skill Versions
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -84791,15 +86739,11 @@ List Skill Versions
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -84814,8 +86758,6 @@ List Skill Versions
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -84845,8 +86787,6 @@ List Skill Versions
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -84874,6 +86814,46 @@ List Skill Versions
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -84979,23 +86959,11 @@ Download a skill version's content as a zip archive.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -85007,15 +86975,11 @@ Download a skill version's content as a zip archive.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -85030,8 +86994,6 @@ Download a skill version's content as a zip archive.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -85061,8 +87023,6 @@ Download a skill version's content as a zip archive.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -85090,6 +87050,46 @@ Download a skill version's content as a zip archive.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -85141,23 +87141,11 @@ Get Skill Version
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -85169,15 +87157,11 @@ Get Skill Version
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -85192,8 +87176,6 @@ Get Skill Version
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -85223,8 +87205,6 @@ Get Skill Version
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -85252,6 +87232,46 @@ Get Skill Version
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -85352,23 +87372,11 @@ Delete Skill Version
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -85380,15 +87388,11 @@ Delete Skill Version
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -85403,8 +87407,6 @@ Delete Skill Version
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -85434,8 +87436,6 @@ Delete Skill Version
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -85463,6 +87463,46 @@ Delete Skill Version
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -86911,23 +88951,11 @@ Create User Profile
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -86939,15 +88967,11 @@ Create User Profile
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -86962,8 +88986,6 @@ Create User Profile
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -86993,8 +89015,6 @@ Create User Profile
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -87022,6 +89042,46 @@ Create User Profile
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -87249,23 +89309,11 @@ List User Profiles
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -87277,15 +89325,11 @@ List User Profiles
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -87300,8 +89344,6 @@ List User Profiles
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -87331,8 +89373,6 @@ List User Profiles
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -87360,6 +89400,46 @@ List User Profiles
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -87560,23 +89640,11 @@ Get User Profile
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -87588,15 +89656,11 @@ Get User Profile
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -87611,8 +89675,6 @@ Get User Profile
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -87642,8 +89704,6 @@ Get User Profile
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -87671,6 +89731,46 @@ Get User Profile
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -87962,23 +90062,11 @@ Update User Profile
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -87990,15 +90078,11 @@ Update User Profile
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -88013,8 +90097,6 @@ Update User Profile
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -88044,8 +90126,6 @@ Update User Profile
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -88073,6 +90153,46 @@ Update User Profile
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -88268,23 +90388,11 @@ Delete User Profile
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -88296,15 +90404,11 @@ Delete User Profile
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -88319,8 +90423,6 @@ Delete User Profile
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -88350,8 +90452,6 @@ Delete User Profile
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -88379,6 +90479,46 @@ Delete User Profile
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -88439,23 +90579,11 @@ Create Enrollment URL
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -88467,15 +90595,11 @@ Create Enrollment URL
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -88490,8 +90614,6 @@ Create Enrollment URL
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -88521,8 +90643,6 @@ Create Enrollment URL
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -88550,6 +90670,46 @@ Create Enrollment URL
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -88627,23 +90787,11 @@ Create Action URL
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -88655,15 +90803,11 @@ Create Action URL
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -88678,8 +90822,6 @@ Create Action URL
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -88709,8 +90851,6 @@ Create Action URL
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -88738,6 +90878,46 @@ Create Action URL
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -88912,23 +91092,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -88940,15 +91108,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -88963,8 +91127,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -88994,8 +91156,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -89023,6 +91183,46 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -89390,23 +91590,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -89418,15 +91606,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -89441,8 +91625,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -89472,8 +91654,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -89501,6 +91681,46 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -89815,23 +92035,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -89843,15 +92051,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -89866,8 +92070,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -89897,8 +92099,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -89926,6 +92126,46 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -90235,23 +92475,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -90263,15 +92491,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -90286,8 +92510,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -90317,8 +92539,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -90346,6 +92566,46 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -90655,23 +92915,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -90683,15 +92931,11 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -90706,8 +92950,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -90737,8 +92979,6 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -90766,6 +93006,46 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -91077,23 +93357,11 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -91105,15 +93373,11 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -91128,8 +93392,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -91159,8 +93421,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -91188,6 +93448,46 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -91274,23 +93574,11 @@ Fetches a tunnel by ID.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -91302,15 +93590,11 @@ Fetches a tunnel by ID.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -91325,8 +93609,6 @@ Fetches a tunnel by ID.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -91356,8 +93638,6 @@ Fetches a tunnel by ID.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -91385,6 +93665,46 @@ Fetches a tunnel by ID.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -91481,23 +93801,11 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -91509,15 +93817,11 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -91532,8 +93836,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -91563,8 +93865,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -91592,6 +93892,46 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -91683,23 +94023,11 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -91711,15 +94039,11 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -91734,8 +94058,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -91765,8 +94087,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -91794,6 +94114,46 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -91880,23 +94240,11 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -91908,15 +94256,11 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -91931,8 +94275,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -91962,8 +94304,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -91991,6 +94331,46 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -92064,23 +94444,11 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -92092,15 +94460,11 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -92115,8 +94479,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -92146,8 +94508,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -92175,6 +94535,46 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -92250,23 +94650,11 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -92278,15 +94666,11 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -92301,8 +94685,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -92332,8 +94714,6 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -92361,6 +94741,46 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -92458,23 +94878,11 @@ Fetches a tunnel certificate by ID.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -92486,15 +94894,11 @@ Fetches a tunnel certificate by ID.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -92509,8 +94913,6 @@ Fetches a tunnel certificate by ID.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -92540,8 +94942,6 @@ Fetches a tunnel certificate by ID.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -92569,6 +94969,46 @@ Fetches a tunnel certificate by ID.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -92676,23 +95116,11 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -92704,15 +95132,11 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -92727,8 +95151,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -92758,8 +95180,6 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -92787,6 +95207,46 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -92889,23 +95349,11 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -92917,15 +95365,11 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -92940,8 +95384,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -92971,8 +95413,6 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -93000,6 +95440,46 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 - `workspace_id: optional String` (header parameter)
 
@@ -94627,23 +97107,11 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -94655,15 +97123,11 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -94678,8 +97142,6 @@ matched as the JWT's `iss` claim and is not fetched.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -94709,8 +97171,6 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -94738,6 +97198,46 @@ matched as the JWT's `iss` claim and is not fetched.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -94952,23 +97452,11 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -94980,15 +97468,11 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -95003,8 +97487,6 @@ Archived issuers are excluded unless `include_archived=true`.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -95034,8 +97516,6 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -95063,6 +97543,46 @@ Archived issuers are excluded unless `include_archived=true`.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -95270,23 +97790,11 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -95298,15 +97806,11 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -95321,8 +97825,6 @@ Retrieve a federation issuer by its ID (`fdis_...`).
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -95352,8 +97854,6 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -95381,6 +97881,46 @@ Retrieve a federation issuer by its ID (`fdis_...`).
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -95666,23 +98206,11 @@ session.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -95694,15 +98222,11 @@ session.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -95717,8 +98241,6 @@ session.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -95748,8 +98270,6 @@ session.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -95777,6 +98297,46 @@ session.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -95984,23 +98544,11 @@ issuer cannot be changed), or recreate them against another issuer.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -96012,15 +98560,11 @@ issuer cannot be changed), or recreate them against another issuer.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -96035,8 +98579,6 @@ issuer cannot be changed), or recreate them against another issuer.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -96066,8 +98608,6 @@ issuer cannot be changed), or recreate them against another issuer.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -96095,6 +98635,46 @@ issuer cannot be changed), or recreate them against another issuer.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -96389,23 +98969,11 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -96417,15 +98985,11 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -96440,8 +99004,6 @@ manage rules whose `oauth_scope` is `workspace:developer` or
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -96471,8 +99033,6 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -96500,6 +99060,46 @@ manage rules whose `oauth_scope` is `workspace:developer` or
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -96731,23 +99331,11 @@ unless `include_archived=true`.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -96759,15 +99347,11 @@ unless `include_archived=true`.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -96782,8 +99366,6 @@ unless `include_archived=true`.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -96813,8 +99395,6 @@ unless `include_archived=true`.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -96842,6 +99422,46 @@ unless `include_archived=true`.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -97055,23 +99675,11 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -97083,15 +99691,11 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -97106,8 +99710,6 @@ Retrieve a federation rule by its ID (`fdrl_...`).
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -97137,8 +99739,6 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -97166,6 +99766,46 @@ Retrieve a federation rule by its ID (`fdrl_...`).
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -97466,23 +100106,11 @@ Console session.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -97494,15 +100122,11 @@ Console session.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -97517,8 +100141,6 @@ Console session.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -97548,8 +100170,6 @@ Console session.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -97577,6 +100197,46 @@ Console session.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -97793,23 +100453,11 @@ other scopes require a Console session.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -97821,15 +100469,11 @@ other scopes require a Console session.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -97844,8 +100488,6 @@ other scopes require a Console session.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -97875,8 +100517,6 @@ other scopes require a Console session.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -97904,6 +100544,46 @@ other scopes require a Console session.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -98127,23 +100807,11 @@ other scopes require a Console session.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -98155,15 +100823,11 @@ other scopes require a Console session.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -98178,8 +100842,6 @@ other scopes require a Console session.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -98209,8 +100871,6 @@ other scopes require a Console session.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -98238,6 +100898,46 @@ other scopes require a Console session.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -98333,23 +101033,11 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -98361,15 +101049,11 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -98384,8 +101068,6 @@ rules with `applies_to_all_workspaces` or a legacy single
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -98415,8 +101097,6 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -98444,6 +101124,46 @@ rules with `applies_to_all_workspaces` or a legacy single
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -98534,23 +101254,11 @@ Console session.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -98562,15 +101270,11 @@ Console session.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -98585,8 +101289,6 @@ Console session.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -98616,8 +101318,6 @@ Console session.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -98645,6 +101345,46 @@ Console session.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -99205,23 +101945,11 @@ accounts.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -99233,15 +101961,11 @@ accounts.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -99256,8 +101980,6 @@ accounts.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -99287,8 +102009,6 @@ accounts.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -99316,6 +102036,46 @@ accounts.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -99444,23 +102204,11 @@ archived service accounts.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -99472,15 +102220,11 @@ archived service accounts.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -99495,8 +102239,6 @@ archived service accounts.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -99526,8 +102268,6 @@ archived service accounts.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -99555,6 +102295,46 @@ archived service accounts.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -99674,23 +102454,11 @@ Retrieve a service account by its ID (`svac_...`).
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -99702,15 +102470,11 @@ Retrieve a service account by its ID (`svac_...`).
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -99725,8 +102489,6 @@ Retrieve a service account by its ID (`svac_...`).
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -99756,8 +102518,6 @@ Retrieve a service account by its ID (`svac_...`).
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -99785,6 +102545,46 @@ Retrieve a service account by its ID (`svac_...`).
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -99918,23 +102718,11 @@ interactive credential (a user OAuth token or a Console session).
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -99946,15 +102734,11 @@ interactive credential (a user OAuth token or a Console session).
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -99969,8 +102753,6 @@ interactive credential (a user OAuth token or a Console session).
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -100000,8 +102782,6 @@ interactive credential (a user OAuth token or a Console session).
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -100029,6 +102809,46 @@ interactive credential (a user OAuth token or a Console session).
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -100148,23 +102968,11 @@ those rules first or change their target to another service account.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -100176,15 +102984,11 @@ those rules first or change their target to another service account.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -100199,8 +103003,6 @@ those rules first or change their target to another service account.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -100230,8 +103032,6 @@ those rules first or change their target to another service account.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -100259,6 +103059,46 @@ those rules first or change their target to another service account.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -100398,23 +103238,11 @@ rejected.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -100426,15 +103254,11 @@ rejected.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -100449,8 +103273,6 @@ rejected.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -100480,8 +103302,6 @@ rejected.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -100509,6 +103329,46 @@ rejected.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -100621,23 +103481,11 @@ page to recover.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -100649,15 +103497,11 @@ page to recover.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -100672,8 +103516,6 @@ page to recover.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -100703,8 +103545,6 @@ page to recover.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -100732,6 +103572,46 @@ page to recover.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -100833,23 +103713,11 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -100861,15 +103729,11 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -100884,8 +103748,6 @@ to the implicit `workspace_user` membership. Archived workspaces return
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -100915,8 +103777,6 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -100944,6 +103804,46 @@ to the implicit `workspace_user` membership. Archived workspaces return
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -101375,23 +104275,11 @@ Every request must include the beta header `anthropic-beta: admin-user-sign-out-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -101403,15 +104291,11 @@ Every request must include the beta header `anthropic-beta: admin-user-sign-out-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -101426,8 +104310,6 @@ Every request must include the beta header `anthropic-beta: admin-user-sign-out-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -101457,8 +104339,6 @@ Every request must include the beta header `anthropic-beta: admin-user-sign-out-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -101486,6 +104366,46 @@ Every request must include the beta header `anthropic-beta: admin-user-sign-out-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -101822,23 +104742,11 @@ Create Workspace
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -101850,15 +104758,11 @@ Create Workspace
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -101873,8 +104777,6 @@ Create Workspace
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -101904,8 +104806,6 @@ Create Workspace
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -101933,6 +104833,46 @@ Create Workspace
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -103465,23 +106405,11 @@ omitted from the results.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -103493,15 +106421,11 @@ omitted from the results.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -103516,8 +106440,6 @@ omitted from the results.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -103547,8 +106469,6 @@ omitted from the results.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -103576,6 +106496,46 @@ omitted from the results.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -103690,23 +106650,11 @@ accounts cannot be added and are rejected.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -103718,15 +106666,11 @@ accounts cannot be added and are rejected.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -103741,8 +106685,6 @@ accounts cannot be added and are rejected.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -103772,8 +106714,6 @@ accounts cannot be added and are rejected.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -103801,6 +106741,46 @@ accounts cannot be added and are rejected.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -103900,23 +106880,11 @@ account returns 404.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -103928,15 +106896,11 @@ account returns 404.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -103951,8 +106915,6 @@ account returns 404.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -103982,8 +106944,6 @@ account returns 404.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -104011,6 +106971,46 @@ account returns 404.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -104121,23 +107121,11 @@ rejected.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -104149,15 +107137,11 @@ rejected.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -104172,8 +107156,6 @@ rejected.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -104203,8 +107185,6 @@ rejected.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -104232,6 +107212,46 @@ rejected.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -104330,23 +107350,11 @@ membership. Archived workspaces return 400.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -104358,15 +107366,11 @@ membership. Archived workspaces return 400.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -104381,8 +107385,6 @@ membership. Archived workspaces return 400.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -104412,8 +107414,6 @@ membership. Archived workspaces return 400.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -104441,6 +107441,46 @@ membership. Archived workspaces return 400.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -104965,6 +108005,18 @@ Enterprise plan. Requires an API key with the `read:analytics` scope.
 
     Number of users with Claude Design activity in the 7-day rolling window. Omitted from the response while the per-product breakdown is not enabled for this organization.
 
+  - `claude_tag_daily_active_user_count: optional Integer | nil`
+
+    Number of Slack users active in Claude Tag on the requested day. Counts distinct Slack users, including users who have not linked a Claude account, so it can exceed `daily_active_user_count` and `assigned_seat_count`. Null on a day with no measured value, when Claude Tag data cannot be read for the request, and when the response is scoped to an RBAC group, because an unlinked user belongs to no group. Omitted from the response on deployments that do not offer Claude Tag reporting.
+
+  - `claude_tag_monthly_active_user_count: optional Integer | nil`
+
+    Number of Slack users active in Claude Tag in the 28-day rolling window. Counts distinct Slack users, including users who have not linked a Claude account, so it can exceed `daily_active_user_count` and `assigned_seat_count`. Null on a day with no measured value, when Claude Tag data cannot be read for the request, and when the response is scoped to an RBAC group, because an unlinked user belongs to no group. Omitted from the response on deployments that do not offer Claude Tag reporting.
+
+  - `claude_tag_weekly_active_user_count: optional Integer | nil`
+
+    Number of Slack users active in Claude Tag in the 7-day rolling window. Counts distinct Slack users, including users who have not linked a Claude account, so it can exceed `daily_active_user_count` and `assigned_seat_count`. Null on a day with no measured value, when Claude Tag data cannot be read for the request, and when the response is scoped to an RBAC group, because an unlinked user belongs to no group. Omitted from the response on deployments that do not offer Claude Tag reporting.
+
   - `office_agent_daily_active_user_count: optional Integer | nil`
 
     Number of users with Claude in Office activity on the requested day. Omitted from the response while the per-product breakdown is not enabled for this organization.
@@ -105036,6 +108088,9 @@ puts(page)
       "claude_design_daily_active_user_count": 0,
       "claude_design_monthly_active_user_count": 0,
       "claude_design_weekly_active_user_count": 0,
+      "claude_tag_daily_active_user_count": 0,
+      "claude_tag_monthly_active_user_count": 0,
+      "claude_tag_weekly_active_user_count": 0,
       "office_agent_daily_active_user_count": 0,
       "office_agent_monthly_active_user_count": 0,
       "office_agent_weekly_active_user_count": 0,
@@ -105555,6 +108610,18 @@ the `read:analytics` scope.
 
         Same measure as `cowork_metrics.write_tool_count`, for activity recorded while members had Chat and Cowork unified turned on.
 
+  - `claude_tag_metrics: optional BetaAnalyticsClaudeTagMetrics | nil`
+
+    Claude Tag activity in Slack by a user who has linked a Claude account. Activity by Slack users who have not linked an account appears only in the `/summaries` Claude Tag counts, so these rows do not add up to those counts. Omitted from the response on deployments that do not offer Claude Tag reporting.
+
+    - `active_day_count: Integer | nil`
+
+      1 on a day the user was active in Claude Tag in Slack, otherwise 0. Summed over the window in date-range mode, so it is the number of active days; on grouped rows, the total of each member's active days. Null when Claude Tag data cannot be read for the request. Otherwise, 0 on a row filtered by project, and null on any other row when no covered day was measured.
+
+    - `active_message_count: Integer | nil`
+
+      Number of the user's Slack messages that made them active: @-mentions, direct messages, group direct message asks, and thread posts Claude answered. Other messages are not counted. Null when Claude Tag data cannot be read for the request. Otherwise, 0 on a row filtered by project, and null on any other row when no covered day was measured.
+
   - `last_activity_date: optional Date | nil`
 
     Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member of that group, consistent with the row's other metrics. On grouped (`group_by[]`) rows it is the latest day any member of the group was active (the requested `date` in single-day mode). Omitted from the response while last-activity reporting is not enabled for this organization.
@@ -105738,6 +108805,10 @@ puts(page)
           "skills_used_count": 0,
           "write_tool_count": 0
         }
+      },
+      "claude_tag_metrics": {
+        "active_day_count": 0,
+        "active_message_count": 0
       },
       "last_activity_date": "2019-12-27",
       "rbac_group_id": "rbac_group_id",
@@ -107119,23 +110190,11 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -107147,15 +110206,11 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -107170,8 +110225,6 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -107201,8 +110254,6 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -107230,6 +110281,46 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -107895,23 +110986,11 @@ API key with the `read:analytics` scope, or an Admin API key.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -107923,15 +111002,11 @@ API key with the `read:analytics` scope, or an Admin API key.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -107946,8 +111021,6 @@ API key with the `read:analytics` scope, or an Admin API key.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -107977,8 +111050,6 @@ API key with the `read:analytics` scope, or an Admin API key.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -108006,6 +111077,46 @@ API key with the `read:analytics` scope, or an Admin API key.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -109888,23 +112999,11 @@ Anthropic account team.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -109916,15 +113015,11 @@ Anthropic account team.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -109939,8 +113034,6 @@ Anthropic account team.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -109970,8 +113063,6 @@ Anthropic account team.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -109999,6 +113090,46 @@ Anthropic account team.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -110406,23 +113537,11 @@ come in a fixed order that is not creation order.
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -110434,15 +113553,11 @@ come in a fixed order that is not creation order.
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -110457,8 +113572,6 @@ come in a fixed order that is not creation order.
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -110488,8 +113601,6 @@ come in a fixed order that is not creation order.
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -110517,6 +113628,46 @@ come in a fixed order that is not creation order.
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -112850,7 +116001,23 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
   - `display_name: String`
 
-    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a built-in role, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+
+  - `source: BetaRBACRoleSource`
+
+    Whether the RBAC Role is built-in or custom. More values of `type` may be added, so do not treat every role that is not `built_in` as `custom`.
+
+    - `class BetaRBACRoleSourceBuiltIn`
+
+      - `type: :built_in`
+
+        Anthropic provisions the RBAC Role, and the organization's administrators cannot change or delete it.
+
+    - `class BetaRBACRoleSourceCustom`
+
+      - `type: :custom`
+
+        The organization's administrators can change and delete the RBAC Role.
 
   - `updated_at: Time`
 
@@ -112879,6 +116046,9 @@ puts(page)
       "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
       "created_at": "2024-10-30T23:58:27.427722Z",
       "display_name": "Project Editor",
+      "source": {
+        "type": "built_in"
+      },
       "type": "rbac_role",
       "updated_at": "2024-10-30T23:58:27.427722Z"
     }
@@ -112926,7 +116096,23 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
   - `display_name: String`
 
-    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a built-in role, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+
+  - `source: BetaRBACRoleSource`
+
+    Whether the RBAC Role is built-in or custom. More values of `type` may be added, so do not treat every role that is not `built_in` as `custom`.
+
+    - `class BetaRBACRoleSourceBuiltIn`
+
+      - `type: :built_in`
+
+        Anthropic provisions the RBAC Role, and the organization's administrators cannot change or delete it.
+
+    - `class BetaRBACRoleSourceCustom`
+
+      - `type: :custom`
+
+        The organization's administrators can change and delete the RBAC Role.
 
   - `updated_at: Time`
 
@@ -112953,6 +116139,9 @@ puts(beta_rbac_role)
   "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
   "created_at": "2024-10-30T23:58:27.427722Z",
   "display_name": "Project Editor",
+  "source": {
+    "type": "built_in"
+  },
   "type": "rbac_role",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
@@ -113182,23 +116371,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -113210,15 +116387,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -113233,8 +116406,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -113264,8 +116435,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -113293,6 +116462,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -113560,7 +116769,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `betas: optional Array[AnthropicBeta]` (header parameter)
 
@@ -113568,23 +116777,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -113596,15 +116793,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -113619,8 +116812,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -113650,8 +116841,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -113679,6 +116868,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -113976,23 +117205,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -114004,15 +117221,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -114027,8 +117240,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -114058,8 +117269,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -114087,6 +117296,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -114395,7 +117644,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `owner_type: optional :organization | :user | nil` (query parameter)
 
@@ -114421,23 +117670,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -114449,15 +117686,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -114472,8 +117705,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -114503,8 +117734,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -114532,6 +117761,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -114821,23 +118090,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -114849,15 +118106,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -114872,8 +118125,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -114903,8 +118154,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -114932,6 +118181,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -115020,23 +118309,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -115048,15 +118325,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -115071,8 +118344,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -115102,8 +118373,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -115131,6 +118400,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -115342,7 +118651,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `page: optional String | nil` (query parameter)
 
@@ -115356,23 +118665,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -115384,15 +118681,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -115407,8 +118700,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -115438,8 +118729,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -115467,6 +118756,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -115676,7 +119005,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `betas: optional Array[AnthropicBeta]` (header parameter)
 
@@ -115684,23 +119013,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -115712,15 +119029,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -115735,8 +119048,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -115766,8 +119077,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -115795,6 +119104,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -116015,7 +119364,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `betas: optional Array[AnthropicBeta]` (header parameter)
 
@@ -116023,23 +119372,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -116051,15 +119388,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -116074,8 +119407,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -116105,8 +119436,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -116134,6 +119463,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -116186,7 +119555,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `page: optional String | nil` (query parameter)
 
@@ -116208,23 +119577,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -116236,15 +119593,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -116259,8 +119612,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -116290,8 +119641,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -116319,6 +119668,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -116474,23 +119863,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -116502,15 +119879,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -116525,8 +119898,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -116556,8 +119927,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -116585,6 +119954,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -116731,23 +120140,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -116759,15 +120156,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -116782,8 +120175,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -116813,8 +120204,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -116842,6 +120231,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -116949,7 +120378,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `page: optional String | nil` (query parameter)
 
@@ -116973,23 +120402,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -117001,15 +120418,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -117024,8 +120437,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -117055,8 +120466,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -117084,6 +120493,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -117199,7 +120648,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `owner_type: optional :organization | :user | nil` (query parameter)
 
@@ -117235,23 +120684,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -117263,15 +120700,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -117286,8 +120719,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -117317,8 +120748,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -117346,6 +120775,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -117497,7 +120966,7 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
 - `organization_id: optional String | nil` (query parameter)
 
-  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404.
+  For a `read:org_audit` or `read:compliance_org_data` key created for all of a parent organization's linked organizations: a child organization of that parent to read instead of the organization the key was created in, given as the organization's UUID or its `org_`-prefixed ID. A value that is neither returns a 400; an organization that is not a child of the key's parent, or where the Plugins API is not available, returns a 404. Any other key may pass only its own organization's ID here; another organization returns a 404. A key with no organization of its own must always pass `organization_id`.
 
 - `betas: optional Array[AnthropicBeta]` (header parameter)
 
@@ -117505,23 +120974,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -117533,15 +120990,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -117556,8 +121009,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -117587,8 +121038,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -117616,6 +121065,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -117783,23 +121272,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -117811,15 +121288,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -117834,8 +121307,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -117865,8 +121336,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -117894,6 +121363,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -118070,23 +121579,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -118098,15 +121595,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -118121,8 +121614,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -118152,8 +121643,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -118181,6 +121670,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -118340,23 +121869,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -118368,15 +121885,11 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -118391,8 +121904,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -118422,8 +121933,6 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -118451,6 +121960,46 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -118699,23 +122248,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -118727,15 +122264,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -118750,8 +122283,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -118781,8 +122312,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -118810,6 +122339,46 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -119060,23 +122629,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -119088,15 +122645,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -119111,8 +122664,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -119142,8 +122693,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -119171,6 +122720,46 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -119414,23 +123003,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -119442,15 +123019,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -119465,8 +123038,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -119496,8 +123067,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -119525,6 +123094,46 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -119899,23 +123508,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -119927,15 +123524,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -119950,8 +123543,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -119981,8 +123572,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -120010,6 +123599,46 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -120250,23 +123879,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -120278,15 +123895,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -120301,8 +123914,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -120332,8 +123943,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -120361,6 +123970,46 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -120415,23 +124064,11 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -120443,15 +124080,11 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -120466,8 +124099,6 @@ Send one test span, named `anthropic.test`, to the destination with its register
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -120497,8 +124128,6 @@ Send one test span, named `anthropic.test`, to the destination with its register
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -120526,6 +124155,46 @@ Send one test span, named `anthropic.test`, to the destination with its register
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -120614,23 +124283,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -120642,15 +124299,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -120665,8 +124318,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -120696,8 +124347,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -120725,6 +124374,46 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -120808,23 +124497,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -120836,15 +124513,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -120859,8 +124532,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -120890,8 +124561,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -120919,6 +124588,46 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -121000,23 +124709,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -121028,15 +124725,11 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -121051,8 +124744,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -121082,8 +124773,6 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -121111,6 +124800,46 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -121203,23 +124932,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -121231,15 +124948,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -121254,8 +124967,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -121285,8 +124996,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -121314,6 +125023,46 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -121452,23 +125201,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -121480,15 +125217,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -121503,8 +125236,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -121534,8 +125265,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -121563,6 +125292,46 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -121682,23 +125451,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -121710,15 +125467,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -121733,8 +125486,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -121764,8 +125515,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -121793,6 +125542,46 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -121937,23 +125726,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -121965,15 +125742,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -121988,8 +125761,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -122019,8 +125790,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -122048,6 +125817,46 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -122160,23 +125969,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -122188,15 +125985,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -122211,8 +126004,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -122242,8 +126033,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -122271,6 +126060,46 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -122332,23 +126161,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -122360,15 +126177,11 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -122383,8 +126196,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -122414,8 +126225,6 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -122443,6 +126252,46 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -122512,7 +126361,7 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
 
   - `environment_id: optional String | nil`
 
-    The environment Claude's sessions run in: the identifier of an active environment of the organization, starting with `env_`. Null clears it.
+    The environment Claude's sessions run in: the identifier of an active environment of the organization, starting with `env_`, or of a self-hosted runner pool of the organization that every member may use, starting with `ccpool_`. Null clears it.
 
     minLength: 1, maxLength: 64
 
@@ -122582,23 +126431,11 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -122610,15 +126447,11 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -122633,8 +126466,6 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -122664,8 +126495,6 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -122693,6 +126522,46 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -123015,23 +126884,11 @@ List the set-up Slack channels of one Slack workspace, newest first by `created_
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -123043,15 +126900,11 @@ List the set-up Slack channels of one Slack workspace, newest first by `created_
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -123066,8 +126919,6 @@ List the set-up Slack channels of one Slack workspace, newest first by `created_
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -123097,8 +126948,6 @@ List the set-up Slack channels of one Slack workspace, newest first by `created_
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -123126,6 +126975,46 @@ List the set-up Slack channels of one Slack workspace, newest first by `created_
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -123437,23 +127326,11 @@ Get one Slack channel and its settings. By default `settings` holds what the cha
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -123465,15 +127342,11 @@ Get one Slack channel and its settings. By default `settings` holds what the cha
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -123488,8 +127361,6 @@ Get one Slack channel and its settings. By default `settings` holds what the cha
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -123519,8 +127390,6 @@ Get one Slack channel and its settings. By default `settings` holds what the cha
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -123548,6 +127417,46 @@ Get one Slack channel and its settings. By default `settings` holds what the cha
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -123854,7 +127763,7 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
 
   - `environment_id: optional String | nil`
 
-    The environment Claude's sessions run in: the identifier of an active environment of the organization, starting with `env_`. Null clears it.
+    The environment Claude's sessions run in: the identifier of an active environment of the organization, starting with `env_`, or of a self-hosted runner pool of the organization that every member may use, starting with `ccpool_`. Null clears it.
 
     minLength: 1, maxLength: 64
 
@@ -123924,23 +127833,11 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -123952,15 +127849,11 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -123975,8 +127868,6 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -124006,8 +127897,6 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -124035,6 +127924,46 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -124340,23 +128269,11 @@ Remove a Slack channel from Claude Tag. This deletes the channel's stored settin
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -124368,15 +128285,11 @@ Remove a Slack channel from Claude Tag. This deletes the channel's stored settin
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -124391,8 +128304,6 @@ Remove a Slack channel from Claude Tag. This deletes the channel's stored settin
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -124422,8 +128333,6 @@ Remove a Slack channel from Claude Tag. This deletes the channel's stored settin
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -124451,6 +128360,46 @@ Remove a Slack channel from Claude Tag. This deletes the channel's stored settin
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -124521,23 +128470,11 @@ List the set-up Slack workspaces the organization owns, newest first by `created
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -124549,15 +128486,11 @@ List the set-up Slack workspaces the organization owns, newest first by `created
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -124572,8 +128505,6 @@ List the set-up Slack workspaces the organization owns, newest first by `created
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -124603,8 +128534,6 @@ List the set-up Slack workspaces the organization owns, newest first by `created
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -124632,6 +128561,46 @@ List the set-up Slack workspaces the organization owns, newest first by `created
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -124946,23 +128915,11 @@ Get one Slack workspace and its settings. By default `settings` holds what the w
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -124974,15 +128931,11 @@ Get one Slack workspace and its settings. By default `settings` holds what the w
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -124997,8 +128950,6 @@ Get one Slack workspace and its settings. By default `settings` holds what the w
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -125028,8 +128979,6 @@ Get one Slack workspace and its settings. By default `settings` holds what the w
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -125057,6 +129006,46 @@ Get one Slack workspace and its settings. By default `settings` holds what the w
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -125366,7 +129355,7 @@ Change the settings a Slack workspace stores. The update is partial: a setting l
 
   - `environment_id: optional String | nil`
 
-    The environment Claude's sessions run in: the identifier of an active environment of the organization, starting with `env_`. Null clears it.
+    The environment Claude's sessions run in: the identifier of an active environment of the organization, starting with `env_`, or of a self-hosted runner pool of the organization that every member may use, starting with `ccpool_`. Null clears it.
 
     minLength: 1, maxLength: 64
 
@@ -125436,23 +129425,11 @@ Change the settings a Slack workspace stores. The update is partial: a setting l
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -125464,15 +129441,11 @@ Change the settings a Slack workspace stores. The update is partial: a setting l
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -125487,8 +129460,6 @@ Change the settings a Slack workspace stores. The update is partial: a setting l
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -125518,8 +129489,6 @@ Change the settings a Slack workspace stores. The update is partial: a setting l
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -125547,6 +129516,46 @@ Change the settings a Slack workspace stores. The update is partial: a setting l
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -125863,23 +129872,11 @@ List the organization's Bundles, newest first by `created_at`. A Bundle that Cla
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -125891,15 +129888,11 @@ List the organization's Bundles, newest first by `created_at`. A Bundle that Cla
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -125914,8 +129907,6 @@ List the organization's Bundles, newest first by `created_at`. A Bundle that Cla
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -125945,8 +129936,6 @@ List the organization's Bundles, newest first by `created_at`. A Bundle that Cla
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -125974,6 +129963,46 @@ List the organization's Bundles, newest first by `created_at`. A Bundle that Cla
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -126057,23 +130086,11 @@ Get one Bundle. What the Bundle grants (connectors, repositories and credentials
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -126085,15 +130102,11 @@ Get one Bundle. What the Bundle grants (connectors, repositories and credentials
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -126108,8 +130121,6 @@ Get one Bundle. What the Bundle grants (connectors, repositories and credentials
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -126139,8 +130150,6 @@ Get one Bundle. What the Bundle grants (connectors, repositories and credentials
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -126168,6 +130177,46 @@ Get one Bundle. What the Bundle grants (connectors, repositories and credentials
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -126258,23 +130307,11 @@ List the Slack channels and Slack workspaces a Bundle is attached to, newest fir
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -126286,15 +130323,11 @@ List the Slack channels and Slack workspaces a Bundle is attached to, newest fir
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -126309,8 +130342,6 @@ List the Slack channels and Slack workspaces a Bundle is attached to, newest fir
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -126340,8 +130371,6 @@ List the Slack channels and Slack workspaces a Bundle is attached to, newest fir
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -126369,6 +130398,46 @@ List the Slack channels and Slack workspaces a Bundle is attached to, newest fir
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -126490,23 +130559,11 @@ Attach a Bundle to a Slack channel or a Slack workspace. A Bundle attached to a 
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -126518,15 +130575,11 @@ Attach a Bundle to a Slack channel or a Slack workspace. A Bundle attached to a 
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -126541,8 +130594,6 @@ Attach a Bundle to a Slack channel or a Slack workspace. A Bundle attached to a 
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -126572,8 +130623,6 @@ Attach a Bundle to a Slack channel or a Slack workspace. A Bundle attached to a 
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -126601,6 +130650,46 @@ Attach a Bundle to a Slack channel or a Slack workspace. A Bundle attached to a 
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -126698,23 +130787,11 @@ Get one Bundle Target. Returns 404 when `target_id` is the identifier of another
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -126726,15 +130803,11 @@ Get one Bundle Target. Returns 404 when `target_id` is the identifier of another
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -126749,8 +130822,6 @@ Get one Bundle Target. Returns 404 when `target_id` is the identifier of another
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -126780,8 +130851,6 @@ Get one Bundle Target. Returns 404 when `target_id` is the identifier of another
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -126809,6 +130878,46 @@ Get one Bundle Target. Returns 404 when `target_id` is the identifier of another
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -126906,23 +131015,11 @@ Detach a Bundle from a Slack channel or a Slack workspace. A repeated detach ret
 
   - `String = String`
 
-  - `:"message-batches-2024-09-24"`
-
-  - `:"prompt-caching-2024-07-31"`
-
   - `:"computer-use-2024-10-22"`
 
   - `:"computer-use-2025-01-24"`
 
-  - `:"pdfs-2024-09-25"`
-
-  - `:"token-counting-2024-11-01"`
-
-  - `:"token-efficient-tools-2025-02-19"`
-
   - `:"output-128k-2025-02-19"`
-
-  - `:"files-api-2025-04-14"`
 
   - `:"mcp-client-2025-04-04"`
 
@@ -126934,15 +131031,11 @@ Detach a Bundle from a Slack channel or a Slack workspace. A repeated detach ret
 
   - `:"code-execution-2025-05-22"`
 
-  - `:"extended-cache-ttl-2025-04-11"`
-
   - `:"context-1m-2025-08-07"`
 
   - `:"context-management-2025-06-27"`
 
   - `:"model-context-window-exceeded-2025-08-26"`
-
-  - `:"skills-2025-10-02"`
 
   - `:"fast-mode-2026-02-01"`
 
@@ -126957,8 +131050,6 @@ Detach a Bundle from a Slack channel or a Slack workspace. A repeated detach ret
   - `:"advisor-tool-2026-03-01"`
 
   - `:"managed-agents-2026-04-01"`
-
-  - `:"cache-diagnosis-2026-04-07"`
 
   - `:"dreaming-2026-04-21"`
 
@@ -126988,8 +131079,6 @@ Detach a Bundle from a Slack channel or a Slack workspace. A repeated detach ret
 
   - `:"thinking-display-updates-2026-08-18"`
 
-  - `:"ce-user-management-2026-07-13"`
-
   - `:"mid-conversation-output-config-2026-07-01"`
 
   - `:"thinking-binding-controls-2026-08-01"`
@@ -127017,6 +131106,46 @@ Detach a Bundle from a Slack channel or a Slack workspace. A repeated detach ret
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `:"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `:"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `:"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 

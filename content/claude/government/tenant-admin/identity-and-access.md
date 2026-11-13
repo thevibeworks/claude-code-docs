@@ -124,7 +124,7 @@ Once your identity provider has pushed groups over SCIM, they appear here with t
 
 ## Routing rules
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gG0BlHWciPZj0Lhu/images/government/videos/admin-03-organizations-seats-and-routing-rules-v2.mp4?fit=max&auto=format&n=gG0BlHWciPZj0Lhu&q=85&s=c327b48633e8619e07ced55a9765ede5" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/vSHPzJBBYOV0ar0p/images/government/videos/admin-03-organizations-seats-and-routing-rules-v3.mp4?fit=max&auto=format&n=vSHPzJBBYOV0ar0p&q=85&s=d825f4ded48f8e562fa9a2a038401480" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
 
 Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.
 
