@@ -154,6 +154,8 @@ Live editing uses separate Google Docs, Google Sheets, and Google Slides connect
 
 - Data is encrypted at rest and in transit.
 
+- Claude Meetings (beta) also uses your Google Calendar connection, and works differently from the above. See **[Use Claude Meetings](https://support.claude.com/en/articles/18325154-use-claude-meetings)**.
+
 ### A note on Gmail permissions
 
 During authentication, Google's OAuth screen mentions email sending permissions. Claude can send, reply to, and forward emails, but only does so with your explicit approval by default. On Team and Enterprise plans, owners decide whether members can allow these actions to run without asking each time.

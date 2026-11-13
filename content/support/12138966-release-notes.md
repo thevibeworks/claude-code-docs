@@ -2,6 +2,10 @@
 
 ## November 2026
 
+### November 12, 2026
+
+Claude Meetings is rolling out in beta on Team and Enterprise plans in Claude and Claude Desktop. You can add Claude to a Google Meet call as a visible participant that takes notes, answers questions, and builds artifacts, such as docs, whiteboards, and slides, during the call. For more information, see **[Use Claude Meetings](https://support.claude.com/en/articles/18325154-use-claude-meetings)**.
+
 ### November 6, 2026
 
 **Track spend by cost code with project tags (beta)**

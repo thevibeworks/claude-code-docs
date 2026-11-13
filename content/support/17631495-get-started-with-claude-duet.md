@@ -104,7 +104,7 @@ During the research preview, keep these limits in mind:
 
 - Some actions are off-limits even with your approval, such as trading securities, moving money between accounts, or accessing someone else’s account.
 
-- Some connectors, such as Slack, work with limits in Claude Duet. Microsoft 365 isn't available yet.
+- Some connectors, such as Slack, work with limits in Claude Duet.
 
 - Personal Finance isn’t available in Claude Duet.
 

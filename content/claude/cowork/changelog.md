@@ -6,6 +6,30 @@
 
 > Release notes for Claude Desktop
 
+**v5.11492.2**
+
+2026-11-13
+
+Bundled Claude Code version: 2.1.321.
+
+For administrators of SSH hosts: SSH helper version 87375cc7c944eb9d45c8d9267edc70a4b4827961.
+
+**General**
+
+* No user-facing changes.
+
+**Code**
+
+* No user-facing changes.
+
+**Cowork**
+
+* No user-facing changes.
+
+**3P**
+
+* No user-facing changes.
+
 **v5.11492.0**
 
 2026-11-12

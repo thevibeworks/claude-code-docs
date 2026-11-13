@@ -72,7 +72,7 @@ The four fields do this:
 * **`version`**: optional. Setting it keeps users on that version until you change it; [Release a new version](https://code.claude.com/docs/en/plugins/host-marketplace.md#release-a-new-version) says when to set or omit it.
 * **`author`**: who to credit. `name` is required inside it; `email` and `url` are optional.
 
-Every other field is on the [manifest reference](https://code.claude.com/docs/en/plugins/manifest-reference.md#fields).
+Other fields are on the [manifest reference](https://code.claude.com/docs/en/plugins/manifest-reference.md#fields).
 
 Only `plugin.json` goes inside `.claude-plugin/`. The skill you add next goes directly under `my-first-plugin/`, next to that folder.
 
@@ -344,7 +344,7 @@ This example shows the shape with one hook that runs a linter on each file Claud
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
-        "hooks": [{ "type": "command", "command": "jq -r '.tool_input.file_path' | xargs npm run lint:fix" }]
+        "hooks": [{ "type": "command", "command": "f=$(jq -r '.tool_input.file_path') && npm run lint:fix -- \"$f\"" }]
       }
     ]
   }

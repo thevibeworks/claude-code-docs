@@ -4,7 +4,7 @@
 
 # Admin API keys
 
-> Admin API keys let organization owners give a script read-only access to audit events, and let Primary Owners give it access to usage reports.
+> Admin API keys let organization owners give a script read-only access to their organization's audit events, usage reports, or both.
 
 > **Who this is for:** Owners and Primary Owners who create keys for the security, finance, or reporting tools that read their organization's data.
 
@@ -18,12 +18,12 @@ An admin API key lets a script read your organization's Claude for Government au
 
 You choose what a key can read when you create it, and you can't change the choice afterward.
 
-You can select a choice when your role allows it and its setting is on.
+Owners, Primary Owners, and tenant administrators can select each choice when its setting is on.
 
-| **This key can read** | Who can select it | Setting that must be on |
-| - | - | - |
-| **Compliance activity feed**, for the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) | Owners, Primary Owners, and tenant administrators | [**Compliance API**](https://claude.com/docs/government/config/settings.md#compliance-api) |
-| **Usage and cost reports**, for the [Analytics API](https://claude.com/docs/government/org-admin/analytics-api.md) | Primary Owners | [**Analytics API**](https://claude.com/docs/government/config/settings.md#analytics-api) |
+| **This key can read** | Setting that must be on |
+| - | - |
+| **Compliance activity feed**, for the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) | [**Compliance API**](https://claude.com/docs/government/config/settings.md#compliance-api) |
+| **Usage and cost reports**, for the [Analytics API](https://claude.com/docs/government/org-admin/analytics-api.md) | [**Analytics API**](https://claude.com/docs/government/config/settings.md#analytics-api) |
 
 A key with **Usage and cost reports** can read each member's usage and estimated cost, by the hour, with the member's name and email address. Neither API returns conversation content, files, or anything your users type into Claude.
 

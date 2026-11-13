@@ -12,7 +12,11 @@ Claude Cowork is available on paid plans (Pro, Max, Ultra, Team, and Enterprise)
 
 - **Claude in Chrome side panel:** All paid plans. On Enterprise plans, an owner needs to enable Claude in Chrome and Cowork in the cloud. See **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173)**.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Enterprise owners can learn more in **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. Organizations that haven't turned it on keep chat and Cowork as separate options, so this article still applies. Owners can learn more in the article that applies to your plan:
+
+- **[Set up and manage the new unified Claude experience for your Team organization](https://support.claude.com/en/articles/18342806)**
+
+- **[Set up and manage the new unified Claude experience for your Enterprise organization](https://support.claude.com/en/articles/17444462)**
 
 ---
 
@@ -26,7 +30,7 @@ On Team and Enterprise plans, Cowork sessions can run in two places:
 
 ## Admin controls
 
-Claude Cowork is on by default, but organization owners can manually disable it. In organizations that have enabled HIPAA, Cowork is off by default. An Owner can turn on Cowork in **Organization settings > Cowork**.
+Claude Cowork is on by default, but organization owners can manually disable it. In organizations that have enabled HIPAA, Cowork is off by default. An Owner can turn on Cowork in **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**.
 
 ### Enable or disable Cowork
 

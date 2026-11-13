@@ -88,3 +88,7 @@ For each model call, the server sends the conversation so far, including tool in
 To request access to the download, contact your Anthropic account team. Then follow [Get started with self-hosted Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/self-hosted/quickstart) to start a server and run a first session.
 
 Each release’s archive includes an operator guide for that version, `operator-guide.md`. Have Claude read that file, so that Claude can help you configure and run your server and write code that connects to it.
+
+## License
+
+The server software is licensed under the [Software License Agreement: Claude Managed Agents Server](https://www.anthropic.com/legal/self-hosted-managed-agents-license).

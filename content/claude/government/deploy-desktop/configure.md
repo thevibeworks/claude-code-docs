@@ -104,9 +104,9 @@ After the test, the same configuration window has an **Export** menu that produc
 
 ## Deploy to your fleet
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gGFKuNSbKYs4JMmK/images/government/videos/admin-09-deploy-to-your-fleet.mp4?fit=max&auto=format&n=gGFKuNSbKYs4JMmK&q=85&s=bde163c8a3661fd5393106756950713c" aria-label="Video walkthrough: Deploy to your fleet" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/KoTvDoB4EQ3eCbkB/images/government/videos/admin-09-deploy-to-your-fleet-v2.mp4?fit=max&auto=format&n=KoTvDoB4EQ3eCbkB&q=85&s=e82e0d3f6ee54735ef5e7a3d4b0f3b43" aria-label="Video walkthrough: Deploy to your fleet" />
 
-Video: Deploy to your fleet (1 min 31 s). Narrated with an AI-generated voice, with on-screen captions.
+Video: Deploy to your fleet (1 min 32 s). Narrated with an AI-generated voice, with on-screen captions.
 
 [Transcript](https://claude.com/docs/government/video-walkthroughs.md#deploy-to-your-fleet)
 

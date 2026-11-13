@@ -10,7 +10,7 @@
 
 The organization admin portal is where you manage the people, seats, and settings for a single organization in Claude for Government.
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/MtPmUtGcabx4sJAO/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness-v2.mp4?fit=max&auto=format&n=MtPmUtGcabx4sJAO&q=85&s=fbfcdaca92e3c17ff358af64f4f81ae5" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/KCl5HZFMS3Q5oYkr/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness-v3.mp4?fit=max&auto=format&n=KCl5HZFMS3Q5oYkr&q=85&s=e77c642afb5785e19b1e7519d9310f64" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
 
 Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.
 

@@ -210,7 +210,11 @@ The first time you use an artifact with shared storage, Claude shows a confirmat
 
 **Note:** In legacy artifacts, storage works only after you publish. While you're building and testing, storage operations won't succeed until you publish. New artifacts don't need to be published to store data.
 
-Storage has a 20 MB limit per artifact and accepts text only, no images, files, or binary data. Personal and shared storage are kept separate, and unpublishing a legacy artifact permanently deletes all its stored data.
+**Storage limits:** By default, an artifact can store up to 100 MB of data and 25,000 documents (saved records), whichever it reaches first.
+
+**Uploaded files:** An artifact can include a control for uploading files, such as images, PDFs, or spreadsheets saved as CSV. The artifact’s owner and people in your organization who can edit it can upload. Each file can be up to 20 MB (2 MB for SVG images), and an artifact can hold up to 5000 files and 1 GB in total.
+
+**Legacy artifacts:** Storage has a 20 MB limit per artifact and accepts text only, no images, files, or binary data. Unpublishing a legacy artifact permanently deletes all its stored data.
 
 **Warning:** Whoever builds an artifact decides which data uses personal storage and which uses shared. Before entering anything sensitive, check whether the artifact uses shared storage.
 

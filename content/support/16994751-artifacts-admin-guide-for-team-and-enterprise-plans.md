@@ -45,7 +45,7 @@ Templates are the starting points users pick when they create an artifact.
 
 - **Motion:** On by default on Team plans, and off by default on Enterprise plans.
 
-- **Data:** On by default on Team plans. On Enterprise plans, it turns on by default on November 19, 2026. You can turn it on sooner.
+- **Data:** On by default on Team plans. On Enterprise plans, it turns on by default on November 20, 2026. You can turn it on sooner.
 
 - **Sheets and Whiteboards (beta):** On by default on Team plans, and off on Enterprise plans until an owner turns them on.
 
@@ -109,6 +109,8 @@ The artifact's owner can then share it with anyone who has the link. **External 
 2. Turn on **Email invitations outside your organization**.
 
 **Important:** Turning **Email invitations outside your organization** off blocks access for people users already invited, until you turn it back on. Accepted invitations aren't deleted, and pending ones still expire 30 days after they were sent.
+
+People invited to a doc made with Claude Docs can also ask their own Claude to work on it, within the access they were given. What their Claude reads becomes part of a chat in their account, and Claude may save short facts from it to their memory. There’s no separate setting for this: turning **Email invitations outside your organization** off blocks both the people and their Claude from opening the doc.
 
 ### See and remove outside access
 

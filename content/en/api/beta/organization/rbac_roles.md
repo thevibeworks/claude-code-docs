@@ -59,7 +59,27 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
   - `display_name: string`
 
-    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a built-in role, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+
+  - `source: BetaRBACRoleSource`
+
+    Whether the RBAC Role is built-in or custom. More values of `type` may be added, so do not treat every role that is not `built_in` as `custom`.
+
+    - `BetaRBACRoleSourceBuiltIn object`
+
+      - `type: "built_in"`
+
+        Anthropic provisions the RBAC Role, and the organization's administrators cannot change or delete it.
+
+        default: built_in
+
+    - `BetaRBACRoleSourceCustom object`
+
+      - `type: "custom"`
+
+        The organization's administrators can change and delete the RBAC Role.
+
+        default: custom
 
   - `updated_at: string`
 
@@ -93,6 +113,9 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles \
       "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
       "created_at": "2024-10-30T23:58:27.427722Z",
       "display_name": "Project Editor",
+      "source": {
+        "type": "built_in"
+      },
       "type": "rbac_role",
       "updated_at": "2024-10-30T23:58:27.427722Z"
     }
@@ -148,7 +171,27 @@ The RBAC Roles API is available to Claude Enterprise organizations only.
 
   - `display_name: string`
 
-    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a built-in role, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+
+  - `source: BetaRBACRoleSource`
+
+    Whether the RBAC Role is built-in or custom. More values of `type` may be added, so do not treat every role that is not `built_in` as `custom`.
+
+    - `BetaRBACRoleSourceBuiltIn object`
+
+      - `type: "built_in"`
+
+        Anthropic provisions the RBAC Role, and the organization's administrators cannot change or delete it.
+
+        default: built_in
+
+    - `BetaRBACRoleSourceCustom object`
+
+      - `type: "custom"`
+
+        The organization's administrators can change and delete the RBAC Role.
+
+        default: custom
 
   - `updated_at: string`
 
@@ -171,6 +214,9 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID \
   "id": "rbac_role_016J8xVtKpDq3Wy9ZmN2hR4s",
   "created_at": "2024-10-30T23:58:27.427722Z",
   "display_name": "Project Editor",
+  "source": {
+    "type": "built_in"
+  },
   "type": "rbac_role",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
@@ -202,13 +248,73 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$RBAC_ROLE_ID \
 
   - `display_name: string`
 
-    Name of the RBAC Role. For a role created by Anthropic, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+    Name of the RBAC Role. For a built-in role, this is Anthropic's name for the access that the role grants. Anthropic may change this name, so to keep a lasting reference to a role, store its `id`.
+
+  - `source: BetaRBACRoleSource`
+
+    Whether the RBAC Role is built-in or custom. More values of `type` may be added, so do not treat every role that is not `built_in` as `custom`.
+
+    - `BetaRBACRoleSourceBuiltIn object`
+
+      - `type: "built_in"`
+
+        Anthropic provisions the RBAC Role, and the organization's administrators cannot change or delete it.
+
+        default: built_in
+
+    - `BetaRBACRoleSourceCustom object`
+
+      - `type: "custom"`
+
+        The organization's administrators can change and delete the RBAC Role.
+
+        default: custom
 
   - `updated_at: string`
 
     RFC 3339 datetime string indicating when the RBAC Role was last updated.
 
     format: date-time
+
+### Beta RBAC Role Source
+
+- `BetaRBACRoleSource = BetaRBACRoleSourceBuiltIn or BetaRBACRoleSourceCustom`
+
+  - `BetaRBACRoleSourceBuiltIn object`
+
+    - `type: "built_in"`
+
+      Anthropic provisions the RBAC Role, and the organization's administrators cannot change or delete it.
+
+      default: built_in
+
+  - `BetaRBACRoleSourceCustom object`
+
+    - `type: "custom"`
+
+      The organization's administrators can change and delete the RBAC Role.
+
+      default: custom
+
+### Beta RBAC Role Source Built In
+
+- `BetaRBACRoleSourceBuiltIn object`
+
+  - `type: "built_in"`
+
+    Anthropic provisions the RBAC Role, and the organization's administrators cannot change or delete it.
+
+    default: built_in
+
+### Beta RBAC Role Source Custom
+
+- `BetaRBACRoleSourceCustom object`
+
+  - `type: "custom"`
+
+    The organization's administrators can change and delete the RBAC Role.
+
+    default: custom
 
 ## RBAC Roles › Permissions
 
