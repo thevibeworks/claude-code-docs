@@ -2,8 +2,15 @@ name: Fetch Claude Code Docs
 
 on:
   schedule:
-    # Four times daily: 01:00, 06:00, 11:00, 16:00 UTC (aligned with hn-digest)
-    - cron: "0 1,6,11,16 * * *"
+    # Four times daily: 01:00, 06:00, 11:00, 16:00 UTC (aligned with hn-digest).
+    # One line per slot, on purpose. GitHub starts scheduled runs hours late;
+    # with all four slots on one line, half of them never ran (about 2/day
+    # since 2026-10-26), while hn-digest, one line per slot, kept 4/day. A late
+    # tick of a single line appears to be merged into its next one.
+    - cron: "0 1 * * *"
+    - cron: "0 6 * * *"
+    - cron: "0 11 * * *"
+    - cron: "0 16 * * *"
   workflow_dispatch: # Allow manual trigger
 
 jobs:
