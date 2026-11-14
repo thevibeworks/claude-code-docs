@@ -6,6 +6,63 @@
 
 > Release notes for Claude for Government
 
+**2026.11.13.1**
+
+* Added a way for a Primary Owner or tenant administrator to make a member an Owner when group mappings make them a User. The Compliance API's `user.role_changed` activity then carries `owner_pinned: true`.
+* Changed the **Users** page: Owners can't choose **Owner** where group mappings would undo it, and other role and seat tier choices that mappings may undo are marked.
+* Changed Claude Desktop 4.16336.0 through 5.1231.2 to hide its notices about deprecated settings, including device profile settings, until the last day each setting works.
+* Added a **Deactivated** badge on the tenant portal's **Admins** page for administrators whose accounts are deactivated.
+* Added a confirmation before you withdraw a domain claim.
+* Fixed members staying locked out after their organization was deactivated: if a provisioning rule places them in another organization, directory sync now moves them there and reactivates them.
+* Fixed the spend caps and seats forms undoing another administrator's newer change when saved from a page opened earlier: the save now stops and asks you to reload.
+* Fixed the import from Claude for Government Web failing on a very large project document: on Claude Desktop 4.29.0 or later, a document too large to import is left out, a "Not imported:" chat tells the member, and the Compliance API's `user.web_data_export_completed` activity counts it in `left_out_docs_too_large`.
+* Fixed raw JSON showing when an app's sign-in link was opened again after sign-in: a page now says the link was already used.
+* Fixed organization and member pickers showing only the last search's results when reopened, and **Verify now** showing an error for a domain that was already verified.
+* Fixed an error when saving a seat tier whose name is only a number, such as 2026.
+
+**2026.11.12.1**
+
+* (breaking) Changed the directory sync (SCIM) `/Users` and `/Groups` lists to return at most 1,000 records per request, even when no `count` is sent.
+* (breaking) Changed the minimum version of the Claude Code command-line tool that the gateway accepts to 2.1.308: members on an older version can't send messages until they update, except in sessions signed in through Claude Desktop.
+* Changed who can create an [Admin API key](https://claude.com/docs/government/org-admin/admin-api-keys.md) that reads **Usage and cost reports**: any Owner or Primary Owner of the organization can, and so can a tenant administrator acting as an Owner there.
+* Changed **Add organization** in the tenant portal: **Primary Owner email** is now optional, and tenant administrators who leave it blank manage the new organization themselves.
+* Changed low-credit emails: for an organization with no Owner or Primary Owner, they now go to the tenant's administrators, and the Compliance API's `spend_alert.delivered` activity carries `recipient_scope: tenant_admins`.
+* Added the ability for tenant administrators to change a Primary Owner's seat tier, unless the organization manages its own billing account. The Compliance API's `user.seat_tier_changed` activity carries `by_tenant_admin: true` when a tenant administrator who isn't one of the organization's Primary Owners makes the change.
+* Added an email to tenant administrators when Anthropic staff add a tenant administrator, add a Primary Owner, or reactivate an organization.
+* Changed the Compliance API and the Analytics API to answer a call to an address that doesn't exist with a `404` that names the right addresses.
+* Improved the Analytics API's error message when `starting_at` or `ending_at` is a date without a time.
+* Changed directory sync (SCIM) `/Users` responses to leave out `groups`; group membership and group mappings are unaffected.
+
+**2026.11.10.2**
+
+* Fixed the **Role** and **Seat tier** pickers on the Users page saving a new choice when you typed a character while the list was closed.
+* Changed the organization admin portal's **Compliance API** page to [**Admin API keys**](https://claude.com/docs/government/org-admin/admin-api-keys.md): existing keys keep working, and keys created there now start with a different prefix.
+* Updated single sign-on in the tenant portal: the confirmation before you change a connection now warns of more ways members can lose access, and the SAML form keeps the metadata and attribute names you entered when a save is refused.
+* Improved the accessibility of the Admin Console for keyboard and screen reader users, and made chart legends on the Analytics page easier to read.
+* Added fields to Compliance API activities: `scopes` on `api_key.created` says what the key can read, and `api_key_id`, `name`, and `partial_key_hint` on `api_key.revoked` say which key it was; when Anthropic revokes a key, `reason` is `anthropic_revoke` and `detail` says why.
+* Added the [Analytics API](https://claude.com/docs/government/org-admin/analytics-api.md), in beta, which returns an organization's usage and estimated cost down to each member, with names and email addresses. It is off until an owner or tenant administrator turns on **Analytics API** under Config > Admin Console.
+
+**2026.11.10.1**
+
+* (breaking) Changed **Bypass-permissions mode** (Config > Integrations) to apply to Claude Desktop 1.46388.1 or later in every organization, not only those whose Config page has a **Claude Code** section. It is **Blocked** by default, so members it newly covers are asked to restart and can't use the mode until an admin sets it to **Allowed**.
+* (breaking) Changed the Admin Console to accept only plain numbers (`1000`, not `1e3`) in settings, seats, and seat tiers, and to show an error under a number that is out of range, even one saved earlier. An error on a saved number changes nothing for members.
+* (breaking) Removed the `/gateway-api/bootstrap` address: a device whose `bootstrapUrl` ends in it now gets no settings, so use the [documented address](https://claude.com/docs/government/deploy-desktop/configure.md#the-bootstrap-address), which ends in `/gateway-api/user/bootstrap`.
+* Changed the import from Claude for Government Web on Claude Desktop 4.29.0 or later: a chat or project too large to import is left out instead of failing the whole import, and a "Not imported:" chat tells the member to contact their administrator. The Compliance API's `user.web_data_export_completed` activity counts these in `left_out_conversations_and_projects_too_large`.
+* Improved the reliability of the import from Claude for Government Web for members with many files or pasted texts; a member whose import stopped can run it again.
+* Changed spend alerts (banner and email) to say how much credit is left instead of how much was used.
+* Added a note beside the credit balance on the organization's **Billing** and **Analytics** pages that says, from 30 days before credit expires, how much expires and when.
+* Fixed credit that expired unused showing as used on the **Billing** and **Analytics** pages and being counted as spend in spend alerts.
+* Changed the **By product** table on the Analytics page and the Organization Analytics connector to count Claude Desktop's automatic chat titles and similar background requests under Claude Desktop, not Claude Code; earlier usage keeps its original product.
+* Changed the Admin Console to tell screen readers which setup steps and Readiness items are complete or waiting.
+* Changed the name Claude Desktop shows for its connection from "Gateway" to "Claude for Government", on Claude Desktop 2.2553.0 or later.
+
+**2026.11.06.1**
+
+* (breaking) Changed the gateway to answer chat and token-count requests with `429` and `Retry-After` when too many very large requests are in progress. Claude Code retries on its own.
+* (breaking) Changed Admin Console requests other than plugin uploads to be limited to 1 MiB.
+* (breaking) Changed the gateway API to answer `414` to a request whose URL is over 8 KiB or whose query string has more than 256 parameters: a longer `actor_ids[]` list on the Compliance API has to be split across requests.
+* Changed the Admin Console to accept capital letters in connector names: changing only a connector's capitals can reset members' tool choices for it and ask them to connect again, and Compliance API connector events include a `display_name` field with the typed name when it has capitals.
+
 **2026.11.05.1**
 
 * (breaking) Changed what Claude Desktop opens for members who have **Chat in Claude Desktop**, **Cowork in Claude Desktop**, and **Code in Claude Desktop** all off and no **Claude Desktop home** chosen (**Separate settings** counts as none): Claude Desktop 1.52386.0 or later keeps Cowork on for them until November 9, 2026, 00:00 UTC (November 8 in US time zones, 7 PM Eastern); from then they may be asked to restart, after which it has nothing to open for them, and earlier versions keep Cowork on.
@@ -284,8 +341,8 @@
 
 * Fixed members on the default 24-hour "Session idle timeout" being signed out a day after signing in even when they had kept using Claude; the timeout now counts from a member's last activity.
 * Improved screen reader support in the Admin Console: dialog options, repeated buttons, and usage meters are announced with distinct names, every page has its own browser title, and the setup wizards move keyboard focus to the new step's heading when you change steps.
-* Changed the "Session idle timeout" setting so a tenant admin can set it as high as 96 hours (5,760 minutes), with larger values refused; a value above 24 hours saved earlier, which was ignored until this release, now applies, and the 24-hour default is unchanged.
-* Added connector management to the Group configuration pages: tenant admins and organization owners can add, override, or remove connectors for one directory group instead of only for the whole tenant or organization, and these changes appear as new activity types in the Compliance API feed.
+* Changed the "Session idle timeout" setting so a tenant admin can set it as high as 96 hours (5,760 minutes); the default is still 24 hours. A tenant value above 24 hours saved earlier, which was ignored until this release, now applies, up to 96 hours.
+* Added connector management to the Group configuration pages: tenant admins and organization owners can add connectors for one directory group or override inherited ones, and these changes appear as new activity types in the Compliance API feed.
 
 **2026.08.25.2**
 

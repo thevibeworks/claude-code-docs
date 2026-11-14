@@ -30,7 +30,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794661200&amp;signature=638a343f5f92f2f95f0c3164c9aa8b9ffb27dbcb40051aafbb8811b9ade5f3e6&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZL%2BoO1gN0ADj5oqFAit%2B7wr7R3SS4reaTp%0A1q3STShYExeUHJWFXK0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794676500&amp;signature=b22763f801cd2a2aa63e348b3137624955da977efd4ef48f7a8e1160bf6d44fd&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZL%2B4SygN0ADj5oqFDciZxlwRf6fBEJNwds%0AqMvcncXrUQcynwnS10s%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -64,7 +64,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794661200&amp;signature=9dcd0a2fdee747c00d92222993f738b1cb036f2af4e5264670e7aa21861ef4c2&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2J2ji3u7A4lHPBihAXxQTeoVYWvFycXaJ81%0AH%2BumNQqXrDlNPouNaso%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794676500&amp;signature=a25ab58ec02d2348a4db09be7879c657a0d7b9a4812c75026587d819f01eeb44&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2J2jyrp7A4lHPBihAX%2FZuG2qVqxtMtK89Oc%0AYTXmFj8uM%2Fbrvq%2FdjnQ%3D%0A)
 
 ### Permission options
 
