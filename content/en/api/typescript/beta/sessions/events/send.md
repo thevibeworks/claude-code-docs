@@ -250,6 +250,20 @@ interface BetaManagedAgentsSystemMessageEvent {
   processed_at?: string | null; // format: date-time
 }
 
+/** Rubric referenced by a file uploaded via the Files API. */
+interface BetaManagedAgentsFileRubric {
+  type: "file";
+  /** ID of the rubric file. */
+  file_id: string;
+}
+
+/** Rubric content provided inline as text. */
+interface BetaManagedAgentsTextRubric {
+  type: "text";
+  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. */
+  content: string;
+}
+
 /** Parameters for sending a user message to the session. */
 interface BetaManagedAgentsUserMessageEventParams {
   type: "user.message";
@@ -315,6 +329,50 @@ interface BetaManagedAgentsSystemMessageEventParams {
   content: Array<BetaManagedAgentsSystemContentBlock>;
 }
 
+/** A block containing a web search result. */
+interface BetaManagedAgentsSearchResultBlock {
+  type: "search_result";
+  /** Citation settings for this search result. */
+  citations: BetaManagedAgentsSearchResultCitations;
+  /** Array of text content blocks from the search result. */
+  content: Array<BetaManagedAgentsSearchResultContent>;
+  /** The URL source of the search result. */
+  source: string; // minLength: 1
+  /** The title of the search result. */
+  title: string; // minLength: 1
+}
+
+interface BetaManagedAgentsSearchResultCitations {
+  /** Whether citations are enabled for this search result. */
+  enabled: boolean;
+}
+
+interface BetaManagedAgentsSearchResultContent {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
+/** Rubric referenced by a file uploaded via the Files API. */
+interface BetaManagedAgentsFileRubricParams {
+  type: "file";
+  /** ID of the rubric file. */
+  file_id: string;
+}
+
+/** Rubric content provided inline as text. */
+interface BetaManagedAgentsTextRubricParams {
+  type: "text";
+  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters. */
+  content: string; // maxLength: 262144
+}
+
+interface BetaManagedAgentsSystemContentBlock {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
 /** Regular text content. */
 interface BetaManagedAgentsTextBlock {
   type: "text";
@@ -343,53 +401,6 @@ interface BetaManagedAgentsDocumentBlock {
 /** Placeholder for content withheld by Anthropic model policy. */
 interface BetaManagedAgentsRedactedBlock {
   type: "redacted";
-}
-
-/** A block containing a web search result. */
-interface BetaManagedAgentsSearchResultBlock {
-  type: "search_result";
-  /** Citation settings for this search result. */
-  citations: BetaManagedAgentsSearchResultCitations;
-  /** Array of text content blocks from the search result. */
-  content: Array<BetaManagedAgentsSearchResultContent>;
-  /** The URL source of the search result. */
-  source: string; // minLength: 1
-  /** The title of the search result. */
-  title: string; // minLength: 1
-}
-
-/** Rubric referenced by a file uploaded via the Files API. */
-interface BetaManagedAgentsFileRubric {
-  type: "file";
-  /** ID of the rubric file. */
-  file_id: string;
-}
-
-/** Rubric content provided inline as text. */
-interface BetaManagedAgentsTextRubric {
-  type: "text";
-  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. */
-  content: string;
-}
-
-interface BetaManagedAgentsSystemContentBlock {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
-}
-
-/** Rubric referenced by a file uploaded via the Files API. */
-interface BetaManagedAgentsFileRubricParams {
-  type: "file";
-  /** ID of the rubric file. */
-  file_id: string;
-}
-
-/** Rubric content provided inline as text. */
-interface BetaManagedAgentsTextRubricParams {
-  type: "text";
-  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters. */
-  content: string; // maxLength: 262144
 }
 
 /** Base64-encoded image data. */
@@ -445,16 +456,5 @@ interface BetaManagedAgentsFileDocumentSource {
   type: "file";
   /** ID of a previously uploaded file. */
   file_id: string; // minLength: 1
-}
-
-interface BetaManagedAgentsSearchResultCitations {
-  /** Whether citations are enabled for this search result. */
-  enabled: boolean;
-}
-
-interface BetaManagedAgentsSearchResultContent {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
 }
 ```

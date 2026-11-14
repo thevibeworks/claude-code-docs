@@ -442,7 +442,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minLength: 1
 
-            - `Caller Caller`
+            - `BetaToolUseBlockCaller Caller`
 
               - `class BetaDirectCaller`
 
@@ -554,7 +554,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Caller Caller`
+            - `BetaWebSearchToolResultBlockCaller Caller`
 
               - `class BetaDirectCaller`
 
@@ -570,7 +570,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "web_fetch_tool_result"`
 
-            - `required Content Content`
+            - `required BetaWebFetchToolResultBlockContent Content`
 
               - `class BetaWebFetchToolResultErrorBlock`
 
@@ -648,7 +648,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `Caller Caller`
+            - `BetaWebFetchToolResultBlockCaller Caller`
 
               - `class BetaDirectCaller`
 
@@ -778,13 +778,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "bash_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required BetaBashCodeExecutionToolResultBlockContent Content`
 
               - `class BetaBashCodeExecutionToolResultError`
 
                 - `JsonElement Type = "bash_code_execution_tool_result_error"`
 
-                - `required ErrorCode ErrorCode`
+                - `required BetaBashCodeExecutionToolResultErrorErrorCode ErrorCode`
 
                   - `InvalidToolInput("invalid_tool_input")`
 
@@ -820,13 +820,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required BetaTextEditorCodeExecutionToolResultBlockContent Content`
 
               - `class BetaTextEditorCodeExecutionToolResultError`
 
                 - `JsonElement Type = "text_editor_code_execution_tool_result_error"`
 
-                - `required ErrorCode ErrorCode`
+                - `required BetaTextEditorCodeExecutionToolResultErrorErrorCode ErrorCode`
 
                   - `InvalidToolInput("invalid_tool_input")`
 
@@ -888,13 +888,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "tool_search_tool_result"`
 
-            - `required Content Content`
+            - `required BetaToolSearchToolResultBlockContent Content`
 
               - `class BetaToolSearchToolResultError`
 
                 - `JsonElement Type = "tool_search_tool_result_error"`
 
-                - `required ErrorCode ErrorCode`
+                - `required BetaToolSearchToolResultErrorErrorCode ErrorCode`
 
                   - `InvalidToolInput("invalid_tool_input")`
 
@@ -944,7 +944,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "mcp_tool_result"`
 
-            - `required Content Content`
+            - `required BetaMcpToolResultBlockContent Content`
 
               - `string`
 
@@ -1009,7 +1009,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `JsonElement Type = "tool_addition"`
 
-                - `required Tool Tool`
+                - `required BetaResponseToolAdditionBlockTool Tool`
 
                   The tool made available: a reference to a `tools` entry or MCP toolset, or a `tool_definition` carrying the definition by value.
 
@@ -1061,7 +1061,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         A custom tool definition, as sent.
 
-                        - `Type? Type`
+                        - `BetaResponseToolType? Type`
 
                         - `required BetaResponseToolInputSchema InputSchema`
 
@@ -1083,7 +1083,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaResponseToolAllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1123,7 +1123,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolBash20241022AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1174,7 +1174,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolBash20250124AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1208,7 +1208,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaCodeExecutionTool20250522AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1240,7 +1240,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaCodeExecutionTool20250825AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1278,7 +1278,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaCodeExecutionTool20260120AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1312,7 +1312,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaCodeExecutionTool20260521AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1745,7 +1745,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolComputerUse20241022AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1785,7 +1785,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaMemoryTool20250818AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1831,7 +1831,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolComputerUse20250124AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1871,7 +1871,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolTextEditor20241022AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -1917,7 +1917,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolComputerUse20251124AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2186,7 +2186,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolTextEditor20250124AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2220,7 +2220,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolTextEditor20250429AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2254,7 +2254,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolTextEditor20250728AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2294,7 +2294,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaWebSearchTool20250305AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2370,7 +2370,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaWebFetchTool20250910AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2514,7 +2514,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaWebSearchTool20260209AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2564,7 +2564,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaWebFetchTool20260209AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2626,7 +2626,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaWebFetchTool20260309AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2690,7 +2690,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaWebSearchTool20260318AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2722,7 +2722,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           minimum: 1
 
-                        - `ResponseInclusion ResponseInclusion`
+                        - `BetaWebSearchTool20260318ResponseInclusion ResponseInclusion`
 
                           How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -2748,7 +2748,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaWebFetchTool20260318AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2956,7 +2956,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `class BetaToolSearchToolBm25_20251119`
 
-                        - `required Type Type`
+                        - `required BetaToolSearchToolBm25_20251119Type Type`
 
                           - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
@@ -2968,7 +2968,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolSearchToolBm25_20251119AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -2992,7 +2992,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `class BetaToolSearchToolRegex20251119`
 
-                        - `required Type Type`
+                        - `required BetaToolSearchToolRegex20251119Type Type`
 
                           - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
@@ -3004,7 +3004,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           This is how the tool will be called by the model and in `tool_use` blocks.
 
-                        - `IReadOnlyList<AllowedCaller> AllowedCallers`
+                        - `IReadOnlyList<BetaToolSearchToolRegex20251119AllowedCaller> AllowedCallers`
 
                           - `Direct("direct")`
 
@@ -3087,7 +3087,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `JsonElement Type = "tool_removal"`
 
-                - `required Tool Tool`
+                - `required BetaResponseToolRemovalBlockTool Tool`
 
                   A reference to the withdrawn `tools` entry, MCP tool or MCP toolset.
 
@@ -3572,7 +3572,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 0
 
-          - `required IReadOnlyList<Iteration>? Iterations`
+          - `required IReadOnlyList<BetaUsageIteration>? Iterations`
 
             Per-iteration token usage breakdown.
 
@@ -3795,7 +3795,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minimum: 0
 
-          - `required ServiceTier? ServiceTier`
+          - `required BetaUsageServiceTier? ServiceTier`
 
             If the request used the priority, standard, or batch tier.
 
@@ -3805,7 +3805,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Batch("batch")`
 
-          - `required Speed? Speed`
+          - `required BetaUsageSpeed? Speed`
 
             The inference speed mode used for this request.
 
@@ -3849,7 +3849,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               `i` indexes the `messages` array you sent and `j` that message's `content`
               array — the same form error messages use.
 
-            - `required Reason Reason`
+            - `required BetaThinkingDroppedInputTransformationReason Reason`
 
               Which binding check removed the block: `model_binding_mismatch` — it was
               created by a model whose reasoning the requested model may not read;
@@ -3885,7 +3885,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               `i` indexes the `messages` array you sent and `j` that message's `content`
               array — the same form error messages use.
 
-            - `required Reason Reason`
+            - `required BetaThinkingMismatchAllowedInputTransformationReason Reason`
 
               Which binding check the block failed; the block was shown to the model all
               the same. Always `prefix_binding_mismatch` today — the conversation before
@@ -4014,6 +4014,22 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `class BetaMessageBatchExpiredResult`
 
       - `JsonElement Type = "expired"`
+
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicCmekKeyDisabledException` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ## Example
 

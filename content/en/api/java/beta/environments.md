@@ -403,6 +403,22 @@ Create a new environment with the specified configuration.
 
     - `ACCOUNT("account")`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentCreateDisabledException` (HTTP status 403, error code `environment_create_disabled`)
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
 ### Example
 
 ```java
@@ -443,21 +459,11 @@ public final class Main {
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -774,6 +780,18 @@ List environments with pagination support.
 
     - `ACCOUNT("account")`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```java
@@ -813,21 +831,11 @@ public final class Main {
           "type": "limited"
         },
         "packages": {
-          "apt": [
-            "string"
-          ],
-          "cargo": [
-            "string"
-          ],
-          "gem": [
-            "string"
-          ],
-          "go": [
-            "string"
-          ],
-          "npm": [
-            "string"
-          ],
+          "apt": [],
+          "cargo": [],
+          "gem": [],
+          "go": [],
+          "npm": [],
           "pip": [
             "pandas",
             "numpy"
@@ -1135,6 +1143,18 @@ Retrieve a specific environment by ID.
 
     - `ACCOUNT("account")`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```java
@@ -1172,21 +1192,11 @@ public final class Main {
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -1605,6 +1615,30 @@ Update an existing environment's configuration.
 
     - `ACCOUNT("account")`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaEnvironmentArchivedException` (HTTP status 400, error code `environment_archived`)
+
+  The environment is archived, so it cannot be updated.
+
+- `BetaInvalidConfigTypeChangeException` (HTTP status 400, error code `invalid_config_type_change`)
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentUpdateDisabledException` (HTTP status 403, error code `environment_update_disabled`)
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
+
 ### Example
 
 ```java
@@ -1642,21 +1676,11 @@ public final class Main {
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -1844,6 +1868,18 @@ Delete an environment by ID. Returns a confirmation of the deletion.
   - `String id`
 
     Environment identifier
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Example
 
@@ -2161,6 +2197,18 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `ACCOUNT("account")`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```java
@@ -2198,21 +2246,11 @@ public final class Main {
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -2521,15 +2559,11 @@ public final class Main {
 
 - `class BetaEnvironmentArchivedErrorDetails`
 
-  The environment is archived, so it cannot be updated.
-
   - `JsonValue errorCode = "environment_archived"`
 
 ### Beta Environment Create Disabled Error Details
 
 - `class BetaEnvironmentCreateDisabledErrorDetails`
-
-  Anthropic has turned off creating environments for this organization. Existing environments still work.
 
   - `JsonValue errorCode = "environment_create_disabled"`
 
@@ -2551,15 +2585,11 @@ public final class Main {
 
 - `class BetaEnvironmentNotFoundErrorDetails`
 
-  `settings.environment_id` names no Environment within the organization's reach.
-
   - `JsonValue errorCode = "environment_not_found"`
 
 ### Beta Environment Update Disabled Error Details
 
 - `class BetaEnvironmentUpdateDisabledErrorDetails`
-
-  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
 
   - `JsonValue errorCode = "environment_update_disabled"`
 
@@ -2567,15 +2597,11 @@ public final class Main {
 
 - `class BetaInvalidConfigTypeChangeErrorDetails`
 
-  `config.type` differs from the environment's stored type, which cannot change after creation.
-
   - `JsonValue errorCode = "invalid_config_type_change"`
 
 ### Beta Invalid Metadata Error Details
 
 - `class BetaInvalidMetadataErrorDetails`
-
-  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
 
   - `JsonValue errorCode = "invalid_metadata"`
 
@@ -2727,6 +2753,80 @@ public final class Main {
   - `JsonValue type = "unrestricted"`
 
     Network policy type
+
+## Errors
+
+### BetaEnvironmentArchivedException
+
+HTTP status 400, error code `environment_archived`
+
+- `class BetaEnvironmentArchivedException extends BadRequestException`
+
+  The environment is archived, so it cannot be updated.
+
+  - `BetaEnvironmentArchivedErrorDetails details`
+
+    - `JsonValue errorCode = "environment_archived"`
+
+### BetaInvalidConfigTypeChangeException
+
+HTTP status 400, error code `invalid_config_type_change`
+
+- `class BetaInvalidConfigTypeChangeException extends BadRequestException`
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+  - `BetaInvalidConfigTypeChangeErrorDetails details`
+
+    - `JsonValue errorCode = "invalid_config_type_change"`
+
+### BetaInvalidMetadataException
+
+HTTP status 400, error code `invalid_metadata`
+
+- `class BetaInvalidMetadataException extends BadRequestException`
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+  - `BetaInvalidMetadataErrorDetails details`
+
+    - `JsonValue errorCode = "invalid_metadata"`
+
+### BetaEnvironmentCreateDisabledException
+
+HTTP status 403, error code `environment_create_disabled`
+
+- `class BetaEnvironmentCreateDisabledException extends PermissionDeniedException`
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
+  - `BetaEnvironmentCreateDisabledErrorDetails details`
+
+    - `JsonValue errorCode = "environment_create_disabled"`
+
+### BetaEnvironmentUpdateDisabledException
+
+HTTP status 403, error code `environment_update_disabled`
+
+- `class BetaEnvironmentUpdateDisabledException extends PermissionDeniedException`
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
+
+  - `BetaEnvironmentUpdateDisabledErrorDetails details`
+
+    - `JsonValue errorCode = "environment_update_disabled"`
+
+### BetaEnvironmentNotFoundException
+
+HTTP status 404, error code `environment_not_found`
+
+- `class BetaEnvironmentNotFoundException extends NotFoundException`
+
+  `settings.environment_id` names no Environment within the organization's reach.
+
+  - `BetaEnvironmentNotFoundErrorDetails details`
+
+    - `JsonValue errorCode = "environment_not_found"`
 
 ## Environments › Work
 
@@ -2969,6 +3069,18 @@ Retrieve detailed information about a specific work item.
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -3797,6 +3909,14 @@ Record a heartbeat for a work item to maintain the lease.
 
     Effective TTL applied to the lease
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `BetaHeartbeatPreconditionFailedException` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 #### Example
 
 ```java
@@ -4077,6 +4197,18 @@ Stop a work item, initiating graceful or forced shutdown.
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -4667,6 +4799,22 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaInvalidMetadataException` (HTTP status 400, error code `invalid_metadata`)
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 #### Example
 
 ```java
@@ -4903,6 +5051,18 @@ Get statistics about the work queue for an environment.
   - `Optional<Long> workersPolling`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 

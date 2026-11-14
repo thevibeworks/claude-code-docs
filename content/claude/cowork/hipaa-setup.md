@@ -133,10 +133,12 @@ Claude Desktop applies these keys when it starts, so quit Claude Desktop on a ma
 
 | Key | How to check it |
 | :- | :- |
-| `isLocalDevMcpEnabled` | Open **Settings** in Claude Desktop. The list of entries has no **Developer** entry |
-| `isDesktopExtensionEnabled` | Open **Settings** in Claude Desktop. The list of entries has no **Extensions** entry |
+| `isLocalDevMcpEnabled` | After the `isDesktopExtensionEnabled` check in the next row passes, open the [**Local MCP servers** settings](https://claude.ai/desktop/settings/desktop/developer) in a browser on that computer. Claude Desktop shows a notice that developer MCP servers are disabled on this device |
+| `isDesktopExtensionEnabled` | In a browser on that computer, open the [**Extensions** page in **Settings**](https://claude.ai/desktop/settings/desktop/extensions). Claude Desktop shows "Extensions are disabled on this device" |
 | `forceLoginOrgUUID` | Sign in with an account that isn't in your organization. Claude Desktop shows "This account is not approved by your enterprise admin" |
 | `otlpContentCapture` | Run a Cowork task and read the events your [Cowork monitoring](https://claude.com/docs/cowork/monitoring.md) collector receives. They contain no prompt text, model responses, or tool inputs |
+
+The first two checks show that a feature is off on that computer, not which setting turned it off. To see what Claude Desktop read from the policy, go to **Help > Troubleshooting > Generate Diagnostic Report** and click **Export to file**. In the saved `.zip` file, `managed-config.txt` lists each of the two keys with its value, marked as a default if the policy didn't set it. If the report has no such file, Claude Desktop read no key from the policy.
 
 ### Check which Claude Code managed settings apply in Cowork
 

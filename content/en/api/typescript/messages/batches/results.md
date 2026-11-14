@@ -53,6 +53,22 @@ interface MessageBatchIndividualResponse {
 }
 ```
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ## Types
 
 ````ts
@@ -74,6 +90,77 @@ interface MessageBatchCanceledResult {
 
 interface MessageBatchExpiredResult {
   type: "expired";
+}
+
+interface ErrorResponse {
+  type: "error";
+  error: ErrorObject;
+  request_id: string | null;
+}
+
+type ErrorObject = InvalidRequestError | AuthenticationError | BillingError | PermissionError | NotFoundError | RateLimitError | GatewayTimeoutError | APIErrorObject | OverloadedError;
+
+interface InvalidRequestError {
+  /** The broad category of the error. */
+  type: "invalid_request_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Invalid request
+}
+
+interface AuthenticationError {
+  /** The broad category of the error. */
+  type: "authentication_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Authentication error
+}
+
+interface BillingError {
+  /** The broad category of the error. */
+  type: "billing_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Billing error
+}
+
+interface PermissionError {
+  /** The broad category of the error. */
+  type: "permission_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Permission denied
+}
+
+interface NotFoundError {
+  /** The broad category of the error. */
+  type: "not_found_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Not found
+}
+
+interface RateLimitError {
+  /** The broad category of the error. */
+  type: "rate_limit_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Rate limited
+}
+
+interface GatewayTimeoutError {
+  /** The broad category of the error. */
+  type: "timeout_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Request timeout
+}
+
+interface APIErrorObject {
+  /** The broad category of the error. */
+  type: "api_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Internal server error
+}
+
+interface OverloadedError {
+  /** The broad category of the error. */
+  type: "overloaded_error";
+  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
+  message: string; // default: Overloaded
 }
 
 interface Message {
@@ -140,12 +227,6 @@ interface Message {
   stop_sequence: string | null;
   /** Billing and rate-limit usage. Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems. Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response. For example, `output_tokens` will be non-zero, even for an empty string response from Claude. Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`. */
   usage: Usage;
-}
-
-interface ErrorResponse {
-  type: "error";
-  error: ErrorObject;
-  request_id: string | null;
 }
 
 interface Container {
@@ -258,8 +339,6 @@ interface Usage {
   speed: "standard" | "fast" | null;
 }
 
-type ErrorObject = InvalidRequestError | AuthenticationError | BillingError | PermissionError | NotFoundError | RateLimitError | GatewayTimeoutError | APIErrorObject | OverloadedError;
-
 interface ContainerSkill {
   /** Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined) */
   type: "anthropic" | "custom";
@@ -267,6 +346,65 @@ interface ContainerSkill {
   skill_id: string; // minLength: 1, maxLength: 64
   /** The resolved version: a skill version ID for custom skills. */
   version: string; // minLength: 1, maxLength: 64
+}
+
+type CacheMissReason = CacheMissModelChanged | CacheMissSystemChanged | CacheMissToolsChanged | CacheMissMessagesChanged | CacheMissPreviousMessageNotFound | CacheMissUnavailable;
+
+/** A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface CacheMissModelChanged {
+  type: "model_changed";
+  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
+  cache_missed_input_tokens: number;
+}
+
+/** A `cache_miss_reason` for a request whose `system` differs from the previous request's. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface CacheMissSystemChanged {
+  type: "system_changed";
+  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
+  cache_missed_input_tokens: number;
+}
+
+/** A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface CacheMissToolsChanged {
+  type: "tools_changed";
+  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
+  cache_missed_input_tokens: number;
+}
+
+/** A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface CacheMissMessagesChanged {
+  type: "messages_changed";
+  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
+  cache_missed_input_tokens: number;
+}
+
+/** A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references. This doesn't mean that this request changed. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface CacheMissPreviousMessageNotFound {
+  type: "previous_message_not_found";
+}
+
+/** A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally. This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface CacheMissUnavailable {
+  type: "unavailable";
+}
+
+interface CacheCreation {
+  /** The number of input tokens used to create the 1 hour cache entry. */
+  ephemeral_1h_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens used to create the 5 minute cache entry. */
+  ephemeral_5m_input_tokens: number; // default: 0, minimum: 0
+}
+
+interface OutputTokensDetails {
+  /** Number of output tokens the model generated as internal reasoning, including the thinking-block delimiter tokens. Reflects the raw reasoning the model produced, not the (possibly shorter) summarized thinking text returned in the response body. It may differ from the model's exact generation count by a small number of tokens. Always ≤ `output_tokens`; `output_tokens - thinking_tokens` approximates the non-reasoning output. */
+  thinking_tokens: number; // default: 0, minimum: 0
+}
+
+interface ServerToolUsage {
+  /** The number of web fetch tool requests. */
+  web_fetch_requests: number; // default: 0, minimum: 0
+  /** The number of web search tool requests. */
+  web_search_requests: number; // default: 0, minimum: 0
 }
 
 interface TextBlock {
@@ -352,92 +490,6 @@ interface ContainerUploadBlock {
   file_id: string;
 }
 
-type CacheMissReason = CacheMissModelChanged | CacheMissSystemChanged | CacheMissToolsChanged | CacheMissMessagesChanged | CacheMissPreviousMessageNotFound | CacheMissUnavailable;
-
-interface CacheCreation {
-  /** The number of input tokens used to create the 1 hour cache entry. */
-  ephemeral_1h_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens used to create the 5 minute cache entry. */
-  ephemeral_5m_input_tokens: number; // default: 0, minimum: 0
-}
-
-interface OutputTokensDetails {
-  /** Number of output tokens the model generated as internal reasoning, including the thinking-block delimiter tokens. Reflects the raw reasoning the model produced, not the (possibly shorter) summarized thinking text returned in the response body. It may differ from the model's exact generation count by a small number of tokens. Always ≤ `output_tokens`; `output_tokens - thinking_tokens` approximates the non-reasoning output. */
-  thinking_tokens: number; // default: 0, minimum: 0
-}
-
-interface ServerToolUsage {
-  /** The number of web fetch tool requests. */
-  web_fetch_requests: number; // default: 0, minimum: 0
-  /** The number of web search tool requests. */
-  web_search_requests: number; // default: 0, minimum: 0
-}
-
-interface InvalidRequestError {
-  /** The broad category of the error. */
-  type: "invalid_request_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Invalid request
-}
-
-interface AuthenticationError {
-  /** The broad category of the error. */
-  type: "authentication_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Authentication error
-}
-
-interface BillingError {
-  /** The broad category of the error. */
-  type: "billing_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Billing error
-}
-
-interface PermissionError {
-  /** The broad category of the error. */
-  type: "permission_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Permission denied
-}
-
-interface NotFoundError {
-  /** The broad category of the error. */
-  type: "not_found_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Not found
-}
-
-interface RateLimitError {
-  /** The broad category of the error. */
-  type: "rate_limit_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Rate limited
-}
-
-interface GatewayTimeoutError {
-  /** The broad category of the error. */
-  type: "timeout_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Request timeout
-}
-
-interface APIErrorObject {
-  /** The broad category of the error. */
-  type: "api_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Internal server error
-}
-
-interface OverloadedError {
-  /** The broad category of the error. */
-  type: "overloaded_error";
-  /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
-  message: string; // default: Overloaded
-}
-
-type TextCitation = CitationCharLocation | CitationPageLocation | CitationContentBlockLocation | CitationsWebSearchResultLocation | CitationsSearchResultLocation;
-
 /** Tool invocation directly from the model. */
 interface DirectCaller {
   type: "direct";
@@ -456,6 +508,21 @@ interface ServerToolCaller20260120 {
 
 type WebSearchToolResultBlockContent = WebSearchToolResultError | Array<WebSearchResultBlock>;
 
+interface WebSearchToolResultError {
+  type: "web_search_tool_result_error";
+  error_code: WebSearchToolResultErrorCode;
+}
+
+interface WebSearchResultBlock {
+  type: "web_search_result";
+  encrypted_content: string;
+  page_age: string | null;
+  title: string;
+  url: string;
+}
+
+type WebSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "max_uses_exceeded" | "too_many_requests" | "query_too_long" | "request_too_large";
+
 interface WebFetchToolResultErrorBlock {
   type: "web_fetch_tool_result_error";
   error_code: WebFetchToolResultErrorCode;
@@ -470,7 +537,63 @@ interface WebFetchBlock {
   url: string;
 }
 
+type WebFetchToolResultErrorCode = "invalid_tool_input" | "url_too_long" | "url_not_allowed" | "url_not_in_prior_context" | "url_not_accessible" | "unsupported_content_type" | "too_many_requests" | "max_uses_exceeded" | "unavailable" | "content_too_large";
+
+interface DocumentBlock {
+  type: "document";
+  /** Citation configuration for the document */
+  citations: CitationsConfig | null;
+  source: Base64PDFSource | PlainTextSource;
+  /** The title of the document */
+  title: string | null;
+}
+
+interface CitationsConfig {
+  enabled: boolean; // default: false
+}
+
+interface Base64PDFSource {
+  type: "base64";
+  data: string; // format: byte
+  media_type: "application/pdf";
+}
+
+interface PlainTextSource {
+  type: "text";
+  data: string;
+  media_type: "text/plain";
+}
+
 type CodeExecutionToolResultBlockContent = CodeExecutionToolResultError | CodeExecutionResultBlock | EncryptedCodeExecutionResultBlock;
+
+interface CodeExecutionToolResultError {
+  type: "code_execution_tool_result_error";
+  error_code: CodeExecutionToolResultErrorCode;
+}
+
+interface CodeExecutionResultBlock {
+  type: "code_execution_result";
+  content: Array<CodeExecutionOutputBlock>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form. The API returns this block in place of `code_execution_result` when the code called the web search tool. See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=typescript) to learn more about programmatic tool calling. */
+interface EncryptedCodeExecutionResultBlock {
+  type: "encrypted_code_execution_result";
+  content: Array<CodeExecutionOutputBlock>;
+  encrypted_stdout: string;
+  return_code: number;
+  stderr: string;
+}
+
+type CodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+
+interface CodeExecutionOutputBlock {
+  type: "code_execution_output";
+  file_id: string;
+}
 
 interface BashCodeExecutionToolResultError {
   type: "bash_code_execution_tool_result_error";
@@ -483,6 +606,13 @@ interface BashCodeExecutionResultBlock {
   return_code: number;
   stderr: string;
   stdout: string;
+}
+
+type BashCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
+
+interface BashCodeExecutionOutputBlock {
+  type: "bash_code_execution_output";
+  file_id: string;
 }
 
 interface TextEditorCodeExecutionToolResultError {
@@ -514,6 +644,8 @@ interface TextEditorCodeExecutionStrReplaceResultBlock {
   old_start: number | null;
 }
 
+type TextEditorCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
+
 interface ToolSearchToolResultError {
   type: "tool_search_tool_result_error";
   error_code: ToolSearchToolResultErrorCode;
@@ -525,43 +657,14 @@ interface ToolSearchToolSearchResultBlock {
   tool_references: Array<ToolReferenceBlock>;
 }
 
-/** A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface CacheMissModelChanged {
-  type: "model_changed";
-  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
-  cache_missed_input_tokens: number;
+type ToolSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+
+interface ToolReferenceBlock {
+  type: "tool_reference";
+  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
 }
 
-/** A `cache_miss_reason` for a request whose `system` differs from the previous request's. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface CacheMissSystemChanged {
-  type: "system_changed";
-  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
-  cache_missed_input_tokens: number;
-}
-
-/** A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface CacheMissToolsChanged {
-  type: "tools_changed";
-  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
-  cache_missed_input_tokens: number;
-}
-
-/** A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface CacheMissMessagesChanged {
-  type: "messages_changed";
-  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
-  cache_missed_input_tokens: number;
-}
-
-/** A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references. This doesn't mean that this request changed. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface CacheMissPreviousMessageNotFound {
-  type: "previous_message_not_found";
-}
-
-/** A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally. This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface CacheMissUnavailable {
-  type: "unavailable";
-}
+type TextCitation = CitationCharLocation | CitationPageLocation | CitationContentBlockLocation | CitationsWebSearchResultLocation | CitationsSearchResultLocation;
 
 interface CitationCharLocation {
   type: "char_location";
@@ -616,92 +719,5 @@ interface CitationsSearchResultLocation {
   /** 0-based index of the first cited block in the source's `content` array. */
   start_block_index: number; // minimum: 0
   title: string | null;
-}
-
-interface WebSearchToolResultError {
-  type: "web_search_tool_result_error";
-  error_code: WebSearchToolResultErrorCode;
-}
-
-interface WebSearchResultBlock {
-  type: "web_search_result";
-  encrypted_content: string;
-  page_age: string | null;
-  title: string;
-  url: string;
-}
-
-type WebFetchToolResultErrorCode = "invalid_tool_input" | "url_too_long" | "url_not_allowed" | "url_not_in_prior_context" | "url_not_accessible" | "unsupported_content_type" | "too_many_requests" | "max_uses_exceeded" | "unavailable" | "content_too_large";
-
-interface DocumentBlock {
-  type: "document";
-  /** Citation configuration for the document */
-  citations: CitationsConfig | null;
-  source: Base64PDFSource | PlainTextSource;
-  /** The title of the document */
-  title: string | null;
-}
-
-interface CodeExecutionToolResultError {
-  type: "code_execution_tool_result_error";
-  error_code: CodeExecutionToolResultErrorCode;
-}
-
-interface CodeExecutionResultBlock {
-  type: "code_execution_result";
-  content: Array<CodeExecutionOutputBlock>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form. The API returns this block in place of `code_execution_result` when the code called the web search tool. See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=typescript) to learn more about programmatic tool calling. */
-interface EncryptedCodeExecutionResultBlock {
-  type: "encrypted_code_execution_result";
-  content: Array<CodeExecutionOutputBlock>;
-  encrypted_stdout: string;
-  return_code: number;
-  stderr: string;
-}
-
-type BashCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
-
-interface BashCodeExecutionOutputBlock {
-  type: "bash_code_execution_output";
-  file_id: string;
-}
-
-type TextEditorCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
-
-type ToolSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-
-interface ToolReferenceBlock {
-  type: "tool_reference";
-  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-}
-
-type WebSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "max_uses_exceeded" | "too_many_requests" | "query_too_long" | "request_too_large";
-
-interface CitationsConfig {
-  enabled: boolean; // default: false
-}
-
-interface Base64PDFSource {
-  type: "base64";
-  data: string; // format: byte
-  media_type: "application/pdf";
-}
-
-interface PlainTextSource {
-  type: "text";
-  data: string;
-  media_type: "text/plain";
-}
-
-type CodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-
-interface CodeExecutionOutputBlock {
-  type: "code_execution_output";
-  file_id: string;
 }
 ````

@@ -153,7 +153,10 @@ See Claude Code's [network configuration](https://code.claude.com/docs/en/networ
 }
 ```
 
-Set `parentSettingsBehavior` to `"merge"` whenever you deploy a Claude Code managed-settings file alongside Claude Desktop on 3P, even if the file only sets proxy variables. Without `"merge"`, that file makes Claude Code ignore Claude Desktop's policy (network and filesystem sandbox, allowed MCP servers), except in a Code session that gets [`code` settings from a Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway-config#apply-code-settings-in-the-code-tab). [Claude Code in Claude Desktop on 3P](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) explains both cases and the merge behavior.
+The example also sets `parentSettingsBehavior` to `"merge"`. Without `"merge"`, Claude Code managed settings make Claude Code ignore Claude Desktop's policy (network and filesystem sandbox, allowed MCP servers), except in a Code session that gets [`code` settings from a Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway-config#apply-code-settings-in-the-code-tab). [Claude Code in Claude Desktop on 3P](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) explains the exception and the merge behavior. Find the case that fits the device:
+
+* **No Claude Code managed settings on the device yet**: set `parentSettingsBehavior` to `"merge"` in the settings that you create, as the example does, even if they only set proxy variables.
+* **Claude Code managed settings already on the device**: add the variables to those settings and leave `parentSettingsBehavior` as it is, set or unset. Changing it changes how those settings combine with the policy that Claude Desktop supplies.
 
 `NO_PROXY` matching in the agent follows these rules:
 

@@ -875,7 +875,7 @@ class ClaudeAgentOptions:
 | `allowed_tools` | `list[str]` | `[]` | Tools to auto-approve without prompting, apart from reads from [network paths](https://code.claude.com/docs/en/permissions.md#network-paths). This does not restrict Claude to only these tools. If you name one of the [task-tracking tools](https://code.claude.com/docs/en/agent-sdk/todo-tracking.md#model-availability) here, Claude Code also opts the session in. Other unlisted tools fall through to `permission_mode` and `can_use_tool`. Use `disallowed_tools` to block tools. See [Permissions](https://code.claude.com/docs/en/agent-sdk/permissions.md#allow-and-deny-rules) |
 | `system_prompt` | `str \| SystemPromptPreset \| SystemPromptCustom \| SystemPromptFile \| None` | `None` | System prompt configuration. Pass a string for a custom prompt, `{"type": "preset", "preset": "claude_code"}` for Claude Code's system prompt with optional `"append"`, `{"type": "custom", "prompt": "..."}` for a custom prompt that can also set `"snapshot"`, or `{"type": "file", "path": "..."}` to load a large prompt from disk. See [`SystemPromptPreset`](#systempromptpreset), [`SystemPromptCustom`](#systempromptcustom), and [`SystemPromptFile`](#systempromptfile) |
 | `mcp_servers` | `dict[str, McpServerConfig] \| str \| Path` | `{}` | MCP server configurations or path to config file |
-| `strict_mcp_config` | `bool` | `False` | When `True`, use only the servers passed in `mcp_servers` and ignore project `.mcp.json`, user settings, plugin-provided MCP servers, and [claude.ai connectors](https://code.claude.com/docs/en/mcp.md#use-mcp-servers-from-claude-ai). Maps to the CLI `--strict-mcp-config` flag |
+| `strict_mcp_config` | `bool` | `False` | When `True`, use the servers passed in `mcp_servers` and ignore project `.mcp.json`, user settings, plugin-provided MCP servers, and [claude.ai connectors](https://code.claude.com/docs/en/mcp.md#use-mcp-servers-from-claude-ai). Maps to the CLI `--strict-mcp-config` flag |
 | `permission_mode` | `PermissionMode \| None` | `None` | Permission mode for tool usage |
 | `continue_conversation` | `bool` | `False` | Continue the most recent conversation |
 | `resume` | `str \| None` | `None` | Session ID to resume |
@@ -1244,7 +1244,7 @@ class ToolPermissionContext:
 | Field | Type | Description |
 | :- | :- | :- |
 | `signal` | `Any \| None` | Reserved for future abort signal support |
-| `suggestions` | `list[PermissionUpdate]` | Permission update suggestions from the CLI. Bash prompts include a suggestion with the `localSettings` destination, so returning it in `updated_permissions` writes the rule to `.claude/settings.local.json` and persists across sessions. |
+| `suggestions` | `list[PermissionUpdate]` | Permission update suggestions from the CLI. Bash prompts can include a suggestion with the `localSettings` destination, so returning it in `updated_permissions` writes the rule to `.claude/settings.local.json` and persists across sessions. |
 | `tool_use_id` | `str \| None` | Identifier of the specific tool call this prompt is for. Always populated when delivered to `can_use_tool` |
 | `agent_id` | `str \| None` | Sub-agent ID when the call originates from a subagent; `None` for the main agent |
 | `blocked_path` | `str \| None` | File path that triggered the permission request, when applicable. For example, when a Bash command tries to access a path outside allowed directories |
@@ -3583,7 +3583,7 @@ class SandboxSettings(TypedDict, total=False):
 | Property | Type | Default | Description |
 | :- | :- | :- | :- |
 | `enabled` | `bool` | `False` | Enable sandbox mode for command execution |
-| `autoAllowBashIfSandboxed` | `bool` | `True` | Auto-approve bash commands when sandbox is enabled |
+| [`autoAllowBashIfSandboxed`](https://code.claude.com/docs/en/settings-reference#sandbox-autoallowbashifsandboxed) | `bool` | `False` | Auto-approve Bash commands when sandbox is enabled. The `False` default requires Python SDK v0.2.182 or later |
 | `excludedCommands` | `list[str]` | `[]` | Commands that bypass sandbox restrictions, such as `["docker *"]`. These run unsandboxed automatically without model involvement; [`sandbox.excludedCommands`](https://code.claude.com/docs/en/settings-reference#sandbox-excludedcommands) covers when an entry applies |
 | `allowUnsandboxedCommands` | `bool` | `True` | Allow the model to request running commands outside the sandbox. When `True`, the model can set `dangerouslyDisableSandbox` in tool input, which falls back to the [permissions system](#permissions-fallback-for-unsandboxed-commands) |
 | `network` | [`SandboxNetworkConfig`](#sandboxnetworkconfig) | `None` | Network-specific sandbox configuration |

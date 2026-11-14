@@ -72,6 +72,14 @@ With **Block requests that mint new credentials** on, Agent Proxy refuses these 
 
 On services not listed above, reads such as `getIamPolicy`, `testIamPermissions`, and `tokeninfo` pass. If Claude needs one of the refused services, clear the checkbox on that connection and rely on IAM alone.
 
+## Shared cloud hosts
+
+A host such as `s3.us-east-1.amazonaws.com` or `storage.googleapis.com` serves every customer of that cloud, so the allowed hosts limit which services Claude calls, not which accounts or projects it reaches.
+
+* **AWS roles**: Claude can reach a resource in another AWS account when the role's permissions policy and that resource's policy both allow it. To keep the role inside your organization, name your own resources in the policy or add an `aws:ResourceOrgID` condition. For S3, you can also allow only your bucket's host, such as `example-reports.s3.us-west-2.amazonaws.com`.
+* **Google Cloud identities**: Claude can reach a resource in any project that grants the identity access, including a project outside your organization. Allow only the hosts of the services Claude needs.
+* **Provider-wide wildcards**: `*.amazonaws.com` and `*.googleapis.com` allow every host under that domain, including hosts the channel's [environment](https://claude.com/docs/claude-tag/concepts/glossary.md#environment) doesn't allow. Check each connection in the **Allowed hosts** column of the **Cloud roles** table, and replace the wildcard in the [**Edit connection** dialog](https://claude.com/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
+
 ## Authorization servers
 
 | Limit | Value |

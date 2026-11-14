@@ -234,41 +234,6 @@ interface BetaManagedAgentsEnvironmentVariableAuthResponse {
   secret_name: string;
 }
 
-interface BetaManagedAgentsMCPOAuthRefreshParams {
-  /** The OAuth client ID to use when refreshing the access token. It can't be changed after the credential is created. */
-  client_id: string; // minLength: 1, maxLength: 1024
-  /** The OAuth refresh token that the API uses to get a new access token when the current one expires. */
-  refresh_token: string; // minLength: 1, maxLength: 8192
-  /** Token endpoint URL used to refresh the access token. */
-  token_endpoint: string; // minLength: 1, maxLength: 2047
-  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneParam | BetaManagedAgentsTokenEndpointAuthBasicParam | BetaManagedAgentsTokenEndpointAuthPostParam;
-  /** OAuth resource indicator. */
-  resource?: string | null; // minLength: 1, maxLength: 2047
-  /** OAuth scope for the refresh request. */
-  scope?: string | null; // minLength: 1, maxLength: 8192
-}
-
-type BetaManagedAgentsCredentialNetworkingParams = BetaManagedAgentsUnrestrictedCredentialNetworkingParams | BetaManagedAgentsLimitedCredentialNetworkingParams;
-
-interface BetaManagedAgentsInjectionLocationParams {
-  /** Substitute when the placeholder appears in the request body. */
-  body?: boolean;
-  /** Substitute when the placeholder appears in a request header value. */
-  header?: boolean;
-}
-
-interface BetaManagedAgentsMCPOAuthRefreshResponse {
-  /** The OAuth client ID used when refreshing the access token. */
-  client_id: string;
-  /** Token endpoint URL used to refresh the access token. */
-  token_endpoint: string;
-  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse | BetaManagedAgentsTokenEndpointAuthBasicResponse | BetaManagedAgentsTokenEndpointAuthPostResponse;
-  /** OAuth resource indicator. */
-  resource?: string | null;
-  /** OAuth scope for the refresh request. */
-  scope?: string | null;
-}
-
 interface BetaManagedAgentsInjectionLocationResponse {
   /** Whether the placeholder is substituted in the request body. */
   body: boolean;
@@ -288,6 +253,68 @@ interface BetaManagedAgentsLimitedCredentialNetworkingResponse {
   allowed_hosts: Array<string>;
 }
 
+interface BetaManagedAgentsMCPOAuthRefreshResponse {
+  /** The OAuth client ID used when refreshing the access token. */
+  client_id: string;
+  /** Token endpoint URL used to refresh the access token. */
+  token_endpoint: string;
+  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse | BetaManagedAgentsTokenEndpointAuthBasicResponse | BetaManagedAgentsTokenEndpointAuthPostResponse;
+  /** OAuth resource indicator. */
+  resource?: string | null;
+  /** OAuth scope for the refresh request. */
+  scope?: string | null;
+}
+
+/** Token endpoint requires no client authentication. */
+interface BetaManagedAgentsTokenEndpointAuthNoneResponse {
+  type: "none";
+}
+
+/** Token endpoint uses HTTP Basic authentication with client credentials. */
+interface BetaManagedAgentsTokenEndpointAuthBasicResponse {
+  type: "client_secret_basic";
+}
+
+/** Token endpoint uses POST body authentication with client credentials. */
+interface BetaManagedAgentsTokenEndpointAuthPostResponse {
+  type: "client_secret_post";
+}
+
+type BetaManagedAgentsCredentialNetworkingParams = BetaManagedAgentsUnrestrictedCredentialNetworkingParams | BetaManagedAgentsLimitedCredentialNetworkingParams;
+
+interface BetaManagedAgentsInjectionLocationParams {
+  /** Substitute when the placeholder appears in the request body. */
+  body?: boolean;
+  /** Substitute when the placeholder appears in a request header value. */
+  header?: boolean;
+}
+
+/** Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach. */
+interface BetaManagedAgentsUnrestrictedCredentialNetworkingParams {
+  type: "unrestricted";
+}
+
+/** Substitute the secret only on requests to the listed hosts. */
+interface BetaManagedAgentsLimitedCredentialNetworkingParams {
+  type: "limited";
+  /** The destination hosts of the outbound requests that the credential's secret is substituted into. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries. */
+  allowed_hosts: Array<string>;
+}
+
+interface BetaManagedAgentsMCPOAuthRefreshParams {
+  /** The OAuth client ID to use when refreshing the access token. It can't be changed after the credential is created. */
+  client_id: string; // minLength: 1, maxLength: 1024
+  /** The OAuth refresh token that the API uses to get a new access token when the current one expires. */
+  refresh_token: string; // minLength: 1, maxLength: 8192
+  /** Token endpoint URL used to refresh the access token. */
+  token_endpoint: string; // minLength: 1, maxLength: 2047
+  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneParam | BetaManagedAgentsTokenEndpointAuthBasicParam | BetaManagedAgentsTokenEndpointAuthPostParam;
+  /** OAuth resource indicator. */
+  resource?: string | null; // minLength: 1, maxLength: 2047
+  /** OAuth scope for the refresh request. */
+  scope?: string | null; // minLength: 1, maxLength: 8192
+}
+
 /** Token endpoint requires no client authentication. */
 interface BetaManagedAgentsTokenEndpointAuthNoneParam {
   type: "none";
@@ -305,32 +332,5 @@ interface BetaManagedAgentsTokenEndpointAuthPostParam {
   type: "client_secret_post";
   /** The OAuth client secret, sent to `token_endpoint` in the POST body. */
   client_secret: string; // minLength: 1, maxLength: 512
-}
-
-/** Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach. */
-interface BetaManagedAgentsUnrestrictedCredentialNetworkingParams {
-  type: "unrestricted";
-}
-
-/** Substitute the secret only on requests to the listed hosts. */
-interface BetaManagedAgentsLimitedCredentialNetworkingParams {
-  type: "limited";
-  /** The destination hosts of the outbound requests that the credential's secret is substituted into. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries. */
-  allowed_hosts: Array<string>;
-}
-
-/** Token endpoint requires no client authentication. */
-interface BetaManagedAgentsTokenEndpointAuthNoneResponse {
-  type: "none";
-}
-
-/** Token endpoint uses HTTP Basic authentication with client credentials. */
-interface BetaManagedAgentsTokenEndpointAuthBasicResponse {
-  type: "client_secret_basic";
-}
-
-/** Token endpoint uses POST body authentication with client credentials. */
-interface BetaManagedAgentsTokenEndpointAuthPostResponse {
-  type: "client_secret_post";
 }
 ```

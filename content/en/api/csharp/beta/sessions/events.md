@@ -303,7 +303,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsUserMessageEventContent> Content`
 
       Array of content blocks comprising the user message.
 
@@ -325,7 +325,7 @@ List Events
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required BetaManagedAgentsImageBlockSource Source`
 
           The source of the image data.
 
@@ -531,7 +531,7 @@ List Events
 
       The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=csharp#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventContent> Content`
 
       The result content returned by the tool.
 
@@ -637,7 +637,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentMessageEventContent> Content`
 
       Array of text blocks comprising the agent response.
 
@@ -869,7 +869,7 @@ List Events
 
       The id of the `agent.tool_use` event this result corresponds to.
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsAgentToolResultEventContent> Content`
 
       The result content returned by the tool.
 
@@ -903,7 +903,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageReceivedEventContent> Content`
 
       Message content blocks.
 
@@ -947,7 +947,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageSentEventContent> Content`
 
       Message content blocks.
 
@@ -1019,7 +1019,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsUnknownErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1051,7 +1051,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelOverloadedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1077,7 +1077,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelRateLimitedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1103,7 +1103,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelRequestFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1133,7 +1133,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsMcpConnectionFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1163,7 +1163,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsMcpAuthenticationFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1219,7 +1219,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsCredentialHostUnreachableErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1249,7 +1249,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsToolUseLimitReachedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1275,7 +1275,7 @@ List Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsCompactionLimitReachedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -1305,7 +1305,7 @@ List Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryAuthenticationErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -1335,7 +1335,7 @@ List Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryForbiddenErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -1365,7 +1365,7 @@ List Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryNotFoundErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -1395,7 +1395,7 @@ List Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryCheckoutErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -1425,7 +1425,7 @@ List Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryCloneErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -1891,7 +1891,7 @@ List Events
 
       Structured information about why the thread stopped. `null` when there is nothing more to report.
 
-    - `required StopReason StopReason`
+    - `required BetaManagedAgentsSessionThreadStatusIdleEventStopReason StopReason`
 
       - `class BetaManagedAgentsSessionEndTurn`
 
@@ -2201,7 +2201,7 @@ List Events
 
           - `JsonElement Type = "coordinator"`
 
-          - `required IReadOnlyList<Agent> Agents`
+          - `required IReadOnlyList<BetaManagedAgentsSessionMultiagentCoordinatorAgent> Agents`
 
             Full `agent` definitions the coordinator may spawn as session threads.
 
@@ -2233,7 +2233,7 @@ List Events
 
               - `required string Name`
 
-              - `required IReadOnlyList<Skill> Skills`
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `class BetaManagedAgentsAnthropicSkill`
 
@@ -2257,7 +2257,7 @@ List Events
 
               - `required string? System`
 
-              - `required IReadOnlyList<Tool> Tools`
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -2275,7 +2275,7 @@ List Events
 
                       - `JsonElement Name = "bash"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsBashToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -2307,7 +2307,7 @@ List Events
 
                       - `JsonElement Name = "edit"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsEditToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -2333,7 +2333,7 @@ List Events
 
                       - `JsonElement Name = "read"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsReadToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -2359,7 +2359,7 @@ List Events
 
                       - `JsonElement Name = "write"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWriteToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -2385,7 +2385,7 @@ List Events
 
                       - `JsonElement Name = "glob"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsGlobToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -2411,7 +2411,7 @@ List Events
 
                       - `JsonElement Name = "grep"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsGrepToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -2437,7 +2437,7 @@ List Events
 
                       - `JsonElement Name = "web_fetch"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWebFetchToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -2547,7 +2547,7 @@ List Events
 
                       - `JsonElement Name = "web_search"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWebSearchToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -2631,7 +2631,7 @@ List Events
 
                     - `required string Name`
 
-                    - `required PermissionPolicy PermissionPolicy`
+                    - `required BetaManagedAgentsMcpToolConfigPermissionPolicy PermissionPolicy`
 
                       Permission policy for tool execution.
 
@@ -2653,7 +2653,7 @@ List Events
 
                     - `required bool Enabled`
 
-                    - `required PermissionPolicy PermissionPolicy`
+                    - `required BetaManagedAgentsMcpToolsetDefaultConfigPermissionPolicy PermissionPolicy`
 
                       Permission policy for tool execution.
 
@@ -2779,11 +2779,11 @@ List Events
 
                 - `required string Name`
 
-                - `required IReadOnlyList<Skill> Skills`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `required string? System`
 
-                - `required IReadOnlyList<Tool> Tools`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `required int Version`
 
@@ -2831,11 +2831,11 @@ List Events
 
                 - `required string Name`
 
-                - `required IReadOnlyList<Skill> Skills`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `required string? System`
 
-                - `required IReadOnlyList<Tool> Tools`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `required int Version`
 
@@ -2861,7 +2861,7 @@ List Events
 
       - `required string? System`
 
-      - `required IReadOnlyList<Tool> Tools`
+      - `required IReadOnlyList<BetaManagedAgentsSessionAgentTool> Tools`
 
         - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -3345,7 +3345,7 @@ Send Events
 
       - `JsonElement Type = "user.message"`
 
-      - `required IReadOnlyList<Content> Content`
+      - `required IReadOnlyList<BetaManagedAgentsUserMessageEventParamsContent> Content`
 
         Array of content blocks for the user message.
 
@@ -3367,7 +3367,7 @@ Send Events
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -3511,7 +3511,7 @@ Send Events
 
       - `JsonElement Type = "user.tool_confirmation"`
 
-      - `required Result Result`
+      - `required BetaManagedAgentsUserToolConfirmationEventParamsResult Result`
 
         The confirmation result: 'allow' or 'deny'.
 
@@ -3543,7 +3543,7 @@ Send Events
 
         minLength: 1, maxLength: 128
 
-      - `IReadOnlyList<Content> Content`
+      - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventParamsContent> Content`
 
         The result content returned by the tool.
 
@@ -3611,7 +3611,7 @@ Send Events
 
         What the agent should produce. This is the task specification.
 
-      - `required Rubric Rubric`
+      - `required BetaManagedAgentsUserDefineOutcomeEventParamsRubric Rubric`
 
         How to grade the outcome. Text or file reference.
 
@@ -3655,7 +3655,7 @@ Send Events
 
         minLength: 1, maxLength: 128
 
-      - `IReadOnlyList<Content> Content`
+      - `IReadOnlyList<BetaManagedAgentsUserToolResultEventParamsContent> Content`
 
         The result content returned by the tool.
 
@@ -3859,7 +3859,7 @@ Send Events
 
         Unique identifier for this event.
 
-      - `required IReadOnlyList<Content> Content`
+      - `required IReadOnlyList<BetaManagedAgentsUserMessageEventContent> Content`
 
         Array of content blocks comprising the user message.
 
@@ -3881,7 +3881,7 @@ Send Events
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -4087,7 +4087,7 @@ Send Events
 
         The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=csharp#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `IReadOnlyList<Content> Content`
+      - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventContent> Content`
 
         The result content returned by the tool.
 
@@ -4510,7 +4510,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsUserMessageEventContent> Content`
 
       Array of content blocks comprising the user message.
 
@@ -4532,7 +4532,7 @@ Stream Events
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required BetaManagedAgentsImageBlockSource Source`
 
           The source of the image data.
 
@@ -4738,7 +4738,7 @@ Stream Events
 
       The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=csharp#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventContent> Content`
 
       The result content returned by the tool.
 
@@ -4844,7 +4844,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentMessageEventContent> Content`
 
       Array of text blocks comprising the agent response.
 
@@ -5076,7 +5076,7 @@ Stream Events
 
       The id of the `agent.tool_use` event this result corresponds to.
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsAgentToolResultEventContent> Content`
 
       The result content returned by the tool.
 
@@ -5110,7 +5110,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageReceivedEventContent> Content`
 
       Message content blocks.
 
@@ -5154,7 +5154,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageSentEventContent> Content`
 
       Message content blocks.
 
@@ -5226,7 +5226,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsUnknownErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5258,7 +5258,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelOverloadedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5284,7 +5284,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelRateLimitedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5310,7 +5310,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelRequestFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5340,7 +5340,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsMcpConnectionFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5370,7 +5370,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsMcpAuthenticationFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5426,7 +5426,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsCredentialHostUnreachableErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5456,7 +5456,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsToolUseLimitReachedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5482,7 +5482,7 @@ Stream Events
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsCompactionLimitReachedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -5512,7 +5512,7 @@ Stream Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryAuthenticationErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -5542,7 +5542,7 @@ Stream Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryForbiddenErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -5572,7 +5572,7 @@ Stream Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryNotFoundErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -5602,7 +5602,7 @@ Stream Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryCheckoutErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -5632,7 +5632,7 @@ Stream Events
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryCloneErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -6098,7 +6098,7 @@ Stream Events
 
       Structured information about why the thread stopped. `null` when there is nothing more to report.
 
-    - `required StopReason StopReason`
+    - `required BetaManagedAgentsSessionThreadStatusIdleEventStopReason StopReason`
 
       - `class BetaManagedAgentsSessionEndTurn`
 
@@ -6408,7 +6408,7 @@ Stream Events
 
           - `JsonElement Type = "coordinator"`
 
-          - `required IReadOnlyList<Agent> Agents`
+          - `required IReadOnlyList<BetaManagedAgentsSessionMultiagentCoordinatorAgent> Agents`
 
             Full `agent` definitions the coordinator may spawn as session threads.
 
@@ -6440,7 +6440,7 @@ Stream Events
 
               - `required string Name`
 
-              - `required IReadOnlyList<Skill> Skills`
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `class BetaManagedAgentsAnthropicSkill`
 
@@ -6464,7 +6464,7 @@ Stream Events
 
               - `required string? System`
 
-              - `required IReadOnlyList<Tool> Tools`
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -6482,7 +6482,7 @@ Stream Events
 
                       - `JsonElement Name = "bash"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsBashToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -6514,7 +6514,7 @@ Stream Events
 
                       - `JsonElement Name = "edit"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsEditToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -6540,7 +6540,7 @@ Stream Events
 
                       - `JsonElement Name = "read"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsReadToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -6566,7 +6566,7 @@ Stream Events
 
                       - `JsonElement Name = "write"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWriteToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -6592,7 +6592,7 @@ Stream Events
 
                       - `JsonElement Name = "glob"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsGlobToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -6618,7 +6618,7 @@ Stream Events
 
                       - `JsonElement Name = "grep"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsGrepToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -6644,7 +6644,7 @@ Stream Events
 
                       - `JsonElement Name = "web_fetch"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWebFetchToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -6754,7 +6754,7 @@ Stream Events
 
                       - `JsonElement Name = "web_search"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWebSearchToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -6838,7 +6838,7 @@ Stream Events
 
                     - `required string Name`
 
-                    - `required PermissionPolicy PermissionPolicy`
+                    - `required BetaManagedAgentsMcpToolConfigPermissionPolicy PermissionPolicy`
 
                       Permission policy for tool execution.
 
@@ -6860,7 +6860,7 @@ Stream Events
 
                     - `required bool Enabled`
 
-                    - `required PermissionPolicy PermissionPolicy`
+                    - `required BetaManagedAgentsMcpToolsetDefaultConfigPermissionPolicy PermissionPolicy`
 
                       Permission policy for tool execution.
 
@@ -6986,11 +6986,11 @@ Stream Events
 
                 - `required string Name`
 
-                - `required IReadOnlyList<Skill> Skills`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `required string? System`
 
-                - `required IReadOnlyList<Tool> Tools`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `required int Version`
 
@@ -7038,11 +7038,11 @@ Stream Events
 
                 - `required string Name`
 
-                - `required IReadOnlyList<Skill> Skills`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `required string? System`
 
-                - `required IReadOnlyList<Tool> Tools`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `required int Version`
 
@@ -7068,7 +7068,7 @@ Stream Events
 
       - `required string? System`
 
-      - `required IReadOnlyList<Tool> Tools`
+      - `required IReadOnlyList<BetaManagedAgentsSessionAgentTool> Tools`
 
         - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -7719,7 +7719,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 
@@ -7995,7 +7995,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Unique identifier for this event.
 
-  - `required IReadOnlyList<Content> Content`
+  - `required IReadOnlyList<BetaManagedAgentsAgentMessageEventContent> Content`
 
     Array of text blocks comprising the agent response.
 
@@ -8071,7 +8071,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Unique identifier for this event.
 
-  - `required IReadOnlyList<Content> Content`
+  - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageReceivedEventContent> Content`
 
     Message content blocks.
 
@@ -8093,7 +8093,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 
@@ -8247,7 +8247,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Unique identifier for this event.
 
-  - `required IReadOnlyList<Content> Content`
+  - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageSentEventContent> Content`
 
     Message content blocks.
 
@@ -8269,7 +8269,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 
@@ -8549,7 +8549,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     The id of the `agent.tool_use` event this result corresponds to.
 
-  - `IReadOnlyList<Content> Content`
+  - `IReadOnlyList<BetaManagedAgentsAgentToolResultEventContent> Content`
 
     The result content returned by the tool.
 
@@ -8571,7 +8571,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 
@@ -8917,7 +8917,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsCompactionLimitReachedErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -8955,7 +8955,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsCredentialHostUnreachableErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -9071,7 +9071,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     - `JsonElement Type = "user.message"`
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsUserMessageEventParamsContent> Content`
 
       Array of content blocks for the user message.
 
@@ -9093,7 +9093,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required BetaManagedAgentsImageBlockSource Source`
 
           The source of the image data.
 
@@ -9237,7 +9237,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     - `JsonElement Type = "user.tool_confirmation"`
 
-    - `required Result Result`
+    - `required BetaManagedAgentsUserToolConfirmationEventParamsResult Result`
 
       The confirmation result: 'allow' or 'deny'.
 
@@ -9269,7 +9269,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       minLength: 1, maxLength: 128
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventParamsContent> Content`
 
       The result content returned by the tool.
 
@@ -9337,7 +9337,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       What the agent should produce. This is the task specification.
 
-    - `required Rubric Rubric`
+    - `required BetaManagedAgentsUserDefineOutcomeEventParamsRubric Rubric`
 
       How to grade the outcome. Text or file reference.
 
@@ -9381,7 +9381,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       minLength: 1, maxLength: 128
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsUserToolResultEventParamsContent> Content`
 
       The result content returned by the tool.
 
@@ -9483,7 +9483,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
   - `JsonElement Type = "image"`
 
-  - `required Source Source`
+  - `required BetaManagedAgentsImageBlockSource Source`
 
     The source of the image data.
 
@@ -9557,7 +9557,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsMcpAuthenticationFailedErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -9595,7 +9595,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsMcpConnectionFailedErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -9629,7 +9629,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsModelOverloadedErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -9663,7 +9663,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsModelRateLimitedErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -9697,7 +9697,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsModelRequestFailedErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -9773,7 +9773,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     URL of the repository that could not be cloned. Null when it could not be identified.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsRepositoryAuthenticationErrorRetryStatus RetryStatus`
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -9811,7 +9811,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     URL of the repository that could not be cloned. Null when it could not be identified.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsRepositoryCheckoutErrorRetryStatus RetryStatus`
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -9849,7 +9849,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     URL of the repository that could not be cloned. Null when it could not be identified.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsRepositoryCloneErrorRetryStatus RetryStatus`
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -9887,7 +9887,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     URL of the repository that could not be cloned. Null when it could not be identified.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsRepositoryForbiddenErrorRetryStatus RetryStatus`
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -9925,7 +9925,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     URL of the repository that could not be cloned. Null when it could not be identified.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsRepositoryNotFoundErrorRetryStatus RetryStatus`
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -10055,7 +10055,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Unique identifier for this event.
 
-      - `required IReadOnlyList<Content> Content`
+      - `required IReadOnlyList<BetaManagedAgentsUserMessageEventContent> Content`
 
         Array of content blocks comprising the user message.
 
@@ -10077,7 +10077,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -10283,7 +10283,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=csharp#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `IReadOnlyList<Content> Content`
+      - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventContent> Content`
 
         The result content returned by the tool.
 
@@ -10539,7 +10539,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsUnknownErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10571,7 +10571,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsModelOverloadedErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10597,7 +10597,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsModelRateLimitedErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10623,7 +10623,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsModelRequestFailedErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10653,7 +10653,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsMcpConnectionFailedErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10683,7 +10683,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsMcpAuthenticationFailedErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10739,7 +10739,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsCredentialHostUnreachableErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10769,7 +10769,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsToolUseLimitReachedErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10795,7 +10795,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         Human-readable error description.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsCompactionLimitReachedErrorRetryStatus RetryStatus`
 
         What the client should do next.
 
@@ -10825,7 +10825,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         URL of the repository that could not be cloned. Null when it could not be identified.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsRepositoryAuthenticationErrorRetryStatus RetryStatus`
 
         What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -10855,7 +10855,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         URL of the repository that could not be cloned. Null when it could not be identified.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsRepositoryForbiddenErrorRetryStatus RetryStatus`
 
         What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -10885,7 +10885,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         URL of the repository that could not be cloned. Null when it could not be identified.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsRepositoryNotFoundErrorRetryStatus RetryStatus`
 
         What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -10915,7 +10915,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         URL of the repository that could not be cloned. Null when it could not be identified.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsRepositoryCheckoutErrorRetryStatus RetryStatus`
 
         What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -10945,7 +10945,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         URL of the repository that could not be cloned. Null when it could not be identified.
 
-      - `required RetryStatus RetryStatus`
+      - `required BetaManagedAgentsRepositoryCloneErrorRetryStatus RetryStatus`
 
         What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -10983,7 +10983,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsUserMessageEventContent> Content`
 
       Array of content blocks comprising the user message.
 
@@ -11005,7 +11005,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required BetaManagedAgentsImageBlockSource Source`
 
           The source of the image data.
 
@@ -11211,7 +11211,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=csharp#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventContent> Content`
 
       The result content returned by the tool.
 
@@ -11317,7 +11317,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentMessageEventContent> Content`
 
       Array of text blocks comprising the agent response.
 
@@ -11549,7 +11549,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       The id of the `agent.tool_use` event this result corresponds to.
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsAgentToolResultEventContent> Content`
 
       The result content returned by the tool.
 
@@ -11583,7 +11583,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageReceivedEventContent> Content`
 
       Message content blocks.
 
@@ -11627,7 +11627,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageSentEventContent> Content`
 
       Message content blocks.
 
@@ -11699,7 +11699,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsUnknownErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11731,7 +11731,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelOverloadedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11757,7 +11757,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelRateLimitedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11783,7 +11783,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelRequestFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11813,7 +11813,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsMcpConnectionFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11843,7 +11843,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsMcpAuthenticationFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11899,7 +11899,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsCredentialHostUnreachableErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11929,7 +11929,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsToolUseLimitReachedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11955,7 +11955,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsCompactionLimitReachedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -11985,7 +11985,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryAuthenticationErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -12015,7 +12015,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryForbiddenErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -12045,7 +12045,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryNotFoundErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -12075,7 +12075,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryCheckoutErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -12105,7 +12105,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryCloneErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -12571,7 +12571,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Structured information about why the thread stopped. `null` when there is nothing more to report.
 
-    - `required StopReason StopReason`
+    - `required BetaManagedAgentsSessionThreadStatusIdleEventStopReason StopReason`
 
       - `class BetaManagedAgentsSessionEndTurn`
 
@@ -12881,7 +12881,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           - `JsonElement Type = "coordinator"`
 
-          - `required IReadOnlyList<Agent> Agents`
+          - `required IReadOnlyList<BetaManagedAgentsSessionMultiagentCoordinatorAgent> Agents`
 
             Full `agent` definitions the coordinator may spawn as session threads.
 
@@ -12913,7 +12913,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
               - `required string Name`
 
-              - `required IReadOnlyList<Skill> Skills`
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `class BetaManagedAgentsAnthropicSkill`
 
@@ -12937,7 +12937,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
               - `required string? System`
 
-              - `required IReadOnlyList<Tool> Tools`
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -12955,7 +12955,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "bash"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsBashToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -12987,7 +12987,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "edit"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsEditToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -13013,7 +13013,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "read"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsReadToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -13039,7 +13039,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "write"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWriteToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -13065,7 +13065,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "glob"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsGlobToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -13091,7 +13091,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "grep"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsGrepToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -13117,7 +13117,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "web_fetch"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWebFetchToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -13227,7 +13227,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "web_search"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWebSearchToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -13311,7 +13311,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                     - `required string Name`
 
-                    - `required PermissionPolicy PermissionPolicy`
+                    - `required BetaManagedAgentsMcpToolConfigPermissionPolicy PermissionPolicy`
 
                       Permission policy for tool execution.
 
@@ -13333,7 +13333,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                     - `required bool Enabled`
 
-                    - `required PermissionPolicy PermissionPolicy`
+                    - `required BetaManagedAgentsMcpToolsetDefaultConfigPermissionPolicy PermissionPolicy`
 
                       Permission policy for tool execution.
 
@@ -13459,11 +13459,11 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                 - `required string Name`
 
-                - `required IReadOnlyList<Skill> Skills`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `required string? System`
 
-                - `required IReadOnlyList<Tool> Tools`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `required int Version`
 
@@ -13511,11 +13511,11 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                 - `required string Name`
 
-                - `required IReadOnlyList<Skill> Skills`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `required string? System`
 
-                - `required IReadOnlyList<Tool> Tools`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `required int Version`
 
@@ -13541,7 +13541,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `required string? System`
 
-      - `required IReadOnlyList<Tool> Tools`
+      - `required IReadOnlyList<BetaManagedAgentsSessionAgentTool> Tools`
 
         - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -14305,7 +14305,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Human-readable explanation of the refusal, or `null` when none is available. The wording can change, so do not parse it.
 
-  - `required StopReason StopReason`
+  - `required BetaManagedAgentsSessionThreadStatusIdleEventStopReason StopReason`
 
     - `class BetaManagedAgentsSessionEndTurn`
 
@@ -14761,7 +14761,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsUserMessageEventContent> Content`
 
       Array of content blocks comprising the user message.
 
@@ -14783,7 +14783,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required BetaManagedAgentsImageBlockSource Source`
 
           The source of the image data.
 
@@ -14989,7 +14989,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=csharp#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventContent> Content`
 
       The result content returned by the tool.
 
@@ -15095,7 +15095,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentMessageEventContent> Content`
 
       Array of text blocks comprising the agent response.
 
@@ -15327,7 +15327,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       The id of the `agent.tool_use` event this result corresponds to.
 
-    - `IReadOnlyList<Content> Content`
+    - `IReadOnlyList<BetaManagedAgentsAgentToolResultEventContent> Content`
 
       The result content returned by the tool.
 
@@ -15361,7 +15361,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageReceivedEventContent> Content`
 
       Message content blocks.
 
@@ -15405,7 +15405,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Unique identifier for this event.
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsAgentThreadMessageSentEventContent> Content`
 
       Message content blocks.
 
@@ -15477,7 +15477,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsUnknownErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15509,7 +15509,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelOverloadedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15535,7 +15535,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelRateLimitedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15561,7 +15561,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsModelRequestFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15591,7 +15591,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsMcpConnectionFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15621,7 +15621,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsMcpAuthenticationFailedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15677,7 +15677,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsCredentialHostUnreachableErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15707,7 +15707,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsToolUseLimitReachedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15733,7 +15733,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           Human-readable error description.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsCompactionLimitReachedErrorRetryStatus RetryStatus`
 
           What the client should do next.
 
@@ -15763,7 +15763,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryAuthenticationErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -15793,7 +15793,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryForbiddenErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -15823,7 +15823,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryNotFoundErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -15853,7 +15853,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryCheckoutErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -15883,7 +15883,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           URL of the repository that could not be cloned. Null when it could not be identified.
 
-        - `required RetryStatus RetryStatus`
+        - `required BetaManagedAgentsRepositoryCloneErrorRetryStatus RetryStatus`
 
           What the client should do next. Always `retrying`: the session keeps running without the repository.
 
@@ -16349,7 +16349,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       Structured information about why the thread stopped. `null` when there is nothing more to report.
 
-    - `required StopReason StopReason`
+    - `required BetaManagedAgentsSessionThreadStatusIdleEventStopReason StopReason`
 
       - `class BetaManagedAgentsSessionEndTurn`
 
@@ -16659,7 +16659,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
           - `JsonElement Type = "coordinator"`
 
-          - `required IReadOnlyList<Agent> Agents`
+          - `required IReadOnlyList<BetaManagedAgentsSessionMultiagentCoordinatorAgent> Agents`
 
             Full `agent` definitions the coordinator may spawn as session threads.
 
@@ -16691,7 +16691,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
               - `required string Name`
 
-              - `required IReadOnlyList<Skill> Skills`
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `class BetaManagedAgentsAnthropicSkill`
 
@@ -16715,7 +16715,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
               - `required string? System`
 
-              - `required IReadOnlyList<Tool> Tools`
+              - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -16733,7 +16733,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "bash"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsBashToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -16765,7 +16765,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "edit"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsEditToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -16791,7 +16791,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "read"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsReadToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -16817,7 +16817,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "write"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWriteToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -16843,7 +16843,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "glob"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsGlobToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -16869,7 +16869,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "grep"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsGrepToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -16895,7 +16895,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "web_fetch"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWebFetchToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -17005,7 +17005,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                       - `JsonElement Name = "web_search"`
 
-                      - `required PermissionPolicy PermissionPolicy`
+                      - `required BetaManagedAgentsWebSearchToolConfigPermissionPolicy PermissionPolicy`
 
                         Permission policy for tool execution.
 
@@ -17089,7 +17089,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                     - `required string Name`
 
-                    - `required PermissionPolicy PermissionPolicy`
+                    - `required BetaManagedAgentsMcpToolConfigPermissionPolicy PermissionPolicy`
 
                       Permission policy for tool execution.
 
@@ -17111,7 +17111,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                     - `required bool Enabled`
 
-                    - `required PermissionPolicy PermissionPolicy`
+                    - `required BetaManagedAgentsMcpToolsetDefaultConfigPermissionPolicy PermissionPolicy`
 
                       Permission policy for tool execution.
 
@@ -17237,11 +17237,11 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                 - `required string Name`
 
-                - `required IReadOnlyList<Skill> Skills`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `required string? System`
 
-                - `required IReadOnlyList<Tool> Tools`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `required int Version`
 
@@ -17289,11 +17289,11 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
                 - `required string Name`
 
-                - `required IReadOnlyList<Skill> Skills`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
                 - `required string? System`
 
-                - `required IReadOnlyList<Tool> Tools`
+                - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
                 - `required int Version`
 
@@ -17319,7 +17319,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `required string? System`
 
-      - `required IReadOnlyList<Tool> Tools`
+      - `required IReadOnlyList<BetaManagedAgentsSessionAgentTool> Tools`
 
         - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -17875,7 +17875,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsToolUseLimitReachedErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -17909,7 +17909,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Human-readable error description.
 
-  - `required RetryStatus RetryStatus`
+  - `required BetaManagedAgentsUnknownErrorRetryStatus RetryStatus`
 
     What the client should do next.
 
@@ -17987,7 +17987,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=csharp#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-  - `IReadOnlyList<Content> Content`
+  - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventContent> Content`
 
     The result content returned by the tool.
 
@@ -18009,7 +18009,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 
@@ -18197,7 +18197,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     minLength: 1, maxLength: 128
 
-  - `IReadOnlyList<Content> Content`
+  - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventParamsContent> Content`
 
     The result content returned by the tool.
 
@@ -18219,7 +18219,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 
@@ -18451,7 +18451,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     What the agent should produce. This is the task specification.
 
-  - `required Rubric Rubric`
+  - `required BetaManagedAgentsUserDefineOutcomeEventParamsRubric Rubric`
 
     How to grade the outcome. Text or file reference.
 
@@ -18529,7 +18529,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Unique identifier for this event.
 
-  - `required IReadOnlyList<Content> Content`
+  - `required IReadOnlyList<BetaManagedAgentsUserMessageEventContent> Content`
 
     Array of content blocks comprising the user message.
 
@@ -18551,7 +18551,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 
@@ -18693,7 +18693,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
   - `JsonElement Type = "user.message"`
 
-  - `required IReadOnlyList<Content> Content`
+  - `required IReadOnlyList<BetaManagedAgentsUserMessageEventParamsContent> Content`
 
     Array of content blocks for the user message.
 
@@ -18715,7 +18715,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 
@@ -18891,7 +18891,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
   - `JsonElement Type = "user.tool_confirmation"`
 
-  - `required Result Result`
+  - `required BetaManagedAgentsUserToolConfirmationEventParamsResult Result`
 
     The confirmation result: 'allow' or 'deny'.
 
@@ -18925,7 +18925,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     minLength: 1, maxLength: 128
 
-  - `IReadOnlyList<Content> Content`
+  - `IReadOnlyList<BetaManagedAgentsUserToolResultEventParamsContent> Content`
 
     The result content returned by the tool.
 
@@ -18947,7 +18947,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 

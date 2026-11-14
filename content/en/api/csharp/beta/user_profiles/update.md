@@ -19,7 +19,7 @@ Update User Profile
 
     The ID of the user profile to update (`uprof_...`).
 
-  - `AccessType? accessType`
+  - `UserProfileUpdateParamsAccessType? accessType`
 
     If present, replaces the stored access type. Omit to leave unchanged.
 
@@ -249,7 +249,7 @@ Update User Profile
 
     format: date-time
 
-  - `AccessType AccessType`
+  - `BetaUserProfileAccessType AccessType`
 
     How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 

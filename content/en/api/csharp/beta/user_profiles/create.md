@@ -245,7 +245,7 @@ Create User Profile
 
     format: date-time
 
-  - `AccessType AccessType`
+  - `BetaUserProfileAccessType AccessType`
 
     How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 

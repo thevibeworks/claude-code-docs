@@ -233,7 +233,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "image"`
 
-            - `required Source Source`
+            - `required ImageBlockParamSource Source`
 
               - `class Base64ImageSource`
 
@@ -285,7 +285,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "document"`
 
-            - `required Source Source`
+            - `required DocumentBlockParamSource Source`
 
               - `class Base64PdfSource`
 
@@ -309,11 +309,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `JsonElement Type = "content"`
 
-                - `required Content Content`
+                - `required ContentBlockSourceContent Content`
 
                   - `string`
 
-                  - `IReadOnlyList<ContentBlockSourceContent>`
+                  - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                     - `class TextBlockParam`
 
@@ -415,7 +415,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `ToolUseBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -459,7 +459,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Content Content`
+            - `ToolResultBlockParamContent Content`
 
               - `string`
 
@@ -648,7 +648,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-            - `required Name Name`
+            - `required ServerToolUseBlockParamName Name`
 
               - `WebSearch("web_search")`
 
@@ -668,7 +668,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `ServerToolUseBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -724,7 +724,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `WebSearchToolResultBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -740,7 +740,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "web_fetch_tool_result"`
 
-            - `required Content Content`
+            - `required WebFetchToolResultBlockParamContent Content`
 
               - `class WebFetchToolResultErrorBlockParam`
 
@@ -790,7 +790,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `WebFetchToolResultBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -868,7 +868,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "bash_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required BashCodeExecutionToolResultBlockParamContent Content`
 
               - `class BashCodeExecutionToolResultErrorParam`
 
@@ -914,7 +914,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
               - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -940,7 +940,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `required string Content`
 
-                - `required FileType FileType`
+                - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
                   - `Text("text")`
 
@@ -986,7 +986,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "tool_search_tool_result"`
 
-            - `required Content Content`
+            - `required ToolSearchToolResultBlockParamContent Content`
 
               - `class ToolSearchToolResultErrorParam`
 
@@ -1051,7 +1051,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class SystemMessageParam`
 
-      - `required Content Content`
+      - `required SystemMessageParamContent Content`
 
         - `string`
 
@@ -1085,7 +1085,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Configuration options for the model's output, such as the output format.
 
-  - `Speed? speed`
+  - `MessageCountTokensParamsSpeed? speed`
 
     The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
@@ -1095,7 +1095,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `Fast("fast")`
 
-  - `System system`
+  - `MessageCountTokensParamsSystem system`
 
     System prompt.
 
@@ -1217,7 +1217,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolAllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1261,7 +1261,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolBash20250124AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1327,7 +1327,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20250825AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1365,7 +1365,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20260120AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1399,7 +1399,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20260521AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1820,7 +1820,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<MemoryTool20250818AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2079,7 +2079,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250124AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2113,7 +2113,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250429AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2147,7 +2147,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250728AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2187,7 +2187,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20250305AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2263,7 +2263,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20250910AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2405,7 +2405,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20260209AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2455,7 +2455,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260209AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2517,7 +2517,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260309AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2581,7 +2581,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20260318AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2613,7 +2613,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         minimum: 1
 
-      - `ResponseInclusion ResponseInclusion`
+      - `WebSearchTool20260318ResponseInclusion ResponseInclusion`
 
         How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -2639,7 +2639,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260318AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2703,7 +2703,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolSearchToolBm25_20251119`
 
-      - `required Type Type`
+      - `required ToolSearchToolBm25_20251119Type Type`
 
         - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
@@ -2715,7 +2715,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolSearchToolBm25_20251119AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2739,7 +2739,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolSearchToolRegex20251119`
 
-      - `required Type Type`
+      - `required ToolSearchToolRegex20251119Type Type`
 
         - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
@@ -2751,7 +2751,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolSearchToolRegex20251119AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2790,6 +2790,74 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `required long InputTokens`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
+
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicAvailableToolsLimitExceededException` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicCompactionBlockAmbiguousException` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `AnthropicCompactionBlockMisplacedException` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `AnthropicCompactionContentMismatchException` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `AnthropicCompactionNothingToSummarizeException` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `AnthropicCompactionSignatureInvalidException` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `AnthropicCompactionToolChangesMismatchException` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `AnthropicRequestBodyEncodingInvalidException` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `AnthropicRequestBodyEncodingUnsupportedException` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `AnthropicToolNameConflictException` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `AnthropicToolReferenceUnresolvedException` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `AnthropicRequestBodyTooLargeAfterDecodingException` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `AnthropicEnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `AnthropicCompactionUnavailableException` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
 
 ## Example
 

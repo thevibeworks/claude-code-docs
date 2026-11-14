@@ -769,6 +769,61 @@ interface BetaManagedAgentsRedactedBlock {
   type: "redacted";
 }
 
+/** Base64-encoded image data. */
+interface BetaManagedAgentsBase64ImageSource {
+  type: "base64";
+  /** Base64-encoded image data. */
+  data: string; // minLength: 1
+  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
+  media_type: string; // minLength: 1
+}
+
+/** Image referenced by URL. */
+interface BetaManagedAgentsURLImageSource {
+  type: "url";
+  /** URL of the image to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Image referenced by file ID. */
+interface BetaManagedAgentsFileImageSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
+
+/** Base64-encoded document data. */
+interface BetaManagedAgentsBase64DocumentSource {
+  type: "base64";
+  /** Base64-encoded document data. */
+  data: string; // minLength: 1
+  /** MIME type of the document (e.g., "application/pdf"). */
+  media_type: string; // minLength: 1
+}
+
+/** Plain text document content. */
+interface BetaManagedAgentsPlainTextDocumentSource {
+  type: "text";
+  /** The plain text content. */
+  data: string; // minLength: 1
+  /** MIME type of the text content. Must be "text/plain". */
+  media_type: "text/plain";
+}
+
+/** Document referenced by URL. */
+interface BetaManagedAgentsURLDocumentSource {
+  type: "url";
+  /** URL of the document to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Document referenced by file ID. */
+interface BetaManagedAgentsFileDocumentSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
+
 /** A block containing a web search result. */
 interface BetaManagedAgentsSearchResultBlock {
   type: "search_result";
@@ -782,10 +837,62 @@ interface BetaManagedAgentsSearchResultBlock {
   title: string; // minLength: 1
 }
 
+/** Citation settings for a search result. */
+interface BetaManagedAgentsSearchResultCitations {
+  /** Whether citations are enabled for this search result. */
+  enabled: boolean;
+}
+
+/** Text content within a search result. */
+interface BetaManagedAgentsSearchResultContent {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
 type BetaManagedAgentsAgentEvaluatedPermission = "allow" | "ask" | "deny";
 
 /** Names the resolved permission_policy that produced evaluated_permission, and under auto carries the judgement. Open union: clients must tolerate unknown variants. */
 type BetaManagedAgentsAgentToolEvaluation = BetaManagedAgentsAgentToolEvaluationAlwaysAllow | BetaManagedAgentsAgentToolEvaluationAlwaysAsk | BetaManagedAgentsAgentToolEvaluationAuto;
+
+/** The resolved permission_policy was always_allow; accompanies evaluated_permission "allow". */
+interface BetaManagedAgentsAgentToolEvaluationAlwaysAllow {
+  type: "always_allow";
+}
+
+/** The resolved permission_policy was always_ask; accompanies evaluated_permission "ask". */
+interface BetaManagedAgentsAgentToolEvaluationAlwaysAsk {
+  type: "always_ask";
+}
+
+/** The resolved permission_policy was auto: the server judged this invocation individually. */
+interface BetaManagedAgentsAgentToolEvaluationAuto {
+  type: "auto";
+  /** The server's judgement for this invocation. */
+  evaluated_permission: BetaManagedAgentsAgentAutoEvaluatedPermission;
+}
+
+/** The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants. */
+type BetaManagedAgentsAgentAutoEvaluatedPermission = BetaManagedAgentsAgentAutoEvaluatedPermissionAllow | BetaManagedAgentsAgentAutoEvaluatedPermissionAsk | BetaManagedAgentsAgentAutoEvaluatedPermissionDeny;
+
+/** The server judged the invocation safe to execute without client approval. */
+interface BetaManagedAgentsAgentAutoEvaluatedPermissionAllow {
+  type: "allow";
+}
+
+/** The server reached no judgement; the invocation is held for client approval. */
+interface BetaManagedAgentsAgentAutoEvaluatedPermissionAsk {
+  type: "ask";
+  /** The judgement's grounds in registry-bound terms, for client branching and audit rather than end-user display. Open registry; currently "indeterminate" (no judgement was reached). Clients must tolerate values outside this set. */
+  reason_code: string; // maxLength: 64
+}
+
+/** The server judged the invocation high-risk, or reached no judgement and did not hold it for client approval (for example, because the organization is out of credits or has reached a spend limit); it does not execute and a synthetic error tool result is appended. */
+interface BetaManagedAgentsAgentAutoEvaluatedPermissionDeny {
+  type: "deny";
+  /** The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run) and "indeterminate" (no judgement was reached; the call does not run). Clients must tolerate values outside this set. */
+  reason_code: string; // maxLength: 64
+}
 
 /** An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone. */
 interface BetaManagedAgentsUnknownError {
@@ -940,6 +1047,21 @@ interface BetaManagedAgentsRepositoryCloneError {
   retry_status: BetaManagedAgentsRetryStatusRetrying | BetaManagedAgentsRetryStatusExhausted | BetaManagedAgentsRetryStatusTerminal;
 }
 
+/** The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out. */
+interface BetaManagedAgentsRetryStatusRetrying {
+  type: "retrying";
+}
+
+/** This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt. */
+interface BetaManagedAgentsRetryStatusExhausted {
+  type: "exhausted";
+}
+
+/** The session encountered a terminal error and will transition to `terminated` state. */
+interface BetaManagedAgentsRetryStatusTerminal {
+  type: "terminal";
+}
+
 /** Structured information about a refusal. */
 interface BetaManagedAgentsSessionRefusalStopDetails {
   type: "refusal";
@@ -1004,30 +1126,6 @@ interface BetaManagedAgentsTextRubric {
   content: string;
 }
 
-interface BetaManagedAgentsSessionAgent {
-  type: "agent";
-  id: string;
-  description: string | null;
-  /** Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal. */
-  execution_identity: BetaManagedAgentsExecutionIdentity;
-  mcp_servers: Array<BetaManagedAgentsMCPServerURLDefinition>;
-  /** Model identifier and configuration. */
-  model: BetaManagedAgentsModelConfig;
-  /** Resolved multiagent orchestration configuration. Null when the agent is single-threaded. */
-  multiagent: BetaManagedAgentsSessionMultiagent | null;
-  name: string;
-  skills: Array<BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill>;
-  system: string | null;
-  tools: Array<BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool>;
-  version: number; // format: int32
-}
-
-interface BetaManagedAgentsBudgetLimit {
-  type: "limit";
-  /** Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge. */
-  max_list_cost: BetaMonetaryAmount;
-}
-
 interface BetaManagedAgentsSystemContentBlock {
   type: "text";
   /** The text content. */
@@ -1052,6 +1150,20 @@ interface BetaManagedAgentsSessionUsageSnapshot {
   server_tool_use?: BetaManagedAgentsServerToolUsage;
 }
 
+interface BetaManagedAgentsCacheCreationUsage {
+  /** Tokens used to create 1-hour ephemeral cache entries. */
+  ephemeral_1h_input_tokens?: number; // format: int32
+  /** Tokens used to create 5-minute ephemeral cache entries. */
+  ephemeral_5m_input_tokens?: number; // format: int32
+}
+
+interface BetaManagedAgentsServerToolUsage {
+  /** Number of server-executed web fetch requests. */
+  web_fetch_requests?: number; // format: int32
+  /** Number of server-executed web search requests. */
+  web_search_requests?: number; // format: int32
+}
+
 /** A phase that a workflow run's plan declares. */
 interface BetaManagedAgentsWorkflowRunPhase {
   /** Unique identifier for the phase. */
@@ -1065,108 +1177,93 @@ interface BetaManagedAgentsWorkflowRunPhase {
 /** How a workflow run ended. */
 type BetaManagedAgentsWorkflowRunResult = BetaManagedAgentsWorkflowRunResultCompleted | BetaManagedAgentsWorkflowRunResultError | BetaManagedAgentsWorkflowRunResultStopped;
 
+/** The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded. */
+interface BetaManagedAgentsWorkflowRunResultCompleted {
+  type: "completed";
+}
+
+/** The run failed or reached its time limit. */
+interface BetaManagedAgentsWorkflowRunResultError {
+  type: "error";
+  /** Why the run did not finish. */
+  error: BetaManagedAgentsWorkflowRunError;
+}
+
+/** The agent stopped the run. */
+interface BetaManagedAgentsWorkflowRunResultStopped {
+  type: "stopped";
+}
+
 /** Why a workflow run did not finish, or was not created. More types may be added. On `workflow_run.status_ended`, for a `type` you do not recognize, rely on the event's `result.type`. */
 type BetaManagedAgentsWorkflowRunError = BetaManagedAgentsTimeoutWorkflowRunError | BetaManagedAgentsProgramWorkflowRunError | BetaManagedAgentsUnknownWorkflowRunError | BetaManagedAgentsThreadLimitWorkflowRunError | BetaManagedAgentsMaxWorkflowRunsWorkflowRunError;
 
-/** Base64-encoded image data. */
-interface BetaManagedAgentsBase64ImageSource {
-  type: "base64";
-  /** Base64-encoded image data. */
-  data: string; // minLength: 1
-  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
-  media_type: string; // minLength: 1
+/** The run reached its time limit. */
+interface BetaManagedAgentsTimeoutWorkflowRunError {
+  type: "timeout_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
 }
 
-/** Image referenced by URL. */
-interface BetaManagedAgentsURLImageSource {
-  type: "url";
-  /** URL of the image to fetch. */
-  url: string; // minLength: 1
+/** The plan, a program that the agent wrote, failed, or the server refused it. */
+interface BetaManagedAgentsProgramWorkflowRunError {
+  type: "program_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
 }
 
-/** Image referenced by file ID. */
-interface BetaManagedAgentsFileImageSource {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string; // minLength: 1
+/** A failure that has no type of its own. */
+interface BetaManagedAgentsUnknownWorkflowRunError {
+  type: "unknown_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
 }
 
-/** Base64-encoded document data. */
-interface BetaManagedAgentsBase64DocumentSource {
-  type: "base64";
-  /** Base64-encoded document data. */
-  data: string; // minLength: 1
-  /** MIME type of the document (e.g., "application/pdf"). */
-  media_type: string; // minLength: 1
+/** The run exceeded the limit on the number of threads that a run can create. */
+interface BetaManagedAgentsThreadLimitWorkflowRunError {
+  type: "thread_limit_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
 }
 
-/** Plain text document content. */
-interface BetaManagedAgentsPlainTextDocumentSource {
-  type: "text";
-  /** The plain text content. */
-  data: string; // minLength: 1
-  /** MIME type of the text content. Must be "text/plain". */
-  media_type: "text/plain";
+/** No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type. */
+interface BetaManagedAgentsMaxWorkflowRunsWorkflowRunError {
+  type: "max_workflow_runs_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
 }
 
-/** Document referenced by URL. */
-interface BetaManagedAgentsURLDocumentSource {
-  type: "url";
-  /** URL of the document to fetch. */
-  url: string; // minLength: 1
+interface BetaManagedAgentsSessionAgent {
+  type: "agent";
+  id: string;
+  description: string | null;
+  /** Execution principal snapshotted from the agent at session creation. Always present; `{"type": "service_account"}` when runs carry no customer-named principal. */
+  execution_identity: BetaManagedAgentsExecutionIdentity;
+  mcp_servers: Array<BetaManagedAgentsMCPServerURLDefinition>;
+  /** Model identifier and configuration. */
+  model: BetaManagedAgentsModelConfig;
+  /** Resolved multiagent orchestration configuration. Null when the agent is single-threaded. */
+  multiagent: BetaManagedAgentsSessionMultiagent | null;
+  name: string;
+  skills: Array<BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill>;
+  system: string | null;
+  tools: Array<BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool>;
+  version: number; // format: int32
 }
 
-/** Document referenced by file ID. */
-interface BetaManagedAgentsFileDocumentSource {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string; // minLength: 1
+interface BetaManagedAgentsBudgetLimit {
+  type: "limit";
+  /** Maximum list cost the session may accrue. List price is used regardless of any negotiated discount, so the cap fires at or before the actual charge. */
+  max_list_cost: BetaMonetaryAmount;
 }
 
-/** Citation settings for a search result. */
-interface BetaManagedAgentsSearchResultCitations {
-  /** Whether citations are enabled for this search result. */
-  enabled: boolean;
+interface BetaMonetaryAmount {
+  /** Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied. */
+  amount: string; // pattern: ^(0|[1-9]\d*)$
+  /** Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced. */
+  currency: BetaCurrency;
 }
 
-/** Text content within a search result. */
-interface BetaManagedAgentsSearchResultContent {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
-}
-
-/** The resolved permission_policy was always_allow; accompanies evaluated_permission "allow". */
-interface BetaManagedAgentsAgentToolEvaluationAlwaysAllow {
-  type: "always_allow";
-}
-
-/** The resolved permission_policy was always_ask; accompanies evaluated_permission "ask". */
-interface BetaManagedAgentsAgentToolEvaluationAlwaysAsk {
-  type: "always_ask";
-}
-
-/** The resolved permission_policy was auto: the server judged this invocation individually. */
-interface BetaManagedAgentsAgentToolEvaluationAuto {
-  type: "auto";
-  /** The server's judgement for this invocation. */
-  evaluated_permission: BetaManagedAgentsAgentAutoEvaluatedPermission;
-}
-
-/** The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out. */
-interface BetaManagedAgentsRetryStatusRetrying {
-  type: "retrying";
-}
-
-/** This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt. */
-interface BetaManagedAgentsRetryStatusExhausted {
-  type: "exhausted";
-}
-
-/** The session encountered a terminal error and will transition to `terminated` state. */
-interface BetaManagedAgentsRetryStatusTerminal {
-  type: "terminal";
-}
+type BetaCurrency = "USD";
 
 type BetaManagedAgentsExecutionIdentity = BetaManagedAgentsAWSRoleExecutionIdentity | BetaManagedAgentsServiceAccountExecutionIdentity;
 
@@ -1227,82 +1324,6 @@ interface BetaManagedAgentsCustomTool {
   input_schema: BetaManagedAgentsCustomToolInputSchema;
   name: string;
 }
-
-interface BetaMonetaryAmount {
-  /** Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied. */
-  amount: string; // pattern: ^(0|[1-9]\d*)$
-  /** Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced. */
-  currency: BetaCurrency;
-}
-
-interface BetaManagedAgentsCacheCreationUsage {
-  /** Tokens used to create 1-hour ephemeral cache entries. */
-  ephemeral_1h_input_tokens?: number; // format: int32
-  /** Tokens used to create 5-minute ephemeral cache entries. */
-  ephemeral_5m_input_tokens?: number; // format: int32
-}
-
-interface BetaManagedAgentsServerToolUsage {
-  /** Number of server-executed web fetch requests. */
-  web_fetch_requests?: number; // format: int32
-  /** Number of server-executed web search requests. */
-  web_search_requests?: number; // format: int32
-}
-
-/** The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded. */
-interface BetaManagedAgentsWorkflowRunResultCompleted {
-  type: "completed";
-}
-
-/** The run failed or reached its time limit. */
-interface BetaManagedAgentsWorkflowRunResultError {
-  type: "error";
-  /** Why the run did not finish. */
-  error: BetaManagedAgentsWorkflowRunError;
-}
-
-/** The agent stopped the run. */
-interface BetaManagedAgentsWorkflowRunResultStopped {
-  type: "stopped";
-}
-
-/** The run reached its time limit. */
-interface BetaManagedAgentsTimeoutWorkflowRunError {
-  type: "timeout_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** The plan, a program that the agent wrote, failed, or the server refused it. */
-interface BetaManagedAgentsProgramWorkflowRunError {
-  type: "program_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** A failure that has no type of its own. */
-interface BetaManagedAgentsUnknownWorkflowRunError {
-  type: "unknown_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** The run exceeded the limit on the number of threads that a run can create. */
-interface BetaManagedAgentsThreadLimitWorkflowRunError {
-  type: "thread_limit_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type. */
-interface BetaManagedAgentsMaxWorkflowRunsWorkflowRunError {
-  type: "max_workflow_runs_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** The server's per-invocation judgement under the auto permission policy. Its type always equals the event's top-level evaluated_permission. Open union: clients must tolerate unknown variants. */
-type BetaManagedAgentsAgentAutoEvaluatedPermission = BetaManagedAgentsAgentAutoEvaluatedPermissionAllow | BetaManagedAgentsAgentAutoEvaluatedPermissionAsk | BetaManagedAgentsAgentAutoEvaluatedPermissionDeny;
 
 /** An AWS IAM role principal as returned in API responses. */
 interface BetaManagedAgentsAWSRoleExecutionIdentity {
@@ -1402,56 +1423,6 @@ interface BetaManagedAgentsSessionMultiagent20261001 {
   workflows: BetaManagedAgentsSessionMultiagentWorkflows;
 }
 
-/** Configuration for a specific agent tool. */
-type BetaManagedAgentsAgentToolConfig = BetaManagedAgentsBashToolConfig | BetaManagedAgentsEditToolConfig | BetaManagedAgentsReadToolConfig | BetaManagedAgentsWriteToolConfig | BetaManagedAgentsGlobToolConfig | BetaManagedAgentsGrepToolConfig | BetaManagedAgentsWebFetchToolConfig | BetaManagedAgentsWebSearchToolConfig;
-
-interface BetaManagedAgentsAgentToolsetDefaultConfig {
-  enabled: boolean;
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-/** Resolved configuration for a specific MCP tool. */
-interface BetaManagedAgentsMCPToolConfig {
-  enabled: boolean;
-  name: string;
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-interface BetaManagedAgentsMCPToolsetDefaultConfig {
-  enabled: boolean;
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-interface BetaManagedAgentsCustomToolInputSchema {
-  type: "object";
-  properties?: Record<string, unknown> | null;
-  required?: Array<string> | null;
-}
-
-type BetaCurrency = "USD";
-
-/** The server judged the invocation safe to execute without client approval. */
-interface BetaManagedAgentsAgentAutoEvaluatedPermissionAllow {
-  type: "allow";
-}
-
-/** The server reached no judgement; the invocation is held for client approval. */
-interface BetaManagedAgentsAgentAutoEvaluatedPermissionAsk {
-  type: "ask";
-  /** The judgement's grounds in registry-bound terms, for client branching and audit rather than end-user display. Open registry; currently "indeterminate" (no judgement was reached). Clients must tolerate values outside this set. */
-  reason_code: string; // maxLength: 64
-}
-
-/** The server judged the invocation high-risk, or reached no judgement and did not hold it for client approval (for example, because the organization is out of credits or has reached a spend limit); it does not execute and a synthetic error tool result is appended. */
-interface BetaManagedAgentsAgentAutoEvaluatedPermissionDeny {
-  type: "deny";
-  /** The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run) and "indeterminate" (no judgement was reached; the call does not run). Clients must tolerate values outside this set. */
-  reason_code: string; // maxLength: 64
-}
-
 /** Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`. */
 interface BetaManagedAgentsSessionThreadAgent {
   type: "agent";
@@ -1481,6 +1452,87 @@ type BetaManagedAgentsMultiagentAdvisor = BetaManagedAgentsMultiagentAdvisorEnab
 type BetaManagedAgentsSessionMultiagentSubagents = BetaManagedAgentsSessionMultiagentSubagentsEnabled | BetaManagedAgentsMultiagentSubagentsDisabled;
 
 type BetaManagedAgentsSessionMultiagentWorkflows = BetaManagedAgentsSessionMultiagentWorkflowsEnabled | BetaManagedAgentsMultiagentWorkflowsDisabled;
+
+/** The session's primary thread can consult `model` mid-turn. */
+interface BetaManagedAgentsMultiagentAdvisorEnabled {
+  type: "enabled";
+  /** The advisor model id. */
+  model: string;
+}
+
+/** The agent has no advisor. */
+interface BetaManagedAgentsMultiagentAdvisorDisabled {
+  type: "disabled";
+}
+
+/** The agent can start workflow runs. */
+interface BetaManagedAgentsSessionMultiagentWorkflowsEnabled {
+  type: "enabled";
+  /** Whether a run's plan can define inline agents, which are not saved. */
+  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
+  /** Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use. */
+  predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
+}
+
+/** The agent cannot start workflow runs. */
+interface BetaManagedAgentsMultiagentWorkflowsDisabled {
+  type: "disabled";
+}
+
+/** The agent can spawn session threads. */
+interface BetaManagedAgentsSessionMultiagentSubagentsEnabled {
+  type: "enabled";
+  /** Whether the agent can define inline agents, which are not saved, when it spawns session threads. */
+  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
+  /** Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads. */
+  predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
+}
+
+/** The agent cannot spawn session threads. */
+interface BetaManagedAgentsMultiagentSubagentsDisabled {
+  type: "disabled";
+}
+
+type BetaManagedAgentsMultiagentInlineAgents = BetaManagedAgentsMultiagentInlineAgentsEnabled | BetaManagedAgentsMultiagentInlineAgentsDisabled;
+
+/** The agent can define inline agents. */
+interface BetaManagedAgentsMultiagentInlineAgentsEnabled {
+  type: "enabled";
+}
+
+/** The agent cannot define inline agents. */
+interface BetaManagedAgentsMultiagentInlineAgentsDisabled {
+  type: "disabled";
+}
+
+/** Resolved configuration for a specific MCP tool. */
+interface BetaManagedAgentsMCPToolConfig {
+  enabled: boolean;
+  name: string;
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+interface BetaManagedAgentsMCPToolsetDefaultConfig {
+  enabled: boolean;
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+interface BetaManagedAgentsCustomToolInputSchema {
+  type: "object";
+  properties?: Record<string, unknown> | null;
+  required?: Array<string> | null;
+}
+
+/** Configuration for a specific agent tool. */
+type BetaManagedAgentsAgentToolConfig = BetaManagedAgentsBashToolConfig | BetaManagedAgentsEditToolConfig | BetaManagedAgentsReadToolConfig | BetaManagedAgentsWriteToolConfig | BetaManagedAgentsGlobToolConfig | BetaManagedAgentsGrepToolConfig | BetaManagedAgentsWebFetchToolConfig | BetaManagedAgentsWebSearchToolConfig;
+
+interface BetaManagedAgentsAgentToolsetDefaultConfig {
+  enabled: boolean;
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
 
 /** Configuration for the bash tool. */
 interface BetaManagedAgentsBashToolConfig {
@@ -1578,55 +1630,6 @@ interface BetaManagedAgentsAutoPolicy {
   type: "auto";
 }
 
-/** The session's primary thread can consult `model` mid-turn. */
-interface BetaManagedAgentsMultiagentAdvisorEnabled {
-  type: "enabled";
-  /** The advisor model id. */
-  model: string;
-}
-
-/** The agent has no advisor. */
-interface BetaManagedAgentsMultiagentAdvisorDisabled {
-  type: "disabled";
-}
-
-/** The agent can spawn session threads. */
-interface BetaManagedAgentsSessionMultiagentSubagentsEnabled {
-  type: "enabled";
-  /** Whether the agent can define inline agents, which are not saved, when it spawns session threads. */
-  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
-  /** Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads. */
-  predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
-}
-
-/** The agent cannot spawn session threads. */
-interface BetaManagedAgentsMultiagentSubagentsDisabled {
-  type: "disabled";
-}
-
-/** The agent can start workflow runs. */
-interface BetaManagedAgentsSessionMultiagentWorkflowsEnabled {
-  type: "enabled";
-  /** Whether a run's plan can define inline agents, which are not saved. */
-  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
-  /** Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use. */
-  predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
-}
-
-/** The agent cannot start workflow runs. */
-interface BetaManagedAgentsMultiagentWorkflowsDisabled {
-  type: "disabled";
-}
-
-interface BetaManagedAgentsWebFetchURLSources {
-  /** Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results. */
-  client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
-  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both. */
-  server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
-  /** Whether URLs in the text of user messages may be fetched. Null when not set, which allows them. */
-  user_input: BetaManagedAgentsWebFetchURLSourceUserInput | null;
-}
-
 interface BetaManagedAgentsUserLocation {
   /** Location precision. Only "approximate" is supported. */
   type: "approximate";
@@ -1640,21 +1643,18 @@ interface BetaManagedAgentsUserLocation {
   timezone?: string | null; // minLength: 1, maxLength: 255
 }
 
-type BetaManagedAgentsMultiagentInlineAgents = BetaManagedAgentsMultiagentInlineAgentsEnabled | BetaManagedAgentsMultiagentInlineAgentsDisabled;
+interface BetaManagedAgentsWebFetchURLSources {
+  /** Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results. */
+  client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
+  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both. */
+  server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
+  /** Whether URLs in the text of user messages may be fetched. Null when not set, which allows them. */
+  user_input: BetaManagedAgentsWebFetchURLSourceUserInput | null;
+}
 
 type BetaManagedAgentsWebFetchURLSourceToolFilter = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone | BetaManagedAgentsWebFetchURLSourceOnly | BetaManagedAgentsWebFetchURLSourceExcept;
 
 type BetaManagedAgentsWebFetchURLSourceUserInput = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone;
-
-/** The agent can define inline agents. */
-interface BetaManagedAgentsMultiagentInlineAgentsEnabled {
-  type: "enabled";
-}
-
-/** The agent cannot define inline agents. */
-interface BetaManagedAgentsMultiagentInlineAgentsDisabled {
-  type: "disabled";
-}
 
 /** Every URL from this source may be fetched. This is the default. */
 interface BetaManagedAgentsWebFetchURLSourceAll {
@@ -1926,8 +1926,6 @@ interface BetaManagedAgentsDeltaEvent {
   event_id: string;
 }
 
-type BetaManagedAgentsStartEventPreview = BetaManagedAgentsAgentMessagePreview | BetaManagedAgentsAgentThinkingPreview;
-
 interface BetaManagedAgentsDeltaContent {
   type: "content_delta";
   /** A partial element of the content array at index, typed like the element itself — the same shape the buffered agent.message carries in content. */
@@ -1935,6 +1933,8 @@ interface BetaManagedAgentsDeltaContent {
   /** Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise. */
   index?: number;
 }
+
+type BetaManagedAgentsStartEventPreview = BetaManagedAgentsAgentMessagePreview | BetaManagedAgentsAgentThinkingPreview;
 
 interface BetaManagedAgentsAgentMessagePreview {
   type: "agent.message";

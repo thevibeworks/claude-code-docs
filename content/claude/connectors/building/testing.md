@@ -10,7 +10,7 @@ You test an MCP server against the real Claude client by adding it to Claude as 
 
 For example, where embedded sites are available for custom connectors, a [website embedded in an MCP App](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md#test-embedded-sites-with-a-custom-connector) loads while you test only after you allow it. After publication, the website loads only if your listing is Verified and allows its origin. An MCP App's [entry point](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md#conditions-for-showing-an-app-on-the-artifacts-page) that appears while you test stays hidden for people who install a Community listing.
 
-This page is for developers with a running server, whether it's deployed or still on your machine. It covers adding the server to Claude, validating it with MCP Inspector, detecting Claude as the client, and preparing test credentials for directory review. If a connection fails while you test, [Troubleshoot your connector](https://claude.com/docs/connectors/building/troubleshooting.md) walks through each error message.
+This page is for developers with a running server, whether it's deployed or still on your machine. It covers adding the server to Claude, validating it with MCP Inspector, detecting Claude as the client, and preparing a test account for Verified review. If a connection fails while you test, [Troubleshoot your connector](https://claude.com/docs/connectors/building/troubleshooting.md) walks through each error message.
 
 ## Test in Claude as a custom connector
 
@@ -56,9 +56,9 @@ Claude identifies itself in the MCP `initialize` handshake through `clientInfo`,
 
 Don't gate behavior on an exact `name` or `version` string, because both vary across surfaces, request paths, and releases. Use `clientInfo` for telemetry and coarse feature detection only. It's also unauthenticated: any client can claim any name, so it must never feed an authorization decision.
 
-## Prepare test credentials for review
+## Prepare a test account for Verified review
 
-Directory submission requires test credentials. Provide a fully populated account rather than an empty shell, so reviewers can exercise real functionality: list real records, search real data, and exercise write tools on real resources. Include step-by-step setup instructions for someone unfamiliar with your service.
+Community listings don't need a test account. Verified review includes a hands-on test, so if your connector needs sign-in, a reviewer emails you to ask for test access. Have a test or sandbox account ready, not a real customer account. Fill it with sample data rather than leaving it empty, so reviewers can exercise real functionality: list real records, search real data, and exercise write tools on real resources. Don't put credentials in the developer portal.
 
 ## Debug connection failures
 

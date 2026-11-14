@@ -233,7 +233,7 @@ Upload File
 
 ```bash
 ant beta:files upload \
-  --file 'Example data'
+  --file path/to/file
 ```
 
 ### Response (200)

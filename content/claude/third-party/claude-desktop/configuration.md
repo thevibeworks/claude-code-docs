@@ -1709,7 +1709,7 @@ stringSince 5.11492.0
 
 > [accordion] More detail
 >
-> Actions your provider reviews itself don't use this model.
+> Actions your provider reviews itself don't use this model. `env.CLAUDE_CODE_AUTO_MODE_MODEL` in a computer's machine-wide Claude Code managed settings replaces it there.
 >
 > Use your provider's ID for an Anthropic model, or this setting counts as unset. If you set `inferenceModels`, also list the ID there and in any group's model list. If your provider lacks the model, the built-in safety check blocks every action it reviews.
 >

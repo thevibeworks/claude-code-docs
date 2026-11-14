@@ -17,7 +17,7 @@ Update an existing environment's configuration.
 
   - `required string environmentID` (path parameter)
 
-  - `Config? config`
+  - `EnvironmentUpdateParamsConfig? config`
 
     Updated environment configuration
 
@@ -32,7 +32,7 @@ Update an existing environment's configuration.
 
         Environment type
 
-      - `Networking? Networking`
+      - `BetaCloudConfigParamsNetworking? Networking`
 
         Network configuration policy. Omit on update to preserve the existing value.
 
@@ -71,7 +71,7 @@ Update an existing environment's configuration.
 
         Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
-        - `Type Type`
+        - `BetaPackagesParamsType Type`
 
           Package configuration type
 
@@ -123,7 +123,7 @@ Update an existing environment's configuration.
 
     minLength: 1, maxLength: 256
 
-  - `Scope? scope`
+  - `EnvironmentUpdateParamsScope? scope`
 
     The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -291,7 +291,7 @@ Update an existing environment's configuration.
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
-  - `required Config Config`
+  - `required BetaEnvironmentConfig Config`
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
@@ -395,13 +395,37 @@ Update an existing environment's configuration.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `Scope Scope`
+  - `BetaEnvironmentScope Scope`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
     - `Organization("organization")`
 
     - `Account("account")`
+
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicBetaEnvironmentArchivedException` (HTTP status 400, error code `environment_archived`)
+
+  The environment is archived, so it cannot be updated.
+
+- `AnthropicBetaInvalidConfigTypeChangeException` (HTTP status 400, error code `invalid_config_type_change`)
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `AnthropicBetaEnvironmentUpdateDisabledException` (HTTP status 403, error code `environment_update_disabled`)
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
 
 ## Example
 
@@ -435,21 +459,11 @@ Console.WriteLine(betaEnvironment);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"

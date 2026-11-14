@@ -75,6 +75,14 @@ interface BetaSelfHostedWorkHeartbeatResponse {
 }
 ```
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaHeartbeatPreconditionFailedError` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 ## Types
 
 ```ts

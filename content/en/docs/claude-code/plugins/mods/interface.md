@@ -438,7 +438,96 @@ Check what `backdrop` takes, what the call's result tells you, and what other mo
 
 * **The `backdrop` fields**: `scene` is a [name](https://code.claude.com/docs/en/plugins/mods/reference.md#limits) you choose for a backdrop your hook draws. For the other fields and `overrideColorScheme`, see [the types for your build](https://code.claude.com/docs/en/plugins/mods/create.md#get-the-types-for-your-build).
 * **Whether the backdrop is drawn**: `$.theme.set` resolves with `isDrawn: true` when a Desktop or mobile app connected to the session says it draws backdrops. Otherwise `isDrawn` is `false` and `reason` says why.
-* **One backdrop for each session**: a `$.theme.set` call replaces the session's backdrop and `$.theme.clear()` removes that backdrop, whichever mod set it. Call `$.theme.clear()` only when the user asks for it.
+* **One theme for each session**: a mod that calls `$.theme.set` replaces the session's backdrop and [colors](#change-the-colors-of-the-desktop-app), and a mod that calls `$.theme.clear()` removes them, whichever mod set them. Call `$.theme.clear()` only when the user asks for it.
+
+### Change the colors of the Desktop app
+
+To change the colors of the Desktop app's Code tab with a mod, [ask Claude for one](#ask-claude-for-a-colors-mod) or [write one yourself](#write-a-colors-mod-yourself). Both ways require Claude Code v2.1.324 or later in the Code tab, so [check the version there](https://code.claude.com/docs/en/desktop.md#claude-code-version-in-the-code-tab) first. Claude Code in the terminal keeps its own colors.
+
+#### Ask Claude for a colors mod
+
+**1. Describe the colors**
+
+Start a local session in the Code tab and tell Claude which colors you want. For example, enter `make a mod that makes the app cream in light mode and dark brown in dark mode`. Claude writes the mod's files.
+
+**2. Approve the mod**
+
+Answer the questions Claude Code asks about the mod's files and hot reloading. For what each answer does, see [Ask Claude for a mod](https://code.claude.com/docs/en/plugins/mods/create.md#ask-claude-for-a-mod).
+
+**3. Check the colors**
+
+The Code tab changes color when the mod loads. To adjust a color, tell Claude what to change. If nothing changes, see [Fix missing mod colors](#fix-missing-mod-colors-in-the-desktop-app).
+
+#### Write a colors mod yourself
+
+`makeColors` is a function that builds a theme from a few hex colors. These steps create a mod named `paper` that uses it.
+
+**1. Have Claude copy makeColors**
+
+Start a local session in the Code tab, and enter `copy make-colors.js and make-colors.d.ts from your plugin-authoring skill into ~/.claude/skills/paper/hooks/`. Check that both files are in that directory.
+
+**2. Save the manifest and hooks.json**
+
+From [Write a mod yourself](https://code.claude.com/docs/en/plugins/mods/create.md#write-a-mod-yourself), save `.claude-plugin/plugin.json` and `hooks/hooks.json` in `~/.claude/skills/paper/`, and change `first-mod` to `paper` in both files. A mod [under `~/.claude/skills/`](https://code.claude.com/docs/en/plugins/create#scaffold-a-plugin-that-loads-every-session) loads when you start a session.
+
+**3. Write the code**
+
+Save this file as `~/.claude/skills/paper/hooks/register.js`. When a session starts, the code calls `$.theme.set` with the colors for light mode and dark mode:
+
+```javascript theme={null}
+import { makeColors } from './make-colors.js'
+
+const { theme } = makeColors({
+  label: 'Paper',
+  // surface-0 is the background, text-primary is the main text, and text-muted is the faint text
+  light: {
+    gray: { anchors: { 'surface-0': '#efe6d3', 'text-primary': '#2a241d', 'text-muted': '#6a5f50' } },
+  },
+  dark: {
+    gray: { anchors: { 'surface-0': '#1f1a15', 'text-primary': '#f0e7d7', 'text-muted': '#aca08d' } },
+  },
+})
+
+export function register(on) {
+  on('session.start', async ($, e, next) => {
+    await $.theme.set({ colors: theme })
+    return next(e)
+  })
+}
+```
+
+To use your own colors, replace the hex values with other six-digit hex colors.
+
+**4. Check the colors**
+
+Start a new local session in the Code tab. With the example's values, the background is cream in light mode and dark brown in dark mode. If nothing changes, see [Fix missing mod colors](#fix-missing-mod-colors-in-the-desktop-app).
+
+### Fix missing mod colors in the Desktop app
+
+If you use a [third-party provider](https://code.claude.com/docs/en/third-party-integrations.md) instead of a Claude account in [Claude Desktop v5.11492.5 or earlier](https://code.claude.com/docs/en/desktop.md#check-your-version), the Code tab keeps its own colors, so skip these checks. Otherwise, if a mod's colors don't appear in the Code tab, or if they disappear, check for these causes:
+
+* **Old version**: [update the Desktop app](https://code.claude.com/docs/en/desktop.md#claude-code-version-in-the-code-tab), restart it, and start a new local session in the Code tab. If Claude wrote the mod, ask for it again there.
+* **Mod not loaded**: if Claude wrote the mod, see when it loads in [Ask Claude for a mod](https://code.claude.com/docs/en/plugins/mods/create.md#ask-claude-for-a-mod). If you wrote it, compare your files and their paths with [Write a colors mod yourself](#write-a-colors-mod-yourself).
+* **Refused theme**: ask Claude to run the mod's [`makeColors`](#write-a-colors-mod-yourself) call. If the call throws an error, or its `problems` list has an entry that starts `Desktop won't paint this theme`, have Claude fix the theme. If you installed the mod, send what Claude finds to its author.
+* **Another `$.theme` call**: when any mod in the session calls `$.theme.set` or `$.theme.clear()`, the colors and [backdrop](#put-a-backdrop-behind-the-conversation) from an earlier call disappear. In your own mod, pass `colors` and `backdrop` in the same `$.theme.set` call. Use one mod at a time that sets a theme.
+
+### Remove mod colors from the Desktop app
+
+To take a mod's colors off the Code tab, turn off the mod first. A mod that's still on can set its colors again.
+
+**1. Turn off the mod**
+
+* **Claude wrote the mod**: move its directory out of the [mods folder](https://code.claude.com/docs/en/plugins/mods/create.md#ask-claude-for-a-mod) of the session where Claude wrote it.
+* **You put the mod under `~/.claude/skills/`**: move its directory, such as `~/.claude/skills/paper/`, to a place outside `~/.claude/skills/`.
+* **You installed the mod**: in the Desktop app, [disable or uninstall its plugin](https://code.claude.com/docs/en/desktop.md#install-plugins) from **Manage plugins**. If you don't see **Manage plugins** and you have [the CLI](https://code.claude.com/docs/en/quickstart.md), you can [disable or uninstall a marketplace plugin from your shell](https://code.claude.com/docs/en/plugins/install.md#manage-plugins-from-your-shell).
+
+**2. Start a new session**
+
+Start a new local session in the Code tab.
+
+**3. Remove colors that stay**
+
+If the colors are still there, open **Settings** from the Code tab, and search there for `code appearance`. Open the result, and select **Remove colors**.
 
 ## Build a tree from elements
 
@@ -677,7 +766,7 @@ A collapsed band hides everything the mods draw there and shows one dim row inst
 
 The same keys, or in fullscreen rendering a click on the row, expand the band again. Until then, nothing presses a button in it: no hotkey, no digit typed into an empty prompt, and no keybinding for a button's [`action`](https://code.claude.com/docs/en/plugins/mods/reference#elements). If the band has keyboard focus when the user collapses it, the focus returns to the prompt, and Ctrl+X then Tab skips the band while it's collapsed.
 
-The band stays collapsed until the user expands it, even after `/clear`, and is expanded again the next time Claude Code starts. Your mod can't expand it or tell that it's collapsed: the `ui.render` hook keeps running, and nothing in `e.props` says so. Don't make the band the only place your mod shows something the user has to answer.
+The band stays collapsed until the user expands it, even after `/clear`, and is expanded again the next time Claude Code starts. Your mod can't expand it. Don't make the band the only place your mod shows something the user has to answer. To show that elsewhere only while the band is collapsed, read `e.props.isCollapsed` in your `ui.render` hook, which keeps running. `isCollapsed` requires Claude Code v2.1.321 or later.
 
 ### Take typed input and draw a row for each item
 

@@ -651,6 +651,7 @@ package com.anthropic.example;
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
 import com.anthropic.core.UnwrapWebhookParams;
+import com.anthropic.core.http.Headers;
 import com.anthropic.models.beta.webhooks.UnwrapWebhookEvent;
 
 public final class Main {
@@ -659,7 +660,13 @@ public final class Main {
     public static void main(String[] args) {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-        // `body` is the raw body of the incoming webhook request and `headers` are its HTTP headers as a `Headers` (`Headers.builder().put(name, value).build()`).
+        // Replace these with the raw body and the HTTP headers of the incoming webhook request.
+        String body = "{\"type\":\"event\",\"id\":\"whe_0f1e2d3c4b5a69788796a5b4c3d2e1f0\",\"created_at\":\"2026-03-15T10:00:00Z\",\"data\":{\"type\":\"session.status_idled\"}}";
+        Headers headers = Headers.builder()
+            .put("webhook-id", "msg_0123456789")
+            .put("webhook-timestamp", "1773568800")
+            .put("webhook-signature", "v1,ZmFrZS1zaWduYXR1cmU=")
+            .build();
         UnwrapWebhookParams params = UnwrapWebhookParams.builder()
             .body(body)
             .headers(headers)
@@ -1311,7 +1318,8 @@ public final class Main {
     public static void main(String[] args) {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-        // `body` is the raw body of the incoming webhook request.
+        // Replace this with the raw body of the incoming webhook request.
+        String body = "{\"type\":\"event\",\"id\":\"whe_0f1e2d3c4b5a69788796a5b4c3d2e1f0\",\"created_at\":\"2026-03-15T10:00:00Z\",\"data\":{\"type\":\"session.status_idled\"}}";
         UnwrapWebhookEvent event = client.beta().webhooks().parseUnverified(body);
     }
 }

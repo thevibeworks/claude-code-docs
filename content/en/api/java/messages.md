@@ -4060,6 +4060,128 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `long index`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+On a streaming call, the errors listed below apply when the API rejects the request before the stream starts. An error partway through the stream can arrive as a more general error type. To identify it, use its error code, if it has one, not its type.
+
+- `AvailableToolsLimitExceededException` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ClaudeCodeVersionTooOldException` (HTTP status 400, error code `claude_code_version_too_old`)
+
+  The request comes from a Claude Code version older than the minimum that the requested model or the organization requires. Update Claude Code, then retry.
+
+- `CmekKeyDisabledException` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CmekKeyNetworkBlockedException` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `CompactionBlockAmbiguousException` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `CompactionBlockMisplacedException` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `CompactionContentMismatchException` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `CompactionIncompleteTurnException` (HTTP status 400, error code `compaction_incomplete_turn`)
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+- `CompactionNothingToSummarizeException` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `CompactionSignatureInvalidException` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `CompactionTooManyToolReferencesException` (HTTP status 400, error code `compaction_too_many_tool_references`)
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+- `CompactionToolChangesMismatchException` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `RequestBodyEncodingInvalidException` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `RequestBodyEncodingUnsupportedException` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `ThreadAlreadyContinuedException` (HTTP status 400, error code `thread_already_continued`)
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+- `ThreadContinueInFlightException` (HTTP status 400, error code `thread_continue_in_flight`)
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+- `ThreadFingerprintMismatchException` (HTTP status 400, error code `thread_fingerprint_mismatch`)
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+- `ThreadUnsupportedRequestException` (HTTP status 400, error code `thread_unsupported_request`)
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+- `ToolNameConflictException` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `ToolReferenceUnresolvedException` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `ThreadNotFoundException` (HTTP status 404, error code `thread_not_found`)
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+- `SkillReadBlockedUndecryptableException` (HTTP status 409, error code `skill_read_blocked_undecryptable`)
+
+  A custom skill the request names is stored under an encryption key state the workspace cannot currently decrypt.
+
+- `RequestBodyTooLargeAfterDecodingException` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `EnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `RampLimitExceededException` (HTTP status 429, error code `ramp_limit_exceeded`)
+
+  The request would exceed a ramp limit, which caps how fast usage can grow. Retry after the time in the `retry-after` header.
+
+- `CmekKeyUnreachableException` (HTTP status 503, error code `cmek_key_unreachable`)
+
+  The workspace's customer-managed encryption key could not be reached. Retry the request; if this continues, check that the key is available in your key management service, or contact Anthropic support.
+
+- `CompactionUnavailableException` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
 ### Example
 
 ```java
@@ -4105,34 +4227,15 @@ public final class Main {
   },
   "content": [
     {
-      "citations": [
-        {
-          "cited_text": "The grass is green. The sky is blue.",
-          "document_index": 0,
-          "document_title": "My Document",
-          "end_char_index": 0,
-          "file_id": "file_011CNha8iCJcU1wXNR6q4V8w",
-          "start_char_index": 0,
-          "type": "char_location"
-        }
-      ],
+      "citations": null,
       "text": "Hi! My name is Claude.",
       "type": "text"
     }
   ],
-  "diagnostics": {
-    "cache_miss_reason": {
-      "cache_missed_input_tokens": 0,
-      "type": "model_changed"
-    }
-  },
+  "diagnostics": null,
   "model": "claude-opus-5-5",
   "role": "assistant",
-  "stop_details": {
-    "category": "cyber",
-    "explanation": "This request was declined because it conflicts with Anthropic's Usage Policy.",
-    "type": "refusal"
-  },
+  "stop_details": null,
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "type": "message",
@@ -6947,6 +7050,74 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `AvailableToolsLimitExceededException` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CompactionBlockAmbiguousException` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `CompactionBlockMisplacedException` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `CompactionContentMismatchException` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `CompactionNothingToSummarizeException` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `CompactionSignatureInvalidException` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `CompactionToolChangesMismatchException` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `RequestBodyEncodingInvalidException` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `RequestBodyEncodingUnsupportedException` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `ToolNameConflictException` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `ToolReferenceUnresolvedException` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `RequestBodyTooLargeAfterDecodingException` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `EnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `CompactionUnavailableException` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
 ### Example
 
 ```java
@@ -7961,8 +8132,6 @@ public final class Main {
 ### Available Tools Limit Exceeded Error Details
 
 - `class AvailableToolsLimitExceededErrorDetails`
-
-  The tools available after a message exceed a limit on their number or their size.
 
   - `JsonValue errorCode = "available_tools_limit_exceeded"`
 
@@ -14922,15 +15091,11 @@ public final class Main {
 
 - `class CompactionBlockAmbiguousErrorDetails`
 
-  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
-
   - `JsonValue errorCode = "compaction_block_ambiguous"`
 
 ### Compaction Block Misplaced Error Details
 
 - `class CompactionBlockMisplacedErrorDetails`
-
-  The `compaction` block is not the first block of the conversation, or is in a `system` message.
 
   - `JsonValue errorCode = "compaction_block_misplaced"`
 
@@ -14938,15 +15103,11 @@ public final class Main {
 
 - `class CompactionContentMismatchErrorDetails`
 
-  The `compaction` block's `content` differs from the text its `signature` recorded.
-
   - `JsonValue errorCode = "compaction_content_mismatch"`
 
 ### Compaction Incomplete Turn Error Details
 
 - `class CompactionIncompleteTurnErrorDetails`
-
-  The compaction request ends on an `assistant` turn that is not finished.
 
   - `JsonValue errorCode = "compaction_incomplete_turn"`
 
@@ -14954,15 +15115,11 @@ public final class Main {
 
 - `class CompactionNothingToSummarizeErrorDetails`
 
-  `messages` holds no `user` or `assistant` content to summarize or adopt.
-
   - `JsonValue errorCode = "compaction_nothing_to_summarize"`
 
 ### Compaction Signature Invalid Error Details
 
 - `class CompactionSignatureInvalidErrorDetails`
-
-  The `compaction` block's `signature` does not verify.
 
   - `JsonValue errorCode = "compaction_signature_invalid"`
 
@@ -14970,23 +15127,17 @@ public final class Main {
 
 - `class CompactionTooManyToolReferencesErrorDetails`
 
-  The conversation references more distinct tools than a `compaction` block can record.
-
   - `JsonValue errorCode = "compaction_too_many_tool_references"`
 
 ### Compaction Tool Changes Mismatch Error Details
 
 - `class CompactionToolChangesMismatchErrorDetails`
 
-  The `compaction` block's `tool_changes` differs from what was returned with the block.
-
   - `JsonValue errorCode = "compaction_tool_changes_mismatch"`
 
 ### Compaction Unavailable Error Details
 
 - `class CompactionUnavailableErrorDetails`
-
-  The compaction could not be completed for a transient server reason. Retry the request.
 
   - `JsonValue errorCode = "compaction_unavailable"`
 
@@ -30088,15 +30239,11 @@ public final class Main {
 
 - `class ThreadAlreadyContinuedErrorDetails`
 
-  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
-
   - `JsonValue errorCode = "thread_already_continued"`
 
 ### Thread Continue In Flight Error Details
 
 - `class ThreadContinueInFlightErrorDetails`
-
-  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
 
   - `JsonValue errorCode = "thread_continue_in_flight"`
 
@@ -30104,15 +30251,11 @@ public final class Main {
 
 - `class ThreadFingerprintMismatchErrorDetails`
 
-  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
-
   - `JsonValue errorCode = "thread_fingerprint_mismatch"`
 
 ### Thread Not Found Error Details
 
 - `class ThreadNotFoundErrorDetails`
-
-  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
 
   - `JsonValue errorCode = "thread_not_found"`
 
@@ -30135,8 +30278,6 @@ public final class Main {
 ### Thread Unsupported Request Error Details
 
 - `class ThreadUnsupportedRequestErrorDetails`
-
-  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
 
   - `JsonValue errorCode = "thread_unsupported_request"`
 
@@ -30396,8 +30537,6 @@ public final class Main {
 
 - `class ToolNameConflictErrorDetails`
 
-  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
-
   - `JsonValue errorCode = "tool_name_conflict"`
 
 ### Tool Reference Block
@@ -30446,8 +30585,6 @@ public final class Main {
 ### Tool Reference Unresolved Error Details
 
 - `class ToolReferenceUnresolvedErrorDetails`
-
-  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
   - `JsonValue errorCode = "tool_reference_unresolved"`
 
@@ -38105,6 +38242,228 @@ public final class Main {
 
   - `REQUEST_TOO_LARGE("request_too_large")`
 
+## Errors
+
+### AvailableToolsLimitExceededException
+
+HTTP status 400, error code `available_tools_limit_exceeded`
+
+- `class AvailableToolsLimitExceededException extends BadRequestException`
+
+  The tools available after a message exceed a limit on their number or their size.
+
+  - `AvailableToolsLimitExceededErrorDetails details`
+
+    - `JsonValue errorCode = "available_tools_limit_exceeded"`
+
+### CompactionBlockAmbiguousException
+
+HTTP status 400, error code `compaction_block_ambiguous`
+
+- `class CompactionBlockAmbiguousException extends BadRequestException`
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+  - `CompactionBlockAmbiguousErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_block_ambiguous"`
+
+### CompactionBlockMisplacedException
+
+HTTP status 400, error code `compaction_block_misplaced`
+
+- `class CompactionBlockMisplacedException extends BadRequestException`
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+  - `CompactionBlockMisplacedErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_block_misplaced"`
+
+### CompactionContentMismatchException
+
+HTTP status 400, error code `compaction_content_mismatch`
+
+- `class CompactionContentMismatchException extends BadRequestException`
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+  - `CompactionContentMismatchErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_content_mismatch"`
+
+### CompactionIncompleteTurnException
+
+HTTP status 400, error code `compaction_incomplete_turn`
+
+- `class CompactionIncompleteTurnException extends BadRequestException`
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+  - `CompactionIncompleteTurnErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_incomplete_turn"`
+
+### CompactionNothingToSummarizeException
+
+HTTP status 400, error code `compaction_nothing_to_summarize`
+
+- `class CompactionNothingToSummarizeException extends BadRequestException`
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+  - `CompactionNothingToSummarizeErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_nothing_to_summarize"`
+
+### CompactionSignatureInvalidException
+
+HTTP status 400, error code `compaction_signature_invalid`
+
+- `class CompactionSignatureInvalidException extends BadRequestException`
+
+  The `compaction` block's `signature` does not verify.
+
+  - `CompactionSignatureInvalidErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_signature_invalid"`
+
+### CompactionTooManyToolReferencesException
+
+HTTP status 400, error code `compaction_too_many_tool_references`
+
+- `class CompactionTooManyToolReferencesException extends BadRequestException`
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+  - `CompactionTooManyToolReferencesErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_too_many_tool_references"`
+
+### CompactionToolChangesMismatchException
+
+HTTP status 400, error code `compaction_tool_changes_mismatch`
+
+- `class CompactionToolChangesMismatchException extends BadRequestException`
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+  - `CompactionToolChangesMismatchErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_tool_changes_mismatch"`
+
+### ThreadAlreadyContinuedException
+
+HTTP status 400, error code `thread_already_continued`
+
+- `class ThreadAlreadyContinuedException extends BadRequestException`
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+  - `ThreadAlreadyContinuedErrorDetails details`
+
+    - `JsonValue errorCode = "thread_already_continued"`
+
+### ThreadContinueInFlightException
+
+HTTP status 400, error code `thread_continue_in_flight`
+
+- `class ThreadContinueInFlightException extends BadRequestException`
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+  - `ThreadContinueInFlightErrorDetails details`
+
+    - `JsonValue errorCode = "thread_continue_in_flight"`
+
+### ThreadFingerprintMismatchException
+
+HTTP status 400, error code `thread_fingerprint_mismatch`
+
+- `class ThreadFingerprintMismatchException extends BadRequestException`
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+  - `ThreadFingerprintMismatchErrorDetails details`
+
+    - `JsonValue errorCode = "thread_fingerprint_mismatch"`
+
+### ThreadUnsupportedRequestException
+
+HTTP status 400, error code `thread_unsupported_request`
+
+- `class ThreadUnsupportedRequestException extends BadRequestException`
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+  - `ThreadUnsupportedRequestErrorDetails details`
+
+    - `JsonValue errorCode = "thread_unsupported_request"`
+
+    - `Optional<List<ThreadUnsupportedFeatureName>> unsupported`
+
+      Each entry names a request field or an organization setting that Threads do not support. On a value you do not recognize, send the full conversation without `thread`.
+
+      - `CACHE_CONTROL("cache_control")`
+
+      - `CONTEXT_MANAGEMENT("context_management")`
+
+      - `FALLBACKS("fallbacks")`
+
+      - `HIPAA("hipaa")`
+
+      - `INFERENCE_HOOKS("inference_hooks")`
+
+      - `THINKING("thinking")`
+
+### ToolNameConflictException
+
+HTTP status 400, error code `tool_name_conflict`
+
+- `class ToolNameConflictException extends BadRequestException`
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+  - `ToolNameConflictErrorDetails details`
+
+    - `JsonValue errorCode = "tool_name_conflict"`
+
+### ToolReferenceUnresolvedException
+
+HTTP status 400, error code `tool_reference_unresolved`
+
+- `class ToolReferenceUnresolvedException extends BadRequestException`
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+  - `ToolReferenceUnresolvedErrorDetails details`
+
+    - `JsonValue errorCode = "tool_reference_unresolved"`
+
+### ThreadNotFoundException
+
+HTTP status 404, error code `thread_not_found`
+
+- `class ThreadNotFoundException extends NotFoundException`
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+  - `ThreadNotFoundErrorDetails details`
+
+    - `JsonValue errorCode = "thread_not_found"`
+
+### CompactionUnavailableException
+
+HTTP status 529, error code `compaction_unavailable`
+
+- `class CompactionUnavailableException extends OverloadedException`
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
+  - `CompactionUnavailableErrorDetails details`
+
+    - `JsonValue errorCode = "compaction_unavailable"`
+
 ## Messages › Batches
 
 ### Create a Message Batch
@@ -41311,6 +41670,26 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CmekKeyDisabledException` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `EnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
 #### Example
 
 ```java
@@ -41487,6 +41866,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -41666,6 +42057,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 #### Example
 
 ```java
@@ -41841,6 +42244,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 #### Example
 
 ```java
@@ -41924,6 +42339,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `String id`
 
     ID of the Message Batch.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -43166,6 +43593,22 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `class MessageBatchExpiredResult`
 
       - `JsonValue type = "expired"`
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CmekKeyDisabledException` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 

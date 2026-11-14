@@ -198,18 +198,6 @@ interface BetaManagedAgentsEnvironmentVariableAuthResponse {
   secret_name: string;
 }
 
-interface BetaManagedAgentsMCPOAuthRefreshResponse {
-  /** The OAuth client ID used when refreshing the access token. */
-  client_id: string;
-  /** Token endpoint URL used to refresh the access token. */
-  token_endpoint: string;
-  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse | BetaManagedAgentsTokenEndpointAuthBasicResponse | BetaManagedAgentsTokenEndpointAuthPostResponse;
-  /** OAuth resource indicator. */
-  resource?: string | null;
-  /** OAuth scope for the refresh request. */
-  scope?: string | null;
-}
-
 interface BetaManagedAgentsInjectionLocationResponse {
   /** Whether the placeholder is substituted in the request body. */
   body: boolean;
@@ -227,6 +215,18 @@ interface BetaManagedAgentsLimitedCredentialNetworkingResponse {
   type: "limited";
   /** The destination hosts of the outbound requests that the credential's secret is substituted into. An entry matches the request host exactly. An entry such as `*.example.com` matches any subdomain of `example.com` but not `example.com` itself. */
   allowed_hosts: Array<string>;
+}
+
+interface BetaManagedAgentsMCPOAuthRefreshResponse {
+  /** The OAuth client ID used when refreshing the access token. */
+  client_id: string;
+  /** Token endpoint URL used to refresh the access token. */
+  token_endpoint: string;
+  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse | BetaManagedAgentsTokenEndpointAuthBasicResponse | BetaManagedAgentsTokenEndpointAuthPostResponse;
+  /** OAuth resource indicator. */
+  resource?: string | null;
+  /** OAuth scope for the refresh request. */
+  scope?: string | null;
 }
 
 /** Token endpoint requires no client authentication. */

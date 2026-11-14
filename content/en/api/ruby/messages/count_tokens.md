@@ -2995,6 +2995,74 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=ruby).
+
+- `AvailableToolsLimitExceededError` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CompactionBlockAmbiguousError` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `CompactionBlockMisplacedError` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `CompactionContentMismatchError` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `CompactionNothingToSummarizeError` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `CompactionSignatureInvalidError` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `CompactionToolChangesMismatchError` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `RequestBodyEncodingInvalidError` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `RequestBodyEncodingUnsupportedError` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `ToolNameConflictError` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `ToolReferenceUnresolvedError` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `CompactionUnavailableError` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
 ## Example
 
 ```ruby

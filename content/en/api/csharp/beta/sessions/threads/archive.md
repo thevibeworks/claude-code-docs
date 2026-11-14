@@ -345,7 +345,7 @@ Archive Session Thread
 
       - `required string Name`
 
-      - `required IReadOnlyList<Skill> Skills`
+      - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentSkill> Skills`
 
         - `class BetaManagedAgentsAnthropicSkill`
 
@@ -369,7 +369,7 @@ Archive Session Thread
 
       - `required string? System`
 
-      - `required IReadOnlyList<Tool> Tools`
+      - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgentTool> Tools`
 
         - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -387,7 +387,7 @@ Archive Session Thread
 
               - `JsonElement Name = "bash"`
 
-              - `required PermissionPolicy PermissionPolicy`
+              - `required BetaManagedAgentsBashToolConfigPermissionPolicy PermissionPolicy`
 
                 Permission policy for tool execution.
 
@@ -419,7 +419,7 @@ Archive Session Thread
 
               - `JsonElement Name = "edit"`
 
-              - `required PermissionPolicy PermissionPolicy`
+              - `required BetaManagedAgentsEditToolConfigPermissionPolicy PermissionPolicy`
 
                 Permission policy for tool execution.
 
@@ -445,7 +445,7 @@ Archive Session Thread
 
               - `JsonElement Name = "read"`
 
-              - `required PermissionPolicy PermissionPolicy`
+              - `required BetaManagedAgentsReadToolConfigPermissionPolicy PermissionPolicy`
 
                 Permission policy for tool execution.
 
@@ -471,7 +471,7 @@ Archive Session Thread
 
               - `JsonElement Name = "write"`
 
-              - `required PermissionPolicy PermissionPolicy`
+              - `required BetaManagedAgentsWriteToolConfigPermissionPolicy PermissionPolicy`
 
                 Permission policy for tool execution.
 
@@ -497,7 +497,7 @@ Archive Session Thread
 
               - `JsonElement Name = "glob"`
 
-              - `required PermissionPolicy PermissionPolicy`
+              - `required BetaManagedAgentsGlobToolConfigPermissionPolicy PermissionPolicy`
 
                 Permission policy for tool execution.
 
@@ -523,7 +523,7 @@ Archive Session Thread
 
               - `JsonElement Name = "grep"`
 
-              - `required PermissionPolicy PermissionPolicy`
+              - `required BetaManagedAgentsGrepToolConfigPermissionPolicy PermissionPolicy`
 
                 Permission policy for tool execution.
 
@@ -549,7 +549,7 @@ Archive Session Thread
 
               - `JsonElement Name = "web_fetch"`
 
-              - `required PermissionPolicy PermissionPolicy`
+              - `required BetaManagedAgentsWebFetchToolConfigPermissionPolicy PermissionPolicy`
 
                 Permission policy for tool execution.
 
@@ -659,7 +659,7 @@ Archive Session Thread
 
               - `JsonElement Name = "web_search"`
 
-              - `required PermissionPolicy PermissionPolicy`
+              - `required BetaManagedAgentsWebSearchToolConfigPermissionPolicy PermissionPolicy`
 
                 Permission policy for tool execution.
 
@@ -743,7 +743,7 @@ Archive Session Thread
 
             - `required string Name`
 
-            - `required PermissionPolicy PermissionPolicy`
+            - `required BetaManagedAgentsMcpToolConfigPermissionPolicy PermissionPolicy`
 
               Permission policy for tool execution.
 
@@ -765,7 +765,7 @@ Archive Session Thread
 
             - `required bool Enabled`
 
-            - `required PermissionPolicy PermissionPolicy`
+            - `required BetaManagedAgentsMcpToolsetDefaultConfigPermissionPolicy PermissionPolicy`
 
               Permission policy for tool execution.
 
@@ -1033,13 +1033,7 @@ Console.WriteLine(betaManagedAgentsSessionThread);
     "execution_identity": {
       "type": "service_account"
     },
-    "mcp_servers": [
-      {
-        "name": "example-mcp",
-        "type": "url",
-        "url": "https://example-server.modelcontextprotocol.io/sse"
-      }
-    ],
+    "mcp_servers": [],
     "model": {
       "id": "claude-opus-5-5",
       "effort": {
@@ -1049,26 +1043,11 @@ Console.WriteLine(betaManagedAgentsSessionThread);
       "speed": "standard"
     },
     "name": "Researcher",
-    "skills": [
-      {
-        "skill_id": "xlsx",
-        "type": "anthropic",
-        "version": "1"
-      }
-    ],
+    "skills": [],
     "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {

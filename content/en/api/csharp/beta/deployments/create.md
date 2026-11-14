@@ -55,7 +55,7 @@ Create Deployment
 
       - `JsonElement Type = "user.message"`
 
-      - `required IReadOnlyList<Content> Content`
+      - `required IReadOnlyList<BetaManagedAgentsUserMessageEventParamsContent> Content`
 
         Array of content blocks for the user message.
 
@@ -77,7 +77,7 @@ Create Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -215,7 +215,7 @@ Create Deployment
 
         What the agent should produce. This is the task specification.
 
-      - `required Rubric Rubric`
+      - `required BetaManagedAgentsUserDefineOutcomeEventParamsRubric Rubric`
 
         How to grade the outcome. Text or file reference.
 
@@ -607,7 +607,7 @@ Create Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -1108,20 +1108,8 @@ Console.WriteLine(betaManagedAgentsDeployment);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",

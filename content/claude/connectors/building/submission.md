@@ -23,7 +23,6 @@ Work through this list before you open the portal. Each item links to where it i
 * **Every tool has a `title` and a `readOnlyHint` or `destructiveHint` annotation**: the portal flags tools that are missing them, and [review criteria](https://claude.com/docs/connectors/building/review-criteria.md#design-tools-that-pass-review) explain how reviewers read tool names and descriptions
 * **You've tested it in Claude**: add the server as a [custom connector](https://claude.com/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector) and call each tool from a conversation; the portal's **Test & launch** step asks you to confirm this
 * **You have the listing materials**: documentation URL, privacy policy URL, support contact, an icon, and for an [MCP App](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md) the [carousel screenshots](#carousel-screenshots-for-mcp-apps)
-* **You have a test account for reviewers**: credentials for a fully populated account, which you enter in the portal and which only reviewers see
 * **Your account can submit**: any paid Claude plan. See [who can submit](https://claude.com/docs/directory/publish.md#confirm-you-can-submit-to-the-directory)
 * **If a plugin of yours points at this server, submit the server anyway**: the connector listing gives your organization the server's details, authentication configuration, and dashboard, and lets you pair it with the plugin. See [Submit your plugin, and your MCP server as a connector](https://claude.com/docs/directory/publish.md#submit-your-plugin-and-your-mcp-server-as-a-connector)
 
@@ -128,7 +127,6 @@ The developer portal at [claude.ai/directory/manage](https://claude.ai/directory
 
 * Your documentation URL and privacy policy URL
 * Your connector's icon
-* Test account credentials for reviewers
 * Carousel screenshots, if you're submitting an MCP App, per the [screenshot specifications](#carousel-screenshots-for-mcp-apps)
 
 Your progress saves automatically in your browser as you move between steps, so within a browser session you can return to earlier steps without losing work. Each step asks for the following:
@@ -165,7 +163,7 @@ Whether the underlying API is your own, proxied from a partner with permission, 
 
 **8. Test & launch**
 
-Test-account setup and access instructions detailed enough for a reviewer to connect to your server and run its tools: every link, credential, and step, including credentials for a fully populated account where relevant. You also confirm you've run every tool yourself, either through MCP Inspector or as a custom connector in Claude.
+Confirmation that you've run every tool yourself, either through MCP Inspector or as a custom connector in Claude. Don't put credentials in the portal. If your listing goes to [Verified review](https://claude.com/docs/connectors/building/testing.md#prepare-a-test-account-for-verified-review), a reviewer asks for test access by email.
 
 **9. Compliance**
 

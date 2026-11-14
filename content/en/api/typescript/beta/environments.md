@@ -44,21 +44,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -133,6 +123,22 @@ interface BetaEnvironment {
   scope?: "organization" | "account"; // beta header: managed-agents-2026-04-01
 }
 ```
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentCreateDisabledError` (HTTP status 403, error code `environment_create_disabled`)
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
 
 ### Types
 
@@ -244,6 +250,36 @@ interface BetaSelfHostedConfig {
   type: "self_hosted";
 }
 
+/** Limited network access. */
+interface BetaLimitedNetwork {
+  /** Network policy type */
+  type: "limited";
+  /** Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. */
+  allow_mcp_servers: boolean;
+  /** Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. */
+  allow_package_managers: boolean;
+  /** Specifies domains the container can reach. */
+  allowed_hosts: Array<string>;
+}
+
+/** Packages (and their versions) available in this environment. */
+interface BetaPackages {
+  /** Package configuration type */
+  type?: "packages"; // default: packages
+  /** Ubuntu/Debian packages to install */
+  apt: Array<string>;
+  /** Rust packages to install */
+  cargo: Array<string>;
+  /** Ruby packages to install */
+  gem: Array<string>;
+  /** Go packages to install */
+  go: Array<string>;
+  /** Node.js packages to install */
+  npm: Array<string>;
+  /** Python packages to install */
+  pip: Array<string>;
+}
+
 /** Unrestricted network access. */
 interface BetaUnrestrictedNetwork {
   /** Network policy type */
@@ -278,36 +314,6 @@ interface BetaPackagesParams {
   npm?: Array<string> | null;
   /** Python packages to install */
   pip?: Array<string> | null;
-}
-
-/** Limited network access. */
-interface BetaLimitedNetwork {
-  /** Network policy type */
-  type: "limited";
-  /** Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. */
-  allow_mcp_servers: boolean;
-  /** Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. */
-  allow_package_managers: boolean;
-  /** Specifies domains the container can reach. */
-  allowed_hosts: Array<string>;
-}
-
-/** Packages (and their versions) available in this environment. */
-interface BetaPackages {
-  /** Package configuration type */
-  type?: "packages"; // default: packages
-  /** Ubuntu/Debian packages to install */
-  apt: Array<string>;
-  /** Rust packages to install */
-  cargo: Array<string>;
-  /** Ruby packages to install */
-  gem: Array<string>;
-  /** Go packages to install */
-  go: Array<string>;
-  /** Node.js packages to install */
-  npm: Array<string>;
-  /** Python packages to install */
-  pip: Array<string>;
 }
 ```
 
@@ -351,21 +357,11 @@ for await (const betaEnvironment of client.beta.environments.list()) {
           "type": "limited"
         },
         "packages": {
-          "apt": [
-            "string"
-          ],
-          "cargo": [
-            "string"
-          ],
-          "gem": [
-            "string"
-          ],
-          "go": [
-            "string"
-          ],
-          "npm": [
-            "string"
-          ],
+          "apt": [],
+          "cargo": [],
+          "gem": [],
+          "go": [],
+          "npm": [],
           "pip": [
             "pandas",
             "numpy"
@@ -403,6 +399,18 @@ interface EnvironmentListParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ## Get Environment
 
@@ -443,21 +451,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -488,6 +486,18 @@ interface EnvironmentRetrieveParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ## Update Environment
 
@@ -529,21 +539,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -587,6 +587,30 @@ interface EnvironmentUpdateParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaEnvironmentArchivedError` (HTTP status 400, error code `environment_archived`)
+
+  The environment is archived, so it cannot be updated.
+
+- `BetaInvalidConfigTypeChangeError` (HTTP status 400, error code `invalid_config_type_change`)
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentUpdateDisabledError` (HTTP status 403, error code `environment_update_disabled`)
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
 
 ## Delete Environment
 
@@ -645,6 +669,18 @@ interface BetaEnvironmentDeleteResponse {
 }
 ```
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ## Archive Environment
 
 - Signature: `client.beta.environments.archive(environmentID: string, params?: EnvironmentArchiveParams, options?: RequestOptions): BetaEnvironment`
@@ -682,21 +718,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -727,6 +753,104 @@ interface EnvironmentArchiveParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+## Errors
+
+### BetaEnvironmentArchivedError
+
+HTTP status 400, error code `environment_archived`
+
+- `class BetaEnvironmentArchivedError extends BadRequestError`
+
+  The environment is archived, so it cannot be updated.
+
+  - `errorCode: "environment_archived"`
+
+  - `details: BetaEnvironmentArchivedErrorDetails`
+
+    - `error_code: "environment_archived"`
+
+### BetaInvalidConfigTypeChangeError
+
+HTTP status 400, error code `invalid_config_type_change`
+
+- `class BetaInvalidConfigTypeChangeError extends BadRequestError`
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+  - `errorCode: "invalid_config_type_change"`
+
+  - `details: BetaInvalidConfigTypeChangeErrorDetails`
+
+    - `error_code: "invalid_config_type_change"`
+
+### BetaInvalidMetadataError
+
+HTTP status 400, error code `invalid_metadata`
+
+- `class BetaInvalidMetadataError extends BadRequestError`
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+  - `errorCode: "invalid_metadata"`
+
+  - `details: BetaInvalidMetadataErrorDetails`
+
+    - `error_code: "invalid_metadata"`
+
+### BetaEnvironmentCreateDisabledError
+
+HTTP status 403, error code `environment_create_disabled`
+
+- `class BetaEnvironmentCreateDisabledError extends PermissionDeniedError`
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
+  - `errorCode: "environment_create_disabled"`
+
+  - `details: BetaEnvironmentCreateDisabledErrorDetails`
+
+    - `error_code: "environment_create_disabled"`
+
+### BetaEnvironmentUpdateDisabledError
+
+HTTP status 403, error code `environment_update_disabled`
+
+- `class BetaEnvironmentUpdateDisabledError extends PermissionDeniedError`
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
+
+  - `errorCode: "environment_update_disabled"`
+
+  - `details: BetaEnvironmentUpdateDisabledErrorDetails`
+
+    - `error_code: "environment_update_disabled"`
+
+### BetaEnvironmentNotFoundError
+
+HTTP status 404, error code `environment_not_found`
+
+- `class BetaEnvironmentNotFoundError extends NotFoundError`
+
+  `settings.environment_id` names no Environment within the organization's reach.
+
+  - `errorCode: "environment_not_found"`
+
+  - `details: BetaEnvironmentNotFoundErrorDetails`
+
+    - `error_code: "environment_not_found"`
 
 ## Environments › Work
 
@@ -827,6 +951,18 @@ interface BetaSelfHostedWork {
   stopped_at: string | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Types
 
@@ -1040,6 +1176,14 @@ interface BetaSelfHostedWorkHeartbeatResponse {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaHeartbeatPreconditionFailedError` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 ### Stop Work
 
 - Signature: `client.beta.environments.work.stop(workID: string, params: WorkStopParams, options?: RequestOptions): BetaSelfHostedWork`
@@ -1105,6 +1249,18 @@ interface WorkStopParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### List Work Items
 
@@ -1244,6 +1400,22 @@ interface WorkUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaInvalidMetadataError` (HTTP status 400, error code `invalid_metadata`)
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Get Queue Statistics
 
 - Signature: `client.beta.environments.work.stats(environmentID: string, params?: WorkStatsParams, options?: RequestOptions): BetaSelfHostedWorkQueueStats`
@@ -1309,6 +1481,18 @@ interface BetaSelfHostedWorkQueueStats {
   workers_polling: number | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ## Types
 

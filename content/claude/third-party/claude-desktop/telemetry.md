@@ -122,7 +122,7 @@ To include content in the export, set `otlpContentCapture` to an array of catego
 | `toolContent` | Tool output content, up to the [content length limit](#content-length-limit) |
 | `rawApiBodies` | Inference request and response bodies, up to the [content length limit](#content-length-limit) |
 
-Your collector doesn't get a [`user_prompt`](https://claude.com/docs/cowork/monitoring#user-prompt-event) event for some messages that people send. Don't rely on content capture alone to keep what people type.
+Your collector doesn't get a [`user_prompt`](https://claude.com/docs/cowork/monitoring#user-prompt-event) event for some messages that people send. On Claude Desktop 5.11492.5 and later, your collector gets the event for more of these messages. Don't rely on content capture alone to keep what people type.
 
 Listing `userPrompts` also captures model responses by default, even if `assistantResponses` isn't listed.
 
@@ -132,7 +132,9 @@ Check these points before you deploy the setting:
 
 * **Where to set it**: in the highest-priority Claude Code managed settings on the device, not in a per-user Windows registry policy. See **More detail** under [`otlpContentCapture`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpcontentcapture).
 * **No Claude Code managed settings on the device yet**: also set `parentSettingsBehavior` to `"merge"` in the settings you create, or Claude Code can drop the restrictions that Claude Desktop passes to it
-* **Background agents in Code sessions**: when an agent that Claude runs in the background finishes, Claude Code passes the agent's final response back to the conversation as a prompt. Your collector can receive that text in a `user_prompt` event, and on a trace span when [traces](#traces-beta) are on, even with the variable set to `0`. Cowork and Chat sessions don't run agents in the background.
+* **Background agents in Code sessions**: when an agent that Claude runs in the background finishes, Claude Code passes the agent's final response back to the conversation as a prompt. With the variable set to `0`, the `user_prompt` event for that prompt holds `<REDACTED>` in place of the text. The prompt's trace span does the same when [traces](#traces-beta) are on. Before Claude Desktop 5.11492.5, your collector can receive the text in the event and on the span. Cowork and Chat sessions don't run agents in the background.
+* **Agents in Auto mode**: in [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), an agent hands its final response back as a tool input, whether it runs in the foreground or the background. With `toolDetails` listed, the [`tool_result`](https://claude.com/docs/cowork/monitoring#tool-result-event) event for that call holds the response, whole or in part, even with the variable set to `0`. New Code sessions start in **Auto mode** by default, and Cowork shows the mode as **Automatically approve**.
+* **Other text that Claude writes**: the variable doesn't redact other text from Claude. For example, with `toolDetails` listed, a `tool_result` event holds the input that Claude wrote for the tool, whole or in part. Some of Claude's text also arrives as a prompt in a `user_prompt` event, such as a message that Claude sends from one Code session to another.
 
 Conversation titles arrive on the desktop application's own stream (`claude-desktop`) as a `desktop_session_title_set` event that carries each Cowork and Code session's title and the Claude Code `session.id` to join on. The event is exported only when [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `info` or `debug`, and the title text is included only when `otlpContentCapture` includes `userPrompts`.
 

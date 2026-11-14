@@ -37,13 +37,7 @@ console.log(betaManagedAgentsSessionThread.id);
     "execution_identity": {
       "type": "service_account"
     },
-    "mcp_servers": [
-      {
-        "name": "example-mcp",
-        "type": "url",
-        "url": "https://example-server.modelcontextprotocol.io/sse"
-      }
-    ],
+    "mcp_servers": [],
     "model": {
       "id": "claude-opus-5-5",
       "effort": {
@@ -53,26 +47,11 @@ console.log(betaManagedAgentsSessionThread.id);
       "speed": "standard"
     },
     "name": "Researcher",
-    "skills": [
-      {
-        "skill_id": "xlsx",
-        "type": "anthropic",
-        "version": "1"
-      }
-    ],
+    "skills": [],
     "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {
@@ -304,6 +283,29 @@ interface BetaManagedAgentsSessionThreadUsage {
   server_tool_use?: BetaManagedAgentsServerToolUsage | null;
 }
 
+interface BetaManagedAgentsCacheCreationUsage {
+  /** Tokens used to create 1-hour ephemeral cache entries. */
+  ephemeral_1h_input_tokens?: number; // format: int32
+  /** Tokens used to create 5-minute ephemeral cache entries. */
+  ephemeral_5m_input_tokens?: number; // format: int32
+}
+
+interface BetaMonetaryAmount {
+  /** Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied. */
+  amount: string; // pattern: ^(0|[1-9]\d*)$
+  /** Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced. */
+  currency: BetaCurrency;
+}
+
+interface BetaManagedAgentsServerToolUsage {
+  /** Number of server-executed web fetch requests. */
+  web_fetch_requests?: number; // format: int32
+  /** Number of server-executed web search requests. */
+  web_search_requests?: number; // format: int32
+}
+
+type BetaCurrency = "USD";
+
 type BetaManagedAgentsExecutionIdentity = BetaManagedAgentsAWSRoleExecutionIdentity | BetaManagedAgentsServiceAccountExecutionIdentity;
 
 /** URL-based MCP server connection as returned in API responses. */
@@ -360,27 +362,6 @@ interface BetaManagedAgentsCustomTool {
   /** JSON Schema for custom tool input parameters. */
   input_schema: BetaManagedAgentsCustomToolInputSchema;
   name: string;
-}
-
-interface BetaManagedAgentsCacheCreationUsage {
-  /** Tokens used to create 1-hour ephemeral cache entries. */
-  ephemeral_1h_input_tokens?: number; // format: int32
-  /** Tokens used to create 5-minute ephemeral cache entries. */
-  ephemeral_5m_input_tokens?: number; // format: int32
-}
-
-interface BetaMonetaryAmount {
-  /** Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied. */
-  amount: string; // pattern: ^(0|[1-9]\d*)$
-  /** Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced. */
-  currency: BetaCurrency;
-}
-
-interface BetaManagedAgentsServerToolUsage {
-  /** Number of server-executed web fetch requests. */
-  web_fetch_requests?: number; // format: int32
-  /** Number of server-executed web search requests. */
-  web_search_requests?: number; // format: int32
 }
 
 /** An AWS IAM role principal as returned in API responses. */
@@ -463,15 +444,6 @@ interface BetaManagedAgentsEffortMax {
   type: "max";
 }
 
-/** Configuration for a specific agent tool. */
-type BetaManagedAgentsAgentToolConfig = BetaManagedAgentsBashToolConfig | BetaManagedAgentsEditToolConfig | BetaManagedAgentsReadToolConfig | BetaManagedAgentsWriteToolConfig | BetaManagedAgentsGlobToolConfig | BetaManagedAgentsGrepToolConfig | BetaManagedAgentsWebFetchToolConfig | BetaManagedAgentsWebSearchToolConfig;
-
-interface BetaManagedAgentsAgentToolsetDefaultConfig {
-  enabled: boolean;
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
 /** Resolved configuration for a specific MCP tool. */
 interface BetaManagedAgentsMCPToolConfig {
   enabled: boolean;
@@ -492,7 +464,14 @@ interface BetaManagedAgentsCustomToolInputSchema {
   required?: Array<string> | null;
 }
 
-type BetaCurrency = "USD";
+/** Configuration for a specific agent tool. */
+type BetaManagedAgentsAgentToolConfig = BetaManagedAgentsBashToolConfig | BetaManagedAgentsEditToolConfig | BetaManagedAgentsReadToolConfig | BetaManagedAgentsWriteToolConfig | BetaManagedAgentsGlobToolConfig | BetaManagedAgentsGrepToolConfig | BetaManagedAgentsWebFetchToolConfig | BetaManagedAgentsWebSearchToolConfig;
+
+interface BetaManagedAgentsAgentToolsetDefaultConfig {
+  enabled: boolean;
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
 
 /** Configuration for the bash tool. */
 interface BetaManagedAgentsBashToolConfig {
@@ -590,15 +569,6 @@ interface BetaManagedAgentsAutoPolicy {
   type: "auto";
 }
 
-interface BetaManagedAgentsWebFetchURLSources {
-  /** Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results. */
-  client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
-  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both. */
-  server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
-  /** Whether URLs in the text of user messages may be fetched. Null when not set, which allows them. */
-  user_input: BetaManagedAgentsWebFetchURLSourceUserInput | null;
-}
-
 interface BetaManagedAgentsUserLocation {
   /** Location precision. Only "approximate" is supported. */
   type: "approximate";
@@ -610,6 +580,15 @@ interface BetaManagedAgentsUserLocation {
   region?: string | null; // minLength: 1, maxLength: 255
   /** IANA timezone identifier, e.g. "America/Los_Angeles". */
   timezone?: string | null; // minLength: 1, maxLength: 255
+}
+
+interface BetaManagedAgentsWebFetchURLSources {
+  /** Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results. */
+  client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
+  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both. */
+  server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
+  /** Whether URLs in the text of user messages may be fetched. Null when not set, which allows them. */
+  user_input: BetaManagedAgentsWebFetchURLSourceUserInput | null;
 }
 
 type BetaManagedAgentsWebFetchURLSourceToolFilter = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone | BetaManagedAgentsWebFetchURLSourceOnly | BetaManagedAgentsWebFetchURLSourceExcept;

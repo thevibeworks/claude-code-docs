@@ -43,21 +43,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -132,6 +122,30 @@ interface BetaEnvironment {
   scope?: "organization" | "account"; // beta header: managed-agents-2026-04-01
 }
 ```
+
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaEnvironmentArchivedError` (HTTP status 400, error code `environment_archived`)
+
+  The environment is archived, so it cannot be updated.
+
+- `BetaInvalidConfigTypeChangeError` (HTTP status 400, error code `invalid_config_type_change`)
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentUpdateDisabledError` (HTTP status 403, error code `environment_update_disabled`)
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
 
 ## Types
 
@@ -243,6 +257,35 @@ interface BetaSelfHostedConfig {
   type: "self_hosted";
 }
 
+/** Limited network access. */
+interface BetaLimitedNetwork {
+  /** Network policy type */
+  type: "limited";
+  /** Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. */
+  allow_mcp_servers: boolean;
+  /** Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. */
+  allow_package_managers: boolean;
+  /** Specifies domains the container can reach. */
+  allowed_hosts: Array<string>;
+}
+
+interface BetaPackages {
+  /** Package configuration type */
+  type?: "packages"; // default: packages
+  /** Ubuntu/Debian packages to install */
+  apt: Array<string>;
+  /** Rust packages to install */
+  cargo: Array<string>;
+  /** Ruby packages to install */
+  gem: Array<string>;
+  /** Go packages to install */
+  go: Array<string>;
+  /** Node.js packages to install */
+  npm: Array<string>;
+  /** Python packages to install */
+  pip: Array<string>;
+}
+
 /** Unrestricted network access. */
 interface BetaUnrestrictedNetwork {
   /** Network policy type */
@@ -276,34 +319,5 @@ interface BetaPackagesParams {
   npm?: Array<string> | null;
   /** Python packages to install */
   pip?: Array<string> | null;
-}
-
-/** Limited network access. */
-interface BetaLimitedNetwork {
-  /** Network policy type */
-  type: "limited";
-  /** Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. */
-  allow_mcp_servers: boolean;
-  /** Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. */
-  allow_package_managers: boolean;
-  /** Specifies domains the container can reach. */
-  allowed_hosts: Array<string>;
-}
-
-interface BetaPackages {
-  /** Package configuration type */
-  type?: "packages"; // default: packages
-  /** Ubuntu/Debian packages to install */
-  apt: Array<string>;
-  /** Rust packages to install */
-  cargo: Array<string>;
-  /** Ruby packages to install */
-  gem: Array<string>;
-  /** Go packages to install */
-  go: Array<string>;
-  /** Node.js packages to install */
-  npm: Array<string>;
-  /** Python packages to install */
-  pip: Array<string>;
 }
 ```

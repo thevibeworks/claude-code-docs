@@ -89,6 +89,22 @@ Create a new environment with the specified configuration.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentCreateDisabledException` (HTTP status 403, error code `environment_create_disabled`)
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
 ### Example
 
 ```php
@@ -147,21 +163,11 @@ var_dump($betaEnvironment);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -260,6 +266,18 @@ List environments with pagination support.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```php
@@ -301,21 +319,11 @@ var_dump($page);
           "type": "limited"
         },
         "packages": {
-          "apt": [
-            "string"
-          ],
-          "cargo": [
-            "string"
-          ],
-          "gem": [
-            "string"
-          ],
-          "go": [
-            "string"
-          ],
-          "npm": [
-            "string"
-          ],
+          "apt": [],
+          "cargo": [],
+          "gem": [],
+          "go": [],
+          "npm": [],
           "pip": [
             "pandas",
             "numpy"
@@ -403,6 +411,18 @@ Retrieve a specific environment by ID.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```php
@@ -440,21 +460,11 @@ var_dump($betaEnvironment);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -559,6 +569,30 @@ Update an existing environment's configuration.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaEnvironmentArchivedException` (HTTP status 400, error code `environment_archived`)
+
+  The environment is archived, so it cannot be updated.
+
+- `BetaInvalidConfigTypeChangeException` (HTTP status 400, error code `invalid_config_type_change`)
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentUpdateDisabledException` (HTTP status 403, error code `environment_update_disabled`)
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
+
 ### Example
 
 ```php
@@ -618,21 +652,11 @@ var_dump($betaEnvironment);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -684,6 +708,18 @@ Delete an environment by ID. Returns a confirmation of the deletion.
   - `string id`
 
     Environment identifier
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Example
 
@@ -781,6 +817,18 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```php
@@ -818,21 +866,11 @@ var_dump($betaEnvironment);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -1105,6 +1143,92 @@ var_dump($betaEnvironment);
 
     Network policy type
 
+## Errors
+
+### BetaEnvironmentArchivedException
+
+HTTP status 400, error code `environment_archived`
+
+- `class BetaEnvironmentArchivedException extends BadRequestException`
+
+  The environment is archived, so it cannot be updated.
+
+  - `getErrorCode(): "environment_archived"`
+
+  - `getDetails(): BetaEnvironmentArchivedErrorDetails`
+
+    - `"environment_archived" errorCode`
+
+### BetaInvalidConfigTypeChangeException
+
+HTTP status 400, error code `invalid_config_type_change`
+
+- `class BetaInvalidConfigTypeChangeException extends BadRequestException`
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+  - `getErrorCode(): "invalid_config_type_change"`
+
+  - `getDetails(): BetaInvalidConfigTypeChangeErrorDetails`
+
+    - `"invalid_config_type_change" errorCode`
+
+### BetaInvalidMetadataException
+
+HTTP status 400, error code `invalid_metadata`
+
+- `class BetaInvalidMetadataException extends BadRequestException`
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+  - `getErrorCode(): "invalid_metadata"`
+
+  - `getDetails(): BetaInvalidMetadataErrorDetails`
+
+    - `"invalid_metadata" errorCode`
+
+### BetaEnvironmentCreateDisabledException
+
+HTTP status 403, error code `environment_create_disabled`
+
+- `class BetaEnvironmentCreateDisabledException extends PermissionDeniedException`
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
+  - `getErrorCode(): "environment_create_disabled"`
+
+  - `getDetails(): BetaEnvironmentCreateDisabledErrorDetails`
+
+    - `"environment_create_disabled" errorCode`
+
+### BetaEnvironmentUpdateDisabledException
+
+HTTP status 403, error code `environment_update_disabled`
+
+- `class BetaEnvironmentUpdateDisabledException extends PermissionDeniedException`
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
+
+  - `getErrorCode(): "environment_update_disabled"`
+
+  - `getDetails(): BetaEnvironmentUpdateDisabledErrorDetails`
+
+    - `"environment_update_disabled" errorCode`
+
+### BetaEnvironmentNotFoundException
+
+HTTP status 404, error code `environment_not_found`
+
+- `class BetaEnvironmentNotFoundException extends NotFoundException`
+
+  `settings.environment_id` names no Environment within the organization's reach.
+
+  - `getErrorCode(): "environment_not_found"`
+
+  - `getDetails(): BetaEnvironmentNotFoundErrorDetails`
+
+    - `"environment_not_found" errorCode`
+
 ## Environments › Work
 
 ### Get Work Item
@@ -1188,6 +1312,18 @@ Retrieve detailed information about a specific work item.
   - `?string stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -1544,6 +1680,14 @@ Record a heartbeat for a work item to maintain the lease.
 
     Effective TTL applied to the lease
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `HeartbeatPreconditionFailedException` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 #### Example
 
 ```php
@@ -1670,6 +1814,18 @@ Stop a work item, initiating graceful or forced shutdown.
   - `?string stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -1941,6 +2097,22 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaInvalidMetadataException` (HTTP status 400, error code `invalid_metadata`)
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 #### Example
 
 ```php
@@ -2034,6 +2206,18 @@ Get statistics about the work queue for an environment.
   - `?int workersPolling`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 

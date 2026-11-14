@@ -183,7 +183,7 @@ Record a heartbeat for a work item to maintain the lease.
 
     Whether the heartbeat succeeded in extending the lease
 
-  - `required State State`
+  - `required BetaSelfHostedWorkHeartbeatResponseState State`
 
     Current state of the work item (active/stopping/stopped)
 
@@ -200,6 +200,14 @@ Record a heartbeat for a work item to maintain the lease.
   - `required long TtlSeconds`
 
     Effective TTL applied to the lease
+
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicBetaHeartbeatPreconditionFailedException` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
 
 ## Example
 

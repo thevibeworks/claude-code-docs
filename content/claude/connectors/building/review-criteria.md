@@ -79,9 +79,8 @@ Design tools that produce diagrams, charts, or UI mockups are allowed.
 
 ## Gather what to include with your submission
 
-Alongside the server itself, a submission carries credentials, links, and terms acknowledgments that reviewers check:
+Alongside the server itself, a submission carries links and terms acknowledgments that reviewers check:
 
-* **Test credentials**: required, and they must be for a fully populated account
 * **Allowed link URIs**: recommended if your server calls `ui/open-link`. Declared HTTPS origins and custom URI schemes open without a confirmation prompt, and anything else still prompts the user. See [Allowed link URIs](https://claude.com/docs/connectors/building/submission.md#allowed-link-uris)
 * **Public documentation**: required by your publish date. A blog post or help-center article is sufficient, and you can share docs privately with Anthropic during review
 
@@ -91,7 +90,7 @@ Exercise every tool through the [MCP Inspector](https://modelcontextprotocol.io/
 
 ## Understand how Anthropic reviews connectors
 
-When you submit a server, Anthropic scans it automatically for policy compliance and, by default, lists it in the directory as a [Community connector](https://claude.com/docs/connectors/verification.md). Anthropic may then escalate listings flagged as highly useful to Claude users to Verified review, which is higher touch and slower, and in which reviewers run a functional test of each tool. That escalation is assessed automatically, and you don't need to take any action. Every server in the directory must meet the criteria on this page, whichever label it carries.
+When you submit a server, Anthropic scans it automatically for policy compliance and, by default, lists it in the directory as a [Community connector](https://claude.com/docs/connectors/verification.md). Anthropic may then escalate listings flagged as highly useful to Claude users to Verified review, which is higher touch and slower, and in which reviewers run a functional test of each tool. If your connector needs sign-in, a reviewer emails you to ask for [test access](https://claude.com/docs/connectors/building/testing.md#prepare-a-test-account-for-verified-review). That escalation is assessed automatically, and you don't need to take any action. Every server in the directory must meet the criteria on this page, whichever label it carries.
 
 The label is a quality signal shown to users, and your connector's tools run the same way under either label. For a directory connector, an MCP App's [embedded websites](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md#where-embedded-sites-load) and [entry points](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md) are available only under a Verified listing.
 

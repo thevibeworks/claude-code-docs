@@ -409,6 +409,22 @@ Create a new environment with the specified configuration.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `ErrorCodeBetaEnvironmentCreateDisabled` (HTTP status 403, error code `environment_create_disabled`)
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
 ### Example
 
 ```go
@@ -452,21 +468,11 @@ func main() {
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -787,6 +793,18 @@ List environments with pagination support.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```go
@@ -830,21 +848,11 @@ func main() {
           "type": "limited"
         },
         "packages": {
-          "apt": [
-            "string"
-          ],
-          "cargo": [
-            "string"
-          ],
-          "gem": [
-            "string"
-          ],
-          "go": [
-            "string"
-          ],
-          "npm": [
-            "string"
-          ],
+          "apt": [],
+          "cargo": [],
+          "gem": [],
+          "go": [],
+          "npm": [],
           "pip": [
             "pandas",
             "numpy"
@@ -1156,6 +1164,18 @@ Retrieve a specific environment by ID.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```go
@@ -1201,21 +1221,11 @@ func main() {
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -1640,6 +1650,30 @@ Update an existing environment's configuration.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeBetaEnvironmentArchived` (HTTP status 400, error code `environment_archived`)
+
+  The environment is archived, so it cannot be updated.
+
+- `ErrorCodeBetaInvalidConfigTypeChange` (HTTP status 400, error code `invalid_config_type_change`)
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `ErrorCodeBetaEnvironmentUpdateDisabled` (HTTP status 403, error code `environment_update_disabled`)
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
+
 ### Example
 
 ```go
@@ -1685,21 +1719,11 @@ func main() {
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -1889,6 +1913,18 @@ Delete an environment by ID. Returns a confirmation of the deletion.
   - `ID string`
 
     Environment identifier
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Example
 
@@ -2218,6 +2254,18 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```go
@@ -2263,21 +2311,11 @@ func main() {
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -2594,15 +2632,11 @@ func main() {
 
 - `type BetaEnvironmentArchivedErrorDetails`
 
-  The environment is archived, so it cannot be updated.
-
   - `ErrorCode BetaEnvironmentArchivedErrorCode`
 
 ### Beta Environment Create Disabled Error Details
 
 - `type BetaEnvironmentCreateDisabledErrorDetails`
-
-  Anthropic has turned off creating environments for this organization. Existing environments still work.
 
   - `ErrorCode BetaEnvironmentCreateDisabledErrorCode`
 
@@ -2626,15 +2660,11 @@ func main() {
 
 - `type BetaEnvironmentNotFoundErrorDetails`
 
-  `settings.environment_id` names no Environment within the organization's reach.
-
   - `ErrorCode BetaEnvironmentNotFoundErrorCode`
 
 ### Beta Environment Update Disabled Error Details
 
 - `type BetaEnvironmentUpdateDisabledErrorDetails`
-
-  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
 
   - `ErrorCode BetaEnvironmentUpdateDisabledErrorCode`
 
@@ -2642,15 +2672,11 @@ func main() {
 
 - `type BetaInvalidConfigTypeChangeErrorDetails`
 
-  `config.type` differs from the environment's stored type, which cannot change after creation.
-
   - `ErrorCode BetaInvalidConfigTypeChangeErrorCode`
 
 ### Beta Invalid Metadata Error Details
 
 - `type BetaInvalidMetadataErrorDetails`
-
-  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
 
   - `ErrorCode BetaInvalidMetadataErrorCode`
 
@@ -2806,6 +2832,56 @@ func main() {
   - `Type Unrestricted`
 
     Network policy type
+
+## Errors
+
+### ErrorCodeBetaEnvironmentArchived
+
+HTTP status 400, error code `environment_archived`
+
+- `const ErrorCodeBetaEnvironmentArchived ErrorCode = "environment_archived"`
+
+  The environment is archived, so it cannot be updated.
+
+### ErrorCodeBetaInvalidConfigTypeChange
+
+HTTP status 400, error code `invalid_config_type_change`
+
+- `const ErrorCodeBetaInvalidConfigTypeChange ErrorCode = "invalid_config_type_change"`
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+### ErrorCodeBetaInvalidMetadata
+
+HTTP status 400, error code `invalid_metadata`
+
+- `const ErrorCodeBetaInvalidMetadata ErrorCode = "invalid_metadata"`
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+### ErrorCodeBetaEnvironmentCreateDisabled
+
+HTTP status 403, error code `environment_create_disabled`
+
+- `const ErrorCodeBetaEnvironmentCreateDisabled ErrorCode = "environment_create_disabled"`
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
+### ErrorCodeBetaEnvironmentUpdateDisabled
+
+HTTP status 403, error code `environment_update_disabled`
+
+- `const ErrorCodeBetaEnvironmentUpdateDisabled ErrorCode = "environment_update_disabled"`
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
+
+### ErrorCodeBetaEnvironmentNotFound
+
+HTTP status 404, error code `environment_not_found`
+
+- `const ErrorCodeBetaEnvironmentNotFound ErrorCode = "environment_not_found"`
+
+  `settings.environment_id` names no Environment within the organization's reach.
 
 ## Environments › Work
 
@@ -3050,6 +3126,18 @@ Retrieve detailed information about a specific work item.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -3903,6 +3991,14 @@ Record a heartbeat for a work item to maintain the lease.
 
     Effective TTL applied to the lease
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeBetaHeartbeatPreconditionFailed` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 #### Example
 
 ```go
@@ -4191,6 +4287,18 @@ Stop a work item, initiating graceful or forced shutdown.
   - `StoppedAt string`
 
     RFC 3339 timestamp when work execution stopped
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -4798,6 +4906,22 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeBetaInvalidMetadata` (HTTP status 400, error code `invalid_metadata`)
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 #### Example
 
 ```go
@@ -5044,6 +5168,18 @@ Get statistics about the work queue for an environment.
   - `WorkersPolling int64`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=go).
+
+- `ErrorCodeClaudeCodeKeyCreatorNotMember` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 

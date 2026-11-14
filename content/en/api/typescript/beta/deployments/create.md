@@ -57,20 +57,8 @@ console.log(betaManagedAgentsDeployment.id);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -329,37 +317,14 @@ type BetaManagedAgentsDeploymentStatus =
   /** The deployment is paused. Autonomous triggers are suppressed; manual runs are still permitted. */
   | "paused";
 
-/** Parameters for sending a user message to the session. */
-interface BetaManagedAgentsUserMessageEventParams {
-  type: "user.message";
-  /** Array of content blocks for the user message. */
-  content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>;
-}
-
-/** Parameters for defining an outcome the agent should work toward. The agent begins work on receipt. */
-interface BetaManagedAgentsUserDefineOutcomeEventParams {
-  type: "user.define_outcome";
-  /** What the agent should produce. This is the task specification. */
-  description: string;
-  /** How to grade the outcome. Text or file reference. */
-  rubric: BetaManagedAgentsFileRubricParams | BetaManagedAgentsTextRubricParams;
-  /** Eval→revision cycles before giving up. Default 3, max 20. */
-  max_iterations?: number | null; // format: int32
-}
-
-/** Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt. At most one per request: it must be the final event and immediately follow the `user.message`, `user.tool_result`, or `user.custom_tool_result` it accompanies. Only supported on models that accept mid-conversation system messages. */
-interface BetaManagedAgentsSystemMessageEventParams {
-  type: "system.message";
-  /** System content blocks to append. Text-only. */
-  content: Array<BetaManagedAgentsSystemContentBlock>;
-}
-
 interface BetaMonetaryAmount {
   /** Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied. */
   amount: string; // pattern: ^(0|[1-9]\d*)$
   /** Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced. */
   currency: BetaCurrency;
 }
+
+type BetaCurrency = "USD";
 
 interface BetaManagedAgentsBranchCheckout {
   type: "branch";
@@ -398,101 +363,6 @@ interface BetaManagedAgentsDeploymentSystemMessageEvent {
   content: Array<BetaManagedAgentsSystemContentBlock>;
 }
 
-/** The caller invoked the pause endpoint on the deployment. */
-interface BetaManagedAgentsManualDeploymentPausedReason {
-  type: "manual";
-}
-
-/** A scheduled fire recorded a failed run whose error auto-pauses the deployment. */
-interface BetaManagedAgentsErrorDeploymentPausedReason {
-  type: "error";
-  /** The failed run's error. */
-  error: BetaManagedAgentsDeploymentPausedReasonError;
-}
-
-/** A GitHub repository mounted into each session's container. The authorization token is write-only and never returned. */
-interface BetaManagedAgentsGitHubRepositoryResourceConfig {
-  type: "github_repository";
-  /** Github URL of the repository */
-  url: string;
-  /** Branch or commit to check out. Defaults to the repository's default branch. */
-  checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null;
-  /** Mount path in the container. Defaults to `/workspace/<repo-name>`. */
-  mount_path?: string | null;
-}
-
-/** A file mounted into each session's container. */
-interface BetaManagedAgentsFileResourceConfig {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string;
-  /** Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`. */
-  mount_path?: string | null;
-}
-
-/** A memory store attached to each session created from this deployment. */
-interface BetaManagedAgentsMemoryStoreResourceConfig {
-  type: "memory_store";
-  /** The memory store ID (memstore_...). Must belong to the caller's organization and workspace. */
-  memory_store_id: string;
-  /** Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem. */
-  access?: "read_write" | "read_only" | null;
-  /** Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars. */
-  instructions?: string | null;
-}
-
-/** Regular text content. */
-interface BetaManagedAgentsTextBlock {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
-}
-
-/** Image content specified directly as base64 data or as a reference via a URL. */
-interface BetaManagedAgentsImageBlock {
-  type: "image";
-  /** The source of the image data. */
-  source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource;
-}
-
-/** Document content, either specified directly as base64 data, as text, or as a reference via a URL. */
-interface BetaManagedAgentsDocumentBlock {
-  type: "document";
-  /** The source of the document data. */
-  source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource;
-  /** Additional context about the document for the model. */
-  context?: string | null;
-  /** The title of the document. */
-  title?: string | null;
-}
-
-/** Placeholder for content withheld by Anthropic model policy. */
-interface BetaManagedAgentsRedactedBlock {
-  type: "redacted";
-}
-
-/** Rubric referenced by a file uploaded via the Files API. */
-interface BetaManagedAgentsFileRubricParams {
-  type: "file";
-  /** ID of the rubric file. */
-  file_id: string;
-}
-
-/** Rubric content provided inline as text. */
-interface BetaManagedAgentsTextRubricParams {
-  type: "text";
-  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters. */
-  content: string; // maxLength: 262144
-}
-
-interface BetaManagedAgentsSystemContentBlock {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
-}
-
-type BetaCurrency = "USD";
-
 /** Rubric referenced by a file uploaded via the Files API. */
 interface BetaManagedAgentsFileRubric {
   type: "file";
@@ -507,62 +377,19 @@ interface BetaManagedAgentsTextRubric {
   content: string;
 }
 
+/** The caller invoked the pause endpoint on the deployment. */
+interface BetaManagedAgentsManualDeploymentPausedReason {
+  type: "manual";
+}
+
+/** A scheduled fire recorded a failed run whose error auto-pauses the deployment. */
+interface BetaManagedAgentsErrorDeploymentPausedReason {
+  type: "error";
+  /** The failed run's error. */
+  error: BetaManagedAgentsDeploymentPausedReasonError;
+}
+
 type BetaManagedAgentsDeploymentPausedReasonError = BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError | BetaManagedAgentsAgentArchivedDeploymentPausedReasonError | BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError | BetaManagedAgentsFileNotFoundDeploymentPausedReasonError | BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError | BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError | BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError | BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError | BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultArchivedDeploymentPausedReasonError | BetaManagedAgentsUnknownDeploymentPausedReasonError | BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError | BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError;
-
-/** Base64-encoded image data. */
-interface BetaManagedAgentsBase64ImageSource {
-  type: "base64";
-  /** Base64-encoded image data. */
-  data: string; // minLength: 1
-  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
-  media_type: string; // minLength: 1
-}
-
-/** Image referenced by URL. */
-interface BetaManagedAgentsURLImageSource {
-  type: "url";
-  /** URL of the image to fetch. */
-  url: string; // minLength: 1
-}
-
-/** Image referenced by file ID. */
-interface BetaManagedAgentsFileImageSource {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string; // minLength: 1
-}
-
-/** Base64-encoded document data. */
-interface BetaManagedAgentsBase64DocumentSource {
-  type: "base64";
-  /** Base64-encoded document data. */
-  data: string; // minLength: 1
-  /** MIME type of the document (e.g., "application/pdf"). */
-  media_type: string; // minLength: 1
-}
-
-/** Plain text document content. */
-interface BetaManagedAgentsPlainTextDocumentSource {
-  type: "text";
-  /** The plain text content. */
-  data: string; // minLength: 1
-  /** MIME type of the text content. Must be "text/plain". */
-  media_type: "text/plain";
-}
-
-/** Document referenced by URL. */
-interface BetaManagedAgentsURLDocumentSource {
-  type: "url";
-  /** URL of the document to fetch. */
-  url: string; // minLength: 1
-}
-
-/** Document referenced by file ID. */
-interface BetaManagedAgentsFileDocumentSource {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string; // minLength: 1
-}
 
 /** The deployment's environment was archived. */
 interface BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError {
@@ -632,5 +459,166 @@ interface BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonE
 /** An MCP server host used by the deployment's agent is blocked by the environment's network policy. */
 interface BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError {
   type: "mcp_egress_blocked_error";
+}
+
+/** A GitHub repository mounted into each session's container. The authorization token is write-only and never returned. */
+interface BetaManagedAgentsGitHubRepositoryResourceConfig {
+  type: "github_repository";
+  /** Github URL of the repository */
+  url: string;
+  /** Branch or commit to check out. Defaults to the repository's default branch. */
+  checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null;
+  /** Mount path in the container. Defaults to `/workspace/<repo-name>`. */
+  mount_path?: string | null;
+}
+
+/** A file mounted into each session's container. */
+interface BetaManagedAgentsFileResourceConfig {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string;
+  /** Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`. */
+  mount_path?: string | null;
+}
+
+/** A memory store attached to each session created from this deployment. */
+interface BetaManagedAgentsMemoryStoreResourceConfig {
+  type: "memory_store";
+  /** The memory store ID (memstore_...). Must belong to the caller's organization and workspace. */
+  memory_store_id: string;
+  /** Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem. */
+  access?: "read_write" | "read_only" | null;
+  /** Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars. */
+  instructions?: string | null;
+}
+
+/** Parameters for sending a user message to the session. */
+interface BetaManagedAgentsUserMessageEventParams {
+  type: "user.message";
+  /** Array of content blocks for the user message. */
+  content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>;
+}
+
+/** Parameters for defining an outcome the agent should work toward. The agent begins work on receipt. */
+interface BetaManagedAgentsUserDefineOutcomeEventParams {
+  type: "user.define_outcome";
+  /** What the agent should produce. This is the task specification. */
+  description: string;
+  /** How to grade the outcome. Text or file reference. */
+  rubric: BetaManagedAgentsFileRubricParams | BetaManagedAgentsTextRubricParams;
+  /** Eval→revision cycles before giving up. Default 3, max 20. */
+  max_iterations?: number | null; // format: int32
+}
+
+/** Privileged context for the accompanying turn and all subsequent turns, appended to the session's system context as a `role: "system"` turn rather than replacing the top-level system prompt. At most one per request: it must be the final event and immediately follow the `user.message`, `user.tool_result`, or `user.custom_tool_result` it accompanies. Only supported on models that accept mid-conversation system messages. */
+interface BetaManagedAgentsSystemMessageEventParams {
+  type: "system.message";
+  /** System content blocks to append. Text-only. */
+  content: Array<BetaManagedAgentsSystemContentBlock>;
+}
+
+/** Rubric referenced by a file uploaded via the Files API. */
+interface BetaManagedAgentsFileRubricParams {
+  type: "file";
+  /** ID of the rubric file. */
+  file_id: string;
+}
+
+/** Rubric content provided inline as text. */
+interface BetaManagedAgentsTextRubricParams {
+  type: "text";
+  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters. */
+  content: string; // maxLength: 262144
+}
+
+interface BetaManagedAgentsSystemContentBlock {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
+/** Regular text content. */
+interface BetaManagedAgentsTextBlock {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
+/** Image content specified directly as base64 data or as a reference via a URL. */
+interface BetaManagedAgentsImageBlock {
+  type: "image";
+  /** The source of the image data. */
+  source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource;
+}
+
+/** Document content, either specified directly as base64 data, as text, or as a reference via a URL. */
+interface BetaManagedAgentsDocumentBlock {
+  type: "document";
+  /** The source of the document data. */
+  source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource;
+  /** Additional context about the document for the model. */
+  context?: string | null;
+  /** The title of the document. */
+  title?: string | null;
+}
+
+/** Placeholder for content withheld by Anthropic model policy. */
+interface BetaManagedAgentsRedactedBlock {
+  type: "redacted";
+}
+
+/** Base64-encoded image data. */
+interface BetaManagedAgentsBase64ImageSource {
+  type: "base64";
+  /** Base64-encoded image data. */
+  data: string; // minLength: 1
+  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
+  media_type: string; // minLength: 1
+}
+
+/** Image referenced by URL. */
+interface BetaManagedAgentsURLImageSource {
+  type: "url";
+  /** URL of the image to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Image referenced by file ID. */
+interface BetaManagedAgentsFileImageSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
+
+/** Base64-encoded document data. */
+interface BetaManagedAgentsBase64DocumentSource {
+  type: "base64";
+  /** Base64-encoded document data. */
+  data: string; // minLength: 1
+  /** MIME type of the document (e.g., "application/pdf"). */
+  media_type: string; // minLength: 1
+}
+
+/** Plain text document content. */
+interface BetaManagedAgentsPlainTextDocumentSource {
+  type: "text";
+  /** The plain text content. */
+  data: string; // minLength: 1
+  /** MIME type of the text content. Must be "text/plain". */
+  media_type: "text/plain";
+}
+
+/** Document referenced by URL. */
+interface BetaManagedAgentsURLDocumentSource {
+  type: "url";
+  /** URL of the document to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Document referenced by file ID. */
+interface BetaManagedAgentsFileDocumentSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
 }
 ```

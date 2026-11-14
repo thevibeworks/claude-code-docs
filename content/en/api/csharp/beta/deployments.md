@@ -57,7 +57,7 @@ Create Deployment
 
       - `JsonElement Type = "user.message"`
 
-      - `required IReadOnlyList<Content> Content`
+      - `required IReadOnlyList<BetaManagedAgentsUserMessageEventParamsContent> Content`
 
         Array of content blocks for the user message.
 
@@ -79,7 +79,7 @@ Create Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -217,7 +217,7 @@ Create Deployment
 
         What the agent should produce. This is the task specification.
 
-      - `required Rubric Rubric`
+      - `required BetaManagedAgentsUserDefineOutcomeEventParamsRubric Rubric`
 
         How to grade the outcome. Text or file reference.
 
@@ -609,7 +609,7 @@ Create Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -1110,20 +1110,8 @@ Console.WriteLine(betaManagedAgentsDeployment);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -1414,7 +1402,7 @@ List Deployments
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -1904,20 +1892,8 @@ await foreach (var item in page.Paginate())
       ],
       "metadata": {},
       "name": "Daily order report",
-      "paused_reason": {
-        "type": "manual"
-      },
-      "resources": [
-        {
-          "type": "github_repository",
-          "url": "url",
-          "checkout": {
-            "name": "main",
-            "type": "branch"
-          },
-          "mount_path": "mount_path"
-        }
-      ],
+      "paused_reason": null,
+      "resources": [],
       "schedule": {
         "expression": "0 9 * * 1-5",
         "timezone": "America/Los_Angeles",
@@ -2181,7 +2157,7 @@ Get Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -2670,20 +2646,8 @@ Console.WriteLine(betaManagedAgentsDeployment);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -2726,7 +2690,7 @@ Update Deployment
 
     Unique identifier of the deployment to update.
 
-  - `Agent agent`
+  - `DeploymentUpdateParamsAgent agent`
 
     Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
 
@@ -2776,7 +2740,7 @@ Update Deployment
 
       - `JsonElement Type = "user.message"`
 
-      - `required IReadOnlyList<Content> Content`
+      - `required IReadOnlyList<BetaManagedAgentsUserMessageEventParamsContent> Content`
 
         Array of content blocks for the user message.
 
@@ -2798,7 +2762,7 @@ Update Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -2936,7 +2900,7 @@ Update Deployment
 
         What the agent should produce. This is the task specification.
 
-      - `required Rubric Rubric`
+      - `required BetaManagedAgentsUserDefineOutcomeEventParamsRubric Rubric`
 
         How to grade the outcome. Text or file reference.
 
@@ -2996,7 +2960,7 @@ Update Deployment
 
     maxLength: 256
 
-  - `IReadOnlyList<Resource>? resources`
+  - `IReadOnlyList<DeploymentUpdateParamsResource>? resources`
 
     Session resources. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 500.
 
@@ -3318,7 +3282,7 @@ Update Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -3807,20 +3771,8 @@ Console.WriteLine(betaManagedAgentsDeployment);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -4081,7 +4033,7 @@ Archive Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -4570,20 +4522,8 @@ Console.WriteLine(betaManagedAgentsDeployment);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -5267,7 +5207,7 @@ Pause Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -5756,20 +5696,8 @@ Console.WriteLine(betaManagedAgentsDeployment);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -6030,7 +5958,7 @@ Unpause Deployment
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -6519,20 +6447,8 @@ Console.WriteLine(betaManagedAgentsDeployment);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -6695,7 +6611,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -7175,7 +7091,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required BetaManagedAgentsImageBlockSource Source`
 
           The source of the image data.
 
@@ -7373,7 +7289,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
     - `JsonElement Type = "user.message"`
 
-    - `required IReadOnlyList<Content> Content`
+    - `required IReadOnlyList<BetaManagedAgentsUserMessageEventParamsContent> Content`
 
       Array of content blocks for the user message.
 
@@ -7395,7 +7311,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required BetaManagedAgentsImageBlockSource Source`
 
           The source of the image data.
 
@@ -7533,7 +7449,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
       What the agent should produce. This is the task specification.
 
-    - `required Rubric Rubric`
+    - `required BetaManagedAgentsUserDefineOutcomeEventParamsRubric Rubric`
 
       How to grade the outcome. Text or file reference.
 
@@ -7885,7 +7801,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required BetaManagedAgentsImageBlockSource Source`
 
         The source of the image data.
 

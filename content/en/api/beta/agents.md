@@ -1968,38 +1968,7 @@ curl https://api.anthropic.com/v1/agents \
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -2016,16 +1985,7 @@ curl https://api.anthropic.com/v1/agents \
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {
@@ -3065,38 +3025,7 @@ curl https://api.anthropic.com/v1/agents \
         "inference_geo": "inference_geo",
         "speed": "standard"
       },
-      "multiagent": {
-        "advisor": {
-          "type": "disabled"
-        },
-        "subagents": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        },
-        "type": "multiagent_20261001",
-        "workflows": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        }
-      },
+      "multiagent": null,
       "name": "My First Agent",
       "skills": [
         {
@@ -3113,16 +3042,7 @@ curl https://api.anthropic.com/v1/agents \
       "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
       "tools": [
         {
-          "configs": [
-            {
-              "enabled": true,
-              "name": "bash",
-              "permission_policy": {
-                "type": "always_allow"
-              },
-              "type": "bash"
-            }
-          ],
+          "configs": [],
           "default_config": {
             "enabled": true,
             "permission_policy": {
@@ -4145,38 +4065,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID \
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -4193,16 +4082,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID \
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {
@@ -6178,38 +6058,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID \
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -6226,16 +6075,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID \
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {
@@ -7248,38 +7088,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -7296,16 +7105,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/archive \
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {
@@ -14757,38 +14557,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/versions \
         "inference_geo": "inference_geo",
         "speed": "standard"
       },
-      "multiagent": {
-        "advisor": {
-          "type": "disabled"
-        },
-        "subagents": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        },
-        "type": "multiagent_20261001",
-        "workflows": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        }
-      },
+      "multiagent": null,
       "name": "My First Agent",
       "skills": [
         {
@@ -14805,16 +14574,7 @@ curl https://api.anthropic.com/v1/agents/$AGENT_ID/versions \
       "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
       "tools": [
         {
-          "configs": [
-            {
-              "enabled": true,
-              "name": "bash",
-              "permission_policy": {
-                "type": "always_allow"
-              },
-              "type": "bash"
-            }
-          ],
+          "configs": [],
           "default_config": {
             "enabled": true,
             "permission_policy": {

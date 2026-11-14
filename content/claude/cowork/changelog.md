@@ -6,6 +6,37 @@
 
 > Release notes for Claude Desktop
 
+**v5.11492.5**
+
+2026-11-13
+
+Bundled Claude Code version: 2.1.325.
+
+For administrators of SSH hosts: SSH helper version 87375cc7c944eb9d45c8d9267edc70a4b4827961.
+
+**General**
+
+* No user-facing changes.
+
+**Code**
+
+* Changed sandboxed shell commands on macOS and Linux: most ask first in Manual and Accept edits, and Auto mode checks many of them. A routine can stop at a prompt. To undo this, add `"autoAllowBashIfSandboxed": true` to the `sandbox` block of `~/.claude/settings.json`, creating it if needed.
+* Changed sandboxed shell commands so that `git worktree add`, `move` and `remove` fail, as does a commit in a worktree the session was not started in or given.
+* Changed some shell allow rules that name a variable, such as `Bash(NODE_ENV*)`, to stop matching, so those commands ask for approval.
+* Changed workflows in local sessions to pause at your Claude plan's usage limit and continue after it resets, if the reset is within a day and Auto-continue when limits reset is on.
+* Fixed a session staying busy after another of your sessions sent it the same message twice or many messages at once.
+
+**Cowork**
+
+* No user-facing changes.
+
+**3P**
+
+* Changed certificate checks: under a company CA that limits DNS names, a certificate with IP addresses but no DNS name is refused if its common name is an IP address or a domain the CA does not allow. Turns to such a gateway fail until its certificate lists an allowed DNS name.
+* Changed most shell commands in Claude Code's sandbox (default on managed macOS and Linux) to ask first (see Code). To undo, add `"autoAllowBashIfSandboxed": true` to the `sandbox` block of its `managed-settings.json` (SSH: on the host). A new file needs top-level `"parentSettingsBehavior": "merge"`.
+* Fixed sessions failing to start on Windows when the organization's managed settings are very long, for example a long model list or many allowed hosts.
+* Fixed turns failing when a gateway answers with 403 for an expired token from a credential helper, or for a sign-in past its stated expiry. Claude now gets a fresh token and retries.
+
 **v5.11492.2**
 
 2026-11-13
