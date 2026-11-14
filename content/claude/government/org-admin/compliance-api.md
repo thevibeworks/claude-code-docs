@@ -46,6 +46,8 @@ The exclusive bounds `created_at.gt` and `created_at.lt` are also accepted if yo
 
 The API serves the most recent 30 days of activity. A lower bound earlier than that is treated as 30 days ago.
 
+A URL over 8 KiB or with more than 256 query parameters returns a `414`. When `actor_ids[]` is the only repeated filter, send at most 135 values in a request.
+
 ### Response format
 
 The response is a JSON envelope containing a page of events and the cursors for the next and previous pages.

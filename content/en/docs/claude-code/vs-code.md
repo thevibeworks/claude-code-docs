@@ -304,6 +304,7 @@ When the conversation you resume ended in plan mode, Claude Code restores plan m
 * The extension [chooses the starting permission mode](https://code.claude.com/docs/en/permission-modes.md#switch-permission-modes) from `claudeCode.initialPermissionMode` or a pick that carries over from an earlier conversation
 * You have `claudeCode.claudeProcessWrapper` configured
 * A [deny rule](https://code.claude.com/docs/en/permissions.md#manage-permissions) removes the [`ExitPlanMode`](https://code.claude.com/docs/en/tools-reference) tool
+* [`permissions.denyInsteadOfPrompting`](https://code.claude.com/docs/en/settings-reference#permissions-denyinsteadofprompting) is on
 
 #### The conversation is still open somewhere else
 
