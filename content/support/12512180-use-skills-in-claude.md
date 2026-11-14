@@ -214,7 +214,7 @@ To remove a custom skill you've uploaded:
 
 4. To delete the custom skill entirely, click the "..." button next to the toggle, then select "Delete":
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1794642300&amp;signature=1760f9fa70dca9c3aaf769516ea7502bc75585d9f0b3dbcf84de28796c47bb21&amp;req=diEnE8p3nINYWvMW1HO4zSOgDi8uxuSuH%2BdCnFXB0uhQvFVMVc7YKJ8NwV30%0Ae2Pp%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2105391273/8359cbf8be20dce0f1cd3fd40e6f/CleanShot-2B2026-02-25-2Bat-2B15_50_16.png?expires=1794661200&amp;signature=001a515857f5ae349c9d64a583e15c3072ed11e09faf0407874756f39a11c7b8&amp;req=diEnE8p3nINYWvMW1HO4zSOgDi8uxOevH%2BdCnFXB0ugiHiPC70IU0I%2Fki8SQ%0AuxL1%0A)
 
 5. Click "Delete" in the confirmation prompt.
 
