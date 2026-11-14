@@ -261,10 +261,19 @@ The `inference_geo` parameter is supported on Claude 4.6 and later models. Reque
 
 Workspace settings also support restricting which inference geos are available:
 
-* **`allowed_inference_geos`:** Restricts which geos a workspace can use. If a request specifies an `inference_geo` not in this list, the API returns an error.
-* **`default_inference_geo`:** Sets the fallback geo when `inference_geo` is omitted from a request. Individual requests can override this by setting `inference_geo` explicitly.
+* **`allowed_inference_geos`:** Restricts which geos a workspace can use. If a request specifies an `inference_geo` not in this list, the API returns a 400 error.
+* **`default_inference_geo`:** Sets the fallback geo when `inference_geo` is omitted from a request. It must be one of the allowed geos. A request can override it with any other allowed geo.
 
-These settings can be configured through the Console or the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) under the `data_residency` field.
+To change these settings in the Claude Console:
+
+1. Go to the [Data residency](https://platform.claude.com/settings/data-residency) page (`platform.claude.com/settings/data-residency`). If the **Data controls** page opens instead, find its **Data residency** section.
+2. Select the workspace from the dropdown menu beside the **Data residency** heading.
+3. Under **Inference geo**, select the allowed geos from the **Allowed** dropdown menu and the fallback geo from the **Default** dropdown menu.
+4. Click **Save**, then click **Confirm**.
+
+If these menus are missing or disabled, your role might not allow the change. Ask an organization admin to make it.
+
+To set them with the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), put both fields inside the `data_residency` object of a [Create Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/create) or [Update Workspace](https://platform.claude.com/docs/en/api/organization/workspaces/update) request. In an update, a field that you leave out keeps its value.
 
 <Note>
   **Claude Models on Google Cloud (Anthropic managed):** Every workspace allows all inference geos and uses `"global"` as its default inference geo. The Claude Console shows both settings as read-only. For US-only inference, set `inference_geo: "us"` on each request.
