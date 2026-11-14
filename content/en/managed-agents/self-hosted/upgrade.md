@@ -5,7 +5,7 @@ description: Upgrade a self-hosted Claude Managed Agents deployment on Kubernete
 ---
 
 <Note>
-  To request access to self-hosted Claude Managed Agents, contact your Anthropic account team.
+  To request access to self-hosted Claude Managed Agents, contact your Anthropic account team. If you belong to a Claude Console organization that already has access, [sign in to the Claude Console](https://platform.claude.com) and switch to that organization. Then reload this page.
 </Note>
 
 This page shows how to upgrade a deployment on Kubernetes or Docker Compose, and how to roll back. On Kubernetes, the downtime depends on how far the upgrade goes:

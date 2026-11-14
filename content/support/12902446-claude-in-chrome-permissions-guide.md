@@ -30,7 +30,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794676500&amp;signature=b22763f801cd2a2aa63e348b3137624955da977efd4ef48f7a8e1160bf6d44fd&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZL%2B4SygN0ADj5oqFDciZxlwRf6fBEJNwds%0AqMvcncXrUQcynwnS10s%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794690000&amp;signature=dbdbb78a24a9bc754dca33253ca2609ef90cb03e8db964865840c2f0fb6a6741&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZL9YK3gN0ADj5oqFCPL6Jh5XWX6%2F1gv9FN%0AAVDxVaH%2FU8uPK%2FH%2Bhpg%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -64,7 +64,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794676500&amp;signature=a25ab58ec02d2348a4db09be7879c657a0d7b9a4812c75026587d819f01eeb44&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2J2jyrp7A4lHPBihAX%2FZuG2qVqxtMtK89Oc%0AYTXmFj8uM%2Fbrvq%2FdjnQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794690000&amp;signature=d2541121b6d87229be4118ab224e217254bdfac6bd5e3f39a350fe6d9615eede&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2J2gSzs7A4lHPBihAWeiyxx2BNX4dS3GzKP%0AhaUiyX90ySUUBm5MOlQ%3D%0A)
 
 ### Permission options
 

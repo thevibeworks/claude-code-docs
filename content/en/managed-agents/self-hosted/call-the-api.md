@@ -5,7 +5,7 @@ description: Point the official SDK, cURL, or the ant CLI at your self-hosted Cl
 ---
 
 <Note>
-  To request access to self-hosted Claude Managed Agents, contact your Anthropic account team.
+  To request access to self-hosted Claude Managed Agents, contact your Anthropic account team. If you belong to a Claude Console organization that already has access, [sign in to the Claude Console](https://platform.claude.com) and switch to that organization. Then reload this page.
 </Note>
 
 A self-hosted Claude Managed Agents server has the same API as Anthropic’s hosted [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) service. Your code calls it with the official SDK, cURL, or the `ant` CLI. Two things change: the base URL is your server’s address, and the API key is your [server API key](https://platform.claude.com/docs/en/managed-agents/self-hosted#the-three-credentials) instead of a Claude API key.
