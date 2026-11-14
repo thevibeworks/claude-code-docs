@@ -115,7 +115,7 @@ The new unified Claude experience gets its own line in your reports. When a memb
 
 **A page of its own.** Admins who can view analytics will find a Chat and Cowork unified page under Apps. It shows daily active users.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2806001895/531860da20ab38cc20552671aa8a/60d7f385-93e4-44cb-a767-3c68bb033f2e?expires=1794642300&amp;signature=b9ab1713799a33f71456b4c5cc3d0db94358a5fabaa27c6b2f66d9f737c137f2&amp;req=dignEMl%2BnIlWXPMW1HO4zX%2FArvTQyJCdu58a%2FWgvbyxkuRr9MQSCn7asqOHo%0AvuxEOIbOp206kJi6ZOY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2806001895/531860da20ab38cc20552671aa8a/60d7f385-93e4-44cb-a767-3c68bb033f2e?expires=1794661200&amp;signature=9349508686e390d8cc521c9fc923964dc13c4f5bd0ddc4f60b3d7ab7de4e1f80&amp;req=dignEMl%2BnIlWXPMW1HO4zX%2FArvTQypOcu58a%2FWgvbywat%2BP7wqYqY8xRn6Rc%0A2LK2cugjQtdFNNpLMfE%3D%0A)
 
 **Across the dashboard.** You can pick "Chat and Cowork unified" in the **Active members** and **Spend by model** charts, and **Total spend** shows it as its own line. Spend charts appear only if usage credits are on.
 
