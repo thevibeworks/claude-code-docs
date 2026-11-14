@@ -197,7 +197,7 @@ The time limit counts from the moment the command enters the background:
 * A command that Claude starts in the background gets 30 minutes, or the `timeout` Claude passes with `run_in_background`, up to a maximum of 2 hours
 * A command that starts in the foreground and then moves to the background at its timeout gets 30 minutes from the move
 
-In a run with the `-p` flag whose prompt you pass as text rather than with `--input-format stream-json`, both defaults are 10 minutes instead of 30, because the run [waits for background commands after its result](https://code.claude.com/docs/en/headless.md#background-tasks-at-exit).
+In a run with the `-p` flag whose prompt you pass as text rather than with `--input-format stream-json`, both defaults are 10 minutes instead of 30.
 
 When a background command reaches its time limit, Claude Code stops it and tells Claude why, and Claude can start the command again with a longer `timeout` if the work still needs it. The stop notice reads `Background command "<description>" was stopped after reaching its background time limit`.
 
@@ -259,6 +259,10 @@ A file that changed on disk after Claude last read it can still be edited when `
 Claude can also edit a file without a separate Read after viewing it with a Bash command such as `cat` or `grep`. Those commands are `cat`, `nl`, `bat`, `batcat`, `head`, `tail`, `sed -n 'X,Yp'`, `grep`, `egrep`, `fgrep`, and `rg`, each run on one file with no pipes or redirects. If the command printed none of the file's text, as when a search matches nothing, the read-before-edit check still applies.
 
 When Claude views a file this way, Claude Code also loads any [subdirectory `CLAUDE.md`](https://code.claude.com/docs/en/memory#how-claude-md-files-load) and [path-scoped rules](https://code.claude.com/docs/en/memory.md#path-specific-rules) that apply to that file. See [Read and Edit permission rules](https://code.claude.com/docs/en/permissions.md#read-and-edit) for which Bash commands your `Read` and `Edit` deny rules cover.
+
+### Protect read-only files in Perforce
+
+To keep Edit, Write, and NotebookEdit from overwriting read-only files in a Perforce workspace, set [`CLAUDE_CODE_PERFORCE_MODE`](https://code.claude.com/docs/en/env-vars#variables) to `1`. Those tools then refuse to change read-only files and tell Claude to run `p4 edit` first.
 
 ### Non-UTF-8 files
 

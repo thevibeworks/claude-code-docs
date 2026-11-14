@@ -105,6 +105,18 @@ interface BetaSelfHostedWork {
 }
 ```
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Types
 
 ```ts
@@ -387,6 +399,14 @@ interface BetaSelfHostedWorkHeartbeatResponse {
 }
 ```
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaHeartbeatPreconditionFailedError` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 ## Stop Work
 
 - Signature: `client.beta.environments.work.stop(workID: string, params: WorkStopParams, options?: RequestOptions): BetaSelfHostedWork`
@@ -452,6 +472,18 @@ interface WorkStopParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ## List Work Items
 
@@ -591,6 +623,22 @@ interface WorkUpdateParams {
 }
 ```
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaInvalidMetadataError` (HTTP status 400, error code `invalid_metadata`)
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ## Get Queue Statistics
 
 - Signature: `client.beta.environments.work.stats(environmentID: string, params?: WorkStatsParams, options?: RequestOptions): BetaSelfHostedWorkQueueStats`
@@ -656,6 +704,64 @@ interface BetaSelfHostedWorkQueueStats {
   workers_polling: number | null;
 }
 ```
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+## Errors
+
+### BetaHeartbeatPreconditionFailedError
+
+HTTP status 412, error code `heartbeat_precondition_failed`
+
+- `class BetaHeartbeatPreconditionFailedError extends PreconditionFailedError`
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
+  - `errorCode: "heartbeat_precondition_failed"`
+
+  - `details: BetaHeartbeatPreconditionFailedErrorDetails`
+
+    - `current_state: BetaWorkLeaseState`
+
+      The lease as the server holds it.
+
+      - `last_heartbeat: string | null`
+
+        RFC 3339 timestamp of the stored heartbeat, or null if there has been none
+
+      - `lease_extended: boolean`
+
+        Always false: a refused heartbeat does not extend the lease
+
+      - `state: "queued" | "starting" | "active" | 2 more`
+
+        Current state of the work item
+
+        - `"queued"`
+
+        - `"starting"`
+
+        - `"active"`
+
+        - `"stopping"`
+
+        - `"stopped"`
+
+      - `ttl_seconds: number`
+
+        TTL of the lease
+
+    - `error_code: "heartbeat_precondition_failed"`
 
 ## Types
 

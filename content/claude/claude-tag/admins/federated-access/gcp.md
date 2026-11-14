@@ -97,9 +97,9 @@ The **Block requests that mint new credentials** checkbox is selected by default
 
 If Claude needs one of the refused services, clear the checkbox and rely on your IAM grants alone. The token exchange itself, including acting as the service account, happens inside Agent Proxy and isn't affected by this checkbox or by the allowed hosts.
 
-**5. Narrow the allowed Google hosts**
+**5. Add the allowed Google hosts**
 
-Replace the prefilled `*.googleapis.com` entry in the **Allowed Google hosts** field with the hosts Claude needs, for example `storage.googleapis.com`. A wildcard as the leftmost label, such as `*.storage.googleapis.com`, matches any subdomain but not the name itself. Every host must be `googleapis.com`, a subdomain of it, or a subdomain of `clients6.google.com`. You can change the list later from the connection's [**Edit connection** dialog](https://claude.com/docs/claude-tag/admins/add-connections.md#set-allowed-websites), which you open from the connection's row on the **Connectors** tab; see [Manage federated connections on the Connectors tab](https://claude.com/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
+In the **Allowed Google hosts** field, enter the hosts Claude needs, for example `storage.googleapis.com`. Google API hosts serve every Google Cloud project, so read [Shared cloud hosts](https://claude.com/docs/claude-tag/admins/federated-access/limits.md#shared-cloud-hosts) before you choose them. A wildcard as the leftmost label, such as `*.storage.googleapis.com`, matches any subdomain but not the name itself. Every host must be `googleapis.com`, a subdomain of it, or a subdomain of `clients6.google.com`. You can change the list later from the connection's [**Edit connection** dialog](https://claude.com/docs/claude-tag/admins/add-connections.md#set-allowed-websites), which you open from the connection's row on the **Connectors** tab; see [Manage federated connections on the Connectors tab](https://claude.com/docs/claude-tag/admins/federated-access/overview#manage-federated-connections-on-the-connectors-tab).
 
 **6. Confirm the attribute condition**
 

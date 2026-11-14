@@ -239,7 +239,7 @@ Create Skill
 
 ```bash
 ant beta:skills create \
-  --file 'Example data'
+  --file path/to/file
 ```
 
 ### Response (200)

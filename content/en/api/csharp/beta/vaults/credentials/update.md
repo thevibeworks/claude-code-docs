@@ -23,7 +23,7 @@ Update a Credential
 
     Unique identifier of the credential to update.
 
-  - `Auth auth`
+  - `CredentialUpdateParamsAuth auth`
 
     New authentication settings for the credential. The `type` must match the credential's current type, which can't be changed.
 
@@ -65,7 +65,7 @@ Update a Credential
 
           maxLength: 8192
 
-        - `TokenEndpointAuth TokenEndpointAuth`
+        - `BetaManagedAgentsMcpOAuthRefreshUpdateParamsTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 
@@ -323,7 +323,7 @@ Update a Credential
 
     format: date-time
 
-  - `required Auth Auth`
+  - `required BetaManagedAgentsCredentialAuth Auth`
 
     Authentication configuration for this credential.
 
@@ -355,7 +355,7 @@ Update a Credential
 
           Token endpoint URL used to refresh the access token.
 
-        - `required TokenEndpointAuth TokenEndpointAuth`
+        - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 

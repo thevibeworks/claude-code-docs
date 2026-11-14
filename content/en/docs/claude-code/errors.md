@@ -89,6 +89,7 @@ Match the message you see to a section below.
 | `Session failed: working folder not found:` | [Troubleshoot Remote Control](https://code.claude.com/docs/en/remote-control.md#working-folder-not-found) |
 | `The program file this Remote Control started from is gone` | [Troubleshoot Remote Control](https://code.claude.com/docs/en/remote-control.md#program-file-is-gone) |
 | `Session failed: spawn error:` followed by an `ENOENT` message | [Troubleshoot Remote Control](https://code.claude.com/docs/en/remote-control.md#program-file-is-gone) |
+| `Remote Control disconnected:` followed by a reason that mentions a `share link` | [Remote Control](https://code.claude.com/docs/en/remote-control.md#what-connected-devices-see) |
 | `OAuth token revoked` / `OAuth token has expired` | [Authentication](#oauth-token-revoked-or-expired) |
 | `Failed to authenticate: OAuth token revoked` | [Authentication](#oauth-token-revoked-or-expired) |
 | `Your account does not have access to Claude. Please login again or contact your administrator.` | [Authentication](#oauth-token-revoked-or-expired) |
@@ -5556,7 +5557,7 @@ Before v2.1.248, opening such a row re-ran the session's original prompt instead
 
 ### Worktree has commits that are not pushed anywhere
 
-You tried to delete a [background session](https://code.claude.com/docs/en/agent-view.md#what-deleting-a-session-removes) whose worktree holds commits Claude Code can't confirm are saved elsewhere. Claude Code keeps the worktree and the session row rather than destroy the commits unseen. `claude rm` names the branch and the unpushed commits, and says how to proceed:
+You tried to delete a [background session](https://code.claude.com/docs/en/agent-view.md#what-deleting-a-session-removes) whose worktree holds commits Claude Code can't confirm are saved elsewhere. `claude rm` says how to proceed:
 
 ```text theme={null}
 kept 7c5dcf5d — its worktree is still at “/home/you/project/.claude/worktrees/fix-login”
@@ -5566,19 +5567,15 @@ kept 7c5dcf5d — its worktree is still at “/home/you/project/.claude/worktree
 
 When Claude Code can't summarize the commits, the detail line reads `The worktree has unpushed commits` instead. In [agent view](https://code.claude.com/docs/en/agent-view.md), the session's row shows `not removed` with the same reason.
 
-Commits on a remote don't block the delete. Neither do commits on the local copy of your `origin` remote's default branch, as long as that branch is checked out in your main checkout, the repository directory itself rather than a worktree.
-
 **What to do:**
 
-* To keep the commits, push the worktree's branch, or merge it into the default branch checked out in your main checkout, then delete the session again
-* To discard the commits, run the `claude rm <id> --discard-unpushed` command the message printed, or press `Ctrl+X` twice on the session's row in agent view again. This removes the session and the worktree along with its branch, the unpushed commits, and any uncommitted changes. If the delete is refused again, follow the new message.
-* When the message says the worktree is also recorded by another finished session, deleting again doesn't discard it: push the commits, then delete the session again
+* To keep the commits, push them. Once the push puts them on a remote-tracking branch, such as `origin/claude/fix-login`, try deleting the session again.
+* If the message offers to discard the commits, first make sure you don't need the worktree, the commits or any uncommitted changes. Then take the step the message gives: press `Ctrl+X` twice on the session's row in agent view, or run the `claude rm <id> --discard-unpushed <commit>@<worktree-id>` command that `claude rm` printed. If Claude Code refuses again, follow the new message.
+* When the message says the worktree is also recorded by another finished session, deleting again doesn't discard it: push the commits, then try deleting the session again
 
 Before v2.1.268, `claude rm` put the commit summary on the `kept` line itself. When `claude rm` couldn't summarize the commits, the `kept` line read `worktree has commits that are not pushed anywhere` in place of the summary.
 
 Before v2.1.260, the message didn't name the branch or commits, and there was no discard route. You can still delete the session, losing uncommitted changes but keeping the branch and commits. Run `git worktree remove --force --force <path>` with the path the refusal printed, then `claude rm <id>`. Git needs `--force` twice for a locked worktree.
-
-Before v2.1.248, the default branch checked out in your main checkout didn't count: a branch you had already merged there still triggered this refusal until its commits reached a remote.
 
 ### Terminal host process died
 

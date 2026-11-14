@@ -5,6 +5,36 @@ url: https://platform.claude.com/docs/en/api/typescript/beta
 
 # Beta
 
+## Errors
+
+### BetaOrganizationNotEnrolledInBetaError
+
+HTTP status 400, error code `organization_not_enrolled_in_beta`
+
+- `class BetaOrganizationNotEnrolledInBetaError extends BadRequestError`
+
+  The beta that the endpoint requires is not enabled for the organization. The message names the beta value.
+
+  - `errorCode: "organization_not_enrolled_in_beta"`
+
+  - `details: BetaOrganizationNotEnrolledInBetaErrorDetails`
+
+    - `error_code: "organization_not_enrolled_in_beta"`
+
+### BetaUnsupportedCharsetError
+
+HTTP status 400, error code `unsupported_charset`
+
+- `class BetaUnsupportedCharsetError extends BadRequestError`
+
+  The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
+
+  - `errorCode: "unsupported_charset"`
+
+  - `details: BetaUnsupportedCharsetErrorDetails`
+
+    - `error_code: "unsupported_charset"`
+
 ## Beta › Models
 
 ### List Models
@@ -198,6 +228,18 @@ interface BetaModelInfo {
   retires_at: string | null; // format: date-time
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Types
 
@@ -504,6 +546,18 @@ interface ModelRetrieveParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ## Beta › Messages
 
 ### Create a Message
@@ -553,17 +607,7 @@ console.log(betaMessage.id);
   },
   "content": [
     {
-      "citations": [
-        {
-          "cited_text": "The grass is green. The sky is blue.",
-          "document_index": 0,
-          "document_title": "My Document",
-          "end_char_index": 0,
-          "file_id": "file_011CNha8iCJcU1wXNR6q4V8w",
-          "start_char_index": 0,
-          "type": "char_location"
-        }
-      ],
+      "citations": null,
       "text": "Hi! My name is Claude.",
       "type": "text"
     }
@@ -577,22 +621,10 @@ console.log(betaMessage.id);
       }
     ]
   },
-  "diagnostics": {
-    "cache_miss_reason": {
-      "cache_missed_input_tokens": 0,
-      "type": "model_changed"
-    }
-  },
+  "diagnostics": null,
   "model": "claude-opus-5-5",
   "role": "assistant",
-  "stop_details": {
-    "category": "cyber",
-    "explanation": "This request was declined because it conflicts with Anthropic's Usage Policy.",
-    "fallback_credit_token": "QW50aHJvcGljL0NsYXVkZQ==",
-    "fallback_has_prefill_claim": true,
-    "recommended_model": "claude-opus-4-8",
-    "type": "refusal"
-  },
+  "stop_details": null,
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "type": "message",
@@ -900,6 +932,128 @@ interface BetaMessage {
 
 type BetaRawMessageStreamEvent = BetaRawMessageStartEvent | BetaRawMessageDeltaEvent | BetaRawMessageStopEvent | BetaRawContentBlockStartEvent | BetaRawContentBlockDeltaEvent | BetaRawContentBlockStopEvent;
 ````
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+On a streaming call, the errors listed below apply when the API rejects the request before the stream starts. An error partway through the stream can arrive as a more general error type. To identify it, use its error code, if it has one, not its type.
+
+- `AvailableToolsLimitExceededError` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ClaudeCodeVersionTooOldError` (HTTP status 400, error code `claude_code_version_too_old`)
+
+  The request comes from a Claude Code version older than the minimum that the requested model or the organization requires. Update Claude Code, then retry.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `CompactionBlockAmbiguousError` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `CompactionBlockMisplacedError` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `CompactionContentMismatchError` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `CompactionIncompleteTurnError` (HTTP status 400, error code `compaction_incomplete_turn`)
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+- `CompactionNothingToSummarizeError` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `CompactionSignatureInvalidError` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `CompactionTooManyToolReferencesError` (HTTP status 400, error code `compaction_too_many_tool_references`)
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+- `CompactionToolChangesMismatchError` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `RequestBodyEncodingInvalidError` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `RequestBodyEncodingUnsupportedError` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `ThreadAlreadyContinuedError` (HTTP status 400, error code `thread_already_continued`)
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+- `ThreadContinueInFlightError` (HTTP status 400, error code `thread_continue_in_flight`)
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+- `ThreadFingerprintMismatchError` (HTTP status 400, error code `thread_fingerprint_mismatch`)
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+- `ThreadUnsupportedRequestError` (HTTP status 400, error code `thread_unsupported_request`)
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+- `ToolNameConflictError` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `ToolReferenceUnresolvedError` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `ThreadNotFoundError` (HTTP status 404, error code `thread_not_found`)
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+- `SkillReadBlockedUndecryptableError` (HTTP status 409, error code `skill_read_blocked_undecryptable`)
+
+  A custom skill the request names is stored under an encryption key state the workspace cannot currently decrypt.
+
+- `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `RampLimitExceededError` (HTTP status 429, error code `ramp_limit_exceeded`)
+
+  The request would exceed a ramp limit, which caps how fast usage can grow. Retry after the time in the `retry-after` header.
+
+- `CMEKKeyUnreachableError` (HTTP status 503, error code `cmek_key_unreachable`)
+
+  The workspace's customer-managed encryption key could not be reached. Retry the request; if this continues, check that the key is available in your key management service, or contact Anthropic support.
+
+- `CompactionUnavailableError` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
 
 #### Types
 
@@ -1256,6 +1410,583 @@ interface BetaSystemMessageParam {
   output_config?: BetaSystemMessageOutputConfig | null; // beta header: mid-conversation-output-config-2026-07-01
 }
 
+interface BetaSystemMessageOutputConfig {
+  /** How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, `xhigh`, or `max`. */
+  effort?: "low" | "medium" | "high" | "xhigh" | "max" | null;
+}
+
+type BetaMessageContentParam = string | Array<BetaContentBlockParam>;
+
+type BetaContentBlockParam =
+  | BetaTextBlockParam
+  | BetaImageBlockParam
+  | BetaRequestDocumentBlock
+  | BetaSearchResultBlockParam
+  | BetaThinkingBlockParam
+  | BetaRedactedThinkingBlockParam
+  | BetaToolUseBlockParam
+  | BetaToolResultBlockParam
+  | BetaServerToolUseBlockParam
+  | BetaWebSearchToolResultBlockParam
+  | BetaWebFetchToolResultBlockParam
+  | BetaAdvisorToolResultBlockParam // beta header: advisor-tool-2026-03-01
+  | BetaCodeExecutionToolResultBlockParam
+  | BetaBashCodeExecutionToolResultBlockParam
+  | BetaTextEditorCodeExecutionToolResultBlockParam
+  | BetaToolSearchToolResultBlockParam
+  | BetaMCPToolUseBlockParam // beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+  | BetaRequestMCPToolResultBlockParam // beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+  | BetaContainerUploadBlockParam
+  | BetaCompactionBlockParam // beta header: compact-2026-01-12 or compact-2026-09-04
+  | BetaRequestToolAdditionBlock // beta header: mid-conversation-tool-changes-2026-07-01 or inline-tools-2026-09-15
+  | BetaRequestToolRemovalBlock // beta header: mid-conversation-tool-changes-2026-07-01 or inline-tools-2026-09-15
+  | BetaMCPToolListingBlockParam // beta header: mcp-client-2026-09-15
+  | BetaFallbackBlockParam; // beta header: server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
+
+interface BetaImageBlockParam {
+  type: "image";
+  source: BetaBase64ImageSource | BetaURLImageSource | BetaFileImageSource;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  /** Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field. */
+  transformations?: BetaImageTransformationsParam | null;
+}
+
+interface BetaRequestDocumentBlock {
+  type: "document";
+  source: BetaBase64PDFSource | BetaPlainTextSource | BetaContentBlockSource | BetaURLPDFSource | BetaFileDocumentSource;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  citations?: BetaCitationsConfigParam | null;
+  context?: string | null; // minLength: 1
+  title?: string | null; // minLength: 1, maxLength: 500
+}
+
+interface BetaSearchResultBlockParam {
+  type: "search_result";
+  content: Array<BetaTextBlockParam>;
+  source: string;
+  title: string;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  citations?: BetaCitationsConfigParam;
+}
+
+interface BetaThinkingBlockParam {
+  type: "thinking";
+  /** The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude. Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`. */
+  signature: string;
+  /** The `thinking` text of this block as returned by the API. */
+  thinking: string;
+}
+
+interface BetaRedactedThinkingBlockParam {
+  type: "redacted_thinking";
+  /** The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged. */
+  data: string;
+}
+
+interface BetaToolUseBlockParam {
+  type: "tool_use";
+  id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  input: Record<string, unknown>;
+  name: string; // minLength: 1, maxLength: 200
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+  /** For a toolset member tool_use, the toolset family this member belongs to. */
+  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+}
+
+interface BetaToolResultBlockParam {
+  type: "tool_result";
+  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  content?: string | Array<BetaTextBlockParam | BetaImageBlockParam | BetaSearchResultBlockParam | BetaRequestDocumentBlock | BetaToolReferenceBlockParam | BetaBrowserStateBlockParam>;
+  is_error?: boolean;
+  /** For a toolset member tool_result, the toolset family of the paired tool_use. */
+  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+}
+
+interface BetaServerToolUseBlockParam {
+  type: "server_tool_use";
+  id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  input: Record<string, unknown>;
+  /** - `"advisor"`: beta header: advisor-tool-2026-03-01 */
+  name: "advisor" | "web_search" | "web_fetch" | "code_execution" | "bash_code_execution" | "text_editor_code_execution" | "tool_search_tool_regex" | "tool_search_tool_bm25";
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaWebSearchToolResultBlockParam {
+  type: "web_search_tool_result";
+  content: BetaWebSearchToolResultBlockParamContent;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaWebFetchToolResultBlockParam {
+  type: "web_fetch_tool_result";
+  content: BetaWebFetchToolResultErrorBlockParam | BetaWebFetchBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaAdvisorToolResultBlockParam {
+  type: "advisor_tool_result";
+  content: BetaAdvisorToolResultErrorParam | BetaAdvisorResultBlockParam | BetaAdvisorRedactedResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaCodeExecutionToolResultBlockParam {
+  type: "code_execution_tool_result";
+  content: BetaCodeExecutionToolResultBlockParamContent;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaBashCodeExecutionToolResultBlockParam {
+  type: "bash_code_execution_tool_result";
+  content: BetaBashCodeExecutionToolResultErrorParam | BetaBashCodeExecutionResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaTextEditorCodeExecutionToolResultBlockParam {
+  type: "text_editor_code_execution_tool_result";
+  content: BetaTextEditorCodeExecutionToolResultErrorParam | BetaTextEditorCodeExecutionViewResultBlockParam | BetaTextEditorCodeExecutionCreateResultBlockParam | BetaTextEditorCodeExecutionStrReplaceResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaToolSearchToolResultBlockParam {
+  type: "tool_search_tool_result";
+  content: BetaToolSearchToolResultErrorParam | BetaToolSearchToolSearchResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaMCPToolUseBlockParam {
+  type: "mcp_tool_use";
+  id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  input: Record<string, unknown>;
+  name: string;
+  /** The name of the MCP server */
+  server_name: string;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaRequestMCPToolResultBlockParam {
+  type: "mcp_tool_result";
+  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  content?: string | Array<BetaTextBlockParam>;
+  is_error?: boolean;
+}
+
+/** A content block that represents a file to be uploaded to the container Files uploaded via this block will be available in the container's input directory. */
+interface BetaContainerUploadBlockParam {
+  type: "container_upload";
+  file_id: string;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+/** A compaction block containing summary of previous context. Users should round-trip these blocks from responses to subsequent requests to maintain context across compaction boundaries. When content is None, the block represents a failed compaction. The server treats these as no-ops. Empty string content is not allowed. */
+interface BetaCompactionBlockParam {
+  type: "compaction";
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  /** Summary of previously compacted content, or null if compaction failed */
+  content?: string | null;
+  /** Opaque metadata from prior compaction, to be round-tripped verbatim */
+  encrypted_content?: string | null; // beta header: task-budgets-2026-03-13
+  /** The block's signature as returned, to be sent back verbatim */
+  signature?: string | null; // beta header: compact-2026-09-04
+  /** The tool changes of the compacted range, as the server returned them on this block: the `tool_addition` and `tool_removal` entries that take the request's `tools` to the tool set in effect at the end of the range. Send them back unchanged with the block. */
+  tool_changes?: Array<BetaRequestToolAdditionBlock | BetaRequestToolRemovalBlock> | null; // beta header: inline-tools-2026-09-15
+}
+
+/** Mid-conversation directive to make a tool available. `tool` is a reference to a tool (or MCP toolset) declared in the request's `tools`. Under the `inline-tools-2026-09-15` beta it may instead be a reference to a tool defined earlier in `messages`, or a `tool_definition` object that carries an inline tool definition in `definition` (the same object a `tools` entry holds). An `mcp_toolset` definition also requires the `mcp-client-2026-09-15` beta. The tool is offered to the model from this point in the conversation onward. */
+interface BetaRequestToolAdditionBlock {
+  type: "tool_addition";
+  /**
+   * - `BetaToolChangeMCPToolReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+   * - `BetaToolChangeMCPToolsetReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+   * - `BetaToolChangeToolDefinitionParam`: beta header: inline-tools-2026-09-15
+   */
+  tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference | BetaToolChangeToolDefinitionParam;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+/** Mid-conversation directive to withdraw a tool. `tool` references a tool (or MCP toolset) by name: one declared in the request's `tools` or defined earlier in `messages`. It is no longer offered to the model from this point in the conversation onward. */
+interface BetaRequestToolRemovalBlock {
+  type: "tool_removal";
+  /**
+   * - `BetaToolChangeMCPToolReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+   * - `BetaToolChangeMCPToolsetReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+   */
+  tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+/** The tool listing an MCP server returned while an earlier response was produced, as that response carried it. Send the assistant message back unchanged, this block included, and the server uses this listing for the matching `mcp_toolset` instead of asking the MCP server again. */
+interface BetaMCPToolListingBlockParam {
+  type: "mcp_tool_listing";
+  /** The name of the MCP server this listing came from, as `mcp_servers` declares it. */
+  mcp_server_name: string; // minLength: 1, maxLength: 255
+  /** The server's tools, exactly as the response listed them. */
+  tools: Array<BetaMCPToolParam>;
+}
+
+/** A `fallback` block echoed back from a prior response. Accepted in `messages[].content` and not rendered into the prompt; not validated against the request's `fallbacks` chain or top-level `model`. When you send the assistant turn back, keep this block in its original position. The block marks the boundary between content produced before and after a fallback hop, and the server relies on that boundary to validate the turn: when thinking runs flank the boundary, omitting the block merges them into one span the server cannot validate (the request is rejected), and moving it into the middle of a single run is likewise rejected; between non-thinking blocks the block's placement has no effect on thinking validation. Some blocks from before the turn's final `fallback` block must be left out when you send the turn back, and no `tool_result` is sent for a `tool_use` block you left out. See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#continuing-the-conversation) to learn which blocks to keep. */
+interface BetaFallbackBlockParam {
+  type: "fallback";
+  /** Identifies one hop of a fallback transition. */
+  from: BetaFallbackInfoParam;
+  /** Identifies one hop of a fallback transition. */
+  to: BetaFallbackInfoParam;
+  /** The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed. */
+  trigger?: unknown;
+}
+
+interface BetaBase64ImageSource {
+  type: "base64";
+  data: string; // format: byte
+  media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp";
+}
+
+interface BetaURLImageSource {
+  type: "url";
+  url: string;
+}
+
+interface BetaFileImageSource {
+  type: "file";
+  file_id: string;
+}
+
+interface BetaImageTransformationsParam {
+  /** What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down. */
+  oversized_image?: "downsize" | "error";
+}
+
+interface BetaBase64PDFSource {
+  type: "base64";
+  data: string; // format: byte
+  media_type: "application/pdf";
+}
+
+interface BetaPlainTextSource {
+  type: "text";
+  data: string;
+  media_type: "text/plain";
+}
+
+interface BetaContentBlockSource {
+  type: "content";
+  content: string | Array<BetaContentBlockSourceContent>;
+}
+
+interface BetaURLPDFSource {
+  type: "url";
+  url: string;
+}
+
+interface BetaFileDocumentSource {
+  type: "file";
+  file_id: string;
+}
+
+interface BetaCitationsConfigParam {
+  enabled?: boolean;
+}
+
+type BetaContentBlockSourceContent = BetaTextBlockParam | BetaImageBlockParam;
+
+/** Tool invocation directly from the model. */
+interface BetaDirectCaller {
+  type: "direct";
+}
+
+/** Tool invocation generated by a server-side tool. */
+interface BetaServerToolCaller {
+  type: "code_execution_20250825";
+  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+interface BetaServerToolCaller20260120 {
+  type: "code_execution_20260120";
+  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
+
+interface BetaWebSearchResultBlockParam {
+  type: "web_search_result";
+  encrypted_content: string;
+  title: string;
+  url: string;
+  page_age?: string | null;
+}
+
+interface BetaWebSearchToolRequestError {
+  type: "web_search_tool_result_error";
+  error_code: BetaWebSearchToolResultErrorCode;
+}
+
+type BetaWebSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "max_uses_exceeded" | "too_many_requests" | "query_too_long" | "request_too_large";
+
+interface BetaWebFetchToolResultErrorBlockParam {
+  type: "web_fetch_tool_result_error";
+  error_code: BetaWebFetchToolResultErrorCode;
+}
+
+interface BetaWebFetchBlockParam {
+  type: "web_fetch_result";
+  content: BetaRequestDocumentBlock;
+  /** Fetched content URL */
+  url: string;
+  /** ISO 8601 timestamp when the content was retrieved */
+  retrieved_at?: string | null;
+}
+
+type BetaWebFetchToolResultErrorCode = "invalid_tool_input" | "url_too_long" | "url_not_allowed" | "url_not_in_prior_context" | "url_not_accessible" | "unsupported_content_type" | "too_many_requests" | "max_uses_exceeded" | "unavailable" | "content_too_large";
+
+interface BetaAdvisorToolResultErrorParam {
+  type: "advisor_tool_result_error";
+  error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
+}
+
+interface BetaAdvisorResultBlockParam {
+  type: "advisor_result";
+  text: string;
+  stop_reason?: string | null;
+}
+
+interface BetaAdvisorRedactedResultBlockParam {
+  type: "advisor_redacted_result";
+  /** Opaque blob produced by a prior response; must be round-tripped verbatim. */
+  encrypted_content: string;
+  stop_reason?: string | null;
+}
+
+type BetaCodeExecutionToolResultBlockParamContent = BetaCodeExecutionToolResultErrorParam | BetaCodeExecutionResultBlockParam | BetaEncryptedCodeExecutionResultBlockParam;
+
+interface BetaCodeExecutionToolResultErrorParam {
+  type: "code_execution_tool_result_error";
+  error_code: BetaCodeExecutionToolResultErrorCode;
+}
+
+interface BetaCodeExecutionResultBlockParam {
+  type: "code_execution_result";
+  content: Array<BetaCodeExecutionOutputBlockParam>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request. */
+interface BetaEncryptedCodeExecutionResultBlockParam {
+  type: "encrypted_code_execution_result";
+  content: Array<BetaCodeExecutionOutputBlockParam>;
+  encrypted_stdout: string;
+  return_code: number;
+  stderr: string;
+}
+
+type BetaCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+
+interface BetaCodeExecutionOutputBlockParam {
+  type: "code_execution_output";
+  file_id: string;
+}
+
+interface BetaBashCodeExecutionToolResultErrorParam {
+  type: "bash_code_execution_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
+}
+
+interface BetaBashCodeExecutionResultBlockParam {
+  type: "bash_code_execution_result";
+  content: Array<BetaBashCodeExecutionOutputBlockParam>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+interface BetaBashCodeExecutionOutputBlockParam {
+  type: "bash_code_execution_output";
+  file_id: string;
+}
+
+interface BetaTextEditorCodeExecutionToolResultErrorParam {
+  type: "text_editor_code_execution_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
+  error_message?: string | null;
+}
+
+interface BetaTextEditorCodeExecutionViewResultBlockParam {
+  type: "text_editor_code_execution_view_result";
+  content: string;
+  file_type: "text" | "image" | "pdf";
+  num_lines?: number | null;
+  start_line?: number | null;
+  total_lines?: number | null;
+}
+
+interface BetaTextEditorCodeExecutionCreateResultBlockParam {
+  type: "text_editor_code_execution_create_result";
+  is_file_update: boolean;
+}
+
+interface BetaTextEditorCodeExecutionStrReplaceResultBlockParam {
+  type: "text_editor_code_execution_str_replace_result";
+  lines?: Array<string> | null;
+  new_lines?: number | null;
+  new_start?: number | null;
+  old_lines?: number | null;
+  old_start?: number | null;
+}
+
+interface BetaToolSearchToolResultErrorParam {
+  type: "tool_search_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+  error_message?: string | null;
+}
+
+interface BetaToolSearchToolSearchResultBlockParam {
+  type: "tool_search_tool_search_result";
+  tool_references: Array<BetaToolReferenceBlockParam>;
+}
+
+/** Reference to a single tool, by the name the model uses to call it: a tool declared in `tools` or defined by an earlier `tool_addition` block. Does not accept the composed `{server}_{name}` form the server assigns to MCP-resolved tools; use `mcp_tool_reference` or `mcp_toolset_reference` for those. */
+interface BetaToolChangeToolReference {
+  type: "tool_reference";
+  name: string; // pattern: ^[a-zA-Z0-9_-]{1,128}$
+}
+
+/** Reference to a single MCP tool by its server and remote name; the same `server_name`/`name` pair `mcp_tool_use` carries. */
+interface BetaToolChangeMCPToolReference {
+  type: "mcp_tool_reference";
+  name: string;
+  server_name: string;
+}
+
+/** Reference to every tool in the named MCP server's toolset. */
+interface BetaToolChangeMCPToolsetReference {
+  type: "mcp_toolset_reference";
+  server_name: string;
+}
+
+/** A tool defined by value: `definition` is a `tools` entry (any kind `tools` accepts, an MCP toolset included). An `mcp_toolset` given here also requires the `mcp-client-2026-09-15` beta. */
+interface BetaToolChangeToolDefinitionParam {
+  type: "tool_definition";
+  definition: BetaToolUnion;
+}
+
+interface BetaMCPToolParam {
+  /** The tool's input schema as the MCP server lists it, verbatim. */
+  input_schema: Record<string, unknown>;
+  /** The tool's name as the MCP server lists it (not prefixed with the server name). */
+  name: string; // minLength: 1
+  /** The tool's description as the MCP server lists it. */
+  description?: string | null;
+}
+
+interface BetaFallbackInfoParam {
+  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
+  model: Model;
+}
+
+/** Tool reference block that can be included in tool_result content. */
+interface BetaToolReferenceBlockParam {
+  type: "tool_reference";
+  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+/** The caller's browser state after a browser toolset member call — the full inventory of open tabs, which tab is active, and any side effects (tabs opened, download state changes) the call produced. At most one per `tool_result`, only on a non-error result answering a browser toolset member `tool_use`. The server renders the model-visible text from it; the model never sees the raw fields. */
+interface BetaBrowserStateBlockParam {
+  type: "browser_state";
+  /** All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`. */
+  tabs: Array<BetaBrowserStateTabEntry>; // maxItems: 100
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  /** Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list. */
+  state_changes?: Array<BetaBrowserStateChange> | null; // minItems: 1, maxItems: 200
+}
+
+interface BetaBrowserStateTabEntry {
+  /** The caller-assigned identifier for this tab, unique within the inventory. */
+  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The title of the page the tab is showing. May be empty. */
+  title: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The URL of the page the tab is showing. May be empty. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`. */
+  active?: boolean;
+}
+
+type BetaBrowserStateChange = BetaBrowserStateChangeTabOpened | BetaBrowserStateChangeDownloadStarted | BetaBrowserStateChangeDownloadCompleted | BetaBrowserStateChangeDownloadFailed;
+
+/** A tab this call's execution opened that remains open at its end — the creation delta of the `tabs` inventory, not an event log. Carries only the `tab_id`; the tab's `title` and `url` live on its `tabs` entry, which must include the same `tab_id`. A tab opened during a failed call gets no deferred `tab_opened`; it simply appears in the next result's `tabs` inventory. */
+interface BetaBrowserStateChangeTabOpened {
+  type: "tab_opened";
+  /** The `tab_id` of the opened tab, present in `tabs`. */
+  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
+/** A file download that started during this call. */
+interface BetaBrowserStateChangeDownloadStarted {
+  type: "download_started";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
+/** A file download that finished during this call, reported with the same `download_id` as its `download_started` — or without a prior `download_started`, when the download finished during the call that started it (at most one state change per `download_id` per result). */
+interface BetaBrowserStateChangeDownloadCompleted {
+  type: "download_completed";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path. */
+  path?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The completed download's size. */
+  size_bytes?: number | null; // minimum: 0
+}
+
+/** A file download that failed — or was cancelled — during this call. */
+interface BetaBrowserStateChangeDownloadFailed {
+  type: "download_failed";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The failure or cancellation detail, when known. */
+  error?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
 interface BetaSkillParams {
   /** Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined) */
   type: "anthropic" | "custom";
@@ -1296,6 +2027,35 @@ interface BetaCompact20260112Edit {
   trigger?: BetaInputTokensTrigger | null;
 }
 
+interface BetaThinkingTurns {
+  type: "thinking_turns";
+  value: number; // minimum: 1
+}
+
+interface BetaAllThinkingTurns {
+  type: "all";
+}
+
+interface BetaInputTokensClearAtLeast {
+  type: "input_tokens";
+  value: number; // minimum: 0
+}
+
+interface BetaToolUsesKeep {
+  type: "tool_uses";
+  value: number; // minimum: 0
+}
+
+interface BetaInputTokensTrigger {
+  type: "input_tokens";
+  value: number; // minimum: 1
+}
+
+interface BetaToolUsesTrigger {
+  type: "tool_uses";
+  value: number; // minimum: 1
+}
+
 /** One entry in the `fallbacks` chain on a `/v1/messages` request. `model` is required. The override fields (`max_tokens`, `thinking`, `output_config`, and `speed`) set the corresponding parameter for this attempt only and are validated as if the request were made to `model`. Any other key is rejected at parse time. */
 interface BetaFallbackParam {
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
@@ -1319,22 +2079,6 @@ interface BetaFallbackParam {
   /** The thinking configuration for the fallback attempt that uses this `fallbacks` entry's `model`. If you leave it out, the attempt uses the request's `thinking` when `model` supports that thinking `type`. If you leave it out and the request's thinking `type` is `between_tools` but `model` doesn't support `between_tools`, the attempt uses `disabled` if `model` supports it. Otherwise, if `model` doesn't support the request's thinking `type`, if the request doesn't set `thinking`, or if you set this field to `null`, the attempt uses the thinking `type` that `model` uses when a request leaves out `thinking`. The request's `thinking.display` still applies where `model` allows it. These rules apply with the `server-side-fallback-2026-07-01` beta header. */
   thinking?: BetaThinkingConfigEnabled | BetaThinkingConfigDisabled | BetaThinkingConfigBetweenTools | BetaThinkingConfigAdaptive | null;
 }
-
-interface BetaRequestMCPServerToolConfiguration {
-  allowed_tools?: Array<string> | null;
-  enabled?: boolean | null;
-}
-
-interface BetaTokenTaskBudget {
-  /** The budget type. Currently only 'tokens' is supported. */
-  type: "tokens";
-  /** Total token budget across all contexts in the session. */
-  total: number; // minimum: 1024
-  /** Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided. */
-  remaining?: number | null; // minimum: 0
-}
-
-type BetaTextCitationParam = BetaCitationCharLocationParam | BetaCitationPageLocationParam | BetaCitationContentBlockLocationParam | BetaCitationWebSearchResultLocationParam | BetaCitationSearchResultLocationParam;
 
 interface BetaThinkingConfigEnabled {
   type: "enabled";
@@ -1366,6 +2110,81 @@ interface BetaThinkingConfigAdaptive {
    * - `"updates"`: beta header: thinking-display-updates-2026-08-18
    */
   display?: "summarized" | "omitted" | "updates" | null;
+}
+
+interface BetaThinkingBlockBinding {
+  /** "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`. */
+  prefix_mismatch_behavior?: BetaThinkingPrefixMismatchBehavior | null;
+}
+
+type BetaThinkingPrefixMismatchBehavior = "error" | "drop_block";
+
+interface BetaRequestMCPServerToolConfiguration {
+  allowed_tools?: Array<string> | null;
+  enabled?: boolean | null;
+}
+
+interface BetaTokenTaskBudget {
+  /** The budget type. Currently only 'tokens' is supported. */
+  type: "tokens";
+  /** Total token budget across all contexts in the session. */
+  total: number; // minimum: 1024
+  /** Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided. */
+  remaining?: number | null; // minimum: 0
+}
+
+type BetaTextCitationParam = BetaCitationCharLocationParam | BetaCitationPageLocationParam | BetaCitationContentBlockLocationParam | BetaCitationWebSearchResultLocationParam | BetaCitationSearchResultLocationParam;
+
+interface BetaCitationCharLocationParam {
+  type: "char_location";
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  end_char_index: number;
+  start_char_index: number; // minimum: 0
+}
+
+interface BetaCitationPageLocationParam {
+  type: "page_location";
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  end_page_number: number;
+  start_page_number: number; // minimum: 1
+}
+
+interface BetaCitationContentBlockLocationParam {
+  type: "content_block_location";
+  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
+  end_block_index: number;
+  /** 0-based index of the first cited block in the source's `content` array. */
+  start_block_index: number; // minimum: 0
+}
+
+interface BetaCitationWebSearchResultLocationParam {
+  type: "web_search_result_location";
+  cited_text: string;
+  encrypted_index: string;
+  title: string | null; // minLength: 1, maxLength: 512
+  url: string; // minLength: 1
+}
+
+interface BetaCitationSearchResultLocationParam {
+  type: "search_result_location";
+  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
+  cited_text: string;
+  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
+  end_block_index: number;
+  /** 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count. */
+  search_result_index: number; // minimum: 0
+  source: string;
+  /** 0-based index of the first cited block in the source's `content` array. */
+  start_block_index: number; // minimum: 0
+  title: string | null;
 }
 
 /** Start holding conversation state under this response's `id`. */
@@ -1406,6 +2225,754 @@ interface BetaToolChoiceTool {
 /** The model will not be allowed to use tools. */
 interface BetaToolChoiceNone {
   type: "none";
+}
+
+interface BetaContainerSkill {
+  /** Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined) */
+  type: "anthropic" | "custom";
+  /** Skill ID */
+  skill_id: string; // minLength: 1, maxLength: 64
+  /** The resolved version: a skill version ID for custom skills. */
+  version: string; // minLength: 1, maxLength: 64
+}
+
+interface BetaTextBlock {
+  type: "text";
+  /** Citations supporting the text block. The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`. */
+  citations: Array<BetaTextCitation> | null;
+  text: string;
+}
+
+interface BetaThinkingBlock {
+  type: "thinking";
+  /** A value used to verify that this thinking block was generated by Claude when it is passed back to the API. This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact. See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=typescript) for details. */
+  signature: string;
+  /** The text of Claude's thinking process for this block. */
+  thinking: string;
+}
+
+interface BetaRedactedThinkingBlock {
+  type: "redacted_thinking";
+  /** The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content. Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation. See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=typescript#redacted-thinking-blocks) for details. */
+  data: string;
+}
+
+interface BetaToolUseBlock {
+  type: "tool_use";
+  id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  input: Record<string, unknown>;
+  name: string; // minLength: 1
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+  /** For a toolset member tool_use, the toolset family. */
+  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+}
+
+interface BetaServerToolUseBlock {
+  type: "server_tool_use";
+  id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  input: Record<string, unknown>;
+  /** - `"advisor"`: beta header: advisor-tool-2026-03-01 */
+  name: "advisor" | "web_search" | "web_fetch" | "code_execution" | "bash_code_execution" | "text_editor_code_execution" | "tool_search_tool_regex" | "tool_search_tool_bm25";
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaWebSearchToolResultBlock {
+  type: "web_search_tool_result";
+  content: BetaWebSearchToolResultBlockContent;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaWebFetchToolResultBlock {
+  type: "web_fetch_tool_result";
+  content: BetaWebFetchToolResultErrorBlock | BetaWebFetchBlock;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaAdvisorToolResultBlock {
+  type: "advisor_tool_result";
+  content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+interface BetaCodeExecutionToolResultBlock {
+  type: "code_execution_tool_result";
+  content: BetaCodeExecutionToolResultBlockContent;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+interface BetaBashCodeExecutionToolResultBlock {
+  type: "bash_code_execution_tool_result";
+  content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+interface BetaTextEditorCodeExecutionToolResultBlock {
+  type: "text_editor_code_execution_tool_result";
+  content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+interface BetaToolSearchToolResultBlock {
+  type: "tool_search_tool_result";
+  content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+interface BetaMCPToolUseBlock {
+  type: "mcp_tool_use";
+  id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  input: Record<string, unknown>;
+  /** The name of the MCP tool */
+  name: string;
+  /** The name of the MCP server */
+  server_name: string;
+}
+
+interface BetaMCPToolResultBlock {
+  type: "mcp_tool_result";
+  content: string | Array<BetaTextBlock>;
+  is_error: boolean; // default: false
+  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
+}
+
+/** Response model for a file uploaded to the container. */
+interface BetaContainerUploadBlock {
+  type: "container_upload";
+  file_id: string;
+}
+
+/** A compaction block returned when autocompact is triggered. When content is None, it indicates the compaction failed to produce a valid summary (e.g., malformed output from the model). Clients may round-trip compaction blocks with null content; the server treats them as no-ops. */
+interface BetaCompactionBlock {
+  type: "compaction";
+  /** Summary of compacted content, or null if compaction failed */
+  content: string | null;
+  /** Opaque metadata from prior compaction, to be round-tripped verbatim */
+  encrypted_content: string | null; // beta header: task-budgets-2026-03-13
+  /** Signature over the summary, to be sent back with the block verbatim */
+  signature?: string | null; // beta header: compact-2026-09-04
+  /** The tool changes of the compacted range: the `tool_addition` and `tool_removal` blocks that take the request's `tools` to the tool set in effect at the end of the range, or `[]` when the range changed no tool. Absent when the server did not compute them. Send the block back unchanged. */
+  tool_changes?: Array<BetaResponseToolAdditionBlock | BetaResponseToolRemovalBlock> | null; // beta header: inline-tools-2026-09-15
+}
+
+/** Marks the point in `content` where one model's output gives way to the next. One block appears per hop where a preceding model actually ran this turn and declined. A turn where no preceding model ran and declined has no such boundary and carries no block — the signal for whether a fallback model served the response is the presence of a `fallback_message` entry in `usage.iterations`, not this block. The block is treated like a server-tool content block for streaming: it arrives via the standard `content_block_start` / `content_block_stop` pair and carries no deltas. */
+interface BetaFallbackBlock {
+  type: "fallback";
+  /** The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id. */
+  from: BetaFallbackInfo;
+  /** The fallback model producing the content that follows this block. Its `model` is always the canonical id. */
+  to: BetaFallbackInfo;
+  /** What caused the `from` model to hand over at this hop. */
+  trigger: BetaFallbackRefusalTrigger;
+}
+
+/** The tool listing the server fetched from an MCP server while producing this response. Send the assistant message back unchanged, this block included, so later requests use this listing instead of asking the MCP server again. */
+interface BetaMCPToolListingBlock {
+  type: "mcp_tool_listing";
+  mcp_server_name: string;
+  tools: Array<BetaMCPTool>;
+}
+
+type BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultError | Array<BetaWebSearchResultBlock>;
+
+interface BetaWebSearchToolResultError {
+  type: "web_search_tool_result_error";
+  error_code: BetaWebSearchToolResultErrorCode;
+}
+
+interface BetaWebSearchResultBlock {
+  type: "web_search_result";
+  encrypted_content: string;
+  page_age: string | null;
+  title: string;
+  url: string;
+}
+
+interface BetaWebFetchToolResultErrorBlock {
+  type: "web_fetch_tool_result_error";
+  error_code: BetaWebFetchToolResultErrorCode;
+}
+
+interface BetaWebFetchBlock {
+  type: "web_fetch_result";
+  content: BetaDocumentBlock;
+  /** ISO 8601 timestamp when the content was retrieved */
+  retrieved_at: string | null;
+  /** Fetched content URL */
+  url: string;
+}
+
+interface BetaDocumentBlock {
+  type: "document";
+  /** Citation configuration for the document */
+  citations: BetaCitationConfig | null;
+  source: BetaBase64PDFSource | BetaPlainTextSource;
+  /** The title of the document */
+  title: string | null;
+}
+
+interface BetaCitationConfig {
+  enabled: boolean; // default: false
+}
+
+interface BetaAdvisorToolResultError {
+  type: "advisor_tool_result_error";
+  error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
+}
+
+interface BetaAdvisorResultBlock {
+  type: "advisor_result";
+  /** The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap. */
+  stop_reason: string | null;
+  text: string;
+}
+
+interface BetaAdvisorRedactedResultBlock {
+  type: "advisor_redacted_result";
+  /** Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify. */
+  encrypted_content: string;
+  /** The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). */
+  stop_reason: string | null;
+}
+
+type BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultError | BetaCodeExecutionResultBlock | BetaEncryptedCodeExecutionResultBlock;
+
+interface BetaCodeExecutionToolResultError {
+  type: "code_execution_tool_result_error";
+  error_code: BetaCodeExecutionToolResultErrorCode;
+}
+
+interface BetaCodeExecutionResultBlock {
+  type: "code_execution_result";
+  content: Array<BetaCodeExecutionOutputBlock>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form. The API returns this block in place of `code_execution_result` when the code called the web search tool. See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=typescript) to learn more about programmatic tool calling. */
+interface BetaEncryptedCodeExecutionResultBlock {
+  type: "encrypted_code_execution_result";
+  content: Array<BetaCodeExecutionOutputBlock>;
+  encrypted_stdout: string;
+  return_code: number;
+  stderr: string;
+}
+
+interface BetaCodeExecutionOutputBlock {
+  type: "code_execution_output";
+  file_id: string;
+}
+
+interface BetaBashCodeExecutionToolResultError {
+  type: "bash_code_execution_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
+}
+
+interface BetaBashCodeExecutionResultBlock {
+  type: "bash_code_execution_result";
+  content: Array<BetaBashCodeExecutionOutputBlock>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+interface BetaBashCodeExecutionOutputBlock {
+  type: "bash_code_execution_output";
+  file_id: string;
+}
+
+interface BetaTextEditorCodeExecutionToolResultError {
+  type: "text_editor_code_execution_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
+  error_message: string | null;
+}
+
+interface BetaTextEditorCodeExecutionViewResultBlock {
+  type: "text_editor_code_execution_view_result";
+  content: string;
+  file_type: "text" | "image" | "pdf";
+  num_lines: number | null;
+  start_line: number | null;
+  total_lines: number | null;
+}
+
+interface BetaTextEditorCodeExecutionCreateResultBlock {
+  type: "text_editor_code_execution_create_result";
+  is_file_update: boolean;
+}
+
+interface BetaTextEditorCodeExecutionStrReplaceResultBlock {
+  type: "text_editor_code_execution_str_replace_result";
+  lines: Array<string> | null;
+  new_lines: number | null;
+  new_start: number | null;
+  old_lines: number | null;
+  old_start: number | null;
+}
+
+interface BetaToolSearchToolResultError {
+  type: "tool_search_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+  error_message: string | null;
+}
+
+interface BetaToolSearchToolSearchResultBlock {
+  type: "tool_search_tool_search_result";
+  tool_references: Array<BetaToolReferenceBlock>;
+}
+
+interface BetaToolReferenceBlock {
+  type: "tool_reference";
+  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+}
+
+/** An entry of a `compaction` block's `tool_changes`: a tool the compacted range made available, as a reference to a `tools` entry or MCP toolset, or as the tool definition in effect at the end of the range, by value. Send it back unchanged. */
+interface BetaResponseToolAdditionBlock {
+  type: "tool_addition";
+  /** The tool made available: a reference to a `tools` entry or MCP toolset, or a `tool_definition` carrying the definition by value. */
+  tool: BetaResponseToolChangeToolReference | BetaResponseToolChangeMCPToolReference | BetaResponseToolChangeMCPToolsetReference | BetaToolChangeToolDefinition;
+}
+
+/** An entry of a `compaction` block's `tool_changes`: a tool of the request's `tools` (or an MCP tool or toolset) that the compacted range withdrew. Send it back unchanged. */
+interface BetaResponseToolRemovalBlock {
+  type: "tool_removal";
+  /** A reference to the withdrawn `tools` entry, MCP tool or MCP toolset. */
+  tool: BetaResponseToolChangeToolReference | BetaResponseToolChangeMCPToolReference | BetaResponseToolChangeMCPToolsetReference;
+}
+
+/** Reference to a single tool, by the name the model uses to call it, as a `compaction` block's `tool_changes` entry reports it: a tool declared in `tools` or defined by an earlier `tool_addition` block. Send it back unchanged with the block. */
+interface BetaResponseToolChangeToolReference {
+  type: "tool_reference";
+  name: string;
+}
+
+/** Reference to a single MCP tool, by its server and its name on that server, as a `compaction` block's `tool_changes` entry reports it. Send it back unchanged with the block. */
+interface BetaResponseToolChangeMCPToolReference {
+  type: "mcp_tool_reference";
+  name: string;
+  server_name: string;
+}
+
+/** Reference to every tool in the named MCP server's toolset, as a `compaction` block's `tool_changes` entry reports it. Send it back unchanged with the block. */
+interface BetaResponseToolChangeMCPToolsetReference {
+  type: "mcp_toolset_reference";
+  server_name: string;
+}
+
+/** A tool defined by value, as a `compaction` block's `tool_changes` entry reports it: `definition` is the tool's definition as it was sent, in the form of a `tools` entry, without `cache_control`. Send it back unchanged with the block. */
+interface BetaToolChangeToolDefinition {
+  type: "tool_definition";
+  definition: BetaResponseToolUnion;
+}
+
+type BetaResponseToolUnion =
+  | BetaResponseTool
+  | BetaToolBash20241022 // beta header: computer-use-2024-10-22
+  | BetaToolBash20250124
+  | BetaCodeExecutionTool20250522
+  | BetaCodeExecutionTool20250825
+  | BetaCodeExecutionTool20260120
+  | BetaCodeExecutionTool20260521
+  | BetaBrowserToolset20260801
+  | BetaToolComputerUse20241022 // beta header: computer-use-2024-10-22
+  | BetaMemoryTool20250818
+  | BetaToolComputerUse20250124 // beta header: computer-use-2025-01-24
+  | BetaToolTextEditor20241022 // beta header: computer-use-2024-10-22
+  | BetaToolComputerUse20251124 // beta header: computer-use-2025-11-24
+  | BetaComputerToolset20260801
+  | BetaToolTextEditor20250124
+  | BetaToolTextEditor20250429
+  | BetaToolTextEditor20250728
+  | BetaWebSearchTool20250305
+  | BetaWebFetchTool20250910
+  | BetaWebSearchTool20260209
+  | BetaWebFetchTool20260209
+  | BetaWebFetchTool20260309
+  | BetaWebSearchTool20260318
+  | BetaWebFetchTool20260318
+  | BetaAdvisorTool20260301 // beta header: advisor-tool-2026-03-01
+  | BetaToolSearchToolBm25_20251119
+  | BetaToolSearchToolRegex20251119
+  | BetaMCPToolset; // beta header: mcp-client-2025-11-20 or mcp-client-2026-09-15
+
+/** A custom tool definition, as sent. */
+interface BetaResponseTool {
+  type?: "custom" | null;
+  /** [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input. This defines the shape of the `input` that your tool accepts and that the model will produce. */
+  input_schema: BetaResponseToolInputSchema;
+  /** Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks. */
+  name: string; // minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
+  allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">;
+  /** If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search. */
+  defer_loading?: boolean;
+  /** Description of what this tool does. Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema. */
+  description?: string;
+  /** Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers. */
+  eager_input_streaming?: boolean | null;
+  input_examples?: Array<Record<string, unknown>>;
+  /** When true, guarantees schema validation on tool names and inputs */
+  strict?: boolean;
+}
+
+interface BetaResponseToolInputSchema {
+  type: "object";
+  properties?: Record<string, unknown> | null;
+  required?: Array<string> | null;
+}
+
+interface BetaFallbackInfo {
+  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
+  model: Model;
+}
+
+interface BetaFallbackRefusalTrigger {
+  type: "refusal";
+  /**
+   * The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
+   * - `"cyber"`: The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+   * - `"bio"`: The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
+   * - `"frontier_llm"`: The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+   * - `"reasoning_extraction"`: The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=typescript).
+   * - `"general_harms"`: The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
+   */
+  category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | "general_harms" | null;
+}
+
+/** A tool as an MCP server lists it: its name on that server, its description, and its input schema. */
+interface BetaMCPTool {
+  input_schema: Record<string, unknown>;
+  name: string;
+  description?: string;
+}
+
+type BetaTextCitation = BetaCitationCharLocation | BetaCitationPageLocation | BetaCitationContentBlockLocation | BetaCitationsWebSearchResultLocation | BetaCitationSearchResultLocation;
+
+interface BetaCitationCharLocation {
+  type: "char_location";
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null;
+  end_char_index: number;
+  file_id: string | null;
+  start_char_index: number; // minimum: 0
+}
+
+interface BetaCitationPageLocation {
+  type: "page_location";
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null;
+  end_page_number: number;
+  file_id: string | null;
+  start_page_number: number; // minimum: 1
+}
+
+interface BetaCitationContentBlockLocation {
+  type: "content_block_location";
+  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null;
+  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
+  end_block_index: number;
+  file_id: string | null;
+  /** 0-based index of the first cited block in the source's `content` array. */
+  start_block_index: number; // minimum: 0
+}
+
+interface BetaCitationsWebSearchResultLocation {
+  type: "web_search_result_location";
+  cited_text: string;
+  encrypted_index: string;
+  title: string | null; // maxLength: 512
+  url: string;
+}
+
+interface BetaCitationSearchResultLocation {
+  type: "search_result_location";
+  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
+  cited_text: string;
+  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
+  end_block_index: number;
+  /** 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count. */
+  search_result_index: number; // minimum: 0
+  source: string;
+  /** 0-based index of the first cited block in the source's `content` array. */
+  start_block_index: number; // minimum: 0
+  title: string | null;
+}
+
+interface BetaClearToolUses20250919EditResponse {
+  /** The type of context management edit applied. */
+  type: "clear_tool_uses_20250919";
+  /** Number of input tokens cleared by this edit. */
+  cleared_input_tokens: number; // minimum: 0
+  /** Number of tool uses that were cleared. */
+  cleared_tool_uses: number; // minimum: 0
+}
+
+interface BetaClearThinking20251015EditResponse {
+  /** The type of context management edit applied. */
+  type: "clear_thinking_20251015";
+  /** Number of input tokens cleared by this edit. */
+  cleared_input_tokens: number; // minimum: 0
+  /** Number of thinking turns that were cleared. */
+  cleared_thinking_turns: number; // minimum: 0
+}
+
+type BetaCacheMissReason = BetaCacheMissModelChanged | BetaCacheMissSystemChanged | BetaCacheMissToolsChanged | BetaCacheMissMessagesChanged | BetaCacheMissPreviousMessageNotFound | BetaCacheMissUnavailable;
+
+/** A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface BetaCacheMissModelChanged {
+  type: "model_changed";
+  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
+  cache_missed_input_tokens: number;
+}
+
+/** A `cache_miss_reason` for a request whose `system` differs from the previous request's. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface BetaCacheMissSystemChanged {
+  type: "system_changed";
+  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
+  cache_missed_input_tokens: number;
+}
+
+/** A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface BetaCacheMissToolsChanged {
+  type: "tools_changed";
+  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
+  cache_missed_input_tokens: number;
+}
+
+/** A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface BetaCacheMissMessagesChanged {
+  type: "messages_changed";
+  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
+  cache_missed_input_tokens: number;
+}
+
+/** A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references. This doesn't mean that this request changed. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface BetaCacheMissPreviousMessageNotFound {
+  type: "previous_message_not_found";
+}
+
+/** A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally. This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
+interface BetaCacheMissUnavailable {
+  type: "unavailable";
+}
+
+interface BetaCacheCreation {
+  /** The number of input tokens used to create the 1 hour cache entry. */
+  ephemeral_1h_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens used to create the 5 minute cache entry. */
+  ephemeral_5m_input_tokens: number; // default: 0, minimum: 0
+}
+
+interface BetaFallbackCreditUsage {
+  /** Whether the fallback-credit reprice was applied to this response's billing. A union discriminated on `type`. `redeemed`: the retry is billed as if the conversation had been on the retry model all along — including when the resulting shift is zero because there was nothing to move. `not_applied`: no reprice was applied; the arm's `reason` says why. */
+  status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied;
+}
+
+/**
+ * - `BetaAdvisorMessageIterationUsage`: beta header: advisor-tool-2026-03-01
+ * - `BetaFallbackMessageIterationUsage`: beta header: server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
+ */
+type BetaIterationsUsage = Array<BetaMessageIterationUsage | BetaCompactionIterationUsage | BetaAdvisorMessageIterationUsage | BetaFallbackMessageIterationUsage> | null;
+
+interface BetaOutputTokensDetails {
+  /** Number of output tokens the model generated as internal reasoning, including the thinking-block delimiter tokens. Reflects the raw reasoning the model produced, not the (possibly shorter) summarized thinking text returned in the response body. It may differ from the model's exact generation count by a small number of tokens. Always ≤ `output_tokens`; `output_tokens - thinking_tokens` approximates the non-reasoning output. */
+  thinking_tokens: number; // default: 0, minimum: 0
+}
+
+interface BetaServerToolUsage {
+  /** The number of web fetch tool requests. */
+  web_fetch_requests: number; // default: 0, minimum: 0
+  /** The number of web search tool requests. */
+  web_search_requests: number; // default: 0, minimum: 0
+}
+
+/** The reprice was applied: the retry is billed as if the conversation had been on the retry model all along. */
+interface BetaFallbackCreditRedeemed {
+  type: "redeemed";
+}
+
+/** No reprice was applied; `reason` says why. */
+interface BetaFallbackCreditNotApplied {
+  type: "not_applied";
+  /** Why the reprice was not applied. A closed enum; additions to the redemption-check vocabulary arrive as deliberate schema updates. */
+  reason: "body_mismatch" | "continuation_excluded" | "continuation_only" | "expired" | "invalid_target_model" | "not_enabled" | "reprice_unavailable" | "temporarily_unavailable" | "variant_fields_present" | "wrong_organization" | "wrong_platform" | "wrong_workspace";
+  /** Request fields to remove before retrying, so the retry can redeem this token. Present exactly when `reason` is `variant_fields_present` — never null, never an empty array; absent otherwise. Fields are named only from your own request, and only after the sealed variant hash matched. A served best-effort retry has already been billed at normal price; nothing redeems retroactively, but a corrected re-send inside the token's five-minute window can still redeem. */
+  remove_to_redeem?: Array<string> | null;
+}
+
+/** Token usage for a sampling iteration. */
+interface BetaMessageIterationUsage {
+  /** Usage for a sampling iteration */
+  type: "message";
+  /** Breakdown of cached tokens by TTL */
+  cache_creation: BetaCacheCreation | null;
+  /** The number of input tokens used to create the cache entry. */
+  cache_creation_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens read from the cache. */
+  cache_read_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens which were used. */
+  input_tokens: number; // minimum: 0
+  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
+  model: Model | null; // beta header: server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
+  /** The number of output tokens which were used. */
+  output_tokens: number; // minimum: 0
+}
+
+/** Token usage for a compaction iteration. */
+interface BetaCompactionIterationUsage {
+  /** Usage for a compaction iteration */
+  type: "compaction";
+  /** Breakdown of cached tokens by TTL */
+  cache_creation: BetaCacheCreation | null;
+  /** The number of input tokens used to create the cache entry. */
+  cache_creation_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens read from the cache. */
+  cache_read_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens which were used. */
+  input_tokens: number; // minimum: 0
+  /** The number of output tokens which were used. */
+  output_tokens: number; // minimum: 0
+}
+
+/** Token usage for an advisor sub-inference iteration. */
+interface BetaAdvisorMessageIterationUsage {
+  /** Usage for an advisor sub-inference iteration */
+  type: "advisor_message";
+  /** Breakdown of cached tokens by TTL */
+  cache_creation: BetaCacheCreation | null;
+  /** The number of input tokens used to create the cache entry. */
+  cache_creation_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens read from the cache. */
+  cache_read_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens which were used. */
+  input_tokens: number; // minimum: 0
+  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
+  model: Model;
+  /** The number of output tokens which were used. */
+  output_tokens: number; // minimum: 0
+}
+
+/** Token usage for the fallback-model attempt of a server-side fallback request. The terminal entry of a fallback-served turn: when a fallback hop's output is the returned message, the entry for the iteration that completed it carries this type in place of `message`. A declined hop and the serving hop's earlier tool-loop iterations produce `message` entries. Whether a fallback model served the response is signalled by the presence of this entry in `usage.iterations`. */
+interface BetaFallbackMessageIterationUsage {
+  /** Usage for the fallback-model attempt that served the response */
+  type: "fallback_message";
+  /** Breakdown of cached tokens by TTL */
+  cache_creation: BetaCacheCreation | null;
+  /** The number of input tokens used to create the cache entry. */
+  cache_creation_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens read from the cache. */
+  cache_read_input_tokens: number; // default: 0, minimum: 0
+  /** The number of input tokens which were used. */
+  input_tokens: number; // minimum: 0
+  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
+  model: Model;
+  /** The number of output tokens which were used. */
+  output_tokens: number; // minimum: 0
+}
+
+interface BetaThinkingDroppedInputTransformation {
+  /** Always `thinking_dropped` for this entry type. */
+  type: "thinking_dropped";
+  /** Where the removed block was in your request, as `messages.{i}.content.{j}`: `i` indexes the `messages` array you sent and `j` that message's `content` array — the same form error messages use. */
+  path: string;
+  /** Which binding check removed the block: `model_binding_mismatch` — it was created by a model whose reasoning the requested model may not read; `prefix_binding_mismatch` — the conversation before it differs from the conversation it was created in (the rest of that turn's consecutive thinking blocks are removed with it, each with this reason); `organization_binding_mismatch` — it was created under a different organization (an Anthropic organization, AWS account or Google Cloud project) and this organization is not one of its additional organizations; `end_user_binding_mismatch` — it was created for a different end user, or was removed by the consumer-organization binding. A block that would fail several checks reports one reason, in this order of precedence: `organization_binding_mismatch`, `end_user_binding_mismatch`, `model_binding_mismatch`, `prefix_binding_mismatch`. */
+  reason: "model_binding_mismatch" | "prefix_binding_mismatch" | "organization_binding_mismatch" | "end_user_binding_mismatch";
+}
+
+interface BetaThinkingMismatchAllowedInputTransformation {
+  /** Always `thinking_mismatch_allowed` for this entry type. */
+  type: "thinking_mismatch_allowed";
+  /** Where the block is in your request, as `messages.{i}.content.{j}`: `i` indexes the `messages` array you sent and `j` that message's `content` array — the same form error messages use. */
+  path: string;
+  /** Which binding check the block failed; the block was shown to the model all the same. Always `prefix_binding_mismatch` today — the conversation before the block differs from the conversation it was created in, or the block carries no record of one on a model that requires it. Were the check enforced for this request, the block would have been removed or the request rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also takes the rest of that turn's consecutive thinking blocks, whereas here each block is checked on its own, so `thinking_mismatch_allowed` entries are a lower bound on what enforcement would remove. */
+  reason: "model_binding_mismatch" | "prefix_binding_mismatch" | "organization_binding_mismatch" | "end_user_binding_mismatch";
+}
+
+interface Delta {
+  /** Information about the container used in this request. This will be non-null if a container tool (e.g. code execution) was used. */
+  container: BetaContainer | null;
+  /** Structured information about why model output stopped. This is `null` when the `stop_reason` has no additional detail to report. */
+  stop_details: BetaRefusalStopDetails | null;
+  stop_reason: BetaStopReason | null;
+  stop_sequence: string | null;
+}
+
+interface BetaMessageDeltaUsage {
+  /** The cumulative number of input tokens used to create the cache entry. */
+  cache_creation_input_tokens: number | null; // minimum: 0
+  /** The cumulative number of input tokens read from the cache. */
+  cache_read_input_tokens: number | null; // minimum: 0
+  /** Outcome of the `fallback_credit_token` presented on this request. Present on every response to a non-batch request that carried a `fallback_credit_token`, in either redemption mode; absent otherwise (batch items accept and ignore the token and carry no outcome object). */
+  fallback_credit: BetaFallbackCreditUsage | null; // beta header: fallback-credit-2026-07-01
+  /** The cumulative number of input tokens which were used. */
+  input_tokens: number | null; // minimum: 0
+  /**
+   * Per-iteration token usage breakdown.
+   *
+   * Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
+   *
+   * - Calculate the context window size from the last `message` entry
+   * - Understand token accumulation across server-side tool use loops
+   *
+   * A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
+   */
+  iterations: BetaIterationsUsage | null; // beta header: compact-2026-01-12 or compact-2026-09-04 or advisor-tool-2026-03-01 or task-budgets-2026-03-13 or server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
+  /** The cumulative number of output tokens which were used. */
+  output_tokens: number;
+  /** Breakdown of output tokens by category. `output_tokens` remains the inclusive, authoritative total used for billing. This object provides a read-only decomposition for observability — for example, how many of the billed output tokens were spent on internal reasoning that may have been summarized before being returned to you. */
+  output_tokens_details: BetaOutputTokensDetails | null;
+  /** The number of server tool requests. */
+  server_tool_use: BetaServerToolUsage | null;
+}
+
+type BetaRawContentBlockDelta =
+  | BetaTextDelta
+  | BetaInputJSONDelta
+  | BetaCitationsDelta
+  | BetaThinkingDelta
+  | BetaSignatureDelta
+  | BetaCompactionContentBlockDelta; // beta header: compact-2026-01-12
+
+interface BetaTextDelta {
+  type: "text_delta";
+  text: string;
+}
+
+interface BetaInputJSONDelta {
+  type: "input_json_delta";
+  partial_json: string;
+}
+
+interface BetaCitationsDelta {
+  type: "citations_delta";
+  citation: BetaCitationCharLocation | BetaCitationPageLocation | BetaCitationContentBlockLocation | BetaCitationsWebSearchResultLocation | BetaCitationSearchResultLocation;
+}
+
+interface BetaThinkingDelta {
+  type: "thinking_delta";
+  /** Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative. */
+  estimated_tokens: number | null; // beta header: thinking-token-count-2026-05-13
+  /** The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value. */
+  thinking: string;
+}
+
+interface BetaSignatureDelta {
+  type: "signature_delta";
+  /** The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event. */
+  signature: string;
+}
+
+interface BetaCompactionContentBlockDelta {
+  type: "compaction_delta";
+  content: string | null;
+  /** Opaque metadata from prior compaction, to be round-tripped verbatim */
+  encrypted_content: string | null; // beta header: task-budgets-2026-03-13
 }
 
 interface BetaTool {
@@ -1896,388 +3463,225 @@ interface BetaMCPToolset {
   tools?: Array<BetaMCPToolParam> | null; // beta header: mcp-client-2026-09-15
 }
 
-interface BetaContainerSkill {
-  /** Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined) */
-  type: "anthropic" | "custom";
-  /** Skill ID */
-  skill_id: string; // minLength: 1, maxLength: 64
-  /** The resolved version: a skill version ID for custom skills. */
-  version: string; // minLength: 1, maxLength: 64
-}
-
-interface BetaTextBlock {
-  type: "text";
-  /** Citations supporting the text block. The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`. */
-  citations: Array<BetaTextCitation> | null;
-  text: string;
-}
-
-interface BetaThinkingBlock {
-  type: "thinking";
-  /** A value used to verify that this thinking block was generated by Claude when it is passed back to the API. This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact. See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=typescript) for details. */
-  signature: string;
-  /** The text of Claude's thinking process for this block. */
-  thinking: string;
-}
-
-interface BetaRedactedThinkingBlock {
-  type: "redacted_thinking";
-  /** The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content. Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation. See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking?sdk_languages=typescript#redacted-thinking-blocks) for details. */
-  data: string;
-}
-
-interface BetaToolUseBlock {
-  type: "tool_use";
-  id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  input: Record<string, unknown>;
-  name: string; // minLength: 1
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-  /** For a toolset member tool_use, the toolset family. */
-  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
-}
-
-interface BetaServerToolUseBlock {
-  type: "server_tool_use";
-  id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  input: Record<string, unknown>;
-  /** - `"advisor"`: beta header: advisor-tool-2026-03-01 */
-  name: "advisor" | "web_search" | "web_fetch" | "code_execution" | "bash_code_execution" | "text_editor_code_execution" | "tool_search_tool_regex" | "tool_search_tool_bm25";
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaWebSearchToolResultBlock {
-  type: "web_search_tool_result";
-  content: BetaWebSearchToolResultBlockContent;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaWebFetchToolResultBlock {
-  type: "web_fetch_tool_result";
-  content: BetaWebFetchToolResultErrorBlock | BetaWebFetchBlock;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaAdvisorToolResultBlock {
-  type: "advisor_tool_result";
-  content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-interface BetaCodeExecutionToolResultBlock {
-  type: "code_execution_tool_result";
-  content: BetaCodeExecutionToolResultBlockContent;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-interface BetaBashCodeExecutionToolResultBlock {
-  type: "bash_code_execution_tool_result";
-  content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-interface BetaTextEditorCodeExecutionToolResultBlock {
-  type: "text_editor_code_execution_tool_result";
-  content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-interface BetaToolSearchToolResultBlock {
-  type: "tool_search_tool_result";
-  content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-interface BetaMCPToolUseBlock {
-  type: "mcp_tool_use";
-  id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  input: Record<string, unknown>;
-  /** The name of the MCP tool */
-  name: string;
-  /** The name of the MCP server */
-  server_name: string;
-}
-
-interface BetaMCPToolResultBlock {
-  type: "mcp_tool_result";
-  content: string | Array<BetaTextBlock>;
-  is_error: boolean; // default: false
-  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
-}
-
-/** Response model for a file uploaded to the container. */
-interface BetaContainerUploadBlock {
-  type: "container_upload";
-  file_id: string;
-}
-
-/** A compaction block returned when autocompact is triggered. When content is None, it indicates the compaction failed to produce a valid summary (e.g., malformed output from the model). Clients may round-trip compaction blocks with null content; the server treats them as no-ops. */
-interface BetaCompactionBlock {
-  type: "compaction";
-  /** Summary of compacted content, or null if compaction failed */
-  content: string | null;
-  /** Opaque metadata from prior compaction, to be round-tripped verbatim */
-  encrypted_content: string | null; // beta header: task-budgets-2026-03-13
-  /** Signature over the summary, to be sent back with the block verbatim */
-  signature?: string | null; // beta header: compact-2026-09-04
-  /** The tool changes of the compacted range: the `tool_addition` and `tool_removal` blocks that take the request's `tools` to the tool set in effect at the end of the range, or `[]` when the range changed no tool. Absent when the server did not compute them. Send the block back unchanged. */
-  tool_changes?: Array<BetaResponseToolAdditionBlock | BetaResponseToolRemovalBlock> | null; // beta header: inline-tools-2026-09-15
-}
-
-/** Marks the point in `content` where one model's output gives way to the next. One block appears per hop where a preceding model actually ran this turn and declined. A turn where no preceding model ran and declined has no such boundary and carries no block — the signal for whether a fallback model served the response is the presence of a `fallback_message` entry in `usage.iterations`, not this block. The block is treated like a server-tool content block for streaming: it arrives via the standard `content_block_start` / `content_block_stop` pair and carries no deltas. */
-interface BetaFallbackBlock {
-  type: "fallback";
-  /** The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id. */
-  from: BetaFallbackInfo;
-  /** The fallback model producing the content that follows this block. Its `model` is always the canonical id. */
-  to: BetaFallbackInfo;
-  /** What caused the `from` model to hand over at this hop. */
-  trigger: BetaFallbackRefusalTrigger;
-}
-
-/** The tool listing the server fetched from an MCP server while producing this response. Send the assistant message back unchanged, this block included, so later requests use this listing instead of asking the MCP server again. */
-interface BetaMCPToolListingBlock {
-  type: "mcp_tool_listing";
-  mcp_server_name: string;
-  tools: Array<BetaMCPTool>;
-}
-
-interface BetaClearToolUses20250919EditResponse {
-  /** The type of context management edit applied. */
-  type: "clear_tool_uses_20250919";
-  /** Number of input tokens cleared by this edit. */
-  cleared_input_tokens: number; // minimum: 0
-  /** Number of tool uses that were cleared. */
-  cleared_tool_uses: number; // minimum: 0
-}
-
-interface BetaClearThinking20251015EditResponse {
-  /** The type of context management edit applied. */
-  type: "clear_thinking_20251015";
-  /** Number of input tokens cleared by this edit. */
-  cleared_input_tokens: number; // minimum: 0
-  /** Number of thinking turns that were cleared. */
-  cleared_thinking_turns: number; // minimum: 0
-}
-
-type BetaCacheMissReason = BetaCacheMissModelChanged | BetaCacheMissSystemChanged | BetaCacheMissToolsChanged | BetaCacheMissMessagesChanged | BetaCacheMissPreviousMessageNotFound | BetaCacheMissUnavailable;
-
-interface BetaCacheCreation {
-  /** The number of input tokens used to create the 1 hour cache entry. */
-  ephemeral_1h_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens used to create the 5 minute cache entry. */
-  ephemeral_5m_input_tokens: number; // default: 0, minimum: 0
-}
-
-interface BetaFallbackCreditUsage {
-  /** Whether the fallback-credit reprice was applied to this response's billing. A union discriminated on `type`. `redeemed`: the retry is billed as if the conversation had been on the retry model all along — including when the resulting shift is zero because there was nothing to move. `not_applied`: no reprice was applied; the arm's `reason` says why. */
-  status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied;
-}
-
-/**
- * - `BetaAdvisorMessageIterationUsage`: beta header: advisor-tool-2026-03-01
- * - `BetaFallbackMessageIterationUsage`: beta header: server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
- */
-type BetaIterationsUsage = Array<BetaMessageIterationUsage | BetaCompactionIterationUsage | BetaAdvisorMessageIterationUsage | BetaFallbackMessageIterationUsage> | null;
-
-interface BetaOutputTokensDetails {
-  /** Number of output tokens the model generated as internal reasoning, including the thinking-block delimiter tokens. Reflects the raw reasoning the model produced, not the (possibly shorter) summarized thinking text returned in the response body. It may differ from the model's exact generation count by a small number of tokens. Always ≤ `output_tokens`; `output_tokens - thinking_tokens` approximates the non-reasoning output. */
-  thinking_tokens: number; // default: 0, minimum: 0
-}
-
-interface BetaServerToolUsage {
-  /** The number of web fetch tool requests. */
-  web_fetch_requests: number; // default: 0, minimum: 0
-  /** The number of web search tool requests. */
-  web_search_requests: number; // default: 0, minimum: 0
-}
-
-interface BetaThinkingDroppedInputTransformation {
-  /** Always `thinking_dropped` for this entry type. */
-  type: "thinking_dropped";
-  /** Where the removed block was in your request, as `messages.{i}.content.{j}`: `i` indexes the `messages` array you sent and `j` that message's `content` array — the same form error messages use. */
-  path: string;
-  /** Which binding check removed the block: `model_binding_mismatch` — it was created by a model whose reasoning the requested model may not read; `prefix_binding_mismatch` — the conversation before it differs from the conversation it was created in (the rest of that turn's consecutive thinking blocks are removed with it, each with this reason); `organization_binding_mismatch` — it was created under a different organization (an Anthropic organization, AWS account or Google Cloud project) and this organization is not one of its additional organizations; `end_user_binding_mismatch` — it was created for a different end user, or was removed by the consumer-organization binding. A block that would fail several checks reports one reason, in this order of precedence: `organization_binding_mismatch`, `end_user_binding_mismatch`, `model_binding_mismatch`, `prefix_binding_mismatch`. */
-  reason: "model_binding_mismatch" | "prefix_binding_mismatch" | "organization_binding_mismatch" | "end_user_binding_mismatch";
-}
-
-interface BetaThinkingMismatchAllowedInputTransformation {
-  /** Always `thinking_mismatch_allowed` for this entry type. */
-  type: "thinking_mismatch_allowed";
-  /** Where the block is in your request, as `messages.{i}.content.{j}`: `i` indexes the `messages` array you sent and `j` that message's `content` array — the same form error messages use. */
-  path: string;
-  /** Which binding check the block failed; the block was shown to the model all the same. Always `prefix_binding_mismatch` today — the conversation before the block differs from the conversation it was created in, or the block carries no record of one on a model that requires it. Were the check enforced for this request, the block would have been removed or the request rejected (`thinking.block_binding.prefix_mismatch_behavior`). A removal also takes the rest of that turn's consecutive thinking blocks, whereas here each block is checked on its own, so `thinking_mismatch_allowed` entries are a lower bound on what enforcement would remove. */
-  reason: "model_binding_mismatch" | "prefix_binding_mismatch" | "organization_binding_mismatch" | "end_user_binding_mismatch";
-}
-
-interface Delta {
-  /** Information about the container used in this request. This will be non-null if a container tool (e.g. code execution) was used. */
-  container: BetaContainer | null;
-  /** Structured information about why model output stopped. This is `null` when the `stop_reason` has no additional detail to report. */
-  stop_details: BetaRefusalStopDetails | null;
-  stop_reason: BetaStopReason | null;
-  stop_sequence: string | null;
-}
-
-interface BetaMessageDeltaUsage {
-  /** The cumulative number of input tokens used to create the cache entry. */
-  cache_creation_input_tokens: number | null; // minimum: 0
-  /** The cumulative number of input tokens read from the cache. */
-  cache_read_input_tokens: number | null; // minimum: 0
-  /** Outcome of the `fallback_credit_token` presented on this request. Present on every response to a non-batch request that carried a `fallback_credit_token`, in either redemption mode; absent otherwise (batch items accept and ignore the token and carry no outcome object). */
-  fallback_credit: BetaFallbackCreditUsage | null; // beta header: fallback-credit-2026-07-01
-  /** The cumulative number of input tokens which were used. */
-  input_tokens: number | null; // minimum: 0
-  /**
-   * Per-iteration token usage breakdown.
-   *
-   * Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
-   *
-   * - Calculate the context window size from the last `message` entry
-   * - Understand token accumulation across server-side tool use loops
-   *
-   * A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
-   */
-  iterations: BetaIterationsUsage | null; // beta header: compact-2026-01-12 or compact-2026-09-04 or advisor-tool-2026-03-01 or task-budgets-2026-03-13 or server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
-  /** The cumulative number of output tokens which were used. */
-  output_tokens: number;
-  /** Breakdown of output tokens by category. `output_tokens` remains the inclusive, authoritative total used for billing. This object provides a read-only decomposition for observability — for example, how many of the billed output tokens were spent on internal reasoning that may have been summarized before being returned to you. */
-  output_tokens_details: BetaOutputTokensDetails | null;
-  /** The number of server tool requests. */
-  server_tool_use: BetaServerToolUsage | null;
-}
-
-type BetaRawContentBlockDelta =
-  | BetaTextDelta
-  | BetaInputJSONDelta
-  | BetaCitationsDelta
-  | BetaThinkingDelta
-  | BetaSignatureDelta
-  | BetaCompactionContentBlockDelta; // beta header: compact-2026-01-12
-
-type BetaMessageContentParam = string | Array<BetaContentBlockParam>;
-
-/** Mid-conversation directive to make a tool available. `tool` is a reference to a tool (or MCP toolset) declared in the request's `tools`. Under the `inline-tools-2026-09-15` beta it may instead be a reference to a tool defined earlier in `messages`, or a `tool_definition` object that carries an inline tool definition in `definition` (the same object a `tools` entry holds). An `mcp_toolset` definition also requires the `mcp-client-2026-09-15` beta. The tool is offered to the model from this point in the conversation onward. */
-interface BetaRequestToolAdditionBlock {
-  type: "tool_addition";
-  /**
-   * - `BetaToolChangeMCPToolReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-   * - `BetaToolChangeMCPToolsetReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-   * - `BetaToolChangeToolDefinitionParam`: beta header: inline-tools-2026-09-15
-   */
-  tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference | BetaToolChangeToolDefinitionParam;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-/** Mid-conversation directive to withdraw a tool. `tool` references a tool (or MCP toolset) by name: one declared in the request's `tools` or defined earlier in `messages`. It is no longer offered to the model from this point in the conversation onward. */
-interface BetaRequestToolRemovalBlock {
-  type: "tool_removal";
-  /**
-   * - `BetaToolChangeMCPToolReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-   * - `BetaToolChangeMCPToolsetReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-   */
-  tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaSystemMessageOutputConfig {
-  /** How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, `xhigh`, or `max`. */
-  effort?: "low" | "medium" | "high" | "xhigh" | "max" | null;
-}
-
-interface BetaInputTokensClearAtLeast {
-  type: "input_tokens";
-  value: number; // minimum: 0
-}
-
-interface BetaToolUsesKeep {
-  type: "tool_uses";
-  value: number; // minimum: 0
-}
-
-interface BetaInputTokensTrigger {
-  type: "input_tokens";
-  value: number; // minimum: 1
-}
-
-interface BetaToolUsesTrigger {
-  type: "tool_uses";
-  value: number; // minimum: 1
-}
-
-interface BetaThinkingTurns {
-  type: "thinking_turns";
-  value: number; // minimum: 1
-}
-
-interface BetaAllThinkingTurns {
-  type: "all";
-}
-
-interface BetaCitationCharLocationParam {
-  type: "char_location";
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  end_char_index: number;
-  start_char_index: number; // minimum: 0
-}
-
-interface BetaCitationPageLocationParam {
-  type: "page_location";
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  end_page_number: number;
-  start_page_number: number; // minimum: 1
-}
-
-interface BetaCitationContentBlockLocationParam {
-  type: "content_block_location";
-  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
-  end_block_index: number;
-  /** 0-based index of the first cited block in the source's `content` array. */
-  start_block_index: number; // minimum: 0
-}
-
-interface BetaCitationWebSearchResultLocationParam {
-  type: "web_search_result_location";
-  cited_text: string;
-  encrypted_index: string;
-  title: string | null; // minLength: 1, maxLength: 512
-  url: string; // minLength: 1
-}
-
-interface BetaCitationSearchResultLocationParam {
-  type: "search_result_location";
-  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
-  cited_text: string;
-  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
-  end_block_index: number;
-  /** 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count. */
-  search_result_index: number; // minimum: 0
-  source: string;
-  /** 0-based index of the first cited block in the source's `content` array. */
-  start_block_index: number; // minimum: 0
-  title: string | null;
-}
-
-interface BetaThinkingBlockBinding {
-  /** "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`. */
-  prefix_mismatch_behavior?: BetaThinkingPrefixMismatchBehavior | null;
-}
-
 interface InputSchema {
   type: "object";
   properties?: Record<string, unknown> | null;
   required?: Array<string> | null;
+}
+
+interface BetaComputerToolsetConfigs {
+  /** `type`'s config overrides. */
+  type?: BetaComputerTypeConfig | null;
+  /** `cursor_position`'s config overrides. */
+  cursor_position?: BetaComputerCursorPositionConfig | null;
+  /** `double_click`'s config overrides. */
+  double_click?: BetaComputerDoubleClickConfig | null;
+  /** `hold_key`'s config overrides. */
+  hold_key?: BetaComputerHoldKeyConfig | null;
+  /** `key`'s config overrides. */
+  key?: BetaComputerKeyConfig | null;
+  /** `left_click`'s config overrides. */
+  left_click?: BetaComputerLeftClickConfig | null;
+  /** `left_click_drag`'s config overrides. */
+  left_click_drag?: BetaComputerLeftClickDragConfig | null;
+  /** `left_mouse_down`'s config overrides. */
+  left_mouse_down?: BetaComputerLeftMouseDownConfig | null;
+  /** `left_mouse_up`'s config overrides. */
+  left_mouse_up?: BetaComputerLeftMouseUpConfig | null;
+  /** `middle_click`'s config overrides. */
+  middle_click?: BetaComputerMiddleClickConfig | null;
+  /** `mouse_move`'s config overrides. */
+  mouse_move?: BetaComputerMouseMoveConfig | null;
+  /** `right_click`'s config overrides. */
+  right_click?: BetaComputerRightClickConfig | null;
+  /** `screenshot`'s config overrides. */
+  screenshot?: BetaComputerScreenshotConfig | null;
+  /** `scroll`'s config overrides. */
+  scroll?: BetaComputerScrollConfig | null;
+  /** `triple_click`'s config overrides. */
+  triple_click?: BetaComputerTripleClickConfig | null;
+  /** `wait`'s config overrides. */
+  wait?: BetaComputerWaitConfig | null;
+  /** `zoom`'s config overrides. */
+  zoom?: BetaComputerZoomConfig | null;
+}
+
+interface BetaComputerTypeConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerCursorPositionConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerDoubleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerHoldKeyConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerKeyConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerLeftClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerLeftClickDragConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerLeftMouseDownConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerLeftMouseUpConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerMiddleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerMouseMoveConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerRightClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerScreenshotConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerScrollConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerTripleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerWaitConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerZoomConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaUserLocation {
+  type: "approximate";
+  /** The city of the user. */
+  city?: string | null; // minLength: 1, maxLength: 255
+  /** The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user. */
+  country?: string | null; // minLength: 2, maxLength: 2
+  /** The region of the user. */
+  region?: string | null; // minLength: 1, maxLength: 255
+  /** The [IANA timezone](https://nodatime.org/TimeZones) of the user. */
+  timezone?: string | null; // minLength: 1, maxLength: 255
+}
+
+interface BetaWebFetchURLSources {
+  /** Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[]. */
+  client_tool_results?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept;
+  /** Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute. */
+  server_tool_results?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept;
+  /** Whether URLs in user messages are fetchable: "all" or "none". */
+  user_input?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone;
+}
+
+/** The `url_sources` variant under which a source contributes in full: every result of the tool filter's source, or all user input. */
+interface BetaWebFetchURLSourceAll {
+  type: "all";
+}
+
+/** The `url_sources` variant under which a source contributes nothing: no result of the tool filter's source, or no user input. */
+interface BetaWebFetchURLSourceNone {
+  type: "none";
+}
+
+/** The tool filter variant under which only the named tools' results contribute. */
+interface BetaWebFetchURLSourceOnly {
+  type: "only";
+  tools: Array<BetaWebFetchURLSourceToolReference>;
+}
+
+/** The tool filter variant under which every result but the named tools' contributes. */
+interface BetaWebFetchURLSourceExcept {
+  type: "except";
+  tools: Array<BetaWebFetchURLSourceToolReference>;
+}
+
+/** One entry of a tool filter's `tools`: it must name a tool declared in this request's `tools[]`. */
+interface BetaWebFetchURLSourceToolReference {
+  type: "tool_reference";
+  name: string;
+}
+
+interface BetaMCPToolConfig {
+  defer_loading?: boolean;
+  enabled?: boolean;
+}
+
+interface BetaMCPToolDefaultConfig {
+  defer_loading?: boolean;
+  enabled?: boolean;
 }
 
 interface BetaBrowserToolsetConfigs {
@@ -2344,446 +3748,6 @@ interface BetaBrowserToolsetConfigs {
   /** `zoom`'s config overrides. */
   zoom?: BetaBrowserZoomConfig | null;
 }
-
-interface BetaComputerToolsetConfigs {
-  /** `type`'s config overrides. */
-  type?: BetaComputerTypeConfig | null;
-  /** `cursor_position`'s config overrides. */
-  cursor_position?: BetaComputerCursorPositionConfig | null;
-  /** `double_click`'s config overrides. */
-  double_click?: BetaComputerDoubleClickConfig | null;
-  /** `hold_key`'s config overrides. */
-  hold_key?: BetaComputerHoldKeyConfig | null;
-  /** `key`'s config overrides. */
-  key?: BetaComputerKeyConfig | null;
-  /** `left_click`'s config overrides. */
-  left_click?: BetaComputerLeftClickConfig | null;
-  /** `left_click_drag`'s config overrides. */
-  left_click_drag?: BetaComputerLeftClickDragConfig | null;
-  /** `left_mouse_down`'s config overrides. */
-  left_mouse_down?: BetaComputerLeftMouseDownConfig | null;
-  /** `left_mouse_up`'s config overrides. */
-  left_mouse_up?: BetaComputerLeftMouseUpConfig | null;
-  /** `middle_click`'s config overrides. */
-  middle_click?: BetaComputerMiddleClickConfig | null;
-  /** `mouse_move`'s config overrides. */
-  mouse_move?: BetaComputerMouseMoveConfig | null;
-  /** `right_click`'s config overrides. */
-  right_click?: BetaComputerRightClickConfig | null;
-  /** `screenshot`'s config overrides. */
-  screenshot?: BetaComputerScreenshotConfig | null;
-  /** `scroll`'s config overrides. */
-  scroll?: BetaComputerScrollConfig | null;
-  /** `triple_click`'s config overrides. */
-  triple_click?: BetaComputerTripleClickConfig | null;
-  /** `wait`'s config overrides. */
-  wait?: BetaComputerWaitConfig | null;
-  /** `zoom`'s config overrides. */
-  zoom?: BetaComputerZoomConfig | null;
-}
-
-interface BetaUserLocation {
-  type: "approximate";
-  /** The city of the user. */
-  city?: string | null; // minLength: 1, maxLength: 255
-  /** The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user. */
-  country?: string | null; // minLength: 2, maxLength: 2
-  /** The region of the user. */
-  region?: string | null; // minLength: 1, maxLength: 255
-  /** The [IANA timezone](https://nodatime.org/TimeZones) of the user. */
-  timezone?: string | null; // minLength: 1, maxLength: 255
-}
-
-interface BetaCitationsConfigParam {
-  enabled?: boolean;
-}
-
-interface BetaWebFetchURLSources {
-  /** Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[]. */
-  client_tool_results?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept;
-  /** Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute. */
-  server_tool_results?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept;
-  /** Whether URLs in user messages are fetchable: "all" or "none". */
-  user_input?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone;
-}
-
-interface BetaMCPToolConfig {
-  defer_loading?: boolean;
-  enabled?: boolean;
-}
-
-interface BetaMCPToolDefaultConfig {
-  defer_loading?: boolean;
-  enabled?: boolean;
-}
-
-interface BetaMCPToolParam {
-  /** The tool's input schema as the MCP server lists it, verbatim. */
-  input_schema: Record<string, unknown>;
-  /** The tool's name as the MCP server lists it (not prefixed with the server name). */
-  name: string; // minLength: 1
-  /** The tool's description as the MCP server lists it. */
-  description?: string | null;
-}
-
-type BetaTextCitation = BetaCitationCharLocation | BetaCitationPageLocation | BetaCitationContentBlockLocation | BetaCitationsWebSearchResultLocation | BetaCitationSearchResultLocation;
-
-/** Tool invocation directly from the model. */
-interface BetaDirectCaller {
-  type: "direct";
-}
-
-/** Tool invocation generated by a server-side tool. */
-interface BetaServerToolCaller {
-  type: "code_execution_20250825";
-  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-interface BetaServerToolCaller20260120 {
-  type: "code_execution_20260120";
-  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-type BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultError | Array<BetaWebSearchResultBlock>;
-
-interface BetaWebFetchToolResultErrorBlock {
-  type: "web_fetch_tool_result_error";
-  error_code: BetaWebFetchToolResultErrorCode;
-}
-
-interface BetaWebFetchBlock {
-  type: "web_fetch_result";
-  content: BetaDocumentBlock;
-  /** ISO 8601 timestamp when the content was retrieved */
-  retrieved_at: string | null;
-  /** Fetched content URL */
-  url: string;
-}
-
-interface BetaAdvisorToolResultError {
-  type: "advisor_tool_result_error";
-  error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
-}
-
-interface BetaAdvisorResultBlock {
-  type: "advisor_result";
-  /** The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap. */
-  stop_reason: string | null;
-  text: string;
-}
-
-interface BetaAdvisorRedactedResultBlock {
-  type: "advisor_redacted_result";
-  /** Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify. */
-  encrypted_content: string;
-  /** The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). */
-  stop_reason: string | null;
-}
-
-type BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultError | BetaCodeExecutionResultBlock | BetaEncryptedCodeExecutionResultBlock;
-
-interface BetaBashCodeExecutionToolResultError {
-  type: "bash_code_execution_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
-}
-
-interface BetaBashCodeExecutionResultBlock {
-  type: "bash_code_execution_result";
-  content: Array<BetaBashCodeExecutionOutputBlock>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-interface BetaTextEditorCodeExecutionToolResultError {
-  type: "text_editor_code_execution_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
-  error_message: string | null;
-}
-
-interface BetaTextEditorCodeExecutionViewResultBlock {
-  type: "text_editor_code_execution_view_result";
-  content: string;
-  file_type: "text" | "image" | "pdf";
-  num_lines: number | null;
-  start_line: number | null;
-  total_lines: number | null;
-}
-
-interface BetaTextEditorCodeExecutionCreateResultBlock {
-  type: "text_editor_code_execution_create_result";
-  is_file_update: boolean;
-}
-
-interface BetaTextEditorCodeExecutionStrReplaceResultBlock {
-  type: "text_editor_code_execution_str_replace_result";
-  lines: Array<string> | null;
-  new_lines: number | null;
-  new_start: number | null;
-  old_lines: number | null;
-  old_start: number | null;
-}
-
-interface BetaToolSearchToolResultError {
-  type: "tool_search_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-  error_message: string | null;
-}
-
-interface BetaToolSearchToolSearchResultBlock {
-  type: "tool_search_tool_search_result";
-  tool_references: Array<BetaToolReferenceBlock>;
-}
-
-/** An entry of a `compaction` block's `tool_changes`: a tool the compacted range made available, as a reference to a `tools` entry or MCP toolset, or as the tool definition in effect at the end of the range, by value. Send it back unchanged. */
-interface BetaResponseToolAdditionBlock {
-  type: "tool_addition";
-  /** The tool made available: a reference to a `tools` entry or MCP toolset, or a `tool_definition` carrying the definition by value. */
-  tool: BetaResponseToolChangeToolReference | BetaResponseToolChangeMCPToolReference | BetaResponseToolChangeMCPToolsetReference | BetaToolChangeToolDefinition;
-}
-
-/** An entry of a `compaction` block's `tool_changes`: a tool of the request's `tools` (or an MCP tool or toolset) that the compacted range withdrew. Send it back unchanged. */
-interface BetaResponseToolRemovalBlock {
-  type: "tool_removal";
-  /** A reference to the withdrawn `tools` entry, MCP tool or MCP toolset. */
-  tool: BetaResponseToolChangeToolReference | BetaResponseToolChangeMCPToolReference | BetaResponseToolChangeMCPToolsetReference;
-}
-
-interface BetaFallbackInfo {
-  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
-  model: Model;
-}
-
-interface BetaFallbackRefusalTrigger {
-  type: "refusal";
-  /**
-   * The policy category that triggered the `from` model's refusal at this hop. `null` when the refusal doesn't map to a named category. Same vocabulary as `stop_details.category`.
-   * - `"cyber"`: The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-   * - `"bio"`: The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-   * - `"frontier_llm"`: The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-   * - `"reasoning_extraction"`: The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking?sdk_languages=typescript).
-   * - `"general_harms"`: The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-   */
-  category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | "general_harms" | null;
-}
-
-/** A tool as an MCP server lists it: its name on that server, its description, and its input schema. */
-interface BetaMCPTool {
-  input_schema: Record<string, unknown>;
-  name: string;
-  description?: string;
-}
-
-/** A `cache_miss_reason` for a request whose `model` or `speed` differs from the previous request's. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface BetaCacheMissModelChanged {
-  type: "model_changed";
-  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
-  cache_missed_input_tokens: number;
-}
-
-/** A `cache_miss_reason` for a request whose `system` differs from the previous request's. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface BetaCacheMissSystemChanged {
-  type: "system_changed";
-  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
-  cache_missed_input_tokens: number;
-}
-
-/** A `cache_miss_reason` for a request whose `tools` differ from the previous request's, for example because tools were added, removed, or reordered. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface BetaCacheMissToolsChanged {
-  type: "tools_changed";
-  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
-  cache_missed_input_tokens: number;
-}
-
-/** A `cache_miss_reason` for a request whose `messages` differ from the previous request's in an earlier entry, instead of only having entries appended. The `model`, `system`, and `tools` match. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface BetaCacheMissMessagesChanged {
-  type: "messages_changed";
-  /** Approximate number of input tokens that would have been read from cache had the prefix matched the previous request. */
-  cache_missed_input_tokens: number;
-}
-
-/** A `cache_miss_reason` for when the API doesn't have a stored record of the request that `diagnostics.previous_message_id` references. This doesn't mean that this request changed. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface BetaCacheMissPreviousMessageNotFound {
-  type: "previous_message_not_found";
-}
-
-/** A `cache_miss_reason` for when the API can't give a diagnosis. The request itself was processed normally. This includes a request whose `model`, `system`, and `tools` match the previous request's but whose other prompt-affecting parameters, such as `thinking` or `tool_choice`, differ. See the [cache diagnostics guide](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics?sdk_languages=typescript#cache-miss-reason-types) to learn what to change for each reason. */
-interface BetaCacheMissUnavailable {
-  type: "unavailable";
-}
-
-/** The reprice was applied: the retry is billed as if the conversation had been on the retry model all along. */
-interface BetaFallbackCreditRedeemed {
-  type: "redeemed";
-}
-
-/** No reprice was applied; `reason` says why. */
-interface BetaFallbackCreditNotApplied {
-  type: "not_applied";
-  /** Why the reprice was not applied. A closed enum; additions to the redemption-check vocabulary arrive as deliberate schema updates. */
-  reason: "body_mismatch" | "continuation_excluded" | "continuation_only" | "expired" | "invalid_target_model" | "not_enabled" | "reprice_unavailable" | "temporarily_unavailable" | "variant_fields_present" | "wrong_organization" | "wrong_platform" | "wrong_workspace";
-  /** Request fields to remove before retrying, so the retry can redeem this token. Present exactly when `reason` is `variant_fields_present` — never null, never an empty array; absent otherwise. Fields are named only from your own request, and only after the sealed variant hash matched. A served best-effort retry has already been billed at normal price; nothing redeems retroactively, but a corrected re-send inside the token's five-minute window can still redeem. */
-  remove_to_redeem?: Array<string> | null;
-}
-
-/** Token usage for a sampling iteration. */
-interface BetaMessageIterationUsage {
-  /** Usage for a sampling iteration */
-  type: "message";
-  /** Breakdown of cached tokens by TTL */
-  cache_creation: BetaCacheCreation | null;
-  /** The number of input tokens used to create the cache entry. */
-  cache_creation_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens read from the cache. */
-  cache_read_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens which were used. */
-  input_tokens: number; // minimum: 0
-  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
-  model: Model | null; // beta header: server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
-  /** The number of output tokens which were used. */
-  output_tokens: number; // minimum: 0
-}
-
-/** Token usage for a compaction iteration. */
-interface BetaCompactionIterationUsage {
-  /** Usage for a compaction iteration */
-  type: "compaction";
-  /** Breakdown of cached tokens by TTL */
-  cache_creation: BetaCacheCreation | null;
-  /** The number of input tokens used to create the cache entry. */
-  cache_creation_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens read from the cache. */
-  cache_read_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens which were used. */
-  input_tokens: number; // minimum: 0
-  /** The number of output tokens which were used. */
-  output_tokens: number; // minimum: 0
-}
-
-/** Token usage for an advisor sub-inference iteration. */
-interface BetaAdvisorMessageIterationUsage {
-  /** Usage for an advisor sub-inference iteration */
-  type: "advisor_message";
-  /** Breakdown of cached tokens by TTL */
-  cache_creation: BetaCacheCreation | null;
-  /** The number of input tokens used to create the cache entry. */
-  cache_creation_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens read from the cache. */
-  cache_read_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens which were used. */
-  input_tokens: number; // minimum: 0
-  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
-  model: Model;
-  /** The number of output tokens which were used. */
-  output_tokens: number; // minimum: 0
-}
-
-/** Token usage for the fallback-model attempt of a server-side fallback request. The terminal entry of a fallback-served turn: when a fallback hop's output is the returned message, the entry for the iteration that completed it carries this type in place of `message`. A declined hop and the serving hop's earlier tool-loop iterations produce `message` entries. Whether a fallback model served the response is signalled by the presence of this entry in `usage.iterations`. */
-interface BetaFallbackMessageIterationUsage {
-  /** Usage for the fallback-model attempt that served the response */
-  type: "fallback_message";
-  /** Breakdown of cached tokens by TTL */
-  cache_creation: BetaCacheCreation | null;
-  /** The number of input tokens used to create the cache entry. */
-  cache_creation_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens read from the cache. */
-  cache_read_input_tokens: number; // default: 0, minimum: 0
-  /** The number of input tokens which were used. */
-  input_tokens: number; // minimum: 0
-  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
-  model: Model;
-  /** The number of output tokens which were used. */
-  output_tokens: number; // minimum: 0
-}
-
-interface BetaTextDelta {
-  type: "text_delta";
-  text: string;
-}
-
-interface BetaInputJSONDelta {
-  type: "input_json_delta";
-  partial_json: string;
-}
-
-interface BetaCitationsDelta {
-  type: "citations_delta";
-  citation: BetaCitationCharLocation | BetaCitationPageLocation | BetaCitationContentBlockLocation | BetaCitationsWebSearchResultLocation | BetaCitationSearchResultLocation;
-}
-
-interface BetaThinkingDelta {
-  type: "thinking_delta";
-  /** Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative. */
-  estimated_tokens: number | null; // beta header: thinking-token-count-2026-05-13
-  /** The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value. */
-  thinking: string;
-}
-
-interface BetaSignatureDelta {
-  type: "signature_delta";
-  /** The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event. */
-  signature: string;
-}
-
-interface BetaCompactionContentBlockDelta {
-  type: "compaction_delta";
-  content: string | null;
-  /** Opaque metadata from prior compaction, to be round-tripped verbatim */
-  encrypted_content: string | null; // beta header: task-budgets-2026-03-13
-}
-
-type BetaContentBlockParam =
-  | BetaTextBlockParam
-  | BetaImageBlockParam
-  | BetaRequestDocumentBlock
-  | BetaSearchResultBlockParam
-  | BetaThinkingBlockParam
-  | BetaRedactedThinkingBlockParam
-  | BetaToolUseBlockParam
-  | BetaToolResultBlockParam
-  | BetaServerToolUseBlockParam
-  | BetaWebSearchToolResultBlockParam
-  | BetaWebFetchToolResultBlockParam
-  | BetaAdvisorToolResultBlockParam // beta header: advisor-tool-2026-03-01
-  | BetaCodeExecutionToolResultBlockParam
-  | BetaBashCodeExecutionToolResultBlockParam
-  | BetaTextEditorCodeExecutionToolResultBlockParam
-  | BetaToolSearchToolResultBlockParam
-  | BetaMCPToolUseBlockParam // beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-  | BetaRequestMCPToolResultBlockParam // beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-  | BetaContainerUploadBlockParam
-  | BetaCompactionBlockParam // beta header: compact-2026-01-12 or compact-2026-09-04
-  | BetaRequestToolAdditionBlock // beta header: mid-conversation-tool-changes-2026-07-01 or inline-tools-2026-09-15
-  | BetaRequestToolRemovalBlock // beta header: mid-conversation-tool-changes-2026-07-01 or inline-tools-2026-09-15
-  | BetaMCPToolListingBlockParam // beta header: mcp-client-2026-09-15
-  | BetaFallbackBlockParam; // beta header: server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
-
-/** Reference to a single tool, by the name the model uses to call it: a tool declared in `tools` or defined by an earlier `tool_addition` block. Does not accept the composed `{server}_{name}` form the server assigns to MCP-resolved tools; use `mcp_tool_reference` or `mcp_toolset_reference` for those. */
-interface BetaToolChangeToolReference {
-  type: "tool_reference";
-  name: string; // pattern: ^[a-zA-Z0-9_-]{1,128}$
-}
-
-/** Reference to a single MCP tool by its server and remote name; the same `server_name`/`name` pair `mcp_tool_use` carries. */
-interface BetaToolChangeMCPToolReference {
-  type: "mcp_tool_reference";
-  name: string;
-  server_name: string;
-}
-
-/** Reference to every tool in the named MCP server's toolset. */
-interface BetaToolChangeMCPToolsetReference {
-  type: "mcp_toolset_reference";
-  server_name: string;
-}
-
-/** A tool defined by value: `definition` is a `tools` entry (any kind `tools` accepts, an MCP toolset included). An `mcp_toolset` given here also requires the `mcp-client-2026-09-15` beta. */
-interface BetaToolChangeToolDefinitionParam {
-  type: "tool_definition";
-  definition: BetaToolUnion;
-}
-
-type BetaThinkingPrefixMismatchBehavior = "error" | "drop_block";
 
 interface BetaBrowserTypeConfig {
   /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
@@ -3001,816 +3965,6 @@ interface BetaBrowserZoomConfig {
   /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
   enabled?: boolean | null;
 }
-
-interface BetaComputerTypeConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerCursorPositionConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerDoubleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerHoldKeyConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerKeyConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerLeftClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerLeftClickDragConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerLeftMouseDownConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerLeftMouseUpConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerMiddleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerMouseMoveConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerRightClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerScreenshotConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerScrollConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerTripleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerWaitConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerZoomConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-/** The `url_sources` variant under which a source contributes in full: every result of the tool filter's source, or all user input. */
-interface BetaWebFetchURLSourceAll {
-  type: "all";
-}
-
-/** The `url_sources` variant under which a source contributes nothing: no result of the tool filter's source, or no user input. */
-interface BetaWebFetchURLSourceNone {
-  type: "none";
-}
-
-/** The tool filter variant under which only the named tools' results contribute. */
-interface BetaWebFetchURLSourceOnly {
-  type: "only";
-  tools: Array<BetaWebFetchURLSourceToolReference>;
-}
-
-/** The tool filter variant under which every result but the named tools' contributes. */
-interface BetaWebFetchURLSourceExcept {
-  type: "except";
-  tools: Array<BetaWebFetchURLSourceToolReference>;
-}
-
-interface BetaCitationCharLocation {
-  type: "char_location";
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null;
-  end_char_index: number;
-  file_id: string | null;
-  start_char_index: number; // minimum: 0
-}
-
-interface BetaCitationPageLocation {
-  type: "page_location";
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null;
-  end_page_number: number;
-  file_id: string | null;
-  start_page_number: number; // minimum: 1
-}
-
-interface BetaCitationContentBlockLocation {
-  type: "content_block_location";
-  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null;
-  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
-  end_block_index: number;
-  file_id: string | null;
-  /** 0-based index of the first cited block in the source's `content` array. */
-  start_block_index: number; // minimum: 0
-}
-
-interface BetaCitationsWebSearchResultLocation {
-  type: "web_search_result_location";
-  cited_text: string;
-  encrypted_index: string;
-  title: string | null; // maxLength: 512
-  url: string;
-}
-
-interface BetaCitationSearchResultLocation {
-  type: "search_result_location";
-  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
-  cited_text: string;
-  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
-  end_block_index: number;
-  /** 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count. */
-  search_result_index: number; // minimum: 0
-  source: string;
-  /** 0-based index of the first cited block in the source's `content` array. */
-  start_block_index: number; // minimum: 0
-  title: string | null;
-}
-
-interface BetaWebSearchToolResultError {
-  type: "web_search_tool_result_error";
-  error_code: BetaWebSearchToolResultErrorCode;
-}
-
-interface BetaWebSearchResultBlock {
-  type: "web_search_result";
-  encrypted_content: string;
-  page_age: string | null;
-  title: string;
-  url: string;
-}
-
-type BetaWebFetchToolResultErrorCode = "invalid_tool_input" | "url_too_long" | "url_not_allowed" | "url_not_in_prior_context" | "url_not_accessible" | "unsupported_content_type" | "too_many_requests" | "max_uses_exceeded" | "unavailable" | "content_too_large";
-
-interface BetaDocumentBlock {
-  type: "document";
-  /** Citation configuration for the document */
-  citations: BetaCitationConfig | null;
-  source: BetaBase64PDFSource | BetaPlainTextSource;
-  /** The title of the document */
-  title: string | null;
-}
-
-interface BetaCodeExecutionToolResultError {
-  type: "code_execution_tool_result_error";
-  error_code: BetaCodeExecutionToolResultErrorCode;
-}
-
-interface BetaCodeExecutionResultBlock {
-  type: "code_execution_result";
-  content: Array<BetaCodeExecutionOutputBlock>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form. The API returns this block in place of `code_execution_result` when the code called the web search tool. See the [programmatic tool calling guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling?sdk_languages=typescript) to learn more about programmatic tool calling. */
-interface BetaEncryptedCodeExecutionResultBlock {
-  type: "encrypted_code_execution_result";
-  content: Array<BetaCodeExecutionOutputBlock>;
-  encrypted_stdout: string;
-  return_code: number;
-  stderr: string;
-}
-
-interface BetaBashCodeExecutionOutputBlock {
-  type: "bash_code_execution_output";
-  file_id: string;
-}
-
-interface BetaToolReferenceBlock {
-  type: "tool_reference";
-  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-}
-
-/** Reference to a single tool, by the name the model uses to call it, as a `compaction` block's `tool_changes` entry reports it: a tool declared in `tools` or defined by an earlier `tool_addition` block. Send it back unchanged with the block. */
-interface BetaResponseToolChangeToolReference {
-  type: "tool_reference";
-  name: string;
-}
-
-/** Reference to a single MCP tool, by its server and its name on that server, as a `compaction` block's `tool_changes` entry reports it. Send it back unchanged with the block. */
-interface BetaResponseToolChangeMCPToolReference {
-  type: "mcp_tool_reference";
-  name: string;
-  server_name: string;
-}
-
-/** Reference to every tool in the named MCP server's toolset, as a `compaction` block's `tool_changes` entry reports it. Send it back unchanged with the block. */
-interface BetaResponseToolChangeMCPToolsetReference {
-  type: "mcp_toolset_reference";
-  server_name: string;
-}
-
-/** A tool defined by value, as a `compaction` block's `tool_changes` entry reports it: `definition` is the tool's definition as it was sent, in the form of a `tools` entry, without `cache_control`. Send it back unchanged with the block. */
-interface BetaToolChangeToolDefinition {
-  type: "tool_definition";
-  definition: BetaResponseToolUnion;
-}
-
-interface BetaImageBlockParam {
-  type: "image";
-  source: BetaBase64ImageSource | BetaURLImageSource | BetaFileImageSource;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  /** Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field. */
-  transformations?: BetaImageTransformationsParam | null;
-}
-
-interface BetaRequestDocumentBlock {
-  type: "document";
-  source: BetaBase64PDFSource | BetaPlainTextSource | BetaContentBlockSource | BetaURLPDFSource | BetaFileDocumentSource;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  citations?: BetaCitationsConfigParam | null;
-  context?: string | null; // minLength: 1
-  title?: string | null; // minLength: 1, maxLength: 500
-}
-
-interface BetaSearchResultBlockParam {
-  type: "search_result";
-  content: Array<BetaTextBlockParam>;
-  source: string;
-  title: string;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  citations?: BetaCitationsConfigParam;
-}
-
-interface BetaThinkingBlockParam {
-  type: "thinking";
-  /** The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude. Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`. */
-  signature: string;
-  /** The `thinking` text of this block as returned by the API. */
-  thinking: string;
-}
-
-interface BetaRedactedThinkingBlockParam {
-  type: "redacted_thinking";
-  /** The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged. */
-  data: string;
-}
-
-interface BetaToolUseBlockParam {
-  type: "tool_use";
-  id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  input: Record<string, unknown>;
-  name: string; // minLength: 1, maxLength: 200
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-  /** For a toolset member tool_use, the toolset family this member belongs to. */
-  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
-}
-
-interface BetaToolResultBlockParam {
-  type: "tool_result";
-  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  content?: string | Array<BetaTextBlockParam | BetaImageBlockParam | BetaSearchResultBlockParam | BetaRequestDocumentBlock | BetaToolReferenceBlockParam | BetaBrowserStateBlockParam>;
-  is_error?: boolean;
-  /** For a toolset member tool_result, the toolset family of the paired tool_use. */
-  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
-}
-
-interface BetaServerToolUseBlockParam {
-  type: "server_tool_use";
-  id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  input: Record<string, unknown>;
-  /** - `"advisor"`: beta header: advisor-tool-2026-03-01 */
-  name: "advisor" | "web_search" | "web_fetch" | "code_execution" | "bash_code_execution" | "text_editor_code_execution" | "tool_search_tool_regex" | "tool_search_tool_bm25";
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaWebSearchToolResultBlockParam {
-  type: "web_search_tool_result";
-  content: BetaWebSearchToolResultBlockParamContent;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaWebFetchToolResultBlockParam {
-  type: "web_fetch_tool_result";
-  content: BetaWebFetchToolResultErrorBlockParam | BetaWebFetchBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaAdvisorToolResultBlockParam {
-  type: "advisor_tool_result";
-  content: BetaAdvisorToolResultErrorParam | BetaAdvisorResultBlockParam | BetaAdvisorRedactedResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaCodeExecutionToolResultBlockParam {
-  type: "code_execution_tool_result";
-  content: BetaCodeExecutionToolResultBlockParamContent;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaBashCodeExecutionToolResultBlockParam {
-  type: "bash_code_execution_tool_result";
-  content: BetaBashCodeExecutionToolResultErrorParam | BetaBashCodeExecutionResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaTextEditorCodeExecutionToolResultBlockParam {
-  type: "text_editor_code_execution_tool_result";
-  content: BetaTextEditorCodeExecutionToolResultErrorParam | BetaTextEditorCodeExecutionViewResultBlockParam | BetaTextEditorCodeExecutionCreateResultBlockParam | BetaTextEditorCodeExecutionStrReplaceResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaToolSearchToolResultBlockParam {
-  type: "tool_search_tool_result";
-  content: BetaToolSearchToolResultErrorParam | BetaToolSearchToolSearchResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaMCPToolUseBlockParam {
-  type: "mcp_tool_use";
-  id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  input: Record<string, unknown>;
-  name: string;
-  /** The name of the MCP server */
-  server_name: string;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaRequestMCPToolResultBlockParam {
-  type: "mcp_tool_result";
-  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  content?: string | Array<BetaTextBlockParam>;
-  is_error?: boolean;
-}
-
-/** A content block that represents a file to be uploaded to the container Files uploaded via this block will be available in the container's input directory. */
-interface BetaContainerUploadBlockParam {
-  type: "container_upload";
-  file_id: string;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-/** A compaction block containing summary of previous context. Users should round-trip these blocks from responses to subsequent requests to maintain context across compaction boundaries. When content is None, the block represents a failed compaction. The server treats these as no-ops. Empty string content is not allowed. */
-interface BetaCompactionBlockParam {
-  type: "compaction";
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  /** Summary of previously compacted content, or null if compaction failed */
-  content?: string | null;
-  /** Opaque metadata from prior compaction, to be round-tripped verbatim */
-  encrypted_content?: string | null; // beta header: task-budgets-2026-03-13
-  /** The block's signature as returned, to be sent back verbatim */
-  signature?: string | null; // beta header: compact-2026-09-04
-  /** The tool changes of the compacted range, as the server returned them on this block: the `tool_addition` and `tool_removal` entries that take the request's `tools` to the tool set in effect at the end of the range. Send them back unchanged with the block. */
-  tool_changes?: Array<BetaRequestToolAdditionBlock | BetaRequestToolRemovalBlock> | null; // beta header: inline-tools-2026-09-15
-}
-
-/** The tool listing an MCP server returned while an earlier response was produced, as that response carried it. Send the assistant message back unchanged, this block included, and the server uses this listing for the matching `mcp_toolset` instead of asking the MCP server again. */
-interface BetaMCPToolListingBlockParam {
-  type: "mcp_tool_listing";
-  /** The name of the MCP server this listing came from, as `mcp_servers` declares it. */
-  mcp_server_name: string; // minLength: 1, maxLength: 255
-  /** The server's tools, exactly as the response listed them. */
-  tools: Array<BetaMCPToolParam>;
-}
-
-/** A `fallback` block echoed back from a prior response. Accepted in `messages[].content` and not rendered into the prompt; not validated against the request's `fallbacks` chain or top-level `model`. When you send the assistant turn back, keep this block in its original position. The block marks the boundary between content produced before and after a fallback hop, and the server relies on that boundary to validate the turn: when thinking runs flank the boundary, omitting the block merges them into one span the server cannot validate (the request is rejected), and moving it into the middle of a single run is likewise rejected; between non-thinking blocks the block's placement has no effect on thinking validation. Some blocks from before the turn's final `fallback` block must be left out when you send the turn back, and no `tool_result` is sent for a `tool_use` block you left out. See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#continuing-the-conversation) to learn which blocks to keep. */
-interface BetaFallbackBlockParam {
-  type: "fallback";
-  /** Identifies one hop of a fallback transition. */
-  from: BetaFallbackInfoParam;
-  /** Identifies one hop of a fallback transition. */
-  to: BetaFallbackInfoParam;
-  /** The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed. */
-  trigger?: unknown;
-}
-
-/** One entry of a tool filter's `tools`: it must name a tool declared in this request's `tools[]`. */
-interface BetaWebFetchURLSourceToolReference {
-  type: "tool_reference";
-  name: string;
-}
-
-type BetaWebSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "max_uses_exceeded" | "too_many_requests" | "query_too_long" | "request_too_large";
-
-interface BetaCitationConfig {
-  enabled: boolean; // default: false
-}
-
-interface BetaBase64PDFSource {
-  type: "base64";
-  data: string; // format: byte
-  media_type: "application/pdf";
-}
-
-interface BetaPlainTextSource {
-  type: "text";
-  data: string;
-  media_type: "text/plain";
-}
-
-type BetaCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-
-interface BetaCodeExecutionOutputBlock {
-  type: "code_execution_output";
-  file_id: string;
-}
-
-type BetaResponseToolUnion =
-  | BetaResponseTool
-  | BetaToolBash20241022 // beta header: computer-use-2024-10-22
-  | BetaToolBash20250124
-  | BetaCodeExecutionTool20250522
-  | BetaCodeExecutionTool20250825
-  | BetaCodeExecutionTool20260120
-  | BetaCodeExecutionTool20260521
-  | BetaBrowserToolset20260801
-  | BetaToolComputerUse20241022 // beta header: computer-use-2024-10-22
-  | BetaMemoryTool20250818
-  | BetaToolComputerUse20250124 // beta header: computer-use-2025-01-24
-  | BetaToolTextEditor20241022 // beta header: computer-use-2024-10-22
-  | BetaToolComputerUse20251124 // beta header: computer-use-2025-11-24
-  | BetaComputerToolset20260801
-  | BetaToolTextEditor20250124
-  | BetaToolTextEditor20250429
-  | BetaToolTextEditor20250728
-  | BetaWebSearchTool20250305
-  | BetaWebFetchTool20250910
-  | BetaWebSearchTool20260209
-  | BetaWebFetchTool20260209
-  | BetaWebFetchTool20260309
-  | BetaWebSearchTool20260318
-  | BetaWebFetchTool20260318
-  | BetaAdvisorTool20260301 // beta header: advisor-tool-2026-03-01
-  | BetaToolSearchToolBm25_20251119
-  | BetaToolSearchToolRegex20251119
-  | BetaMCPToolset; // beta header: mcp-client-2025-11-20 or mcp-client-2026-09-15
-
-interface BetaBase64ImageSource {
-  type: "base64";
-  data: string; // format: byte
-  media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp";
-}
-
-interface BetaURLImageSource {
-  type: "url";
-  url: string;
-}
-
-interface BetaFileImageSource {
-  type: "file";
-  file_id: string;
-}
-
-interface BetaImageTransformationsParam {
-  /** What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down. */
-  oversized_image?: "downsize" | "error";
-}
-
-interface BetaContentBlockSource {
-  type: "content";
-  content: string | Array<BetaContentBlockSourceContent>;
-}
-
-interface BetaURLPDFSource {
-  type: "url";
-  url: string;
-}
-
-interface BetaFileDocumentSource {
-  type: "file";
-  file_id: string;
-}
-
-/** Tool reference block that can be included in tool_result content. */
-interface BetaToolReferenceBlockParam {
-  type: "tool_reference";
-  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-/** The caller's browser state after a browser toolset member call — the full inventory of open tabs, which tab is active, and any side effects (tabs opened, download state changes) the call produced. At most one per `tool_result`, only on a non-error result answering a browser toolset member `tool_use`. The server renders the model-visible text from it; the model never sees the raw fields. */
-interface BetaBrowserStateBlockParam {
-  type: "browser_state";
-  /** All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`. */
-  tabs: Array<BetaBrowserStateTabEntry>; // maxItems: 100
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  /** Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list. */
-  state_changes?: Array<BetaBrowserStateChange> | null; // minItems: 1, maxItems: 200
-}
-
-type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
-
-interface BetaWebFetchToolResultErrorBlockParam {
-  type: "web_fetch_tool_result_error";
-  error_code: BetaWebFetchToolResultErrorCode;
-}
-
-interface BetaWebFetchBlockParam {
-  type: "web_fetch_result";
-  content: BetaRequestDocumentBlock;
-  /** Fetched content URL */
-  url: string;
-  /** ISO 8601 timestamp when the content was retrieved */
-  retrieved_at?: string | null;
-}
-
-interface BetaAdvisorToolResultErrorParam {
-  type: "advisor_tool_result_error";
-  error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
-}
-
-interface BetaAdvisorResultBlockParam {
-  type: "advisor_result";
-  text: string;
-  stop_reason?: string | null;
-}
-
-interface BetaAdvisorRedactedResultBlockParam {
-  type: "advisor_redacted_result";
-  /** Opaque blob produced by a prior response; must be round-tripped verbatim. */
-  encrypted_content: string;
-  stop_reason?: string | null;
-}
-
-type BetaCodeExecutionToolResultBlockParamContent = BetaCodeExecutionToolResultErrorParam | BetaCodeExecutionResultBlockParam | BetaEncryptedCodeExecutionResultBlockParam;
-
-interface BetaBashCodeExecutionToolResultErrorParam {
-  type: "bash_code_execution_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
-}
-
-interface BetaBashCodeExecutionResultBlockParam {
-  type: "bash_code_execution_result";
-  content: Array<BetaBashCodeExecutionOutputBlockParam>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-interface BetaTextEditorCodeExecutionToolResultErrorParam {
-  type: "text_editor_code_execution_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
-  error_message?: string | null;
-}
-
-interface BetaTextEditorCodeExecutionViewResultBlockParam {
-  type: "text_editor_code_execution_view_result";
-  content: string;
-  file_type: "text" | "image" | "pdf";
-  num_lines?: number | null;
-  start_line?: number | null;
-  total_lines?: number | null;
-}
-
-interface BetaTextEditorCodeExecutionCreateResultBlockParam {
-  type: "text_editor_code_execution_create_result";
-  is_file_update: boolean;
-}
-
-interface BetaTextEditorCodeExecutionStrReplaceResultBlockParam {
-  type: "text_editor_code_execution_str_replace_result";
-  lines?: Array<string> | null;
-  new_lines?: number | null;
-  new_start?: number | null;
-  old_lines?: number | null;
-  old_start?: number | null;
-}
-
-interface BetaToolSearchToolResultErrorParam {
-  type: "tool_search_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-  error_message?: string | null;
-}
-
-interface BetaToolSearchToolSearchResultBlockParam {
-  type: "tool_search_tool_search_result";
-  tool_references: Array<BetaToolReferenceBlockParam>;
-}
-
-interface BetaFallbackInfoParam {
-  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
-  model: Model;
-}
-
-/** A custom tool definition, as sent. */
-interface BetaResponseTool {
-  type?: "custom" | null;
-  /** [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input. This defines the shape of the `input` that your tool accepts and that the model will produce. */
-  input_schema: BetaResponseToolInputSchema;
-  /** Name of the tool. This is how the tool will be called by the model and in `tool_use` blocks. */
-  name: string; // minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
-  allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">;
-  /** If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search. */
-  defer_loading?: boolean;
-  /** Description of what this tool does. Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema. */
-  description?: string;
-  /** Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers. */
-  eager_input_streaming?: boolean | null;
-  input_examples?: Array<Record<string, unknown>>;
-  /** When true, guarantees schema validation on tool names and inputs */
-  strict?: boolean;
-}
-
-type BetaContentBlockSourceContent = BetaTextBlockParam | BetaImageBlockParam;
-
-interface BetaBrowserStateTabEntry {
-  /** The caller-assigned identifier for this tab, unique within the inventory. */
-  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The title of the page the tab is showing. May be empty. */
-  title: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The URL of the page the tab is showing. May be empty. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`. */
-  active?: boolean;
-}
-
-type BetaBrowserStateChange = BetaBrowserStateChangeTabOpened | BetaBrowserStateChangeDownloadStarted | BetaBrowserStateChangeDownloadCompleted | BetaBrowserStateChangeDownloadFailed;
-
-interface BetaWebSearchResultBlockParam {
-  type: "web_search_result";
-  encrypted_content: string;
-  title: string;
-  url: string;
-  page_age?: string | null;
-}
-
-interface BetaWebSearchToolRequestError {
-  type: "web_search_tool_result_error";
-  error_code: BetaWebSearchToolResultErrorCode;
-}
-
-interface BetaCodeExecutionToolResultErrorParam {
-  type: "code_execution_tool_result_error";
-  error_code: BetaCodeExecutionToolResultErrorCode;
-}
-
-interface BetaCodeExecutionResultBlockParam {
-  type: "code_execution_result";
-  content: Array<BetaCodeExecutionOutputBlockParam>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request. */
-interface BetaEncryptedCodeExecutionResultBlockParam {
-  type: "encrypted_code_execution_result";
-  content: Array<BetaCodeExecutionOutputBlockParam>;
-  encrypted_stdout: string;
-  return_code: number;
-  stderr: string;
-}
-
-interface BetaBashCodeExecutionOutputBlockParam {
-  type: "bash_code_execution_output";
-  file_id: string;
-}
-
-interface BetaResponseToolInputSchema {
-  type: "object";
-  properties?: Record<string, unknown> | null;
-  required?: Array<string> | null;
-}
-
-/** A tab this call's execution opened that remains open at its end — the creation delta of the `tabs` inventory, not an event log. Carries only the `tab_id`; the tab's `title` and `url` live on its `tabs` entry, which must include the same `tab_id`. A tab opened during a failed call gets no deferred `tab_opened`; it simply appears in the next result's `tabs` inventory. */
-interface BetaBrowserStateChangeTabOpened {
-  type: "tab_opened";
-  /** The `tab_id` of the opened tab, present in `tabs`. */
-  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-/** A file download that started during this call. */
-interface BetaBrowserStateChangeDownloadStarted {
-  type: "download_started";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-/** A file download that finished during this call, reported with the same `download_id` as its `download_started` — or without a prior `download_started`, when the download finished during the call that started it (at most one state change per `download_id` per result). */
-interface BetaBrowserStateChangeDownloadCompleted {
-  type: "download_completed";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path. */
-  path?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The completed download's size. */
-  size_bytes?: number | null; // minimum: 0
-}
-
-/** A file download that failed — or was cancelled — during this call. */
-interface BetaBrowserStateChangeDownloadFailed {
-  type: "download_failed";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The failure or cancellation detail, when known. */
-  error?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-interface BetaCodeExecutionOutputBlockParam {
-  type: "code_execution_output";
-  file_id: string;
-}
 ```
 
 ### Count tokens in a Message
@@ -4025,6 +4179,74 @@ interface BetaMessageTokensCount {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `AvailableToolsLimitExceededError` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CompactionBlockAmbiguousError` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `CompactionBlockMisplacedError` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `CompactionContentMismatchError` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `CompactionNothingToSummarizeError` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `CompactionSignatureInvalidError` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `CompactionToolChangesMismatchError` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `RequestBodyEncodingInvalidError` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `RequestBodyEncodingUnsupportedError` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `ToolNameConflictError` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `ToolReferenceUnresolvedError` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `CompactionUnavailableError` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
 #### Types
 
 ```ts
@@ -4136,6 +4358,26 @@ interface BetaMessageBatch {
   results_url: string | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
 
 #### Types
 
@@ -4388,6 +4630,18 @@ interface BatchRetrieveParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### List Message Batches
 
 - Signature: `client.beta.messages.batches.list(params?: BatchListParams, options?: RequestOptions): Page<BetaMessageBatch>`
@@ -4459,6 +4713,18 @@ interface BatchListParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Cancel a Message Batch
 
 - Signature: `client.beta.messages.batches.cancel(messageBatchID: string, params?: BatchCancelParams, options?: RequestOptions): BetaMessageBatch`
@@ -4521,6 +4787,18 @@ interface BatchCancelParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Delete a Message Batch
 
 - Signature: `client.beta.messages.batches.delete(messageBatchID: string, params?: BatchDeleteParams, options?: RequestOptions): BetaDeletedMessageBatch`
@@ -4580,6 +4858,18 @@ interface BetaDeletedMessageBatch {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Retrieve Message Batch results
 
 - Signature: `client.beta.messages.batches.results(messageBatchID: string, params?: BatchResultsParams, options?: RequestOptions): JSONLDecoder<BetaMessageBatchIndividualResponse>`
@@ -4631,6 +4921,22 @@ interface BetaMessageBatchIndividualResponse {
   result: BetaMessageBatchResult;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Types
 
@@ -4781,38 +5087,7 @@ console.log(betaManagedAgentsAgent.id);
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -4829,16 +5104,7 @@ console.log(betaManagedAgentsAgent.id);
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {
@@ -5142,6 +5408,89 @@ interface BetaManagedAgentsMultiagent20261001Params {
   workflows?: BetaManagedAgentsMultiagentWorkflowsParams | null;
 }
 
+type BetaManagedAgentsMultiagentRosterEntryParams = string | BetaManagedAgentsAgentParams | BetaManagedAgentsMultiagentSelfParams | BetaManagedAgentsAdvisorParams;
+
+/** Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version */
+interface BetaManagedAgentsAgentParams {
+  type: "agent";
+  /** The `agent` ID. */
+  id: string; // minLength: 1, maxLength: 128
+  /** The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified. */
+  version?: number; // format: int32
+}
+
+/** Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference. */
+interface BetaManagedAgentsMultiagentSelfParams {
+  type: "self";
+}
+
+/** Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`. */
+interface BetaManagedAgentsAdvisorParams {
+  type: "advisor";
+  /** A Claude model id. The model must be permitted as an advisor for this agent's model. */
+  model: string; // minLength: 1, maxLength: 256
+}
+
+type BetaManagedAgentsMultiagentAdvisorParams = BetaManagedAgentsMultiagentAdvisorEnabledParams | BetaManagedAgentsMultiagentAdvisorDisabledParams;
+
+type BetaManagedAgentsMultiagentSubagentsParams = BetaManagedAgentsMultiagentSubagentsEnabledParams | BetaManagedAgentsMultiagentSubagentsDisabledParams;
+
+type BetaManagedAgentsMultiagentWorkflowsParams = BetaManagedAgentsMultiagentWorkflowsEnabledParams | BetaManagedAgentsMultiagentWorkflowsDisabledParams;
+
+/** The session's primary thread can consult `model` mid-turn. */
+interface BetaManagedAgentsMultiagentAdvisorEnabledParams {
+  type: "enabled";
+  /** A Claude model id. The model must be permitted as an advisor for this agent's model. */
+  model: string; // minLength: 1, maxLength: 256
+}
+
+/** The agent has no advisor. */
+interface BetaManagedAgentsMultiagentAdvisorDisabledParams {
+  type: "disabled";
+}
+
+/** The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent. */
+interface BetaManagedAgentsMultiagentWorkflowsEnabledParams {
+  type: "enabled";
+  /** Whether a run's plan can define inline agents. Defaults to enabled. */
+  inline_agents?: BetaManagedAgentsMultiagentInlineAgentsParams | null;
+  /** Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other. */
+  predefined_agents?: Array<BetaManagedAgentsMultiagentPredefinedAgentParams> | null;
+}
+
+/** The agent cannot start workflow runs. */
+interface BetaManagedAgentsMultiagentWorkflowsDisabledParams {
+  type: "disabled";
+}
+
+/** The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent. */
+interface BetaManagedAgentsMultiagentSubagentsEnabledParams {
+  type: "enabled";
+  /** Whether the agent can define inline agents when it spawns session threads. Defaults to enabled. */
+  inline_agents?: BetaManagedAgentsMultiagentInlineAgentsParams | null;
+  /** Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other. */
+  predefined_agents?: Array<BetaManagedAgentsMultiagentPredefinedAgentParams> | null;
+}
+
+/** The agent cannot spawn session threads. */
+interface BetaManagedAgentsMultiagentSubagentsDisabledParams {
+  type: "disabled";
+}
+
+type BetaManagedAgentsMultiagentInlineAgentsParams = BetaManagedAgentsMultiagentInlineAgentsEnabledParams | BetaManagedAgentsMultiagentInlineAgentsDisabledParams;
+
+type BetaManagedAgentsMultiagentPredefinedAgentParams = string | BetaManagedAgentsAgentParams | BetaManagedAgentsMultiagentSelfParams;
+
+/** The agent can define inline agents. */
+interface BetaManagedAgentsMultiagentInlineAgentsEnabledParams {
+  type: "enabled";
+}
+
+/** The agent cannot define inline agents. */
+interface BetaManagedAgentsMultiagentInlineAgentsDisabledParams {
+  type: "disabled";
+}
+
 /** An Anthropic-managed skill. */
 interface BetaManagedAgentsAnthropicSkillParams {
   type: "anthropic";
@@ -5158,37 +5507,6 @@ interface BetaManagedAgentsCustomSkillParams {
   skill_id: string; // minLength: 1, maxLength: 64
   /** Version to pin. Defaults to latest if omitted. */
   version?: string | null; // minLength: 1, maxLength: 64
-}
-
-type BetaManagedAgentsAgentToolConfigParams = BetaManagedAgentsBashToolConfigParams | BetaManagedAgentsEditToolConfigParams | BetaManagedAgentsReadToolConfigParams | BetaManagedAgentsWriteToolConfigParams | BetaManagedAgentsGlobToolConfigParams | BetaManagedAgentsGrepToolConfigParams | BetaManagedAgentsWebFetchToolConfigParams | BetaManagedAgentsWebSearchToolConfigParams;
-
-interface BetaManagedAgentsAgentToolsetDefaultConfigParams {
-  /** Whether tools are enabled and available to Claude by default. Defaults to true if not specified. */
-  enabled?: boolean | null;
-  /** Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation. */
-  permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null;
-}
-
-interface BetaManagedAgentsMCPToolConfigParams {
-  /** Name of the MCP tool to configure. 1-128 characters. */
-  name: string; // minLength: 1, maxLength: 128
-  /** Whether this tool is enabled. Overrides the `default_config` setting. */
-  enabled?: boolean | null;
-  /** Permission policy for this tool. Overrides the `default_config` setting. */
-  permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null;
-}
-
-interface BetaManagedAgentsMCPToolsetDefaultConfigParams {
-  /** Whether tools are enabled by default. Defaults to true if not specified. */
-  enabled?: boolean | null;
-  /** Default permission policy for tools from this server. */
-  permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null;
-}
-
-interface BetaManagedAgentsCustomToolInputSchema {
-  type: "object";
-  properties?: Record<string, unknown> | null;
-  required?: Array<string> | null;
 }
 
 /** An AWS IAM role principal as returned in API responses. */
@@ -5221,13 +5539,76 @@ interface BetaManagedAgentsMultiagent20261001 {
   workflows: BetaManagedAgentsMultiagentWorkflows;
 }
 
-/** Configuration for a specific agent tool. */
-type BetaManagedAgentsAgentToolConfig = BetaManagedAgentsBashToolConfig | BetaManagedAgentsEditToolConfig | BetaManagedAgentsReadToolConfig | BetaManagedAgentsWriteToolConfig | BetaManagedAgentsGlobToolConfig | BetaManagedAgentsGrepToolConfig | BetaManagedAgentsWebFetchToolConfig | BetaManagedAgentsWebSearchToolConfig;
+/** A resolved agent reference with a concrete version. */
+interface BetaManagedAgentsAgentReference {
+  type: "agent";
+  id: string;
+  version: number; // format: int32
+}
 
-interface BetaManagedAgentsAgentToolsetDefaultConfig {
-  enabled: boolean;
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+/** Platform advisor roster entry: a model the session's primary thread may consult mid-turn. */
+interface BetaManagedAgentsAdvisor {
+  type: "advisor";
+  /** The advisor model id. */
+  model: string;
+}
+
+type BetaManagedAgentsMultiagentAdvisor = BetaManagedAgentsMultiagentAdvisorEnabled | BetaManagedAgentsMultiagentAdvisorDisabled;
+
+type BetaManagedAgentsMultiagentSubagents = BetaManagedAgentsMultiagentSubagentsEnabled | BetaManagedAgentsMultiagentSubagentsDisabled;
+
+type BetaManagedAgentsMultiagentWorkflows = BetaManagedAgentsMultiagentWorkflowsEnabled | BetaManagedAgentsMultiagentWorkflowsDisabled;
+
+/** The session's primary thread can consult `model` mid-turn. */
+interface BetaManagedAgentsMultiagentAdvisorEnabled {
+  type: "enabled";
+  /** The advisor model id. */
+  model: string;
+}
+
+/** The agent has no advisor. */
+interface BetaManagedAgentsMultiagentAdvisorDisabled {
+  type: "disabled";
+}
+
+/** The agent can start workflow runs. */
+interface BetaManagedAgentsMultiagentWorkflowsEnabled {
+  type: "enabled";
+  /** Whether a run's plan can define inline agents, which are not saved. */
+  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
+  /** Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version. */
+  predefined_agents: Array<BetaManagedAgentsAgentReference>;
+}
+
+/** The agent cannot start workflow runs. */
+interface BetaManagedAgentsMultiagentWorkflowsDisabled {
+  type: "disabled";
+}
+
+/** The agent can spawn session threads. */
+interface BetaManagedAgentsMultiagentSubagentsEnabled {
+  type: "enabled";
+  /** Whether the agent can define inline agents, which are not saved, when it spawns session threads. */
+  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
+  /** Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version. */
+  predefined_agents: Array<BetaManagedAgentsAgentReference>;
+}
+
+/** The agent cannot spawn session threads. */
+interface BetaManagedAgentsMultiagentSubagentsDisabled {
+  type: "disabled";
+}
+
+type BetaManagedAgentsMultiagentInlineAgents = BetaManagedAgentsMultiagentInlineAgentsEnabled | BetaManagedAgentsMultiagentInlineAgentsDisabled;
+
+/** The agent can define inline agents. */
+interface BetaManagedAgentsMultiagentInlineAgentsEnabled {
+  type: "enabled";
+}
+
+/** The agent cannot define inline agents. */
+interface BetaManagedAgentsMultiagentInlineAgentsDisabled {
+  type: "disabled";
 }
 
 /** Resolved configuration for a specific MCP tool. */
@@ -5244,13 +5625,135 @@ interface BetaManagedAgentsMCPToolsetDefaultConfig {
   permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
 }
 
-type BetaManagedAgentsMultiagentRosterEntryParams = string | BetaManagedAgentsAgentParams | BetaManagedAgentsMultiagentSelfParams | BetaManagedAgentsAdvisorParams;
+/** Configuration for a specific agent tool. */
+type BetaManagedAgentsAgentToolConfig = BetaManagedAgentsBashToolConfig | BetaManagedAgentsEditToolConfig | BetaManagedAgentsReadToolConfig | BetaManagedAgentsWriteToolConfig | BetaManagedAgentsGlobToolConfig | BetaManagedAgentsGrepToolConfig | BetaManagedAgentsWebFetchToolConfig | BetaManagedAgentsWebSearchToolConfig;
 
-type BetaManagedAgentsMultiagentAdvisorParams = BetaManagedAgentsMultiagentAdvisorEnabledParams | BetaManagedAgentsMultiagentAdvisorDisabledParams;
+interface BetaManagedAgentsAgentToolsetDefaultConfig {
+  enabled: boolean;
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
 
-type BetaManagedAgentsMultiagentSubagentsParams = BetaManagedAgentsMultiagentSubagentsEnabledParams | BetaManagedAgentsMultiagentSubagentsDisabledParams;
+/** Configuration for the bash tool. */
+interface BetaManagedAgentsBashToolConfig {
+  type: "bash";
+  enabled: boolean;
+  name: "bash";
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
 
-type BetaManagedAgentsMultiagentWorkflowsParams = BetaManagedAgentsMultiagentWorkflowsEnabledParams | BetaManagedAgentsMultiagentWorkflowsDisabledParams;
+/** Configuration for the edit tool. */
+interface BetaManagedAgentsEditToolConfig {
+  type: "edit";
+  enabled: boolean;
+  name: "edit";
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+/** Configuration for the read tool. */
+interface BetaManagedAgentsReadToolConfig {
+  type: "read";
+  enabled: boolean;
+  name: "read";
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+/** Configuration for the write tool. */
+interface BetaManagedAgentsWriteToolConfig {
+  type: "write";
+  enabled: boolean;
+  name: "write";
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+/** Configuration for the glob tool. */
+interface BetaManagedAgentsGlobToolConfig {
+  type: "glob";
+  enabled: boolean;
+  name: "glob";
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+/** Configuration for the grep tool. */
+interface BetaManagedAgentsGrepToolConfig {
+  type: "grep";
+  enabled: boolean;
+  name: "grep";
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+/** Configuration for the web_fetch tool. */
+interface BetaManagedAgentsWebFetchToolConfig {
+  type: "web_fetch";
+  enabled: boolean;
+  name: "web_fetch";
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+  /** Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source. */
+  url_sources: BetaManagedAgentsWebFetchURLSources | null; // beta header: managed-agents-2026-04-01
+  allowed_domains?: Array<string>;
+  blocked_domains?: Array<string>;
+  max_content_tokens?: number | null; // format: int32
+}
+
+/** Configuration for the web_search tool. */
+interface BetaManagedAgentsWebSearchToolConfig {
+  type: "web_search";
+  enabled: boolean;
+  name: "web_search";
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+  allowed_domains?: Array<string>;
+  blocked_domains?: Array<string>;
+  /** Approximate user location for search result localization. */
+  user_location?: BetaManagedAgentsUserLocation | null;
+}
+
+interface BetaManagedAgentsWebFetchURLSources {
+  /** Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results. */
+  client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
+  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both. */
+  server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
+  /** Whether URLs in the text of user messages may be fetched. Null when not set, which allows them. */
+  user_input: BetaManagedAgentsWebFetchURLSourceUserInput | null;
+}
+
+interface BetaManagedAgentsMCPToolConfigParams {
+  /** Name of the MCP tool to configure. 1-128 characters. */
+  name: string; // minLength: 1, maxLength: 128
+  /** Whether this tool is enabled. Overrides the `default_config` setting. */
+  enabled?: boolean | null;
+  /** Permission policy for this tool. Overrides the `default_config` setting. */
+  permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null;
+}
+
+interface BetaManagedAgentsMCPToolsetDefaultConfigParams {
+  /** Whether tools are enabled by default. Defaults to true if not specified. */
+  enabled?: boolean | null;
+  /** Default permission policy for tools from this server. */
+  permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null;
+}
+
+interface BetaManagedAgentsCustomToolInputSchema {
+  type: "object";
+  properties?: Record<string, unknown> | null;
+  required?: Array<string> | null;
+}
+
+type BetaManagedAgentsAgentToolConfigParams = BetaManagedAgentsBashToolConfigParams | BetaManagedAgentsEditToolConfigParams | BetaManagedAgentsReadToolConfigParams | BetaManagedAgentsWriteToolConfigParams | BetaManagedAgentsGlobToolConfigParams | BetaManagedAgentsGrepToolConfigParams | BetaManagedAgentsWebFetchToolConfigParams | BetaManagedAgentsWebSearchToolConfigParams;
+
+interface BetaManagedAgentsAgentToolsetDefaultConfigParams {
+  /** Whether tools are enabled and available to Claude by default. Defaults to true if not specified. */
+  enabled?: boolean | null;
+  /** Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation. */
+  permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null;
+}
 
 /** Configuration override for the bash tool. */
 interface BetaManagedAgentsBashToolConfigParams {
@@ -5369,177 +5872,6 @@ interface BetaManagedAgentsAutoPolicy {
   type: "auto";
 }
 
-/** A resolved agent reference with a concrete version. */
-interface BetaManagedAgentsAgentReference {
-  type: "agent";
-  id: string;
-  version: number; // format: int32
-}
-
-/** Platform advisor roster entry: a model the session's primary thread may consult mid-turn. */
-interface BetaManagedAgentsAdvisor {
-  type: "advisor";
-  /** The advisor model id. */
-  model: string;
-}
-
-type BetaManagedAgentsMultiagentAdvisor = BetaManagedAgentsMultiagentAdvisorEnabled | BetaManagedAgentsMultiagentAdvisorDisabled;
-
-type BetaManagedAgentsMultiagentSubagents = BetaManagedAgentsMultiagentSubagentsEnabled | BetaManagedAgentsMultiagentSubagentsDisabled;
-
-type BetaManagedAgentsMultiagentWorkflows = BetaManagedAgentsMultiagentWorkflowsEnabled | BetaManagedAgentsMultiagentWorkflowsDisabled;
-
-/** Configuration for the bash tool. */
-interface BetaManagedAgentsBashToolConfig {
-  type: "bash";
-  enabled: boolean;
-  name: "bash";
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-/** Configuration for the edit tool. */
-interface BetaManagedAgentsEditToolConfig {
-  type: "edit";
-  enabled: boolean;
-  name: "edit";
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-/** Configuration for the read tool. */
-interface BetaManagedAgentsReadToolConfig {
-  type: "read";
-  enabled: boolean;
-  name: "read";
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-/** Configuration for the write tool. */
-interface BetaManagedAgentsWriteToolConfig {
-  type: "write";
-  enabled: boolean;
-  name: "write";
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-/** Configuration for the glob tool. */
-interface BetaManagedAgentsGlobToolConfig {
-  type: "glob";
-  enabled: boolean;
-  name: "glob";
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-/** Configuration for the grep tool. */
-interface BetaManagedAgentsGrepToolConfig {
-  type: "grep";
-  enabled: boolean;
-  name: "grep";
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-/** Configuration for the web_fetch tool. */
-interface BetaManagedAgentsWebFetchToolConfig {
-  type: "web_fetch";
-  enabled: boolean;
-  name: "web_fetch";
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-  /** Which sources contribute URLs the tool may fetch, always in the object form. Null when not set, which allows every source. */
-  url_sources: BetaManagedAgentsWebFetchURLSources | null; // beta header: managed-agents-2026-04-01
-  allowed_domains?: Array<string>;
-  blocked_domains?: Array<string>;
-  max_content_tokens?: number | null; // format: int32
-}
-
-/** Configuration for the web_search tool. */
-interface BetaManagedAgentsWebSearchToolConfig {
-  type: "web_search";
-  enabled: boolean;
-  name: "web_search";
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-  allowed_domains?: Array<string>;
-  blocked_domains?: Array<string>;
-  /** Approximate user location for search result localization. */
-  user_location?: BetaManagedAgentsUserLocation | null;
-}
-
-/** Specification for an Agent. Provide a specific `version` or use the short-form `agent="agent_id"` for the most recent version */
-interface BetaManagedAgentsAgentParams {
-  type: "agent";
-  /** The `agent` ID. */
-  id: string; // minLength: 1, maxLength: 128
-  /** The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified. */
-  version?: number; // format: int32
-}
-
-/** Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference. */
-interface BetaManagedAgentsMultiagentSelfParams {
-  type: "self";
-}
-
-/** Platform advisor roster entry: a model the session's primary thread may consult mid-turn. At most one per roster; the entry occupies the roster name `anthropic.advisor`. */
-interface BetaManagedAgentsAdvisorParams {
-  type: "advisor";
-  /** A Claude model id. The model must be permitted as an advisor for this agent's model. */
-  model: string; // minLength: 1, maxLength: 256
-}
-
-/** The session's primary thread can consult `model` mid-turn. */
-interface BetaManagedAgentsMultiagentAdvisorEnabledParams {
-  type: "enabled";
-  /** A Claude model id. The model must be permitted as an advisor for this agent's model. */
-  model: string; // minLength: 1, maxLength: 256
-}
-
-/** The agent has no advisor. */
-interface BetaManagedAgentsMultiagentAdvisorDisabledParams {
-  type: "disabled";
-}
-
-/** The agent can spawn session threads. Each thread runs a predefined agent, which is a saved agent in `predefined_agents`, or an inline agent, which the agent defines when it spawns the thread and which is not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent. */
-interface BetaManagedAgentsMultiagentSubagentsEnabledParams {
-  type: "enabled";
-  /** Whether the agent can define inline agents when it spawns session threads. Defaults to enabled. */
-  inline_agents?: BetaManagedAgentsMultiagentInlineAgentsParams | null;
-  /** Predefined agents that this agent can spawn as session threads. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `workflows.predefined_agents`, and an agent in one list is not added to the other. */
-  predefined_agents?: Array<BetaManagedAgentsMultiagentPredefinedAgentParams> | null;
-}
-
-/** The agent cannot spawn session threads. */
-interface BetaManagedAgentsMultiagentSubagentsDisabledParams {
-  type: "disabled";
-}
-
-/** The agent can start workflow runs. Each run follows a plan, a program that the agent writes. A plan can use predefined agents, which are the saved agents in `predefined_agents`, and inline agents, which it defines itself and which are not saved. If `inline_agents` is disabled, `predefined_agents` must name at least one agent. */
-interface BetaManagedAgentsMultiagentWorkflowsEnabledParams {
-  type: "enabled";
-  /** Whether a run's plan can define inline agents. Defaults to enabled. */
-  inline_agents?: BetaManagedAgentsMultiagentInlineAgentsParams | null;
-  /** Predefined agents that a run's plan can use. At most 20. Defaults to null. Null and an empty list both mean no predefined agents. This list is separate from `subagents.predefined_agents`, and an agent in one list is not added to the other. */
-  predefined_agents?: Array<BetaManagedAgentsMultiagentPredefinedAgentParams> | null;
-}
-
-/** The agent cannot start workflow runs. */
-interface BetaManagedAgentsMultiagentWorkflowsDisabledParams {
-  type: "disabled";
-}
-
-interface BetaManagedAgentsWebFetchURLSourcesParams {
-  /** Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array. */
-  client_tool_results?: BetaManagedAgentsWebFetchURLSourceToolFilterParams | null;
-  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch". */
-  server_tool_results?: BetaManagedAgentsWebFetchURLSourceToolFilterParams | null;
-  /** Whether URLs in the text of user messages may be fetched: "all" (the default) or "none". */
-  user_input?: BetaManagedAgentsWebFetchURLSourceUserInputParams | null;
-}
-
 interface BetaManagedAgentsUserLocation {
   /** Location precision. Only "approximate" is supported. */
   type: "approximate";
@@ -5553,93 +5885,27 @@ interface BetaManagedAgentsUserLocation {
   timezone?: string | null; // minLength: 1, maxLength: 255
 }
 
-/** The session's primary thread can consult `model` mid-turn. */
-interface BetaManagedAgentsMultiagentAdvisorEnabled {
-  type: "enabled";
-  /** The advisor model id. */
-  model: string;
+interface BetaManagedAgentsWebFetchURLSourcesParams {
+  /** Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array. */
+  client_tool_results?: BetaManagedAgentsWebFetchURLSourceToolFilterParams | null;
+  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch". */
+  server_tool_results?: BetaManagedAgentsWebFetchURLSourceToolFilterParams | null;
+  /** Whether URLs in the text of user messages may be fetched: "all" (the default) or "none". */
+  user_input?: BetaManagedAgentsWebFetchURLSourceUserInputParams | null;
 }
-
-/** The agent has no advisor. */
-interface BetaManagedAgentsMultiagentAdvisorDisabled {
-  type: "disabled";
-}
-
-/** The agent can spawn session threads. */
-interface BetaManagedAgentsMultiagentSubagentsEnabled {
-  type: "enabled";
-  /** Whether the agent can define inline agents, which are not saved, when it spawns session threads. */
-  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
-  /** Predefined agents, which are saved agents that this agent can spawn as session threads, each resolved to a specific version. */
-  predefined_agents: Array<BetaManagedAgentsAgentReference>;
-}
-
-/** The agent cannot spawn session threads. */
-interface BetaManagedAgentsMultiagentSubagentsDisabled {
-  type: "disabled";
-}
-
-/** The agent can start workflow runs. */
-interface BetaManagedAgentsMultiagentWorkflowsEnabled {
-  type: "enabled";
-  /** Whether a run's plan can define inline agents, which are not saved. */
-  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
-  /** Predefined agents, which are saved agents that a run's plan can use, each resolved to a specific version. */
-  predefined_agents: Array<BetaManagedAgentsAgentReference>;
-}
-
-/** The agent cannot start workflow runs. */
-interface BetaManagedAgentsMultiagentWorkflowsDisabled {
-  type: "disabled";
-}
-
-interface BetaManagedAgentsWebFetchURLSources {
-  /** Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results. */
-  client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
-  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched. Null when not set, which allows both. */
-  server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
-  /** Whether URLs in the text of user messages may be fetched. Null when not set, which allows them. */
-  user_input: BetaManagedAgentsWebFetchURLSourceUserInput | null;
-}
-
-type BetaManagedAgentsMultiagentInlineAgentsParams = BetaManagedAgentsMultiagentInlineAgentsEnabledParams | BetaManagedAgentsMultiagentInlineAgentsDisabledParams;
-
-type BetaManagedAgentsMultiagentPredefinedAgentParams = string | BetaManagedAgentsAgentParams | BetaManagedAgentsMultiagentSelfParams;
 
 type BetaManagedAgentsWebFetchURLSourceToolFilterParams = BetaManagedAgentsWebFetchURLSourceShorthand | BetaManagedAgentsWebFetchURLSourceToolFilter;
 
 type BetaManagedAgentsWebFetchURLSourceUserInputParams = BetaManagedAgentsWebFetchURLSourceShorthand | BetaManagedAgentsWebFetchURLSourceUserInput;
 
-type BetaManagedAgentsMultiagentInlineAgents = BetaManagedAgentsMultiagentInlineAgentsEnabled | BetaManagedAgentsMultiagentInlineAgentsDisabled;
-
-/** Which tools' results contribute URLs that may be fetched. */
-type BetaManagedAgentsWebFetchURLSourceToolFilter = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone | BetaManagedAgentsWebFetchURLSourceOnly | BetaManagedAgentsWebFetchURLSourceExcept;
-
 /** Whether URLs in the text of user messages may be fetched. */
 type BetaManagedAgentsWebFetchURLSourceUserInput = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone;
-
-/** The agent can define inline agents. */
-interface BetaManagedAgentsMultiagentInlineAgentsEnabledParams {
-  type: "enabled";
-}
-
-/** The agent cannot define inline agents. */
-interface BetaManagedAgentsMultiagentInlineAgentsDisabledParams {
-  type: "disabled";
-}
 
 /** String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}. */
 type BetaManagedAgentsWebFetchURLSourceShorthand = "all" | "none";
 
-/** The agent can define inline agents. */
-interface BetaManagedAgentsMultiagentInlineAgentsEnabled {
-  type: "enabled";
-}
-
-/** The agent cannot define inline agents. */
-interface BetaManagedAgentsMultiagentInlineAgentsDisabled {
-  type: "disabled";
-}
+/** Which tools' results contribute URLs that may be fetched. */
+type BetaManagedAgentsWebFetchURLSourceToolFilter = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone | BetaManagedAgentsWebFetchURLSourceOnly | BetaManagedAgentsWebFetchURLSourceExcept;
 
 /** Every URL from this source may be fetched. This is the default. */
 interface BetaManagedAgentsWebFetchURLSourceAll {
@@ -5725,38 +5991,7 @@ for await (const betaManagedAgentsAgent of client.beta.agents.list()) {
         "inference_geo": "inference_geo",
         "speed": "standard"
       },
-      "multiagent": {
-        "advisor": {
-          "type": "disabled"
-        },
-        "subagents": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        },
-        "type": "multiagent_20261001",
-        "workflows": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        }
-      },
+      "multiagent": null,
       "name": "My First Agent",
       "skills": [
         {
@@ -5773,16 +6008,7 @@ for await (const betaManagedAgentsAgent of client.beta.agents.list()) {
       "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
       "tools": [
         {
-          "configs": [
-            {
-              "enabled": true,
-              "name": "bash",
-              "permission_policy": {
-                "type": "always_allow"
-              },
-              "type": "bash"
-            }
-          ],
+          "configs": [],
           "default_config": {
             "enabled": true,
             "permission_policy": {
@@ -5873,38 +6099,7 @@ console.log(betaManagedAgentsAgent.id);
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -5921,16 +6116,7 @@ console.log(betaManagedAgentsAgent.id);
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {
@@ -6014,38 +6200,7 @@ console.log(betaManagedAgentsAgent.id);
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -6062,16 +6217,7 @@ console.log(betaManagedAgentsAgent.id);
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {
@@ -6174,38 +6320,7 @@ console.log(betaManagedAgentsAgent.id);
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -6222,16 +6337,7 @@ console.log(betaManagedAgentsAgent.id);
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {
@@ -6317,38 +6423,7 @@ for await (const betaManagedAgentsAgent of client.beta.agents.versions.list(
         "inference_geo": "inference_geo",
         "speed": "standard"
       },
-      "multiagent": {
-        "advisor": {
-          "type": "disabled"
-        },
-        "subagents": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        },
-        "type": "multiagent_20261001",
-        "workflows": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        }
-      },
+      "multiagent": null,
       "name": "My First Agent",
       "skills": [
         {
@@ -6365,16 +6440,7 @@ for await (const betaManagedAgentsAgent of client.beta.agents.versions.list(
       "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
       "tools": [
         {
-          "configs": [
-            {
-              "enabled": true,
-              "name": "bash",
-              "permission_policy": {
-                "type": "always_allow"
-              },
-              "type": "bash"
-            }
-          ],
+          "configs": [],
           "default_config": {
             "enabled": true,
             "permission_policy": {
@@ -6452,21 +6518,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -6540,6 +6596,22 @@ interface BetaEnvironment {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentCreateDisabledError` (HTTP status 403, error code `environment_create_disabled`)
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
+
 #### Types
 
 ```ts
@@ -6581,6 +6653,35 @@ interface BetaSelfHostedConfig {
   type: "self_hosted";
 }
 
+/** Limited network access. */
+interface BetaLimitedNetwork {
+  /** Network policy type */
+  type: "limited";
+  /** Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. */
+  allow_mcp_servers: boolean;
+  /** Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. */
+  allow_package_managers: boolean;
+  /** Specifies domains the container can reach. */
+  allowed_hosts: Array<string>;
+}
+
+interface BetaPackages {
+  /** Package configuration type */
+  type?: "packages"; // default: packages
+  /** Ubuntu/Debian packages to install */
+  apt: Array<string>;
+  /** Rust packages to install */
+  cargo: Array<string>;
+  /** Ruby packages to install */
+  gem: Array<string>;
+  /** Go packages to install */
+  go: Array<string>;
+  /** Node.js packages to install */
+  npm: Array<string>;
+  /** Python packages to install */
+  pip: Array<string>;
+}
+
 /** Unrestricted network access. */
 interface BetaUnrestrictedNetwork {
   /** Network policy type */
@@ -6614,35 +6715,6 @@ interface BetaPackagesParams {
   npm?: Array<string> | null;
   /** Python packages to install */
   pip?: Array<string> | null;
-}
-
-/** Limited network access. */
-interface BetaLimitedNetwork {
-  /** Network policy type */
-  type: "limited";
-  /** Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. */
-  allow_mcp_servers: boolean;
-  /** Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. */
-  allow_package_managers: boolean;
-  /** Specifies domains the container can reach. */
-  allowed_hosts: Array<string>;
-}
-
-interface BetaPackages {
-  /** Package configuration type */
-  type?: "packages"; // default: packages
-  /** Ubuntu/Debian packages to install */
-  apt: Array<string>;
-  /** Rust packages to install */
-  cargo: Array<string>;
-  /** Ruby packages to install */
-  gem: Array<string>;
-  /** Go packages to install */
-  go: Array<string>;
-  /** Node.js packages to install */
-  npm: Array<string>;
-  /** Python packages to install */
-  pip: Array<string>;
 }
 ```
 
@@ -6686,21 +6758,11 @@ for await (const betaEnvironment of client.beta.environments.list()) {
           "type": "limited"
         },
         "packages": {
-          "apt": [
-            "string"
-          ],
-          "cargo": [
-            "string"
-          ],
-          "gem": [
-            "string"
-          ],
-          "go": [
-            "string"
-          ],
-          "npm": [
-            "string"
-          ],
+          "apt": [],
+          "cargo": [],
+          "gem": [],
+          "go": [],
+          "npm": [],
           "pip": [
             "pandas",
             "numpy"
@@ -6738,6 +6800,18 @@ interface EnvironmentListParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Get Environment
 
@@ -6778,21 +6852,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -6823,6 +6887,18 @@ interface EnvironmentRetrieveParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Update Environment
 
@@ -6864,21 +6940,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -6922,6 +6988,30 @@ interface EnvironmentUpdateParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaEnvironmentArchivedError` (HTTP status 400, error code `environment_archived`)
+
+  The environment is archived, so it cannot be updated.
+
+- `BetaInvalidConfigTypeChangeError` (HTTP status 400, error code `invalid_config_type_change`)
+
+  `config.type` differs from the environment's stored type, which cannot change after creation.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `BetaEnvironmentUpdateDisabledError` (HTTP status 403, error code `environment_update_disabled`)
+
+  Anthropic has turned off updating environments for this organization. Existing environments still work as they are.
 
 ### Delete Environment
 
@@ -6980,6 +7070,18 @@ interface BetaEnvironmentDeleteResponse {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Archive Environment
 
 - Signature: `client.beta.environments.archive(environmentID: string, params?: EnvironmentArchiveParams, options?: RequestOptions): BetaEnvironment`
@@ -7017,21 +7119,11 @@ console.log(betaEnvironment.id);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"
@@ -7062,6 +7154,18 @@ interface EnvironmentArchiveParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ## Beta › Environments › Work
 
@@ -7162,6 +7266,18 @@ interface BetaSelfHostedWork {
   stopped_at: string | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Types
 
@@ -7375,6 +7491,14 @@ interface BetaSelfHostedWorkHeartbeatResponse {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaHeartbeatPreconditionFailedError` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 ### Stop Work
 
 - Signature: `client.beta.environments.work.stop(workID: string, params: WorkStopParams, options?: RequestOptions): BetaSelfHostedWork`
@@ -7440,6 +7564,18 @@ interface WorkStopParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### List Work Items
 
@@ -7579,6 +7715,22 @@ interface WorkUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaInvalidMetadataError` (HTTP status 400, error code `invalid_metadata`)
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Get Queue Statistics
 
 - Signature: `client.beta.environments.work.stats(environmentID: string, params?: WorkStatsParams, options?: RequestOptions): BetaSelfHostedWorkQueueStats`
@@ -7645,6 +7797,18 @@ interface BetaSelfHostedWorkQueueStats {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ## Beta › Sessions
 
 ### Create Session
@@ -7699,65 +7863,7 @@ console.log(betaManagedAgentsSession.id);
       "inference_geo": "inference_geo",
       "speed": "standard"
     },
-    "multiagent": {
-      "agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "description": "A focused research subagent.",
-          "execution_identity": {
-            "type": "service_account"
-          },
-          "mcp_servers": [
-            {
-              "name": "example-mcp",
-              "type": "url",
-              "url": "https://example-server.modelcontextprotocol.io/sse"
-            }
-          ],
-          "model": {
-            "id": "claude-opus-5-5",
-            "effort": {
-              "type": "low"
-            },
-            "inference_geo": "inference_geo",
-            "speed": "standard"
-          },
-          "name": "Researcher",
-          "skills": [
-            {
-              "skill_id": "xlsx",
-              "type": "anthropic",
-              "version": "1"
-            }
-          ],
-          "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
-          "tools": [
-            {
-              "configs": [
-                {
-                  "enabled": true,
-                  "name": "bash",
-                  "permission_policy": {
-                    "type": "always_allow"
-                  },
-                  "type": "bash"
-                }
-              ],
-              "default_config": {
-                "enabled": true,
-                "permission_policy": {
-                  "type": "always_ask"
-                }
-              },
-              "type": "agent_toolset_20260401"
-            }
-          ],
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "coordinator"
-    },
+    "multiagent": null,
     "name": "My First Agent",
     "skills": [
       {
@@ -7774,16 +7880,7 @@ console.log(betaManagedAgentsSession.id);
     "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {
@@ -7797,13 +7894,7 @@ console.log(betaManagedAgentsSession.id);
     "version": 1
   },
   "archived_at": null,
-  "budget": {
-    "max_list_cost": {
-      "amount": "2500",
-      "currency": "USD"
-    },
-    "type": "limit"
-  },
+  "budget": null,
   "created_at": "2026-03-15T10:00:00Z",
   "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "metadata": {},
@@ -8088,49 +8179,7 @@ interface BetaMonetaryAmount {
   currency: BetaCurrency;
 }
 
-/** Regular text content. */
-interface BetaManagedAgentsTextBlock {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
-}
-
-/** Image content specified directly as base64 data or as a reference via a URL. */
-interface BetaManagedAgentsImageBlock {
-  type: "image";
-  /** The source of the image data. */
-  source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource;
-}
-
-/** Document content, either specified directly as base64 data, as text, or as a reference via a URL. */
-interface BetaManagedAgentsDocumentBlock {
-  type: "document";
-  /** The source of the document data. */
-  source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource;
-  /** Additional context about the document for the model. */
-  context?: string | null;
-  /** The title of the document. */
-  title?: string | null;
-}
-
-/** Placeholder for content withheld by Anthropic model policy. */
-interface BetaManagedAgentsRedactedBlock {
-  type: "redacted";
-}
-
-/** Rubric referenced by a file uploaded via the Files API. */
-interface BetaManagedAgentsFileRubricParams {
-  type: "file";
-  /** ID of the rubric file. */
-  file_id: string;
-}
-
-/** Rubric content provided inline as text. */
-interface BetaManagedAgentsTextRubricParams {
-  type: "text";
-  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters. */
-  content: string; // maxLength: 262144
-}
+type BetaCurrency = "USD";
 
 interface BetaManagedAgentsBranchCheckout {
   type: "branch";
@@ -8145,117 +8194,6 @@ interface BetaManagedAgentsCommitCheckout {
 }
 
 type BetaManagedAgentsSessionMultiagent = BetaManagedAgentsSessionMultiagentCoordinator | BetaManagedAgentsSessionMultiagent20261001;
-
-interface BetaManagedAgentsGitHubRepositoryResource {
-  type: "github_repository";
-  id: string;
-  /** A timestamp in RFC 3339 format */
-  created_at: string; // format: date-time
-  mount_path: string;
-  /** A timestamp in RFC 3339 format */
-  updated_at: string; // format: date-time
-  url: string;
-  checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null;
-}
-
-interface BetaManagedAgentsFileResource {
-  type: "file";
-  id: string;
-  /** A timestamp in RFC 3339 format */
-  created_at: string; // format: date-time
-  file_id: string;
-  mount_path: string;
-  /** A timestamp in RFC 3339 format */
-  updated_at: string; // format: date-time
-}
-
-/** A memory store attached to an agent session. */
-interface BetaManagedAgentsMemoryStoreResource {
-  type: "memory_store";
-  /** The memory store ID (memstore_...). Must belong to the caller's organization and workspace. */
-  memory_store_id: string; // pattern: ^memstore_[a-zA-Z0-9_]+$
-  /** Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem. */
-  access?: "read_write" | "read_only" | null;
-  /** Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description. */
-  description?: string; // beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
-  /** Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars. */
-  instructions?: string | null; // maxLength: 4096, beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
-  /** Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only. */
-  mount_path?: string | null; // beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
-  /** Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource. */
-  name?: string | null; // beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
-}
-
-interface BetaManagedAgentsCacheCreationUsage {
-  /** Tokens used to create 1-hour ephemeral cache entries. */
-  ephemeral_1h_input_tokens?: number; // format: int32
-  /** Tokens used to create 5-minute ephemeral cache entries. */
-  ephemeral_5m_input_tokens?: number; // format: int32
-}
-
-interface BetaManagedAgentsServerToolUsage {
-  /** Number of server-executed web fetch requests. */
-  web_fetch_requests?: number; // format: int32
-  /** Number of server-executed web search requests. */
-  web_search_requests?: number; // format: int32
-}
-
-type BetaCurrency = "USD";
-
-/** Base64-encoded image data. */
-interface BetaManagedAgentsBase64ImageSource {
-  type: "base64";
-  /** Base64-encoded image data. */
-  data: string; // minLength: 1
-  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
-  media_type: string; // minLength: 1
-}
-
-/** Image referenced by URL. */
-interface BetaManagedAgentsURLImageSource {
-  type: "url";
-  /** URL of the image to fetch. */
-  url: string; // minLength: 1
-}
-
-/** Image referenced by file ID. */
-interface BetaManagedAgentsFileImageSource {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string; // minLength: 1
-}
-
-/** Base64-encoded document data. */
-interface BetaManagedAgentsBase64DocumentSource {
-  type: "base64";
-  /** Base64-encoded document data. */
-  data: string; // minLength: 1
-  /** MIME type of the document (e.g., "application/pdf"). */
-  media_type: string; // minLength: 1
-}
-
-/** Plain text document content. */
-interface BetaManagedAgentsPlainTextDocumentSource {
-  type: "text";
-  /** The plain text content. */
-  data: string; // minLength: 1
-  /** MIME type of the text content. Must be "text/plain". */
-  media_type: "text/plain";
-}
-
-/** Document referenced by URL. */
-interface BetaManagedAgentsURLDocumentSource {
-  type: "url";
-  /** URL of the document to fetch. */
-  url: string; // minLength: 1
-}
-
-/** Document referenced by file ID. */
-interface BetaManagedAgentsFileDocumentSource {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string; // minLength: 1
-}
 
 /** Resolved coordinator topology with full agent definitions for each roster member. */
 interface BetaManagedAgentsSessionMultiagentCoordinator {
@@ -8313,6 +8251,159 @@ interface BetaManagedAgentsSessionMultiagentWorkflowsEnabled {
   /** Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use. */
   predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
 }
+
+interface BetaManagedAgentsGitHubRepositoryResource {
+  type: "github_repository";
+  id: string;
+  /** A timestamp in RFC 3339 format */
+  created_at: string; // format: date-time
+  mount_path: string;
+  /** A timestamp in RFC 3339 format */
+  updated_at: string; // format: date-time
+  url: string;
+  checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null;
+}
+
+interface BetaManagedAgentsFileResource {
+  type: "file";
+  id: string;
+  /** A timestamp in RFC 3339 format */
+  created_at: string; // format: date-time
+  file_id: string;
+  mount_path: string;
+  /** A timestamp in RFC 3339 format */
+  updated_at: string; // format: date-time
+}
+
+/** A memory store attached to an agent session. */
+interface BetaManagedAgentsMemoryStoreResource {
+  type: "memory_store";
+  /** The memory store ID (memstore_...). Must belong to the caller's organization and workspace. */
+  memory_store_id: string; // pattern: ^memstore_[a-zA-Z0-9_]+$
+  /** Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem. */
+  access?: "read_write" | "read_only" | null;
+  /** Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description. */
+  description?: string; // beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
+  /** Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars. */
+  instructions?: string | null; // maxLength: 4096, beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
+  /** Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only. */
+  mount_path?: string | null; // beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
+  /** Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource. */
+  name?: string | null; // beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
+}
+
+interface BetaManagedAgentsCacheCreationUsage {
+  /** Tokens used to create 1-hour ephemeral cache entries. */
+  ephemeral_1h_input_tokens?: number; // format: int32
+  /** Tokens used to create 5-minute ephemeral cache entries. */
+  ephemeral_5m_input_tokens?: number; // format: int32
+}
+
+interface BetaManagedAgentsServerToolUsage {
+  /** Number of server-executed web fetch requests. */
+  web_fetch_requests?: number; // format: int32
+  /** Number of server-executed web search requests. */
+  web_search_requests?: number; // format: int32
+}
+
+/** Rubric referenced by a file uploaded via the Files API. */
+interface BetaManagedAgentsFileRubricParams {
+  type: "file";
+  /** ID of the rubric file. */
+  file_id: string;
+}
+
+/** Rubric content provided inline as text. */
+interface BetaManagedAgentsTextRubricParams {
+  type: "text";
+  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters. */
+  content: string; // maxLength: 262144
+}
+
+/** Regular text content. */
+interface BetaManagedAgentsTextBlock {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
+/** Image content specified directly as base64 data or as a reference via a URL. */
+interface BetaManagedAgentsImageBlock {
+  type: "image";
+  /** The source of the image data. */
+  source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource;
+}
+
+/** Document content, either specified directly as base64 data, as text, or as a reference via a URL. */
+interface BetaManagedAgentsDocumentBlock {
+  type: "document";
+  /** The source of the document data. */
+  source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource;
+  /** Additional context about the document for the model. */
+  context?: string | null;
+  /** The title of the document. */
+  title?: string | null;
+}
+
+/** Placeholder for content withheld by Anthropic model policy. */
+interface BetaManagedAgentsRedactedBlock {
+  type: "redacted";
+}
+
+/** Base64-encoded image data. */
+interface BetaManagedAgentsBase64ImageSource {
+  type: "base64";
+  /** Base64-encoded image data. */
+  data: string; // minLength: 1
+  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
+  media_type: string; // minLength: 1
+}
+
+/** Image referenced by URL. */
+interface BetaManagedAgentsURLImageSource {
+  type: "url";
+  /** URL of the image to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Image referenced by file ID. */
+interface BetaManagedAgentsFileImageSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
+
+/** Base64-encoded document data. */
+interface BetaManagedAgentsBase64DocumentSource {
+  type: "base64";
+  /** Base64-encoded document data. */
+  data: string; // minLength: 1
+  /** MIME type of the document (e.g., "application/pdf"). */
+  media_type: string; // minLength: 1
+}
+
+/** Plain text document content. */
+interface BetaManagedAgentsPlainTextDocumentSource {
+  type: "text";
+  /** The plain text content. */
+  data: string; // minLength: 1
+  /** MIME type of the text content. Must be "text/plain". */
+  media_type: "text/plain";
+}
+
+/** Document referenced by URL. */
+interface BetaManagedAgentsURLDocumentSource {
+  type: "url";
+  /** URL of the document to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Document referenced by file ID. */
+interface BetaManagedAgentsFileDocumentSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
 ```
 
 ### List Sessions
@@ -8364,65 +8455,7 @@ for await (const betaManagedAgentsSession of client.beta.sessions.list()) {
           "inference_geo": "inference_geo",
           "speed": "standard"
         },
-        "multiagent": {
-          "agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "description": "A focused research subagent.",
-              "execution_identity": {
-                "type": "service_account"
-              },
-              "mcp_servers": [
-                {
-                  "name": "example-mcp",
-                  "type": "url",
-                  "url": "https://example-server.modelcontextprotocol.io/sse"
-                }
-              ],
-              "model": {
-                "id": "claude-opus-5-5",
-                "effort": {
-                  "type": "low"
-                },
-                "inference_geo": "inference_geo",
-                "speed": "standard"
-              },
-              "name": "Researcher",
-              "skills": [
-                {
-                  "skill_id": "xlsx",
-                  "type": "anthropic",
-                  "version": "1"
-                }
-              ],
-              "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
-              "tools": [
-                {
-                  "configs": [
-                    {
-                      "enabled": true,
-                      "name": "bash",
-                      "permission_policy": {
-                        "type": "always_allow"
-                      },
-                      "type": "bash"
-                    }
-                  ],
-                  "default_config": {
-                    "enabled": true,
-                    "permission_policy": {
-                      "type": "always_ask"
-                    }
-                  },
-                  "type": "agent_toolset_20260401"
-                }
-              ],
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "coordinator"
-        },
+        "multiagent": null,
         "name": "My First Agent",
         "skills": [
           {
@@ -8439,16 +8472,7 @@ for await (const betaManagedAgentsSession of client.beta.sessions.list()) {
         "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
         "tools": [
           {
-            "configs": [
-              {
-                "enabled": true,
-                "name": "bash",
-                "permission_policy": {
-                  "type": "always_allow"
-                },
-                "type": "bash"
-              }
-            ],
+            "configs": [],
             "default_config": {
               "enabled": true,
               "permission_policy": {
@@ -8462,13 +8486,7 @@ for await (const betaManagedAgentsSession of client.beta.sessions.list()) {
         "version": 1
       },
       "archived_at": null,
-      "budget": {
-        "max_list_cost": {
-          "amount": "2500",
-          "currency": "USD"
-        },
-        "type": "limit"
-      },
+      "budget": null,
       "created_at": "2026-03-15T10:00:00Z",
       "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
       "metadata": {},
@@ -8633,65 +8651,7 @@ console.log(betaManagedAgentsSession.id);
       "inference_geo": "inference_geo",
       "speed": "standard"
     },
-    "multiagent": {
-      "agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "description": "A focused research subagent.",
-          "execution_identity": {
-            "type": "service_account"
-          },
-          "mcp_servers": [
-            {
-              "name": "example-mcp",
-              "type": "url",
-              "url": "https://example-server.modelcontextprotocol.io/sse"
-            }
-          ],
-          "model": {
-            "id": "claude-opus-5-5",
-            "effort": {
-              "type": "low"
-            },
-            "inference_geo": "inference_geo",
-            "speed": "standard"
-          },
-          "name": "Researcher",
-          "skills": [
-            {
-              "skill_id": "xlsx",
-              "type": "anthropic",
-              "version": "1"
-            }
-          ],
-          "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
-          "tools": [
-            {
-              "configs": [
-                {
-                  "enabled": true,
-                  "name": "bash",
-                  "permission_policy": {
-                    "type": "always_allow"
-                  },
-                  "type": "bash"
-                }
-              ],
-              "default_config": {
-                "enabled": true,
-                "permission_policy": {
-                  "type": "always_ask"
-                }
-              },
-              "type": "agent_toolset_20260401"
-            }
-          ],
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "coordinator"
-    },
+    "multiagent": null,
     "name": "My First Agent",
     "skills": [
       {
@@ -8708,16 +8668,7 @@ console.log(betaManagedAgentsSession.id);
     "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {
@@ -8731,13 +8682,7 @@ console.log(betaManagedAgentsSession.id);
     "version": 1
   },
   "archived_at": null,
-  "budget": {
-    "max_list_cost": {
-      "amount": "2500",
-      "currency": "USD"
-    },
-    "type": "limit"
-  },
+  "budget": null,
   "created_at": "2026-03-15T10:00:00Z",
   "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "metadata": {},
@@ -8869,65 +8814,7 @@ console.log(betaManagedAgentsSession.id);
       "inference_geo": "inference_geo",
       "speed": "standard"
     },
-    "multiagent": {
-      "agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "description": "A focused research subagent.",
-          "execution_identity": {
-            "type": "service_account"
-          },
-          "mcp_servers": [
-            {
-              "name": "example-mcp",
-              "type": "url",
-              "url": "https://example-server.modelcontextprotocol.io/sse"
-            }
-          ],
-          "model": {
-            "id": "claude-opus-5-5",
-            "effort": {
-              "type": "low"
-            },
-            "inference_geo": "inference_geo",
-            "speed": "standard"
-          },
-          "name": "Researcher",
-          "skills": [
-            {
-              "skill_id": "xlsx",
-              "type": "anthropic",
-              "version": "1"
-            }
-          ],
-          "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
-          "tools": [
-            {
-              "configs": [
-                {
-                  "enabled": true,
-                  "name": "bash",
-                  "permission_policy": {
-                    "type": "always_allow"
-                  },
-                  "type": "bash"
-                }
-              ],
-              "default_config": {
-                "enabled": true,
-                "permission_policy": {
-                  "type": "always_ask"
-                }
-              },
-              "type": "agent_toolset_20260401"
-            }
-          ],
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "coordinator"
-    },
+    "multiagent": null,
     "name": "My First Agent",
     "skills": [
       {
@@ -8944,16 +8831,7 @@ console.log(betaManagedAgentsSession.id);
     "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {
@@ -8967,13 +8845,7 @@ console.log(betaManagedAgentsSession.id);
     "version": 1
   },
   "archived_at": null,
-  "budget": {
-    "max_list_cost": {
-      "amount": "2500",
-      "currency": "USD"
-    },
-    "type": "limit"
-  },
+  "budget": null,
   "created_at": "2026-03-15T10:00:00Z",
   "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "metadata": {},
@@ -9179,65 +9051,7 @@ console.log(betaManagedAgentsSession.id);
       "inference_geo": "inference_geo",
       "speed": "standard"
     },
-    "multiagent": {
-      "agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "description": "A focused research subagent.",
-          "execution_identity": {
-            "type": "service_account"
-          },
-          "mcp_servers": [
-            {
-              "name": "example-mcp",
-              "type": "url",
-              "url": "https://example-server.modelcontextprotocol.io/sse"
-            }
-          ],
-          "model": {
-            "id": "claude-opus-5-5",
-            "effort": {
-              "type": "low"
-            },
-            "inference_geo": "inference_geo",
-            "speed": "standard"
-          },
-          "name": "Researcher",
-          "skills": [
-            {
-              "skill_id": "xlsx",
-              "type": "anthropic",
-              "version": "1"
-            }
-          ],
-          "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
-          "tools": [
-            {
-              "configs": [
-                {
-                  "enabled": true,
-                  "name": "bash",
-                  "permission_policy": {
-                    "type": "always_allow"
-                  },
-                  "type": "bash"
-                }
-              ],
-              "default_config": {
-                "enabled": true,
-                "permission_policy": {
-                  "type": "always_ask"
-                }
-              },
-              "type": "agent_toolset_20260401"
-            }
-          ],
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "coordinator"
-    },
+    "multiagent": null,
     "name": "My First Agent",
     "skills": [
       {
@@ -9254,16 +9068,7 @@ console.log(betaManagedAgentsSession.id);
     "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {
@@ -9277,13 +9082,7 @@ console.log(betaManagedAgentsSession.id);
     "version": 1
   },
   "archived_at": null,
-  "budget": {
-    "max_list_cost": {
-      "amount": "2500",
-      "currency": "USD"
-    },
-    "type": "limit"
-  },
+  "budget": null,
   "created_at": "2026-03-15T10:00:00Z",
   "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "metadata": {},
@@ -10043,9 +9842,208 @@ interface BetaManagedAgentsSearchResultBlock {
   title: string; // minLength: 1
 }
 
+interface BetaManagedAgentsSearchResultCitations {
+  /** Whether citations are enabled for this search result. */
+  enabled: boolean;
+}
+
+interface BetaManagedAgentsSearchResultContent {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
 type BetaManagedAgentsAgentEvaluatedPermission = "allow" | "ask" | "deny";
 
 type BetaManagedAgentsAgentToolEvaluation = BetaManagedAgentsAgentToolEvaluationAlwaysAllow | BetaManagedAgentsAgentToolEvaluationAlwaysAsk | BetaManagedAgentsAgentToolEvaluationAuto;
+
+/** The resolved permission_policy was always_allow; accompanies evaluated_permission "allow". */
+interface BetaManagedAgentsAgentToolEvaluationAlwaysAllow {
+  type: "always_allow";
+}
+
+/** The resolved permission_policy was always_ask; accompanies evaluated_permission "ask". */
+interface BetaManagedAgentsAgentToolEvaluationAlwaysAsk {
+  type: "always_ask";
+}
+
+/** The resolved permission_policy was auto: the server judged this invocation individually. */
+interface BetaManagedAgentsAgentToolEvaluationAuto {
+  type: "auto";
+  /** The server's judgement for this invocation. */
+  evaluated_permission: BetaManagedAgentsAgentAutoEvaluatedPermission;
+}
+
+type BetaManagedAgentsAgentAutoEvaluatedPermission = BetaManagedAgentsAgentAutoEvaluatedPermissionAllow | BetaManagedAgentsAgentAutoEvaluatedPermissionAsk | BetaManagedAgentsAgentAutoEvaluatedPermissionDeny;
+
+/** The server judged the invocation safe to execute without client approval. */
+interface BetaManagedAgentsAgentAutoEvaluatedPermissionAllow {
+  type: "allow";
+}
+
+/** The server reached no judgement; the invocation is held for client approval. */
+interface BetaManagedAgentsAgentAutoEvaluatedPermissionAsk {
+  type: "ask";
+  /** The judgement's grounds in registry-bound terms, for client branching and audit rather than end-user display. Open registry; currently "indeterminate" (no judgement was reached). Clients must tolerate values outside this set. */
+  reason_code: string; // maxLength: 64
+}
+
+/** The server judged the invocation high-risk, or reached no judgement and did not hold it for client approval (for example, because the organization is out of credits or has reached a spend limit); it does not execute and a synthetic error tool result is appended. */
+interface BetaManagedAgentsAgentAutoEvaluatedPermissionDeny {
+  type: "deny";
+  /** The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run) and "indeterminate" (no judgement was reached; the call does not run). Clients must tolerate values outside this set. */
+  reason_code: string; // maxLength: 64
+}
+
+interface BetaManagedAgentsSessionRefusalStopDetails {
+  type: "refusal";
+  /** The policy category that triggered the refusal, or `null` when there is no named category. New values can be added over time. */
+  category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | "general_harms" | null;
+  /** Human-readable explanation of the refusal, or `null` when none is available. The wording can change, so do not parse it. */
+  explanation: string | null;
+}
+
+/** The agent completed its turn naturally and is ready for the next user message. */
+interface BetaManagedAgentsSessionEndTurn {
+  type: "end_turn";
+}
+
+/** The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running. */
+interface BetaManagedAgentsSessionRequiresAction {
+  type: "requires_action";
+  /** The ids of events the agent is blocked on. Resolving fewer than all re-emits `session.status_idle` with the remainder. */
+  event_ids: Array<string>;
+}
+
+/** The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`. */
+interface BetaManagedAgentsSessionRetriesExhausted {
+  type: "retries_exhausted";
+}
+
+/** The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget. */
+interface BetaManagedAgentsSessionBudgetReached {
+  type: "budget_reached";
+}
+
+/** The turn ended because the model's response was refused, for example by a safety classifier. */
+interface BetaManagedAgentsSessionRefusal {
+  type: "refusal";
+}
+
+interface BetaManagedAgentsSpanModelUsage {
+  /** Tokens used to create prompt cache in this request. */
+  cache_creation_input_tokens: number; // format: int32
+  /** Tokens read from prompt cache in this request. */
+  cache_read_input_tokens: number; // format: int32
+  /** Input tokens consumed by this request. */
+  input_tokens: number; // format: int32
+  /** Output tokens generated by this request. */
+  output_tokens: number; // format: int32
+  /** Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active. */
+  speed?: "standard" | "fast" | null; // beta header: managed-agents-2026-04-01
+}
+
+/** Rubric referenced by a file uploaded via the Files API. */
+interface BetaManagedAgentsFileRubric {
+  type: "file";
+  /** ID of the rubric file. */
+  file_id: string;
+}
+
+/** Rubric content provided inline as text. */
+interface BetaManagedAgentsTextRubric {
+  type: "text";
+  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. */
+  content: string;
+}
+
+interface BetaManagedAgentsSystemContentBlock {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
+interface BetaManagedAgentsSessionUsageSnapshot {
+  /** Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on. */
+  active_seconds?: number; // format: double
+  /** Tokens used to create prompt cache entries, broken down by cache TTL. */
+  cache_creation?: BetaManagedAgentsCacheCreationUsage;
+  /** Total tokens read from prompt cache. */
+  cache_read_input_tokens?: number; // format: int32
+  /** Total input tokens consumed across all turns. */
+  input_tokens?: number; // format: int32
+  /** Cumulative list cost of the session across all turns, priced at public list rates. */
+  list_cost?: BetaMonetaryAmount;
+  /** Total output tokens generated across all turns. */
+  output_tokens?: number; // format: int32
+  /** Cumulative server-executed tool usage across all turns. */
+  server_tool_use?: BetaManagedAgentsServerToolUsage;
+}
+
+interface BetaManagedAgentsWorkflowRunPhase {
+  /** Unique identifier for the phase. */
+  id: string;
+  /** Description that the agent gave the phase, passed on as written, or `null` if it gave none. */
+  description: string | null;
+  /** Name that the agent gave the phase, passed on as written. */
+  name: string;
+}
+
+type BetaManagedAgentsWorkflowRunResult = BetaManagedAgentsWorkflowRunResultCompleted | BetaManagedAgentsWorkflowRunResultError | BetaManagedAgentsWorkflowRunResultStopped;
+
+/** The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded. */
+interface BetaManagedAgentsWorkflowRunResultCompleted {
+  type: "completed";
+}
+
+/** The run failed or reached its time limit. */
+interface BetaManagedAgentsWorkflowRunResultError {
+  type: "error";
+  /** Why the run did not finish. */
+  error: BetaManagedAgentsWorkflowRunError;
+}
+
+/** The agent stopped the run. */
+interface BetaManagedAgentsWorkflowRunResultStopped {
+  type: "stopped";
+}
+
+type BetaManagedAgentsWorkflowRunError = BetaManagedAgentsTimeoutWorkflowRunError | BetaManagedAgentsProgramWorkflowRunError | BetaManagedAgentsUnknownWorkflowRunError | BetaManagedAgentsThreadLimitWorkflowRunError | BetaManagedAgentsMaxWorkflowRunsWorkflowRunError;
+
+/** The run reached its time limit. */
+interface BetaManagedAgentsTimeoutWorkflowRunError {
+  type: "timeout_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
+}
+
+/** The plan, a program that the agent wrote, failed, or the server refused it. */
+interface BetaManagedAgentsProgramWorkflowRunError {
+  type: "program_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
+}
+
+/** A failure that has no type of its own. */
+interface BetaManagedAgentsUnknownWorkflowRunError {
+  type: "unknown_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
+}
+
+/** The run exceeded the limit on the number of threads that a run can create. */
+interface BetaManagedAgentsThreadLimitWorkflowRunError {
+  type: "thread_limit_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
+}
+
+/** No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type. */
+interface BetaManagedAgentsMaxWorkflowRunsWorkflowRunError {
+  type: "max_workflow_runs_error";
+  /** Short explanation written by the server. It never contains content from the run or its agents. */
+  message: string;
+}
 
 /** An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone. */
 interface BetaManagedAgentsUnknownError {
@@ -10200,132 +10198,6 @@ interface BetaManagedAgentsRepositoryCloneError {
   retry_status: BetaManagedAgentsRetryStatusRetrying | BetaManagedAgentsRetryStatusExhausted | BetaManagedAgentsRetryStatusTerminal;
 }
 
-interface BetaManagedAgentsSessionRefusalStopDetails {
-  type: "refusal";
-  /** The policy category that triggered the refusal, or `null` when there is no named category. New values can be added over time. */
-  category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | "general_harms" | null;
-  /** Human-readable explanation of the refusal, or `null` when none is available. The wording can change, so do not parse it. */
-  explanation: string | null;
-}
-
-/** The agent completed its turn naturally and is ready for the next user message. */
-interface BetaManagedAgentsSessionEndTurn {
-  type: "end_turn";
-}
-
-/** The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running. */
-interface BetaManagedAgentsSessionRequiresAction {
-  type: "requires_action";
-  /** The ids of events the agent is blocked on. Resolving fewer than all re-emits `session.status_idle` with the remainder. */
-  event_ids: Array<string>;
-}
-
-/** The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`. */
-interface BetaManagedAgentsSessionRetriesExhausted {
-  type: "retries_exhausted";
-}
-
-/** The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget. */
-interface BetaManagedAgentsSessionBudgetReached {
-  type: "budget_reached";
-}
-
-/** The turn ended because the model's response was refused, for example by a safety classifier. */
-interface BetaManagedAgentsSessionRefusal {
-  type: "refusal";
-}
-
-interface BetaManagedAgentsSpanModelUsage {
-  /** Tokens used to create prompt cache in this request. */
-  cache_creation_input_tokens: number; // format: int32
-  /** Tokens read from prompt cache in this request. */
-  cache_read_input_tokens: number; // format: int32
-  /** Input tokens consumed by this request. */
-  input_tokens: number; // format: int32
-  /** Output tokens generated by this request. */
-  output_tokens: number; // format: int32
-  /** Inference speed tier this request actually ran at. Mirrors `usage.speed` on /v1/messages. Only present when the fast-mode beta is active. */
-  speed?: "standard" | "fast" | null; // beta header: managed-agents-2026-04-01
-}
-
-/** Rubric referenced by a file uploaded via the Files API. */
-interface BetaManagedAgentsFileRubric {
-  type: "file";
-  /** ID of the rubric file. */
-  file_id: string;
-}
-
-/** Rubric content provided inline as text. */
-interface BetaManagedAgentsTextRubric {
-  type: "text";
-  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. */
-  content: string;
-}
-
-interface BetaManagedAgentsSystemContentBlock {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
-}
-
-interface BetaManagedAgentsSessionUsageSnapshot {
-  /** Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on. */
-  active_seconds?: number; // format: double
-  /** Tokens used to create prompt cache entries, broken down by cache TTL. */
-  cache_creation?: BetaManagedAgentsCacheCreationUsage;
-  /** Total tokens read from prompt cache. */
-  cache_read_input_tokens?: number; // format: int32
-  /** Total input tokens consumed across all turns. */
-  input_tokens?: number; // format: int32
-  /** Cumulative list cost of the session across all turns, priced at public list rates. */
-  list_cost?: BetaMonetaryAmount;
-  /** Total output tokens generated across all turns. */
-  output_tokens?: number; // format: int32
-  /** Cumulative server-executed tool usage across all turns. */
-  server_tool_use?: BetaManagedAgentsServerToolUsage;
-}
-
-interface BetaManagedAgentsWorkflowRunPhase {
-  /** Unique identifier for the phase. */
-  id: string;
-  /** Description that the agent gave the phase, passed on as written, or `null` if it gave none. */
-  description: string | null;
-  /** Name that the agent gave the phase, passed on as written. */
-  name: string;
-}
-
-type BetaManagedAgentsWorkflowRunResult = BetaManagedAgentsWorkflowRunResultCompleted | BetaManagedAgentsWorkflowRunResultError | BetaManagedAgentsWorkflowRunResultStopped;
-
-type BetaManagedAgentsWorkflowRunError = BetaManagedAgentsTimeoutWorkflowRunError | BetaManagedAgentsProgramWorkflowRunError | BetaManagedAgentsUnknownWorkflowRunError | BetaManagedAgentsThreadLimitWorkflowRunError | BetaManagedAgentsMaxWorkflowRunsWorkflowRunError;
-
-interface BetaManagedAgentsSearchResultCitations {
-  /** Whether citations are enabled for this search result. */
-  enabled: boolean;
-}
-
-interface BetaManagedAgentsSearchResultContent {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
-}
-
-/** The resolved permission_policy was always_allow; accompanies evaluated_permission "allow". */
-interface BetaManagedAgentsAgentToolEvaluationAlwaysAllow {
-  type: "always_allow";
-}
-
-/** The resolved permission_policy was always_ask; accompanies evaluated_permission "ask". */
-interface BetaManagedAgentsAgentToolEvaluationAlwaysAsk {
-  type: "always_ask";
-}
-
-/** The resolved permission_policy was auto: the server judged this invocation individually. */
-interface BetaManagedAgentsAgentToolEvaluationAuto {
-  type: "auto";
-  /** The server's judgement for this invocation. */
-  evaluated_permission: BetaManagedAgentsAgentAutoEvaluatedPermission;
-}
-
 /** The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out. */
 interface BetaManagedAgentsRetryStatusRetrying {
   type: "retrying";
@@ -10339,79 +10211,6 @@ interface BetaManagedAgentsRetryStatusExhausted {
 /** The session encountered a terminal error and will transition to `terminated` state. */
 interface BetaManagedAgentsRetryStatusTerminal {
   type: "terminal";
-}
-
-/** The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded. */
-interface BetaManagedAgentsWorkflowRunResultCompleted {
-  type: "completed";
-}
-
-/** The run failed or reached its time limit. */
-interface BetaManagedAgentsWorkflowRunResultError {
-  type: "error";
-  /** Why the run did not finish. */
-  error: BetaManagedAgentsWorkflowRunError;
-}
-
-/** The agent stopped the run. */
-interface BetaManagedAgentsWorkflowRunResultStopped {
-  type: "stopped";
-}
-
-/** The run reached its time limit. */
-interface BetaManagedAgentsTimeoutWorkflowRunError {
-  type: "timeout_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** The plan, a program that the agent wrote, failed, or the server refused it. */
-interface BetaManagedAgentsProgramWorkflowRunError {
-  type: "program_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** A failure that has no type of its own. */
-interface BetaManagedAgentsUnknownWorkflowRunError {
-  type: "unknown_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** The run exceeded the limit on the number of threads that a run can create. */
-interface BetaManagedAgentsThreadLimitWorkflowRunError {
-  type: "thread_limit_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-/** No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type. */
-interface BetaManagedAgentsMaxWorkflowRunsWorkflowRunError {
-  type: "max_workflow_runs_error";
-  /** Short explanation written by the server. It never contains content from the run or its agents. */
-  message: string;
-}
-
-type BetaManagedAgentsAgentAutoEvaluatedPermission = BetaManagedAgentsAgentAutoEvaluatedPermissionAllow | BetaManagedAgentsAgentAutoEvaluatedPermissionAsk | BetaManagedAgentsAgentAutoEvaluatedPermissionDeny;
-
-/** The server judged the invocation safe to execute without client approval. */
-interface BetaManagedAgentsAgentAutoEvaluatedPermissionAllow {
-  type: "allow";
-}
-
-/** The server reached no judgement; the invocation is held for client approval. */
-interface BetaManagedAgentsAgentAutoEvaluatedPermissionAsk {
-  type: "ask";
-  /** The judgement's grounds in registry-bound terms, for client branching and audit rather than end-user display. Open registry; currently "indeterminate" (no judgement was reached). Clients must tolerate values outside this set. */
-  reason_code: string; // maxLength: 64
-}
-
-/** The server judged the invocation high-risk, or reached no judgement and did not hold it for client approval (for example, because the organization is out of credits or has reached a spend limit); it does not execute and a synthetic error tool result is appended. */
-interface BetaManagedAgentsAgentAutoEvaluatedPermissionDeny {
-  type: "deny";
-  /** The judgement's grounds in registry-bound terms. Open registry; currently "high_risk" (judged high-risk; the call does not run) and "indeterminate" (no judgement was reached; the call does not run). Clients must tolerate values outside this set. */
-  reason_code: string; // maxLength: 64
 }
 ```
 
@@ -10620,8 +10419,6 @@ interface BetaManagedAgentsDeltaEvent {
   event_id: string;
 }
 
-type BetaManagedAgentsStartEventPreview = BetaManagedAgentsAgentMessagePreview | BetaManagedAgentsAgentThinkingPreview;
-
 interface BetaManagedAgentsDeltaContent {
   type: "content_delta";
   /** A partial element of the content array at index, typed like the element itself — the same shape the buffered agent.message carries in content. */
@@ -10629,6 +10426,8 @@ interface BetaManagedAgentsDeltaContent {
   /** Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise. */
   index?: number;
 }
+
+type BetaManagedAgentsStartEventPreview = BetaManagedAgentsAgentMessagePreview | BetaManagedAgentsAgentThinkingPreview;
 
 interface BetaManagedAgentsAgentMessagePreview {
   type: "agent.message";
@@ -10987,13 +10786,7 @@ for await (const betaManagedAgentsSessionThread of client.beta.sessions.threads.
         "execution_identity": {
           "type": "service_account"
         },
-        "mcp_servers": [
-          {
-            "name": "example-mcp",
-            "type": "url",
-            "url": "https://example-server.modelcontextprotocol.io/sse"
-          }
-        ],
+        "mcp_servers": [],
         "model": {
           "id": "claude-opus-5-5",
           "effort": {
@@ -11003,26 +10796,11 @@ for await (const betaManagedAgentsSessionThread of client.beta.sessions.threads.
           "speed": "standard"
         },
         "name": "Researcher",
-        "skills": [
-          {
-            "skill_id": "xlsx",
-            "type": "anthropic",
-            "version": "1"
-          }
-        ],
+        "skills": [],
         "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
         "tools": [
           {
-            "configs": [
-              {
-                "enabled": true,
-                "name": "bash",
-                "permission_policy": {
-                  "type": "always_allow"
-                },
-                "type": "bash"
-              }
-            ],
+            "configs": [],
             "default_config": {
               "enabled": true,
               "permission_policy": {
@@ -11204,13 +10982,7 @@ console.log(betaManagedAgentsSessionThread.id);
     "execution_identity": {
       "type": "service_account"
     },
-    "mcp_servers": [
-      {
-        "name": "example-mcp",
-        "type": "url",
-        "url": "https://example-server.modelcontextprotocol.io/sse"
-      }
-    ],
+    "mcp_servers": [],
     "model": {
       "id": "claude-opus-5-5",
       "effort": {
@@ -11220,26 +10992,11 @@ console.log(betaManagedAgentsSessionThread.id);
       "speed": "standard"
     },
     "name": "Researcher",
-    "skills": [
-      {
-        "skill_id": "xlsx",
-        "type": "anthropic",
-        "version": "1"
-      }
-    ],
+    "skills": [],
     "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {
@@ -11334,13 +11091,7 @@ console.log(betaManagedAgentsSessionThread.id);
     "execution_identity": {
       "type": "service_account"
     },
-    "mcp_servers": [
-      {
-        "name": "example-mcp",
-        "type": "url",
-        "url": "https://example-server.modelcontextprotocol.io/sse"
-      }
-    ],
+    "mcp_servers": [],
     "model": {
       "id": "claude-opus-5-5",
       "effort": {
@@ -11350,26 +11101,11 @@ console.log(betaManagedAgentsSessionThread.id);
       "speed": "standard"
     },
     "name": "Researcher",
-    "skills": [
-      {
-        "skill_id": "xlsx",
-        "type": "anthropic",
-        "version": "1"
-      }
-    ],
+    "skills": [],
     "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {
@@ -11623,20 +11359,8 @@ console.log(betaManagedAgentsDeployment.id);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -11797,18 +11521,6 @@ interface BetaManagedAgentsDeploymentSystemMessageEvent {
   content: Array<BetaManagedAgentsSystemContentBlock>;
 }
 
-/** The caller invoked the pause endpoint on the deployment. */
-interface BetaManagedAgentsManualDeploymentPausedReason {
-  type: "manual";
-}
-
-/** A scheduled fire recorded a failed run whose error auto-pauses the deployment. */
-interface BetaManagedAgentsErrorDeploymentPausedReason {
-  type: "error";
-  /** The failed run's error. */
-  error: BetaManagedAgentsDeploymentPausedReasonError;
-}
-
 /** A GitHub repository mounted into each session's container. The authorization token is write-only and never returned. */
 interface BetaManagedAgentsGitHubRepositoryResourceConfig {
   type: "github_repository";
@@ -11838,6 +11550,18 @@ interface BetaManagedAgentsMemoryStoreResourceConfig {
   access?: "read_write" | "read_only" | null;
   /** Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars. */
   instructions?: string | null; // beta header: agent-memory-2026-07-22 or managed-agents-2026-04-01
+}
+
+/** The caller invoked the pause endpoint on the deployment. */
+interface BetaManagedAgentsManualDeploymentPausedReason {
+  type: "manual";
+}
+
+/** A scheduled fire recorded a failed run whose error auto-pauses the deployment. */
+interface BetaManagedAgentsErrorDeploymentPausedReason {
+  type: "error";
+  /** The failed run's error. */
+  error: BetaManagedAgentsDeploymentPausedReasonError;
 }
 
 type BetaManagedAgentsDeploymentPausedReasonError = BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError | BetaManagedAgentsAgentArchivedDeploymentPausedReasonError | BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError | BetaManagedAgentsFileNotFoundDeploymentPausedReasonError | BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError | BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError | BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError | BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError | BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultArchivedDeploymentPausedReasonError | BetaManagedAgentsUnknownDeploymentPausedReasonError | BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError | BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError;
@@ -11963,20 +11687,8 @@ for await (const betaManagedAgentsDeployment of client.beta.deployments.list()) 
       ],
       "metadata": {},
       "name": "Daily order report",
-      "paused_reason": {
-        "type": "manual"
-      },
-      "resources": [
-        {
-          "type": "github_repository",
-          "url": "url",
-          "checkout": {
-            "name": "main",
-            "type": "branch"
-          },
-          "mount_path": "mount_path"
-        }
-      ],
+      "paused_reason": null,
+      "resources": [],
       "schedule": {
         "expression": "0 9 * * 1-5",
         "timezone": "America/Los_Angeles",
@@ -12080,20 +11792,8 @@ console.log(betaManagedAgentsDeployment.id);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -12184,20 +11884,8 @@ console.log(betaManagedAgentsDeployment.id);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -12307,20 +11995,8 @@ console.log(betaManagedAgentsDeployment.id);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -12624,20 +12300,8 @@ console.log(betaManagedAgentsDeployment.id);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -12727,20 +12391,8 @@ console.log(betaManagedAgentsDeployment.id);
   ],
   "metadata": {},
   "name": "Daily order report",
-  "paused_reason": {
-    "type": "manual"
-  },
-  "resources": [
-    {
-      "type": "github_repository",
-      "url": "url",
-      "checkout": {
-        "name": "main",
-        "type": "branch"
-      },
-      "mount_path": "mount_path"
-    }
-  ],
+  "paused_reason": null,
+  "resources": [],
   "schedule": {
     "expression": "0 9 * * 1-5",
     "timezone": "America/Los_Angeles",
@@ -13450,41 +13102,6 @@ interface BetaManagedAgentsEnvironmentVariableAuthResponse {
   secret_name: string;
 }
 
-interface BetaManagedAgentsMCPOAuthRefreshParams {
-  /** The OAuth client ID to use when refreshing the access token. It can't be changed after the credential is created. */
-  client_id: string; // minLength: 1, maxLength: 1024
-  /** The OAuth refresh token that the API uses to get a new access token when the current one expires. */
-  refresh_token: string; // minLength: 1, maxLength: 8192
-  /** Token endpoint URL used to refresh the access token. */
-  token_endpoint: string; // minLength: 1, maxLength: 2047
-  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneParam | BetaManagedAgentsTokenEndpointAuthBasicParam | BetaManagedAgentsTokenEndpointAuthPostParam;
-  /** OAuth resource indicator. */
-  resource?: string | null; // minLength: 1, maxLength: 2047
-  /** OAuth scope for the refresh request. */
-  scope?: string | null; // minLength: 1, maxLength: 8192
-}
-
-type BetaManagedAgentsCredentialNetworkingParams = BetaManagedAgentsUnrestrictedCredentialNetworkingParams | BetaManagedAgentsLimitedCredentialNetworkingParams;
-
-interface BetaManagedAgentsInjectionLocationParams {
-  /** Substitute when the placeholder appears in the request body. */
-  body?: boolean;
-  /** Substitute when the placeholder appears in a request header value. */
-  header?: boolean;
-}
-
-interface BetaManagedAgentsMCPOAuthRefreshResponse {
-  /** The OAuth client ID used when refreshing the access token. */
-  client_id: string;
-  /** Token endpoint URL used to refresh the access token. */
-  token_endpoint: string;
-  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse | BetaManagedAgentsTokenEndpointAuthBasicResponse | BetaManagedAgentsTokenEndpointAuthPostResponse;
-  /** OAuth resource indicator. */
-  resource?: string | null;
-  /** OAuth scope for the refresh request. */
-  scope?: string | null;
-}
-
 interface BetaManagedAgentsInjectionLocationResponse {
   /** Whether the placeholder is substituted in the request body. */
   body: boolean;
@@ -13504,6 +13121,68 @@ interface BetaManagedAgentsLimitedCredentialNetworkingResponse {
   allowed_hosts: Array<string>;
 }
 
+interface BetaManagedAgentsMCPOAuthRefreshResponse {
+  /** The OAuth client ID used when refreshing the access token. */
+  client_id: string;
+  /** Token endpoint URL used to refresh the access token. */
+  token_endpoint: string;
+  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneResponse | BetaManagedAgentsTokenEndpointAuthBasicResponse | BetaManagedAgentsTokenEndpointAuthPostResponse;
+  /** OAuth resource indicator. */
+  resource?: string | null;
+  /** OAuth scope for the refresh request. */
+  scope?: string | null;
+}
+
+/** Token endpoint requires no client authentication. */
+interface BetaManagedAgentsTokenEndpointAuthNoneResponse {
+  type: "none";
+}
+
+/** Token endpoint uses HTTP Basic authentication with client credentials. */
+interface BetaManagedAgentsTokenEndpointAuthBasicResponse {
+  type: "client_secret_basic";
+}
+
+/** Token endpoint uses POST body authentication with client credentials. */
+interface BetaManagedAgentsTokenEndpointAuthPostResponse {
+  type: "client_secret_post";
+}
+
+type BetaManagedAgentsCredentialNetworkingParams = BetaManagedAgentsUnrestrictedCredentialNetworkingParams | BetaManagedAgentsLimitedCredentialNetworkingParams;
+
+interface BetaManagedAgentsInjectionLocationParams {
+  /** Substitute when the placeholder appears in the request body. */
+  body?: boolean;
+  /** Substitute when the placeholder appears in a request header value. */
+  header?: boolean;
+}
+
+/** Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach. */
+interface BetaManagedAgentsUnrestrictedCredentialNetworkingParams {
+  type: "unrestricted";
+}
+
+/** Substitute the secret only on requests to the listed hosts. */
+interface BetaManagedAgentsLimitedCredentialNetworkingParams {
+  type: "limited";
+  /** The destination hosts of the outbound requests that the credential's secret is substituted into. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries. */
+  allowed_hosts: Array<string>;
+}
+
+interface BetaManagedAgentsMCPOAuthRefreshParams {
+  /** The OAuth client ID to use when refreshing the access token. It can't be changed after the credential is created. */
+  client_id: string; // minLength: 1, maxLength: 1024
+  /** The OAuth refresh token that the API uses to get a new access token when the current one expires. */
+  refresh_token: string; // minLength: 1, maxLength: 8192
+  /** Token endpoint URL used to refresh the access token. */
+  token_endpoint: string; // minLength: 1, maxLength: 2047
+  token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneParam | BetaManagedAgentsTokenEndpointAuthBasicParam | BetaManagedAgentsTokenEndpointAuthPostParam;
+  /** OAuth resource indicator. */
+  resource?: string | null; // minLength: 1, maxLength: 2047
+  /** OAuth scope for the refresh request. */
+  scope?: string | null; // minLength: 1, maxLength: 8192
+}
+
 /** Token endpoint requires no client authentication. */
 interface BetaManagedAgentsTokenEndpointAuthNoneParam {
   type: "none";
@@ -13521,33 +13200,6 @@ interface BetaManagedAgentsTokenEndpointAuthPostParam {
   type: "client_secret_post";
   /** The OAuth client secret, sent to `token_endpoint` in the POST body. */
   client_secret: string; // minLength: 1, maxLength: 512
-}
-
-/** Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach. */
-interface BetaManagedAgentsUnrestrictedCredentialNetworkingParams {
-  type: "unrestricted";
-}
-
-/** Substitute the secret only on requests to the listed hosts. */
-interface BetaManagedAgentsLimitedCredentialNetworkingParams {
-  type: "limited";
-  /** The destination hosts of the outbound requests that the credential's secret is substituted into. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.` wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses aren't accepted. The list can have up to 16 entries. */
-  allowed_hosts: Array<string>;
-}
-
-/** Token endpoint requires no client authentication. */
-interface BetaManagedAgentsTokenEndpointAuthNoneResponse {
-  type: "none";
-}
-
-/** Token endpoint uses HTTP Basic authentication with client credentials. */
-interface BetaManagedAgentsTokenEndpointAuthBasicResponse {
-  type: "client_secret_basic";
-}
-
-/** Token endpoint uses POST body authentication with client credentials. */
-interface BetaManagedAgentsTokenEndpointAuthPostResponse {
-  type: "client_secret_post";
 }
 ```
 
@@ -13778,19 +13430,19 @@ interface BetaManagedAgentsEnvironmentVariableUpdateParams {
   secret_value?: string | null; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f]*$
 }
 
+interface BetaManagedAgentsInjectionLocationUpdateParams {
+  /** Substitute when the placeholder appears in the request body. */
+  body?: boolean;
+  /** Substitute when the placeholder appears in a request header value. */
+  header?: boolean;
+}
+
 interface BetaManagedAgentsMCPOAuthRefreshUpdateParams {
   /** The new OAuth refresh token to replace the stored one. */
   refresh_token?: string | null; // minLength: 1, maxLength: 8192
   /** The new OAuth scope for refresh requests. Send an empty string to clear the stored scope. */
   scope?: string | null; // maxLength: 8192
   token_endpoint_auth?: BetaManagedAgentsTokenEndpointAuthBasicUpdateParam | BetaManagedAgentsTokenEndpointAuthPostUpdateParam;
-}
-
-interface BetaManagedAgentsInjectionLocationUpdateParams {
-  /** Substitute when the placeholder appears in the request body. */
-  body?: boolean;
-  /** Substitute when the placeholder appears in a request header value. */
-  header?: boolean;
 }
 
 /** Updated HTTP Basic authentication parameters for the token endpoint. */
@@ -13956,24 +13608,8 @@ console.log(betaManagedAgentsCredentialValidation.credential_id);
 {
   "credential_id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "has_refresh_token": true,
-  "mcp_probe": {
-    "http_response": {
-      "body": "body",
-      "body_truncated": true,
-      "content_type": "content_type",
-      "status_code": 0
-    },
-    "method": "method"
-  },
-  "refresh": {
-    "http_response": {
-      "body": "body",
-      "body_truncated": true,
-      "content_type": "content_type",
-      "status_code": 0
-    },
-    "status": "succeeded"
-  },
+  "mcp_probe": null,
+  "refresh": null,
   "status": "valid",
   "type": "vault_credential_validation",
   "validated_at": "2026-03-15T10:00:00Z",
@@ -15181,6 +14817,30 @@ interface BetaFileMetadata {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `StorageQuotaExceededError` (HTTP status 400, error code `storage_quota_exceeded`)
+
+  The organization's file storage quota is exhausted. Delete files to free up space, then retry the upload.
+
 #### Types
 
 ```ts
@@ -15255,6 +14915,26 @@ interface FileListParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Download File
 
 - Signature: `client.beta.files.download(fileID: string, params?: FileDownloadParams, options?: RequestOptions): Response`
@@ -15290,6 +14970,34 @@ interface FileDownloadParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `FileNotDownloadableError` (HTTP status 400, error code `file_not_downloadable`)
+
+  The file has `downloadable: false`. Only files generated by a tool, such as the code execution tool, can be downloaded.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `FileExpiredError` (HTTP status 404, error code `file_expired`)
+
+  The file's `expires_at` has passed, so its content is no longer available.
 
 ### Get File Metadata
 
@@ -15343,6 +15051,26 @@ interface FileRetrieveMetadataParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Delete File
 
 - Signature: `client.beta.files.delete(fileID: string, params?: FileDeleteParams, options?: RequestOptions): BetaDeletedFile`
@@ -15395,6 +15123,26 @@ interface BetaDeletedFile {
   id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ## Beta › Skills
 
@@ -15481,6 +15229,30 @@ interface BetaSkill {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `CMEKContextUnavailableError` (HTTP status 503, error code `cmek_context_unavailable`)
+
+  The workspace's encryption settings could not be read, so the request was refused. Retry in a few minutes.
+
 #### Types
 
 ```ts
@@ -15564,6 +15336,18 @@ interface SkillListParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Get Skill
 
 - Signature: `client.beta.skills.retrieve(skillID: string, params?: SkillRetrieveParams, options?: RequestOptions): BetaSkill`
@@ -15612,6 +15396,18 @@ interface SkillRetrieveParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Delete Skill
 
@@ -15665,6 +15461,18 @@ interface BetaDeletedSkill {
   id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ## Beta › Skills › Versions
 
@@ -15738,6 +15546,30 @@ interface BetaSkillVersion {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `CMEKContextUnavailableError` (HTTP status 503, error code `cmek_context_unavailable`)
+
+  The workspace's encryption settings could not be read, so the request was refused. Retry in a few minutes.
+
 ### List Skill Versions
 
 - Signature: `client.beta.skills.versions.list(skillID: string, params?: VersionListParams, options?: RequestOptions): PageCursor<BetaSkillVersion>`
@@ -15793,6 +15625,18 @@ interface VersionListParams {
   workspace_id?: string; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Download Skill Version Content
 
@@ -15886,6 +15730,18 @@ interface VersionRetrieveParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Delete Skill Version
 
 - Signature: `client.beta.skills.versions.delete(version: string, params: VersionDeleteParams, options?: RequestOptions): BetaDeletedSkillVersion`
@@ -15943,6 +15799,18 @@ interface BetaDeletedSkillVersion {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ## Beta › Webhooks
 
 ### Unwrap
@@ -15962,7 +15830,14 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-// `body` is the raw body of the incoming webhook request and `headers` are its HTTP headers.
+// Replace these with the raw body and the HTTP headers of the incoming webhook request.
+const body =
+  '{"type":"event","id":"whe_0f1e2d3c4b5a69788796a5b4c3d2e1f0","created_at":"2026-03-15T10:00:00Z","data":{"type":"session.status_idled"}}';
+const headers = {
+  "webhook-id": "msg_0123456789",
+  "webhook-timestamp": "1773568800",
+  "webhook-signature": "v1,ZmFrZS1zaWduYXR1cmU="
+};
 const event = client.beta.webhooks.unwrap(body, { headers });
 
 console.log(event);
@@ -16408,7 +16283,9 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-// `body` is the raw body of the incoming webhook request.
+// Replace this with the raw body of the incoming webhook request.
+const body =
+  '{"type":"event","id":"whe_0f1e2d3c4b5a69788796a5b4c3d2e1f0","created_at":"2026-03-15T10:00:00Z","data":{"type":"session.status_idled"}}';
 const event = client.beta.webhooks.parseUnverified(body);
 
 console.log(event);
@@ -17188,6 +17065,18 @@ interface BetaDreamUsage {
   output_tokens: number; // format: int32
 }
 
+/** Write the result to a new memory store that starts as a copy of the input memory store. This is the default. The new memory store is in the same workspace as the dream. The dream doesn't change the input memory store. */
+interface BetaOutputBehaviorCreateNew {
+  type: "create_new";
+}
+
+/** Write the result into the input memory store instead of a new memory store. The credential must be allowed to write memory stores, or the request returns a 403 error. While another `update_existing` dream on the same memory store hasn't fully stopped, the request returns a 409 error. */
+interface BetaOutputBehaviorUpdateExisting {
+  type: "update_existing";
+  /** The ID of the memory store for the dream to write its result to (`memstore_...`). It must be the memory store in the `memory_store` entry of `inputs`. */
+  memory_store_id: string; // minLength: 1
+}
+
 /** The memory store that a dream reads, given as an entry in `inputs`. With `output_behavior` set to `update_existing`, the dream writes its result into this memory store. Otherwise the dream doesn't change it. */
 interface BetaDreamMemoryStoreInput {
   type: "memory_store";
@@ -17200,18 +17089,6 @@ interface BetaDreamSessionsInput {
   type: "sessions";
   /** The IDs of the sessions whose transcripts the dream reads (`sesn_...`). Give 1 to 100 IDs, with no duplicates. Each session must be in the same workspace as the dream. Responses list the IDs in sorted order. */
   session_ids: Array<string>;
-}
-
-/** Write the result to a new memory store that starts as a copy of the input memory store. This is the default. The new memory store is in the same workspace as the dream. The dream doesn't change the input memory store. */
-interface BetaOutputBehaviorCreateNew {
-  type: "create_new";
-}
-
-/** Write the result into the input memory store instead of a new memory store. The credential must be allowed to write memory stores, or the request returns a 403 error. While another `update_existing` dream on the same memory store hasn't fully stopped, the request returns a 409 error. */
-interface BetaOutputBehaviorUpdateExisting {
-  type: "update_existing";
-  /** The ID of the memory store for the dream to write its result to (`memstore_...`). It must be the memory store in the `memory_store` entry of `inputs`. */
-  memory_store_id: string; // minLength: 1
 }
 ```
 
@@ -18464,6 +18341,22 @@ interface APIKeyUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `OrgAPIKeyLimitExceededError` (HTTP status 400, error code `org_api_key_limit_exceeded`)
+
+  The organization has reached its limit of active API keys.
+
+- `WorkspaceAPIKeyLimitExceededError` (HTTP status 400, error code `workspace_api_key_limit_exceeded`)
+
+  The workspace has reached its limit of active API keys.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ## Beta › Organization › External Keys
 
 ### Create External Key
@@ -18552,6 +18445,18 @@ interface BetaExternalKey {
   user_profile_id: string | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -18793,6 +18698,18 @@ interface ExternalKeyUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ExternalKeyInWorkspacePolicyError` (HTTP status 400, error code `external_key_in_workspace_policy`)
+
+  The External Key can't be deleted or reconfigured while the organization's Workspace Policy lists it as an allowed key.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Delete External Key
 
 - Signature: `client.beta.organization.externalKeys.delete(externalKeyID: string, options?: RequestOptions): ExternalKeyDeleteResponse`
@@ -18841,6 +18758,18 @@ interface ExternalKeyDeleteResponse {
   id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ExternalKeyInWorkspacePolicyError` (HTTP status 400, error code `external_key_in_workspace_policy`)
+
+  The External Key can't be deleted or reconfigured while the organization's Workspace Policy lists it as an allowed key.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Validate External Key
 
@@ -18897,6 +18826,14 @@ interface ExternalKeyValidateResponse {
   status: "failure" | "success";
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Federation › Issuers
 
@@ -19021,6 +18958,14 @@ interface BetaFederationIssuer {
   updated_by_actor_id: string | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -19290,6 +19235,14 @@ interface IssuerUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Archive Federation Issuer
 
 - Signature: `client.beta.organization.federation.issuers.archive(federationIssuerID: string, params?: IssuerArchiveParams, options?: RequestOptions): BetaFederationIssuer`
@@ -19361,6 +19314,14 @@ interface IssuerArchiveParams {
   betas?: Array<AnthropicBeta>; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Federation › Rules
 
@@ -19524,6 +19485,14 @@ interface BetaFederationRule {
   workspace_ids: Array<string>;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -19832,6 +19801,14 @@ interface RuleUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Archive Federation Rule
 
 - Signature: `client.beta.organization.federation.rules.archive(federationRuleID: string, params?: RuleArchiveParams, options?: RequestOptions): BetaFederationRule`
@@ -19919,6 +19896,14 @@ interface RuleArchiveParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ## Beta › Organization › Federation › Rules › Workspaces
 
 ### Add Federation Rule Workspace
@@ -20000,6 +19985,14 @@ interface BetaFederationRuleWorkspace {
   workspace_name: string | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### List Federation Rule Workspaces
 
@@ -20134,6 +20127,14 @@ interface WorkspaceRemoveResponse {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ## Beta › Organization › Invites
 
 ### Create Invite
@@ -20217,6 +20218,42 @@ interface BetaOrganizationInvite {
   status: "accepted" | "deleted" | "expired" | "pending";
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `AlreadyMemberError` (HTTP status 400, error code `already_member`)
+
+  The email address already belongs to a user in the organization. The message names the user.
+
+- `CannotInviteEmailsWithUnverifiedDomainsError` (HTTP status 400, error code `cannot_invite_emails_with_unverified_domains`)
+
+  The email address's domain is not one of the verified domains of the organization's parent organization.
+
+- `EmailDomainNotAllowedError` (HTTP status 400, error code `email_domain_not_allowed`)
+
+  The organization restricts invites to an allowed list of email domains, and the list is empty or does not include the email address's domain.
+
+- `InviteAlreadyExistsError` (HTTP status 400, error code `invite_already_exists`)
+
+  A pending invite already exists for the email address. The message names the invite.
+
+- `OrgMemberLimitExceededError` (HTTP status 400, error code `org_member_limit_exceeded`)
+
+  The organization has reached the member limit that Anthropic set for it. Pending invites count toward the limit.
+
+- `RBACGroupGrantsOwnerAccessError` (HTTP status 400, error code `rbac_group_grants_owner_access`)
+
+  A role attached to an RBAC Group in the request grants owner access, so this API does not add members to that group (directly or through an invite), remove its members, or delete it. Make the change in the organization's admin settings in Claude.
+
+- `RBACGroupOwnerAccessUnconfirmedError` (HTTP status 400, error code `rbac_group_owner_access_unconfirmed`)
+
+  The API could not finish checking whether an RBAC Group in the request grants owner access, so it made no change. Retrying the same request will not help. Make the change in the organization's admin settings in Claude.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -20384,6 +20421,14 @@ interface InviteDeleteResponse {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ## Beta › Organization › Service Accounts
 
 ### Create Service Account
@@ -20480,6 +20525,14 @@ interface BetaServiceAccount {
   updated_by_actor_id: string | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### List Service Accounts
 
@@ -20667,6 +20720,14 @@ interface ServiceAccountUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Archive Service Account
 
 - Signature: `client.beta.organization.serviceAccounts.archive(serviceAccountID: string, params?: ServiceAccountArchiveParams, options?: RequestOptions): BetaServiceAccount`
@@ -20726,6 +20787,14 @@ interface ServiceAccountArchiveParams {
   betas?: Array<AnthropicBeta>; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Service Accounts › Workspaces
 
@@ -20809,6 +20878,14 @@ interface BetaServiceAccountWorkspaceMember {
   workspace_role: BetaWorkspaceRole;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -20961,6 +21038,14 @@ interface WorkspaceRemoveResponse {
   workspace_id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Users
 
@@ -21131,6 +21216,14 @@ interface UserUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Remove User
 
 - Signature: `client.beta.organization.users.remove(userID: string, options?: RequestOptions): UserRemoveResponse`
@@ -21178,6 +21271,22 @@ interface UserRemoveResponse {
   id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `CannotRemoveLastMemberError` (HTTP status 400, error code `cannot_remove_last_member`)
+
+  The user is the organization's only member. Add another member before removing this one.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `ConcurrentMembershipChangeError` (HTTP status 409, error code `concurrent_membership_change`)
+
+  Another change to the organization's members is in progress. Retry the request once it completes.
 
 ### Sign Out User
 
@@ -21231,6 +21340,42 @@ interface UserSignOutParams {
   betas?: Array<AnthropicBeta>; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaCannotSignOutPrimaryOwnerError` (HTTP status 400, error code `cannot_sign_out_primary_owner`)
+
+  The member is the organization's primary owner, whom no API key or token can sign out.
+
+- `BetaCannotSignOutSelfError` (HTTP status 400, error code `cannot_sign_out_self`)
+
+  The member is the user the API key or token belongs to.
+
+- `BetaOrganizationNotEnrolledInBetaError` (HTTP status 400, error code `organization_not_enrolled_in_beta`)
+
+  The beta that the endpoint requires is not enabled for the organization. The message names the beta value.
+
+- `BetaCannotSignOutManagedMemberError` (HTTP status 403, error code `cannot_sign_out_managed_member`)
+
+  The member has the `managed` role, and this API key or token cannot sign them out. The error message says which keys and tokens can.
+
+- `BetaCannotSignOutMembershipAdminError` (HTTP status 403, error code `cannot_sign_out_membership_admin`)
+
+  The member is a membership admin, and the person the API key or token belongs to is not allowed to sign out membership admins.
+
+- `BetaCannotSignOutOwnerError` (HTTP status 403, error code `cannot_sign_out_owner`)
+
+  The member is an owner or has owner permissions, and this API key or token cannot sign them out. In a Claude Enterprise organization, an API key with the `write:members` scope can.
+
+- `BetaCannotSignOutPrivilegedMemberError` (HTTP status 403, error code `cannot_sign_out_privileged_member`)
+
+  This OAuth token cannot sign out a membership admin or a member whose roles grant owner, user management, or identity and access management.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Workspaces
 
@@ -21414,6 +21559,38 @@ interface WorkspaceCreateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ExternalKeyValidationFailedError` (HTTP status 400, error code `external_key_validation_failed`)
+
+  The External Key failed Anthropic's validation, so the request was refused. The message gives the reason, if there is one.
+
+- `ExternalKeyValidationTimedOutError` (HTTP status 400, error code `external_key_validation_timed_out`)
+
+  Anthropic's validation of the External Key did not finish in time, so the request was refused. Wait a moment, then send the request again.
+
+- `KeyProfileMismatchError` (HTTP status 400, error code `key_profile_mismatch`)
+
+  The External Key is bound to a user profile, and the Workspace does not have that user profile. A Workspace can use only a key bound to its own user profile or a key that isn't bound to one.
+
+- `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+- `WorkspacePolicyViolationError` (HTTP status 400, error code `workspace_policy_violation`)
+
+  The request breaks the organization's Workspace Policy. The message says which rule it broke; an organization admin can see and change the policy in the Console.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `ExternalKeyChangedError` (HTTP status 409, error code `external_key_changed`)
+
+  The external key changed while the request was validating it. Send the request again.
+
 #### Types
 
 ```ts
@@ -21543,6 +21720,38 @@ interface WorkspaceUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `ExternalKeyValidationFailedError` (HTTP status 400, error code `external_key_validation_failed`)
+
+  The External Key failed Anthropic's validation, so the request was refused. The message gives the reason, if there is one.
+
+- `ExternalKeyValidationTimedOutError` (HTTP status 400, error code `external_key_validation_timed_out`)
+
+  Anthropic's validation of the External Key did not finish in time, so the request was refused. Wait a moment, then send the request again.
+
+- `KeyProfileMismatchError` (HTTP status 400, error code `key_profile_mismatch`)
+
+  The External Key is bound to a user profile, and the Workspace does not have that user profile. A Workspace can use only a key bound to its own user profile or a key that isn't bound to one.
+
+- `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+- `WorkspacePolicyViolationError` (HTTP status 400, error code `workspace_policy_violation`)
+
+  The request breaks the organization's Workspace Policy. The message says which rule it broke; an organization admin can see and change the policy in the Console.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `ExternalKeyChangedError` (HTTP status 409, error code `external_key_changed`)
+
+  The external key changed while the request was validating it. Send the request again.
+
 #### Types
 
 ```ts
@@ -21603,6 +21812,14 @@ console.log(betaWorkspace.id);
 ```ts
 workspaceID: string; // path parameter
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Workspaces › Rate Limits
 
@@ -21855,6 +22072,14 @@ interface RateLimitUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 #### Types
 
 ```ts
@@ -21988,6 +22213,18 @@ interface MemberAddParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `WorkspaceMemberLimitExceededError` (HTTP status 400, error code `workspace_member_limit_exceeded`)
+
+  The workspace has reached the member limit that Anthropic set for it.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Get Workspace Member
 
 - Signature: `client.beta.organization.workspaces.members.retrieve(userID: string, params: MemberRetrieveParams, options?: RequestOptions): BetaWorkspaceMember`
@@ -22080,6 +22317,18 @@ interface MemberUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `WorkspaceMemberLimitExceededError` (HTTP status 400, error code `workspace_member_limit_exceeded`)
+
+  The workspace has reached the member limit that Anthropic set for it.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Delete Workspace Member
 
 - Signature: `client.beta.organization.workspaces.members.remove(userID: string, params: MemberRemoveParams, options?: RequestOptions): MemberRemoveResponse`
@@ -22135,6 +22384,14 @@ interface MemberRemoveResponse {
   workspace_id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Workspaces › Service Accounts
 
@@ -22270,6 +22527,14 @@ interface ServiceAccountAddParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Get Service Account Workspace Member
 
 - Signature: `client.beta.organization.workspaces.serviceAccounts.retrieve(serviceAccountID: string, params: ServiceAccountRetrieveParams, options?: RequestOptions): BetaServiceAccountWorkspaceMember`
@@ -22393,6 +22658,14 @@ interface ServiceAccountUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Delete Service Account Workspace Member
 
 - Signature: `client.beta.organization.workspaces.serviceAccounts.remove(serviceAccountID: string, params: ServiceAccountRemoveParams, options?: RequestOptions): ServiceAccountRemoveResponse`
@@ -22460,6 +22733,14 @@ interface ServiceAccountRemoveResponse {
   workspace_id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Rate Limits
 
@@ -22685,6 +22966,14 @@ interface ComplianceSettingUpdateParams {
   state: BetaComplianceSettingsStateParam;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -23301,6 +23590,20 @@ interface BetaAnalyticsToolActions {
   write_tool: BetaAnalyticsToolActionCounts;
 }
 
+interface BetaAnalyticsToolActionCounts {
+  /** Number of tool proposals accepted */
+  accepted_count: number;
+  /** Number of tool proposals rejected */
+  rejected_count: number;
+}
+
+interface BetaAnalyticsLinesOfCode {
+  /** Lines of code added */
+  added_count: number;
+  /** Lines of code removed */
+  removed_count: number;
+}
+
 interface BetaAnalyticsOfficeProductMetrics {
   /** Number of MCP connector invocations */
   connectors_used_count: number;
@@ -23378,20 +23681,6 @@ interface BetaAnalyticsChatCoworkUnifiedSessionsMetrics {
   skills_used_count: number;
   /** Same measure as `cowork_metrics.write_tool_count`, for activity recorded while members had Chat and Cowork unified turned on. */
   write_tool_count: number | null;
-}
-
-interface BetaAnalyticsLinesOfCode {
-  /** Lines of code added */
-  added_count: number;
-  /** Lines of code removed */
-  removed_count: number;
-}
-
-interface BetaAnalyticsToolActionCounts {
-  /** Number of tool proposals accepted */
-  accepted_count: number;
-  /** Number of tool proposals rejected */
-  rejected_count: number;
 }
 ```
 
@@ -24435,14 +24724,14 @@ interface BetaAnalyticsUsageMetrics {
   uncached_input_tokens: number;
 }
 
-type BetaAnalyticsActor = BetaAnalyticsReportUserActor | BetaAnalyticsServiceAccountActor | BetaAnalyticsFederatedActor | BetaAnalyticsAPIActor;
-
-type BetaAnalyticsUsageCostInferenceGeo = "global" | "us";
-
 interface BetaAnalyticsServerToolUse {
   /** The number of web search requests made. */
   web_search_requests: number;
 }
+
+type BetaAnalyticsActor = BetaAnalyticsReportUserActor | BetaAnalyticsServiceAccountActor | BetaAnalyticsFederatedActor | BetaAnalyticsAPIActor;
+
+type BetaAnalyticsUsageCostInferenceGeo = "global" | "us";
 
 interface BetaAnalyticsReportUserActor {
   /** Actor type. Always `"user_actor"`. */
@@ -25496,6 +25785,18 @@ interface BetaSpendLimit {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `BetaSpendLimitsAdminAPIWritesNotEnabledError` (HTTP status 403, error code `spend_limits_admin_api_writes_not_enabled`)
+
+  The organization cannot retrieve, set or delete spend limits with an Admin API credential.
+
 #### Types
 
 ```ts
@@ -25590,6 +25891,14 @@ console.log(betaSpendLimit.id);
 spendLimitID: string; // path parameter
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaSpendLimitsAdminAPIWritesNotEnabledError` (HTTP status 403, error code `spend_limits_admin_api_writes_not_enabled`)
+
+  The organization cannot retrieve, set or delete spend limits with an Admin API credential.
+
 ### Delete Spend Limit
 
 - Signature: `client.beta.organization.spendLimits.delete(spendLimitID: string, options?: RequestOptions): SpendLimitDeleteResponse`
@@ -25642,6 +25951,18 @@ interface SpendLimitDeleteResponse {
   id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `BetaSpendLimitsAdminAPIWritesNotEnabledError` (HTTP status 403, error code `spend_limits_admin_api_writes_not_enabled`)
+
+  The organization cannot retrieve, set or delete spend limits with an Admin API credential.
 
 ### List Spend Limits
 
@@ -25713,6 +26034,14 @@ interface SpendLimitListParams {
   betas?: Array<AnthropicBeta>; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `OrganizationTypeNotSupportedError` (HTTP status 400, error code `organization_type_not_supported`)
+
+  The endpoint does not support the organization's type. Each endpoint's description says which organization types it supports.
 
 ## Beta › Organization › Spend Limits › Effective
 
@@ -25810,6 +26139,14 @@ interface BetaSpendSummary {
   spend_limit_id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `OrganizationTypeNotSupportedError` (HTTP status 400, error code `organization_type_not_supported`)
+
+  The endpoint does not support the organization's type. Each endpoint's description says which organization types it supports.
 
 #### Types
 
@@ -26169,6 +26506,14 @@ interface IncreaseRequestApproveResponse {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Deny Spend Limit Increase Request
 
 - Signature: `client.beta.organization.spendLimits.increaseRequests.deny(spendLimitIncreaseRequestID: string, body: IncreaseRequestDenyParams, options?: RequestOptions): BetaSpendLimitIncreaseRequest`
@@ -26257,6 +26602,14 @@ interface IncreaseRequestDenyParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ## Beta › Organization › RBAC Groups
 
 ### Create RBAC Group
@@ -26329,6 +26682,14 @@ interface BetaRBACGroup {
   updated_at: string; // format: date-time
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### List RBAC Groups
 
@@ -26484,6 +26845,14 @@ interface RBACGroupUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Delete RBAC Group
 
 - Signature: `client.beta.organization.rbacGroups.delete(rbacGroupID: string, options?: RequestOptions): BetaDeletedRBACGroup`
@@ -26533,6 +26902,22 @@ interface BetaDeletedRBACGroup {
   id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `RBACGroupGrantsOwnerAccessError` (HTTP status 400, error code `rbac_group_grants_owner_access`)
+
+  A role attached to an RBAC Group in the request grants owner access, so this API does not add members to that group (directly or through an invite), remove its members, or delete it. Make the change in the organization's admin settings in Claude.
+
+- `RBACGroupOwnerAccessUnconfirmedError` (HTTP status 400, error code `rbac_group_owner_access_unconfirmed`)
+
+  The API could not finish checking whether an RBAC Group in the request grants owner access, so it made no change. Retrying the same request will not help. Make the change in the organization's admin settings in Claude.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › RBAC Groups › Members
 
@@ -26661,6 +27046,22 @@ interface MemberAddParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `RBACGroupGrantsOwnerAccessError` (HTTP status 400, error code `rbac_group_grants_owner_access`)
+
+  A role attached to an RBAC Group in the request grants owner access, so this API does not add members to that group (directly or through an invite), remove its members, or delete it. Make the change in the organization's admin settings in Claude.
+
+- `RBACGroupOwnerAccessUnconfirmedError` (HTTP status 400, error code `rbac_group_owner_access_unconfirmed`)
+
+  The API could not finish checking whether an RBAC Group in the request grants owner access, so it made no change. Retrying the same request will not help. Make the change in the organization's admin settings in Claude.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Remove RBAC Group Member
 
 - Signature: `client.beta.organization.rbacGroups.members.remove(userID: string, params: MemberRemoveParams, options?: RequestOptions): BetaDeletedRBACGroupMember`
@@ -26721,6 +27122,22 @@ interface BetaDeletedRBACGroupMember {
   user_id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `RBACGroupGrantsOwnerAccessError` (HTTP status 400, error code `rbac_group_grants_owner_access`)
+
+  A role attached to an RBAC Group in the request grants owner access, so this API does not add members to that group (directly or through an invite), remove its members, or delete it. Make the change in the organization's admin settings in Claude.
+
+- `RBACGroupOwnerAccessUnconfirmedError` (HTTP status 400, error code `rbac_group_owner_access_unconfirmed`)
+
+  The API could not finish checking whether an RBAC Group in the request grants owner access, so it made no change. Retrying the same request will not help. Make the change in the organization's admin settings in Claude.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › RBAC Roles
 
@@ -26799,6 +27216,18 @@ interface BetaRBACRole {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `OrganizationTypeNotSupportedError` (HTTP status 400, error code `organization_type_not_supported`)
+
+  The endpoint does not support the organization's type. Each endpoint's description says which organization types it supports.
+
+- `ParentOrganizationRequiredError` (HTTP status 400, error code `parent_organization_required`)
+
+  The endpoint serves only organizations that belong to a parent organization, and this organization belongs to none.
+
 #### Types
 
 ```ts
@@ -26859,6 +27288,22 @@ console.log(betaRBACRole.id);
 /** ID of the RBAC Role. */
 rbacRoleID: string; // path parameter
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `OrganizationTypeNotSupportedError` (HTTP status 400, error code `organization_type_not_supported`)
+
+  The endpoint does not support the organization's type. Each endpoint's description says which organization types it supports.
+
+- `ParentOrganizationRequiredError` (HTTP status 400, error code `parent_organization_required`)
+
+  The endpoint serves only organizations that belong to a parent organization, and this organization belongs to none.
+
+- `RBACRoleNotFoundError` (HTTP status 404, error code `rbac_role_not_found`)
+
+  No RBAC Role with this ID was found.
 
 ## Beta › Organization › RBAC Roles › Permissions
 
@@ -26933,6 +27378,22 @@ interface BetaRBACRolePermission {
   resource: BetaRBACOrganizationPermissionResource | BetaRBACConnectorToolPermissionResource | BetaRBACConnectorScopePermissionResource | BetaRBACConnectorPermissionResource | BetaRBACAllConnectorsPermissionResource;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `OrganizationTypeNotSupportedError` (HTTP status 400, error code `organization_type_not_supported`)
+
+  The endpoint does not support the organization's type. Each endpoint's description says which organization types it supports.
+
+- `ParentOrganizationRequiredError` (HTTP status 400, error code `parent_organization_required`)
+
+  The endpoint serves only organizations that belong to a parent organization, and this organization belongs to none.
+
+- `RBACRoleNotFoundError` (HTTP status 404, error code `rbac_role_not_found`)
+
+  No RBAC Role with this ID was found.
 
 #### Types
 
@@ -27132,6 +27593,34 @@ interface BetaPlugin {
   updated_at: string; // format: date-time
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `BetaUnsupportedCharsetError` (HTTP status 400, error code `unsupported_charset`)
+
+  The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
+
+- `BetaPluginNameTakenError` (HTTP status 409, error code `plugin_name_taken`)
+
+  The marketplace already holds this name. `plugin_id` is the Plugin that holds it, and can be absent.
+
+- `BetaSkillNameTakenError` (HTTP status 409, error code `skill_name_taken`)
+
+  One of the Plugin's skills has the name of an organization skill. `skill_name` is that name.
+
+- `BetaRegistrationPendingError` (HTTP status 503, error code `registration_pending`)
+
+  The Plugin version was stored but is not yet usable in claude.ai. `plugin_id` and `plugin_version_id` identify what was stored.
 
 #### Types
 
@@ -27371,6 +27860,30 @@ interface PluginUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `BetaScanFailedError` (HTTP status 400, error code `scan_failed`)
+
+  The version in `plugin_version_id` did not pass its content scan, so it cannot be served.
+
+- `BetaScanPendingError` (HTTP status 409, error code `scan_pending`)
+
+  The content scan of the version in `plugin_version_id` is still running. Retry once the scan finishes.
+
+- `BetaSkillNameTakenError` (HTTP status 409, error code `skill_name_taken`)
+
+  One of the Plugin's skills has the name of an organization skill. `skill_name` is that name.
+
 ### List Plugins
 
 - Signature: `client.beta.organization.plugins.list(params?: PluginListParams, options?: RequestOptions): PageCursor<BetaPlugin>`
@@ -27551,6 +28064,14 @@ interface BetaDeletedPlugin {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
 ## Beta › Organization › Plugins › Versions
 
 ### Create Plugin Version
@@ -27679,6 +28200,30 @@ interface BetaPluginVersion {
   release_notes: string | null;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `BetaUnsupportedCharsetError` (HTTP status 400, error code `unsupported_charset`)
+
+  The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
+
+- `BetaSkillNameTakenError` (HTTP status 409, error code `skill_name_taken`)
+
+  One of the Plugin's skills has the name of an organization skill. `skill_name` is that name.
+
+- `BetaRegistrationPendingError` (HTTP status 503, error code `registration_pending`)
+
+  The Plugin version was stored but is not yet usable in claude.ai. `plugin_id` and `plugin_version_id` identify what was stored.
 
 ### List Plugin Versions
 
@@ -27907,6 +28452,18 @@ interface VersionDownloadParams {
   betas?: Array<AnthropicBeta>; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
 
 ## Beta › Organization › Plugins › Installation Settings
 
@@ -28740,6 +29297,14 @@ interface PluginMarketplaceValidateArchiveParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaUnsupportedCharsetError` (HTTP status 400, error code `unsupported_charset`)
+
+  The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
+
 ## Beta › Organization › Telemetry Destinations
 
 ### Create a Telemetry Destination
@@ -28917,18 +29482,6 @@ type BetaTelemetryDestinationContentMode =
   /** The spans contain the same metadata as `metadata_only`, plus message and tool content. An organization with a data-handling restriction, such as under HIPAA, can't choose this mode. The API exports only metadata for such an organization, even to a destination that already has `content`. */
   | "content";
 
-/** The telemetry destination receives the spans of the workspaces that it covers. */
-interface BetaTelemetryDestinationStateEnabled {
-  type: "enabled";
-}
-
-/** The API doesn't deliver anything to the telemetry destination. Spans produced while it is disabled aren't delivered later. */
-interface BetaTelemetryDestinationStateDisabled {
-  type: "disabled";
-  /** Whether a caller or the API disabled the destination and, when the API did, why. Read-only. */
-  reason: BetaTelemetryDestinationDisabledReason;
-}
-
 /** The destination covers every workspace of the organization, including the default workspace, archived workspaces, and workspaces created later. It doesn't have a list. */
 interface BetaTelemetryDestinationWorkspacesAll {
   type: "all";
@@ -28942,6 +29495,18 @@ interface BetaTelemetryDestinationWorkspacesInclude {
 /** The destination covers every workspace of the organization except the workspaces on its list. A workspace created later is covered until it is added to the list. */
 interface BetaTelemetryDestinationWorkspacesExclude {
   type: "exclude";
+}
+
+/** The telemetry destination receives the spans of the workspaces that it covers. */
+interface BetaTelemetryDestinationStateEnabled {
+  type: "enabled";
+}
+
+/** The API doesn't deliver anything to the telemetry destination. Spans produced while it is disabled aren't delivered later. */
+interface BetaTelemetryDestinationStateDisabled {
+  type: "disabled";
+  /** Whether a caller or the API disabled the destination and, when the API did, why. Read-only. */
+  reason: BetaTelemetryDestinationDisabledReason;
 }
 
 type BetaTelemetryDestinationDisabledReason = BetaTelemetryDestinationDisabledReasonCaller | BetaTelemetryDestinationDisabledReasonSustainedFailure | BetaTelemetryDestinationDisabledReasonInvalidAddress | BetaTelemetryDestinationDisabledReasonRedirect;
@@ -29939,6 +30504,14 @@ interface BetaDeletedOrganizationWebhookEndpoint {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Regenerate Organization Webhook Endpoint Signing Secret
 
 - Signature: `client.beta.organization.webhooks.regenerateSigningSecret(webhookEndpointID: string, params?: WebhookRegenerateSigningSecretParams, options?: RequestOptions): BetaOrganizationWebhookEndpointSigningSecret`
@@ -29994,6 +30567,14 @@ interface BetaOrganizationWebhookEndpointSigningSecret {
   signing_secret: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Claude Tag › Slack Channels
 
@@ -30111,6 +30692,42 @@ interface BetaClaudeTagSlackChannel {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaSlackChannelSetUpSettingsRefusedError` (HTTP status 400, error code `slack_channel_set_up_settings_refused`)
+
+  The request set the channel up, and `settings` was then refused. The channel stays set up with every setting unset.
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
+- `BetaEnvironmentNotFoundError` (HTTP status 404, error code `environment_not_found`)
+
+  `settings.environment_id` names no Environment within the organization's reach.
+
+- `BetaSlackChannelSetUpEnvironmentNotFoundError` (HTTP status 404, error code `slack_channel_set_up_environment_not_found`)
+
+  `settings.environment_id` names no Environment within the organization's reach, and the request had set the channel up by then. The channel stays set up with every setting unset.
+
+- `BetaSlackChannelSetUpSettingsConflictError` (HTTP status 409, error code `slack_channel_set_up_settings_conflict`)
+
+  The request set the channel up, and something else then changed the channel or removed it. Nothing of `settings` was stored.
+
 #### Types
 
 ```ts
@@ -30170,8 +30787,6 @@ type BetaClaudeTagGuestPolicy = BetaClaudeTagGuestPolicyAllow | BetaClaudeTagGue
 
 type BetaClaudeTagReplyMode = BetaClaudeTagReplyModeAutomatic | BetaClaudeTagReplyModeMentionOnly | BetaClaudeTagReplyModeAlwaysAwake | BetaClaudeTagReplyModeThread;
 
-type BetaClaudeTagSettingSource = BetaClaudeTagSlackChannelSettingSource | BetaClaudeTagSlackWorkspaceSettingSource | BetaClaudeTagSlackParentChannelSettingSource | BetaClaudeTagSlackDefaultSettingSource | BetaClaudeTagDefaultSettingSource | BetaClaudeTagSlackGridChannelSettingSource;
-
 /** Claude answers in the channel. */
 interface BetaClaudeTagGuestPolicyAllow {
   type: "allow";
@@ -30206,6 +30821,8 @@ interface BetaClaudeTagReplyModeAlwaysAwake {
 interface BetaClaudeTagReplyModeThread {
   type: "thread";
 }
+
+type BetaClaudeTagSettingSource = BetaClaudeTagSlackChannelSettingSource | BetaClaudeTagSlackWorkspaceSettingSource | BetaClaudeTagSlackParentChannelSettingSource | BetaClaudeTagSlackDefaultSettingSource | BetaClaudeTagDefaultSettingSource | BetaClaudeTagSlackGridChannelSettingSource;
 
 /** The value comes from the addressed Slack channel itself. */
 interface BetaClaudeTagSlackChannelSettingSource {
@@ -30350,6 +30967,26 @@ interface SlackChannelListParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
 ### Get Slack Channel
 
 - Signature: `client.beta.organization.claudeTag.slackChannels.retrieve(id: string, params?: SlackChannelRetrieveParams, options?: RequestOptions): BetaClaudeTagSlackChannel`
@@ -30443,6 +31080,26 @@ interface SlackChannelRetrieveParams {
   betas?: Array<AnthropicBeta>; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
 
 ### Update Slack Channel
 
@@ -30539,6 +31196,38 @@ interface SlackChannelUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
+- `BetaEnvironmentNotFoundError` (HTTP status 404, error code `environment_not_found`)
+
+  `settings.environment_id` names no Environment within the organization's reach.
+
+- `BetaSlackChannelSetUpEnvironmentNotFoundError` (HTTP status 404, error code `slack_channel_set_up_environment_not_found`)
+
+  `settings.environment_id` names no Environment within the organization's reach, and the request had set the channel up by then. The channel stays set up with every setting unset.
+
+- `BetaSlackChannelSetUpSettingsConflictError` (HTTP status 409, error code `slack_channel_set_up_settings_conflict`)
+
+  The request set the channel up, and something else then changed the channel or removed it. Nothing of `settings` was stored.
+
 #### Types
 
 ```ts
@@ -30614,6 +31303,30 @@ interface BetaClaudeTagDeletedSlackChannel {
   id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
+- `BetaSlackChannelSetUpSettingsConflictError` (HTTP status 409, error code `slack_channel_set_up_settings_conflict`)
+
+  The request set the channel up, and something else then changed the channel or removed it. Nothing of `settings` was stored.
 
 ## Beta › Organization › Claude Tag › Slack Workspaces
 
@@ -30737,6 +31450,26 @@ interface BetaClaudeTagSlackWorkspace {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
 #### Types
 
 ```ts
@@ -30839,6 +31572,26 @@ interface SlackWorkspaceRetrieveParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
 ### Update Slack Workspace
 
 - Signature: `client.beta.organization.claudeTag.slackWorkspaces.update(id: string, params: SlackWorkspaceUpdateParams, options?: RequestOptions): BetaClaudeTagSlackWorkspace`
@@ -30933,6 +31686,38 @@ interface SlackWorkspaceUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
+- `BetaEnvironmentNotFoundError` (HTTP status 404, error code `environment_not_found`)
+
+  `settings.environment_id` names no Environment within the organization's reach.
+
+- `BetaSlackChannelSetUpEnvironmentNotFoundError` (HTTP status 404, error code `slack_channel_set_up_environment_not_found`)
+
+  `settings.environment_id` names no Environment within the organization's reach, and the request had set the channel up by then. The channel stays set up with every setting unset.
+
+- `BetaSlackChannelSetUpSettingsConflictError` (HTTP status 409, error code `slack_channel_set_up_settings_conflict`)
+
+  The request set the channel up, and something else then changed the channel or removed it. Nothing of `settings` was stored.
+
 ## Beta › Organization › Claude Tag › Bundles
 
 ### List Bundles
@@ -31008,6 +31793,26 @@ interface BetaClaudeTagBundle {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
 ### Get Bundle
 
 - Signature: `client.beta.organization.claudeTag.bundles.retrieve(bundleID: string, params?: BundleRetrieveParams, options?: RequestOptions): BetaClaudeTagBundle`
@@ -31056,6 +31861,26 @@ interface BundleRetrieveParams {
   betas?: Array<AnthropicBeta>; // header parameter
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
 
 ## Beta › Organization › Claude Tag › Bundles › Targets
 
@@ -31122,6 +31947,26 @@ interface TargetListParams {
 /** One Bundle attached to one Slack channel or one Slack workspace. More types of target can be added. */
 type BetaClaudeTagBundleTarget = BetaClaudeTagSlackChannelBundleTarget | BetaClaudeTagSlackWorkspaceBundleTarget;
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
 
 #### Types
 
@@ -31199,6 +32044,26 @@ interface TargetCreateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
 #### Types
 
 ```ts
@@ -31270,6 +32135,26 @@ interface TargetRetrieveParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
 ### Detach Bundle
 
 - Signature: `client.beta.organization.claudeTag.bundles.targets.delete(targetID: string, params: TargetDeleteParams, options?: RequestOptions): BetaClaudeTagDeletedBundleTarget`
@@ -31329,6 +32214,26 @@ interface BetaClaudeTagDeletedBundleTarget {
   id: string;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
 
 ## Types
 

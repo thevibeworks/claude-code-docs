@@ -81,7 +81,7 @@ An MCP App is interactive UI that your MCP server renders inside a Claude conver
 
 ## Test your server against Claude
 
-You test against the real Claude client, not a staging environment. [Test your connector](https://claude.com/docs/connectors/building/testing.md) covers adding the server to Claude as a custom connector, validating auth flows with the MCP Inspector, tunneling a local server, and preparing test credentials for review. To connect and debug from the Claude Code command line, see the [Claude Code MCP quickstart](https://code.claude.com/docs/en/mcp-quickstart).
+You test against the real Claude client, not a staging environment. [Test your connector](https://claude.com/docs/connectors/building/testing.md) covers adding the server to Claude as a custom connector, validating auth flows with the MCP Inspector, tunneling a local server, and preparing a test account for Verified review. To connect and debug from the Claude Code command line, see the [Claude Code MCP quickstart](https://code.claude.com/docs/en/mcp-quickstart).
 
 ## Decide how people get your server
 

@@ -27,7 +27,7 @@ Send Events
 
       - `JsonElement Type = "user.message"`
 
-      - `required IReadOnlyList<Content> Content`
+      - `required IReadOnlyList<BetaManagedAgentsUserMessageEventParamsContent> Content`
 
         Array of content blocks for the user message.
 
@@ -49,7 +49,7 @@ Send Events
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -193,7 +193,7 @@ Send Events
 
       - `JsonElement Type = "user.tool_confirmation"`
 
-      - `required Result Result`
+      - `required BetaManagedAgentsUserToolConfirmationEventParamsResult Result`
 
         The confirmation result: 'allow' or 'deny'.
 
@@ -225,7 +225,7 @@ Send Events
 
         minLength: 1, maxLength: 128
 
-      - `IReadOnlyList<Content> Content`
+      - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventParamsContent> Content`
 
         The result content returned by the tool.
 
@@ -293,7 +293,7 @@ Send Events
 
         What the agent should produce. This is the task specification.
 
-      - `required Rubric Rubric`
+      - `required BetaManagedAgentsUserDefineOutcomeEventParamsRubric Rubric`
 
         How to grade the outcome. Text or file reference.
 
@@ -337,7 +337,7 @@ Send Events
 
         minLength: 1, maxLength: 128
 
-      - `IReadOnlyList<Content> Content`
+      - `IReadOnlyList<BetaManagedAgentsUserToolResultEventParamsContent> Content`
 
         The result content returned by the tool.
 
@@ -541,7 +541,7 @@ Send Events
 
         Unique identifier for this event.
 
-      - `required IReadOnlyList<Content> Content`
+      - `required IReadOnlyList<BetaManagedAgentsUserMessageEventContent> Content`
 
         Array of content blocks comprising the user message.
 
@@ -563,7 +563,7 @@ Send Events
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required BetaManagedAgentsImageBlockSource Source`
 
             The source of the image data.
 
@@ -769,7 +769,7 @@ Send Events
 
         The id of the `agent.custom_tool_use` event this result corresponds to. It is also listed in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list?sdk_languages=csharp#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `IReadOnlyList<Content> Content`
+      - `IReadOnlyList<BetaManagedAgentsUserCustomToolResultEventContent> Content`
 
         The result content returned by the tool.
 

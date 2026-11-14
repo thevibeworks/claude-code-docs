@@ -77,7 +77,7 @@ Two kinds of parent organization can't enroll:
 
 ## Enroll your parent organization
 
-Any owner of a child organization under the parent can start enrollment at **[admin.claude.com](https://admin.claude.com)**. Enrollment is a short approval flow in which every child organization signs off on who the parent organization admins will be. Everyone proposed who’s still eligible when enrollment completes becomes a parent organization owner. Owners can add admins afterward on the **Admin roles** page.
+An eligible admin of any child organization can start enrollment at **admin.claude.com**. Eligible admins are the Primary Owner of a Claude Enterprise or Team organization, and the Admins of a Console organization. Enrollment is a short approval flow in which every child organization signs off on who the parent organization admins will be. Everyone proposed who’s still eligible when enrollment completes becomes a parent organization owner. Owners can add admins afterward on the **Admin roles** page.
 
 **Warning:** Enrollment can't be undone, and it can complete as soon as someone starts setup.
 
@@ -93,13 +93,13 @@ Copy the parent organization ID from **Organization settings > Organization** in
 
 2. Propose parent organization admins from those organizations. Search by name, email, or organization to find people. Starting setup counts as approval for the organizations you administer.
 
-3. If other child organizations remain, wait for their admins to review the proposal. They can nominate admins from their own organizations, and approve. You can remind anyone who hasn't approved yet.
+3. If other child organizations remain, wait for their eligible admins to review the proposal. They can nominate admins from their own organizations, and approve. You can remind anyone who hasn't approved yet.
 
 4. When setup finishes, select "Done". The console opens on the **Organizations** page.
 
 If you administer every organization under the parent, your parent organization is enrolled immediately. Otherwise, the last approval enrolls it. SSO, SCIM, verified domains, and security settings move to the parent, and each child organization keeps its own users, roles, and projects.
 
-Changing the proposed admins asks every child organization to approve again. If an organization still hasn't approved seven days after the last change, any owner of a child organization under the parent can approve on its behalf.
+Changing the proposed admins asks every child organization to approve again. If an organization still hasn't approved after seven days, an eligible admin of another organization may be able to approve on its behalf.
 
 ## Manage your parent organization
 

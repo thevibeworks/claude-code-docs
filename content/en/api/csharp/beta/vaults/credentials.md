@@ -357,7 +357,7 @@ Create a Credential
 
     format: date-time
 
-  - `required Auth Auth`
+  - `required BetaManagedAgentsCredentialAuth Auth`
 
     Authentication configuration for this credential.
 
@@ -389,7 +389,7 @@ Create a Credential
 
           Token endpoint URL used to refresh the access token.
 
-        - `required TokenEndpointAuth TokenEndpointAuth`
+        - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
@@ -727,7 +727,7 @@ List Credentials
 
     format: date-time
 
-  - `required Auth Auth`
+  - `required BetaManagedAgentsCredentialAuth Auth`
 
     Authentication configuration for this credential.
 
@@ -759,7 +759,7 @@ List Credentials
 
           Token endpoint URL used to refresh the access token.
 
-        - `required TokenEndpointAuth TokenEndpointAuth`
+        - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
@@ -1089,7 +1089,7 @@ Retrieve a Credential
 
     format: date-time
 
-  - `required Auth Auth`
+  - `required BetaManagedAgentsCredentialAuth Auth`
 
     Authentication configuration for this credential.
 
@@ -1121,7 +1121,7 @@ Retrieve a Credential
 
           Token endpoint URL used to refresh the access token.
 
-        - `required TokenEndpointAuth TokenEndpointAuth`
+        - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
@@ -1285,7 +1285,7 @@ Update a Credential
 
     Unique identifier of the credential to update.
 
-  - `Auth auth`
+  - `CredentialUpdateParamsAuth auth`
 
     New authentication settings for the credential. The `type` must match the credential's current type, which can't be changed.
 
@@ -1327,7 +1327,7 @@ Update a Credential
 
           maxLength: 8192
 
-        - `TokenEndpointAuth TokenEndpointAuth`
+        - `BetaManagedAgentsMcpOAuthRefreshUpdateParamsTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 
@@ -1585,7 +1585,7 @@ Update a Credential
 
     format: date-time
 
-  - `required Auth Auth`
+  - `required BetaManagedAgentsCredentialAuth Auth`
 
     Authentication configuration for this credential.
 
@@ -1617,7 +1617,7 @@ Update a Credential
 
           Token endpoint URL used to refresh the access token.
 
-        - `required TokenEndpointAuth TokenEndpointAuth`
+        - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
@@ -2141,7 +2141,7 @@ Archive a Credential
 
     format: date-time
 
-  - `required Auth Auth`
+  - `required BetaManagedAgentsCredentialAuth Auth`
 
     Authentication configuration for this credential.
 
@@ -2173,7 +2173,7 @@ Archive a Credential
 
           Token endpoint URL used to refresh the access token.
 
-        - `required TokenEndpointAuth TokenEndpointAuth`
+        - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
@@ -2602,24 +2602,8 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 {
   "credential_id": "vcrd_011CZkZEMt8gZan2iYPQfSkw",
   "has_refresh_token": true,
-  "mcp_probe": {
-    "http_response": {
-      "body": "body",
-      "body_truncated": true,
-      "content_type": "content_type",
-      "status_code": 0
-    },
-    "method": "method"
-  },
-  "refresh": {
-    "http_response": {
-      "body": "body",
-      "body_truncated": true,
-      "content_type": "content_type",
-      "status_code": 0
-    },
-    "status": "succeeded"
-  },
+  "mcp_probe": null,
+  "refresh": null,
   "status": "valid",
   "type": "vault_credential_validation",
   "validated_at": "2026-03-15T10:00:00Z",
@@ -2647,7 +2631,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     format: date-time
 
-  - `required Auth Auth`
+  - `required BetaManagedAgentsCredentialAuth Auth`
 
     Authentication configuration for this credential.
 
@@ -2679,7 +2663,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           Token endpoint URL used to refresh the access token.
 
-        - `required TokenEndpointAuth TokenEndpointAuth`
+        - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
           - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
@@ -3189,7 +3173,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Token endpoint URL used to refresh the access token.
 
-    - `required TokenEndpointAuth TokenEndpointAuth`
+    - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
       - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
@@ -3393,7 +3377,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Token endpoint URL used to refresh the access token.
 
-  - `required TokenEndpointAuth TokenEndpointAuth`
+  - `required BetaManagedAgentsMcpOAuthRefreshResponseTokenEndpointAuth TokenEndpointAuth`
 
     - `class BetaManagedAgentsTokenEndpointAuthNoneResponse`
 
@@ -3439,7 +3423,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     maxLength: 8192
 
-  - `TokenEndpointAuth TokenEndpointAuth`
+  - `BetaManagedAgentsMcpOAuthRefreshUpdateParamsTokenEndpointAuth TokenEndpointAuth`
 
     - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 
@@ -3509,7 +3493,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       maxLength: 8192
 
-    - `TokenEndpointAuth TokenEndpointAuth`
+    - `BetaManagedAgentsMcpOAuthRefreshUpdateParamsTokenEndpointAuth TokenEndpointAuth`
 
       - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam`
 

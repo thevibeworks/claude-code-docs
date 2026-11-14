@@ -188,6 +188,74 @@ interface MessageTokensCount {
 }
 ```
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `AvailableToolsLimitExceededError` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CompactionBlockAmbiguousError` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `CompactionBlockMisplacedError` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `CompactionContentMismatchError` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `CompactionNothingToSummarizeError` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `CompactionSignatureInvalidError` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `CompactionToolChangesMismatchError` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `RequestBodyEncodingInvalidError` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `RequestBodyEncodingUnsupportedError` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `ToolNameConflictError` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `ToolReferenceUnresolvedError` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `CompactionUnavailableError` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
 ## Types
 
 ```ts
@@ -298,6 +366,414 @@ interface SystemMessageParam {
   role: "system";
 }
 
+type MessageContentParam = string | Array<ContentBlockParam>;
+
+type ContentBlockParam = TextBlockParam | ImageBlockParam | DocumentBlockParam | SearchResultBlockParam | ThinkingBlockParam | RedactedThinkingBlockParam | ToolUseBlockParam | ToolResultBlockParam | ServerToolUseBlockParam | WebSearchToolResultBlockParam | WebFetchToolResultBlockParam | CodeExecutionToolResultBlockParam | BashCodeExecutionToolResultBlockParam | TextEditorCodeExecutionToolResultBlockParam | ToolSearchToolResultBlockParam | ContainerUploadBlockParam;
+
+interface ImageBlockParam {
+  type: "image";
+  source: Base64ImageSource | URLImageSource | FileImageSource;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  /** Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field. */
+  transformations?: ImageTransformationsParam | null;
+}
+
+interface DocumentBlockParam {
+  type: "document";
+  source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource | FileDocumentSource;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  citations?: CitationsConfigParam | null;
+  context?: string | null; // minLength: 1
+  title?: string | null; // minLength: 1, maxLength: 500
+}
+
+interface SearchResultBlockParam {
+  type: "search_result";
+  content: Array<TextBlockParam>;
+  source: string;
+  title: string;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  citations?: CitationsConfigParam;
+}
+
+interface ThinkingBlockParam {
+  type: "thinking";
+  /** The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude. Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`. */
+  signature: string;
+  /** The `thinking` text of this block as returned by the API. */
+  thinking: string;
+}
+
+interface RedactedThinkingBlockParam {
+  type: "redacted_thinking";
+  /** The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged. */
+  data: string;
+}
+
+interface ToolUseBlockParam {
+  type: "tool_use";
+  id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  input: Record<string, unknown>;
+  name: string; // minLength: 1, maxLength: 200
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120;
+  /** For a toolset member tool_use, the toolset family this member belongs to. */
+  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+}
+
+interface ToolResultBlockParam {
+  type: "tool_result";
+  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | DocumentBlockParam | ToolReferenceBlockParam | BrowserStateBlockParam>;
+  is_error?: boolean;
+  /** For a toolset member tool_result, the toolset family of the paired tool_use. */
+  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+}
+
+interface ServerToolUseBlockParam {
+  type: "server_tool_use";
+  id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  input: Record<string, unknown>;
+  name: "web_search" | "web_fetch" | "code_execution" | "bash_code_execution" | "text_editor_code_execution" | "tool_search_tool_regex" | "tool_search_tool_bm25";
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120;
+}
+
+interface WebSearchToolResultBlockParam {
+  type: "web_search_tool_result";
+  content: WebSearchToolResultBlockParamContent;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120;
+}
+
+interface WebFetchToolResultBlockParam {
+  type: "web_fetch_tool_result";
+  content: WebFetchToolResultErrorBlockParam | WebFetchBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120;
+}
+
+interface CodeExecutionToolResultBlockParam {
+  type: "code_execution_tool_result";
+  content: CodeExecutionToolResultBlockParamContent;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+}
+
+interface BashCodeExecutionToolResultBlockParam {
+  type: "bash_code_execution_tool_result";
+  content: BashCodeExecutionToolResultErrorParam | BashCodeExecutionResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+}
+
+interface TextEditorCodeExecutionToolResultBlockParam {
+  type: "text_editor_code_execution_tool_result";
+  content: TextEditorCodeExecutionToolResultErrorParam | TextEditorCodeExecutionViewResultBlockParam | TextEditorCodeExecutionCreateResultBlockParam | TextEditorCodeExecutionStrReplaceResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+}
+
+interface ToolSearchToolResultBlockParam {
+  type: "tool_search_tool_result";
+  content: ToolSearchToolResultErrorParam | ToolSearchToolSearchResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+}
+
+/** A content block that represents a file to be uploaded to the container Files uploaded via this block will be available in the container's input directory. */
+interface ContainerUploadBlockParam {
+  type: "container_upload";
+  file_id: string;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+}
+
+interface Base64ImageSource {
+  type: "base64";
+  data: string; // format: byte
+  media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp";
+}
+
+interface URLImageSource {
+  type: "url";
+  url: string;
+}
+
+interface FileImageSource {
+  type: "file";
+  file_id: string;
+}
+
+interface ImageTransformationsParam {
+  /** What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down. */
+  oversized_image?: "downsize" | "error";
+}
+
+interface Base64PDFSource {
+  type: "base64";
+  data: string; // format: byte
+  media_type: "application/pdf";
+}
+
+interface PlainTextSource {
+  type: "text";
+  data: string;
+  media_type: "text/plain";
+}
+
+interface ContentBlockSource {
+  type: "content";
+  content: string | Array<ContentBlockSourceContent>;
+}
+
+interface URLPDFSource {
+  type: "url";
+  url: string;
+}
+
+interface FileDocumentSource {
+  type: "file";
+  file_id: string;
+}
+
+interface CitationsConfigParam {
+  enabled?: boolean;
+}
+
+type ContentBlockSourceContent = TextBlockParam | ImageBlockParam;
+
+/** Tool invocation directly from the model. */
+interface DirectCaller {
+  type: "direct";
+}
+
+/** Tool invocation generated by a server-side tool. */
+interface ServerToolCaller {
+  type: "code_execution_20250825";
+  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+interface ServerToolCaller20260120 {
+  type: "code_execution_20260120";
+  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+type WebSearchToolResultBlockParamContent = Array<WebSearchResultBlockParam> | WebSearchToolRequestError;
+
+interface WebSearchResultBlockParam {
+  type: "web_search_result";
+  encrypted_content: string;
+  title: string;
+  url: string;
+  page_age?: string | null;
+}
+
+interface WebSearchToolRequestError {
+  type: "web_search_tool_result_error";
+  error_code: WebSearchToolResultErrorCode;
+}
+
+type WebSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "max_uses_exceeded" | "too_many_requests" | "query_too_long" | "request_too_large";
+
+interface WebFetchToolResultErrorBlockParam {
+  type: "web_fetch_tool_result_error";
+  error_code: WebFetchToolResultErrorCode;
+}
+
+interface WebFetchBlockParam {
+  type: "web_fetch_result";
+  content: DocumentBlockParam;
+  /** Fetched content URL */
+  url: string;
+  /** ISO 8601 timestamp when the content was retrieved */
+  retrieved_at?: string | null;
+}
+
+type WebFetchToolResultErrorCode = "invalid_tool_input" | "url_too_long" | "url_not_allowed" | "url_not_in_prior_context" | "url_not_accessible" | "unsupported_content_type" | "too_many_requests" | "max_uses_exceeded" | "unavailable" | "content_too_large";
+
+type CodeExecutionToolResultBlockParamContent = CodeExecutionToolResultErrorParam | CodeExecutionResultBlockParam | EncryptedCodeExecutionResultBlockParam;
+
+interface CodeExecutionToolResultErrorParam {
+  type: "code_execution_tool_result_error";
+  error_code: CodeExecutionToolResultErrorCode;
+}
+
+interface CodeExecutionResultBlockParam {
+  type: "code_execution_result";
+  content: Array<CodeExecutionOutputBlockParam>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request. */
+interface EncryptedCodeExecutionResultBlockParam {
+  type: "encrypted_code_execution_result";
+  content: Array<CodeExecutionOutputBlockParam>;
+  encrypted_stdout: string;
+  return_code: number;
+  stderr: string;
+}
+
+type CodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+
+interface CodeExecutionOutputBlockParam {
+  type: "code_execution_output";
+  file_id: string;
+}
+
+interface BashCodeExecutionToolResultErrorParam {
+  type: "bash_code_execution_tool_result_error";
+  error_code: BashCodeExecutionToolResultErrorCode;
+}
+
+interface BashCodeExecutionResultBlockParam {
+  type: "bash_code_execution_result";
+  content: Array<BashCodeExecutionOutputBlockParam>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+type BashCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
+
+interface BashCodeExecutionOutputBlockParam {
+  type: "bash_code_execution_output";
+  file_id: string;
+}
+
+interface TextEditorCodeExecutionToolResultErrorParam {
+  type: "text_editor_code_execution_tool_result_error";
+  error_code: TextEditorCodeExecutionToolResultErrorCode;
+  error_message?: string | null;
+}
+
+interface TextEditorCodeExecutionViewResultBlockParam {
+  type: "text_editor_code_execution_view_result";
+  content: string;
+  file_type: "text" | "image" | "pdf";
+  num_lines?: number | null;
+  start_line?: number | null;
+  total_lines?: number | null;
+}
+
+interface TextEditorCodeExecutionCreateResultBlockParam {
+  type: "text_editor_code_execution_create_result";
+  is_file_update: boolean;
+}
+
+interface TextEditorCodeExecutionStrReplaceResultBlockParam {
+  type: "text_editor_code_execution_str_replace_result";
+  lines?: Array<string> | null;
+  new_lines?: number | null;
+  new_start?: number | null;
+  old_lines?: number | null;
+  old_start?: number | null;
+}
+
+type TextEditorCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
+
+interface ToolSearchToolResultErrorParam {
+  type: "tool_search_tool_result_error";
+  error_code: ToolSearchToolResultErrorCode;
+  error_message?: string | null;
+}
+
+interface ToolSearchToolSearchResultBlockParam {
+  type: "tool_search_tool_search_result";
+  tool_references: Array<ToolReferenceBlockParam>;
+}
+
+type ToolSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+
+/** Tool reference block that can be included in tool_result content. */
+interface ToolReferenceBlockParam {
+  type: "tool_reference";
+  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+}
+
+/** The caller's browser state after a browser toolset member call — the full inventory of open tabs, which tab is active, and any side effects (tabs opened, download state changes) the call produced. At most one per `tool_result`, only on a non-error result answering a browser toolset member `tool_use`. The server renders the model-visible text from it; the model never sees the raw fields. */
+interface BrowserStateBlockParam {
+  type: "browser_state";
+  /** All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`. */
+  tabs: Array<BrowserStateTabEntry>; // maxItems: 100
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: CacheControlEphemeral | null;
+  /** Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list. */
+  state_changes?: Array<BrowserStateChange> | null; // minItems: 1, maxItems: 200
+}
+
+interface BrowserStateTabEntry {
+  /** The caller-assigned identifier for this tab, unique within the inventory. */
+  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The title of the page the tab is showing. May be empty. */
+  title: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The URL of the page the tab is showing. May be empty. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`. */
+  active?: boolean;
+}
+
+type BrowserStateChange = BrowserStateChangeTabOpened | BrowserStateChangeDownloadStarted | BrowserStateChangeDownloadCompleted | BrowserStateChangeDownloadFailed;
+
+/** A tab this call's execution opened that remains open at its end — the creation delta of the `tabs` inventory, not an event log. Carries only the `tab_id`; the tab's `title` and `url` live on its `tabs` entry, which must include the same `tab_id`. A tab opened during a failed call gets no deferred `tab_opened`; it simply appears in the next result's `tabs` inventory. */
+interface BrowserStateChangeTabOpened {
+  type: "tab_opened";
+  /** The `tab_id` of the opened tab, present in `tabs`. */
+  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
+/** A file download that started during this call. */
+interface BrowserStateChangeDownloadStarted {
+  type: "download_started";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
+/** A file download that finished during this call, reported with the same `download_id` as its `download_started` — or without a prior `download_started`, when the download finished during the call that started it (at most one state change per `download_id` per result). */
+interface BrowserStateChangeDownloadCompleted {
+  type: "download_completed";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path. */
+  path?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The completed download's size. */
+  size_bytes?: number | null; // minimum: 0
+}
+
+/** A file download that failed — or was cancelled — during this call. */
+interface BrowserStateChangeDownloadFailed {
+  type: "download_failed";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The failure or cancellation detail, when known. */
+  error?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
 interface JSONOutputFormat {
   type: "json_schema";
   /** The JSON schema of the format */
@@ -305,6 +781,58 @@ interface JSONOutputFormat {
 }
 
 type TextCitationParam = CitationCharLocationParam | CitationPageLocationParam | CitationContentBlockLocationParam | CitationWebSearchResultLocationParam | CitationSearchResultLocationParam;
+
+interface CitationCharLocationParam {
+  type: "char_location";
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  end_char_index: number;
+  start_char_index: number; // minimum: 0
+}
+
+interface CitationPageLocationParam {
+  type: "page_location";
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  end_page_number: number;
+  start_page_number: number; // minimum: 1
+}
+
+interface CitationContentBlockLocationParam {
+  type: "content_block_location";
+  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
+  end_block_index: number;
+  /** 0-based index of the first cited block in the source's `content` array. */
+  start_block_index: number; // minimum: 0
+}
+
+interface CitationWebSearchResultLocationParam {
+  type: "web_search_result_location";
+  cited_text: string;
+  encrypted_index: string;
+  title: string | null; // minLength: 1, maxLength: 512
+  url: string; // minLength: 1
+}
+
+interface CitationSearchResultLocationParam {
+  type: "search_result_location";
+  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
+  cited_text: string;
+  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
+  end_block_index: number;
+  /** 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count. */
+  search_result_index: number; // minimum: 0
+  source: string;
+  /** 0-based index of the first cited block in the source's `content` array. */
+  start_block_index: number; // minimum: 0
+  title: string | null;
+}
 
 interface ThinkingConfigEnabled {
   type: "enabled";
@@ -718,64 +1246,215 @@ interface ToolSearchToolRegex20251119 {
   strict?: boolean;
 }
 
-type MessageContentParam = string | Array<ContentBlockParam>;
-
-interface CitationCharLocationParam {
-  type: "char_location";
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  end_char_index: number;
-  start_char_index: number; // minimum: 0
-}
-
-interface CitationPageLocationParam {
-  type: "page_location";
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  end_page_number: number;
-  start_page_number: number; // minimum: 1
-}
-
-interface CitationContentBlockLocationParam {
-  type: "content_block_location";
-  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
-  end_block_index: number;
-  /** 0-based index of the first cited block in the source's `content` array. */
-  start_block_index: number; // minimum: 0
-}
-
-interface CitationWebSearchResultLocationParam {
-  type: "web_search_result_location";
-  cited_text: string;
-  encrypted_index: string;
-  title: string | null; // minLength: 1, maxLength: 512
-  url: string; // minLength: 1
-}
-
-interface CitationSearchResultLocationParam {
-  type: "search_result_location";
-  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
-  cited_text: string;
-  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
-  end_block_index: number;
-  /** 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count. */
-  search_result_index: number; // minimum: 0
-  source: string;
-  /** 0-based index of the first cited block in the source's `content` array. */
-  start_block_index: number; // minimum: 0
-  title: string | null;
-}
-
 interface InputSchema {
   type: "object";
   properties?: Record<string, unknown> | null;
   required?: Array<string> | null;
+}
+
+interface ComputerToolsetConfigs {
+  /** `type`'s config overrides. */
+  type?: ComputerTypeConfig | null;
+  /** `cursor_position`'s config overrides. */
+  cursor_position?: ComputerCursorPositionConfig | null;
+  /** `double_click`'s config overrides. */
+  double_click?: ComputerDoubleClickConfig | null;
+  /** `hold_key`'s config overrides. */
+  hold_key?: ComputerHoldKeyConfig | null;
+  /** `key`'s config overrides. */
+  key?: ComputerKeyConfig | null;
+  /** `left_click`'s config overrides. */
+  left_click?: ComputerLeftClickConfig | null;
+  /** `left_click_drag`'s config overrides. */
+  left_click_drag?: ComputerLeftClickDragConfig | null;
+  /** `left_mouse_down`'s config overrides. */
+  left_mouse_down?: ComputerLeftMouseDownConfig | null;
+  /** `left_mouse_up`'s config overrides. */
+  left_mouse_up?: ComputerLeftMouseUpConfig | null;
+  /** `middle_click`'s config overrides. */
+  middle_click?: ComputerMiddleClickConfig | null;
+  /** `mouse_move`'s config overrides. */
+  mouse_move?: ComputerMouseMoveConfig | null;
+  /** `right_click`'s config overrides. */
+  right_click?: ComputerRightClickConfig | null;
+  /** `screenshot`'s config overrides. */
+  screenshot?: ComputerScreenshotConfig | null;
+  /** `scroll`'s config overrides. */
+  scroll?: ComputerScrollConfig | null;
+  /** `triple_click`'s config overrides. */
+  triple_click?: ComputerTripleClickConfig | null;
+  /** `wait`'s config overrides. */
+  wait?: ComputerWaitConfig | null;
+  /** `zoom`'s config overrides. */
+  zoom?: ComputerZoomConfig | null;
+}
+
+interface ComputerTypeConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerCursorPositionConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerDoubleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerHoldKeyConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerKeyConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerLeftClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerLeftClickDragConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerLeftMouseDownConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerLeftMouseUpConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerMiddleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerMouseMoveConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerRightClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerScreenshotConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerScrollConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerTripleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerWaitConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface ComputerZoomConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface UserLocation {
+  type: "approximate";
+  /** The city of the user. */
+  city?: string | null; // minLength: 1, maxLength: 255
+  /** The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user. */
+  country?: string | null; // minLength: 2, maxLength: 2
+  /** The region of the user. */
+  region?: string | null; // minLength: 1, maxLength: 255
+  /** The [IANA timezone](https://nodatime.org/TimeZones) of the user. */
+  timezone?: string | null; // minLength: 1, maxLength: 255
+}
+
+interface WebFetchURLSources {
+  /** Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[]. */
+  client_tool_results?: WebFetchURLSourceAll | WebFetchURLSourceNone | WebFetchURLSourceOnly | WebFetchURLSourceExcept;
+  /** Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute. */
+  server_tool_results?: WebFetchURLSourceAll | WebFetchURLSourceNone | WebFetchURLSourceOnly | WebFetchURLSourceExcept;
+  /** Whether URLs in user messages are fetchable: "all" or "none". */
+  user_input?: WebFetchURLSourceAll | WebFetchURLSourceNone;
+}
+
+/** The `url_sources` variant under which a source contributes in full: every result of the tool filter's source, or all user input. */
+interface WebFetchURLSourceAll {
+  type: "all";
+}
+
+/** The `url_sources` variant under which a source contributes nothing: no result of the tool filter's source, or no user input. */
+interface WebFetchURLSourceNone {
+  type: "none";
+}
+
+/** The tool filter variant under which only the named tools' results contribute. */
+interface WebFetchURLSourceOnly {
+  type: "only";
+  tools: Array<WebFetchURLSourceToolReference>;
+}
+
+/** The tool filter variant under which every result but the named tools' contributes. */
+interface WebFetchURLSourceExcept {
+  type: "except";
+  tools: Array<WebFetchURLSourceToolReference>;
+}
+
+/** One entry of a tool filter's `tools`: it must name a tool declared in this request's `tools[]`. */
+interface WebFetchURLSourceToolReference {
+  type: "tool_reference";
+  name: string;
 }
 
 interface BrowserToolsetConfigs {
@@ -842,70 +1521,6 @@ interface BrowserToolsetConfigs {
   /** `zoom`'s config overrides. */
   zoom?: BrowserZoomConfig | null;
 }
-
-interface ComputerToolsetConfigs {
-  /** `type`'s config overrides. */
-  type?: ComputerTypeConfig | null;
-  /** `cursor_position`'s config overrides. */
-  cursor_position?: ComputerCursorPositionConfig | null;
-  /** `double_click`'s config overrides. */
-  double_click?: ComputerDoubleClickConfig | null;
-  /** `hold_key`'s config overrides. */
-  hold_key?: ComputerHoldKeyConfig | null;
-  /** `key`'s config overrides. */
-  key?: ComputerKeyConfig | null;
-  /** `left_click`'s config overrides. */
-  left_click?: ComputerLeftClickConfig | null;
-  /** `left_click_drag`'s config overrides. */
-  left_click_drag?: ComputerLeftClickDragConfig | null;
-  /** `left_mouse_down`'s config overrides. */
-  left_mouse_down?: ComputerLeftMouseDownConfig | null;
-  /** `left_mouse_up`'s config overrides. */
-  left_mouse_up?: ComputerLeftMouseUpConfig | null;
-  /** `middle_click`'s config overrides. */
-  middle_click?: ComputerMiddleClickConfig | null;
-  /** `mouse_move`'s config overrides. */
-  mouse_move?: ComputerMouseMoveConfig | null;
-  /** `right_click`'s config overrides. */
-  right_click?: ComputerRightClickConfig | null;
-  /** `screenshot`'s config overrides. */
-  screenshot?: ComputerScreenshotConfig | null;
-  /** `scroll`'s config overrides. */
-  scroll?: ComputerScrollConfig | null;
-  /** `triple_click`'s config overrides. */
-  triple_click?: ComputerTripleClickConfig | null;
-  /** `wait`'s config overrides. */
-  wait?: ComputerWaitConfig | null;
-  /** `zoom`'s config overrides. */
-  zoom?: ComputerZoomConfig | null;
-}
-
-interface UserLocation {
-  type: "approximate";
-  /** The city of the user. */
-  city?: string | null; // minLength: 1, maxLength: 255
-  /** The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user. */
-  country?: string | null; // minLength: 2, maxLength: 2
-  /** The region of the user. */
-  region?: string | null; // minLength: 1, maxLength: 255
-  /** The [IANA timezone](https://nodatime.org/TimeZones) of the user. */
-  timezone?: string | null; // minLength: 1, maxLength: 255
-}
-
-interface CitationsConfigParam {
-  enabled?: boolean;
-}
-
-interface WebFetchURLSources {
-  /** Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[]. */
-  client_tool_results?: WebFetchURLSourceAll | WebFetchURLSourceNone | WebFetchURLSourceOnly | WebFetchURLSourceExcept;
-  /** Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute. */
-  server_tool_results?: WebFetchURLSourceAll | WebFetchURLSourceNone | WebFetchURLSourceOnly | WebFetchURLSourceExcept;
-  /** Whether URLs in user messages are fetchable: "all" or "none". */
-  user_input?: WebFetchURLSourceAll | WebFetchURLSourceNone;
-}
-
-type ContentBlockParam = TextBlockParam | ImageBlockParam | DocumentBlockParam | SearchResultBlockParam | ThinkingBlockParam | RedactedThinkingBlockParam | ToolUseBlockParam | ToolResultBlockParam | ServerToolUseBlockParam | WebSearchToolResultBlockParam | WebFetchToolResultBlockParam | CodeExecutionToolResultBlockParam | BashCodeExecutionToolResultBlockParam | TextEditorCodeExecutionToolResultBlockParam | ToolSearchToolResultBlockParam | ContainerUploadBlockParam;
 
 interface BrowserTypeConfig {
   /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
@@ -1122,552 +1737,5 @@ interface BrowserZoomConfig {
   defer_loading?: boolean | null;
   /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
   enabled?: boolean | null;
-}
-
-interface ComputerTypeConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerCursorPositionConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerDoubleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerHoldKeyConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerKeyConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerLeftClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerLeftClickDragConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerLeftMouseDownConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerLeftMouseUpConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerMiddleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerMouseMoveConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerRightClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerScreenshotConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerScrollConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerTripleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerWaitConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface ComputerZoomConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-/** The `url_sources` variant under which a source contributes in full: every result of the tool filter's source, or all user input. */
-interface WebFetchURLSourceAll {
-  type: "all";
-}
-
-/** The `url_sources` variant under which a source contributes nothing: no result of the tool filter's source, or no user input. */
-interface WebFetchURLSourceNone {
-  type: "none";
-}
-
-/** The tool filter variant under which only the named tools' results contribute. */
-interface WebFetchURLSourceOnly {
-  type: "only";
-  tools: Array<WebFetchURLSourceToolReference>;
-}
-
-/** The tool filter variant under which every result but the named tools' contributes. */
-interface WebFetchURLSourceExcept {
-  type: "except";
-  tools: Array<WebFetchURLSourceToolReference>;
-}
-
-interface ImageBlockParam {
-  type: "image";
-  source: Base64ImageSource | URLImageSource | FileImageSource;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  /** Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field. */
-  transformations?: ImageTransformationsParam | null;
-}
-
-interface DocumentBlockParam {
-  type: "document";
-  source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource | FileDocumentSource;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  citations?: CitationsConfigParam | null;
-  context?: string | null; // minLength: 1
-  title?: string | null; // minLength: 1, maxLength: 500
-}
-
-interface SearchResultBlockParam {
-  type: "search_result";
-  content: Array<TextBlockParam>;
-  source: string;
-  title: string;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  citations?: CitationsConfigParam;
-}
-
-interface ThinkingBlockParam {
-  type: "thinking";
-  /** The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude. Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`. */
-  signature: string;
-  /** The `thinking` text of this block as returned by the API. */
-  thinking: string;
-}
-
-interface RedactedThinkingBlockParam {
-  type: "redacted_thinking";
-  /** The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged. */
-  data: string;
-}
-
-interface ToolUseBlockParam {
-  type: "tool_use";
-  id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  input: Record<string, unknown>;
-  name: string; // minLength: 1, maxLength: 200
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120;
-  /** For a toolset member tool_use, the toolset family this member belongs to. */
-  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
-}
-
-interface ToolResultBlockParam {
-  type: "tool_result";
-  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | DocumentBlockParam | ToolReferenceBlockParam | BrowserStateBlockParam>;
-  is_error?: boolean;
-  /** For a toolset member tool_result, the toolset family of the paired tool_use. */
-  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
-}
-
-interface ServerToolUseBlockParam {
-  type: "server_tool_use";
-  id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  input: Record<string, unknown>;
-  name: "web_search" | "web_fetch" | "code_execution" | "bash_code_execution" | "text_editor_code_execution" | "tool_search_tool_regex" | "tool_search_tool_bm25";
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120;
-}
-
-interface WebSearchToolResultBlockParam {
-  type: "web_search_tool_result";
-  content: WebSearchToolResultBlockParamContent;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120;
-}
-
-interface WebFetchToolResultBlockParam {
-  type: "web_fetch_tool_result";
-  content: WebFetchToolResultErrorBlockParam | WebFetchBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  caller?: DirectCaller | ServerToolCaller | ServerToolCaller20260120;
-}
-
-interface CodeExecutionToolResultBlockParam {
-  type: "code_execution_tool_result";
-  content: CodeExecutionToolResultBlockParamContent;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-}
-
-interface BashCodeExecutionToolResultBlockParam {
-  type: "bash_code_execution_tool_result";
-  content: BashCodeExecutionToolResultErrorParam | BashCodeExecutionResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-}
-
-interface TextEditorCodeExecutionToolResultBlockParam {
-  type: "text_editor_code_execution_tool_result";
-  content: TextEditorCodeExecutionToolResultErrorParam | TextEditorCodeExecutionViewResultBlockParam | TextEditorCodeExecutionCreateResultBlockParam | TextEditorCodeExecutionStrReplaceResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-}
-
-interface ToolSearchToolResultBlockParam {
-  type: "tool_search_tool_result";
-  content: ToolSearchToolResultErrorParam | ToolSearchToolSearchResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-}
-
-/** A content block that represents a file to be uploaded to the container Files uploaded via this block will be available in the container's input directory. */
-interface ContainerUploadBlockParam {
-  type: "container_upload";
-  file_id: string;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-}
-
-/** One entry of a tool filter's `tools`: it must name a tool declared in this request's `tools[]`. */
-interface WebFetchURLSourceToolReference {
-  type: "tool_reference";
-  name: string;
-}
-
-interface Base64ImageSource {
-  type: "base64";
-  data: string; // format: byte
-  media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp";
-}
-
-interface URLImageSource {
-  type: "url";
-  url: string;
-}
-
-interface FileImageSource {
-  type: "file";
-  file_id: string;
-}
-
-interface ImageTransformationsParam {
-  /** What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down. */
-  oversized_image?: "downsize" | "error";
-}
-
-interface Base64PDFSource {
-  type: "base64";
-  data: string; // format: byte
-  media_type: "application/pdf";
-}
-
-interface PlainTextSource {
-  type: "text";
-  data: string;
-  media_type: "text/plain";
-}
-
-interface ContentBlockSource {
-  type: "content";
-  content: string | Array<ContentBlockSourceContent>;
-}
-
-interface URLPDFSource {
-  type: "url";
-  url: string;
-}
-
-interface FileDocumentSource {
-  type: "file";
-  file_id: string;
-}
-
-/** Tool invocation directly from the model. */
-interface DirectCaller {
-  type: "direct";
-}
-
-/** Tool invocation generated by a server-side tool. */
-interface ServerToolCaller {
-  type: "code_execution_20250825";
-  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-interface ServerToolCaller20260120 {
-  type: "code_execution_20260120";
-  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-/** Tool reference block that can be included in tool_result content. */
-interface ToolReferenceBlockParam {
-  type: "tool_reference";
-  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-}
-
-/** The caller's browser state after a browser toolset member call — the full inventory of open tabs, which tab is active, and any side effects (tabs opened, download state changes) the call produced. At most one per `tool_result`, only on a non-error result answering a browser toolset member `tool_use`. The server renders the model-visible text from it; the model never sees the raw fields. */
-interface BrowserStateBlockParam {
-  type: "browser_state";
-  /** All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`. */
-  tabs: Array<BrowserStateTabEntry>; // maxItems: 100
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: CacheControlEphemeral | null;
-  /** Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list. */
-  state_changes?: Array<BrowserStateChange> | null; // minItems: 1, maxItems: 200
-}
-
-type WebSearchToolResultBlockParamContent = Array<WebSearchResultBlockParam> | WebSearchToolRequestError;
-
-interface WebFetchToolResultErrorBlockParam {
-  type: "web_fetch_tool_result_error";
-  error_code: WebFetchToolResultErrorCode;
-}
-
-interface WebFetchBlockParam {
-  type: "web_fetch_result";
-  content: DocumentBlockParam;
-  /** Fetched content URL */
-  url: string;
-  /** ISO 8601 timestamp when the content was retrieved */
-  retrieved_at?: string | null;
-}
-
-type CodeExecutionToolResultBlockParamContent = CodeExecutionToolResultErrorParam | CodeExecutionResultBlockParam | EncryptedCodeExecutionResultBlockParam;
-
-interface BashCodeExecutionToolResultErrorParam {
-  type: "bash_code_execution_tool_result_error";
-  error_code: BashCodeExecutionToolResultErrorCode;
-}
-
-interface BashCodeExecutionResultBlockParam {
-  type: "bash_code_execution_result";
-  content: Array<BashCodeExecutionOutputBlockParam>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-interface TextEditorCodeExecutionToolResultErrorParam {
-  type: "text_editor_code_execution_tool_result_error";
-  error_code: TextEditorCodeExecutionToolResultErrorCode;
-  error_message?: string | null;
-}
-
-interface TextEditorCodeExecutionViewResultBlockParam {
-  type: "text_editor_code_execution_view_result";
-  content: string;
-  file_type: "text" | "image" | "pdf";
-  num_lines?: number | null;
-  start_line?: number | null;
-  total_lines?: number | null;
-}
-
-interface TextEditorCodeExecutionCreateResultBlockParam {
-  type: "text_editor_code_execution_create_result";
-  is_file_update: boolean;
-}
-
-interface TextEditorCodeExecutionStrReplaceResultBlockParam {
-  type: "text_editor_code_execution_str_replace_result";
-  lines?: Array<string> | null;
-  new_lines?: number | null;
-  new_start?: number | null;
-  old_lines?: number | null;
-  old_start?: number | null;
-}
-
-interface ToolSearchToolResultErrorParam {
-  type: "tool_search_tool_result_error";
-  error_code: ToolSearchToolResultErrorCode;
-  error_message?: string | null;
-}
-
-interface ToolSearchToolSearchResultBlockParam {
-  type: "tool_search_tool_search_result";
-  tool_references: Array<ToolReferenceBlockParam>;
-}
-
-type ContentBlockSourceContent = TextBlockParam | ImageBlockParam;
-
-interface BrowserStateTabEntry {
-  /** The caller-assigned identifier for this tab, unique within the inventory. */
-  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The title of the page the tab is showing. May be empty. */
-  title: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The URL of the page the tab is showing. May be empty. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`. */
-  active?: boolean;
-}
-
-type BrowserStateChange = BrowserStateChangeTabOpened | BrowserStateChangeDownloadStarted | BrowserStateChangeDownloadCompleted | BrowserStateChangeDownloadFailed;
-
-interface WebSearchResultBlockParam {
-  type: "web_search_result";
-  encrypted_content: string;
-  title: string;
-  url: string;
-  page_age?: string | null;
-}
-
-interface WebSearchToolRequestError {
-  type: "web_search_tool_result_error";
-  error_code: WebSearchToolResultErrorCode;
-}
-
-type WebFetchToolResultErrorCode = "invalid_tool_input" | "url_too_long" | "url_not_allowed" | "url_not_in_prior_context" | "url_not_accessible" | "unsupported_content_type" | "too_many_requests" | "max_uses_exceeded" | "unavailable" | "content_too_large";
-
-interface CodeExecutionToolResultErrorParam {
-  type: "code_execution_tool_result_error";
-  error_code: CodeExecutionToolResultErrorCode;
-}
-
-interface CodeExecutionResultBlockParam {
-  type: "code_execution_result";
-  content: Array<CodeExecutionOutputBlockParam>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request. */
-interface EncryptedCodeExecutionResultBlockParam {
-  type: "encrypted_code_execution_result";
-  content: Array<CodeExecutionOutputBlockParam>;
-  encrypted_stdout: string;
-  return_code: number;
-  stderr: string;
-}
-
-type BashCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
-
-interface BashCodeExecutionOutputBlockParam {
-  type: "bash_code_execution_output";
-  file_id: string;
-}
-
-type TextEditorCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
-
-type ToolSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-
-/** A tab this call's execution opened that remains open at its end — the creation delta of the `tabs` inventory, not an event log. Carries only the `tab_id`; the tab's `title` and `url` live on its `tabs` entry, which must include the same `tab_id`. A tab opened during a failed call gets no deferred `tab_opened`; it simply appears in the next result's `tabs` inventory. */
-interface BrowserStateChangeTabOpened {
-  type: "tab_opened";
-  /** The `tab_id` of the opened tab, present in `tabs`. */
-  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-/** A file download that started during this call. */
-interface BrowserStateChangeDownloadStarted {
-  type: "download_started";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-/** A file download that finished during this call, reported with the same `download_id` as its `download_started` — or without a prior `download_started`, when the download finished during the call that started it (at most one state change per `download_id` per result). */
-interface BrowserStateChangeDownloadCompleted {
-  type: "download_completed";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path. */
-  path?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The completed download's size. */
-  size_bytes?: number | null; // minimum: 0
-}
-
-/** A file download that failed — or was cancelled — during this call. */
-interface BrowserStateChangeDownloadFailed {
-  type: "download_failed";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The failure or cancellation detail, when known. */
-  error?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-type WebSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "max_uses_exceeded" | "too_many_requests" | "query_too_long" | "request_too_large";
-
-type CodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-
-interface CodeExecutionOutputBlockParam {
-  type: "code_execution_output";
-  file_id: string;
 }
 ```

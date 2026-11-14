@@ -36,7 +36,7 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-      - `Networking? Networking`
+      - `BetaCloudConfigParamsNetworking? Networking`
 
         Network configuration policy. Omit on update to preserve the existing value.
 
@@ -75,7 +75,7 @@ Create a new environment with the specified configuration.
 
         Package manager configuration. Under `limited` networking, requires `networking.allow_package_managers` to be `true`. Omit on update to preserve the existing value.
 
-        - `Type Type`
+        - `BetaPackagesParamsType Type`
 
           Package configuration type
 
@@ -289,7 +289,7 @@ Create a new environment with the specified configuration.
 
     RFC 3339 timestamp when environment was archived, or null if not archived
 
-  - `required Config Config`
+  - `required BetaEnvironmentConfig Config`
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
@@ -393,13 +393,29 @@ Create a new environment with the specified configuration.
 
     RFC 3339 timestamp when environment was last updated
 
-  - `Scope Scope`
+  - `BetaEnvironmentScope Scope`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
     - `Organization("organization")`
 
     - `Account("account")`
+
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `AnthropicBetaEnvironmentCreateDisabledException` (HTTP status 403, error code `environment_create_disabled`)
+
+  Anthropic has turned off creating environments for this organization. Existing environments still work.
 
 ## Example
 
@@ -430,21 +446,11 @@ Console.WriteLine(betaEnvironment);
       "type": "limited"
     },
     "packages": {
-      "apt": [
-        "string"
-      ],
-      "cargo": [
-        "string"
-      ],
-      "gem": [
-        "string"
-      ],
-      "go": [
-        "string"
-      ],
-      "npm": [
-        "string"
-      ],
+      "apt": [],
+      "cargo": [],
+      "gem": [],
+      "go": [],
+      "npm": [],
       "pip": [
         "pandas",
         "numpy"

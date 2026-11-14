@@ -30,7 +30,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794608100&amp;signature=f22beef1756cdcae95224e8d53fcf8899b11e9d469a95df6adeeb2ee35732750&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZL%2FIq2gN0ADj5oqFC7icWleZl%2Fgx1K3lsI%0AmEAICmiYlq1Q2cQpLHY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794642300&amp;signature=61f232c06942e485f6457ba5ce454dbdd6e41b9390dda1e003611d03008647a5&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZL%2BIC0gN0ADj5oqFAJakcgrkELZ0QpdN4G%0ADSc%2BKQqZmMKkOIxyxNI%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -64,7 +64,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794608100&amp;signature=42c753404d471046c9068236a4a1dfa4e2ecc996380c7475158b41031246e7ec&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2J2iCTt7A4lHPBihAWoESJRmHa%2FDqVm%2BPUN%0AGH6TluhfyvKc3tNwab0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794642300&amp;signature=bfe2789c797be0e5b23c4aaa792367aba25716f290b6f1e47fdaa74668e31e93&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2J2jC7v7A4lHPBihAUBPpDw4YtGS3g4rZIF%0ASfI%2FoBdkbkBV%2B1kYVKQ%3D%0A)
 
 ### Permission options
 

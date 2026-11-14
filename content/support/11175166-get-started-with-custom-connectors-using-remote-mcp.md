@@ -30,7 +30,7 @@ Remote MCP servers give models access to internet-hosted tools and data, transfo
 
 When you add a custom connector, Claude connects to your remote MCP server from Anthropic's cloud infrastructure, rather than from your local device. This is true across every Claude client, including claude.ai, Claude Desktop, Cowork, and the mobile apps.
 
-This means your MCP server must be reachable over the public internet from Anthropic's IP ranges. Servers hosted on a private corporate network, behind a VPN, or blocked by a firewall won't connect, even if you can reach them from your own machine.
+This means your MCP server must be reachable over the public internet from Anthropic's IP ranges. Servers hosted on a private corporate network, behind a VPN, or blocked by a firewall won't connect, even if you can reach them from your own machine. Your server must also be reachable on the standard HTTPS port (443). Claude can't connect to a URL that specifies another port (for example, <https://example.com:8443/mcp>).
 
 ### If your server is on a private network
 
@@ -38,7 +38,7 @@ You’ll need to allowlist Anthropic's IP addresses in your firewall so inbound 
 
 ### Why this applies to Cowork and Claude Desktop
 
-Even though Cowork and Claude Desktop run on your computer, remote connectors are configured and brokered through your Claude account. The connection to your MCP server originates from Anthropic's servers, not from your machine's network interface. Local MCP servers configured in Claude Desktop via `claude_desktop_config.json` are a separate mechanism and do use your local network, but those aren't available in Cowork or claude.ai.
+Even though Cowork and Claude Desktop run on your computer, remote connectors are configured and brokered through your Claude account. The connection to your MCP server originates from Anthropic's servers, not from your machine's network interface. Local MCP servers configured in Claude Desktop via `claude_desktop_config.json` are a separate mechanism and do use your local network. They aren't available in claude.ai or in Cowork sessions that run in the cloud; a Cowork session running locally on your device can use them.
 
 ---
 
@@ -60,13 +60,13 @@ Before members of Team and Enterprise plans can configure custom connectors, an 
 
 4. Enter a name for the connector. This is the name users see in the connectors list.
 
-5. Add your connector's remote MCP server URL. Click “Continue.”
+5. Add your connector's remote MCP server URL exactly as the provider documents it, including any path (for example, <https://example.com/mcp>). Click “Continue.”
 
 6. Review the authentication settings Claude detected, and change them if your server needs something different. Click “Continue.”
 
 7. Under **Authentication**, choose how people connect to the server: “Sign in now,” “Sign in when needed,” or “No sign in.”
 
-8. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign in" under **Authentication**.
+8. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign in" under **Authentication**. Choose "Use your own OAuth client" only if the server's documentation says it requires a client you register yourself. Enter both the Client ID and the Client Secret if the server issued a secret, and register <https://claude.ai/api/mcp/auth_callback> as the redirect URL for that client.
 
 9. Under **Request headers**, add fixed credentials such as API keys that Claude sends on every request if your MCP server authenticates with an API key, bearer token, or other fixed credential instead of OAuth. Learn how to **[authenticate with request headers](https://claude.com/docs/connectors/custom/add-unlisted#authenticate-with-request-headers).**
 
@@ -92,13 +92,13 @@ If you are using an individual Pro or Max plan, follow these steps to add a cust
 
 3. Enter a name for the connector. This is the name users see in the connectors list.
 
-4. Add your connector's remote MCP server URL. Click “Continue.”
+4. Add your connector's remote MCP server URL exactly as the provider documents it, including any path (for example, <https://example.com/mcp>). Click “Continue.”
 
 5. Review the authentication settings Claude detected, and change them if your server needs something different. Click “Continue.”
 
 6. Under **Authentication**, choose how people connect to the server: “Sign in now,” “Sign in when needed,” or “No sign in.”
 
-7. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign in" under **Authentication**.
+7. Under **OAuth client**, choose how Claude identifies itself to the server’s authorization server: “Use Claude’s published identity (Recommended),” “Register automatically,” or “Use your own OAuth client.” **Note:** You won’t see the **OAuth client** setting if you selected "No sign in" under **Authentication**. Choose "Use your own OAuth client" only if the server's documentation says it requires a client you register yourself. Enter both the Client ID and the Client Secret if the server issued a secret, and register <https://claude.ai/api/mcp/auth_callback> as the redirect URL for that client.
 
 8. Under **Request headers**, add fixed credentials such as API keys that Claude sends on every request if your MCP server authenticates with an API key, bearer token, or other fixed credential instead of OAuth. Learn how to **[authenticate with request headers](https://claude.com/docs/connectors/custom/add-unlisted#authenticate-with-request-headers)**.
 
@@ -116,7 +116,7 @@ You can remove a custom connector by following these steps:
 
 1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
 
-  1. Team and Enterprise Owners can do this on their organization's behalf in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**.
+  1. Team and Enterprise Owners and Primary Owners can do this on their organization's behalf in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**. On Enterprise plans, people with a custom role that includes Manage access to Libraries can too.
 
 2. Locate the "Connectors" section.
 

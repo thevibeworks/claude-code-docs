@@ -247,7 +247,7 @@ Create User Profile
 
     format: date-time
 
-  - `AccessType AccessType`
+  - `BetaUserProfileAccessType AccessType`
 
     How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
@@ -606,7 +606,7 @@ List User Profiles
 
     format: date-time
 
-  - `AccessType AccessType`
+  - `BetaUserProfileAccessType AccessType`
 
     How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
@@ -940,7 +940,7 @@ Get User Profile
 
     format: date-time
 
-  - `AccessType AccessType`
+  - `BetaUserProfileAccessType AccessType`
 
     How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
@@ -1078,7 +1078,7 @@ Update User Profile
 
     The ID of the user profile to update (`uprof_...`).
 
-  - `AccessType? accessType`
+  - `UserProfileUpdateParamsAccessType? accessType`
 
     If present, replaces the stored access type. Omit to leave unchanged.
 
@@ -1308,7 +1308,7 @@ Update User Profile
 
     format: date-time
 
-  - `AccessType AccessType`
+  - `BetaUserProfileAccessType AccessType`
 
     How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
@@ -1893,7 +1893,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
     format: date-time
 
-  - `AccessType AccessType`
+  - `BetaUserProfileAccessType AccessType`
 
     How the platform uses the API for this entity: `application` (default) or `passthrough`. Absent under the legacy `user-profiles-2026-03-24` beta header.
 
@@ -2049,7 +2049,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
 - `class BetaUserProfileExternalUserDetailsParams`
 
-  - `AccountStatus? AccountStatus`
+  - `BetaUserProfileExternalUserDetailsParamsAccountStatus? AccountStatus`
 
     The status of the entity's account on the platform: `active`, `suspended` or `blocked`.
 
@@ -2077,7 +2077,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
     minLength: 1, maxLength: 255
 
-  - `EntityType? EntityType`
+  - `BetaUserProfileExternalUserDetailsParamsEntityType? EntityType`
 
     What kind of entity the profile represents: `individual`, `business`, `non_profit` or `government`.
 

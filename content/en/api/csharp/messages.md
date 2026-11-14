@@ -247,7 +247,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `JsonElement Type = "image"`
 
-            - `required Source Source`
+            - `required ImageBlockParamSource Source`
 
               - `class Base64ImageSource`
 
@@ -299,7 +299,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `JsonElement Type = "document"`
 
-            - `required Source Source`
+            - `required DocumentBlockParamSource Source`
 
               - `class Base64PdfSource`
 
@@ -323,11 +323,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `JsonElement Type = "content"`
 
-                - `required Content Content`
+                - `required ContentBlockSourceContent Content`
 
                   - `string`
 
-                  - `IReadOnlyList<ContentBlockSourceContent>`
+                  - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                     - `class TextBlockParam`
 
@@ -429,7 +429,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `ToolUseBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -473,7 +473,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Create a cache control breakpoint at this content block.
 
-            - `Content Content`
+            - `ToolResultBlockParamContent Content`
 
               - `string`
 
@@ -662,7 +662,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-            - `required Name Name`
+            - `required ServerToolUseBlockParamName Name`
 
               - `WebSearch("web_search")`
 
@@ -682,7 +682,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `ServerToolUseBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -738,7 +738,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `WebSearchToolResultBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -754,7 +754,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `JsonElement Type = "web_fetch_tool_result"`
 
-            - `required Content Content`
+            - `required WebFetchToolResultBlockParamContent Content`
 
               - `class WebFetchToolResultErrorBlockParam`
 
@@ -804,7 +804,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `WebFetchToolResultBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -882,7 +882,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `JsonElement Type = "bash_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required BashCodeExecutionToolResultBlockParamContent Content`
 
               - `class BashCodeExecutionToolResultErrorParam`
 
@@ -928,7 +928,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
               - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -954,7 +954,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `required string Content`
 
-                - `required FileType FileType`
+                - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
                   - `Text("text")`
 
@@ -1000,7 +1000,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `JsonElement Type = "tool_search_tool_result"`
 
-            - `required Content Content`
+            - `required ToolSearchToolResultBlockParamContent Content`
 
               - `class ToolSearchToolResultErrorParam`
 
@@ -1065,7 +1065,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class SystemMessageParam`
 
-      - `required Content Content`
+      - `required SystemMessageParamContent Content`
 
         - `string`
 
@@ -1143,7 +1143,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     If you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `"stop_sequence"` and the response `stop_sequence` value will contain the matched stop sequence.
 
-  - `System system`
+  - `MessageCreateParamsSystem system`
 
     System prompt.
 
@@ -1265,7 +1265,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolAllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1309,7 +1309,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolBash20250124AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1375,7 +1375,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20250825AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1413,7 +1413,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20260120AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1447,7 +1447,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20260521AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -1868,7 +1868,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<MemoryTool20250818AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2127,7 +2127,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250124AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2161,7 +2161,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250429AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2195,7 +2195,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250728AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2235,7 +2235,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20250305AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2311,7 +2311,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20250910AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2453,7 +2453,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20260209AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2503,7 +2503,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260209AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2565,7 +2565,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260309AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2629,7 +2629,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20260318AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2661,7 +2661,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minimum: 1
 
-      - `ResponseInclusion ResponseInclusion`
+      - `WebSearchTool20260318ResponseInclusion ResponseInclusion`
 
         How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -2687,7 +2687,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260318AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2751,7 +2751,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class ToolSearchToolBm25_20251119`
 
-      - `required Type Type`
+      - `required ToolSearchToolBm25_20251119Type Type`
 
         - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
@@ -2763,7 +2763,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolSearchToolBm25_20251119AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -2787,7 +2787,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `class ToolSearchToolRegex20251119`
 
-      - `required Type Type`
+      - `required ToolSearchToolRegex20251119Type Type`
 
         - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
@@ -2799,7 +2799,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolSearchToolRegex20251119AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -3082,7 +3082,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-      - `required Caller Caller`
+      - `required ToolUseBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -3162,7 +3162,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `JsonElement Type = "web_search_tool_result"`
 
-      - `required Caller Caller`
+      - `required WebSearchToolResultBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -3214,7 +3214,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `JsonElement Type = "web_fetch_tool_result"`
 
-      - `required Caller Caller`
+      - `required WebFetchToolResultBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -3226,7 +3226,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `class ServerToolCaller20260120`
 
-      - `required Content Content`
+      - `required WebFetchToolResultBlockContent Content`
 
         - `class WebFetchToolResultErrorBlock`
 
@@ -3412,7 +3412,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-      - `required Content Content`
+      - `required TextEditorCodeExecutionToolResultBlockContent Content`
 
         - `class TextEditorCodeExecutionToolResultError`
 
@@ -3480,7 +3480,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `JsonElement Type = "tool_search_tool_result"`
 
-      - `required Content Content`
+      - `required ToolSearchToolResultBlockContent Content`
 
         - `class ToolSearchToolResultError`
 
@@ -3869,7 +3869,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minimum: 0
 
-    - `required ServiceTier? ServiceTier`
+    - `required UsageServiceTier? ServiceTier`
 
       If the request used the priority, standard, or batch tier.
 
@@ -3879,7 +3879,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Batch("batch")`
 
-    - `required Speed? Speed`
+    - `required UsageSpeed? Speed`
 
       The inference speed mode used for this request.
 
@@ -3972,7 +3972,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `JsonElement Type = "content_block_start"`
 
-    - `required ContentBlock ContentBlock`
+    - `required RawContentBlockStartEventContentBlock ContentBlock`
 
       - `class TextBlock`
 
@@ -4060,6 +4060,128 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `required long Index`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+On a streaming call, the errors listed below apply when the API rejects the request before the stream starts. An error partway through the stream can arrive as a more general error type. To identify it, use its error code, if it has one, not its type.
+
+- `AnthropicAvailableToolsLimitExceededException` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicClaudeCodeVersionTooOldException` (HTTP status 400, error code `claude_code_version_too_old`)
+
+  The request comes from a Claude Code version older than the minimum that the requested model or the organization requires. Update Claude Code, then retry.
+
+- `AnthropicCmekKeyDisabledException` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `AnthropicCmekKeyNetworkBlockedException` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `AnthropicCompactionBlockAmbiguousException` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `AnthropicCompactionBlockMisplacedException` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `AnthropicCompactionContentMismatchException` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `AnthropicCompactionIncompleteTurnException` (HTTP status 400, error code `compaction_incomplete_turn`)
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+- `AnthropicCompactionNothingToSummarizeException` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `AnthropicCompactionSignatureInvalidException` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `AnthropicCompactionTooManyToolReferencesException` (HTTP status 400, error code `compaction_too_many_tool_references`)
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+- `AnthropicCompactionToolChangesMismatchException` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `AnthropicRequestBodyEncodingInvalidException` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `AnthropicRequestBodyEncodingUnsupportedException` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `AnthropicThreadAlreadyContinuedException` (HTTP status 400, error code `thread_already_continued`)
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+- `AnthropicThreadContinueInFlightException` (HTTP status 400, error code `thread_continue_in_flight`)
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+- `AnthropicThreadFingerprintMismatchException` (HTTP status 400, error code `thread_fingerprint_mismatch`)
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+- `AnthropicThreadUnsupportedRequestException` (HTTP status 400, error code `thread_unsupported_request`)
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+- `AnthropicToolNameConflictException` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `AnthropicToolReferenceUnresolvedException` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `AnthropicThreadNotFoundException` (HTTP status 404, error code `thread_not_found`)
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+- `AnthropicSkillReadBlockedUndecryptableException` (HTTP status 409, error code `skill_read_blocked_undecryptable`)
+
+  A custom skill the request names is stored under an encryption key state the workspace cannot currently decrypt.
+
+- `AnthropicRequestBodyTooLargeAfterDecodingException` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `AnthropicEnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `AnthropicRampLimitExceededException` (HTTP status 429, error code `ramp_limit_exceeded`)
+
+  The request would exceed a ramp limit, which caps how fast usage can grow. Retry after the time in the `retry-after` header.
+
+- `AnthropicCmekKeyUnreachableException` (HTTP status 503, error code `cmek_key_unreachable`)
+
+  The workspace's customer-managed encryption key could not be reached. Retry the request; if this continues, check that the key is available in your key management service, or contact Anthropic support.
+
+- `AnthropicCompactionUnavailableException` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
 ### Example
 
 ```csharp
@@ -4099,34 +4221,15 @@ Console.WriteLine(message);
   },
   "content": [
     {
-      "citations": [
-        {
-          "cited_text": "The grass is green. The sky is blue.",
-          "document_index": 0,
-          "document_title": "My Document",
-          "end_char_index": 0,
-          "file_id": "file_011CNha8iCJcU1wXNR6q4V8w",
-          "start_char_index": 0,
-          "type": "char_location"
-        }
-      ],
+      "citations": null,
       "text": "Hi! My name is Claude.",
       "type": "text"
     }
   ],
-  "diagnostics": {
-    "cache_miss_reason": {
-      "cache_missed_input_tokens": 0,
-      "type": "model_changed"
-    }
-  },
+  "diagnostics": null,
   "model": "claude-opus-5-5",
   "role": "assistant",
-  "stop_details": {
-    "category": "cyber",
-    "explanation": "This request was declined because it conflicts with Anthropic's Usage Policy.",
-    "type": "refusal"
-  },
+  "stop_details": null,
   "stop_reason": "end_turn",
   "stop_sequence": null,
   "type": "message",
@@ -4383,7 +4486,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "image"`
 
-            - `required Source Source`
+            - `required ImageBlockParamSource Source`
 
               - `class Base64ImageSource`
 
@@ -4435,7 +4538,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "document"`
 
-            - `required Source Source`
+            - `required DocumentBlockParamSource Source`
 
               - `class Base64PdfSource`
 
@@ -4459,11 +4562,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `JsonElement Type = "content"`
 
-                - `required Content Content`
+                - `required ContentBlockSourceContent Content`
 
                   - `string`
 
-                  - `IReadOnlyList<ContentBlockSourceContent>`
+                  - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                     - `class TextBlockParam`
 
@@ -4565,7 +4668,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `ToolUseBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -4609,7 +4712,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Content Content`
+            - `ToolResultBlockParamContent Content`
 
               - `string`
 
@@ -4798,7 +4901,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-            - `required Name Name`
+            - `required ServerToolUseBlockParamName Name`
 
               - `WebSearch("web_search")`
 
@@ -4818,7 +4921,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `ServerToolUseBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -4874,7 +4977,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `WebSearchToolResultBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -4890,7 +4993,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "web_fetch_tool_result"`
 
-            - `required Content Content`
+            - `required WebFetchToolResultBlockParamContent Content`
 
               - `class WebFetchToolResultErrorBlockParam`
 
@@ -4940,7 +5043,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Create a cache control breakpoint at this content block.
 
-            - `Caller Caller`
+            - `WebFetchToolResultBlockParamCaller Caller`
 
               - `class DirectCaller`
 
@@ -5018,7 +5121,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "bash_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required BashCodeExecutionToolResultBlockParamContent Content`
 
               - `class BashCodeExecutionToolResultErrorParam`
 
@@ -5064,7 +5167,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
               - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -5090,7 +5193,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `required string Content`
 
-                - `required FileType FileType`
+                - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
                   - `Text("text")`
 
@@ -5136,7 +5239,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `JsonElement Type = "tool_search_tool_result"`
 
-            - `required Content Content`
+            - `required ToolSearchToolResultBlockParamContent Content`
 
               - `class ToolSearchToolResultErrorParam`
 
@@ -5201,7 +5304,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class SystemMessageParam`
 
-      - `required Content Content`
+      - `required SystemMessageParamContent Content`
 
         - `string`
 
@@ -5235,7 +5338,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Configuration options for the model's output, such as the output format.
 
-  - `Speed? speed`
+  - `MessageCountTokensParamsSpeed? speed`
 
     The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
 
@@ -5245,7 +5348,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `Fast("fast")`
 
-  - `System system`
+  - `MessageCountTokensParamsSystem system`
 
     System prompt.
 
@@ -5367,7 +5470,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolAllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -5411,7 +5514,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolBash20250124AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -5477,7 +5580,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20250825AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -5515,7 +5618,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20260120AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -5549,7 +5652,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<CodeExecutionTool20260521AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -5970,7 +6073,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<MemoryTool20250818AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6229,7 +6332,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250124AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6263,7 +6366,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250429AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6297,7 +6400,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolTextEditor20250728AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6337,7 +6440,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20250305AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6413,7 +6516,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20250910AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6555,7 +6658,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20260209AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6605,7 +6708,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260209AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6667,7 +6770,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260309AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6731,7 +6834,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebSearchTool20260318AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6763,7 +6866,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         minimum: 1
 
-      - `ResponseInclusion ResponseInclusion`
+      - `WebSearchTool20260318ResponseInclusion ResponseInclusion`
 
         How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -6789,7 +6892,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<WebFetchTool20260318AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6853,7 +6956,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolSearchToolBm25_20251119`
 
-      - `required Type Type`
+      - `required ToolSearchToolBm25_20251119Type Type`
 
         - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
@@ -6865,7 +6968,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolSearchToolBm25_20251119AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6889,7 +6992,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `class ToolSearchToolRegex20251119`
 
-      - `required Type Type`
+      - `required ToolSearchToolRegex20251119Type Type`
 
         - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
@@ -6901,7 +7004,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `IReadOnlyList<AllowedCaller> AllowedCallers`
+      - `IReadOnlyList<ToolSearchToolRegex20251119AllowedCaller> AllowedCallers`
 
         - `Direct("direct")`
 
@@ -6940,6 +7043,74 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `required long InputTokens`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicAvailableToolsLimitExceededException` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicCompactionBlockAmbiguousException` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `AnthropicCompactionBlockMisplacedException` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `AnthropicCompactionContentMismatchException` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `AnthropicCompactionNothingToSummarizeException` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `AnthropicCompactionSignatureInvalidException` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `AnthropicCompactionToolChangesMismatchException` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `AnthropicRequestBodyEncodingInvalidException` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `AnthropicRequestBodyEncodingUnsupportedException` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `AnthropicToolNameConflictException` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `AnthropicToolReferenceUnresolvedException` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `AnthropicRequestBodyTooLargeAfterDecodingException` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `AnthropicEnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `AnthropicCompactionUnavailableException` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
 
 ### Example
 
@@ -7136,7 +7307,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required ImageBlockParamSource Source`
 
           - `class Base64ImageSource`
 
@@ -7188,7 +7359,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "document"`
 
-        - `required Source Source`
+        - `required DocumentBlockParamSource Source`
 
           - `class Base64PdfSource`
 
@@ -7212,11 +7383,11 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement Type = "content"`
 
-            - `required Content Content`
+            - `required ContentBlockSourceContent Content`
 
               - `string`
 
-              - `IReadOnlyList<ContentBlockSourceContent>`
+              - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                 - `class TextBlockParam`
 
@@ -7318,7 +7489,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `ToolUseBlockParamCaller Caller`
 
           - `class DirectCaller`
 
@@ -7362,7 +7533,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Content Content`
+        - `ToolResultBlockParamContent Content`
 
           - `string`
 
@@ -7551,7 +7722,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-        - `required Name Name`
+        - `required ServerToolUseBlockParamName Name`
 
           - `WebSearch("web_search")`
 
@@ -7571,7 +7742,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `ServerToolUseBlockParamCaller Caller`
 
           - `class DirectCaller`
 
@@ -7627,7 +7798,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `WebSearchToolResultBlockParamCaller Caller`
 
           - `class DirectCaller`
 
@@ -7643,7 +7814,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "web_fetch_tool_result"`
 
-        - `required Content Content`
+        - `required WebFetchToolResultBlockParamContent Content`
 
           - `class WebFetchToolResultErrorBlockParam`
 
@@ -7693,7 +7864,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `WebFetchToolResultBlockParamCaller Caller`
 
           - `class DirectCaller`
 
@@ -7771,7 +7942,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "bash_code_execution_tool_result"`
 
-        - `required Content Content`
+        - `required BashCodeExecutionToolResultBlockParamContent Content`
 
           - `class BashCodeExecutionToolResultErrorParam`
 
@@ -7817,7 +7988,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-        - `required Content Content`
+        - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
           - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -7843,7 +8014,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required string Content`
 
-            - `required FileType FileType`
+            - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
               - `Text("text")`
 
@@ -7889,7 +8060,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "tool_search_tool_result"`
 
-        - `required Content Content`
+        - `required ToolSearchToolResultBlockParamContent Content`
 
           - `class ToolSearchToolResultErrorParam`
 
@@ -7949,8 +8120,6 @@ Console.WriteLine(messageTokensCount);
 ### Available Tools Limit Exceeded Error Details
 
 - `class AvailableToolsLimitExceededErrorDetails`
-
-  The tools available after a message exceed a limit on their number or their size.
 
   - `JsonElement ErrorCode = "available_tools_limit_exceeded"`
 
@@ -8088,7 +8257,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "bash_code_execution_tool_result"`
 
-  - `required Content Content`
+  - `required BashCodeExecutionToolResultBlockParamContent Content`
 
     - `class BashCodeExecutionToolResultErrorParam`
 
@@ -14460,7 +14629,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<CodeExecutionTool20250825AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -14517,7 +14686,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<CodeExecutionTool20260120AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -14570,7 +14739,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<CodeExecutionTool20260521AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -14910,15 +15079,11 @@ Console.WriteLine(messageTokensCount);
 
 - `class CompactionBlockAmbiguousErrorDetails`
 
-  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
-
   - `JsonElement ErrorCode = "compaction_block_ambiguous"`
 
 ### Compaction Block Misplaced Error Details
 
 - `class CompactionBlockMisplacedErrorDetails`
-
-  The `compaction` block is not the first block of the conversation, or is in a `system` message.
 
   - `JsonElement ErrorCode = "compaction_block_misplaced"`
 
@@ -14926,15 +15091,11 @@ Console.WriteLine(messageTokensCount);
 
 - `class CompactionContentMismatchErrorDetails`
 
-  The `compaction` block's `content` differs from the text its `signature` recorded.
-
   - `JsonElement ErrorCode = "compaction_content_mismatch"`
 
 ### Compaction Incomplete Turn Error Details
 
 - `class CompactionIncompleteTurnErrorDetails`
-
-  The compaction request ends on an `assistant` turn that is not finished.
 
   - `JsonElement ErrorCode = "compaction_incomplete_turn"`
 
@@ -14942,15 +15103,11 @@ Console.WriteLine(messageTokensCount);
 
 - `class CompactionNothingToSummarizeErrorDetails`
 
-  `messages` holds no `user` or `assistant` content to summarize or adopt.
-
   - `JsonElement ErrorCode = "compaction_nothing_to_summarize"`
 
 ### Compaction Signature Invalid Error Details
 
 - `class CompactionSignatureInvalidErrorDetails`
-
-  The `compaction` block's `signature` does not verify.
 
   - `JsonElement ErrorCode = "compaction_signature_invalid"`
 
@@ -14958,23 +15115,17 @@ Console.WriteLine(messageTokensCount);
 
 - `class CompactionTooManyToolReferencesErrorDetails`
 
-  The conversation references more distinct tools than a `compaction` block can record.
-
   - `JsonElement ErrorCode = "compaction_too_many_tool_references"`
 
 ### Compaction Tool Changes Mismatch Error Details
 
 - `class CompactionToolChangesMismatchErrorDetails`
 
-  The `compaction` block's `tool_changes` differs from what was returned with the block.
-
   - `JsonElement ErrorCode = "compaction_tool_changes_mismatch"`
 
 ### Compaction Unavailable Error Details
 
 - `class CompactionUnavailableErrorDetails`
-
-  The compaction could not be completed for a transient server reason. Retry the request.
 
   - `JsonElement ErrorCode = "compaction_unavailable"`
 
@@ -17691,7 +17842,7 @@ Console.WriteLine(messageTokensCount);
 
       pattern: ^[a-zA-Z0-9_-]+$
 
-    - `required Caller Caller`
+    - `required ToolUseBlockCaller Caller`
 
       - `class DirectCaller`
 
@@ -17771,7 +17922,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "web_search_tool_result"`
 
-    - `required Caller Caller`
+    - `required WebSearchToolResultBlockCaller Caller`
 
       - `class DirectCaller`
 
@@ -17823,7 +17974,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "web_fetch_tool_result"`
 
-    - `required Caller Caller`
+    - `required WebFetchToolResultBlockCaller Caller`
 
       - `class DirectCaller`
 
@@ -17835,7 +17986,7 @@ Console.WriteLine(messageTokensCount);
 
       - `class ServerToolCaller20260120`
 
-    - `required Content Content`
+    - `required WebFetchToolResultBlockContent Content`
 
       - `class WebFetchToolResultErrorBlock`
 
@@ -18021,7 +18172,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-    - `required Content Content`
+    - `required TextEditorCodeExecutionToolResultBlockContent Content`
 
       - `class TextEditorCodeExecutionToolResultError`
 
@@ -18089,7 +18240,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "tool_search_tool_result"`
 
-    - `required Content Content`
+    - `required ToolSearchToolResultBlockContent Content`
 
       - `class ToolSearchToolResultError`
 
@@ -18290,7 +18441,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "image"`
 
-    - `required Source Source`
+    - `required ImageBlockParamSource Source`
 
       - `class Base64ImageSource`
 
@@ -18342,7 +18493,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "document"`
 
-    - `required Source Source`
+    - `required DocumentBlockParamSource Source`
 
       - `class Base64PdfSource`
 
@@ -18366,11 +18517,11 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "content"`
 
-        - `required Content Content`
+        - `required ContentBlockSourceContent Content`
 
           - `string`
 
-          - `IReadOnlyList<ContentBlockSourceContent>`
+          - `IReadOnlyList<MessageContentBlockSourceContent>`
 
             - `class TextBlockParam`
 
@@ -18472,7 +18623,7 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-    - `Caller Caller`
+    - `ToolUseBlockParamCaller Caller`
 
       - `class DirectCaller`
 
@@ -18516,7 +18667,7 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-    - `Content Content`
+    - `ToolResultBlockParamContent Content`
 
       - `string`
 
@@ -18705,7 +18856,7 @@ Console.WriteLine(messageTokensCount);
 
     - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-    - `required Name Name`
+    - `required ServerToolUseBlockParamName Name`
 
       - `WebSearch("web_search")`
 
@@ -18725,7 +18876,7 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-    - `Caller Caller`
+    - `ServerToolUseBlockParamCaller Caller`
 
       - `class DirectCaller`
 
@@ -18781,7 +18932,7 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-    - `Caller Caller`
+    - `WebSearchToolResultBlockParamCaller Caller`
 
       - `class DirectCaller`
 
@@ -18797,7 +18948,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "web_fetch_tool_result"`
 
-    - `required Content Content`
+    - `required WebFetchToolResultBlockParamContent Content`
 
       - `class WebFetchToolResultErrorBlockParam`
 
@@ -18847,7 +18998,7 @@ Console.WriteLine(messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-    - `Caller Caller`
+    - `WebFetchToolResultBlockParamCaller Caller`
 
       - `class DirectCaller`
 
@@ -18925,7 +19076,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "bash_code_execution_tool_result"`
 
-    - `required Content Content`
+    - `required BashCodeExecutionToolResultBlockParamContent Content`
 
       - `class BashCodeExecutionToolResultErrorParam`
 
@@ -18971,7 +19122,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-    - `required Content Content`
+    - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
       - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -18997,7 +19148,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required string Content`
 
-        - `required FileType FileType`
+        - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
           - `Text("text")`
 
@@ -19043,7 +19194,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "tool_search_tool_result"`
 
-    - `required Content Content`
+    - `required ToolSearchToolResultBlockParamContent Content`
 
       - `class ToolSearchToolResultErrorParam`
 
@@ -19104,11 +19255,11 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "content"`
 
-  - `required Content Content`
+  - `required ContentBlockSourceContent Content`
 
     - `string`
 
-    - `IReadOnlyList<ContentBlockSourceContent>`
+    - `IReadOnlyList<MessageContentBlockSourceContent>`
 
       - `class TextBlockParam`
 
@@ -19265,7 +19416,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required ImageBlockParamSource Source`
 
           - `class Base64ImageSource`
 
@@ -19315,7 +19466,7 @@ Console.WriteLine(messageTokensCount);
 
 ### Content Block Source Content
 
-- `class ContentBlockSourceContent: union`
+- `class MessageContentBlockSourceContent: union`
 
   - `class TextBlockParam`
 
@@ -19472,7 +19623,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "image"`
 
-    - `required Source Source`
+    - `required ImageBlockParamSource Source`
 
       - `class Base64ImageSource`
 
@@ -19662,7 +19813,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "document"`
 
-  - `required Source Source`
+  - `required DocumentBlockParamSource Source`
 
     - `class Base64PdfSource`
 
@@ -19686,11 +19837,11 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "content"`
 
-      - `required Content Content`
+      - `required ContentBlockSourceContent Content`
 
         - `string`
 
-        - `IReadOnlyList<ContentBlockSourceContent>`
+        - `IReadOnlyList<MessageContentBlockSourceContent>`
 
           - `class TextBlockParam`
 
@@ -19847,7 +19998,7 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement Type = "image"`
 
-            - `required Source Source`
+            - `required ImageBlockParamSource Source`
 
               - `class Base64ImageSource`
 
@@ -19989,7 +20140,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "image"`
 
-  - `required Source Source`
+  - `required ImageBlockParamSource Source`
 
     - `class Base64ImageSource`
 
@@ -20098,7 +20249,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<MemoryTool20250818AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -20390,7 +20541,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-      - `required Caller Caller`
+      - `required ToolUseBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -20470,7 +20621,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "web_search_tool_result"`
 
-      - `required Caller Caller`
+      - `required WebSearchToolResultBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -20522,7 +20673,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "web_fetch_tool_result"`
 
-      - `required Caller Caller`
+      - `required WebFetchToolResultBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -20534,7 +20685,7 @@ Console.WriteLine(messageTokensCount);
 
         - `class ServerToolCaller20260120`
 
-      - `required Content Content`
+      - `required WebFetchToolResultBlockContent Content`
 
         - `class WebFetchToolResultErrorBlock`
 
@@ -20720,7 +20871,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-      - `required Content Content`
+      - `required TextEditorCodeExecutionToolResultBlockContent Content`
 
         - `class TextEditorCodeExecutionToolResultError`
 
@@ -20788,7 +20939,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "tool_search_tool_result"`
 
-      - `required Content Content`
+      - `required ToolSearchToolResultBlockContent Content`
 
         - `class ToolSearchToolResultError`
 
@@ -21177,7 +21328,7 @@ Console.WriteLine(messageTokensCount);
 
         minimum: 0
 
-    - `required ServiceTier? ServiceTier`
+    - `required UsageServiceTier? ServiceTier`
 
       If the request used the priority, standard, or batch tier.
 
@@ -21187,7 +21338,7 @@ Console.WriteLine(messageTokensCount);
 
       - `Batch("batch")`
 
-    - `required Speed? Speed`
+    - `required UsageSpeed? Speed`
 
       The inference speed mode used for this request.
 
@@ -21358,7 +21509,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "image"`
 
-      - `required Source Source`
+      - `required ImageBlockParamSource Source`
 
         - `class Base64ImageSource`
 
@@ -21410,7 +21561,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "document"`
 
-      - `required Source Source`
+      - `required DocumentBlockParamSource Source`
 
         - `class Base64PdfSource`
 
@@ -21434,11 +21585,11 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "content"`
 
-          - `required Content Content`
+          - `required ContentBlockSourceContent Content`
 
             - `string`
 
-            - `IReadOnlyList<ContentBlockSourceContent>`
+            - `IReadOnlyList<MessageContentBlockSourceContent>`
 
               - `class TextBlockParam`
 
@@ -21540,7 +21691,7 @@ Console.WriteLine(messageTokensCount);
 
         Create a cache control breakpoint at this content block.
 
-      - `Caller Caller`
+      - `ToolUseBlockParamCaller Caller`
 
         - `class DirectCaller`
 
@@ -21584,7 +21735,7 @@ Console.WriteLine(messageTokensCount);
 
         Create a cache control breakpoint at this content block.
 
-      - `Content Content`
+      - `ToolResultBlockParamContent Content`
 
         - `string`
 
@@ -21773,7 +21924,7 @@ Console.WriteLine(messageTokensCount);
 
       - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-      - `required Name Name`
+      - `required ServerToolUseBlockParamName Name`
 
         - `WebSearch("web_search")`
 
@@ -21793,7 +21944,7 @@ Console.WriteLine(messageTokensCount);
 
         Create a cache control breakpoint at this content block.
 
-      - `Caller Caller`
+      - `ServerToolUseBlockParamCaller Caller`
 
         - `class DirectCaller`
 
@@ -21849,7 +22000,7 @@ Console.WriteLine(messageTokensCount);
 
         Create a cache control breakpoint at this content block.
 
-      - `Caller Caller`
+      - `WebSearchToolResultBlockParamCaller Caller`
 
         - `class DirectCaller`
 
@@ -21865,7 +22016,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "web_fetch_tool_result"`
 
-      - `required Content Content`
+      - `required WebFetchToolResultBlockParamContent Content`
 
         - `class WebFetchToolResultErrorBlockParam`
 
@@ -21915,7 +22066,7 @@ Console.WriteLine(messageTokensCount);
 
         Create a cache control breakpoint at this content block.
 
-      - `Caller Caller`
+      - `WebFetchToolResultBlockParamCaller Caller`
 
         - `class DirectCaller`
 
@@ -21993,7 +22144,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "bash_code_execution_tool_result"`
 
-      - `required Content Content`
+      - `required BashCodeExecutionToolResultBlockParamContent Content`
 
         - `class BashCodeExecutionToolResultErrorParam`
 
@@ -22039,7 +22190,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-      - `required Content Content`
+      - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
         - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -22065,7 +22216,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required string Content`
 
-          - `required FileType FileType`
+          - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
             - `Text("text")`
 
@@ -22111,7 +22262,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "tool_search_tool_result"`
 
-      - `required Content Content`
+      - `required ToolSearchToolResultBlockParamContent Content`
 
         - `class ToolSearchToolResultErrorParam`
 
@@ -22194,7 +22345,7 @@ Console.WriteLine(messageTokensCount);
 
       minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolAllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -22255,7 +22406,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolBash20250124AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -22321,7 +22472,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<CodeExecutionTool20250825AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -22359,7 +22510,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<CodeExecutionTool20260120AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -22393,7 +22544,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<CodeExecutionTool20260521AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -22814,7 +22965,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<MemoryTool20250818AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23073,7 +23224,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolTextEditor20250124AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23107,7 +23258,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolTextEditor20250429AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23141,7 +23292,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolTextEditor20250728AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23181,7 +23332,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebSearchTool20250305AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23257,7 +23408,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebFetchTool20250910AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23401,7 +23552,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebSearchTool20260209AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23451,7 +23602,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebFetchTool20260209AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23513,7 +23664,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebFetchTool20260309AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23577,7 +23728,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebSearchTool20260318AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23609,7 +23760,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 1
 
-    - `ResponseInclusion ResponseInclusion`
+    - `WebSearchTool20260318ResponseInclusion ResponseInclusion`
 
       How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -23635,7 +23786,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebFetchTool20260318AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23699,7 +23850,7 @@ Console.WriteLine(messageTokensCount);
 
   - `class ToolSearchToolBm25_20251119`
 
-    - `required Type Type`
+    - `required ToolSearchToolBm25_20251119Type Type`
 
       - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
@@ -23711,7 +23862,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolSearchToolBm25_20251119AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -23735,7 +23886,7 @@ Console.WriteLine(messageTokensCount);
 
   - `class ToolSearchToolRegex20251119`
 
-    - `required Type Type`
+    - `required ToolSearchToolRegex20251119Type Type`
 
       - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
@@ -23747,7 +23898,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolSearchToolRegex20251119AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -24041,7 +24192,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "image"`
 
-          - `required Source Source`
+          - `required ImageBlockParamSource Source`
 
             - `class Base64ImageSource`
 
@@ -24093,7 +24244,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "document"`
 
-          - `required Source Source`
+          - `required DocumentBlockParamSource Source`
 
             - `class Base64PdfSource`
 
@@ -24117,11 +24268,11 @@ Console.WriteLine(messageTokensCount);
 
               - `JsonElement Type = "content"`
 
-              - `required Content Content`
+              - `required ContentBlockSourceContent Content`
 
                 - `string`
 
-                - `IReadOnlyList<ContentBlockSourceContent>`
+                - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                   - `class TextBlockParam`
 
@@ -24223,7 +24374,7 @@ Console.WriteLine(messageTokensCount);
 
             Create a cache control breakpoint at this content block.
 
-          - `Caller Caller`
+          - `ToolUseBlockParamCaller Caller`
 
             - `class DirectCaller`
 
@@ -24267,7 +24418,7 @@ Console.WriteLine(messageTokensCount);
 
             Create a cache control breakpoint at this content block.
 
-          - `Content Content`
+          - `ToolResultBlockParamContent Content`
 
             - `string`
 
@@ -24456,7 +24607,7 @@ Console.WriteLine(messageTokensCount);
 
           - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-          - `required Name Name`
+          - `required ServerToolUseBlockParamName Name`
 
             - `WebSearch("web_search")`
 
@@ -24476,7 +24627,7 @@ Console.WriteLine(messageTokensCount);
 
             Create a cache control breakpoint at this content block.
 
-          - `Caller Caller`
+          - `ServerToolUseBlockParamCaller Caller`
 
             - `class DirectCaller`
 
@@ -24532,7 +24683,7 @@ Console.WriteLine(messageTokensCount);
 
             Create a cache control breakpoint at this content block.
 
-          - `Caller Caller`
+          - `WebSearchToolResultBlockParamCaller Caller`
 
             - `class DirectCaller`
 
@@ -24548,7 +24699,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "web_fetch_tool_result"`
 
-          - `required Content Content`
+          - `required WebFetchToolResultBlockParamContent Content`
 
             - `class WebFetchToolResultErrorBlockParam`
 
@@ -24598,7 +24749,7 @@ Console.WriteLine(messageTokensCount);
 
             Create a cache control breakpoint at this content block.
 
-          - `Caller Caller`
+          - `WebFetchToolResultBlockParamCaller Caller`
 
             - `class DirectCaller`
 
@@ -24676,7 +24827,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "bash_code_execution_tool_result"`
 
-          - `required Content Content`
+          - `required BashCodeExecutionToolResultBlockParamContent Content`
 
             - `class BashCodeExecutionToolResultErrorParam`
 
@@ -24722,7 +24873,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-          - `required Content Content`
+          - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
             - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -24748,7 +24899,7 @@ Console.WriteLine(messageTokensCount);
 
               - `required string Content`
 
-              - `required FileType FileType`
+              - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
                 - `Text("text")`
 
@@ -24794,7 +24945,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "tool_search_tool_result"`
 
-          - `required Content Content`
+          - `required ToolSearchToolResultBlockParamContent Content`
 
             - `class ToolSearchToolResultErrorParam`
 
@@ -24859,7 +25010,7 @@ Console.WriteLine(messageTokensCount);
 
   - `class SystemMessageParam`
 
-    - `required Content Content`
+    - `required SystemMessageParamContent Content`
 
       - `string`
 
@@ -25279,7 +25430,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "content_block_start"`
 
-  - `required ContentBlock ContentBlock`
+  - `required RawContentBlockStartEventContentBlock ContentBlock`
 
     - `class TextBlock`
 
@@ -25447,7 +25598,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^[a-zA-Z0-9_-]+$
 
-      - `required Caller Caller`
+      - `required ToolUseBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -25527,7 +25678,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "web_search_tool_result"`
 
-      - `required Caller Caller`
+      - `required WebSearchToolResultBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -25579,7 +25730,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "web_fetch_tool_result"`
 
-      - `required Caller Caller`
+      - `required WebFetchToolResultBlockCaller Caller`
 
         - `class DirectCaller`
 
@@ -25591,7 +25742,7 @@ Console.WriteLine(messageTokensCount);
 
         - `class ServerToolCaller20260120`
 
-      - `required Content Content`
+      - `required WebFetchToolResultBlockContent Content`
 
         - `class WebFetchToolResultErrorBlock`
 
@@ -25777,7 +25928,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-      - `required Content Content`
+      - `required TextEditorCodeExecutionToolResultBlockContent Content`
 
         - `class TextEditorCodeExecutionToolResultError`
 
@@ -25845,7 +25996,7 @@ Console.WriteLine(messageTokensCount);
 
       - `JsonElement Type = "tool_search_tool_result"`
 
-      - `required Content Content`
+      - `required ToolSearchToolResultBlockContent Content`
 
         - `class ToolSearchToolResultError`
 
@@ -26329,7 +26480,7 @@ Console.WriteLine(messageTokensCount);
 
           pattern: ^[a-zA-Z0-9_-]+$
 
-        - `required Caller Caller`
+        - `required ToolUseBlockCaller Caller`
 
           - `class DirectCaller`
 
@@ -26409,7 +26560,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "web_search_tool_result"`
 
-        - `required Caller Caller`
+        - `required WebSearchToolResultBlockCaller Caller`
 
           - `class DirectCaller`
 
@@ -26461,7 +26612,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "web_fetch_tool_result"`
 
-        - `required Caller Caller`
+        - `required WebFetchToolResultBlockCaller Caller`
 
           - `class DirectCaller`
 
@@ -26473,7 +26624,7 @@ Console.WriteLine(messageTokensCount);
 
           - `class ServerToolCaller20260120`
 
-        - `required Content Content`
+        - `required WebFetchToolResultBlockContent Content`
 
           - `class WebFetchToolResultErrorBlock`
 
@@ -26659,7 +26810,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-        - `required Content Content`
+        - `required TextEditorCodeExecutionToolResultBlockContent Content`
 
           - `class TextEditorCodeExecutionToolResultError`
 
@@ -26727,7 +26878,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "tool_search_tool_result"`
 
-        - `required Content Content`
+        - `required ToolSearchToolResultBlockContent Content`
 
           - `class ToolSearchToolResultError`
 
@@ -27116,7 +27267,7 @@ Console.WriteLine(messageTokensCount);
 
           minimum: 0
 
-      - `required ServiceTier? ServiceTier`
+      - `required UsageServiceTier? ServiceTier`
 
         If the request used the priority, standard, or batch tier.
 
@@ -27126,7 +27277,7 @@ Console.WriteLine(messageTokensCount);
 
         - `Batch("batch")`
 
-      - `required Speed? Speed`
+      - `required UsageSpeed? Speed`
 
         The inference speed mode used for this request.
 
@@ -27397,7 +27548,7 @@ Console.WriteLine(messageTokensCount);
 
             pattern: ^[a-zA-Z0-9_-]+$
 
-          - `required Caller Caller`
+          - `required ToolUseBlockCaller Caller`
 
             - `class DirectCaller`
 
@@ -27477,7 +27628,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "web_search_tool_result"`
 
-          - `required Caller Caller`
+          - `required WebSearchToolResultBlockCaller Caller`
 
             - `class DirectCaller`
 
@@ -27529,7 +27680,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "web_fetch_tool_result"`
 
-          - `required Caller Caller`
+          - `required WebFetchToolResultBlockCaller Caller`
 
             - `class DirectCaller`
 
@@ -27541,7 +27692,7 @@ Console.WriteLine(messageTokensCount);
 
             - `class ServerToolCaller20260120`
 
-          - `required Content Content`
+          - `required WebFetchToolResultBlockContent Content`
 
             - `class WebFetchToolResultErrorBlock`
 
@@ -27727,7 +27878,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-          - `required Content Content`
+          - `required TextEditorCodeExecutionToolResultBlockContent Content`
 
             - `class TextEditorCodeExecutionToolResultError`
 
@@ -27795,7 +27946,7 @@ Console.WriteLine(messageTokensCount);
 
           - `JsonElement Type = "tool_search_tool_result"`
 
-          - `required Content Content`
+          - `required ToolSearchToolResultBlockContent Content`
 
             - `class ToolSearchToolResultError`
 
@@ -28184,7 +28335,7 @@ Console.WriteLine(messageTokensCount);
 
             minimum: 0
 
-        - `required ServiceTier? ServiceTier`
+        - `required UsageServiceTier? ServiceTier`
 
           If the request used the priority, standard, or batch tier.
 
@@ -28194,7 +28345,7 @@ Console.WriteLine(messageTokensCount);
 
           - `Batch("batch")`
 
-        - `required Speed? Speed`
+        - `required UsageSpeed? Speed`
 
           The inference speed mode used for this request.
 
@@ -28279,7 +28430,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "content_block_start"`
 
-    - `required ContentBlock ContentBlock`
+    - `required RawContentBlockStartEventContentBlock ContentBlock`
 
       - `class TextBlock`
 
@@ -28704,7 +28855,7 @@ Console.WriteLine(messageTokensCount);
 
   - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-  - `required Name Name`
+  - `required ServerToolUseBlockParamName Name`
 
     - `WebSearch("web_search")`
 
@@ -28741,7 +28892,7 @@ Console.WriteLine(messageTokensCount);
 
       - `Ttl1h("1h")`
 
-  - `Caller Caller`
+  - `ServerToolUseBlockParamCaller Caller`
 
     - `class DirectCaller`
 
@@ -28825,7 +28976,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class SystemMessageParam`
 
-  - `required Content Content`
+  - `required SystemMessageParamContent Content`
 
     - `string`
 
@@ -29575,7 +29726,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-  - `required Content Content`
+  - `required TextEditorCodeExecutionToolResultBlockContent Content`
 
     - `class TextEditorCodeExecutionToolResultError`
 
@@ -29645,7 +29796,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-  - `required Content Content`
+  - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
     - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -29671,7 +29822,7 @@ Console.WriteLine(messageTokensCount);
 
       - `required string Content`
 
-      - `required FileType FileType`
+      - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
         - `Text("text")`
 
@@ -29814,7 +29965,7 @@ Console.WriteLine(messageTokensCount);
 
   - `required string Content`
 
-  - `required FileType FileType`
+  - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
     - `Text("text")`
 
@@ -29904,7 +30055,7 @@ Console.WriteLine(messageTokensCount);
 
     minimum: 1024
 
-  - `Display? Display`
+  - `ThinkingConfigEnabledDisplay? Display`
 
     Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=csharp#controlling-thinking-display).
 
@@ -29936,7 +30087,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 1024
 
-    - `Display? Display`
+    - `ThinkingConfigEnabledDisplay? Display`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=csharp#controlling-thinking-display).
 
@@ -29978,15 +30129,11 @@ Console.WriteLine(messageTokensCount);
 
 - `class ThreadAlreadyContinuedErrorDetails`
 
-  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
-
   - `JsonElement ErrorCode = "thread_already_continued"`
 
 ### Thread Continue In Flight Error Details
 
 - `class ThreadContinueInFlightErrorDetails`
-
-  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
 
   - `JsonElement ErrorCode = "thread_continue_in_flight"`
 
@@ -29994,15 +30141,11 @@ Console.WriteLine(messageTokensCount);
 
 - `class ThreadFingerprintMismatchErrorDetails`
 
-  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
-
   - `JsonElement ErrorCode = "thread_fingerprint_mismatch"`
 
 ### Thread Not Found Error Details
 
 - `class ThreadNotFoundErrorDetails`
-
-  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
 
   - `JsonElement ErrorCode = "thread_not_found"`
 
@@ -30025,8 +30168,6 @@ Console.WriteLine(messageTokensCount);
 ### Thread Unsupported Request Error Details
 
 - `class ThreadUnsupportedRequestErrorDetails`
-
-  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
 
   - `JsonElement ErrorCode = "thread_unsupported_request"`
 
@@ -30072,7 +30213,7 @@ Console.WriteLine(messageTokensCount);
 
     minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<ToolAllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -30135,7 +30276,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<ToolBash20250124AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -30286,8 +30427,6 @@ Console.WriteLine(messageTokensCount);
 
 - `class ToolNameConflictErrorDetails`
 
-  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
-
   - `JsonElement ErrorCode = "tool_name_conflict"`
 
 ### Tool Reference Block
@@ -30337,8 +30476,6 @@ Console.WriteLine(messageTokensCount);
 
 - `class ToolReferenceUnresolvedErrorDetails`
 
-  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
-
   - `JsonElement ErrorCode = "tool_reference_unresolved"`
 
 ### Tool Result Block Param
@@ -30372,7 +30509,7 @@ Console.WriteLine(messageTokensCount);
 
       - `Ttl1h("1h")`
 
-  - `Content Content`
+  - `ToolResultBlockParamContent Content`
 
     - `string`
 
@@ -30516,7 +30653,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required ImageBlockParamSource Source`
 
           - `class Base64ImageSource`
 
@@ -30598,7 +30735,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "document"`
 
-        - `required Source Source`
+        - `required DocumentBlockParamSource Source`
 
           - `class Base64PdfSource`
 
@@ -30622,11 +30759,11 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement Type = "content"`
 
-            - `required Content Content`
+            - `required ContentBlockSourceContent Content`
 
               - `string`
 
-              - `IReadOnlyList<ContentBlockSourceContent>`
+              - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                 - `class TextBlockParam`
 
@@ -30827,7 +30964,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class ToolSearchToolBm25_20251119`
 
-  - `required Type Type`
+  - `required ToolSearchToolBm25_20251119Type Type`
 
     - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
@@ -30839,7 +30976,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<ToolSearchToolBm25_20251119AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -30882,7 +31019,7 @@ Console.WriteLine(messageTokensCount);
 
 - `class ToolSearchToolRegex20251119`
 
-  - `required Type Type`
+  - `required ToolSearchToolRegex20251119Type Type`
 
     - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
@@ -30894,7 +31031,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<ToolSearchToolRegex20251119AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -30939,7 +31076,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "tool_search_tool_result"`
 
-  - `required Content Content`
+  - `required ToolSearchToolResultBlockContent Content`
 
     - `class ToolSearchToolResultError`
 
@@ -30979,7 +31116,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "tool_search_tool_result"`
 
-  - `required Content Content`
+  - `required ToolSearchToolResultBlockParamContent Content`
 
     - `class ToolSearchToolResultErrorParam`
 
@@ -31147,7 +31284,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<ToolTextEditor20250124AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -31200,7 +31337,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<ToolTextEditor20250429AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -31253,7 +31390,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<ToolTextEditor20250728AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -31328,7 +31465,7 @@ Console.WriteLine(messageTokensCount);
 
       minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolAllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -31389,7 +31526,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolBash20250124AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -31455,7 +31592,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<CodeExecutionTool20250825AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -31493,7 +31630,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<CodeExecutionTool20260120AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -31527,7 +31664,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<CodeExecutionTool20260521AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -31948,7 +32085,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<MemoryTool20250818AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32207,7 +32344,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolTextEditor20250124AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32241,7 +32378,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolTextEditor20250429AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32275,7 +32412,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolTextEditor20250728AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32315,7 +32452,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebSearchTool20250305AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32391,7 +32528,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebFetchTool20250910AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32535,7 +32672,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebSearchTool20260209AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32585,7 +32722,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebFetchTool20260209AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32647,7 +32784,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebFetchTool20260309AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32711,7 +32848,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebSearchTool20260318AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32743,7 +32880,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 1
 
-    - `ResponseInclusion ResponseInclusion`
+    - `WebSearchTool20260318ResponseInclusion ResponseInclusion`
 
       How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -32769,7 +32906,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<WebFetchTool20260318AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32833,7 +32970,7 @@ Console.WriteLine(messageTokensCount);
 
   - `class ToolSearchToolBm25_20251119`
 
-    - `required Type Type`
+    - `required ToolSearchToolBm25_20251119Type Type`
 
       - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
@@ -32845,7 +32982,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolSearchToolBm25_20251119AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32869,7 +33006,7 @@ Console.WriteLine(messageTokensCount);
 
   - `class ToolSearchToolRegex20251119`
 
-    - `required Type Type`
+    - `required ToolSearchToolRegex20251119Type Type`
 
       - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
@@ -32881,7 +33018,7 @@ Console.WriteLine(messageTokensCount);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `IReadOnlyList<AllowedCaller> AllowedCallers`
+    - `IReadOnlyList<ToolSearchToolRegex20251119AllowedCaller> AllowedCallers`
 
       - `Direct("direct")`
 
@@ -32913,7 +33050,7 @@ Console.WriteLine(messageTokensCount);
 
     pattern: ^[a-zA-Z0-9_-]+$
 
-  - `required Caller Caller`
+  - `required ToolUseBlockCaller Caller`
 
     - `class DirectCaller`
 
@@ -32988,7 +33125,7 @@ Console.WriteLine(messageTokensCount);
 
       - `Ttl1h("1h")`
 
-  - `Caller Caller`
+  - `ToolUseBlockParamCaller Caller`
 
     - `class DirectCaller`
 
@@ -34561,7 +34698,7 @@ Console.WriteLine(messageTokensCount);
 
       pattern: ^[a-zA-Z0-9_-]+$
 
-    - `required Caller Caller`
+    - `required ToolUseBlockCaller Caller`
 
       - `class DirectCaller`
 
@@ -34686,7 +34823,7 @@ Console.WriteLine(messageTokensCount);
 
       minimum: 0
 
-  - `required ServiceTier? ServiceTier`
+  - `required UsageServiceTier? ServiceTier`
 
     If the request used the priority, standard, or batch tier.
 
@@ -34696,7 +34833,7 @@ Console.WriteLine(messageTokensCount);
 
     - `Batch("batch")`
 
-  - `required Speed? Speed`
+  - `required UsageSpeed? Speed`
 
     The inference speed mode used for this request.
 
@@ -34899,7 +35036,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "image"`
 
-        - `required Source Source`
+        - `required ImageBlockParamSource Source`
 
           - `class Base64ImageSource`
 
@@ -34951,7 +35088,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "document"`
 
-        - `required Source Source`
+        - `required DocumentBlockParamSource Source`
 
           - `class Base64PdfSource`
 
@@ -34975,11 +35112,11 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement Type = "content"`
 
-            - `required Content Content`
+            - `required ContentBlockSourceContent Content`
 
               - `string`
 
-              - `IReadOnlyList<ContentBlockSourceContent>`
+              - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                 - `class TextBlockParam`
 
@@ -35081,7 +35218,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `ToolUseBlockParamCaller Caller`
 
           - `class DirectCaller`
 
@@ -35125,7 +35262,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Content Content`
+        - `ToolResultBlockParamContent Content`
 
           - `string`
 
@@ -35314,7 +35451,7 @@ Console.WriteLine(messageTokensCount);
 
         - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-        - `required Name Name`
+        - `required ServerToolUseBlockParamName Name`
 
           - `WebSearch("web_search")`
 
@@ -35334,7 +35471,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `ServerToolUseBlockParamCaller Caller`
 
           - `class DirectCaller`
 
@@ -35390,7 +35527,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `WebSearchToolResultBlockParamCaller Caller`
 
           - `class DirectCaller`
 
@@ -35406,7 +35543,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "web_fetch_tool_result"`
 
-        - `required Content Content`
+        - `required WebFetchToolResultBlockParamContent Content`
 
           - `class WebFetchToolResultErrorBlockParam`
 
@@ -35456,7 +35593,7 @@ Console.WriteLine(messageTokensCount);
 
           Create a cache control breakpoint at this content block.
 
-        - `Caller Caller`
+        - `WebFetchToolResultBlockParamCaller Caller`
 
           - `class DirectCaller`
 
@@ -35534,7 +35671,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "bash_code_execution_tool_result"`
 
-        - `required Content Content`
+        - `required BashCodeExecutionToolResultBlockParamContent Content`
 
           - `class BashCodeExecutionToolResultErrorParam`
 
@@ -35580,7 +35717,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-        - `required Content Content`
+        - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
           - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -35606,7 +35743,7 @@ Console.WriteLine(messageTokensCount);
 
             - `required string Content`
 
-            - `required FileType FileType`
+            - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
               - `Text("text")`
 
@@ -35652,7 +35789,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "tool_search_tool_result"`
 
-        - `required Content Content`
+        - `required ToolSearchToolResultBlockParamContent Content`
 
           - `class ToolSearchToolResultErrorParam`
 
@@ -35767,7 +35904,7 @@ Console.WriteLine(messageTokensCount);
 
     - `JsonElement Type = "document"`
 
-    - `required Source Source`
+    - `required DocumentBlockParamSource Source`
 
       - `class Base64PdfSource`
 
@@ -35791,11 +35928,11 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "content"`
 
-        - `required Content Content`
+        - `required ContentBlockSourceContent Content`
 
           - `string`
 
-          - `IReadOnlyList<ContentBlockSourceContent>`
+          - `IReadOnlyList<MessageContentBlockSourceContent>`
 
             - `class TextBlockParam`
 
@@ -35952,7 +36089,7 @@ Console.WriteLine(messageTokensCount);
 
               - `JsonElement Type = "image"`
 
-              - `required Source Source`
+              - `required ImageBlockParamSource Source`
 
                 - `class Base64ImageSource`
 
@@ -36048,7 +36185,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<WebFetchTool20250910AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -36211,7 +36348,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<WebFetchTool20260209AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -36376,7 +36513,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<WebFetchTool20260309AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -36543,7 +36680,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<WebFetchTool20260318AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -36712,7 +36849,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "web_fetch_tool_result"`
 
-  - `required Caller Caller`
+  - `required WebFetchToolResultBlockCaller Caller`
 
     - `class DirectCaller`
 
@@ -36738,7 +36875,7 @@ Console.WriteLine(messageTokensCount);
 
         pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-  - `required Content Content`
+  - `required WebFetchToolResultBlockContent Content`
 
     - `class WebFetchToolResultErrorBlock`
 
@@ -36822,7 +36959,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "web_fetch_tool_result"`
 
-  - `required Content Content`
+  - `required WebFetchToolResultBlockParamContent Content`
 
     - `class WebFetchToolResultErrorBlockParam`
 
@@ -36858,7 +36995,7 @@ Console.WriteLine(messageTokensCount);
 
         - `JsonElement Type = "document"`
 
-        - `required Source Source`
+        - `required DocumentBlockParamSource Source`
 
           - `class Base64PdfSource`
 
@@ -36882,11 +37019,11 @@ Console.WriteLine(messageTokensCount);
 
             - `JsonElement Type = "content"`
 
-            - `required Content Content`
+            - `required ContentBlockSourceContent Content`
 
               - `string`
 
-              - `IReadOnlyList<ContentBlockSourceContent>`
+              - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                 - `class TextBlockParam`
 
@@ -37043,7 +37180,7 @@ Console.WriteLine(messageTokensCount);
 
                   - `JsonElement Type = "image"`
 
-                  - `required Source Source`
+                  - `required ImageBlockParamSource Source`
 
                     - `class Base64ImageSource`
 
@@ -37135,7 +37272,7 @@ Console.WriteLine(messageTokensCount);
 
     Create a cache control breakpoint at this content block.
 
-  - `Caller Caller`
+  - `WebFetchToolResultBlockParamCaller Caller`
 
     - `class DirectCaller`
 
@@ -37433,7 +37570,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<WebSearchTool20250305AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -37528,7 +37665,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<WebSearchTool20260209AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -37623,7 +37760,7 @@ Console.WriteLine(messageTokensCount);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-  - `IReadOnlyList<AllowedCaller> AllowedCallers`
+  - `IReadOnlyList<WebSearchTool20260318AllowedCaller> AllowedCallers`
 
     - `Direct("direct")`
 
@@ -37672,7 +37809,7 @@ Console.WriteLine(messageTokensCount);
 
     minimum: 1
 
-  - `ResponseInclusion ResponseInclusion`
+  - `WebSearchTool20260318ResponseInclusion ResponseInclusion`
 
     How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -37740,7 +37877,7 @@ Console.WriteLine(messageTokensCount);
 
   - `JsonElement Type = "web_search_tool_result"`
 
-  - `required Caller Caller`
+  - `required WebSearchToolResultBlockCaller Caller`
 
     - `class DirectCaller`
 
@@ -37899,7 +38036,7 @@ Console.WriteLine(messageTokensCount);
 
       - `Ttl1h("1h")`
 
-  - `Caller Caller`
+  - `WebSearchToolResultBlockParamCaller Caller`
 
     - `class DirectCaller`
 
@@ -37994,6 +38131,262 @@ Console.WriteLine(messageTokensCount);
   - `QueryTooLong("query_too_long")`
 
   - `RequestTooLarge("request_too_large")`
+
+## Errors
+
+### AnthropicAvailableToolsLimitExceededException
+
+HTTP status 400, error code `available_tools_limit_exceeded`
+
+- `class AnthropicAvailableToolsLimitExceededException : AnthropicBadRequestException`
+
+  The tools available after a message exceed a limit on their number or their size.
+
+  - `string ErrorCode`
+
+  - `AvailableToolsLimitExceededErrorDetails Details`
+
+    - `JsonElement ErrorCode = "available_tools_limit_exceeded"`
+
+### AnthropicCompactionBlockAmbiguousException
+
+HTTP status 400, error code `compaction_block_ambiguous`
+
+- `class AnthropicCompactionBlockAmbiguousException : AnthropicBadRequestException`
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+  - `string ErrorCode`
+
+  - `CompactionBlockAmbiguousErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_block_ambiguous"`
+
+### AnthropicCompactionBlockMisplacedException
+
+HTTP status 400, error code `compaction_block_misplaced`
+
+- `class AnthropicCompactionBlockMisplacedException : AnthropicBadRequestException`
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+  - `string ErrorCode`
+
+  - `CompactionBlockMisplacedErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_block_misplaced"`
+
+### AnthropicCompactionContentMismatchException
+
+HTTP status 400, error code `compaction_content_mismatch`
+
+- `class AnthropicCompactionContentMismatchException : AnthropicBadRequestException`
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+  - `string ErrorCode`
+
+  - `CompactionContentMismatchErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_content_mismatch"`
+
+### AnthropicCompactionIncompleteTurnException
+
+HTTP status 400, error code `compaction_incomplete_turn`
+
+- `class AnthropicCompactionIncompleteTurnException : AnthropicBadRequestException`
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+  - `string ErrorCode`
+
+  - `CompactionIncompleteTurnErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_incomplete_turn"`
+
+### AnthropicCompactionNothingToSummarizeException
+
+HTTP status 400, error code `compaction_nothing_to_summarize`
+
+- `class AnthropicCompactionNothingToSummarizeException : AnthropicBadRequestException`
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+  - `string ErrorCode`
+
+  - `CompactionNothingToSummarizeErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_nothing_to_summarize"`
+
+### AnthropicCompactionSignatureInvalidException
+
+HTTP status 400, error code `compaction_signature_invalid`
+
+- `class AnthropicCompactionSignatureInvalidException : AnthropicBadRequestException`
+
+  The `compaction` block's `signature` does not verify.
+
+  - `string ErrorCode`
+
+  - `CompactionSignatureInvalidErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_signature_invalid"`
+
+### AnthropicCompactionTooManyToolReferencesException
+
+HTTP status 400, error code `compaction_too_many_tool_references`
+
+- `class AnthropicCompactionTooManyToolReferencesException : AnthropicBadRequestException`
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+  - `string ErrorCode`
+
+  - `CompactionTooManyToolReferencesErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_too_many_tool_references"`
+
+### AnthropicCompactionToolChangesMismatchException
+
+HTTP status 400, error code `compaction_tool_changes_mismatch`
+
+- `class AnthropicCompactionToolChangesMismatchException : AnthropicBadRequestException`
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+  - `string ErrorCode`
+
+  - `CompactionToolChangesMismatchErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_tool_changes_mismatch"`
+
+### AnthropicThreadAlreadyContinuedException
+
+HTTP status 400, error code `thread_already_continued`
+
+- `class AnthropicThreadAlreadyContinuedException : AnthropicBadRequestException`
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+  - `string ErrorCode`
+
+  - `ThreadAlreadyContinuedErrorDetails Details`
+
+    - `JsonElement ErrorCode = "thread_already_continued"`
+
+### AnthropicThreadContinueInFlightException
+
+HTTP status 400, error code `thread_continue_in_flight`
+
+- `class AnthropicThreadContinueInFlightException : AnthropicBadRequestException`
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+  - `string ErrorCode`
+
+  - `ThreadContinueInFlightErrorDetails Details`
+
+    - `JsonElement ErrorCode = "thread_continue_in_flight"`
+
+### AnthropicThreadFingerprintMismatchException
+
+HTTP status 400, error code `thread_fingerprint_mismatch`
+
+- `class AnthropicThreadFingerprintMismatchException : AnthropicBadRequestException`
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+  - `string ErrorCode`
+
+  - `ThreadFingerprintMismatchErrorDetails Details`
+
+    - `JsonElement ErrorCode = "thread_fingerprint_mismatch"`
+
+### AnthropicThreadUnsupportedRequestException
+
+HTTP status 400, error code `thread_unsupported_request`
+
+- `class AnthropicThreadUnsupportedRequestException : AnthropicBadRequestException`
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+  - `string ErrorCode`
+
+  - `ThreadUnsupportedRequestErrorDetails Details`
+
+    - `JsonElement ErrorCode = "thread_unsupported_request"`
+
+    - `IReadOnlyList<ThreadUnsupportedFeatureName>? Unsupported`
+
+      Each entry names a request field or an organization setting that Threads do not support. On a value you do not recognize, send the full conversation without `thread`.
+
+      - `CacheControl("cache_control")`
+
+      - `ContextManagement("context_management")`
+
+      - `Fallbacks("fallbacks")`
+
+      - `Hipaa("hipaa")`
+
+      - `InferenceHooks("inference_hooks")`
+
+      - `Thinking("thinking")`
+
+### AnthropicToolNameConflictException
+
+HTTP status 400, error code `tool_name_conflict`
+
+- `class AnthropicToolNameConflictException : AnthropicBadRequestException`
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+  - `string ErrorCode`
+
+  - `ToolNameConflictErrorDetails Details`
+
+    - `JsonElement ErrorCode = "tool_name_conflict"`
+
+### AnthropicToolReferenceUnresolvedException
+
+HTTP status 400, error code `tool_reference_unresolved`
+
+- `class AnthropicToolReferenceUnresolvedException : AnthropicBadRequestException`
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+  - `string ErrorCode`
+
+  - `ToolReferenceUnresolvedErrorDetails Details`
+
+    - `JsonElement ErrorCode = "tool_reference_unresolved"`
+
+### AnthropicThreadNotFoundException
+
+HTTP status 404, error code `thread_not_found`
+
+- `class AnthropicThreadNotFoundException : AnthropicNotFoundException`
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+  - `string ErrorCode`
+
+  - `ThreadNotFoundErrorDetails Details`
+
+    - `JsonElement ErrorCode = "thread_not_found"`
+
+### AnthropicCompactionUnavailableException
+
+HTTP status 529, error code `compaction_unavailable`
+
+- `class AnthropicCompactionUnavailableException : AnthropicOverloadedException`
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
+  - `string ErrorCode`
+
+  - `CompactionUnavailableErrorDetails Details`
+
+    - `JsonElement ErrorCode = "compaction_unavailable"`
 
 ## Messages › Batches
 
@@ -38259,7 +38652,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `JsonElement Type = "image"`
 
-                - `required Source Source`
+                - `required ImageBlockParamSource Source`
 
                   - `class Base64ImageSource`
 
@@ -38311,7 +38704,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `JsonElement Type = "document"`
 
-                - `required Source Source`
+                - `required DocumentBlockParamSource Source`
 
                   - `class Base64PdfSource`
 
@@ -38335,11 +38728,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `JsonElement Type = "content"`
 
-                    - `required Content Content`
+                    - `required ContentBlockSourceContent Content`
 
                       - `string`
 
-                      - `IReadOnlyList<ContentBlockSourceContent>`
+                      - `IReadOnlyList<MessageContentBlockSourceContent>`
 
                         - `class TextBlockParam`
 
@@ -38441,7 +38834,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Create a cache control breakpoint at this content block.
 
-                - `Caller Caller`
+                - `ToolUseBlockParamCaller Caller`
 
                   - `class DirectCaller`
 
@@ -38485,7 +38878,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Create a cache control breakpoint at this content block.
 
-                - `Content Content`
+                - `ToolResultBlockParamContent Content`
 
                   - `string`
 
@@ -38674,7 +39067,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required IReadOnlyDictionary<string, JsonElement> Input`
 
-                - `required Name Name`
+                - `required ServerToolUseBlockParamName Name`
 
                   - `WebSearch("web_search")`
 
@@ -38694,7 +39087,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Create a cache control breakpoint at this content block.
 
-                - `Caller Caller`
+                - `ServerToolUseBlockParamCaller Caller`
 
                   - `class DirectCaller`
 
@@ -38750,7 +39143,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Create a cache control breakpoint at this content block.
 
-                - `Caller Caller`
+                - `WebSearchToolResultBlockParamCaller Caller`
 
                   - `class DirectCaller`
 
@@ -38766,7 +39159,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `JsonElement Type = "web_fetch_tool_result"`
 
-                - `required Content Content`
+                - `required WebFetchToolResultBlockParamContent Content`
 
                   - `class WebFetchToolResultErrorBlockParam`
 
@@ -38816,7 +39209,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Create a cache control breakpoint at this content block.
 
-                - `Caller Caller`
+                - `WebFetchToolResultBlockParamCaller Caller`
 
                   - `class DirectCaller`
 
@@ -38894,7 +39287,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `JsonElement Type = "bash_code_execution_tool_result"`
 
-                - `required Content Content`
+                - `required BashCodeExecutionToolResultBlockParamContent Content`
 
                   - `class BashCodeExecutionToolResultErrorParam`
 
@@ -38940,7 +39333,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-                - `required Content Content`
+                - `required TextEditorCodeExecutionToolResultBlockParamContent Content`
 
                   - `class TextEditorCodeExecutionToolResultErrorParam`
 
@@ -38966,7 +39359,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `required string Content`
 
-                    - `required FileType FileType`
+                    - `required TextEditorCodeExecutionViewResultBlockParamFileType FileType`
 
                       - `Text("text")`
 
@@ -39012,7 +39405,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `JsonElement Type = "tool_search_tool_result"`
 
-                - `required Content Content`
+                - `required ToolSearchToolResultBlockParamContent Content`
 
                   - `class ToolSearchToolResultErrorParam`
 
@@ -39077,7 +39470,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class SystemMessageParam`
 
-          - `required Content Content`
+          - `required SystemMessageParamContent Content`
 
             - `string`
 
@@ -39327,7 +39720,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         In the TypeScript, Python and Ruby SDKs, the recommended way to stream is `messages.stream()`. It sets `stream` for you and accumulates the events into the final message. See [Streaming with SDKs](https://platform.claude.com/docs/en/build-with-claude/streaming?sdk_languages=csharp#streaming-with-sdks) for an example in each language.
 
-      - `System System`
+      - `ParamsSystem System`
 
         System prompt.
 
@@ -39371,7 +39764,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1024
 
-          - `Display? Display`
+          - `ThinkingConfigEnabledDisplay? Display`
 
             Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. The default depends on the model; see [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking?sdk_languages=csharp#controlling-thinking-display).
 
@@ -39537,7 +39930,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<ToolAllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -39581,7 +39974,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<ToolBash20250124AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -39647,7 +40040,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<CodeExecutionTool20250825AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -39685,7 +40078,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<CodeExecutionTool20260120AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -39719,7 +40112,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<CodeExecutionTool20260521AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40140,7 +40533,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<MemoryTool20250818AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40399,7 +40792,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<ToolTextEditor20250124AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40433,7 +40826,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<ToolTextEditor20250429AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40467,7 +40860,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<ToolTextEditor20250728AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40507,7 +40900,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<WebSearchTool20250305AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40583,7 +40976,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<WebFetchTool20250910AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40725,7 +41118,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<WebSearchTool20260209AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40775,7 +41168,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<WebFetchTool20260209AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40837,7 +41230,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<WebFetchTool20260309AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40901,7 +41294,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<WebSearchTool20260318AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -40933,7 +41326,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 1
 
-          - `ResponseInclusion ResponseInclusion`
+          - `WebSearchTool20260318ResponseInclusion ResponseInclusion`
 
             How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -40959,7 +41352,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<WebFetchTool20260318AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -41023,7 +41416,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolSearchToolBm25_20251119`
 
-          - `required Type Type`
+          - `required ToolSearchToolBm25_20251119Type Type`
 
             - `ToolSearchToolBm25_20251119("tool_search_tool_bm25_20251119")`
 
@@ -41035,7 +41428,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<ToolSearchToolBm25_20251119AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -41059,7 +41452,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolSearchToolRegex20251119`
 
-          - `required Type Type`
+          - `required ToolSearchToolRegex20251119Type Type`
 
             - `ToolSearchToolRegex20251119("tool_search_tool_regex_20251119")`
 
@@ -41071,7 +41464,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `IReadOnlyList<AllowedCaller> AllowedCallers`
+          - `IReadOnlyList<ToolSearchToolRegex20251119AllowedCaller> AllowedCallers`
 
             - `Direct("direct")`
 
@@ -41200,6 +41593,26 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicCmekKeyDisabledException` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `AnthropicEnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
 
 #### Example
 
@@ -41486,6 +41899,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 #### Example
 
 ```csharp
@@ -41656,6 +42081,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 #### Example
 
 ```csharp
@@ -41825,6 +42262,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 #### Example
 
 ```csharp
@@ -41900,6 +42349,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `required string ID`
 
     ID of the Message Batch.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 
@@ -42220,7 +42681,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               pattern: ^[a-zA-Z0-9_-]+$
 
-            - `required Caller Caller`
+            - `required ToolUseBlockCaller Caller`
 
               - `class DirectCaller`
 
@@ -42300,7 +42761,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "web_search_tool_result"`
 
-            - `required Caller Caller`
+            - `required WebSearchToolResultBlockCaller Caller`
 
               - `class DirectCaller`
 
@@ -42352,7 +42813,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "web_fetch_tool_result"`
 
-            - `required Caller Caller`
+            - `required WebFetchToolResultBlockCaller Caller`
 
               - `class DirectCaller`
 
@@ -42364,7 +42825,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `class ServerToolCaller20260120`
 
-            - `required Content Content`
+            - `required WebFetchToolResultBlockContent Content`
 
               - `class WebFetchToolResultErrorBlock`
 
@@ -42550,7 +43011,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "text_editor_code_execution_tool_result"`
 
-            - `required Content Content`
+            - `required TextEditorCodeExecutionToolResultBlockContent Content`
 
               - `class TextEditorCodeExecutionToolResultError`
 
@@ -42618,7 +43079,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `JsonElement Type = "tool_search_tool_result"`
 
-            - `required Content Content`
+            - `required ToolSearchToolResultBlockContent Content`
 
               - `class ToolSearchToolResultError`
 
@@ -43007,7 +43468,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               minimum: 0
 
-          - `required ServiceTier? ServiceTier`
+          - `required UsageServiceTier? ServiceTier`
 
             If the request used the priority, standard, or batch tier.
 
@@ -43017,7 +43478,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Batch("batch")`
 
-          - `required Speed? Speed`
+          - `required UsageSpeed? Speed`
 
             The inference speed mode used for this request.
 
@@ -43134,6 +43595,22 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `class MessageBatchExpiredResult`
 
       - `JsonElement Type = "expired"`
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=csharp).
+
+- `AnthropicClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `AnthropicCmekKeyDisabledException` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `AnthropicOrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 #### Example
 

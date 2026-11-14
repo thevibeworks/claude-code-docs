@@ -96,6 +96,7 @@ A channel rule grants its bundle under these conditions:
 * **Channels Claude is already in**: the rule grants the bundle in every matching channel Claude is in under the scope, including channels it was invited to before the rule existed
 * **Joining channels**: only the auto-join patterns, or an invite, add Claude to a channel. The rule itself doesn't.
 * **Blocked patterns**: a channel whose name matches a [blocked pattern](https://claude.com/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name) stays off-limits even when a rule matches it
+* **Channel names, not channel IDs**: a rule matches a channel by its name, not its channel ID. After a channel is renamed, it gets the bundles of rules that match the new name and loses what rules matching only the old name gave it. As with other access changes, this takes full effect in new threads.
 
 A rule's pattern has its own constraints:
 

@@ -212,6 +212,19 @@ Every [mods API method](#mods-api-methods) is also an event, named for its names
 
 Some of these events also fire for Claude Code's own actions, so check whether `next.origin.plugin` is `engine` before you refuse one.
 
+#### Fields on Claude Code's own `http.fetch` requests
+
+In an `http.fetch` hook, a [`next.origin`](#the-hook-function) of `{ plugin: 'engine', tier: 'core' }` marks one of Claude Code's own requests, such as a model request, not a mod's `$.http.fetch` call. Where the [built-in guard](https://code.claude.com/docs/en/plugins/mods/admin.md#know-what-happens-by-default) is loaded, your hook doesn't get these events unless your mod [counts as your organization's](https://code.claude.com/docs/en/plugins/mods/admin.md#install-your-organizations-mods).
+
+On these events, `e.init` and the `value` that `next(e)` resolves to can hold these fields, among others:
+
+| Field | What it means |
+| :- | :- |
+| `e.init.compress` | Set when Claude Code compresses the body after your hook. `e.init.body` holds the uncompressed body. To send the body uncompressed, call `next({ ...e, init: { ...e.init, compress: undefined } })`. |
+| `value.isStreaming` | Set to `true` because Claude Code reads the response body itself, so `value.text` is empty. Read `value.status` and `value.headers` instead. To answer with your own `text`, return a `value` without `isStreaming`. |
+
+These events and fields require Claude Code v2.1.321 or later.
+
 ## Mods API methods
 
 The mods API is the `$` argument every hook receives. Its methods are grouped in namespaces, such as `$.ui`. This table lists each namespace's methods by name, so `open` in the `$.ui` row is the call `$.ui.open(...)`. The guides show the common ones in use, and [the types for your build](https://code.claude.com/docs/en/plugins/mods/create.md#get-the-types-for-your-build) document every method with an example.
@@ -222,7 +235,7 @@ The mods API is the `$` argument every hook receives. Its methods are grouped in
 | [`$.ui`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `resolve`, `invalidate`, `open`, `close`, `panes`, [`place`](https://code.claude.com/docs/en/plugins/mods/interface#place-a-row-in-the-transcript), `focus`, `scroll`, `toast`, `notify`, `status`, `log`, `notice`, `ask`, `copy`, `selection`, `blit`, `view`. `view` requires Claude Code v2.1.300 or later and `place` v2.1.314 or later. |
 | [`$.theme`](https://code.claude.com/docs/en/plugins/mods/interface#put-a-backdrop-behind-the-conversation) | `set`, `clear`: set a backdrop for the Desktop or mobile app to draw, and take the backdrop off. Requires Claude Code v2.1.319 or later. |
 | [`$.command`](https://code.claude.com/docs/en/plugins/mods/api#add-a-command) | `register`, `run`, `list` |
-| [`$.tool`](https://code.claude.com/docs/en/plugins/mods/api#add-a-tool) | `register`, `call`, `check`, `list` |
+| [`$.tool`](https://code.claude.com/docs/en/plugins/mods/api#add-a-tool) | `register`, `call`, `check`, `list`. When a `call` needs a person's approval, such as one a hook or your organization answers with `ask`, it resolves with `{ deny: "<tool> wasn't run: this call needs a person's approval, and a mod's own call can't ask for it." }`, where `<tool>` is the tool's name. |
 | `$.agent` | `register`, `spawn`, `list`. `list()` returns this session's subagents and teammates, each with a `status` of `pending`, `running`, `waiting`, `idle`, `completed`, `failed`, or `killed`, where `idle` and `waiting` require Claude Code v2.1.289 or later. |
 | [`$.model`](https://code.claude.com/docs/en/plugins/mods/api#call-a-model) | `complete`, `fork`, `classify` |
 | [`$.prompt`](https://code.claude.com/docs/en/plugins/mods/api#start-a-turn-from-a-background-job) | `submit`, `read`, `fill`, `suggest`, `compose`. Claude reads text from `submit({ text })` after a sentence that names your mod as the sender. `submit({ text, asUser: true })` sends the text as the user's own words, without that sentence. |
@@ -250,7 +263,7 @@ Rendering in the VS Code extension requires extension version 2.1.299 or later. 
 | Site | `e.props` | `e.requestId` | Rendered on |
 | :- | :- | :- | :- |
 | [`Pane`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `title`, `isFocused`, `bodyColumns`, `placement`, `scroll`, `view` | The pane's `id` | Terminal, Desktop, VS Code |
-| [`AbovePrompt`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `hasSurvey`, `isWorking`, `maxRows`, `bodyColumns`, `scroll`, `view` | One instance | Terminal, Desktop |
+| [`AbovePrompt`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `hasSurvey`, [`isCollapsed`](https://code.claude.com/docs/en/plugins/mods/interface#when-the-user-collapses-the-band), `isWorking`, `maxRows`, `bodyColumns`, `scroll`, `view` | One instance | Terminal, Desktop |
 | `AbovePromptList`, the stack of `AbovePrompt` rows | `rows`, a list with one `{ plugin, tree }` for each mod's row, plus the `AbovePrompt` props | One instance | Terminal, Desktop. Requires Claude Code v2.1.323 or later. |
 | [`Placed`](https://code.claude.com/docs/en/plugins/mods/interface#place-a-row-in-the-transcript) | `id`, `plugin`, `onScreen` | The `requestId` that `$.ui.place` returned | Terminal |
 | [`Backdrop`](https://code.claude.com/docs/en/plugins/mods/interface#put-a-backdrop-behind-the-conversation) | `scene`, `plugin`, `glass`, `overrideColorScheme`. Before v2.1.323, `scene` was `id` and `overrideColorScheme` was `colorScheme`. | `backdrop` | `desktop` and `mobile` surfaces. Your hook runs when the Desktop or mobile app asks to draw a backdrop. |
@@ -426,7 +439,7 @@ These are the settings and environment variables that affect mods. The Where col
 | Name | Where | What it does |
 | :- | :- | :- |
 | `CLAUDE_CODE_PLUGIN_DIRS` | Environment, or `env` in `~/.claude/settings.json` | Plugin directories to load as `--plugin-dir` does, for apps you can't pass a flag to. Absolute paths separated by `:`, or `;` on Windows. |
-| `CLAUDE_CODE_PLUGIN_DIR_WATCH` | Environment | `1` makes a long-running non-interactive session reload `--plugin-dir` mods on save |
+| `CLAUDE_CODE_PLUGIN_DIR_WATCH` | Environment | Whether mods reload on save. See the [environment variables reference](https://code.claude.com/docs/en/env-vars.md) for the defaults and values |
 | `prependPlugins`, `appendPlugins` | Managed settings. User settings only on a machine with no managed settings or [`managed-mcp.json`](https://code.claude.com/docs/en/managed-mcp#deploy-managed-mcp-json) file, in a session whose credential isn't a Team or Enterprise `/login`. | Lists of plugin ids, such as `acme-guard@acme-tools`. Mods in `prependPlugins` run before every mod a user installs, and mods in `appendPlugins` run after, in the listed order. See [The order mods run in](https://code.claude.com/docs/en/plugins/mods/events.md#the-order-mods-run-in). |
 | `allowManagedModsOnly` | Managed settings, as an [option on the built-in guard](https://code.claude.com/docs/en/plugins/mods/admin.md#set-options-on-the-built-in-guard) | Only mods that [count as your organization's](https://code.claude.com/docs/en/plugins/mods/admin.md#install-your-organizations-mods), and mods built into Claude Code, run their hooks. Users' settings hooks keep running. |
 | `allowModsToOverrideDenyRules` | Managed settings, as an [option on the built-in guard](https://code.claude.com/docs/en/plugins/mods/admin.md#set-options-on-the-built-in-guard) | Lets a mod a user installed approve a tool call past most of [the outcomes that stay in place by default](https://code.claude.com/docs/en/permissions.md#precedence-among-rules-hooks-and-mods), including a `deny` rule |

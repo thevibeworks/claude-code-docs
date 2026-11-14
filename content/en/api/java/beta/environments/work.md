@@ -245,6 +245,18 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work execution stopped
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```java
@@ -1072,6 +1084,14 @@ Record a heartbeat for a work item to maintain the lease.
 
     Effective TTL applied to the lease
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `BetaHeartbeatPreconditionFailedException` (HTTP status 412, error code `heartbeat_precondition_failed`)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 ### Example
 
 ```java
@@ -1352,6 +1372,18 @@ Stop a work item, initiating graceful or forced shutdown.
   - `Optional<String> stoppedAt`
 
     RFC 3339 timestamp when work execution stopped
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Example
 
@@ -1942,6 +1974,22 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `BetaInvalidMetadataException` (HTTP status 400, error code `invalid_metadata`)
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```java
@@ -2179,6 +2227,18 @@ Get statistics about the work queue for an environment.
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=java).
+
+- `ClaudeCodeKeyCreatorNotMemberException` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```java
@@ -2217,8 +2277,6 @@ public final class Main {
 ### Beta Heartbeat Precondition Failed Error Details
 
 - `class BetaHeartbeatPreconditionFailedErrorDetails`
-
-  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
 
   - `BetaWorkLeaseState currentState`
 
@@ -2546,3 +2604,47 @@ public final class Main {
   - `long ttlSeconds`
 
     TTL of the lease
+
+## Errors
+
+### BetaHeartbeatPreconditionFailedException
+
+HTTP status 412, error code `heartbeat_precondition_failed`
+
+- `class BetaHeartbeatPreconditionFailedException extends PreconditionFailedException`
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
+  - `BetaHeartbeatPreconditionFailedErrorDetails details`
+
+    - `BetaWorkLeaseState currentState`
+
+      The lease as the server holds it.
+
+      - `Optional<String> lastHeartbeat`
+
+        RFC 3339 timestamp of the stored heartbeat, or null if there has been none
+
+      - `boolean leaseExtended`
+
+        Always false: a refused heartbeat does not extend the lease
+
+      - `State state`
+
+        Current state of the work item
+
+        - `QUEUED("queued")`
+
+        - `STARTING("starting")`
+
+        - `ACTIVE("active")`
+
+        - `STOPPING("stopping")`
+
+        - `STOPPED("stopped")`
+
+      - `long ttlSeconds`
+
+        TTL of the lease
+
+    - `JsonValue errorCode = "heartbeat_precondition_failed"`

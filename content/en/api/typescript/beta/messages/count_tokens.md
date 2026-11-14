@@ -215,6 +215,74 @@ interface BetaMessageTokensCount {
 }
 ```
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `AvailableToolsLimitExceededError` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `CompactionBlockAmbiguousError` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `CompactionBlockMisplacedError` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `CompactionContentMismatchError` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `CompactionNothingToSummarizeError` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `CompactionSignatureInvalidError` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `CompactionToolChangesMismatchError` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `RequestBodyEncodingInvalidError` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `RequestBodyEncodingUnsupportedError` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `ToolNameConflictError` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `ToolReferenceUnresolvedError` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `CompactionUnavailableError` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
 ## Types
 
 ```ts
@@ -924,6 +992,613 @@ interface BetaSystemMessageParam {
   output_config?: BetaSystemMessageOutputConfig | null; // beta header: mid-conversation-output-config-2026-07-01
 }
 
+interface BetaSystemMessageOutputConfig {
+  /** How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, `xhigh`, or `max`. */
+  effort?: "low" | "medium" | "high" | "xhigh" | "max" | null;
+}
+
+type BetaMessageContentParam = string | Array<BetaContentBlockParam>;
+
+type BetaContentBlockParam =
+  | BetaTextBlockParam
+  | BetaImageBlockParam
+  | BetaRequestDocumentBlock
+  | BetaSearchResultBlockParam
+  | BetaThinkingBlockParam
+  | BetaRedactedThinkingBlockParam
+  | BetaToolUseBlockParam
+  | BetaToolResultBlockParam
+  | BetaServerToolUseBlockParam
+  | BetaWebSearchToolResultBlockParam
+  | BetaWebFetchToolResultBlockParam
+  | BetaAdvisorToolResultBlockParam // beta header: advisor-tool-2026-03-01
+  | BetaCodeExecutionToolResultBlockParam
+  | BetaBashCodeExecutionToolResultBlockParam
+  | BetaTextEditorCodeExecutionToolResultBlockParam
+  | BetaToolSearchToolResultBlockParam
+  | BetaMCPToolUseBlockParam // beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+  | BetaRequestMCPToolResultBlockParam // beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+  | BetaContainerUploadBlockParam
+  | BetaCompactionBlockParam // beta header: compact-2026-01-12 or compact-2026-09-04
+  | BetaRequestToolAdditionBlock // beta header: mid-conversation-tool-changes-2026-07-01 or inline-tools-2026-09-15
+  | BetaRequestToolRemovalBlock // beta header: mid-conversation-tool-changes-2026-07-01 or inline-tools-2026-09-15
+  | BetaMCPToolListingBlockParam // beta header: mcp-client-2026-09-15
+  | BetaFallbackBlockParam; // beta header: server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
+
+interface BetaImageBlockParam {
+  type: "image";
+  source: BetaBase64ImageSource | BetaURLImageSource | BetaFileImageSource;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  /** Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field. */
+  transformations?: BetaImageTransformationsParam | null;
+}
+
+interface BetaRequestDocumentBlock {
+  type: "document";
+  source: BetaBase64PDFSource | BetaPlainTextSource | BetaContentBlockSource | BetaURLPDFSource | BetaFileDocumentSource;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  citations?: BetaCitationsConfigParam | null;
+  context?: string | null; // minLength: 1
+  title?: string | null; // minLength: 1, maxLength: 500
+}
+
+interface BetaSearchResultBlockParam {
+  type: "search_result";
+  content: Array<BetaTextBlockParam>;
+  source: string;
+  title: string;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  citations?: BetaCitationsConfigParam;
+}
+
+interface BetaThinkingBlockParam {
+  type: "thinking";
+  /** The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude. Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`. */
+  signature: string;
+  /** The `thinking` text of this block as returned by the API. */
+  thinking: string;
+}
+
+interface BetaRedactedThinkingBlockParam {
+  type: "redacted_thinking";
+  /** The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged. */
+  data: string;
+}
+
+interface BetaToolUseBlockParam {
+  type: "tool_use";
+  id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  input: Record<string, unknown>;
+  name: string; // minLength: 1, maxLength: 200
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+  /** For a toolset member tool_use, the toolset family this member belongs to. */
+  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+}
+
+interface BetaToolResultBlockParam {
+  type: "tool_result";
+  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  content?: string | Array<BetaTextBlockParam | BetaImageBlockParam | BetaSearchResultBlockParam | BetaRequestDocumentBlock | BetaToolReferenceBlockParam | BetaBrowserStateBlockParam>;
+  is_error?: boolean;
+  /** For a toolset member tool_result, the toolset family of the paired tool_use. */
+  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
+}
+
+interface BetaServerToolUseBlockParam {
+  type: "server_tool_use";
+  id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  input: Record<string, unknown>;
+  /** - `"advisor"`: beta header: advisor-tool-2026-03-01 */
+  name: "advisor" | "web_search" | "web_fetch" | "code_execution" | "bash_code_execution" | "text_editor_code_execution" | "tool_search_tool_regex" | "tool_search_tool_bm25";
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaWebSearchToolResultBlockParam {
+  type: "web_search_tool_result";
+  content: BetaWebSearchToolResultBlockParamContent;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaWebFetchToolResultBlockParam {
+  type: "web_fetch_tool_result";
+  content: BetaWebFetchToolResultErrorBlockParam | BetaWebFetchBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
+}
+
+interface BetaAdvisorToolResultBlockParam {
+  type: "advisor_tool_result";
+  content: BetaAdvisorToolResultErrorParam | BetaAdvisorResultBlockParam | BetaAdvisorRedactedResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaCodeExecutionToolResultBlockParam {
+  type: "code_execution_tool_result";
+  content: BetaCodeExecutionToolResultBlockParamContent;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaBashCodeExecutionToolResultBlockParam {
+  type: "bash_code_execution_tool_result";
+  content: BetaBashCodeExecutionToolResultErrorParam | BetaBashCodeExecutionResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaTextEditorCodeExecutionToolResultBlockParam {
+  type: "text_editor_code_execution_tool_result";
+  content: BetaTextEditorCodeExecutionToolResultErrorParam | BetaTextEditorCodeExecutionViewResultBlockParam | BetaTextEditorCodeExecutionCreateResultBlockParam | BetaTextEditorCodeExecutionStrReplaceResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaToolSearchToolResultBlockParam {
+  type: "tool_search_tool_result";
+  content: BetaToolSearchToolResultErrorParam | BetaToolSearchToolSearchResultBlockParam;
+  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaMCPToolUseBlockParam {
+  type: "mcp_tool_use";
+  id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  input: Record<string, unknown>;
+  name: string;
+  /** The name of the MCP server */
+  server_name: string;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+interface BetaRequestMCPToolResultBlockParam {
+  type: "mcp_tool_result";
+  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  content?: string | Array<BetaTextBlockParam>;
+  is_error?: boolean;
+}
+
+/** A content block that represents a file to be uploaded to the container Files uploaded via this block will be available in the container's input directory. */
+interface BetaContainerUploadBlockParam {
+  type: "container_upload";
+  file_id: string;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+/** A compaction block containing summary of previous context. Users should round-trip these blocks from responses to subsequent requests to maintain context across compaction boundaries. When content is None, the block represents a failed compaction. The server treats these as no-ops. Empty string content is not allowed. */
+interface BetaCompactionBlockParam {
+  type: "compaction";
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  /** Summary of previously compacted content, or null if compaction failed */
+  content?: string | null;
+  /** Opaque metadata from prior compaction, to be round-tripped verbatim */
+  encrypted_content?: string | null; // beta header: task-budgets-2026-03-13
+  /** The block's signature as returned, to be sent back verbatim */
+  signature?: string | null; // beta header: compact-2026-09-04
+  /** The tool changes of the compacted range, as the server returned them on this block: the `tool_addition` and `tool_removal` entries that take the request's `tools` to the tool set in effect at the end of the range. Send them back unchanged with the block. */
+  tool_changes?: Array<BetaRequestToolAdditionBlock | BetaRequestToolRemovalBlock> | null; // beta header: inline-tools-2026-09-15
+}
+
+/** Mid-conversation directive to make a tool available. `tool` is a reference to a tool (or MCP toolset) declared in the request's `tools`. Under the `inline-tools-2026-09-15` beta it may instead be a reference to a tool defined earlier in `messages`, or a `tool_definition` object that carries an inline tool definition in `definition` (the same object a `tools` entry holds). An `mcp_toolset` definition also requires the `mcp-client-2026-09-15` beta. The tool is offered to the model from this point in the conversation onward. */
+interface BetaRequestToolAdditionBlock {
+  type: "tool_addition";
+  /**
+   * - `BetaToolChangeMCPToolReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+   * - `BetaToolChangeMCPToolsetReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+   * - `BetaToolChangeToolDefinitionParam`: beta header: inline-tools-2026-09-15
+   */
+  tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference | BetaToolChangeToolDefinitionParam;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+/** Mid-conversation directive to withdraw a tool. `tool` references a tool (or MCP toolset) by name: one declared in the request's `tools` or defined earlier in `messages`. It is no longer offered to the model from this point in the conversation onward. */
+interface BetaRequestToolRemovalBlock {
+  type: "tool_removal";
+  /**
+   * - `BetaToolChangeMCPToolReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+   * - `BetaToolChangeMCPToolsetReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
+   */
+  tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference;
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+/** The tool listing an MCP server returned while an earlier response was produced, as that response carried it. Send the assistant message back unchanged, this block included, and the server uses this listing for the matching `mcp_toolset` instead of asking the MCP server again. */
+interface BetaMCPToolListingBlockParam {
+  type: "mcp_tool_listing";
+  /** The name of the MCP server this listing came from, as `mcp_servers` declares it. */
+  mcp_server_name: string; // minLength: 1, maxLength: 255
+  /** The server's tools, exactly as the response listed them. */
+  tools: Array<BetaMCPToolParam>;
+}
+
+/** A `fallback` block echoed back from a prior response. Accepted in `messages[].content` and not rendered into the prompt; not validated against the request's `fallbacks` chain or top-level `model`. When you send the assistant turn back, keep this block in its original position. The block marks the boundary between content produced before and after a fallback hop, and the server relies on that boundary to validate the turn: when thinking runs flank the boundary, omitting the block merges them into one span the server cannot validate (the request is rejected), and moving it into the middle of a single run is likewise rejected; between non-thinking blocks the block's placement has no effect on thinking validation. Some blocks from before the turn's final `fallback` block must be left out when you send the turn back, and no `tool_result` is sent for a `tool_use` block you left out. See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#continuing-the-conversation) to learn which blocks to keep. */
+interface BetaFallbackBlockParam {
+  type: "fallback";
+  /** Identifies one hop of a fallback transition. */
+  from: BetaFallbackInfoParam;
+  /** Identifies one hop of a fallback transition. */
+  to: BetaFallbackInfoParam;
+  /** The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed. */
+  trigger?: unknown;
+}
+
+interface BetaBase64ImageSource {
+  type: "base64";
+  data: string; // format: byte
+  media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp";
+}
+
+interface BetaURLImageSource {
+  type: "url";
+  url: string;
+}
+
+interface BetaFileImageSource {
+  type: "file";
+  file_id: string;
+}
+
+interface BetaImageTransformationsParam {
+  /** What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down. */
+  oversized_image?: "downsize" | "error";
+}
+
+interface BetaBase64PDFSource {
+  type: "base64";
+  data: string; // format: byte
+  media_type: "application/pdf";
+}
+
+interface BetaPlainTextSource {
+  type: "text";
+  data: string;
+  media_type: "text/plain";
+}
+
+interface BetaContentBlockSource {
+  type: "content";
+  content: string | Array<BetaContentBlockSourceContent>;
+}
+
+interface BetaURLPDFSource {
+  type: "url";
+  url: string;
+}
+
+interface BetaFileDocumentSource {
+  type: "file";
+  file_id: string;
+}
+
+interface BetaCitationsConfigParam {
+  enabled?: boolean;
+}
+
+type BetaContentBlockSourceContent = BetaTextBlockParam | BetaImageBlockParam;
+
+/** Tool invocation directly from the model. */
+interface BetaDirectCaller {
+  type: "direct";
+}
+
+/** Tool invocation generated by a server-side tool. */
+interface BetaServerToolCaller {
+  type: "code_execution_20250825";
+  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+interface BetaServerToolCaller20260120 {
+  type: "code_execution_20260120";
+  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+}
+
+type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
+
+interface BetaWebSearchResultBlockParam {
+  type: "web_search_result";
+  encrypted_content: string;
+  title: string;
+  url: string;
+  page_age?: string | null;
+}
+
+interface BetaWebSearchToolRequestError {
+  type: "web_search_tool_result_error";
+  error_code: BetaWebSearchToolResultErrorCode;
+}
+
+type BetaWebSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "max_uses_exceeded" | "too_many_requests" | "query_too_long" | "request_too_large";
+
+interface BetaWebFetchToolResultErrorBlockParam {
+  type: "web_fetch_tool_result_error";
+  error_code: BetaWebFetchToolResultErrorCode;
+}
+
+interface BetaWebFetchBlockParam {
+  type: "web_fetch_result";
+  content: BetaRequestDocumentBlock;
+  /** Fetched content URL */
+  url: string;
+  /** ISO 8601 timestamp when the content was retrieved */
+  retrieved_at?: string | null;
+}
+
+type BetaWebFetchToolResultErrorCode = "invalid_tool_input" | "url_too_long" | "url_not_allowed" | "url_not_in_prior_context" | "url_not_accessible" | "unsupported_content_type" | "too_many_requests" | "max_uses_exceeded" | "unavailable" | "content_too_large";
+
+interface BetaAdvisorToolResultErrorParam {
+  type: "advisor_tool_result_error";
+  error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
+}
+
+interface BetaAdvisorResultBlockParam {
+  type: "advisor_result";
+  text: string;
+  stop_reason?: string | null;
+}
+
+interface BetaAdvisorRedactedResultBlockParam {
+  type: "advisor_redacted_result";
+  /** Opaque blob produced by a prior response; must be round-tripped verbatim. */
+  encrypted_content: string;
+  stop_reason?: string | null;
+}
+
+type BetaCodeExecutionToolResultBlockParamContent = BetaCodeExecutionToolResultErrorParam | BetaCodeExecutionResultBlockParam | BetaEncryptedCodeExecutionResultBlockParam;
+
+interface BetaCodeExecutionToolResultErrorParam {
+  type: "code_execution_tool_result_error";
+  error_code: BetaCodeExecutionToolResultErrorCode;
+}
+
+interface BetaCodeExecutionResultBlockParam {
+  type: "code_execution_result";
+  content: Array<BetaCodeExecutionOutputBlockParam>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request. */
+interface BetaEncryptedCodeExecutionResultBlockParam {
+  type: "encrypted_code_execution_result";
+  content: Array<BetaCodeExecutionOutputBlockParam>;
+  encrypted_stdout: string;
+  return_code: number;
+  stderr: string;
+}
+
+type BetaCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+
+interface BetaCodeExecutionOutputBlockParam {
+  type: "code_execution_output";
+  file_id: string;
+}
+
+interface BetaBashCodeExecutionToolResultErrorParam {
+  type: "bash_code_execution_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
+}
+
+interface BetaBashCodeExecutionResultBlockParam {
+  type: "bash_code_execution_result";
+  content: Array<BetaBashCodeExecutionOutputBlockParam>;
+  return_code: number;
+  stderr: string;
+  stdout: string;
+}
+
+interface BetaBashCodeExecutionOutputBlockParam {
+  type: "bash_code_execution_output";
+  file_id: string;
+}
+
+interface BetaTextEditorCodeExecutionToolResultErrorParam {
+  type: "text_editor_code_execution_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
+  error_message?: string | null;
+}
+
+interface BetaTextEditorCodeExecutionViewResultBlockParam {
+  type: "text_editor_code_execution_view_result";
+  content: string;
+  file_type: "text" | "image" | "pdf";
+  num_lines?: number | null;
+  start_line?: number | null;
+  total_lines?: number | null;
+}
+
+interface BetaTextEditorCodeExecutionCreateResultBlockParam {
+  type: "text_editor_code_execution_create_result";
+  is_file_update: boolean;
+}
+
+interface BetaTextEditorCodeExecutionStrReplaceResultBlockParam {
+  type: "text_editor_code_execution_str_replace_result";
+  lines?: Array<string> | null;
+  new_lines?: number | null;
+  new_start?: number | null;
+  old_lines?: number | null;
+  old_start?: number | null;
+}
+
+interface BetaToolSearchToolResultErrorParam {
+  type: "tool_search_tool_result_error";
+  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
+  error_message?: string | null;
+}
+
+interface BetaToolSearchToolSearchResultBlockParam {
+  type: "tool_search_tool_search_result";
+  tool_references: Array<BetaToolReferenceBlockParam>;
+}
+
+/** Reference to a single tool, by the name the model uses to call it: a tool declared in `tools` or defined by an earlier `tool_addition` block. Does not accept the composed `{server}_{name}` form the server assigns to MCP-resolved tools; use `mcp_tool_reference` or `mcp_toolset_reference` for those. */
+interface BetaToolChangeToolReference {
+  type: "tool_reference";
+  name: string; // pattern: ^[a-zA-Z0-9_-]{1,128}$
+}
+
+/** Reference to a single MCP tool by its server and remote name; the same `server_name`/`name` pair `mcp_tool_use` carries. */
+interface BetaToolChangeMCPToolReference {
+  type: "mcp_tool_reference";
+  name: string;
+  server_name: string;
+}
+
+/** Reference to every tool in the named MCP server's toolset. */
+interface BetaToolChangeMCPToolsetReference {
+  type: "mcp_toolset_reference";
+  server_name: string;
+}
+
+/** A tool defined by value: `definition` is a `tools` entry (any kind `tools` accepts, an MCP toolset included). An `mcp_toolset` given here also requires the `mcp-client-2026-09-15` beta. */
+interface BetaToolChangeToolDefinitionParam {
+  type: "tool_definition";
+  definition: BetaToolUnion;
+}
+
+type BetaToolUnion =
+  | BetaTool
+  | BetaToolBash20241022 // beta header: computer-use-2024-10-22
+  | BetaToolBash20250124
+  | BetaCodeExecutionTool20250522
+  | BetaCodeExecutionTool20250825
+  | BetaCodeExecutionTool20260120
+  | BetaCodeExecutionTool20260521
+  | BetaBrowserToolset20260801
+  | BetaToolComputerUse20241022 // beta header: computer-use-2024-10-22
+  | BetaMemoryTool20250818
+  | BetaToolComputerUse20250124 // beta header: computer-use-2025-01-24
+  | BetaToolTextEditor20241022 // beta header: computer-use-2024-10-22
+  | BetaToolComputerUse20251124 // beta header: computer-use-2025-11-24
+  | BetaComputerToolset20260801
+  | BetaToolTextEditor20250124
+  | BetaToolTextEditor20250429
+  | BetaToolTextEditor20250728
+  | BetaWebSearchTool20250305
+  | BetaWebFetchTool20250910
+  | BetaWebSearchTool20260209
+  | BetaWebFetchTool20260209
+  | BetaWebFetchTool20260309
+  | BetaWebSearchTool20260318
+  | BetaWebFetchTool20260318
+  | BetaAdvisorTool20260301 // beta header: advisor-tool-2026-03-01
+  | BetaToolSearchToolBm25_20251119
+  | BetaToolSearchToolRegex20251119
+  | BetaMCPToolset; // beta header: mcp-client-2025-11-20 or mcp-client-2026-09-15
+
+interface BetaMCPToolParam {
+  /** The tool's input schema as the MCP server lists it, verbatim. */
+  input_schema: Record<string, unknown>;
+  /** The tool's name as the MCP server lists it (not prefixed with the server name). */
+  name: string; // minLength: 1
+  /** The tool's description as the MCP server lists it. */
+  description?: string | null;
+}
+
+interface BetaFallbackInfoParam {
+  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
+  model: Model;
+}
+
+/** Tool reference block that can be included in tool_result content. */
+interface BetaToolReferenceBlockParam {
+  type: "tool_reference";
+  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+}
+
+/** The caller's browser state after a browser toolset member call — the full inventory of open tabs, which tab is active, and any side effects (tabs opened, download state changes) the call produced. At most one per `tool_result`, only on a non-error result answering a browser toolset member `tool_use`. The server renders the model-visible text from it; the model never sees the raw fields. */
+interface BetaBrowserStateBlockParam {
+  type: "browser_state";
+  /** All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`. */
+  tabs: Array<BetaBrowserStateTabEntry>; // maxItems: 100
+  /** Create a cache control breakpoint at this content block. */
+  cache_control?: BetaCacheControlEphemeral | null;
+  /** Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list. */
+  state_changes?: Array<BetaBrowserStateChange> | null; // minItems: 1, maxItems: 200
+}
+
+interface BetaBrowserStateTabEntry {
+  /** The caller-assigned identifier for this tab, unique within the inventory. */
+  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The title of the page the tab is showing. May be empty. */
+  title: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The URL of the page the tab is showing. May be empty. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`. */
+  active?: boolean;
+}
+
+type BetaBrowserStateChange = BetaBrowserStateChangeTabOpened | BetaBrowserStateChangeDownloadStarted | BetaBrowserStateChangeDownloadCompleted | BetaBrowserStateChangeDownloadFailed;
+
+/** A tab this call's execution opened that remains open at its end — the creation delta of the `tabs` inventory, not an event log. Carries only the `tab_id`; the tab's `title` and `url` live on its `tabs` entry, which must include the same `tab_id`. A tab opened during a failed call gets no deferred `tab_opened`; it simply appears in the next result's `tabs` inventory. */
+interface BetaBrowserStateChangeTabOpened {
+  type: "tab_opened";
+  /** The `tab_id` of the opened tab, present in `tabs`. */
+  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
+/** A file download that started during this call. */
+interface BetaBrowserStateChangeDownloadStarted {
+  type: "download_started";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
+/** A file download that finished during this call, reported with the same `download_id` as its `download_started` — or without a prior `download_started`, when the download finished during the call that started it (at most one state change per `download_id` per result). */
+interface BetaBrowserStateChangeDownloadCompleted {
+  type: "download_completed";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path. */
+  path?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The completed download's size. */
+  size_bytes?: number | null; // minimum: 0
+}
+
+/** A file download that failed — or was cancelled — during this call. */
+interface BetaBrowserStateChangeDownloadFailed {
+  type: "download_failed";
+  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
+  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The final post-redirect URL the download was served from. */
+  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+  /** The failure or cancellation detail, when known. */
+  error?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+}
+
 interface BetaClearToolUses20250919Edit {
   type: "clear_tool_uses_20250919";
   /** Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed. */
@@ -955,6 +1630,35 @@ interface BetaCompact20260112Edit {
   trigger?: BetaInputTokensTrigger | null;
 }
 
+interface BetaThinkingTurns {
+  type: "thinking_turns";
+  value: number; // minimum: 1
+}
+
+interface BetaAllThinkingTurns {
+  type: "all";
+}
+
+interface BetaInputTokensClearAtLeast {
+  type: "input_tokens";
+  value: number; // minimum: 0
+}
+
+interface BetaToolUsesKeep {
+  type: "tool_uses";
+  value: number; // minimum: 0
+}
+
+interface BetaInputTokensTrigger {
+  type: "input_tokens";
+  value: number; // minimum: 1
+}
+
+interface BetaToolUsesTrigger {
+  type: "tool_uses";
+  value: number; // minimum: 1
+}
+
 interface BetaRequestMCPServerToolConfiguration {
   allowed_tools?: Array<string> | null;
   enabled?: boolean | null;
@@ -970,6 +1674,58 @@ interface BetaTokenTaskBudget {
 }
 
 type BetaTextCitationParam = BetaCitationCharLocationParam | BetaCitationPageLocationParam | BetaCitationContentBlockLocationParam | BetaCitationWebSearchResultLocationParam | BetaCitationSearchResultLocationParam;
+
+interface BetaCitationCharLocationParam {
+  type: "char_location";
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  end_char_index: number;
+  start_char_index: number; // minimum: 0
+}
+
+interface BetaCitationPageLocationParam {
+  type: "page_location";
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  end_page_number: number;
+  start_page_number: number; // minimum: 1
+}
+
+interface BetaCitationContentBlockLocationParam {
+  type: "content_block_location";
+  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
+  cited_text: string;
+  document_index: number; // minimum: 0
+  document_title: string | null; // minLength: 1, maxLength: 500
+  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
+  end_block_index: number;
+  /** 0-based index of the first cited block in the source's `content` array. */
+  start_block_index: number; // minimum: 0
+}
+
+interface BetaCitationWebSearchResultLocationParam {
+  type: "web_search_result_location";
+  cited_text: string;
+  encrypted_index: string;
+  title: string | null; // minLength: 1, maxLength: 512
+  url: string; // minLength: 1
+}
+
+interface BetaCitationSearchResultLocationParam {
+  type: "search_result_location";
+  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
+  cited_text: string;
+  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
+  end_block_index: number;
+  /** 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count. */
+  search_result_index: number; // minimum: 0
+  source: string;
+  /** 0-based index of the first cited block in the source's `content` array. */
+  start_block_index: number; // minimum: 0
+  title: string | null;
+}
 
 interface BetaThinkingConfigEnabled {
   type: "enabled";
@@ -1003,6 +1759,13 @@ interface BetaThinkingConfigAdaptive {
   display?: "summarized" | "omitted" | "updates" | null;
 }
 
+interface BetaThinkingBlockBinding {
+  /** "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`. */
+  prefix_mismatch_behavior?: BetaThinkingPrefixMismatchBehavior | null;
+}
+
+type BetaThinkingPrefixMismatchBehavior = "error" | "drop_block";
+
 /** The model will automatically decide whether to use tools. */
 interface BetaToolChoiceAuto {
   type: "auto";
@@ -1035,6 +1798,221 @@ interface InputSchema {
   type: "object";
   properties?: Record<string, unknown> | null;
   required?: Array<string> | null;
+}
+
+interface BetaComputerToolsetConfigs {
+  /** `type`'s config overrides. */
+  type?: BetaComputerTypeConfig | null;
+  /** `cursor_position`'s config overrides. */
+  cursor_position?: BetaComputerCursorPositionConfig | null;
+  /** `double_click`'s config overrides. */
+  double_click?: BetaComputerDoubleClickConfig | null;
+  /** `hold_key`'s config overrides. */
+  hold_key?: BetaComputerHoldKeyConfig | null;
+  /** `key`'s config overrides. */
+  key?: BetaComputerKeyConfig | null;
+  /** `left_click`'s config overrides. */
+  left_click?: BetaComputerLeftClickConfig | null;
+  /** `left_click_drag`'s config overrides. */
+  left_click_drag?: BetaComputerLeftClickDragConfig | null;
+  /** `left_mouse_down`'s config overrides. */
+  left_mouse_down?: BetaComputerLeftMouseDownConfig | null;
+  /** `left_mouse_up`'s config overrides. */
+  left_mouse_up?: BetaComputerLeftMouseUpConfig | null;
+  /** `middle_click`'s config overrides. */
+  middle_click?: BetaComputerMiddleClickConfig | null;
+  /** `mouse_move`'s config overrides. */
+  mouse_move?: BetaComputerMouseMoveConfig | null;
+  /** `right_click`'s config overrides. */
+  right_click?: BetaComputerRightClickConfig | null;
+  /** `screenshot`'s config overrides. */
+  screenshot?: BetaComputerScreenshotConfig | null;
+  /** `scroll`'s config overrides. */
+  scroll?: BetaComputerScrollConfig | null;
+  /** `triple_click`'s config overrides. */
+  triple_click?: BetaComputerTripleClickConfig | null;
+  /** `wait`'s config overrides. */
+  wait?: BetaComputerWaitConfig | null;
+  /** `zoom`'s config overrides. */
+  zoom?: BetaComputerZoomConfig | null;
+}
+
+interface BetaComputerTypeConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerCursorPositionConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerDoubleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerHoldKeyConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerKeyConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerLeftClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerLeftClickDragConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerLeftMouseDownConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerLeftMouseUpConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerMiddleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerMouseMoveConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerRightClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerScreenshotConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerScrollConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerTripleClickConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerWaitConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaComputerZoomConfig {
+  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
+  defer_loading?: boolean | null;
+  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
+  enabled?: boolean | null;
+}
+
+interface BetaUserLocation {
+  type: "approximate";
+  /** The city of the user. */
+  city?: string | null; // minLength: 1, maxLength: 255
+  /** The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user. */
+  country?: string | null; // minLength: 2, maxLength: 2
+  /** The region of the user. */
+  region?: string | null; // minLength: 1, maxLength: 255
+  /** The [IANA timezone](https://nodatime.org/TimeZones) of the user. */
+  timezone?: string | null; // minLength: 1, maxLength: 255
+}
+
+interface BetaWebFetchURLSources {
+  /** Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[]. */
+  client_tool_results?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept;
+  /** Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute. */
+  server_tool_results?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept;
+  /** Whether URLs in user messages are fetchable: "all" or "none". */
+  user_input?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone;
+}
+
+/** The `url_sources` variant under which a source contributes in full: every result of the tool filter's source, or all user input. */
+interface BetaWebFetchURLSourceAll {
+  type: "all";
+}
+
+/** The `url_sources` variant under which a source contributes nothing: no result of the tool filter's source, or no user input. */
+interface BetaWebFetchURLSourceNone {
+  type: "none";
+}
+
+/** The tool filter variant under which only the named tools' results contribute. */
+interface BetaWebFetchURLSourceOnly {
+  type: "only";
+  tools: Array<BetaWebFetchURLSourceToolReference>;
+}
+
+/** The tool filter variant under which every result but the named tools' contributes. */
+interface BetaWebFetchURLSourceExcept {
+  type: "except";
+  tools: Array<BetaWebFetchURLSourceToolReference>;
+}
+
+/** One entry of a tool filter's `tools`: it must name a tool declared in this request's `tools[]`. */
+interface BetaWebFetchURLSourceToolReference {
+  type: "tool_reference";
+  name: string;
+}
+
+interface BetaMCPToolConfig {
+  defer_loading?: boolean;
+  enabled?: boolean;
+}
+
+interface BetaMCPToolDefaultConfig {
+  defer_loading?: boolean;
+  enabled?: boolean;
 }
 
 interface BetaBrowserToolsetConfigs {
@@ -1100,205 +2078,6 @@ interface BetaBrowserToolsetConfigs {
   wait?: BetaBrowserWaitConfig | null;
   /** `zoom`'s config overrides. */
   zoom?: BetaBrowserZoomConfig | null;
-}
-
-interface BetaComputerToolsetConfigs {
-  /** `type`'s config overrides. */
-  type?: BetaComputerTypeConfig | null;
-  /** `cursor_position`'s config overrides. */
-  cursor_position?: BetaComputerCursorPositionConfig | null;
-  /** `double_click`'s config overrides. */
-  double_click?: BetaComputerDoubleClickConfig | null;
-  /** `hold_key`'s config overrides. */
-  hold_key?: BetaComputerHoldKeyConfig | null;
-  /** `key`'s config overrides. */
-  key?: BetaComputerKeyConfig | null;
-  /** `left_click`'s config overrides. */
-  left_click?: BetaComputerLeftClickConfig | null;
-  /** `left_click_drag`'s config overrides. */
-  left_click_drag?: BetaComputerLeftClickDragConfig | null;
-  /** `left_mouse_down`'s config overrides. */
-  left_mouse_down?: BetaComputerLeftMouseDownConfig | null;
-  /** `left_mouse_up`'s config overrides. */
-  left_mouse_up?: BetaComputerLeftMouseUpConfig | null;
-  /** `middle_click`'s config overrides. */
-  middle_click?: BetaComputerMiddleClickConfig | null;
-  /** `mouse_move`'s config overrides. */
-  mouse_move?: BetaComputerMouseMoveConfig | null;
-  /** `right_click`'s config overrides. */
-  right_click?: BetaComputerRightClickConfig | null;
-  /** `screenshot`'s config overrides. */
-  screenshot?: BetaComputerScreenshotConfig | null;
-  /** `scroll`'s config overrides. */
-  scroll?: BetaComputerScrollConfig | null;
-  /** `triple_click`'s config overrides. */
-  triple_click?: BetaComputerTripleClickConfig | null;
-  /** `wait`'s config overrides. */
-  wait?: BetaComputerWaitConfig | null;
-  /** `zoom`'s config overrides. */
-  zoom?: BetaComputerZoomConfig | null;
-}
-
-interface BetaUserLocation {
-  type: "approximate";
-  /** The city of the user. */
-  city?: string | null; // minLength: 1, maxLength: 255
-  /** The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user. */
-  country?: string | null; // minLength: 2, maxLength: 2
-  /** The region of the user. */
-  region?: string | null; // minLength: 1, maxLength: 255
-  /** The [IANA timezone](https://nodatime.org/TimeZones) of the user. */
-  timezone?: string | null; // minLength: 1, maxLength: 255
-}
-
-interface BetaCitationsConfigParam {
-  enabled?: boolean;
-}
-
-interface BetaWebFetchURLSources {
-  /** Which client tools' results contribute fetchable URLs: "all", "none", or an only or except list of client tool names from tools[]. */
-  client_tool_results?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept;
-  /** Which server tools' results contribute fetchable URLs: "all", "none", or an only or except list of server tool names from tools[]; only web_search and web_fetch results ever contribute. */
-  server_tool_results?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone | BetaWebFetchURLSourceOnly | BetaWebFetchURLSourceExcept;
-  /** Whether URLs in user messages are fetchable: "all" or "none". */
-  user_input?: BetaWebFetchURLSourceAll | BetaWebFetchURLSourceNone;
-}
-
-interface BetaMCPToolConfig {
-  defer_loading?: boolean;
-  enabled?: boolean;
-}
-
-interface BetaMCPToolDefaultConfig {
-  defer_loading?: boolean;
-  enabled?: boolean;
-}
-
-interface BetaMCPToolParam {
-  /** The tool's input schema as the MCP server lists it, verbatim. */
-  input_schema: Record<string, unknown>;
-  /** The tool's name as the MCP server lists it (not prefixed with the server name). */
-  name: string; // minLength: 1
-  /** The tool's description as the MCP server lists it. */
-  description?: string | null;
-}
-
-type BetaMessageContentParam = string | Array<BetaContentBlockParam>;
-
-/** Mid-conversation directive to make a tool available. `tool` is a reference to a tool (or MCP toolset) declared in the request's `tools`. Under the `inline-tools-2026-09-15` beta it may instead be a reference to a tool defined earlier in `messages`, or a `tool_definition` object that carries an inline tool definition in `definition` (the same object a `tools` entry holds). An `mcp_toolset` definition also requires the `mcp-client-2026-09-15` beta. The tool is offered to the model from this point in the conversation onward. */
-interface BetaRequestToolAdditionBlock {
-  type: "tool_addition";
-  /**
-   * - `BetaToolChangeMCPToolReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-   * - `BetaToolChangeMCPToolsetReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-   * - `BetaToolChangeToolDefinitionParam`: beta header: inline-tools-2026-09-15
-   */
-  tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference | BetaToolChangeToolDefinitionParam;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-/** Mid-conversation directive to withdraw a tool. `tool` references a tool (or MCP toolset) by name: one declared in the request's `tools` or defined earlier in `messages`. It is no longer offered to the model from this point in the conversation onward. */
-interface BetaRequestToolRemovalBlock {
-  type: "tool_removal";
-  /**
-   * - `BetaToolChangeMCPToolReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-   * - `BetaToolChangeMCPToolsetReference`: beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-   */
-  tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaSystemMessageOutputConfig {
-  /** How much effort the model should put into its response. Higher effort levels may result in more thorough analysis but take longer. Valid values are `low`, `medium`, `high`, `xhigh`, or `max`. */
-  effort?: "low" | "medium" | "high" | "xhigh" | "max" | null;
-}
-
-interface BetaInputTokensClearAtLeast {
-  type: "input_tokens";
-  value: number; // minimum: 0
-}
-
-interface BetaToolUsesKeep {
-  type: "tool_uses";
-  value: number; // minimum: 0
-}
-
-interface BetaInputTokensTrigger {
-  type: "input_tokens";
-  value: number; // minimum: 1
-}
-
-interface BetaToolUsesTrigger {
-  type: "tool_uses";
-  value: number; // minimum: 1
-}
-
-interface BetaThinkingTurns {
-  type: "thinking_turns";
-  value: number; // minimum: 1
-}
-
-interface BetaAllThinkingTurns {
-  type: "all";
-}
-
-interface BetaCitationCharLocationParam {
-  type: "char_location";
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  end_char_index: number;
-  start_char_index: number; // minimum: 0
-}
-
-interface BetaCitationPageLocationParam {
-  type: "page_location";
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  end_page_number: number;
-  start_page_number: number; // minimum: 1
-}
-
-interface BetaCitationContentBlockLocationParam {
-  type: "content_block_location";
-  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
-  cited_text: string;
-  document_index: number; // minimum: 0
-  document_title: string | null; // minLength: 1, maxLength: 500
-  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
-  end_block_index: number;
-  /** 0-based index of the first cited block in the source's `content` array. */
-  start_block_index: number; // minimum: 0
-}
-
-interface BetaCitationWebSearchResultLocationParam {
-  type: "web_search_result_location";
-  cited_text: string;
-  encrypted_index: string;
-  title: string | null; // minLength: 1, maxLength: 512
-  url: string; // minLength: 1
-}
-
-interface BetaCitationSearchResultLocationParam {
-  type: "search_result_location";
-  /** The full text of the cited block range, concatenated. Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns. */
-  cited_text: string;
-  /** Exclusive 0-based end index of the cited block range in the source's `content` array. Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`. */
-  end_block_index: number;
-  /** 0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results. Counted separately from `document_index`; server-side web search results are not included in this count. */
-  search_result_index: number; // minimum: 0
-  source: string;
-  /** 0-based index of the first cited block in the source's `content` array. */
-  start_block_index: number; // minimum: 0
-  title: string | null;
-}
-
-interface BetaThinkingBlockBinding {
-  /** "error" (default) | "drop_block". What happens when a thinking block in `messages` fails the conversation check (it was created in a different conversation, or the messages before it have changed since). "error" fails the request with a 400 error. "drop_block" removes the failing blocks and the request proceeds; each removal is reported in `input_transformations`. */
-  prefix_mismatch_behavior?: BetaThinkingPrefixMismatchBehavior | null;
 }
 
 interface BetaBrowserTypeConfig {
@@ -1516,716 +2295,5 @@ interface BetaBrowserZoomConfig {
   defer_loading?: boolean | null;
   /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
   enabled?: boolean | null;
-}
-
-interface BetaComputerTypeConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerCursorPositionConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerDoubleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerHoldKeyConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerKeyConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerLeftClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerLeftClickDragConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerLeftMouseDownConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerLeftMouseUpConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerMiddleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerMouseMoveConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerRightClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerScreenshotConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerScrollConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerTripleClickConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerWaitConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-interface BetaComputerZoomConfig {
-  /** Defer loading for this member. Must resolve to the same value on every enabled member of the toolset. */
-  defer_loading?: boolean | null;
-  /** Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema. */
-  enabled?: boolean | null;
-}
-
-/** The `url_sources` variant under which a source contributes in full: every result of the tool filter's source, or all user input. */
-interface BetaWebFetchURLSourceAll {
-  type: "all";
-}
-
-/** The `url_sources` variant under which a source contributes nothing: no result of the tool filter's source, or no user input. */
-interface BetaWebFetchURLSourceNone {
-  type: "none";
-}
-
-/** The tool filter variant under which only the named tools' results contribute. */
-interface BetaWebFetchURLSourceOnly {
-  type: "only";
-  tools: Array<BetaWebFetchURLSourceToolReference>;
-}
-
-/** The tool filter variant under which every result but the named tools' contributes. */
-interface BetaWebFetchURLSourceExcept {
-  type: "except";
-  tools: Array<BetaWebFetchURLSourceToolReference>;
-}
-
-type BetaContentBlockParam =
-  | BetaTextBlockParam
-  | BetaImageBlockParam
-  | BetaRequestDocumentBlock
-  | BetaSearchResultBlockParam
-  | BetaThinkingBlockParam
-  | BetaRedactedThinkingBlockParam
-  | BetaToolUseBlockParam
-  | BetaToolResultBlockParam
-  | BetaServerToolUseBlockParam
-  | BetaWebSearchToolResultBlockParam
-  | BetaWebFetchToolResultBlockParam
-  | BetaAdvisorToolResultBlockParam // beta header: advisor-tool-2026-03-01
-  | BetaCodeExecutionToolResultBlockParam
-  | BetaBashCodeExecutionToolResultBlockParam
-  | BetaTextEditorCodeExecutionToolResultBlockParam
-  | BetaToolSearchToolResultBlockParam
-  | BetaMCPToolUseBlockParam // beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-  | BetaRequestMCPToolResultBlockParam // beta header: mcp-client-2025-04-04 or mcp-client-2025-11-20 or mcp-client-2026-09-15
-  | BetaContainerUploadBlockParam
-  | BetaCompactionBlockParam // beta header: compact-2026-01-12 or compact-2026-09-04
-  | BetaRequestToolAdditionBlock // beta header: mid-conversation-tool-changes-2026-07-01 or inline-tools-2026-09-15
-  | BetaRequestToolRemovalBlock // beta header: mid-conversation-tool-changes-2026-07-01 or inline-tools-2026-09-15
-  | BetaMCPToolListingBlockParam // beta header: mcp-client-2026-09-15
-  | BetaFallbackBlockParam; // beta header: server-side-fallback-2026-06-01 or server-side-fallback-2026-07-01
-
-/** Reference to a single tool, by the name the model uses to call it: a tool declared in `tools` or defined by an earlier `tool_addition` block. Does not accept the composed `{server}_{name}` form the server assigns to MCP-resolved tools; use `mcp_tool_reference` or `mcp_toolset_reference` for those. */
-interface BetaToolChangeToolReference {
-  type: "tool_reference";
-  name: string; // pattern: ^[a-zA-Z0-9_-]{1,128}$
-}
-
-/** Reference to a single MCP tool by its server and remote name; the same `server_name`/`name` pair `mcp_tool_use` carries. */
-interface BetaToolChangeMCPToolReference {
-  type: "mcp_tool_reference";
-  name: string;
-  server_name: string;
-}
-
-/** Reference to every tool in the named MCP server's toolset. */
-interface BetaToolChangeMCPToolsetReference {
-  type: "mcp_toolset_reference";
-  server_name: string;
-}
-
-/** A tool defined by value: `definition` is a `tools` entry (any kind `tools` accepts, an MCP toolset included). An `mcp_toolset` given here also requires the `mcp-client-2026-09-15` beta. */
-interface BetaToolChangeToolDefinitionParam {
-  type: "tool_definition";
-  definition: BetaToolUnion;
-}
-
-type BetaThinkingPrefixMismatchBehavior = "error" | "drop_block";
-
-/** One entry of a tool filter's `tools`: it must name a tool declared in this request's `tools[]`. */
-interface BetaWebFetchURLSourceToolReference {
-  type: "tool_reference";
-  name: string;
-}
-
-interface BetaImageBlockParam {
-  type: "image";
-  source: BetaBase64ImageSource | BetaURLImageSource | BetaFileImageSource;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  /** Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field. */
-  transformations?: BetaImageTransformationsParam | null;
-}
-
-interface BetaRequestDocumentBlock {
-  type: "document";
-  source: BetaBase64PDFSource | BetaPlainTextSource | BetaContentBlockSource | BetaURLPDFSource | BetaFileDocumentSource;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  citations?: BetaCitationsConfigParam | null;
-  context?: string | null; // minLength: 1
-  title?: string | null; // minLength: 1, maxLength: 500
-}
-
-interface BetaSearchResultBlockParam {
-  type: "search_result";
-  content: Array<BetaTextBlockParam>;
-  source: string;
-  title: string;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  citations?: BetaCitationsConfigParam;
-}
-
-interface BetaThinkingBlockParam {
-  type: "thinking";
-  /** The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude. Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`. */
-  signature: string;
-  /** The `thinking` text of this block as returned by the API. */
-  thinking: string;
-}
-
-interface BetaRedactedThinkingBlockParam {
-  type: "redacted_thinking";
-  /** The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged. */
-  data: string;
-}
-
-interface BetaToolUseBlockParam {
-  type: "tool_use";
-  id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  input: Record<string, unknown>;
-  name: string; // minLength: 1, maxLength: 200
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-  /** For a toolset member tool_use, the toolset family this member belongs to. */
-  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
-}
-
-interface BetaToolResultBlockParam {
-  type: "tool_result";
-  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  content?: string | Array<BetaTextBlockParam | BetaImageBlockParam | BetaSearchResultBlockParam | BetaRequestDocumentBlock | BetaToolReferenceBlockParam | BetaBrowserStateBlockParam>;
-  is_error?: boolean;
-  /** For a toolset member tool_result, the toolset family of the paired tool_use. */
-  toolset_name?: string | null; // minLength: 1, maxLength: 64, pattern: ^[a-zA-Z0-9_-]+$
-}
-
-interface BetaServerToolUseBlockParam {
-  type: "server_tool_use";
-  id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  input: Record<string, unknown>;
-  /** - `"advisor"`: beta header: advisor-tool-2026-03-01 */
-  name: "advisor" | "web_search" | "web_fetch" | "code_execution" | "bash_code_execution" | "text_editor_code_execution" | "tool_search_tool_regex" | "tool_search_tool_bm25";
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaWebSearchToolResultBlockParam {
-  type: "web_search_tool_result";
-  content: BetaWebSearchToolResultBlockParamContent;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaWebFetchToolResultBlockParam {
-  type: "web_fetch_tool_result";
-  content: BetaWebFetchToolResultErrorBlockParam | BetaWebFetchBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  caller?: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120;
-}
-
-interface BetaAdvisorToolResultBlockParam {
-  type: "advisor_tool_result";
-  content: BetaAdvisorToolResultErrorParam | BetaAdvisorResultBlockParam | BetaAdvisorRedactedResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaCodeExecutionToolResultBlockParam {
-  type: "code_execution_tool_result";
-  content: BetaCodeExecutionToolResultBlockParamContent;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaBashCodeExecutionToolResultBlockParam {
-  type: "bash_code_execution_tool_result";
-  content: BetaBashCodeExecutionToolResultErrorParam | BetaBashCodeExecutionResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaTextEditorCodeExecutionToolResultBlockParam {
-  type: "text_editor_code_execution_tool_result";
-  content: BetaTextEditorCodeExecutionToolResultErrorParam | BetaTextEditorCodeExecutionViewResultBlockParam | BetaTextEditorCodeExecutionCreateResultBlockParam | BetaTextEditorCodeExecutionStrReplaceResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaToolSearchToolResultBlockParam {
-  type: "tool_search_tool_result";
-  content: BetaToolSearchToolResultErrorParam | BetaToolSearchToolSearchResultBlockParam;
-  tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaMCPToolUseBlockParam {
-  type: "mcp_tool_use";
-  id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  input: Record<string, unknown>;
-  name: string;
-  /** The name of the MCP server */
-  server_name: string;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-interface BetaRequestMCPToolResultBlockParam {
-  type: "mcp_tool_result";
-  tool_use_id: string; // pattern: ^[a-zA-Z0-9_-]+$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  content?: string | Array<BetaTextBlockParam>;
-  is_error?: boolean;
-}
-
-/** A content block that represents a file to be uploaded to the container Files uploaded via this block will be available in the container's input directory. */
-interface BetaContainerUploadBlockParam {
-  type: "container_upload";
-  file_id: string;
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-/** A compaction block containing summary of previous context. Users should round-trip these blocks from responses to subsequent requests to maintain context across compaction boundaries. When content is None, the block represents a failed compaction. The server treats these as no-ops. Empty string content is not allowed. */
-interface BetaCompactionBlockParam {
-  type: "compaction";
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  /** Summary of previously compacted content, or null if compaction failed */
-  content?: string | null;
-  /** Opaque metadata from prior compaction, to be round-tripped verbatim */
-  encrypted_content?: string | null; // beta header: task-budgets-2026-03-13
-  /** The block's signature as returned, to be sent back verbatim */
-  signature?: string | null; // beta header: compact-2026-09-04
-  /** The tool changes of the compacted range, as the server returned them on this block: the `tool_addition` and `tool_removal` entries that take the request's `tools` to the tool set in effect at the end of the range. Send them back unchanged with the block. */
-  tool_changes?: Array<BetaRequestToolAdditionBlock | BetaRequestToolRemovalBlock> | null; // beta header: inline-tools-2026-09-15
-}
-
-/** The tool listing an MCP server returned while an earlier response was produced, as that response carried it. Send the assistant message back unchanged, this block included, and the server uses this listing for the matching `mcp_toolset` instead of asking the MCP server again. */
-interface BetaMCPToolListingBlockParam {
-  type: "mcp_tool_listing";
-  /** The name of the MCP server this listing came from, as `mcp_servers` declares it. */
-  mcp_server_name: string; // minLength: 1, maxLength: 255
-  /** The server's tools, exactly as the response listed them. */
-  tools: Array<BetaMCPToolParam>;
-}
-
-/** A `fallback` block echoed back from a prior response. Accepted in `messages[].content` and not rendered into the prompt; not validated against the request's `fallbacks` chain or top-level `model`. When you send the assistant turn back, keep this block in its original position. The block marks the boundary between content produced before and after a fallback hop, and the server relies on that boundary to validate the turn: when thinking runs flank the boundary, omitting the block merges them into one span the server cannot validate (the request is rejected), and moving it into the middle of a single run is likewise rejected; between non-thinking blocks the block's placement has no effect on thinking validation. Some blocks from before the turn's final `fallback` block must be left out when you send the turn back, and no `tool_result` is sent for a `tool_use` block you left out. See the [refusals and fallback guide](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback?sdk_languages=typescript#continuing-the-conversation) to learn which blocks to keep. */
-interface BetaFallbackBlockParam {
-  type: "fallback";
-  /** Identifies one hop of a fallback transition. */
-  from: BetaFallbackInfoParam;
-  /** Identifies one hop of a fallback transition. */
-  to: BetaFallbackInfoParam;
-  /** The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed. */
-  trigger?: unknown;
-}
-
-type BetaToolUnion =
-  | BetaTool
-  | BetaToolBash20241022 // beta header: computer-use-2024-10-22
-  | BetaToolBash20250124
-  | BetaCodeExecutionTool20250522
-  | BetaCodeExecutionTool20250825
-  | BetaCodeExecutionTool20260120
-  | BetaCodeExecutionTool20260521
-  | BetaBrowserToolset20260801
-  | BetaToolComputerUse20241022 // beta header: computer-use-2024-10-22
-  | BetaMemoryTool20250818
-  | BetaToolComputerUse20250124 // beta header: computer-use-2025-01-24
-  | BetaToolTextEditor20241022 // beta header: computer-use-2024-10-22
-  | BetaToolComputerUse20251124 // beta header: computer-use-2025-11-24
-  | BetaComputerToolset20260801
-  | BetaToolTextEditor20250124
-  | BetaToolTextEditor20250429
-  | BetaToolTextEditor20250728
-  | BetaWebSearchTool20250305
-  | BetaWebFetchTool20250910
-  | BetaWebSearchTool20260209
-  | BetaWebFetchTool20260209
-  | BetaWebFetchTool20260309
-  | BetaWebSearchTool20260318
-  | BetaWebFetchTool20260318
-  | BetaAdvisorTool20260301 // beta header: advisor-tool-2026-03-01
-  | BetaToolSearchToolBm25_20251119
-  | BetaToolSearchToolRegex20251119
-  | BetaMCPToolset; // beta header: mcp-client-2025-11-20 or mcp-client-2026-09-15
-
-interface BetaBase64ImageSource {
-  type: "base64";
-  data: string; // format: byte
-  media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp";
-}
-
-interface BetaURLImageSource {
-  type: "url";
-  url: string;
-}
-
-interface BetaFileImageSource {
-  type: "file";
-  file_id: string;
-}
-
-interface BetaImageTransformationsParam {
-  /** What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down. */
-  oversized_image?: "downsize" | "error";
-}
-
-interface BetaBase64PDFSource {
-  type: "base64";
-  data: string; // format: byte
-  media_type: "application/pdf";
-}
-
-interface BetaPlainTextSource {
-  type: "text";
-  data: string;
-  media_type: "text/plain";
-}
-
-interface BetaContentBlockSource {
-  type: "content";
-  content: string | Array<BetaContentBlockSourceContent>;
-}
-
-interface BetaURLPDFSource {
-  type: "url";
-  url: string;
-}
-
-interface BetaFileDocumentSource {
-  type: "file";
-  file_id: string;
-}
-
-/** Tool invocation directly from the model. */
-interface BetaDirectCaller {
-  type: "direct";
-}
-
-/** Tool invocation generated by a server-side tool. */
-interface BetaServerToolCaller {
-  type: "code_execution_20250825";
-  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-interface BetaServerToolCaller20260120 {
-  type: "code_execution_20260120";
-  tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
-}
-
-/** Tool reference block that can be included in tool_result content. */
-interface BetaToolReferenceBlockParam {
-  type: "tool_reference";
-  tool_name: string; // minLength: 1, maxLength: 256, pattern: ^[a-zA-Z0-9_-]{1,256}$
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-}
-
-/** The caller's browser state after a browser toolset member call — the full inventory of open tabs, which tab is active, and any side effects (tabs opened, download state changes) the call produced. At most one per `tool_result`, only on a non-error result answering a browser toolset member `tool_use`. The server renders the model-visible text from it; the model never sees the raw fields. */
-interface BetaBrowserStateBlockParam {
-  type: "browser_state";
-  /** All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`. */
-  tabs: Array<BetaBrowserStateTabEntry>; // maxItems: 100
-  /** Create a cache control breakpoint at this content block. */
-  cache_control?: BetaCacheControlEphemeral | null;
-  /** Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list. */
-  state_changes?: Array<BetaBrowserStateChange> | null; // minItems: 1, maxItems: 200
-}
-
-type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
-
-interface BetaWebFetchToolResultErrorBlockParam {
-  type: "web_fetch_tool_result_error";
-  error_code: BetaWebFetchToolResultErrorCode;
-}
-
-interface BetaWebFetchBlockParam {
-  type: "web_fetch_result";
-  content: BetaRequestDocumentBlock;
-  /** Fetched content URL */
-  url: string;
-  /** ISO 8601 timestamp when the content was retrieved */
-  retrieved_at?: string | null;
-}
-
-interface BetaAdvisorToolResultErrorParam {
-  type: "advisor_tool_result_error";
-  error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
-}
-
-interface BetaAdvisorResultBlockParam {
-  type: "advisor_result";
-  text: string;
-  stop_reason?: string | null;
-}
-
-interface BetaAdvisorRedactedResultBlockParam {
-  type: "advisor_redacted_result";
-  /** Opaque blob produced by a prior response; must be round-tripped verbatim. */
-  encrypted_content: string;
-  stop_reason?: string | null;
-}
-
-type BetaCodeExecutionToolResultBlockParamContent = BetaCodeExecutionToolResultErrorParam | BetaCodeExecutionResultBlockParam | BetaEncryptedCodeExecutionResultBlockParam;
-
-interface BetaBashCodeExecutionToolResultErrorParam {
-  type: "bash_code_execution_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
-}
-
-interface BetaBashCodeExecutionResultBlockParam {
-  type: "bash_code_execution_result";
-  content: Array<BetaBashCodeExecutionOutputBlockParam>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-interface BetaTextEditorCodeExecutionToolResultErrorParam {
-  type: "text_editor_code_execution_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
-  error_message?: string | null;
-}
-
-interface BetaTextEditorCodeExecutionViewResultBlockParam {
-  type: "text_editor_code_execution_view_result";
-  content: string;
-  file_type: "text" | "image" | "pdf";
-  num_lines?: number | null;
-  start_line?: number | null;
-  total_lines?: number | null;
-}
-
-interface BetaTextEditorCodeExecutionCreateResultBlockParam {
-  type: "text_editor_code_execution_create_result";
-  is_file_update: boolean;
-}
-
-interface BetaTextEditorCodeExecutionStrReplaceResultBlockParam {
-  type: "text_editor_code_execution_str_replace_result";
-  lines?: Array<string> | null;
-  new_lines?: number | null;
-  new_start?: number | null;
-  old_lines?: number | null;
-  old_start?: number | null;
-}
-
-interface BetaToolSearchToolResultErrorParam {
-  type: "tool_search_tool_result_error";
-  error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-  error_message?: string | null;
-}
-
-interface BetaToolSearchToolSearchResultBlockParam {
-  type: "tool_search_tool_search_result";
-  tool_references: Array<BetaToolReferenceBlockParam>;
-}
-
-interface BetaFallbackInfoParam {
-  /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
-  model: Model;
-}
-
-type BetaContentBlockSourceContent = BetaTextBlockParam | BetaImageBlockParam;
-
-interface BetaBrowserStateTabEntry {
-  /** The caller-assigned identifier for this tab, unique within the inventory. */
-  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The title of the page the tab is showing. May be empty. */
-  title: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The URL of the page the tab is showing. May be empty. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`. */
-  active?: boolean;
-}
-
-type BetaBrowserStateChange = BetaBrowserStateChangeTabOpened | BetaBrowserStateChangeDownloadStarted | BetaBrowserStateChangeDownloadCompleted | BetaBrowserStateChangeDownloadFailed;
-
-interface BetaWebSearchResultBlockParam {
-  type: "web_search_result";
-  encrypted_content: string;
-  title: string;
-  url: string;
-  page_age?: string | null;
-}
-
-interface BetaWebSearchToolRequestError {
-  type: "web_search_tool_result_error";
-  error_code: BetaWebSearchToolResultErrorCode;
-}
-
-type BetaWebFetchToolResultErrorCode = "invalid_tool_input" | "url_too_long" | "url_not_allowed" | "url_not_in_prior_context" | "url_not_accessible" | "unsupported_content_type" | "too_many_requests" | "max_uses_exceeded" | "unavailable" | "content_too_large";
-
-interface BetaCodeExecutionToolResultErrorParam {
-  type: "code_execution_tool_result_error";
-  error_code: BetaCodeExecutionToolResultErrorCode;
-}
-
-interface BetaCodeExecutionResultBlockParam {
-  type: "code_execution_result";
-  content: Array<BetaCodeExecutionOutputBlockParam>;
-  return_code: number;
-  stderr: string;
-  stdout: string;
-}
-
-/** The output and exit code of Python code that Claude ran with the code execution tool, with standard output in encrypted form, sent back in a later request. */
-interface BetaEncryptedCodeExecutionResultBlockParam {
-  type: "encrypted_code_execution_result";
-  content: Array<BetaCodeExecutionOutputBlockParam>;
-  encrypted_stdout: string;
-  return_code: number;
-  stderr: string;
-}
-
-interface BetaBashCodeExecutionOutputBlockParam {
-  type: "bash_code_execution_output";
-  file_id: string;
-}
-
-/** A tab this call's execution opened that remains open at its end — the creation delta of the `tabs` inventory, not an event log. Carries only the `tab_id`; the tab's `title` and `url` live on its `tabs` entry, which must include the same `tab_id`. A tab opened during a failed call gets no deferred `tab_opened`; it simply appears in the next result's `tabs` inventory. */
-interface BetaBrowserStateChangeTabOpened {
-  type: "tab_opened";
-  /** The `tab_id` of the opened tab, present in `tabs`. */
-  tab_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-/** A file download that started during this call. */
-interface BetaBrowserStateChangeDownloadStarted {
-  type: "download_started";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-/** A file download that finished during this call, reported with the same `download_id` as its `download_started` — or without a prior `download_started`, when the download finished during the call that started it (at most one state change per `download_id` per result). */
-interface BetaBrowserStateChangeDownloadCompleted {
-  type: "download_completed";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path. */
-  path?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The completed download's size. */
-  size_bytes?: number | null; // minimum: 0
-}
-
-/** A file download that failed — or was cancelled — during this call. */
-interface BetaBrowserStateChangeDownloadFailed {
-  type: "download_failed";
-  /** The caller-assigned identifier for this download, stable across the state changes reporting it. */
-  download_id: string; // minLength: 1, maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The final post-redirect URL the download was served from. */
-  url: string; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-  /** The failure or cancellation detail, when known. */
-  error?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
-}
-
-type BetaWebSearchToolResultErrorCode = "invalid_tool_input" | "unavailable" | "max_uses_exceeded" | "too_many_requests" | "query_too_long" | "request_too_large";
-
-type BetaCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
-
-interface BetaCodeExecutionOutputBlockParam {
-  type: "code_execution_output";
-  file_id: string;
 }
 ```

@@ -529,7 +529,7 @@ List Agents
 
   - `required string? System`
 
-  - `required IReadOnlyList<Tool> Tools`
+  - `required IReadOnlyList<BetaManagedAgentsAgentTool> Tools`
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -547,7 +547,7 @@ List Agents
 
           - `JsonElement Name = "bash"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsBashToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -579,7 +579,7 @@ List Agents
 
           - `JsonElement Name = "edit"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsEditToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -605,7 +605,7 @@ List Agents
 
           - `JsonElement Name = "read"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsReadToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -631,7 +631,7 @@ List Agents
 
           - `JsonElement Name = "write"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsWriteToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -657,7 +657,7 @@ List Agents
 
           - `JsonElement Name = "glob"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsGlobToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -683,7 +683,7 @@ List Agents
 
           - `JsonElement Name = "grep"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsGrepToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -709,7 +709,7 @@ List Agents
 
           - `JsonElement Name = "web_fetch"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsWebFetchToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -819,7 +819,7 @@ List Agents
 
           - `JsonElement Name = "web_search"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsWebSearchToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -903,7 +903,7 @@ List Agents
 
         - `required string Name`
 
-        - `required PermissionPolicy PermissionPolicy`
+        - `required BetaManagedAgentsMcpToolConfigPermissionPolicy PermissionPolicy`
 
           Permission policy for tool execution.
 
@@ -925,7 +925,7 @@ List Agents
 
         - `required bool Enabled`
 
-        - `required PermissionPolicy PermissionPolicy`
+        - `required BetaManagedAgentsMcpToolsetDefaultConfigPermissionPolicy PermissionPolicy`
 
           Permission policy for tool execution.
 
@@ -1021,38 +1021,7 @@ await foreach (var item in page.Paginate())
         "inference_geo": "inference_geo",
         "speed": "standard"
       },
-      "multiagent": {
-        "advisor": {
-          "type": "disabled"
-        },
-        "subagents": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        },
-        "type": "multiagent_20261001",
-        "workflows": {
-          "inline_agents": {
-            "type": "enabled"
-          },
-          "predefined_agents": [
-            {
-              "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-              "type": "agent",
-              "version": 1
-            }
-          ],
-          "type": "enabled"
-        }
-      },
+      "multiagent": null,
       "name": "My First Agent",
       "skills": [
         {
@@ -1069,16 +1038,7 @@ await foreach (var item in page.Paginate())
       "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
       "tools": [
         {
-          "configs": [
-            {
-              "enabled": true,
-              "name": "bash",
-              "permission_policy": {
-                "type": "always_allow"
-              },
-              "type": "bash"
-            }
-          ],
+          "configs": [],
           "default_config": {
             "enabled": true,
             "permission_policy": {

@@ -51,7 +51,7 @@ Update Agent
 
     Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
-  - `Model model`
+  - `AgentUpdateParamsModel model`
 
     Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview?sdk_languages=csharp#latest-models-comparison), e.g. `claude-opus-5-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
@@ -215,7 +215,7 @@ Update Agent
 
           High-performance model for agents and coding
 
-      - `Effort? Effort`
+      - `BetaManagedAgentsModelConfigParamsEffort? Effort`
 
         How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
 
@@ -277,7 +277,7 @@ Update Agent
 
         Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
 
-      - `Speed? Speed`
+      - `BetaManagedAgentsModelConfigParamsSpeed? Speed`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -341,7 +341,7 @@ Update Agent
 
     maxLength: 100000
 
-  - `IReadOnlyList<Tool>? tools`
+  - `IReadOnlyList<AgentUpdateParamsTool>? tools`
 
     Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 256 tools across all toolsets allowed.
 
@@ -369,7 +369,7 @@ Update Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `PermissionPolicy? PermissionPolicy`
+          - `BetaManagedAgentsBashToolConfigParamsPermissionPolicy? PermissionPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -395,7 +395,7 @@ Update Agent
 
           Configuration override for the edit tool.
 
-          - `Type Type`
+          - `BetaManagedAgentsEditToolConfigParamsType Type`
 
           - `JsonElement Name = "edit"`
 
@@ -405,7 +405,7 @@ Update Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `PermissionPolicy? PermissionPolicy`
+          - `BetaManagedAgentsEditToolConfigParamsPermissionPolicy? PermissionPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -425,7 +425,7 @@ Update Agent
 
           Configuration override for the read tool.
 
-          - `Type Type`
+          - `BetaManagedAgentsReadToolConfigParamsType Type`
 
           - `JsonElement Name = "read"`
 
@@ -435,7 +435,7 @@ Update Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `PermissionPolicy? PermissionPolicy`
+          - `BetaManagedAgentsReadToolConfigParamsPermissionPolicy? PermissionPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -455,7 +455,7 @@ Update Agent
 
           Configuration override for the write tool.
 
-          - `Type Type`
+          - `BetaManagedAgentsWriteToolConfigParamsType Type`
 
           - `JsonElement Name = "write"`
 
@@ -465,7 +465,7 @@ Update Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `PermissionPolicy? PermissionPolicy`
+          - `BetaManagedAgentsWriteToolConfigParamsPermissionPolicy? PermissionPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -485,7 +485,7 @@ Update Agent
 
           Configuration override for the glob tool.
 
-          - `Type Type`
+          - `BetaManagedAgentsGlobToolConfigParamsType Type`
 
           - `JsonElement Name = "glob"`
 
@@ -495,7 +495,7 @@ Update Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `PermissionPolicy? PermissionPolicy`
+          - `BetaManagedAgentsGlobToolConfigParamsPermissionPolicy? PermissionPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -515,7 +515,7 @@ Update Agent
 
           Configuration override for the grep tool.
 
-          - `Type Type`
+          - `BetaManagedAgentsGrepToolConfigParamsType Type`
 
           - `JsonElement Name = "grep"`
 
@@ -525,7 +525,7 @@ Update Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `PermissionPolicy? PermissionPolicy`
+          - `BetaManagedAgentsGrepToolConfigParamsPermissionPolicy? PermissionPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -545,7 +545,7 @@ Update Agent
 
           Configuration override for the web_fetch tool.
 
-          - `Type Type`
+          - `BetaManagedAgentsWebFetchToolConfigParamsType Type`
 
           - `JsonElement Name = "web_fetch"`
 
@@ -569,7 +569,7 @@ Update Agent
 
             format: int32
 
-          - `PermissionPolicy? PermissionPolicy`
+          - `BetaManagedAgentsWebFetchToolConfigParamsPermissionPolicy? PermissionPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -685,7 +685,7 @@ Update Agent
 
           Configuration override for the web_search tool.
 
-          - `Type Type`
+          - `BetaManagedAgentsWebSearchToolConfigParamsType Type`
 
           - `JsonElement Name = "web_search"`
 
@@ -703,7 +703,7 @@ Update Agent
 
             Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-          - `PermissionPolicy? PermissionPolicy`
+          - `BetaManagedAgentsWebSearchToolConfigParamsPermissionPolicy? PermissionPolicy`
 
             Permission policy for this tool. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -759,7 +759,7 @@ Update Agent
 
           Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
 
-        - `PermissionPolicy? PermissionPolicy`
+        - `BetaManagedAgentsAgentToolsetDefaultConfigParamsPermissionPolicy? PermissionPolicy`
 
           Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation.
 
@@ -801,7 +801,7 @@ Update Agent
 
           Whether this tool is enabled. Overrides the `default_config` setting.
 
-        - `PermissionPolicy? PermissionPolicy`
+        - `BetaManagedAgentsMcpToolConfigParamsPermissionPolicy? PermissionPolicy`
 
           Permission policy for this tool. Overrides the `default_config` setting.
 
@@ -825,7 +825,7 @@ Update Agent
 
           Whether tools are enabled by default. Defaults to true if not specified.
 
-        - `PermissionPolicy? PermissionPolicy`
+        - `BetaManagedAgentsMcpToolsetDefaultConfigParamsPermissionPolicy? PermissionPolicy`
 
           Default permission policy for tools from this server.
 
@@ -1363,7 +1363,7 @@ Update Agent
 
   - `required string? System`
 
-  - `required IReadOnlyList<Tool> Tools`
+  - `required IReadOnlyList<BetaManagedAgentsAgentTool> Tools`
 
     - `class BetaManagedAgentsAgentToolset20260401`
 
@@ -1381,7 +1381,7 @@ Update Agent
 
           - `JsonElement Name = "bash"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsBashToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -1413,7 +1413,7 @@ Update Agent
 
           - `JsonElement Name = "edit"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsEditToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -1439,7 +1439,7 @@ Update Agent
 
           - `JsonElement Name = "read"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsReadToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -1465,7 +1465,7 @@ Update Agent
 
           - `JsonElement Name = "write"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsWriteToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -1491,7 +1491,7 @@ Update Agent
 
           - `JsonElement Name = "glob"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsGlobToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -1517,7 +1517,7 @@ Update Agent
 
           - `JsonElement Name = "grep"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsGrepToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -1543,7 +1543,7 @@ Update Agent
 
           - `JsonElement Name = "web_fetch"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsWebFetchToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -1653,7 +1653,7 @@ Update Agent
 
           - `JsonElement Name = "web_search"`
 
-          - `required PermissionPolicy PermissionPolicy`
+          - `required BetaManagedAgentsWebSearchToolConfigPermissionPolicy PermissionPolicy`
 
             Permission policy for tool execution.
 
@@ -1737,7 +1737,7 @@ Update Agent
 
         - `required string Name`
 
-        - `required PermissionPolicy PermissionPolicy`
+        - `required BetaManagedAgentsMcpToolConfigPermissionPolicy PermissionPolicy`
 
           Permission policy for tool execution.
 
@@ -1759,7 +1759,7 @@ Update Agent
 
         - `required bool Enabled`
 
-        - `required PermissionPolicy PermissionPolicy`
+        - `required BetaManagedAgentsMcpToolsetDefaultConfigPermissionPolicy PermissionPolicy`
 
           Permission policy for tool execution.
 
@@ -1854,38 +1854,7 @@ Console.WriteLine(betaManagedAgentsAgent);
     "inference_geo": "inference_geo",
     "speed": "standard"
   },
-  "multiagent": {
-    "advisor": {
-      "type": "disabled"
-    },
-    "subagents": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    },
-    "type": "multiagent_20261001",
-    "workflows": {
-      "inline_agents": {
-        "type": "enabled"
-      },
-      "predefined_agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "enabled"
-    }
-  },
+  "multiagent": null,
   "name": "My First Agent",
   "skills": [
     {
@@ -1902,16 +1871,7 @@ Console.WriteLine(betaManagedAgentsAgent);
   "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
   "tools": [
     {
-      "configs": [
-        {
-          "enabled": true,
-          "name": "bash",
-          "permission_policy": {
-            "type": "always_allow"
-          },
-          "type": "bash"
-        }
-      ],
+      "configs": [],
       "default_config": {
         "enabled": true,
         "permission_policy": {

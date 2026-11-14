@@ -55,65 +55,7 @@ console.log(betaManagedAgentsSession.id);
       "inference_geo": "inference_geo",
       "speed": "standard"
     },
-    "multiagent": {
-      "agents": [
-        {
-          "id": "agent_011CZkYqphY8vELVzwCUpqiQ",
-          "description": "A focused research subagent.",
-          "execution_identity": {
-            "type": "service_account"
-          },
-          "mcp_servers": [
-            {
-              "name": "example-mcp",
-              "type": "url",
-              "url": "https://example-server.modelcontextprotocol.io/sse"
-            }
-          ],
-          "model": {
-            "id": "claude-opus-5-5",
-            "effort": {
-              "type": "low"
-            },
-            "inference_geo": "inference_geo",
-            "speed": "standard"
-          },
-          "name": "Researcher",
-          "skills": [
-            {
-              "skill_id": "xlsx",
-              "type": "anthropic",
-              "version": "1"
-            }
-          ],
-          "system": "You are a research subagent that gathers and summarises sources for the coordinating agent.",
-          "tools": [
-            {
-              "configs": [
-                {
-                  "enabled": true,
-                  "name": "bash",
-                  "permission_policy": {
-                    "type": "always_allow"
-                  },
-                  "type": "bash"
-                }
-              ],
-              "default_config": {
-                "enabled": true,
-                "permission_policy": {
-                  "type": "always_ask"
-                }
-              },
-              "type": "agent_toolset_20260401"
-            }
-          ],
-          "type": "agent",
-          "version": 1
-        }
-      ],
-      "type": "coordinator"
-    },
+    "multiagent": null,
     "name": "My First Agent",
     "skills": [
       {
@@ -130,16 +72,7 @@ console.log(betaManagedAgentsSession.id);
     "system": "You are a general-purpose agent that can research, write code, run commands, and use connected tools to complete the user's task end to end.",
     "tools": [
       {
-        "configs": [
-          {
-            "enabled": true,
-            "name": "bash",
-            "permission_policy": {
-              "type": "always_allow"
-            },
-            "type": "bash"
-          }
-        ],
+        "configs": [],
         "default_config": {
           "enabled": true,
           "permission_policy": {
@@ -153,13 +86,7 @@ console.log(betaManagedAgentsSession.id);
     "version": 1
   },
   "archived_at": null,
-  "budget": {
-    "max_list_cost": {
-      "amount": "2500",
-      "currency": "USD"
-    },
-    "type": "limit"
-  },
+  "budget": null,
   "created_at": "2026-03-15T10:00:00Z",
   "environment_id": "env_011CZkZ9X2dpNyB7HsEFoRfW",
   "metadata": {},
@@ -618,183 +545,6 @@ interface BetaManagedAgentsCustomToolParams {
   name: string; // minLength: 1, maxLength: 128, pattern: ^[a-zA-Z0-9_-]{1,128}$
 }
 
-interface BetaMonetaryAmount {
-  /** Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied. */
-  amount: string; // pattern: ^(0|[1-9]\d*)$
-  /** Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced. */
-  currency: BetaCurrency;
-}
-
-/** Regular text content. */
-interface BetaManagedAgentsTextBlock {
-  type: "text";
-  /** The text content. */
-  text: string; // minLength: 1
-}
-
-/** Image content specified directly as base64 data or as a reference via a URL. */
-interface BetaManagedAgentsImageBlock {
-  type: "image";
-  /** The source of the image data. */
-  source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource;
-}
-
-/** Document content, either specified directly as base64 data, as text, or as a reference via a URL. */
-interface BetaManagedAgentsDocumentBlock {
-  type: "document";
-  /** The source of the document data. */
-  source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource;
-  /** Additional context about the document for the model. */
-  context?: string | null;
-  /** The title of the document. */
-  title?: string | null;
-}
-
-/** Placeholder for content withheld by Anthropic model policy. */
-interface BetaManagedAgentsRedactedBlock {
-  type: "redacted";
-}
-
-/** Rubric referenced by a file uploaded via the Files API. */
-interface BetaManagedAgentsFileRubricParams {
-  type: "file";
-  /** ID of the rubric file. */
-  file_id: string;
-}
-
-/** Rubric content provided inline as text. */
-interface BetaManagedAgentsTextRubricParams {
-  type: "text";
-  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters. */
-  content: string; // maxLength: 262144
-}
-
-interface BetaManagedAgentsBranchCheckout {
-  type: "branch";
-  /** Branch name to check out. */
-  name: string; // minLength: 1, maxLength: 255
-}
-
-interface BetaManagedAgentsCommitCheckout {
-  type: "commit";
-  /** Full commit SHA to check out. */
-  sha: string; // minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
-}
-
-type BetaManagedAgentsExecutionIdentity = BetaManagedAgentsAWSRoleExecutionIdentity | BetaManagedAgentsServiceAccountExecutionIdentity;
-
-/** URL-based MCP server connection as returned in API responses. */
-interface BetaManagedAgentsMCPServerURLDefinition {
-  type: "url";
-  name: string;
-  url: string;
-}
-
-interface BetaManagedAgentsModelConfig {
-  /** The model that will power your agent. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
-  id: BetaManagedAgentsModel;
-  /** How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied. */
-  effort?: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | BetaManagedAgentsEffortXhigh | BetaManagedAgentsEffortMax;
-  /** Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. */
-  inference_geo?: string;
-  /** Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time. */
-  speed?: "standard" | "fast";
-}
-
-type BetaManagedAgentsSessionMultiagent = BetaManagedAgentsSessionMultiagentCoordinator | BetaManagedAgentsSessionMultiagent20261001;
-
-/** A resolved Anthropic-managed skill. */
-interface BetaManagedAgentsAnthropicSkill {
-  type: "anthropic";
-  skill_id: string;
-  version: string;
-}
-
-/** A resolved user-created custom skill. */
-interface BetaManagedAgentsCustomSkill {
-  type: "custom";
-  skill_id: string;
-  version: string;
-}
-
-interface BetaManagedAgentsAgentToolset20260401 {
-  type: "agent_toolset_20260401";
-  configs: Array<BetaManagedAgentsAgentToolConfig>;
-  /** Resolved default configuration for agent tools. */
-  default_config: BetaManagedAgentsAgentToolsetDefaultConfig;
-}
-
-interface BetaManagedAgentsMCPToolset {
-  type: "mcp_toolset";
-  configs: Array<BetaManagedAgentsMCPToolConfig>;
-  /** Resolved default configuration for all tools from an MCP server. */
-  default_config: BetaManagedAgentsMCPToolsetDefaultConfig;
-  mcp_server_name: string;
-}
-
-/** A custom tool as returned in API responses. */
-interface BetaManagedAgentsCustomTool {
-  type: "custom";
-  description: string;
-  /** JSON Schema for custom tool input parameters. */
-  input_schema: BetaManagedAgentsCustomToolInputSchema;
-  name: string;
-}
-
-interface BetaManagedAgentsGitHubRepositoryResource {
-  type: "github_repository";
-  id: string;
-  /** A timestamp in RFC 3339 format */
-  created_at: string; // format: date-time
-  mount_path: string;
-  /** A timestamp in RFC 3339 format */
-  updated_at: string; // format: date-time
-  url: string;
-  checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null;
-}
-
-interface BetaManagedAgentsFileResource {
-  type: "file";
-  id: string;
-  /** A timestamp in RFC 3339 format */
-  created_at: string; // format: date-time
-  file_id: string;
-  mount_path: string;
-  /** A timestamp in RFC 3339 format */
-  updated_at: string; // format: date-time
-}
-
-/** A memory store attached to an agent session. */
-interface BetaManagedAgentsMemoryStoreResource {
-  type: "memory_store";
-  /** The memory store ID (memstore_...). Must belong to the caller's organization and workspace. */
-  memory_store_id: string; // pattern: ^memstore_[a-zA-Z0-9_]+$
-  /** Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem. */
-  access?: "read_write" | "read_only" | null;
-  /** Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description. */
-  description?: string;
-  /** Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars. */
-  instructions?: string | null; // maxLength: 4096
-  /** Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only. */
-  mount_path?: string | null;
-  /** Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource. */
-  name?: string | null;
-}
-
-interface BetaManagedAgentsCacheCreationUsage {
-  /** Tokens used to create 1-hour ephemeral cache entries. */
-  ephemeral_1h_input_tokens?: number; // format: int32
-  /** Tokens used to create 5-minute ephemeral cache entries. */
-  ephemeral_5m_input_tokens?: number; // format: int32
-}
-
-interface BetaManagedAgentsServerToolUsage {
-  /** Number of server-executed web fetch requests. */
-  web_fetch_requests?: number; // format: int32
-  /** Number of server-executed web search requests. */
-  web_search_requests?: number; // format: int32
-}
-
 /** Low effort. Favors latency over reasoning depth. */
 interface BetaManagedAgentsEffortLow {
   type: "low";
@@ -838,15 +588,6 @@ interface BetaManagedAgentsCustomSkillParams {
   version?: string | null; // minLength: 1, maxLength: 64
 }
 
-type BetaManagedAgentsAgentToolConfigParams = BetaManagedAgentsBashToolConfigParams | BetaManagedAgentsEditToolConfigParams | BetaManagedAgentsReadToolConfigParams | BetaManagedAgentsWriteToolConfigParams | BetaManagedAgentsGlobToolConfigParams | BetaManagedAgentsGrepToolConfigParams | BetaManagedAgentsWebFetchToolConfigParams | BetaManagedAgentsWebSearchToolConfigParams;
-
-interface BetaManagedAgentsAgentToolsetDefaultConfigParams {
-  /** Whether tools are enabled and available to Claude by default. Defaults to true if not specified. */
-  enabled?: boolean | null;
-  /** Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation. */
-  permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null;
-}
-
 interface BetaManagedAgentsMCPToolConfigParams {
   /** Name of the MCP tool to configure. 1-128 characters. */
   name: string; // minLength: 1, maxLength: 128
@@ -869,114 +610,13 @@ interface BetaManagedAgentsCustomToolInputSchema {
   required?: Array<string> | null;
 }
 
-type BetaCurrency = "USD";
+type BetaManagedAgentsAgentToolConfigParams = BetaManagedAgentsBashToolConfigParams | BetaManagedAgentsEditToolConfigParams | BetaManagedAgentsReadToolConfigParams | BetaManagedAgentsWriteToolConfigParams | BetaManagedAgentsGlobToolConfigParams | BetaManagedAgentsGrepToolConfigParams | BetaManagedAgentsWebFetchToolConfigParams | BetaManagedAgentsWebSearchToolConfigParams;
 
-/** Base64-encoded image data. */
-interface BetaManagedAgentsBase64ImageSource {
-  type: "base64";
-  /** Base64-encoded image data. */
-  data: string; // minLength: 1
-  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
-  media_type: string; // minLength: 1
-}
-
-/** Image referenced by URL. */
-interface BetaManagedAgentsURLImageSource {
-  type: "url";
-  /** URL of the image to fetch. */
-  url: string; // minLength: 1
-}
-
-/** Image referenced by file ID. */
-interface BetaManagedAgentsFileImageSource {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string; // minLength: 1
-}
-
-/** Base64-encoded document data. */
-interface BetaManagedAgentsBase64DocumentSource {
-  type: "base64";
-  /** Base64-encoded document data. */
-  data: string; // minLength: 1
-  /** MIME type of the document (e.g., "application/pdf"). */
-  media_type: string; // minLength: 1
-}
-
-/** Plain text document content. */
-interface BetaManagedAgentsPlainTextDocumentSource {
-  type: "text";
-  /** The plain text content. */
-  data: string; // minLength: 1
-  /** MIME type of the text content. Must be "text/plain". */
-  media_type: "text/plain";
-}
-
-/** Document referenced by URL. */
-interface BetaManagedAgentsURLDocumentSource {
-  type: "url";
-  /** URL of the document to fetch. */
-  url: string; // minLength: 1
-}
-
-/** Document referenced by file ID. */
-interface BetaManagedAgentsFileDocumentSource {
-  type: "file";
-  /** ID of a previously uploaded file. */
-  file_id: string; // minLength: 1
-}
-
-/** An AWS IAM role principal as returned in API responses. */
-interface BetaManagedAgentsAWSRoleExecutionIdentity {
-  type: "aws_role";
-  /** The IAM role's ARN. */
-  role_arn: string;
-}
-
-/** The Anthropic-managed service account as returned in API responses. */
-interface BetaManagedAgentsServiceAccountExecutionIdentity {
-  type: "service_account";
-}
-
-/** Resolved coordinator topology with full agent definitions for each roster member. */
-interface BetaManagedAgentsSessionMultiagentCoordinator {
-  type: "coordinator";
-  /** Full `agent` definitions the coordinator may spawn as session threads. */
-  agents: Array<BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor>;
-}
-
-/** Resolved multiagent configuration with three members, as copied to the `session` at creation. */
-interface BetaManagedAgentsSessionMultiagent20261001 {
-  type: "multiagent_20261001";
-  /** Whether the session's primary thread can consult an advisor model. */
-  advisor: BetaManagedAgentsMultiagentAdvisor;
-  /** Whether the agent can spawn session threads. */
-  subagents: BetaManagedAgentsSessionMultiagentSubagents;
-  /** Whether the agent can start workflow runs. */
-  workflows: BetaManagedAgentsSessionMultiagentWorkflows;
-}
-
-/** Configuration for a specific agent tool. */
-type BetaManagedAgentsAgentToolConfig = BetaManagedAgentsBashToolConfig | BetaManagedAgentsEditToolConfig | BetaManagedAgentsReadToolConfig | BetaManagedAgentsWriteToolConfig | BetaManagedAgentsGlobToolConfig | BetaManagedAgentsGrepToolConfig | BetaManagedAgentsWebFetchToolConfig | BetaManagedAgentsWebSearchToolConfig;
-
-interface BetaManagedAgentsAgentToolsetDefaultConfig {
-  enabled: boolean;
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-/** Resolved configuration for a specific MCP tool. */
-interface BetaManagedAgentsMCPToolConfig {
-  enabled: boolean;
-  name: string;
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
-}
-
-interface BetaManagedAgentsMCPToolsetDefaultConfig {
-  enabled: boolean;
-  /** Permission policy for tool execution. */
-  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+interface BetaManagedAgentsAgentToolsetDefaultConfigParams {
+  /** Whether tools are enabled and available to Claude by default. Defaults to true if not specified. */
+  enabled?: boolean | null;
+  /** Default permission policy for tools. Controls whether tool calls are auto-approved or require confirmation. */
+  permission_policy?: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy | null;
 }
 
 /** Configuration override for the bash tool. */
@@ -1096,6 +736,336 @@ interface BetaManagedAgentsAutoPolicy {
   type: "auto";
 }
 
+interface BetaManagedAgentsUserLocation {
+  /** Location precision. Only "approximate" is supported. */
+  type: "approximate";
+  /** City name. */
+  city?: string | null; // minLength: 1, maxLength: 255
+  /** Two-letter ISO 3166-1 country code, uppercase. */
+  country?: string | null; // pattern: ^[A-Z]{2}$
+  /** Region or state name. */
+  region?: string | null; // minLength: 1, maxLength: 255
+  /** IANA timezone identifier, e.g. "America/Los_Angeles". */
+  timezone?: string | null; // minLength: 1, maxLength: 255
+}
+
+interface BetaManagedAgentsWebFetchURLSourcesParams {
+  /** Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array. */
+  client_tool_results?: BetaManagedAgentsWebFetchURLSourceToolFilterParams | null;
+  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch". */
+  server_tool_results?: BetaManagedAgentsWebFetchURLSourceToolFilterParams | null;
+  /** Whether URLs in the text of user messages may be fetched: "all" (the default) or "none". */
+  user_input?: BetaManagedAgentsWebFetchURLSourceUserInputParams | null;
+}
+
+type BetaManagedAgentsWebFetchURLSourceToolFilterParams = BetaManagedAgentsWebFetchURLSourceShorthand | BetaManagedAgentsWebFetchURLSourceToolFilter;
+
+type BetaManagedAgentsWebFetchURLSourceUserInputParams = BetaManagedAgentsWebFetchURLSourceShorthand | BetaManagedAgentsWebFetchURLSourceUserInput;
+
+/** Whether URLs in the text of user messages may be fetched. */
+type BetaManagedAgentsWebFetchURLSourceUserInput = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone;
+
+/** String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}. */
+type BetaManagedAgentsWebFetchURLSourceShorthand = "all" | "none";
+
+/** Which tools' results contribute URLs that may be fetched. */
+type BetaManagedAgentsWebFetchURLSourceToolFilter = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone | BetaManagedAgentsWebFetchURLSourceOnly | BetaManagedAgentsWebFetchURLSourceExcept;
+
+/** Every URL from this source may be fetched. This is the default. */
+interface BetaManagedAgentsWebFetchURLSourceAll {
+  type: "all";
+}
+
+/** This source contributes no URLs that may be fetched. */
+interface BetaManagedAgentsWebFetchURLSourceNone {
+  type: "none";
+}
+
+/** Only the named tools' results contribute URLs that may be fetched. */
+interface BetaManagedAgentsWebFetchURLSourceOnly {
+  type: "only";
+  /** The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results. */
+  tools: Array<BetaManagedAgentsWebFetchURLSourceToolReference>;
+}
+
+/** Every tool's results contribute URLs that may be fetched, except the named tools' results. */
+interface BetaManagedAgentsWebFetchURLSourceExcept {
+  type: "except";
+  /** The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results. */
+  tools: Array<BetaManagedAgentsWebFetchURLSourceToolReference>;
+}
+
+interface BetaManagedAgentsWebFetchURLSourceToolReference {
+  /** Must be "tool_reference". */
+  type: "tool_reference";
+  /** Name of the tool. Compared exactly, so upper and lower case letters are different. */
+  name: string; // minLength: 1, maxLength: 128
+}
+
+interface BetaMonetaryAmount {
+  /** Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied. */
+  amount: string; // pattern: ^(0|[1-9]\d*)$
+  /** Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced. */
+  currency: BetaCurrency;
+}
+
+type BetaCurrency = "USD";
+
+/** Rubric referenced by a file uploaded via the Files API. */
+interface BetaManagedAgentsFileRubricParams {
+  type: "file";
+  /** ID of the rubric file. */
+  file_id: string;
+}
+
+/** Rubric content provided inline as text. */
+interface BetaManagedAgentsTextRubricParams {
+  type: "text";
+  /** Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters. */
+  content: string; // maxLength: 262144
+}
+
+/** Regular text content. */
+interface BetaManagedAgentsTextBlock {
+  type: "text";
+  /** The text content. */
+  text: string; // minLength: 1
+}
+
+/** Image content specified directly as base64 data or as a reference via a URL. */
+interface BetaManagedAgentsImageBlock {
+  type: "image";
+  /** The source of the image data. */
+  source: BetaManagedAgentsBase64ImageSource | BetaManagedAgentsURLImageSource | BetaManagedAgentsFileImageSource;
+}
+
+/** Document content, either specified directly as base64 data, as text, or as a reference via a URL. */
+interface BetaManagedAgentsDocumentBlock {
+  type: "document";
+  /** The source of the document data. */
+  source: BetaManagedAgentsBase64DocumentSource | BetaManagedAgentsPlainTextDocumentSource | BetaManagedAgentsURLDocumentSource | BetaManagedAgentsFileDocumentSource;
+  /** Additional context about the document for the model. */
+  context?: string | null;
+  /** The title of the document. */
+  title?: string | null;
+}
+
+/** Placeholder for content withheld by Anthropic model policy. */
+interface BetaManagedAgentsRedactedBlock {
+  type: "redacted";
+}
+
+/** Base64-encoded image data. */
+interface BetaManagedAgentsBase64ImageSource {
+  type: "base64";
+  /** Base64-encoded image data. */
+  data: string; // minLength: 1
+  /** MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp"). */
+  media_type: string; // minLength: 1
+}
+
+/** Image referenced by URL. */
+interface BetaManagedAgentsURLImageSource {
+  type: "url";
+  /** URL of the image to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Image referenced by file ID. */
+interface BetaManagedAgentsFileImageSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
+
+/** Base64-encoded document data. */
+interface BetaManagedAgentsBase64DocumentSource {
+  type: "base64";
+  /** Base64-encoded document data. */
+  data: string; // minLength: 1
+  /** MIME type of the document (e.g., "application/pdf"). */
+  media_type: string; // minLength: 1
+}
+
+/** Plain text document content. */
+interface BetaManagedAgentsPlainTextDocumentSource {
+  type: "text";
+  /** The plain text content. */
+  data: string; // minLength: 1
+  /** MIME type of the text content. Must be "text/plain". */
+  media_type: "text/plain";
+}
+
+/** Document referenced by URL. */
+interface BetaManagedAgentsURLDocumentSource {
+  type: "url";
+  /** URL of the document to fetch. */
+  url: string; // minLength: 1
+}
+
+/** Document referenced by file ID. */
+interface BetaManagedAgentsFileDocumentSource {
+  type: "file";
+  /** ID of a previously uploaded file. */
+  file_id: string; // minLength: 1
+}
+
+interface BetaManagedAgentsBranchCheckout {
+  type: "branch";
+  /** Branch name to check out. */
+  name: string; // minLength: 1, maxLength: 255
+}
+
+interface BetaManagedAgentsCommitCheckout {
+  type: "commit";
+  /** Full commit SHA to check out. */
+  sha: string; // minLength: 7, maxLength: 64, pattern: ^[0-9a-fA-F]+$
+}
+
+interface BetaManagedAgentsGitHubRepositoryResource {
+  type: "github_repository";
+  id: string;
+  /** A timestamp in RFC 3339 format */
+  created_at: string; // format: date-time
+  mount_path: string;
+  /** A timestamp in RFC 3339 format */
+  updated_at: string; // format: date-time
+  url: string;
+  checkout?: BetaManagedAgentsBranchCheckout | BetaManagedAgentsCommitCheckout | null;
+}
+
+interface BetaManagedAgentsFileResource {
+  type: "file";
+  id: string;
+  /** A timestamp in RFC 3339 format */
+  created_at: string; // format: date-time
+  file_id: string;
+  mount_path: string;
+  /** A timestamp in RFC 3339 format */
+  updated_at: string; // format: date-time
+}
+
+/** A memory store attached to an agent session. */
+interface BetaManagedAgentsMemoryStoreResource {
+  type: "memory_store";
+  /** The memory store ID (memstore_...). Must belong to the caller's organization and workspace. */
+  memory_store_id: string; // pattern: ^memstore_[a-zA-Z0-9_]+$
+  /** Access mode for the mounted store. Defaults to `read_write`. `read_only` mounts the store as a read-only filesystem. */
+  access?: "read_write" | "read_only" | null;
+  /** Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description. */
+  description?: string;
+  /** Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars. */
+  instructions?: string | null; // maxLength: 4096
+  /** Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only. */
+  mount_path?: string | null;
+  /** Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource. */
+  name?: string | null;
+}
+
+interface BetaManagedAgentsCacheCreationUsage {
+  /** Tokens used to create 1-hour ephemeral cache entries. */
+  ephemeral_1h_input_tokens?: number; // format: int32
+  /** Tokens used to create 5-minute ephemeral cache entries. */
+  ephemeral_5m_input_tokens?: number; // format: int32
+}
+
+interface BetaManagedAgentsServerToolUsage {
+  /** Number of server-executed web fetch requests. */
+  web_fetch_requests?: number; // format: int32
+  /** Number of server-executed web search requests. */
+  web_search_requests?: number; // format: int32
+}
+
+type BetaManagedAgentsExecutionIdentity = BetaManagedAgentsAWSRoleExecutionIdentity | BetaManagedAgentsServiceAccountExecutionIdentity;
+
+/** URL-based MCP server connection as returned in API responses. */
+interface BetaManagedAgentsMCPServerURLDefinition {
+  type: "url";
+  name: string;
+  url: string;
+}
+
+interface BetaManagedAgentsModelConfig {
+  /** The model that will power your agent. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
+  id: BetaManagedAgentsModel;
+  /** How hard Claude works on each inference call. One of `low`, `medium`, `high`, `xhigh`, `max`. Always present; resolved to the per-model default at save time when not supplied. */
+  effort?: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | BetaManagedAgentsEffortXhigh | BetaManagedAgentsEffortMax;
+  /** Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. */
+  inference_geo?: string;
+  /** Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Defaults to `standard`. Not all models support `fast`; invalid combinations are rejected at create time. */
+  speed?: "standard" | "fast";
+}
+
+type BetaManagedAgentsSessionMultiagent = BetaManagedAgentsSessionMultiagentCoordinator | BetaManagedAgentsSessionMultiagent20261001;
+
+/** A resolved Anthropic-managed skill. */
+interface BetaManagedAgentsAnthropicSkill {
+  type: "anthropic";
+  skill_id: string;
+  version: string;
+}
+
+/** A resolved user-created custom skill. */
+interface BetaManagedAgentsCustomSkill {
+  type: "custom";
+  skill_id: string;
+  version: string;
+}
+
+interface BetaManagedAgentsAgentToolset20260401 {
+  type: "agent_toolset_20260401";
+  configs: Array<BetaManagedAgentsAgentToolConfig>;
+  /** Resolved default configuration for agent tools. */
+  default_config: BetaManagedAgentsAgentToolsetDefaultConfig;
+}
+
+interface BetaManagedAgentsMCPToolset {
+  type: "mcp_toolset";
+  configs: Array<BetaManagedAgentsMCPToolConfig>;
+  /** Resolved default configuration for all tools from an MCP server. */
+  default_config: BetaManagedAgentsMCPToolsetDefaultConfig;
+  mcp_server_name: string;
+}
+
+/** A custom tool as returned in API responses. */
+interface BetaManagedAgentsCustomTool {
+  type: "custom";
+  description: string;
+  /** JSON Schema for custom tool input parameters. */
+  input_schema: BetaManagedAgentsCustomToolInputSchema;
+  name: string;
+}
+
+/** An AWS IAM role principal as returned in API responses. */
+interface BetaManagedAgentsAWSRoleExecutionIdentity {
+  type: "aws_role";
+  /** The IAM role's ARN. */
+  role_arn: string;
+}
+
+/** The Anthropic-managed service account as returned in API responses. */
+interface BetaManagedAgentsServiceAccountExecutionIdentity {
+  type: "service_account";
+}
+
+/** Resolved coordinator topology with full agent definitions for each roster member. */
+interface BetaManagedAgentsSessionMultiagentCoordinator {
+  type: "coordinator";
+  /** Full `agent` definitions the coordinator may spawn as session threads. */
+  agents: Array<BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor>;
+}
+
+/** Resolved multiagent configuration with three members, as copied to the `session` at creation. */
+interface BetaManagedAgentsSessionMultiagent20261001 {
+  type: "multiagent_20261001";
+  /** Whether the session's primary thread can consult an advisor model. */
+  advisor: BetaManagedAgentsMultiagentAdvisor;
+  /** Whether the agent can spawn session threads. */
+  subagents: BetaManagedAgentsSessionMultiagentSubagents;
+  /** Whether the agent can start workflow runs. */
+  workflows: BetaManagedAgentsSessionMultiagentWorkflows;
+}
+
 /** Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`. */
 interface BetaManagedAgentsSessionThreadAgent {
   type: "agent";
@@ -1125,6 +1095,81 @@ type BetaManagedAgentsMultiagentAdvisor = BetaManagedAgentsMultiagentAdvisorEnab
 type BetaManagedAgentsSessionMultiagentSubagents = BetaManagedAgentsSessionMultiagentSubagentsEnabled | BetaManagedAgentsMultiagentSubagentsDisabled;
 
 type BetaManagedAgentsSessionMultiagentWorkflows = BetaManagedAgentsSessionMultiagentWorkflowsEnabled | BetaManagedAgentsMultiagentWorkflowsDisabled;
+
+/** The session's primary thread can consult `model` mid-turn. */
+interface BetaManagedAgentsMultiagentAdvisorEnabled {
+  type: "enabled";
+  /** The advisor model id. */
+  model: string;
+}
+
+/** The agent has no advisor. */
+interface BetaManagedAgentsMultiagentAdvisorDisabled {
+  type: "disabled";
+}
+
+/** The agent can start workflow runs. */
+interface BetaManagedAgentsSessionMultiagentWorkflowsEnabled {
+  type: "enabled";
+  /** Whether a run's plan can define inline agents, which are not saved. */
+  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
+  /** Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use. */
+  predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
+}
+
+/** The agent cannot start workflow runs. */
+interface BetaManagedAgentsMultiagentWorkflowsDisabled {
+  type: "disabled";
+}
+
+/** The agent can spawn session threads. */
+interface BetaManagedAgentsSessionMultiagentSubagentsEnabled {
+  type: "enabled";
+  /** Whether the agent can define inline agents, which are not saved, when it spawns session threads. */
+  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
+  /** Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads. */
+  predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
+}
+
+/** The agent cannot spawn session threads. */
+interface BetaManagedAgentsMultiagentSubagentsDisabled {
+  type: "disabled";
+}
+
+type BetaManagedAgentsMultiagentInlineAgents = BetaManagedAgentsMultiagentInlineAgentsEnabled | BetaManagedAgentsMultiagentInlineAgentsDisabled;
+
+/** The agent can define inline agents. */
+interface BetaManagedAgentsMultiagentInlineAgentsEnabled {
+  type: "enabled";
+}
+
+/** The agent cannot define inline agents. */
+interface BetaManagedAgentsMultiagentInlineAgentsDisabled {
+  type: "disabled";
+}
+
+/** Resolved configuration for a specific MCP tool. */
+interface BetaManagedAgentsMCPToolConfig {
+  enabled: boolean;
+  name: string;
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+interface BetaManagedAgentsMCPToolsetDefaultConfig {
+  enabled: boolean;
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
+
+/** Configuration for a specific agent tool. */
+type BetaManagedAgentsAgentToolConfig = BetaManagedAgentsBashToolConfig | BetaManagedAgentsEditToolConfig | BetaManagedAgentsReadToolConfig | BetaManagedAgentsWriteToolConfig | BetaManagedAgentsGlobToolConfig | BetaManagedAgentsGrepToolConfig | BetaManagedAgentsWebFetchToolConfig | BetaManagedAgentsWebSearchToolConfig;
+
+interface BetaManagedAgentsAgentToolsetDefaultConfig {
+  enabled: boolean;
+  /** Permission policy for tool execution. */
+  permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy | BetaManagedAgentsAutoPolicy;
+}
 
 /** Configuration for the bash tool. */
 interface BetaManagedAgentsBashToolConfig {
@@ -1207,68 +1252,6 @@ interface BetaManagedAgentsWebSearchToolConfig {
   user_location?: BetaManagedAgentsUserLocation | null;
 }
 
-interface BetaManagedAgentsWebFetchURLSourcesParams {
-  /** Which custom tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be a custom tool in the same tools array. */
-  client_tool_results?: BetaManagedAgentsWebFetchURLSourceToolFilterParams | null;
-  /** Which of the web_search and web_fetch tools' results contribute URLs that may be fetched: "all" (the default), "none", or an only or except list. Each name in a list must be "web_search" or "web_fetch". */
-  server_tool_results?: BetaManagedAgentsWebFetchURLSourceToolFilterParams | null;
-  /** Whether URLs in the text of user messages may be fetched: "all" (the default) or "none". */
-  user_input?: BetaManagedAgentsWebFetchURLSourceUserInputParams | null;
-}
-
-interface BetaManagedAgentsUserLocation {
-  /** Location precision. Only "approximate" is supported. */
-  type: "approximate";
-  /** City name. */
-  city?: string | null; // minLength: 1, maxLength: 255
-  /** Two-letter ISO 3166-1 country code, uppercase. */
-  country?: string | null; // pattern: ^[A-Z]{2}$
-  /** Region or state name. */
-  region?: string | null; // minLength: 1, maxLength: 255
-  /** IANA timezone identifier, e.g. "America/Los_Angeles". */
-  timezone?: string | null; // minLength: 1, maxLength: 255
-}
-
-/** The session's primary thread can consult `model` mid-turn. */
-interface BetaManagedAgentsMultiagentAdvisorEnabled {
-  type: "enabled";
-  /** The advisor model id. */
-  model: string;
-}
-
-/** The agent has no advisor. */
-interface BetaManagedAgentsMultiagentAdvisorDisabled {
-  type: "disabled";
-}
-
-/** The agent can spawn session threads. */
-interface BetaManagedAgentsSessionMultiagentSubagentsEnabled {
-  type: "enabled";
-  /** Whether the agent can define inline agents, which are not saved, when it spawns session threads. */
-  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
-  /** Full `agent` definitions of the predefined agents, which are saved agents that this agent can spawn as session threads. */
-  predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
-}
-
-/** The agent cannot spawn session threads. */
-interface BetaManagedAgentsMultiagentSubagentsDisabled {
-  type: "disabled";
-}
-
-/** The agent can start workflow runs. */
-interface BetaManagedAgentsSessionMultiagentWorkflowsEnabled {
-  type: "enabled";
-  /** Whether a run's plan can define inline agents, which are not saved. */
-  inline_agents: BetaManagedAgentsMultiagentInlineAgents;
-  /** Full `agent` definitions of the predefined agents, which are saved agents that a run's plan can use. */
-  predefined_agents: Array<BetaManagedAgentsSessionThreadAgent>;
-}
-
-/** The agent cannot start workflow runs. */
-interface BetaManagedAgentsMultiagentWorkflowsDisabled {
-  type: "disabled";
-}
-
 interface BetaManagedAgentsWebFetchURLSources {
   /** Which custom tools' results contribute URLs that may be fetched. Null when not set, which allows every custom tool's results. */
   client_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
@@ -1276,61 +1259,5 @@ interface BetaManagedAgentsWebFetchURLSources {
   server_tool_results: BetaManagedAgentsWebFetchURLSourceToolFilter | null;
   /** Whether URLs in the text of user messages may be fetched. Null when not set, which allows them. */
   user_input: BetaManagedAgentsWebFetchURLSourceUserInput | null;
-}
-
-type BetaManagedAgentsWebFetchURLSourceToolFilterParams = BetaManagedAgentsWebFetchURLSourceShorthand | BetaManagedAgentsWebFetchURLSourceToolFilter;
-
-type BetaManagedAgentsWebFetchURLSourceUserInputParams = BetaManagedAgentsWebFetchURLSourceShorthand | BetaManagedAgentsWebFetchURLSourceUserInput;
-
-type BetaManagedAgentsMultiagentInlineAgents = BetaManagedAgentsMultiagentInlineAgentsEnabled | BetaManagedAgentsMultiagentInlineAgentsDisabled;
-
-/** Which tools' results contribute URLs that may be fetched. */
-type BetaManagedAgentsWebFetchURLSourceToolFilter = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone | BetaManagedAgentsWebFetchURLSourceOnly | BetaManagedAgentsWebFetchURLSourceExcept;
-
-/** Whether URLs in the text of user messages may be fetched. */
-type BetaManagedAgentsWebFetchURLSourceUserInput = BetaManagedAgentsWebFetchURLSourceAll | BetaManagedAgentsWebFetchURLSourceNone;
-
-/** String form of a url_sources value that has no field other than its type: "all" means {"type": "all"} and "none" means {"type": "none"}. */
-type BetaManagedAgentsWebFetchURLSourceShorthand = "all" | "none";
-
-/** The agent can define inline agents. */
-interface BetaManagedAgentsMultiagentInlineAgentsEnabled {
-  type: "enabled";
-}
-
-/** The agent cannot define inline agents. */
-interface BetaManagedAgentsMultiagentInlineAgentsDisabled {
-  type: "disabled";
-}
-
-/** Every URL from this source may be fetched. This is the default. */
-interface BetaManagedAgentsWebFetchURLSourceAll {
-  type: "all";
-}
-
-/** This source contributes no URLs that may be fetched. */
-interface BetaManagedAgentsWebFetchURLSourceNone {
-  type: "none";
-}
-
-/** Only the named tools' results contribute URLs that may be fetched. */
-interface BetaManagedAgentsWebFetchURLSourceOnly {
-  type: "only";
-  /** The tools whose results contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "none" to allow no tool's results. */
-  tools: Array<BetaManagedAgentsWebFetchURLSourceToolReference>;
-}
-
-/** Every tool's results contribute URLs that may be fetched, except the named tools' results. */
-interface BetaManagedAgentsWebFetchURLSourceExcept {
-  type: "except";
-  /** The tools whose results do not contribute. Between 1 and 128 entries, each with a different name. An empty list is rejected; use "all" to leave out no tool's results. */
-  tools: Array<BetaManagedAgentsWebFetchURLSourceToolReference>;
-}
-
-interface BetaManagedAgentsWebFetchURLSourceToolReference {
-  /** Must be "tool_reference". */
-  type: "tool_reference";
-  /** Name of the tool. Compared exactly, so upper and lower case letters are different. */
-  name: string; // minLength: 1, maxLength: 128
 }
 ```
