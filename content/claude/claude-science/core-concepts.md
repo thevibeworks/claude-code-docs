@@ -46,7 +46,26 @@ Claude might choose to propose a plan before starting multi-step work. You appro
 
 ## Sandbox
 
-All code Claude writes runs inside an operating-system sandbox on your computer. The sandbox can read and write only the workspace and the folders you've granted. Its network is deny-by-default: outbound connections go through a local proxy that allows only package managers, the scientific databases behind Featured connectors, and hosts you've approved.
+By default, Claude's code runs inside an operating-system sandbox on your computer, except steps you approve to run outside it, such as jobs on remote compute. The sandbox's network is deny-by-default: outbound connections go through a local proxy that allows only package managers, the scientific databases behind Featured connectors, and hosts you or your organization have approved.
+
+The sandbox lets code write to these locations and, on macOS and Linux, nowhere else by default:
+
+* Folders where you've [granted](#permission-cards) **Read & write** access
+* Folders that Claude Science provides, such as the session's [workspace folder](#projects-and-sessions) and the project's [artifacts](https://claude.com/docs/claude-science/artifacts.md) folder
+* Temporary storage, which is the shared `/tmp` folder on macOS and private folders on Linux and Windows
+
+The sandbox is designed to block reads of your home directory, apart from folders you've granted and folders that Claude Science needs to run the code, such as workspace folders, [artifacts](https://claude.com/docs/claude-science/artifacts.md), saved tool results, and [conda environments](https://claude.com/docs/claude-science/tools-and-environments.md). These folders can belong to other sessions and projects:
+
+* Code can read the artifacts of all your projects and the saved tool results of all your sessions, which can include copies of earlier messages from long conversations.
+* On macOS, code can also read the workspace folders of all your sessions.
+
+These rules limit what code can read, but they aren't a guarantee. Don't rely on the sandbox alone to protect sensitive files on your computer, including in your home directory, and keep Claude Science up to date, because new versions include sandbox fixes.
+
+Outside your home directory, code can read these locations without a grant:
+
+* **macOS**: most locations your account can read, such as `/Applications` and `/Users/Shared`, and the parts of other people's home folders that macOS lets your account read. Code isn't allowed to read external drives and network shares mounted under `/Volumes`, other than Claude Science's own folders if its data folder is on one. You can't grant folders there. Code can read a drive or network share that's mounted outside both `/Volumes` and your home directory, if your account can.
+* **Linux**: system directories such as `/usr`, `/opt`, and `/nix`, and a fixed set of configuration files and folders in `/etc`. By default, code can't read other locations, apart from Claude Science's own folders, unless you grant them.
+* **Windows**: locations that Windows makes readable to every sandboxed app, such as `C:\Windows` and `C:\Program Files`. Code can also read the environment variables saved for your Windows account, so don't store secrets such as API keys in them.
 
 ## Delegation
 

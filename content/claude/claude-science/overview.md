@@ -10,7 +10,7 @@ Claude Science is a desktop application that pairs Claude with an analysis envir
 
 You describe a research task or analysis in plain language; Claude writes and runs Python, R, or shell code in a sandbox, reads the folders you grant it, pulls data from scientific databases through connectors, and saves results as versioned artifacts with a full provenance record. A background reviewer can check Claude's claims against the work that was actually run.
 
-Your files stay on your computer, and code runs in a sandbox. You approve each new folder, network host, and remote job before Claude can use it.
+Your files stay on your computer, and code runs in a sandbox. By default, Claude's code needs your approval before it uses a folder or network host outside the [sandbox's limits](https://claude.com/docs/claude-science/core-concepts.md#sandbox), and remote jobs run only with your approval.
 
 > [!NOTE]
 >

@@ -42,7 +42,7 @@ Auto mode in Claude Science checks:
 Even when auto mode is on, Claude Science still asks permission for:
 
 * Network access
-* Access to files outside the session's workspace folder
+* Access to files outside the session's workspace folder, other than [what the sandbox's rules let code read or write](https://claude.com/docs/claude-science/core-concepts.md#sandbox)
 * Remote compute
 * Claude Science's package and environment tools
 * Any tool you set to **Ask each time**
