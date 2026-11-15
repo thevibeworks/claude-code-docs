@@ -38,7 +38,7 @@ One-sentence definitions for the terms you meet in Claude Science, from artifact
 
 **[Reviewer](https://claude.com/docs/claude-science/the-reviewer.md)**: the independent agent that re-examines Claude's claims and artifacts at checkpoints, recording each issue it raises as a finding on the artifact's Review tab; on some plans it runs in the background automatically.
 
-**Sandbox**: the isolated environment all of Claude's code runs in; reaching outside it needs your approval.
+**[Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)**: the isolated environment that Claude's code runs in by default, which limits the files it can read and change and the network hosts it can reach.
 
 **Scope**: how long an approval lasts (Once, This conversation, This project, or Global), with every standing grant listed and revocable under Settings > Permissions.
 
