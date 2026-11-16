@@ -30,7 +30,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794777300&amp;signature=1d9fe69ea8896bec9feb80d578470a9e517b1a3559ffb14b177a1f6598c10529&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZK%2B4W0gN0ADj5oqFABzqIO2wa%2FF8sXz7S6%0Ai1afjLDqb0UckTbNSKk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1794816900&amp;signature=f042247d1ec74d75046ca66061c9854df558807671c41fe8b73052d97f9a33af&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZMZF%2FYS%2BgN0ADj5oqFDo3JwzXafAx9Y%2BOlZY%0AL8x%2F2RbnaMPlp5dKabY%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -64,7 +64,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794777300&amp;signature=cf31298bb293417562702f2faca97f62ba55d4a959fc7d0fb6fa4b99703f41fa&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2J3jyvv7A4lHPBihAWdGga%2BYKYdCChVLZTJ%0A3voZyG2c5EzDZNn56rk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1794816900&amp;signature=acb6a6e5014c197f49b4a9e3c75addcd0fb4dcefdd876f95da5b7c4ccabb1429&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nq2J4iSrl7A4lHPBihAUp0SF65QttbaGqMXJF%0ApMXK0pP%2BH5CbRKrtSP4%3D%0A)
 
 ### Permission options
 

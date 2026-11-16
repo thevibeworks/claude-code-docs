@@ -110,6 +110,19 @@ An MCP server in a remote session runs on the device or on the host, depending o
 * **Servers bundled in any other plugin that Claude Desktop copies to the host**: the host. The engine starts the plugin's local servers there, and connects to its remote MCP servers from there.
 * **Servers in Claude Code's own configuration on the host**: the host. The engine reads files such as `~/.claude.json` in the SSH user's home directory and a project's `.mcp.json`, and starts their local servers and connects to their remote MCP servers from there.
 
+Claude Desktop starts a managed local (stdio) server on the device, so its tools read and write the device's files, while the session's own file edits and commands run on the host. If a local server that only Code sessions use has to work on the session's files, deliver it in a plugin from one of your [plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin) instead of in `managedMcpServers`. Claude Desktop copies the plugin to the host, which needs [SFTP](#hosts-without-sftp), and the engine starts the server there. In a local Code session, the engine starts it on the device, so its command has to work on both.
+
+Before you move a server, check the following:
+
+* **Your MCP keys**: this works only with `isLocalDevMcpEnabled` at `true` and `allowedPluginMcpServers` unset. Otherwise, the session refuses a plugin's local servers.
+* **The last managed server**: if you remove your last server from `managedMcpServers`, Code sessions again load the MCP servers that users define in Claude Code's own configuration.
+* **Tool policy**: `toolPolicy` doesn't move with the server. To keep it, see [Plugin structure](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-structure).
+* **Users**: with `installationPreference` set to `"required"`, users can't turn off the plugin in the app, but they can in their own Claude Code settings.
+* **Secrets**: a secret in the plugin's `.mcp.json` file reaches every device that installs the plugin and every host where a user starts a remote session.
+* **The host's policy**: a [`managed-mcp.json`](https://code.claude.com/docs/en/managed-mcp) file on the host, or `disableSideloadFlags`, `allowedMcpServers`, or `deniedMcpServers` in its Claude Code managed settings, or a setup in which your organization starts Claude Code on the host itself, can keep the server out.
+
+A copy of the server in Claude Code's own configuration on the host is no substitute. The engine never loads a server there that has a managed server's name, and the session shows no message about it.
+
 With the device's OpenSSH client, the user's first message can wait up to ten seconds, with the line `Setting up your MCP servers on <host>…` under it. This can happen after a session starts, and after a quit, once Claude Desktop rejoins the running engine. Claude Desktop is handing the engine the local servers that the user added under **Settings > Developer**. If the engine doesn't get them in time, the message goes anyway, and the conversation shows `This message went without your MCP servers. If you need them, send it again once they're connected.` If the task needs those servers, have the user wait until Claude finishes responding, then send the message again. Requires Claude Desktop 4.4212.0 or later.
 
 [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled), `managedMcpServers`, `allowedPluginMcpServers`, and `deniedPluginMcpServers` decide which of these servers a remote session loads, as they do for a local Code session (see [Applied as managed policy](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy)). If the host has its own Claude Code managed settings, those take precedence over the Claude Code policy these keys produce (see [Managed configuration on the remote host](#managed-configuration-on-the-remote-host)).
@@ -712,6 +725,8 @@ SSH connected, but Claude Desktop couldn't place or start the remote server or t
 * **`[SETUP_DIR_NOEXEC]`**: on a [host without SFTP](#hosts-without-sftp), the host didn't run a test program from `~/.claude/remote` in the SSH user's home directory, so the app didn't copy the remote server. A home directory mounted `noexec` and a restricted login shell are two causes. Have the host's administrator let the SSH user run programs from `~/.claude/remote`.
 * **`[SERVER_NOT_RUNNABLE]`**: the remote server didn't run from `~/.claude/remote` in the SSH user's home directory, or stopped before it answered. A home directory mounted `noexec` is one cause, and security software on the host that keeps programs from running there is another. Have the host's administrator check that programs can run from that folder. Before Claude Desktop 4.4212.0, the code appears only on a [host without SFTP](#hosts-without-sftp).
 * **`[DOWNLOAD_BUSY]`**: Anthropic's download server answered that it is busy, so Claude Desktop couldn't download the engine or the remote server to the device. Claude Desktop has already waited and asked again. Have the user try again in a few minutes. If the code keeps coming back, check whether a proxy on the device's network limits downloads from `downloads.claude.ai`, because a proxy can give the same answer.
+* **`[DOWNLOAD_FAILED]`, or `Couldn't prepare the deploy locally` with a network code such as `[ETIMEDOUT]`**: the device couldn't download one of the programs that it puts on the host. In the message, `(server binary)` stands for the remote server and `(cli archive)` for the engine. Have the user check the device's internet connection. If your network blocks `downloads.claude.ai`, allow it. If you can't, and your SSH hosts run Linux on x64 or arm64, install Claude Desktop with the [offline installer](https://claude.com/docs/third-party/claude-desktop/installation.md#ssh-remote-sessions-with-the-offline-installer), which bundles the remote server and the engine for those hosts.
+* **`[DOWNLOAD_GOT_WEB_PAGE]`**: a web page came back in place of the download. If the device's network has a sign-in page, have the user sign in. If a proxy answers `downloads.claude.ai` with a block page, allow that address or use the offline installer, as for `[DOWNLOAD_FAILED]`.
 
 `[SESSION_LIMIT]` and `[SFTP_NOT_STARTED]` require Claude Desktop 2.31226.0 or later. `[SFTP_NOT_STARTED]` appears only when the device's OpenSSH client makes the connection. Their cards are titled `<host> allows too few SSH sessions per connection` and `SFTP doesn't start on <host>`.
 
@@ -724,6 +739,8 @@ Before Claude Desktop 4.29.0, the `[EXEC_NO_INPUT]` card is titled `<host> doesn
 `[SETUP_DIR_NOEXEC]` and `[SERVER_NOT_RUNNABLE]` require Claude Desktop 3.1623.0 or later. Their card is titled `Ask <host>'s administrator to let Claude's server run`.
 
 `[DOWNLOAD_BUSY]` requires Claude Desktop 4.4212.0 or later, and its card is titled `Try again in a few minutes`. Before Claude Desktop 4.4212.0, the card for `[SETUP_DIR_NOEXEC]` and `[SERVER_NOT_RUNNABLE]` is titled `Claude's server didn't run on <host>`.
+
+`[DOWNLOAD_GOT_WEB_PAGE]` requires Claude Desktop 4.16336.0 or later, and its card is titled `Sign in to your network, or ask IT to allow the download`. From the same version, the `[DOWNLOAD_FAILED]` card is titled `Check your internet connection, or ask IT to allow the download`.
 
 ### Git commands fail with Read-only file system
 

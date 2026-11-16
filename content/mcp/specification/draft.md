@@ -76,8 +76,10 @@ Clients may offer the following features to servers:
 
 Beyond the core protocol, MCP defines optional [extensions](https://modelcontextprotocol.io/extensions/overview.md)
 that add modular, specialized, or experimental functionality. Extensions
-are always opt-in and require explicit support from both client and server, negotiated
-during initialization. Notable extensions include:
+are always opt-in and require explicit support from both client and server, [negotiated
+through capabilities](https://modelcontextprotocol.io/extensions/overview.md#negotiation) that clients declare on each
+request and servers declare in their `server/discover` result.
+Notable extensions include:
 
 * **[Tasks](https://modelcontextprotocol.io/extensions/tasks/overview.md)**: Asynchronous execution of long-running
   operations, with polling, mid-flight input, and durable handles

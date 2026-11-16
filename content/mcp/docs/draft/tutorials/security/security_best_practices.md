@@ -37,6 +37,10 @@ authorization codes without proper user consent by exploiting the
 combination of static client IDs, dynamic client registration, and
 consent cookies.
 
+> [!NOTE]
+>
+> Dynamic Client Registration is [deprecated](https://modelcontextprotocol.io/specification/draft/deprecated.md) as of protocol version `2026-07-28`. The attack still applies to MCP proxy servers that support it.
+
 #### Terminology
 
 **MCP Proxy Server**

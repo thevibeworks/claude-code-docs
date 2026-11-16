@@ -24,7 +24,7 @@ The MCP Inspector web client after a tool call, with the monitoring sidebar pinn
 
 ## Quickstart
 
-The Inspector requires **Node 22.19.0 or newer** and runs directly through `npx`. No installation is required:
+The Inspector requires **Node.js 22.23.4+, 24.22.1+, or 26.12.1+** and runs directly through `npx`. No installation is required:
 
 > [tab] Web
 >
