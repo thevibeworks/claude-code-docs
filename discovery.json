@@ -4,7 +4,7 @@
   "updated": "2026-11-16",
   "domains": {
     "anthropic.com": {
-      "status": "frozen",
+      "status": "fetched: /legal/ only, rest frozen",
       "serves_llms_txt": false,
       "serves_sitemap": true,
       "serves_markdown": false
