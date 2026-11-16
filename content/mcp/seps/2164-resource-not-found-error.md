@@ -105,3 +105,6 @@ This changes what is specified — the current spec recommends `-32002`, and thi
 ## Security Implications
 
 None. This change only affects error code values, not access control or data exposure.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

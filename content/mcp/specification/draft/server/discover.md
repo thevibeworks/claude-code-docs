@@ -106,3 +106,6 @@ A discovery result includes:
 > protocol. It is intended for display, logging, and debugging. Clients **SHOULD
 > NOT** use it to change their behavior, and **SHOULD NOT** rely on it for
 > security decisions.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

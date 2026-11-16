@@ -77,3 +77,6 @@ A reference implementation can be provided by updating the MCP core library to e
 ## Security Implications
 
 None. Standardizing tool name format does not introduce new security risks.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

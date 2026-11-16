@@ -129,6 +129,23 @@ For **Request headers**, add fixed credentials such as API keys that Claude send
 
 Change **Advanced > Transport** only if the server's documentation says to. A URL ending in `/sse` selects the older SSE transport.
 
+#### Add the GitHub MCP server
+
+The settings that work for GitHub's remote MCP server depend on which of its URLs you enter:
+
+* **Base URL `https://api.githubcopilot.com/mcp/`**: you don't register an OAuth client. People sign in to GitHub through a client that Anthropic has already registered with GitHub
+* **A toolset or read-only URL**, such as `https://api.githubcopilot.com/mcp/x/issues` or a GitHub MCP server URL ending in `/readonly`: these URLs need a GitHub App that you register yourself, entered with both its client ID and its client secret
+* **Read-only tools without a GitHub App**: if your **Add custom connector** dialog has a **Request headers** section, enter the base URL, then in that section choose **Custom header** and enter `X-MCP-Readonly` as the name and `true` as the value, as described in [Authenticate with request headers](#authenticate-with-request-headers). GitHub's server then limits the connector to its read-only tools for everyone who uses it
+
+To register the GitHub App for a toolset or read-only URL:
+
+1. In GitHub's developer settings for your account or organization, [register a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app) with `https://claude.ai/api/mcp/auth_callback` as its callback URL.
+2. Generate a client secret for the App, and copy it along with the client ID.
+3. Install the GitHub App on each GitHub organization or account whose repositories people need to reach. Installing it on an organization needs the approval of one of that organization's admins.
+4. In the **Add custom connector** dialog, under **OAuth client**, choose **Use your own OAuth client** and enter both the client ID and the client secret. GitHub doesn't issue a token without the secret, so a connector with only a client ID fails when people sign in.
+
+To stop Claude from using write tools on a GitHub connector that's already added, each person can set those tools to **Blocked** under [**Tool permissions**](https://claude.com/docs/connectors/getting-started.md#manage-or-disconnect-a-connector) on the connector's page.
+
 ### Authenticate with request headers
 
 > [!NOTE]

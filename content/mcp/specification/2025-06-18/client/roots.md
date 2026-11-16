@@ -186,3 +186,6 @@ Example error:
    * Handle root list changes gracefully
    * Respect root boundaries in operations
    * Cache root information appropriately
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

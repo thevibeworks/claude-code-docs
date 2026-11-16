@@ -57,3 +57,6 @@ Yes, custom metadata under `_meta.io.modelcontextprotocol.registry/publisher-pro
 ### What if I need to report a security vulnerability in the registry itself?
 
 Follow [the MCP community SECURITY.md](https://github.com/modelcontextprotocol/.github/blob/main/SECURITY.md).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

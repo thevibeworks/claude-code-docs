@@ -121,3 +121,6 @@ To take on a bigger role, see the [Contributor Ladder](https://modelcontextproto
 * [Disclose](https://modelcontextprotocol.io/community/policies.md#ai-assisted-contributions) any AI assistance in the pull request or issue.
 * AI agents must follow [AGENTS.md](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/AGENTS.md), which limits when they can open issues and pull requests.
 * Contributions are [licensed](https://modelcontextprotocol.io/community/policies.md#licensing-and-intellectual-property) under Apache-2.0 for code and specifications and CC-BY-4.0 for other documentation.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

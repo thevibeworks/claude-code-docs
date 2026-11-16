@@ -234,3 +234,6 @@ While not a requirement, sampling is designed to allow human-in-the-loop control
 **Configuration options**: Users can set model preferences, configure auto-approval for trusted operations, or require approval for everything. Clients may provide options to redact sensitive information.
 
 **Security considerations**: Both clients and servers must handle sensitive data appropriately during sampling. Clients should implement rate limiting and validate all message content. The human-in-the-loop design ensures that server-initiated AI interactions cannot compromise security or access sensitive data without explicit user consent.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

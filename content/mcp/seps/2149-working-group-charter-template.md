@@ -437,3 +437,6 @@ This SEP is implemented by:
 2. `docs/community/charter-template.mdx` — copyable charter template (Part 2) linked from the above
 3. Both pages added to `docs/docs.json` under the Community → Governance navigation group
 4. Existing WGs and IGs must create conforming charters at `docs/community/<name>/charter.mdx` within 8 weeks of acceptance
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

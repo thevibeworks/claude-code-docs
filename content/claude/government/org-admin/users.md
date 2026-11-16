@@ -54,11 +54,7 @@ Changing a user's tier takes effect on their very next request. If you move some
 
 Every [seat tier](https://claude.com/docs/government/org-admin/seat-tiers.md) sets a **5-hour** and a **7-day** spend limit for each user. When a user reaches either limit, further requests are refused until that limit resets. The **Usage** bars on a user's card show how much of the user's 5-hour and 7-day spend limits are currently used. Hover over the bars to see when each limit resets.
 
-If a user on a self-managed tier has hit a limit and you want them to continue working immediately, use **Reset usage limits** in the **…** menu on their card. This clears both of their current windows so their next request is admitted. Their usage still shows on the [Analytics](https://claude.com/docs/government/org-admin/analytics.md) page.
-
-> [!NOTE]
->
-> You cannot reset limits for users on [Anthropic-managed tiers](https://claude.com/docs/government/org-admin/seat-tiers.md#anthropic-managed-versus-self-managed-tiers).
+If a user has hit a limit and you want them to continue working immediately, use **Reset usage limits** in the **…** menu on their card. The action appears only while the [**Let organizations manage their own seat tiers**](https://claude.com/docs/government/config/settings.md#let-organizations-manage-their-own-seat-tiers) setting is on, which a tenant administrator can change. You cannot reset limits for users on [Anthropic-managed tiers](https://claude.com/docs/government/org-admin/seat-tiers.md#anthropic-managed-versus-self-managed-tiers). A reset clears what the user has used of both limits. Their usage still shows on the [Analytics](https://claude.com/docs/government/org-admin/analytics.md) page.
 
 ## Sign out everywhere
 

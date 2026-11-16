@@ -419,3 +419,6 @@ land directly in `draft/` when this SEP reaches Final.
 [nodejs-deprecation]: https://nodejs.org/api/deprecations.html
 
 [rfc-8996]: https://www.rfc-editor.org/rfc/rfc8996
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

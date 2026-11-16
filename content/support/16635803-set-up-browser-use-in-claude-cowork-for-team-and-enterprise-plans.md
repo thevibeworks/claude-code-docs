@@ -18,7 +18,7 @@ The new Claude experience, which combines chat and Cowork, is rolling out to Pro
 
 - **Claude in Chrome.** Claude works in the user's own Chrome browser through the Claude in Chrome extension, on the page they're already on, with the accounts they're already signed in to. Your users' browsers need the extension deployed or installed. Cowork sessions on web and mobile can also use Claude in Chrome when it's the user's preferred browser.
 
-Both run the same safety layers: per-site permission prompts before Claude acts on a new site, a blocklist for high-risk sites, and safety checks on every action. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)** and **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)**.
+Both run the same safety layers: per-site permission prompts before Claude acts on a new site, a blocklist for high-risk sites, and safety checks on every action. Those automated checks can see the latest screenshot, and Anthropic can keep a copy of that screenshot in its record of the check. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)** and **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)**.
 
 You can enable one, both, or neither.
 
@@ -28,19 +28,33 @@ You can enable one, both, or neither.
 
 - **Enterprise plans:** On by default unless you've turned it off.
 
-  - In organizations that have enabled HIPAA, the built-in browser stays off until an owner turns it on in **Organization settings > Cowork**. With the **[HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, the built-in browser isn't available, and no setting turns it on.
+  - In organizations that have enabled HIPAA, the built-in browser stays off until an owner turns it on in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**. With the **[HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, the built-in browser isn't available, and no setting turns it on.
 
 To turn the built-in browser on or off for your organization:
 
 1. Sign in to Claude as an Owner or Primary Owner.
 
-2. Navigate to **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**.
+2. Navigate to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
 
 3. Find **Built-in browser** and turn it on or off.
 
-When the built-in browser is off, users can't open it and Claude can't use it. This setting doesn't affect Claude in Chrome or the browser in Claude Code.
+When the built-in browser is off, users can't open it and Claude can't use it. This setting doesn't affect Claude in Chrome. It also covers the browser in Claude Code: while it's off, that browser on the latest desktop app opens only local development servers.
 
 **Note:** On Enterprise plans, users aren't notified automatically when you turn the built-in browser on. You may want to communicate availability through your internal channels.
+
+## Allow or block cookie import
+
+Users can import cookies and site data from another browser on their computer, so sites open already signed in. Cookie import is on by default on Team and Enterprise plans. In organizations that have enabled HIPAA, it stays off until an owner turns it on.
+
+To turn cookie import on or off:
+
+1. Navigate to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
+
+2. Under **Built-in browser**, turn **Import cookies from other browsers** on or off. This setting appears only while **Built-in browser** is on.
+
+When it's off, users don't see any option to import cookies, and the desktop app refuses an import. They can still sign in to sites directly. Cookies and site data imported earlier stay until the user clears their browsing data or they expire. A change can take up to an hour to reach a desktop app that's already running.
+
+If your organization has the Compliance API turned on, changes to this setting are recorded there as `built_in_browser_data_import_enabled`. They don't appear as their own event in the audit log export.
 
 ## Enable or disable Claude in Chrome
 

@@ -20,10 +20,10 @@ Use the guidelines to [pick a display mode](#display-modes), [adapt to mobile](#
 
 ## Design for the conversation
 
-Design your app as an extension of the conversation rather than a separate app that appears alongside it. Your app inherits conversational context and helps users accomplish meaningful tasks without breaking flow. These principles follow from that:
+Design your app as an extension of the conversation rather than a separate app that appears alongside it. Your app helps users accomplish meaningful tasks without breaking flow. These principles follow from that:
 
 * **Conversational**: fit naturally into dialogue, and don't force users to learn new interaction patterns
-* **Contextual**: use conversation history to inform what you display and when
+* **Contextual**: use the arguments that Claude passes to your tool to inform what you display and when
 * **Integrated**: inherit styling and conventions from the containing environment
 * **Adaptive**: handle variable sizing, mobile viewports, and diverse accessibility needs gracefully
 
@@ -137,7 +137,6 @@ Full screen mode has these constraints:
 * A fullscreen request from your app opens the side panel where there is one, and users go on to full screen from the panel
 * The composer is always visible, so design your UX to work with it
 * No floating panels, so use collapsible sidebars, tabs, or pagination to disclose details
-* The chat sheet maintains conversational context
 
 On mobile, your app fills the entire screen with the chat input and navigation bar overlaid on top, so keep critical UI within the safe area. Use the full viewport width, and support both portrait and landscape where it makes sense.
 
@@ -145,7 +144,9 @@ On mobile, your app fills the entire screen with the chat input and navigation b
 
 ## Mobile guidelines
 
-MCP Apps on mobile follow the same principles as on web, but the constrained viewport and touch-based interaction require specific adaptations. On mobile, Claude renders apps in a native WebView, `WKWebView` on iOS and `WebView` on Android, rather than a sandboxed iframe. Apps on mobile have no camera, microphone, or location access, and users must add a connector on web or desktop before it appears on mobile.
+MCP Apps on mobile follow the same principles as on web, but the constrained viewport and touch-based interaction require specific adaptations. On mobile, Claude renders apps in a native WebView, `WKWebView` on iOS and `WebView` on Android.
+
+On Android, apps have no camera, microphone, or location access. On iOS, an app that requests the camera or the microphone in `_meta.ui.permissions` can use it after the user allows it. A view that Claude allows to embed a site [can't use either](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md#device-features-in-views-that-embed-sites). Claude on mobile doesn't report these features in `app.getHostCapabilities()?.sandbox?.permissions`, so call the browser API, such as `getUserMedia()`, without checking that field, and handle a refusal.
 
 ### Host context for layout
 
@@ -275,6 +276,44 @@ Use monochromatic, outlined icons that match the host's icon color tokens. Icons
 
 ![Icon style examples](https://mintcdn.com/claude-ai/IXMfN0TT8kfXbN6T/images/mcp-apps/icons.png?fit=max\&auto=format\&n=IXMfN0TT8kfXbN6T\&q=85\&s=1454f1f3e5e13107cbe543e8d6d617df)
 
+### Declare an app icon for Claude
+
+Claude can show an icon of your own for an MCP App, in place of your connector's icon or your listing's logo. The icon can appear in the title bar over a view in the side panel and in full screen. Where the app has an [entry point](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md), the icon can also appear on the app's tile on the [**Artifacts**](https://claude.ai/artifacts) page. Declared icons aren't available in every organization or conversation.
+
+Declare the icon in the `icons` list of your server's `serverInfo`, as an inline `data:` URI:
+
+```ts theme={null}
+import { readFileSync } from "node:fs";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+
+const icon = {
+  src: `data:image/png;base64,${readFileSync("icon.png").toString("base64")}`,
+  mimeType: "image/png",
+};
+
+const server = new McpServer({
+  name: "board",
+  version: "1.0.0",
+  icons: [icon],
+});
+```
+
+Your server's `initialize` result then holds the icon in `serverInfo.icons`.
+
+These have to hold:
+
+* **Source**: an inline `data:` URI in `src`. Claude doesn't fetch an icon from a URL. An `https:` entry for other clients can stay in the list, after the inline one
+* **Format**: `data:image/png;base64,` or `data:image/jpeg;base64,`. Claude removes an inline SVG entry from `serverInfo`
+* **Size**: keep the icon to 64 to 128 px and under 10 KB. Declare one inline icon in `serverInfo`, where the whole object, icons included, can take about 16,000 characters of JSON. Beyond that, Claude drops all of it
+* **Connector**: the connector has a [Verified](https://claude.com/docs/connectors/verification.md#verified) listing, or it's a custom connector whose address matches no directory listing
+* **Names**: the tool's [title](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md#set-the-title-name-and-description-of-the-marked-tool), and a custom connector's name, leave out Claude's name and Anthropic's name
+
+When no declared icon meets the requirements, Claude shows the listing's logo or the connector's icon, and shows no error. If your icon meets the requirements and doesn't appear, your organization may not have access, or the conversation may not offer it.
+
+To give each app its own icon, add an `icons` list to the tool that opens the app, in your server's `tools/list` result. Claude uses the tool's icon before the server's. To check that the field is there, [list your server's tools](https://claude.com/docs/connectors/building/testing.md#validate-with-mcp-inspector).
+
+Version 1 of the TypeScript SDK (`@modelcontextprotocol/sdk`), which the [quickstart](https://claude.com/docs/connectors/building/mcp-apps/quickstart.md) uses, doesn't send a tool's `icons` through `registerTool` or `registerAppTool`. With it, use `serverInfo`, which gives all your apps one icon, or answer `tools/list` yourself. Version 2 (`@modelcontextprotocol/server`) sends them through `registerTool`, and through `registerAppTool` in JavaScript.
+
 ### Spacing
 
 Maintain generous padding and logical groupings. Balance information density with readability, adapting to viewport constraints.
@@ -306,6 +345,8 @@ Push these to the chat input:
 * Anything that benefits from Claude's interpretation
 
 If the interaction requires language understanding or generates a response from Claude, it goes through chat. If it's a direct UI action on content your app already controls, handle it in the app.
+
+When your app loads again, it starts from your HTML, so store on your server anything that you need to keep.
 
 ### Reveal complexity progressively
 

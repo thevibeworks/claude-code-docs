@@ -731,3 +731,6 @@ protocol version 2024-11-05) as follows:
        transport for all subsequent communication.
 
 [lifecycle-compat]: https://modelcontextprotocol.io/specification/draft/basic/versioning.md#backward-compatibility-with-initialization-based-versions
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

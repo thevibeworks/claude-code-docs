@@ -439,3 +439,6 @@ For a fleet:
 > [card] [Connect to local servers](https://modelcontextprotocol.io/docs/2026-07-28/develop/connect-local-servers.md)
 >
 > Set up local servers in your client — the workflow this guide secures
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

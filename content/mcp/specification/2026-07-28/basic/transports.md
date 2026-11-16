@@ -87,3 +87,6 @@ counterpart's era and fall back as described in
 [Versioning: Backward Compatibility](https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning.md#backward-compatibility-with-initialization-based-versions),
 which includes a compatibility matrix for implementors. Each binding page
 describes its transport-specific detection mechanics.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

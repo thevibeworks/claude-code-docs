@@ -63,3 +63,6 @@ This change is fully backward compatible. It introduces a new authorization flow
 ### Security Implications
 
 The specification refers to the existing OAuth security guidance.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

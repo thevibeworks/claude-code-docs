@@ -324,3 +324,6 @@ No new security concerns are introduced by deprecation.
 
 No reference implementation is required. This SEP only marks existing
 functionality as deprecated — no new protocol behavior is introduced.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

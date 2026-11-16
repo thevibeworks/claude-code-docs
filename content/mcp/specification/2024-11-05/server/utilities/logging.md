@@ -138,3 +138,6 @@ Servers **SHOULD** return standard JSON-RPC errors for common failure cases:
    * Validate all data fields
    * Control log access
    * Monitor for sensitive content
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

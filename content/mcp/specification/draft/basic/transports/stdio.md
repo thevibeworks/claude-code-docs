@@ -159,3 +159,6 @@ and a compatibility matrix for implementors.
 [unsupported-version]: https://modelcontextprotocol.io/specification/draft/schema.md#unsupportedprotocolversionerror
 
 [lifecycle-compat]: https://modelcontextprotocol.io/specification/draft/basic/versioning.md#backward-compatibility-with-initialization-based-versions
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

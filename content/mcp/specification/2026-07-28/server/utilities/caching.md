@@ -177,3 +177,6 @@ Server implementors:
 * should ensure that the `cacheScope` correctly reflects the intended visibility of the primitive.
 * MUST apply appropriate per-primitive access controls, and MUST NOT rely on
   `cacheScope` alone to prevent unauthorized access to primitives.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

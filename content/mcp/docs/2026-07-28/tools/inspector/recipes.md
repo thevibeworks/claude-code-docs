@@ -311,3 +311,6 @@ output to `jq -e` with `--stored-auth-only`, so a missing token fails fast
 instead of starting interactive OAuth. See [Verify a server in
 CI](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/cli.md#verify-a-server-in-ci) for the full
 command.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

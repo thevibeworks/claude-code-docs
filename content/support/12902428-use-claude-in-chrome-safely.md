@@ -20,7 +20,7 @@ Claude in Chrome has safety classifiers that screen for prompt injection attacks
 
 ### Sensitive information on your screen
 
-To see a page and decide what to do next, Claude takes screenshots of the tabs it's working in. Whatever is visible in one of those tabs is captured in the screenshots and becomes part of the conversation. Claude can’t filter sensitive content out of what it sees, so we recommend that you don’t use Claude in Chrome on sensitive sites, and consider using a separate browser profile without access to sensitive accounts. In addition, admins can restrict where Claude works using an allowlist. For organizations handling sensitive data, we recommend a restrictive allowlist so Claude can only work on approved tools.
+To see a page and decide what to do next, Claude takes screenshots of the tabs it's working in. Whatever is visible in one of those tabs is captured in the screenshots and becomes part of the conversation. We recommend that you don’t use Claude in Chrome on sensitive sites, and consider using a separate browser profile without access to sensitive accounts. In addition, admins can restrict where Claude works using an allowlist. For organizations handling sensitive data, we recommend a restrictive allowlist so Claude can only work on approved tools.
 
 ### Regulated data
 
@@ -42,7 +42,7 @@ We've implemented multiple layers of protection:
 
 - **Action confirmations** for certain high-risk actions such as downloading a file or entering sensitive information.
 
-- **Automatic action screening:** When Claude works on its own, it checks each action for risk and for hidden malicious instructions before running it. Claude does the actions it assesses as lower-risk and blocks or stops for anything that looks unsafe. This screening runs in "Automatically approve,” the default for the Cowork side panel. Learn more in the **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446)**.
+- **Automatic action screening:** When Claude works on its own, it checks each action for risk and for hidden malicious instructions before running it. Claude does the actions it assesses as lower-risk and blocks or stops for anything that looks unsafe. This screening runs in "Automatically approve," the default for the Cowork side panel. This automated check can see the latest screenshot, and Anthropic can keep a copy of that screenshot in its record of the check. Learn more in the **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446)**.
 
 - **Ongoing red teaming:** Human security researchers continuously probe for vulnerabilities. We participate in external challenges that benchmark robustness across the industry.
 
@@ -76,7 +76,7 @@ It’s unlikely that we’ve captured all sites in these categories, so please r
 
 ## Safeguard personal data
 
-When you open the Claude side panel, Claude takes screenshots of your active browser tab to understand webpage content. This means Claude can see any information visible on your screen, including personal data, sensitive documents, or private information belonging to you or others.
+When you open the Claude side panel, Claude takes screenshots of your active browser tab to understand webpage content. This means Claude can see information visible on your screen, including personal data, sensitive documents, or private information belonging to you or others.
 
 **Be mindful of what's visible** when using Claude, especially on sites containing confidential information. Avoid opening the extension while viewing sensitive information or documents.
 

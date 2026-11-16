@@ -43,3 +43,6 @@ MCP makes practical tradeoffs in service of adoption and usability. We don't pur
 ## Standardization over innovation
 
 MCP standardizes patterns that have already proven valuable. We look for conventions that work across multiple implementations and codify them, rather than inventing new paradigms and hoping they'll be adopted. New patterns are best tried in [extensions](https://modelcontextprotocol.io/extensions/overview.md) first.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -30,7 +30,7 @@ Community connectors show a **Community** label in the directory and in [**Custo
 
 ### Custom
 
-You added a Custom connector yourself, and Anthropic hasn't reviewed it. [Custom connectors](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) explains how to add one.
+You added a Custom connector yourself, and Anthropic hasn't reviewed it. While a Custom connector's MCP App is open, Claude can mark the connector **Unverified**. [Custom connectors](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url) explains how to add one.
 
 ## Directory listing versus custom connectors
 

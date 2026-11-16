@@ -1039,3 +1039,6 @@ For additional details, refer to:
 * [Available MCP SDKs](https://modelcontextprotocol.io/docs/2024-11-05/sdk.md)
 
 Understanding these standards will help you implement authorization correctly and troubleshoot issues when they arise.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

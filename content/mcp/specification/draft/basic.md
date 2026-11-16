@@ -11,8 +11,8 @@ The Model Context Protocol consists of several key components that work together
 * **Message Patterns**: Messaging patterns supported by the core protocol including request and response, multi round-trip requests (MRTR), and subscribe and notify
 * **Authorization**: Authentication and authorization framework for HTTP-based transports
 * **Server Features**: Resources, prompts, and tools exposed by servers
-* **Client Features**: Elicitation, sampling and root directory lists provided by clients
-* **Utilities**: Cross-cutting concerns like logging and argument completion
+* **Client Features**: Elicitation provided by clients; sampling and root directory lists are [deprecated](https://modelcontextprotocol.io/specification/draft/deprecated.md)
+* **Utilities**: Cross-cutting concerns like argument completion and pagination; logging is [deprecated](https://modelcontextprotocol.io/specification/draft/deprecated.md)
 
 All implementations **MUST** support the base protocol, versioning,
 and the message patterns. Other components **MAY** be implemented based on the specific needs of the
@@ -176,7 +176,7 @@ The receiver **MUST NOT** send a response.
 The Model Context Protocol (MCP) supports several [Message Patterns](https://modelcontextprotocol.io/specification/draft/basic/patterns.md) that define how clients and servers interact:
 
 1. **[Request and Response](https://modelcontextprotocol.io/specification/draft/basic/patterns.md#request-and-response)**: A client sends a request to the server, and the server responds with a result or error.
-2. **[Multi Round-Trip Requests (MRTR)](https://modelcontextprotocol.io/specification/draft/basic/patterns.md#multi-round-trip-requests)**: A server requires additional client input (sampling, elicitation, or roots) to complete a request.
+2. **[Multi Round-Trip Requests (MRTR)](https://modelcontextprotocol.io/specification/draft/basic/patterns.md#multi-round-trip-requests)**: A server requires additional client input (e.g. elicitation) to complete a request.
 3. **[Subscribe and Notify](https://modelcontextprotocol.io/specification/draft/basic/patterns.md#subscribe-and-notify)**: A client subscribes to a stream of notifications from the server, which are sent as they occur.
 
 ## Statelessness
@@ -497,3 +497,6 @@ Icons can be attached to:
 * `Resource`: Visual indicator for different resource types
 
 Multiple icons can be provided to support different display contexts and resolutions. Clients should select the most appropriate icon based on their UI requirements.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

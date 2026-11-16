@@ -294,3 +294,6 @@ effects already committed.
 ## Combining Both Patterns
 
 Progressive discovery and programmatic tool calling work well together. The model uses discovery tools to identify which tools it needs, loads their schemas, and then writes a single script that calls multiple tools in one execution pass. This combination minimizes both the token cost of tool definitions *and* the token cost of tool results, keeping the model's context focused on reasoning rather than passing data through it.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

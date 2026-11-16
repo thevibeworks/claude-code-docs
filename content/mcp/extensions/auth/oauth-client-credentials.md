@@ -413,3 +413,6 @@ Check the [client matrix](https://modelcontextprotocol.io/extensions/client-matr
 > [card] [RFC 7523 — JWT Bearer Assertions](https://datatracker.ietf.org/doc/html/rfc7523)
 >
 > JWT assertion format specification
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

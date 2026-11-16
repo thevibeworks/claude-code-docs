@@ -135,3 +135,6 @@ evolve as the group identifies new areas of interest.
 | - | - |
 | 2026-08-26 | Restructured as a routing group, replaced biweekly office hours with a monthly agenda-driven call and digest (core maintainer meeting, [discussion #3316](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/3316)) |
 | 2026-06-13 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

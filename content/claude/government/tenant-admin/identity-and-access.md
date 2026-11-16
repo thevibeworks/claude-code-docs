@@ -89,7 +89,7 @@ Until your tenant has a verified domain, only tenant administrators can get a li
 
 ## SCIM provisioning
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gG0BlHWciPZj0Lhu/images/government/videos/admin-04-directory-sync-scim-and-group-mappings-v2.mp4?fit=max&auto=format&n=gG0BlHWciPZj0Lhu&q=85&s=44cfafd3709ce812b546449ea1dc0752" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/w4cMG7kNeZrNlcGF/images/government/videos/admin-04-directory-sync-scim-and-group-mappings-v3.mp4?fit=max&auto=format&n=w4cMG7kNeZrNlcGF&q=85&s=ebe769f5280f92d9a250d503221447ca" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
 
 Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -124,7 +124,7 @@ Once your identity provider has pushed groups over SCIM, they appear here with t
 
 ## Routing rules
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/vSHPzJBBYOV0ar0p/images/government/videos/admin-03-organizations-seats-and-routing-rules-v3.mp4?fit=max&auto=format&n=vSHPzJBBYOV0ar0p&q=85&s=d825f4ded48f8e562fa9a2a038401480" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/d46BidiFWN3QbVN7/images/government/videos/admin-03-organizations-seats-and-routing-rules-v4.mp4?fit=max&auto=format&n=d46BidiFWN3QbVN7&q=85&s=c9ee48412b91721abcb7c1f70f538794" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
 
 Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -200,7 +200,7 @@ The table shows what a person may see when sign-in fails, and what to do about i
 | - | - | - |
 | "We couldn't find an organization for that email." | The address's domain is not a verified domain of any active tenant. Until Anthropic finishes setting up your tenant, everyone sees this | Verify the domain under [Domains](#domains). If no administrator can sign in, contact your Anthropic representative |
 | "Single sign-on isn't configured for your organization yet." | The domain is verified, but no identity provider is connected | Connect [single sign-on](#single-sign-on). Primary Owners and tenant administrators can use the [emailed link](#emailed-sign-in-link) |
-| **Almost there** | Your identity provider signed them in, but no routing rule matched, or the rule's organization is deactivated | Find them under **Rejected sign-ins** and add a [rule](#routing-rules) that covers them |
+| **Almost there**: "You signed in successfully, but you haven't been added to an organization yet." | Your identity provider signed them in, but no routing rule matched, or the rule's organization is deactivated | Find them under **Rejected sign-ins** and add a [rule](#routing-rules) that covers them |
 | **Signed in with a different account** | Your identity provider returned another address than the one they typed | They can continue as the returned address. If sign-in then finds no organization, verify that address's domain, or correct the address your provider sends |
 | **Email address missing** | Your identity provider didn't send an email address | Add an email attribute or claim in your identity provider, or name it under [Attribute mapping](#attribute-mapping-advanced) |
 | **Account deactivated** | Their account or directory entry is deactivated | Reactivate them in your directory: see [Deactivated users](https://claude.com/docs/government/org-admin/users.md#deactivated-users). If your directory doesn't manage them, contact your Anthropic representative |

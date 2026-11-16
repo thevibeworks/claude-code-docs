@@ -775,3 +775,6 @@ In other cases, the server may not be accessible via the web and may not be able
 In this case, the server must use a different mechanism to identify the user who opens the elicitation URL is the same user who the elicitation was generated for.
 
 In all implementations, the server **MUST** ensure that the mechanism to determine the user's identity is resilient to attacks where an attacker can modify the elicitation URL.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

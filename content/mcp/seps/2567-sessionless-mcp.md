@@ -298,3 +298,6 @@ All official SDKs except PHP already provide a stateless mode, implemented as no
 This SEP deliberately does not introduce a protocol-level concept of a handle: from the wire's perspective `basket_id` is an ordinary string. A consequence is that nothing marks `basket_id` as a state handle to the client or model — the relationship between `create_basket`'s output and `add_item`'s input is inferred from naming and tool descriptions, not declared.
 
 A follow-up proposal could make that relationship explicit, for example via shared JSON Schema `$defs` referenced across a server's tool input and output schemas, or via a tool annotation that marks a result field as a handle. That would let orchestrators identify which values are live state (for compaction, hand-off, or cleanup purposes) without parsing tool descriptions. It is left out of scope here to keep this SEP to the minimum needed to remove sessions.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

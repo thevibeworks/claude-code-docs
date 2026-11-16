@@ -58,11 +58,11 @@ For Team and Enterprise plans, there's a separate organization-wide toggle in **
 
 Claude can use the web in Cowork in two ways: a browser built into the Claude Desktop app, or your users' own Chrome browser through the Claude in Chrome extension. You can enable one, both, or neither.
 
-- **Built-in browser:** Controlled from **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. On Team plans, it's on by default. Team owners can turn it off anytime. On Enterprise plans, it's on by default unless you've turned it off. In organizations that have enabled HIPAA, the built-in browser stays off until an Owner turns it on in **Organization settings > Cowork**. With the **[HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, the built-in browser isn't available, and no setting turns it on. When it's off, users can't open the built-in browser and Claude can't use it.
+- **Built-in browser:** Controlled from **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**. On Team plans, it's on by default. Team owners can turn it off anytime. On Enterprise plans, it's on by default unless you've turned it off. In organizations that have enabled HIPAA, the built-in browser stays off until an Owner turns it on in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**. With the **[HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, the built-in browser isn't available, and no setting turns it on. When it's off, users can't open the built-in browser and Claude can't use it.
 
 - **Claude in Chrome:** Controlled from **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**, and users' browsers still need the extension deployed or installed. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128)**.
 
-Both run the same safety layers: a blocklist for high-risk sites and safety checks on every action. The built-in browser needs the Claude Desktop app open and online; Claude in Chrome needs the extension installed in the user's browser. Browser traffic comes from the user's machine, where the desktop app runs. To site operators it looks like traffic from that device, even when the session is steered from web or mobile.
+Both run the same safety layers: a blocklist for high-risk sites and safety checks on every action. Those automated checks can see the latest screenshot, and Anthropic can keep a copy of that screenshot in its record of the check. The built-in browser needs the Claude Desktop app open and online; Claude in Chrome needs the extension installed in the user's browser. Browser traffic comes from the user's machine, where the desktop app runs. To site operators it looks like traffic from that device, even when the session is steered from web or mobile.
 
 Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
 
@@ -72,7 +72,7 @@ Two organization settings in **[Organization settings > Capabilities](https://cl
 
 - **Allow "Automatically approve" mode** controls whether members can use the mode. This setting is on by default, so the mode is available to your members unless you turn it off. When it's off, "Automatically approve" doesn't appear in your members' mode selector.
 
-- **Start new tasks in "Automatically approve" mode** controls whether new Cowork tasks start in that mode. It’s on by default on Pro, Max, Ultra, and Team plans, and off by default on Enterprise plans. Turn it off to keep "Manually approve" as the default.
+- **Start new tasks in "Automatically approve" mode** controls whether new chats and tasks can start in that mode. It's on unless you turn it off or **Allow "Automatically approve" mode** is off. It takes effect as "Automatically approve" rolls out as the default on Team plans. On Enterprise plans, new tasks outside the Cowork side panel in Chrome still start in "Manually approve." In the Cowork side panel in Chrome, new tasks already start in "Automatically approve," and this setting applies there now. Turn it off to keep "Manually approve" as the default. Users who have already picked a mode keep it, and scheduled tasks aren't affected.
 
 Members can switch modes within any session.
 

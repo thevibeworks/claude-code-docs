@@ -94,3 +94,6 @@ The Interceptors Working Group exists to standardize how context operations are 
 | Date | Change |
 | - | - |
 | 2026-04-21 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

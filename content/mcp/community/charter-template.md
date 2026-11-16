@@ -121,3 +121,6 @@ description: Charter for the MCP <Group Name> <Working Group | Interest Group>.
 | ---- | ------ |
 |      |        |
 ```
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

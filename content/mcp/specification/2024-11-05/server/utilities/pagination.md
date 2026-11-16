@@ -94,3 +94,6 @@ The following MCP operations support pagination:
 ## Error Handling
 
 Invalid cursors **SHOULD** result in an error with code -32602 (Invalid params).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

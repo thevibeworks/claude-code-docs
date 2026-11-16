@@ -234,3 +234,6 @@ Example error:
 3. Clients **SHOULD** respect model preference hints
 4. Clients **SHOULD** implement rate limiting
 5. Both parties **MUST** handle sensitive data appropriately
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

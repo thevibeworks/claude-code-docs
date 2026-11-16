@@ -138,3 +138,6 @@ Explore the detailed specification for each protocol component:
 > [card] [Client Features](https://modelcontextprotocol.io/specification/draft/client)
 
 > [card] [Contributing](https://modelcontextprotocol.io/community/contributing.md)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

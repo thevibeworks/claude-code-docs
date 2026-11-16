@@ -12,7 +12,7 @@ What our marking commitments mean for Claude:
 
 - **Existing models are in progress.** The law includes a transition period for AI systems launched before August 2, 2026, and we’re working to add marking support for earlier Claude models. See **[Which Claude models support watermarking](#h_569d936489)** below.
 
-- **Watermark detection is in private preview.** Watermark detection is currently available to eligible organizations consistent with our commitments under the EU Code of Practice (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It’s also available to enterprises that need to check marks on their own Claude outputs to meet their obligations under the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
+- **Watermark detection is in private preview.** Watermark detection is currently available to eligible organizations consistent with our commitments under the EU Code of Practice (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It’s also available to select enterprises that need to check marks on their own Claude outputs to meet their obligations under the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
 More details about our marking plans are below.
 
@@ -81,7 +81,7 @@ Detection checks whether a piece of text or a file carries a supported Claude ma
 
 To check whether a file contains a Claude-issued Content Credential, use the free **[Claude Content Checker](https://claude.com/check-content)**. To learn more about how Claude marks files and how to verify Claude-issued Content Credentials, see **[Content Credentials on generated files](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#content-credentials-on-generated-files)**.
 
-Watermark detection is currently in private preview, available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
+Watermark detection is currently in private preview, available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available to select enterprises that are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
 ## Limitations
 

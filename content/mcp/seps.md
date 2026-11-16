@@ -81,3 +81,6 @@ Each SEP is reachable by number at `/seps/<number>` (for example, [/seps/1850](h
 | Withdrawn | SEP withdrawn by the author |
 | Superseded | SEP replaced by a newer SEP |
 | Dormant | SEP without a sponsor, closed after 6 months |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

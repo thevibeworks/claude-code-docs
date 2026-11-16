@@ -199,3 +199,6 @@ Before this SEP itself can be marked `Final`, the following conformance-reposito
 * `MAINTAINERS.md` published and the repository listed in MCP governance documentation
 
 These are this SEP's own reference implementation checklist, not ongoing process requirements.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

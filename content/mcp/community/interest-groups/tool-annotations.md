@@ -96,3 +96,6 @@ The following SEPs and themes form the IG's initial discussion agenda. This list
 | Date | Change |
 | - | - |
 | 2026-04-20 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

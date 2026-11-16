@@ -52,7 +52,7 @@ Claude is trained to avoid risky operations—like transferring funds, modifying
 
 ## Safeguarding personal data
 
-When Claude uses computer use, Claude takes screenshots of your computer to understand how to navigate the screen and the apps to which you’ve given permission. This means Claude can see any information visible on your screen or those apps, including personal data, sensitive documents, or private information belonging to you or others.
+When Claude uses computer use, Claude takes screenshots of your computer to understand how to navigate the screen and the apps to which you’ve given permission. This means Claude can see any information visible on your screen or those apps, including personal data, sensitive documents, or private information belonging to you or others. The automated check that reviews Claude's actions can also see the latest screenshot, and Anthropic can keep a copy of it in its record of the check.
 
 Be mindful of what's visible when using Claude, especially on apps containing confidential information. Close files or apps with sensitive information before using computer use.
 

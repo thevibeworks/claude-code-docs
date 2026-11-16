@@ -145,3 +145,6 @@ may reserve particular names for purpose-specific metadata, as declared in those
 
 * Unless empty, MUST begin and end with an alphanumeric character (`[a-z0-9A-Z]`).
 * MAY contain hyphens (`-`), underscores (`_`), dots (`.`), and alphanumerics in between.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

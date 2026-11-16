@@ -178,3 +178,6 @@ Adjust the network and mount flags to what the server needs. HTTP and SSE server
 ## Using mcpdo from a coding agent
 
 The package ships an agent skill that teaches an agent to drive `mcpdo`: connections it holds then extend the agent's toolset, and it knows to relay sign-in URLs and answer parked elicitations. `mcpdo agent-help` prints the guide, `mcpdo agent-help --skill-path` prints the path of the installable skill file, and `mcpdo agent-help --instructions` prints a block to append to a project's `CLAUDE.md` or `AGENTS.md`. The skill can also be installed with `npx skills add modelcontextprotocol/inspector --skill mcpdo`.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

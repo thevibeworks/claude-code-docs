@@ -395,3 +395,6 @@ Follow [Troubleshooting failed HTTP verification](#troubleshooting-failed-http-v
 ### Confirm the algorithm matches the key
 
 The `--algorithm` flag (default `ed25519`) must match the algorithm declared in the published proof record's `k=` field. Signing an Ed25519 timestamp against an `ecdsap384` proof record (or vice versa) fails verification. If you regenerated the keypair with a different algorithm than what is published, update the TXT record or the `mcp-registry-auth` file before retrying.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

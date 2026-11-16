@@ -270,3 +270,6 @@ The most straightforward approach is to have an Example Server for each SDK, sim
 Given well defined spec for the server and SDK documentation, it should be easy to implement it with the help of any coding agent. We want to check it into each SDKs repo as it will serve as an example for server implementers.
 
 Once each SDK has an Everything server, we will run the Conformance Test Client against it.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

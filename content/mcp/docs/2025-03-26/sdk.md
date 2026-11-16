@@ -47,3 +47,6 @@ Ready to start building with MCP? Choose your path:
 > [card] [Build a Client](https://modelcontextprotocol.io/docs/2025-03-26/develop/build-client.md)
 >
 > Create applications that connect to MCP servers
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

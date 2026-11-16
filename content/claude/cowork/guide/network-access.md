@@ -19,6 +19,16 @@ You'll find the settings in **Settings > Capabilities**. On Team and Enterprise 
 | **Domain allowlist** is **Package managers only** | The same, plus common package registries and `github.com` |
 | **Domain allowlist** is **All domains** | Any host, unless your organization applied the [HIPAA configuration](https://claude.com/docs/cowork/hipaa-setup.md#limit-network-access-for-cowork-shell-commands) |
 
+## Connectors and MCP servers
+
+The network settings on this page don't apply to connectors, desktop extensions, or local Model Context Protocol (MCP) servers. Adding a service's domain to **Additional allowed domains** doesn't change what any of them can reach. Claude Desktop handles connector requests outside the VM and usually sends them through Anthropic's servers, which contact the service. Desktop extensions and local MCP servers run on your computer, outside the VM, and use your computer's network connection.
+
+MCP servers that a plugin adds, including its connectors, might be an exception. They're usually outside the VM too. In some setups, such as when your organization turns on the `requireCoworkFullVmSandbox` managed setting, Claude might start them in the VM or contact them from the VM. The network settings then apply to that traffic, and a host that isn't allowed is blocked.
+
+On Team and Enterprise plans, your admin manages connectors and desktop extensions in **Organization settings > Connectors**.
+
+If your organization deploys Claude Desktop with its own model provider, Claude Desktop contacts each connector's service directly from your computer and ignores `requireCoworkFullVmSandbox`. For the controls in that case, see [MCP, plugins, skills, and hooks](https://claude.com/docs/third-party/claude-desktop/extensions.md).
+
 ## Download-only hosts
 
 If a task can reach these hosts, it can download from them, but uploads to them are blocked. This doesn't apply when **Domain allowlist** is **All domains**. To publish or push, [use a terminal on your own computer](#push-or-publish-from-your-own-computer).
@@ -57,4 +67,5 @@ Ask Claude to make the changes in a folder you connected to the task. Then open 
 These pages cover related topics.
 
 * [Organize work with projects](https://claude.com/docs/cowork/guide/projects.md) for the folders a task can read and write
+* [Install plugins](https://claude.com/docs/cowork/guide/plugins.md) for what a plugin can add to Cowork
 * [Cowork overview](https://claude.com/docs/cowork/overview.md) for an introduction to Cowork

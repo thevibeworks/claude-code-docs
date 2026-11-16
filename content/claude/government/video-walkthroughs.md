@@ -98,7 +98,7 @@ Video: Verify your domain and connect single sign-on (2 min 24 s). Narrated with
 
 Adding a sign-in routing rule that places new people in the right organization, adding an organization, and giving it seats. To send people to an organization by group, use a [provisioning rule](https://claude.com/docs/government/tenant-admin/identity-and-access.md#provisioning-rules-scim) rather than the identity provider group rule shown in the video. Read more: [Routing rules](https://claude.com/docs/government/tenant-admin/identity-and-access.md#routing-rules).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/vSHPzJBBYOV0ar0p/images/government/videos/admin-03-organizations-seats-and-routing-rules-v3.mp4?fit=max&auto=format&n=vSHPzJBBYOV0ar0p&q=85&s=d825f4ded48f8e562fa9a2a038401480" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/d46BidiFWN3QbVN7/images/government/videos/admin-03-organizations-seats-and-routing-rules-v4.mp4?fit=max&auto=format&n=d46BidiFWN3QbVN7&q=85&s=c9ee48412b91721abcb7c1f70f538794" aria-label="Video walkthrough: Organizations, seats, and routing rules" />
 
 Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -130,7 +130,7 @@ Video: Organizations, seats, and routing rules (2 min 14 s). Narrated with an AI
 
 Connecting SCIM provisioning, routing directory groups to organizations, and mapping groups to seat tiers and roles. Read more: [SCIM provisioning](https://claude.com/docs/government/tenant-admin/identity-and-access.md#scim-provisioning) and [Group mappings](https://claude.com/docs/government/org-admin/provisioning.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/gG0BlHWciPZj0Lhu/images/government/videos/admin-04-directory-sync-scim-and-group-mappings-v2.mp4?fit=max&auto=format&n=gG0BlHWciPZj0Lhu&q=85&s=44cfafd3709ce812b546449ea1dc0752" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/w4cMG7kNeZrNlcGF/images/government/videos/admin-04-directory-sync-scim-and-group-mappings-v3.mp4?fit=max&auto=format&n=w4cMG7kNeZrNlcGF&q=85&s=ebe769f5280f92d9a250d503221447ca" aria-label="Video walkthrough: Directory sync (SCIM) and group mappings" />
 
 Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -148,19 +148,19 @@ Video: Directory sync (SCIM) and group mappings (2 min 3 s). Narrated with an AI
 >
 > Under Provisioning rules, route groups to organizations. Send research-staff to Research Office, and claude-users to Operations Bureau. The first match wins, so add the narrower group first or drag it to the top.
 >
-> Once a rule covers them, they are placed in its organization, and the list clears on its own.
+> As people are placed in organizations, they leave the waiting list.
 >
 > In the organization's admin view, People now includes Group mappings. Map claude-users to a seat tier, here Standard, and claude-owners to the Owner role.
 >
 > On Users, the provisioned members now hold their mapped seat tier and role.
 >
-> While sync is connected, your directory is the source of truth. Change groups in your provider, because role or seat tier edits made by hand are overwritten by the group mappings.
+> While sync is connected, your directory is the source of truth. To change someone's role or seat tier, change their groups in your provider.
 
 ### Users, seat tiers, and Readiness for organization owners
 
 Checking the **Readiness** page, assigning seat tiers and roles on the **Users** page, and reviewing the **Tiers** page. Read more: [Organization administration](https://claude.com/docs/government/org-admin/overview.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/KCl5HZFMS3Q5oYkr/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness-v3.mp4?fit=max&auto=format&n=KCl5HZFMS3Q5oYkr&q=85&s=e77c642afb5785e19b1e7519d9310f64" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/w4cMG7kNeZrNlcGF/images/government/videos/admin-05-organization-owners-users-seat-tiers-and-readiness-v4.mp4?fit=max&auto=format&n=w4cMG7kNeZrNlcGF&q=85&s=eaa1f241dd0cf6af241cd807a2362a42" aria-label="Video walkthrough: Organization owners: users, seat tiers, and Readiness" />
 
 Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -180,7 +180,7 @@ Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narra
 >
 > Tiers lists the seat tiers available to your organization, and your tenant can let you create your own.
 >
-> Model access comes from the seat tier, never from the role. Tenant administrator is separate from these roles. If directory groups set roles or tiers, change the group in your provider, because the group mappings overwrite edits made by hand.
+> Model access comes from the seat tier, never from the role. Tenant administrator is separate from these roles. If directory groups set roles or tiers, change the group in your provider.
 
 ### Config essentials
 

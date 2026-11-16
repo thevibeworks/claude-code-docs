@@ -362,3 +362,6 @@ Example error:
 2. Access controls **SHOULD** be implemented for sensitive resources
 3. Binary data **MUST** be properly encoded
 4. Resource permissions **SHOULD** be checked before operations
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

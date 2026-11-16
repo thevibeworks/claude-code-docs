@@ -983,3 +983,6 @@ A server that returns the standard `CallToolResult` shape — i.e., never elects
 ## Reference Implementation
 
 Implemented in [mcpkit](https://github.com/panyam/mcpkit/blob/02cfbe0d2cada8167b9043b9130804c8638b0aa5/core/task_v2.go) (see [usage example](https://github.com/panyam/mcpkit/tree/02cfbe0d2cada8167b9043b9130804c8638b0aa5/examples/tasks-v2)).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

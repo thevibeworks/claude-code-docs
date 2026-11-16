@@ -125,3 +125,6 @@ Live work is tracked in the ext-apps [issue tracker](https://github.com/modelcon
 | 2026-01-26 | Initial stable MCP Apps extension specification published |
 | 2026-01-28 | SEP-1865 marked Final |
 | 2026-05-21 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

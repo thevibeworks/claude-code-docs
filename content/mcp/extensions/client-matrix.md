@@ -57,3 +57,6 @@ If you're building an MCP client and want to implement extension support:
 4. Submit a pull request to update this matrix
 
 See [Extensions Overview](https://modelcontextprotocol.io/extensions/overview.md#negotiation) for details on the capability negotiation mechanism.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

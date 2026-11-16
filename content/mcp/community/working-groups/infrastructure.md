@@ -113,3 +113,6 @@ The first priorities come from the founding discussion: access and account provi
 | Date | Change |
 | - | - |
 | 2026-09-22 | Initial draft with David Soria Parra, Sambhav Kothari, and Den Delimarsky as Leads. |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

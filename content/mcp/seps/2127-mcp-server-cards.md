@@ -198,3 +198,6 @@ installation in the Goose CLI and Desktop client.
 * [RFC 8615: Well-Known URIs](https://datatracker.ietf.org/doc/html/rfc8615)
 * [MCP Protocol Specification](https://modelcontextprotocol.io/specification)
 * [Original GitHub Issue #1649](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1649)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

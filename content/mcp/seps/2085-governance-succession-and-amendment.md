@@ -109,3 +109,6 @@ This SEP has no direct security implications. However, clear succession procedur
 Upon acceptance, this SEP will be implemented by adding the Succession and Amendment sections to `docs/community/governance.mdx`. The new sections will be inserted after the "Lead Maintainers (BDFL)" section and before the "Decision Process" section.
 
 A draft pull request implementing these changes will be linked here once available.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

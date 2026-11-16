@@ -281,3 +281,6 @@ Servers advertise extension support in the `initialize` response:
 If one side supports an extension but the other doesn't, the supporting side needs to either fall back to core protocol behavior or reject the request with an appropriate error if the extension is mandatory.
 
 It's a good practice to document expected fallback behavior in your extension. For example, a server offering UI-enhanced tools should still return meaningful text content for clients that don't support the UI extension. On the other hand, a server that requires a specific authentication extension can reject connections from clients that don't support it.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

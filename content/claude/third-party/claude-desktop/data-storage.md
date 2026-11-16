@@ -260,7 +260,7 @@ Use an export and import if:
 Both settings are off by default.
 
 * **Managed configuration**: set [`claudeAiImport`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport) to `{"enabled": true, "exportEnabled": true}`, along with any fields you already set in it
-* **[Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)**: go to the **Capabilities** page and turn on the **Enable import** and **Enable export** switches under **Claude.ai data import**. To turn them on for some users, use a [per-group permission policy](https://claude.com/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies).
+* **[Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)**: go to the **Capabilities** page and turn on the **Enable import** and **Enable export for import on another device** switches under **Claude.ai data import**. To turn them on for some users, use a [per-group permission policy](https://claude.com/docs/third-party/claude-desktop/admin-console.md#per-group-permission-policies).
 
 Both devices need Claude Desktop 4.23118.0 or later, the same platform, and [the same organization](#requirements-for-the-new-device). Earlier versions export only sessions, their output files, and project names.
 

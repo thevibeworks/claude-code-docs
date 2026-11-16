@@ -406,3 +406,6 @@ Since clients do not know the set of MCP servers in advance, we strongly recomme
 implementation of dynamic client registration. This allows applications to automatically
 register with the MCP server, and removes the need for users to obtain client ids
 manually.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

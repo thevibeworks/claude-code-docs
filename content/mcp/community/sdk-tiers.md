@@ -108,3 +108,6 @@ A `P0` issue is either:
 
 * A security vulnerability with a CVSS score of 7.0 or higher (High or Critical severity)
 * A core functionality failure that prevents basic MCP operations: connection establishment, message exchange, or use of the core primitives (tools, resources, prompts)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

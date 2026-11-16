@@ -342,3 +342,6 @@ When encountering issues:
 > [card] [Connect local servers](https://modelcontextprotocol.io/docs/2025-11-25/develop/connect-local-servers.md)
 >
 > Full claude\_desktop\_config.json reference and troubleshooting
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

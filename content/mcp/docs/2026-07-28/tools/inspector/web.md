@@ -176,3 +176,6 @@ A `Host` header allow-list runs ahead of every route, including `GET /`. A reque
 Binding all interfaces (`HOST=0.0.0.0`) is **refused** unless you set `DANGEROUSLY_BIND_ALL_INTERFACES=true`. Binding a *specific* non-loopback address is allowed with no opt-in, since that's a single deliberate exposure rather than every interface at once.
 
 See the [Hosting on a network](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/recipes.md#hosting-on-a-network) recipe for the full matrix, and [Configuration](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/configuration.md#web-backend-environment-variables) for the variables.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

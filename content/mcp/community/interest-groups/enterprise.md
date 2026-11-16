@@ -110,3 +110,6 @@ As an Interest Group, the Enterprise IG does not produce binding deliverables. T
 | Date | Change |
 | - | - |
 | 2026-04-13 | Initial charter filed |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -180,23 +180,23 @@ If you use Claude, Claude Code, or the Claude API directly through Anthropic, fo
 
 If you use Claude Platform on AWS, Claude Platform on Google Cloud, Google Cloud Agent Platform, Amazon Bedrock (if eligible for EFS), or Microsoft Foundry, follow these steps:
 
-1. Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)** with your Anthropic account, or sign up if you don't have one.
+1. Create an Anthropic account if you haven’t already. It’s free and doesn’t require billing information, but you can’t apply until you link a cloud account or buy Claude Console credits.
 
-2. You'll be prompted to link your Cloud Service Provider account with a CLI command, to verify that you are an admin. You can link up to 10 GCP projects or AWS accounts.
+2. Sign in to the Verification Portal for **[Claude Platform on AWS](https://portal.anthropic.com/link?account_source=aws&program=cvp)**, **[Claude Platform on Google Cloud](https://portal.anthropic.com/link?account_source=gcp&program=cvp)**, **[Google Cloud Agent Platform](https://portal.anthropic.com/link?account_source=gcp&program=cvp)**, **[Amazon Bedrock](https://portal.anthropic.com/link?account_source=aws&program=cvp)**, or **[Microsoft Foundry](https://portal.anthropic.com/programs)** with your Anthropic account, or sign up if you don't have one.
 
-3. Open **Programs** and choose “Cyber Verification Program” from the list of programs.
+3. You'll be prompted to link your Cloud Service Provider account with a CLI command, to verify that you are an admin. You can link up to 10 GCP projects or AWS accounts.
 
-4. Click “Apply” and complete the application.
+4. Open **Programs** and choose “Cyber Verification Program” from the list of programs.
 
-5. Accept the terms and submit.
+5. Click “Apply” and complete the application.
+
+6. Accept the terms and submit.
 
 Then, follow these steps with your cloud provider account:
 
-1. Sign in to the Verification Portal for **[AWS](https://portal.anthropic.com/link?account_source=aws&program=cvp)**, **[Google Cloud](https://portal.anthropic.com/link?account_source=gcp&program=cvp)**, or **[Azure](https://portal.anthropic.com/programs)**. If you don’t have an Anthropic account, create one. It’s free and doesn’t require billing information, but you can’t apply until you link a cloud account or buy Claude Console credits.
+1. Open **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, select “Link account,” and choose your provider.
 
-2. Open **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, select “Link account,” and choose your provider.
-
-3. Enter your account details and complete the setup step for your provider:
+2. Enter your account details and complete the setup step for your provider:
 
   1. **AWS:**
 
@@ -216,9 +216,9 @@ Then, follow these steps with your cloud provider account:
 
     2. **Setup step:** Deploy a Claude model in Foundry first, then run the commands shown.
 
-4. Select “I’ve granted access,” then “Verify.”
+3. Select “I’ve granted access,” then “Verify.”
 
-5. Choose “Cyber Verification Program,” and click “Apply" from the Programs page.
+4. Choose “Cyber Verification Program,” and click “Apply" from the Programs page.
 
 ### Apply through a third-party platform
 
@@ -269,17 +269,17 @@ We may review, narrow, or withdraw program access at any time in our sole discre
 
 **Important:** On most products, approval doesn’t "turn on" CVP. Your admin needs to assign the program to the proper roles and workspaces first.
 
-| **How you access Claude**                                                      | **What to do**                                                                                                                                                                                                                                 |
-| ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Pro, Max, Ultra, and Team plans                                                | Nothing. Access turns on automatically, and on Team plans it applies to every user. Red Team Access and Specialized Access stay off on a Team plan that's over the tier’s seat limit.                                                          |
-| Enterprise plans                                                               | Assign the program to a custom role (see **Claude Console** below)                                                                                                                                                                             |
-| Claude Console (API)                                                           | Assign the program to a workspace (see **Claude Enterprise** below)                                                                                                                                                                            |
-| Claude Platform on AWS, Claude Platform on Google Cloud, and Microsoft Foundry | Log into Verification Portal, then open the Cyber Verification program page. Under "Access on linked accounts" turn on the tier. If you want to add additional accounts, link them through the Verification Portal.                            |
-| Amazon Bedrock                                                                 | Requires Enterprise Frontier Safeguards (EFS) once it's available. When EFS is available, link your account, then open the Cyber Verification Program page in the Verification Portal. Under **Access on linked accounts**, turn on your tier. |
-| Google Cloud Agent Platform                                                    | Link your project, turn on your tier, and set up data sharing.<br>Link your account, then open the Cyber Verification Program page in the Verification Portal. Under **Access on linked accounts**, turn on your tier.                         |
-| Third-party platforms                                                          | Open the Cyber Verification Program page in the Verification Portal. Under **Access on linked accounts**, turn on your tier for that platform.                                                                                                 |
+| **How you access Claude**                                                      | **What to do**                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pro, Max, Ultra, and Team plans                                                | Nothing. Access turns on automatically, and on Team plans it applies to every user. Red Team Access and Specialized Access stay off on a Team plan that's over the tier’s seat limit.                                                                                                                                                                                                                                                                   |
+| Enterprise plans                                                               | Assign the program to a custom role (see the instructions under **[Claude Console](#h_4a43ff132e)** below)                                                                                                                                                                                                                                                                                                                                              |
+| Claude Console (API)                                                           | Assign the program to a workspace (see the instructions under **[Claude Enterprise](#h_99f3c460c0)** below)                                                                                                                                                                                                                                                                                                                                             |
+| Claude Platform on AWS, Claude Platform on Google Cloud, and Microsoft Foundry | Log into Verification Portal, then open the Cyber Verification program page. Under "Access on linked accounts" turn on the tier. If you want to add additional accounts, link them through the Verification Portal for **[AWS](https://portal.anthropic.com/link?account_source=aws&program=cvp)**, **[Google Cloud](https://portal.anthropic.com/link?account_source=gcp&program=cvp)**, or **[Azure](https://portal.anthropic.com/linked-accounts)**. |
+| Amazon Bedrock                                                                 | Requires Enterprise Frontier Safeguards (EFS) once it's available. When EFS is available, **[link your account](https://portal.anthropic.com/link?account_source=aws&program=cvp)**, then open the Cyber Verification Program page in the Verification Portal. Under **Access on linked accounts**, turn on your tier.                                                                                                                                  |
+| Google Cloud Agent Platform                                                    | Link your project, turn on your tier, and set up data sharing (see the instructions under **[Google Cloud Agent Platform](#h_251640f98b)** below)                                                                                                                                                                                                                                                                                                       |
+| Third-party platforms                                                          | Open the Cyber Verification Program page in the Verification Portal. Under **[Access on linked accounts](https://portal.anthropic.com/linked-accounts)**, turn on your tier for that platform.                                                                                                                                                                                                                                                          |
 
-**Claude Console**
+#### Claude Console
 
 To turn on access to CVP in Claude Console:
 
@@ -297,7 +297,7 @@ To turn on access to CVP in Claude Console:
 
 For details, see **[assign a program to workspaces](https://support.claude.com/en/articles/16764810)**.
 
-**Claude Enterprise**
+#### Claude Enterprise
 
 To turn on access to CVP in Claude Enterprise:
 
@@ -313,17 +313,19 @@ To turn on access to CVP in Claude Enterprise:
 
 For details, see **[assign a program to a custom role](https://support.claude.com/en/articles/17118092).**
 
-**Google Cloud Agent Platform**
+#### Google Cloud Agent Platform
 
 To turn on access to CVP in Google Cloud Agent Platform, repeat these steps for each project:
 
-1. In the Verification Portal, open your linked project. Under **Programs**, turn on your tier.
+1. In the **[Verification Portal](https://portal.anthropic.com/programs)**, go to **[Linked accounts](https://portal.anthropic.com/link?account_source=gcp&program=cvp)** and link your project.
 
-2. In **Model Garden**, open the Claude model and accept the Advanced AI Safety Addendum.
+2. Go to **Programs** and turn on your tier.
 
-3. Turn on data sharing for each model and location you use. Set `dataSharingEnabledProvider` to `ANTHROPIC` with Google’s `setPublisherModelConfig` API.
+3. In **Model Garden**, open the Claude model and accept the Advanced AI Safety Addendum.
 
-**Claude Mythos on cloud providers**
+4. Turn on data sharing for each model and location you use. Set `dataSharingEnabledProvider` to `ANTHROPIC` with Google’s `setPublisherModelConfig` API.
+
+#### Claude Mythos on cloud providers
 
 Access to Mythos on cloud partners starts about five business days after you’re approved for CVP. If you have a committed contract with Anthropic, your account team will send you a short form. Complete it, then accept the private offer in your cloud marketplace. We’ll provision Mythos once both steps are done.
 

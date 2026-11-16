@@ -129,3 +129,6 @@ This SEP establishes new processes and does not affect existing protocol functio
 ## Reference Implementation
 
 The communication guidelines are published at: [https://modelcontextprotocol.io/community/communication](https://modelcontextprotocol.io/community/communication.md)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

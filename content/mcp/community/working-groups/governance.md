@@ -184,3 +184,6 @@ amendments are recorded in the Changelog below.
 | 2026-05-06 | Initial charter |
 | 2026-10-08 | Aligned with the WG/IG model from 2026-09 |
 | TBD | Charter approved by Core Maintainers |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

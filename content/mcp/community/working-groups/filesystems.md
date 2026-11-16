@@ -139,3 +139,6 @@ The group's first act is to take up SEP-2571 with its author, since it already c
 | 2026-10-27 | Add search, bulk reads and typed errors to resource scope |
 | 2026-09-10 | Broaden scope to filesystem semantics |
 | 2026-08-24 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

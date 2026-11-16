@@ -226,3 +226,6 @@ MCP is transport-agnostic. While HTTP-based transports could theoretically use `
 ## Security Implications
 
 A misconfigured or malicious server could set an excessively long TTL, causing clients to cache stale data for longer than desired. However, since the TTL is a hint and clients can choose to ignore it or re-fetch if they suspect changes, the security risk is minimal. Clients should be designed to handle unexpected TTL values gracefully.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

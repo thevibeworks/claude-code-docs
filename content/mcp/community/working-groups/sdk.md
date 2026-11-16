@@ -91,3 +91,6 @@ Communication happens in the `#general-sdk-dev` Discord channel and the SDK Work
 | Date | Change |
 | - | - |
 | 2026-04-28 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

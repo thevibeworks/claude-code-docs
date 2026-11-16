@@ -98,3 +98,6 @@ handling, then test and ship:
 > [card] [Publish to the Registry](https://modelcontextprotocol.io/registry/quickstart.md)
 >
 > Make your server discoverable in the MCP Registry
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

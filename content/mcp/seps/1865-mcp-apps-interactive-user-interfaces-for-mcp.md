@@ -167,3 +167,6 @@ A full threat model analysis and mitigations are available in the
   in this spec.
 * [ext-apps](https://github.com/modelcontextprotocol/ext-apps) repository contains a prototype
   implementation by Olivier Chafik.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

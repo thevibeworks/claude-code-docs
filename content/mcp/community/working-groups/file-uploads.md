@@ -117,3 +117,6 @@ Discord: `#file-uploads-wg`
 | - | - |
 | 2026-04-23 | Initial charter |
 | 2026-10-21 | Add file downloads to scope as a secondary item |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

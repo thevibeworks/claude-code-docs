@@ -441,3 +441,6 @@ This is our proposal for the replacement of the current `EnumSchema` in the spec
   }
 }
 ```
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

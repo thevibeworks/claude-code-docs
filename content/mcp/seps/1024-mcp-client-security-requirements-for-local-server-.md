@@ -128,3 +128,6 @@ These residual risks are addressed through:
 * Clear warning language in consent dialogs
 * Recommendation for additional security layers (sandboxing, signatures)
 * Ongoing security research and community awareness
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

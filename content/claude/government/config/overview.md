@@ -33,8 +33,9 @@ Expand a setting to see its chain view, which shows the value in effect and wher
 Each setting has a fixed kind, which decides how its values combine across the chain:
 
 * A **simple value** is replaced at each level, and the most specific level that set it wins. Most settings work this way, including lists of values such as network hosts, where a lower level's list replaces the one above it.
-* A **restriction** is a limit that each level below the tenant can tighten but not loosen from what the levels above it set. The tightest of those values takes effect, except that values set below a [lock](#locks) don't apply. For example, if the tenant sets a session timeout of 30 minutes, an organization can set 15, but a value of 60 has no effect.
-* A **collection** accumulates entries from each level. A level can add entries to what the level above provided. Connectors and plugins work this way.
+* A **restriction** is a limit that each level below the tenant can tighten but not loosen from what the levels above it set. The tightest of those values takes effect, except that values set below a [lock](#locks) don't apply. For example, if the tenant sets a session idle timeout of 30 minutes, an organization can set 15, but a value of 60 has no effect.
+* A **collection** accumulates entries from each level. Connectors and plugins work this way.
+* A **product switch**, such as **Claude Desktop**, turns a whole product on or off. Once an administrator turns the product off at any level that applies to a person, turning it on at a lower level has no effect.
 
 ### Locks
 
@@ -56,7 +57,7 @@ In addition to setting values for your whole tenant or organization, you can set
 A group's settings can be tenant-wide or scoped to one organization:
 
 * **Tenant-wide group settings** sit between the tenant and the organization in the chain. Tenant administrators manage these.
-* **Organization group settings** are scoped to one organization. A value set here applies only to people who are both a member of the group and a member of that organization, and it is the most specific level in the chain. Organization owners manage these for their own organization and see the same list of groups the tenant does.
+* **Organization group settings** apply only to people who are members of both the group and the organization. Organization owners manage these for their own organization.
 
 To edit settings for a group, choose the group in the scope bar on the Config page, which says whose settings you are editing. Groups appear there once your directory has pushed them. To add connectors for a group's members, see [Who receives a connector](https://claude.com/docs/government/connectors/overview.md#who-receives-a-connector).
 
@@ -69,7 +70,7 @@ To edit settings for a group, choose the group in the scope bar on the Config pa
 How you give a feature to one group and nobody else depends on the setting:
 
 * **A simple value, such as Code in Claude Desktop**: turn the feature off on the organization's Config page, then choose the group in the scope bar on that page and turn it on.
-* **The switch for a whole product that is off until a level turns it on, such as Claude Code**: leave it unset for the tenant and the organization, and turn it on for the group. An off saved at the tenant or the organization takes priority over the group's on, so [reset](#working-with-the-list) it there first.
+* **A product switch that is off until a level turns it on, such as Claude Code**: leave it unset for the tenant and the organization, and turn it on for the group. An off saved at the tenant or the organization takes priority over the group's on, so [reset](#working-with-the-list) it there first.
 
 To do this for every organization at once, make the same changes on the tenant Config page and choose **Must use this value** for the group, so that an organization's own value can't override it. You can't also lock the feature off for everyone else, because that lock would apply to the group too. An organization can still turn it on for its own members.
 

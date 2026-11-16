@@ -83,3 +83,6 @@ All core protocol features are built from these patterns. A protocol
 revision that adds a pattern defines it on this page. Transports carry new
 patterns without changes, because patterns are expressed entirely in terms
 of requests, responses, and notifications.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

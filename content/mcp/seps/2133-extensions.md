@@ -285,3 +285,6 @@ Clients and servers SHOULD treat any new fields or data introduced as part of an
 ## Reference Implementation
 
 To be provided.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

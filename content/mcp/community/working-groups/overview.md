@@ -25,3 +25,6 @@ Working groups deliver concrete outcomes such as SEPs, extensions, and code. Eac
 | [Skills Over MCP](https://modelcontextprotocol.io/community/working-groups/skills-over-mcp.md) | [Ola Hungerford](https://github.com/olaservo), [Peter Alexander](https://github.com/poita), [Sambhav Kothari](https://github.com/sambhav) | `#skills-over-mcp-wg` | How agent skills are discovered, distributed, and consumed through MCP |
 | [Tasks and Events](https://modelcontextprotocol.io/community/working-groups/tasks-events.md) | [Clare Liguori](https://github.com/clareliguori), [Peter Alexander](https://github.com/poita), [Luca Chang](https://github.com/LucaButBoring), [Caitie McCaffrey](https://github.com/CaitieM20) | Not listed yet | Continuing Tasks development and defining how servers push state change notifications |
 | [Transports](https://modelcontextprotocol.io/community/working-groups/transports.md) | [Kurtis Van Gent](https://github.com/kurtisvg) | `#transports-wg` | Evolving transport bindings and transport-adjacent protocol architecture |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

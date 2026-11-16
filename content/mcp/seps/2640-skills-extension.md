@@ -666,3 +666,6 @@ The cost of removal is the one archives were introduced to address: a skill with
 [SEP-2133]: https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2133
 
 [SEP-2549]: https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2549
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

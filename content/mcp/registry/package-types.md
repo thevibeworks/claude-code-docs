@@ -260,3 +260,6 @@ openssl dgst -sha256 image-processor.mcpb
 ```
 
 The MCP Registry does not validate this hash; however, MCP clients **do** validate the hash before installation to ensure file integrity. Downstream registries may also implement their own validation.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -229,3 +229,6 @@ Elicitation interactions are designed to be clear, contextual, and respectful of
 >
 > * **Roots**: Pass directories or files through tool parameters, resource URIs, or server configuration.
 > * **Sampling**: Integrate directly with LLM provider APIs. The protocol does not define a replacement for requesting completions through the client.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

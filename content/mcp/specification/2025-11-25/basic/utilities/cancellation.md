@@ -82,3 +82,6 @@ Invalid cancellation notifications **SHOULD** be ignored:
 
 This maintains the "fire and forget" nature of notifications while allowing for race
 conditions in asynchronous communication.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

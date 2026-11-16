@@ -354,6 +354,7 @@ The connector provides these read and search tools:
 | `read_resource` | Fetch a specific item, such as a message, event, or file |
 | `teams_list_chats` | List the user's Teams chats and their members, to find a chat to read or post in |
 | `get_me` | Return the signed-in user's own profile |
+| `get_granted_scopes` | List the scopes that Microsoft Entra grants the connector for the signed-in user |
 | `search_people` | Search for people by name or email address (needs `People.Read`) |
 | `teams_list_teams`, `teams_list_channels` | List the user's teams and a team's channels (need `Team.ReadBasic.All` and `Channel.ReadBasic.All`) |
 | `teams_list_channel_messages` | List a channel's messages, or the replies in one conversation (needs `ChannelMessage.Read.All`) |
@@ -446,7 +447,7 @@ The list doesn't block the following:
 * **Other routes to Claude**: files users upload, folders on the device, other connectors, and the remote Microsoft 365 connector
 * **Devices without a device-management profile**: the user can edit the configuration and remove the list
 
-Purview label blocking relies on sensitivity-label information returned by Microsoft's APIs or stored in the document itself. Anthropic does not control or independently verify the accuracy, completeness, or timeliness of the label information. Label blocking is a retrieval filter, not a security control: it supplements, and does not replace, your organization's own access controls, data loss prevention, and data-handling policies.
+When enabled, Claude is restricted from reaching files with specific Purview labels, even if the user has access to them normally. Not all files or surfaces are covered, so this setting should not replace your organization's own access controls.
 
 ### How users sign in
 
@@ -496,6 +497,20 @@ After a brokered attempt falls back to the system browser, the connector stays o
 The connector's Entra tokens are stored on the device, encrypted by Claude Desktop using the operating system's secure storage. Each configured entry has its own token store, and tokens persist across app restarts so users are not asked to sign in again each session.
 
 Selecting **Disconnect** next to the connector signs the user out and deletes its stored tokens. Where the user signed in through the broker, the device's work or school account itself is managed by the operating system and remains after Disconnect; remove the account in Windows Settings (**Accounts → Access work or school**) or macOS Company Portal, or revoke the user's sessions in Entra, to end access entirely. With `continuousAccessEvaluation` at its default of `enabled` on Claude Desktop 1.49585.0 or later, Microsoft Graph rejects the connector's current access token within minutes of the revocation. With `continuousAccessEvaluation` set to `disabled`, or on earlier app versions, revocation takes effect once the current one-hour access token expires.
+
+### Audit local connector tool calls
+
+Claude Desktop records each approved tool call to the local Microsoft 365 connector as a `builtin_m365_call` event, and sends it to your [OTLP collector](https://claude.com/docs/third-party/claude-desktop/telemetry.md#sending-telemetry-to-your-own-collector) under the `service.name` value `claude-desktop`. To receive the event, set [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) to `info` or `debug` (the default is `error`), then in your collector keep the log records whose body is `builtin_m365_call`. Each record identifies the user as described under [User attribution](https://claude.com/docs/third-party/claude-desktop/telemetry.md#user-attribution).
+
+Whatever [`otlpContentCapture`](https://claude.com/docs/third-party/claude-desktop/telemetry#content-capture) is set to, the event carries the tool's name but not its arguments or the text of its result. Its attributes include:
+
+* **`m365_tool`**: the tool's name, such as `outlook_email_search`
+* **`status`**: `ok`, `error`, or `cancelled`, or, when no tool ran, `user_disconnected` (the user isn't signed in to the connector) or `respawn_failed` (the app couldn't start or reach the connector)
+* **`is_write`**: `false` when the app confirms that the tool only reads, otherwise `true`
+
+Because `true` doesn't prove a write, compare `m365_tool` with the read and search tools listed under [Configure scopes](#configure-scopes), and count every other tool as a write.
+
+A call that the user declines produces no `builtin_m365_call` event. It appears in the session's telemetry as a [`tool_decision`](https://claude.com/docs/cowork/monitoring#tool-decision-event) event with `decision` set to `reject`.
 
 ### Troubleshoot the local connector
 

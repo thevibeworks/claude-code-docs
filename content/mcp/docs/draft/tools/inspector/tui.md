@@ -94,3 +94,6 @@ The Auth tab. It shows the same OAuth fields as the web client's Connection Info
 ## Requirements
 
 The TUI needs a real TTY with raw-mode support. It will not run usefully in a headless CI job; use the [CLI](https://modelcontextprotocol.io/docs/draft/tools/inspector/cli.md) there.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -119,3 +119,6 @@ This proposal is fully backward-compatible.
 It retains support for the WWW-Authenticate header (already in the spec) and introduces a fallback mechanism using the .well-known metadata path, which is already defined in MCP as a MUST-support location.
 
 Clients that already support metadata probing benefit from improved interoperability. Servers are not required to emit the WWW-Authenticate header if it is infeasible, but doing so is still encouraged to reduce client complexity and enable future extensibility.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

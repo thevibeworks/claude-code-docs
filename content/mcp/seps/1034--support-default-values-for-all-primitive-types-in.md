@@ -166,3 +166,6 @@ No new security concerns:
 1. **No Sensitive Data**: The existing guidance against requesting sensitive information still applies
 2. **Client Control**: Clients retain full control over what data is sent to servers
 3. **User Visibility**: Default values are visible to users who can modify them before submission
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

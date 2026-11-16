@@ -29,3 +29,6 @@ Explore these key primitives in more detail below:
 > [card] [Resources](https://modelcontextprotocol.io/specification/2026-07-28/server/resources.md)
 
 > [card] [Tools](https://modelcontextprotocol.io/specification/2026-07-28/server/tools.md)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -67,3 +67,6 @@ Servers may disconnect at will, avoiding long-running connections. Sending a `re
 ## Additional Information
 
 This SEP supersedes (in part) [SEP-1335](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/1335).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -56,7 +56,7 @@ On Team plans, Claude can join calls with outside guests by default, and an owne
 
 ### When outside guests aren't allowed
 
-By default, Claude is set to stay out of calls when someone from outside your organization is invited, and to leave if someone from outside, including another company's notetaker bot, joins partway through.
+Claude is set to stay out of calls when someone from outside your organization is invited, and to leave if someone from outside, including another company's notetaker bot, joins partway through.
 
 ### When outside guests are allowed
 
@@ -66,11 +66,11 @@ An owner can allow Claude on calls with outside guests. On calls with outside gu
 
 Owners and Primary Owners manage Claude Meetings in **[Organization settings > Products > Claude Meetings (beta)](https://claude.ai/admin-settings/meetings)**. On Enterprise plans, a custom role with Owner access can also open this page.
 
-- **Claude Meetings:** Off (the default on Enterprise plans), on for roles that include Meetings, or on for everyone (the default on Team plans).
+- **Claude Meetings:** off (the default on Enterprise plans), on for roles that include Meetings, or on for everyone (the default on Team plans)
 
-- **Meetings with external guests:** Internal meetings only (the default on Enterprise plans) or allowed (the default on Team plans).
+- **Meetings with external guests:** internal meetings only (the default on Enterprise plans) or allowed (the default on Team plans)
 
-- **Members' connectors in meetings:** Controls whether Claude can use members' connected tools during meetings.
+- **Members' connectors in meetings:** controls whether Claude can use members' connected tools during meetings
 
 On Enterprise plans, you can also control access by custom role with the **Claude Meetings** and **Meetings with external guests** capabilities.
 

@@ -190,3 +190,6 @@ All in the daemon directory, which is `0700`:
 | `mcpdod.log` | `0600` | The daemon's stderr, recreated on each start. Startup failures and the secret-store warning land here. |
 
 The daemon writes OAuth state and secrets through the same `oauth.json` and secret store as the other clients, so everything under [Secret storage](#secret-storage) applies to it unchanged.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

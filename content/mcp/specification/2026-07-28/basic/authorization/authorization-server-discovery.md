@@ -142,3 +142,6 @@ sequenceDiagram
     M-->>C: MCP response
     Note over C,M: MCP communication continues with valid token
 ```
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -123,3 +123,6 @@ There is also a
 [JSON Schema](https://github.com/modelcontextprotocol/specification/blob/main/schema/2025-03-26/schema.json),
 which is automatically generated from the TypeScript source of truth, for use with
 various automated tooling.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.
