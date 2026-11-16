@@ -116,6 +116,21 @@ def looks_like_html(content: bytes) -> bool:
     return head.startswith(b"<!doctype html") or head.startswith(b"<html")
 
 
+# Intercom signs every support.claude.com image link afresh on each request
+# (?expires=...&signature=...&req=...). Kept, the 160 image URLs in 62 support
+# articles rewrote themselves on every run: from 2026-11-13 each scheduled run
+# carried ~49 such files, and two PRs (#1462, #1463) held nothing else. The
+# signature buys nothing: the bare URL serves the same image (200, image/png,
+# checked 2026-11-16); all the signature did here was change the file.
+_SIGNED_INTERCOM_URL = re.compile(
+    rb"(https://downloads\.intercomcdn\.com/[^?\s)\]\"'<>]+)\?[^\s)\]\"'<>]*")
+
+
+def strip_signed_image_urls(content: bytes) -> bytes:
+    """Drop the per-request signature from Intercom image URLs."""
+    return _SIGNED_INTERCOM_URL.sub(rb"\1", content)
+
+
 # -- anthropic.com/legal: CMS documents inside Next.js flight data ------------
 #
 # anthropic.com serves no markdown, which is why the blog is frozen. The legal
@@ -519,6 +534,7 @@ class Fetcher:
                         "url": url, "status": "dead" if url in self.tombstones else "failed",
                         "error": "upstream returned HTML, not markdown (soft 404)",
                     }
+                content = strip_signed_image_urls(content)
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
@@ -756,6 +772,14 @@ class Fetcher:
         files = []
         for item in data.get("tree", []):
             if item["type"] != "blob":
+                continue
+            # An empty file has nothing to archive, and raw.githubusercontent
+            # answers about half the requests for one with an error aiohttp
+            # rejects ("501 ... Transfer-Encoding not supported"): the 0-byte
+            # anthropic-sdk-typescript packages/aws-sdk/README.md flipped
+            # `failures` between 0 and 1 on most runs, keeping
+            # .metadata.json dirty on its own.
+            if item.get("size") == 0:
                 continue
             if any(item["path"].endswith(ext) for ext in extensions):
                 files.append(item["path"])
@@ -1052,6 +1076,19 @@ class Fetcher:
             },
         }
         path = self.output_dir / ".metadata.json"
+        # fetch_date moves every run. Written regardless, it kept the tree
+        # dirty forever: Publish's "working tree clean" exit never fired, and
+        # every run (20 of 20 since 2026-11-09) opened a PR and spent two
+        # agent sessions. Now fetch_date is the last run that changed what
+        # this file says.
+        if path.exists():
+            try:
+                previous = json.loads(path.read_text())
+                previous["metadata"]["fetch_date"] = metadata["metadata"]["fetch_date"]
+                if previous == metadata:
+                    return
+            except (ValueError, KeyError, TypeError):
+                pass  # unreadable or old shape: rewrite it
         async with aiofiles.open(path, "w") as f:
             await f.write(json.dumps(metadata, indent=2))
 

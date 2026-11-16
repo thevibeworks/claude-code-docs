@@ -74,6 +74,21 @@ jobs:
           git config --global user.name "claude-yolo[bot]"
           git config --global user.email "claude-yolo@lroole.com"
 
+      # A clean tree has nothing to decide. Publish already exits on one, but
+      # the agent ran first anyway: an Opus session per run spent on "nothing
+      # new". Rare until the fetcher stopped rewriting signed image URLs and
+      # fetch_date on every run; now it is the common case.
+      - name: Detect changes
+        id: diff
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git status --short | head -30
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Working tree clean - nothing changed upstream."
+          fi
+
       # The agent ONLY decides; it runs no publish side effects. Five permission
       # allowlist designs failed the same way (July 2026): in this action's
       # headless SDK mode the .claude/settings.json allowlist is simply not
@@ -83,6 +98,7 @@ jobs:
       # else. Every real side effect (branch/commit/push/PR/merge/notify) lives
       # in the deterministic Publish step below - plain bash, no agent.
       - name: Claude decides
+        if: steps.diff.outputs.changed == 'true'
         # Pinned: @main changed claude_args parsing in June 2026 and silently
         # broke 'Bash(gh pr:*)' -> 3 weeks of pushed branches with no PRs.
         # The pin also fixes the Claude Code version, and so which models
