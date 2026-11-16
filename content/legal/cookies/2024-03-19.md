@@ -15,13 +15,13 @@ Effective 2024-03-19
 
 Anthropic is an AI safety and research company working to build reliable, interpretable, and steerable AI systems.
 
-This policy provides information about how and when we, our service providers, and our business partners use cookies, beacons, pixels, or similar technologies (“cookies”). For more information about cookies, see https://www.aboutcookies.org/cookie-faq. Terms used in this policy but not defined here have their meaning set forth in our Privacy Policy, which also includes additional details about the collection and use of information at Anthropic.
+This policy provides information about how and when we, our service providers, and our business partners use cookies, beacons, pixels, or similar technologies (“cookies”). For more information about cookies, see [https://www.aboutcookies.org/cookie-faq](https://www.aboutcookies.org/cookie-faq). Terms used in this policy but not defined here have their meaning set forth in our [Privacy Policy](https://www.anthropic.com/legal/privacy), which also includes additional details about the collection and use of information at Anthropic.
 
 ### How Anthropic Uses Cookies
 
 We use cookies to manage the Services and to collect information about you and your use of the Services. Cookies help us to recognize you, customize or personalize your experience, market additional products or services to you, and analyze the use of our Services to make it more useful to you. Cookies may also allow us to collect demographic and statistical data and provide this information to our service providers to help deliver their services.
 
-We use cookies for the following purposes. You can also visit our cookies table to learn more.
+We use cookies for the following purposes. You can also visit our [cookies table](https://support.anthropic.com/en/articles/9020432) to learn more.
 
 Table: Cookie Purpose and Description
 
@@ -35,7 +35,7 @@ Table: Cookie Purpose and Description
 
 ### Managing Your Cookie Settings
 
-Most browsers allow you to remove or manage cookie functions and adjust your privacy and security preferences. For information on how to do this, access the “help” menu on your browser, or access http://www.aboutcookies.org/how-to-control-cookies. Due to differences between websites and other technologies, you may need to take additional steps to opt out. Please check your settings for additional information. Please note, however, that disabling all cookies may mean that you may not be able to take full advantage of our Services.
+Most browsers allow you to remove or manage cookie functions and adjust your privacy and security preferences. For information on how to do this, access the “help” menu on your browser, or access [http://www.aboutcookies.org/how-to-control-cookies](http://www.aboutcookies.org/how-to-control-cookies). Due to differences between websites and other technologies, you may need to take additional steps to opt out. Please check your settings for additional information. Please note, however, that disabling all cookies may mean that you may not be able to take full advantage of our Services.
 
 You can control how and when your personal data is shared or used for purposes of advertising about Anthropic’s AI services by clicking on the Privacy Choices link at the bottom of the page or enabling global privacy controls.
 
@@ -47,7 +47,7 @@ Anthropic may update this Cookie Policy from time to time. We will notify you of
 
 ### Contact Us
 
-If you have any questions or comments, please contact us via privacy@anthropic.com.
+If you have any questions or comments, please contact us via [privacy@anthropic.com](mailto:privacy@anthropic.com).
 
 
 

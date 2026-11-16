@@ -13,7 +13,7 @@ pdf: https://assets.claude.com/88cf16e8b7d203be16d2c726bcd28a6ec7c7f5c8.pdf
 
 Effective 2026-11-12
 
-Our Usage Policy (also referred to as our “Acceptable Use Policy” or “AUP”) applies to anyone who submits inputs to Anthropic’s products or services, all of whom we refer to as “users.” This includes individuals using our apps (such as Claude.ai and Claude Code), developers and businesses using our API and developer platforms, customers accessing Claude through cloud providers and authorized resellers, and the end users of products or services integrating Claude. The Usage Policy is intended to prevent our products and services from being used to create or contribute to real-world harm, and to promote the responsible use of our products and services.
+Our Usage Policy (also referred to as our “Acceptable Use Policy” or “AUP”) applies to anyone who submits inputs to Anthropic’s products or services, all of whom we refer to as “users.” This includes individuals using our apps (such as [Claude.ai](https://claude.ai/) and Claude Code), developers and businesses using our API and developer platforms, customers accessing Claude through cloud providers and authorized resellers, and the end users of products or services integrating Claude. The Usage Policy is intended to prevent our products and services from being used to create or contribute to real-world harm, and to promote the responsible use of our products and services.
 
 Please review this Usage Policy carefully before using our products or services.
 
@@ -31,9 +31,9 @@ Our Usage Policy focuses on how our products and services are used. Its prohibit
 
 Anthropic’s Safeguards Team implements detection and monitoring to enforce our Usage Policy. If we suspect that you may have violated our Usage Policy, we may warn you or throttle, limit, suspend, or terminate your access to our products and services.
 
-Our products also include real-time safeguards that may block or limit certain outputs, but encountering a block does not by itself indicate a violation of the Usage Policy. For certain dual-use or high-risk use cases covered by real-time safeguards in select domains, we may offer programs where you can apply to be granted access to our products and services with adjusted safeguards, such as our Cyber Verification Program and Life Sciences Verification Program, subject to program-specific eligibility criteria.
+Our products also include real-time safeguards that may block or limit certain outputs, but encountering a block does not by itself indicate a violation of the Usage Policy. For certain dual-use or high-risk use cases covered by real-time safeguards in select domains, we may offer programs where you can apply to be granted access to our products and services with adjusted safeguards, such as our [Cyber Verification Program](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude-opus-and-sonnet) and [Life Sciences Verification Program](https://claude.com/form/life-sciences-verification-program), subject to program-specific eligibility criteria.
 
-If you believe that our model outputs are potentially inaccurate, biased, or harmful, please notify us at usersafety@anthropic.com, or report it directly in our product through the “report issues” thumbs down button or similar feedback features (where available). You can read more about our Safeguards practices and recommendations in our Safeguards Support Center.
+If you believe that our model outputs are potentially inaccurate, biased, or harmful, please notify us at usersafety@anthropic.com, or report it directly in our product through the “report issues” thumbs down button or similar feedback features (where available). You can read more about our Safeguards practices and recommendations in our [Safeguards Support Center](https://support.anthropic.com/en/collections/4078535-safeguards).
 
 This Usage Policy is calibrated to strike an optimal balance between enabling beneficial uses and mitigating potential harms. Anthropic may enter into contracts with certain governmental customers that tailor use restrictions to that customer’s public mission and legal authorities if, in Anthropic’s judgment, the contractual use restrictions and applicable safeguards are adequate to mitigate the potential harms addressed by this Usage Policy.
 
@@ -261,7 +261,7 @@ This includes using our products or services to:
 
 * Circumvent a ban through the use of a different account, such as the creation of a new account, use of an existing account, or providing access to a person or entity that was previously banned
 
-* Access, facilitate, or provide others (including end users) with access to our products or services in violation of our Supported Regions Policy
+* Access, facilitate, or provide others (including end users) with access to our products or services in violation of our [Supported Regions Policy](https://www.anthropic.com/supported-countries)
 
 * Intentionally bypass or interfere with capabilities, restrictions, or guardrails established within our products, including by circumvention of the account sign-up or log-in process or by instructing the model to produce harmful outputs (e.g., jailbreaking or prompt injection), without prior authorization from Anthropic
 
@@ -397,17 +397,17 @@ The below use cases — regardless of whether they involve High-risk AI Recommen
 
 * All consumer-facing chatbots or AI agents that communicate directly with external users must disclose to users that they are interacting with AI rather than a human. This disclosure must be provided at a minimum at the beginning of each chat session or in the product interface. The disclosure does not need to identify Anthropic, Claude, or the model used.
 
-* Products serving minors, including organizations providing minors with the ability to directly interact with products that incorporate our API(s), must comply with the additional guidelines outlined in our Support article and all applicable laws.
+* Products serving minors, including organizations providing minors with the ability to directly interact with products that incorporate our API(s), must comply with the additional guidelines outlined in our Support[ article](https://support.anthropic.com/en/articles/9307344-responsible-use-of-anthropic-s-models-guidelines-for-organizations-serving-minors) and all applicable laws.
 
 * Agentic use cases must comply with the Usage Policy. Users are responsible for ensuring that agents they build or deploy, including actions those agents take through tools, browsers, or connected systems, comply with this Usage Policy.
 
-* Software listed in our Directories must comply with our Software Directory Policy.
+* Software listed in our Directories must comply with our [Software Directory Policy](https://support.claude.com/en/articles/13145358-anthropic-software-directory-policy).
 
-We also provide additional informational resources in our Safeguards Support Center, including:
+We also provide additional informational resources in our [Safeguards Support Center](https://support.claude.com/en/collections/4078535-safeguards), including:
 
-* Our Child Safety Guidance for Developers for detailed guidance on identifying and mitigating child safety risks.
+* Our [Child Safety Guidance for Developers](https://support.claude.com/en/articles/15591275-child-safety-guidance-for-developers) for detailed guidance on identifying and mitigating child safety risks.
 
-* Additional information about our mental health safeguards on Claude.ai.
+* Additional information about our [mental health safeguards](https://support.claude.com/en/articles/13171706-crisis-helpline-support-in-claude) on Claude.ai.
 
 ## Version history
 
