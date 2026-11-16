@@ -243,16 +243,31 @@ jobs:
             gh pr merge "$PR_URL" --rebase
             echo "Minor change - self-merged."
           elif [ -n "${BARK_SERVER:-}" ] && [ -n "${BARK_DEVICES:-}" ]; then
+            # Bark answers an unknown device key with HTTP 400 and
+            # {"code":400,"message":"failed to get device token..."}, which
+            # curl -sS treats as success. Every ping from this repo reached
+            # nobody from at least 2026-10-12 to 11-16 (100 of 100 runs) while
+            # every run stayed green. So the reply is read, and a ping that no
+            # device received turns this step red. The PR itself is fine.
+            SENT=0
             IFS=',' read -ra DEVICES <<< "$BARK_DEVICES"
-            for dev in "${DEVICES[@]}"; do
-              jq -n --arg k "$dev" --arg t "📦 Claude Code v${VERSION}" \
+            for i in "${!DEVICES[@]}"; do
+              RESP=$(jq -n --arg k "${DEVICES[$i]}" --arg t "📦 Claude Code v${VERSION}" \
                 --arg b "$TITLE" --arg u "$PR_URL" \
                 '{device_key:$k, title:$t, body:$b, url:$u, group:"Claude YOLO",
                   icon:"https://avatars.githubusercontent.com/in/1452392"}' \
               | curl -sS -X POST "$BARK_SERVER/push" \
-                  -H 'Content-Type: application/json' -d @- \
-              || echo "::warning::bark notification failed (PR is fine: $PR_URL)"
+                  -H 'Content-Type: application/json' -d @-) || RESP=""
+              if [ "$(jq -r '.code // empty' <<< "$RESP" 2>/dev/null)" = "200" ]; then
+                SENT=$((SENT + 1))
+              else
+                echo "::warning::bark: device $((i + 1)) of ${#DEVICES[@]} not notified: ${RESP:-no reply}"
+              fi
             done
+            if [ "$SENT" -eq 0 ]; then
+              echo "::error::bark: no device got the ping for $PR_URL; check BARK_SERVER and BARK_DEVICES"
+              exit 1
+            fi
           fi
 
       # Tripwire kept as belt-and-suspenders: a pushed branch without a PR, or
@@ -287,8 +302,11 @@ jobs:
           [ -n "${BARK_SERVER:-}" ] && [ -n "${BARK_DEVICES:-}" ] || exit 0
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           IFS=',' read -ra DEVICES <<< "$BARK_DEVICES"
-          for dev in "${DEVICES[@]}"; do
-            jq -n --arg k "$dev" --arg u "$RUN_URL" \
+          # Read the reply: a 400 from Bark is not a delivered alert (see Publish).
+          for i in "${!DEVICES[@]}"; do
+            RESP=$(jq -n --arg k "${DEVICES[$i]}" --arg u "$RUN_URL" \
               '{device_key:$k, title:"🚨 docs pipeline failed", body:"needs human", url:$u, group:"Claude YOLO"}' \
-            | curl -sS -X POST "$BARK_SERVER/push" -H 'Content-Type: application/json' -d @- || true
+            | curl -sS -X POST "$BARK_SERVER/push" -H 'Content-Type: application/json' -d @-) || RESP=""
+            [ "$(jq -r '.code // empty' <<< "$RESP" 2>/dev/null)" = "200" ] \
+              || echo "::warning::bark: device $((i + 1)) of ${#DEVICES[@]} not alerted: ${RESP:-no reply}"
           done
