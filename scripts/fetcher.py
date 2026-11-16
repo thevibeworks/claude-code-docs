@@ -795,7 +795,17 @@ class Fetcher:
         Network errors are left out: they say nothing about the format.
         """
         path = self.output_dir / "legal" / ".parse-errors.json"
-        if not self.legal_errors:
+        errors = dict(self.legal_errors)
+        if self.incremental:
+            # --incremental skips files it holds without parsing them, so it
+            # cannot tell a fixed page from an unchecked one. Like tombstones,
+            # only a run that rechecks everything may clear an entry; this one
+            # may only add. (Codex review of #1469.)
+            try:
+                errors = {**json.loads(path.read_text())["errors"], **errors}
+            except (OSError, ValueError, KeyError):
+                pass
+        if not errors:
             path.unlink(missing_ok=True)
             return
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -804,9 +814,9 @@ class Fetcher:
                      "page format probably changed: fix parse_legal_page in "
                      "scripts/fetcher.py. The files under content/legal/ for "
                      "these pages are stale until then."),
-            "errors": dict(sorted(self.legal_errors.items())),
+            "errors": dict(sorted(errors.items())),
         }, indent=2) + "\n")
-        print(f"\n::error::{len(self.legal_errors)} legal page(s) could not be "
+        print(f"\n::error::{len(errors)} legal page(s) could not be "
               f"parsed; see {path}")
 
     # -- GitHub repo listing -----------------------------------------------
