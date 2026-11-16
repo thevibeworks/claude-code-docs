@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-16T13:05:32.957086Z",
+    "fetch_date": "2026-11-16T13:43:56.184777Z",
     "section": "all"
   },
   "items": [
@@ -15031,8 +15031,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/telemetry",
       "status": "success",
       "path": "claude/third-party/claude-desktop/telemetry.md",
-      "sha256": "d2c3b971350d9dbc412f73c7bb2440d30584d793531074558f485dde1873a318",
-      "size": 40520
+      "sha256": "7b402c4a1c09a49fbe809b688dcda7bb32770415732d3710002c0455e1cb4d25",
+      "size": 45573
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/unified-claude",
@@ -31513,6 +31513,13 @@
       "size": 14455
     },
     {
+      "url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/packages/aws-sdk/README.md",
+      "status": "success",
+      "path": "github/anthropic-sdk-typescript/packages/aws-sdk/README.md",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size": 0
+    },
+    {
       "url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/packages/bedrock-sdk/CHANGELOG.md",
       "status": "success",
       "path": "github/anthropic-sdk-typescript/packages/bedrock-sdk/CHANGELOG.md",
@@ -33536,8 +33543,8 @@
     }
   ],
   "summary": {
-    "total": 4927,
-    "downloaded": 4606,
+    "total": 4928,
+    "downloaded": 4607,
     "skipped": 0,
     "failed": 0,
     "dead": 321,
