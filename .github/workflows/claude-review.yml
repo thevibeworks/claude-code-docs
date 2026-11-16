@@ -210,8 +210,12 @@ jobs:
           [ -n "${BARK_SERVER:-}" ] && [ -n "${BARK_DEVICES:-}" ] || exit 0
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           IFS=',' read -ra DEVICES <<< "$BARK_DEVICES"
-          for dev in "${DEVICES[@]}"; do
-            jq -n --arg k "$dev" --arg u "$RUN_URL" \
+          # Read the reply: Bark answers an unknown device key with a 400 that
+          # curl -sS treats as success (see fetch-claude-docs.yml, Publish).
+          for i in "${!DEVICES[@]}"; do
+            RESP=$(jq -n --arg k "${DEVICES[$i]}" --arg u "$RUN_URL" \
               '{device_key:$k, title:"🚨 docs review failed", body:"PR left unreviewed", url:$u, group:"Claude YOLO"}' \
-            | curl -sS -X POST "$BARK_SERVER/push" -H 'Content-Type: application/json' -d @- || true
+            | curl -sS -X POST "$BARK_SERVER/push" -H 'Content-Type: application/json' -d @-) || RESP=""
+            [ "$(jq -r '.code // empty' <<< "$RESP" 2>/dev/null)" = "200" ] \
+              || echo "::warning::bark: device $((i + 1)) of ${#DEVICES[@]} not alerted: ${RESP:-no reply}"
           done
