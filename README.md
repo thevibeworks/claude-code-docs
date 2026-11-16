@@ -2,7 +2,8 @@
 
 > Auto-updating archive of Anthropic's builder documentation: every source
 > that publishes markdown, fetched 4x daily. 4,100 files from six live sources,
-> plus a frozen archive of the engineering blog.
+> Anthropic's legal and policy pages with their version history, and a frozen
+> archive of the engineering blog.
 
 [![fetch](https://github.com/thevibeworks/claude-code-docs/actions/workflows/fetch-claude-docs.yml/badge.svg)](https://github.com/thevibeworks/claude-code-docs/actions/workflows/fetch-claude-docs.yml)
 [![review](https://github.com/thevibeworks/claude-code-docs/actions/workflows/claude-review.yml/badge.svg)](https://github.com/thevibeworks/claude-code-docs/actions/workflows/claude-review.yml)
@@ -42,9 +43,17 @@ prints them live.
 | modelcontextprotocol.io | `--section mcp` | 347 | MCP spec, SDKs, governance |
 | github.com/anthropics | `--section github` | 764 | Cookbooks, skills, plugins, courses, SDK docs |
 | support.claude.com | `--section support` | 372 | Help articles |
+| anthropic.com/legal | `--section legal` | 92 | Terms, Usage Policy, privacy, Supported Regions; every listed version |
 | anthropic.com | frozen 2026-07-08 | 158 | Engineering, research, news posts -- see below |
 
-`anthropic.com` has no `--section` flag: it is HTML-only, the jina.ai proxy the
+The legal pages need no markdown variant. Each page embeds its CMS document and
+version list in the page data, and Anthropic serves every past version at
+`/legal/archive/<id>`. `content/legal/<slug>.md` is the current text;
+`content/legal/<slug>/<date>.md` is each version, by effective date. Read the
+version list as Anthropic's account, not a record: see
+[`content/legal/README.md`](content/legal/README.md).
+
+The anthropic.com blog has no `--section` flag: it is HTML-only, the jina.ai proxy the
 fetcher used was removed in July 2026, and `content/blog/` has been a static
 archive since 2026-07-08. What is in it, against what anthropic.com's sitemap
 lists today:
@@ -69,6 +78,7 @@ content/
   en/manage-claude/      Admin, billing, managed agents
   claude/                Product docs (Claude Tag, Cowork, office agents)
   mcp/                   MCP protocol spec + community
+  legal/                 Terms, policies, Supported Regions + past versions
   blog/                  frozen 2026-07-08, not refreshed
     engineering/         Building Effective Agents, context engineering, ...
     research/            Research papers
@@ -104,6 +114,8 @@ GitHub repo fetching needs `GITHUB_TOKEN` or `GH_TOKEN` in the environment.
 Every fetched source serves a `.md` variant of each page, so nothing is
 converted from HTML. That is also why `content/blog/` is frozen: anthropic.com
 is HTML-only and the jina.ai proxy path it used was removed in July 2026.
+The one exception is `content/legal/`, rendered from the CMS data the legal
+pages embed (see above).
 
 See [`sources.json`](sources.json) for the complete machine-readable source
 registry.

@@ -7,7 +7,7 @@
       "robots": true,
       "sitemap": true,
       "llms_txt": false,
-      "notes": "Main site: news, engineering, research. FROZEN 2026-07-08 -- HTML-only, no .md variant, and the jina.ai proxy path was removed. content/blog/ is a static archive; the fetcher skips this domain (FROZEN_DOMAINS in fetcher.py).",
+      "notes": "Main site: news, engineering, research. Blog FROZEN 2026-07-08 -- HTML-only, no .md variant, and the jina.ai proxy path was removed. content/blog/ is a static archive. Exception: /legal/* is fetched (source `legal-pages`), because each legal page embeds its CMS document and version history in the Next.js flight data; no proxy needed (FETCHED_PATHS in fetcher.py).",
       "frozen": "2026-07-08"
     },
     "platform.claude.com": {
@@ -127,6 +127,22 @@
         "products"
       ],
       "notes": "Claude product docs. Sections: claude-tag (65), government (38), connectors (33), claude-science (29), third-party (28), office-agents (12), cowork (6), plugins (2), skills (2)."
+    },
+    {
+      "name": "legal-pages",
+      "type": "next-flight-cms",
+      "sitemap": "https://www.anthropic.com/sitemap.xml",
+      "filter": "/legal/",
+      "archive": "https://www.anthropic.com/legal/archive/<version _id>",
+      "output": "legal/",
+      "pages": 26,
+      "versions": 66,
+      "enabled": true,
+      "section": [
+        "legal"
+      ],
+      "added": "2026-11-15",
+      "notes": "Terms, Usage Policy, privacy, Supported Regions, credit and promotion terms. legal/<slug>.md is the current text; legal/<slug>/<effective date>.md is every version the page's versionHistory lists. Anthropic's history is not a record: the Supported Regions version labelled 2026-05-12 was created 2026-10-13 and holds the October text (185 countries; the 2026-05-16 Wayback capture shows 184). Earlier region-list changes exist only in the Wayback Machine."
     },
     {
       "name": "engineering-blog",

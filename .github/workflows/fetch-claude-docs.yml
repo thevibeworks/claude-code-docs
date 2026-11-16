@@ -13,6 +13,14 @@ on:
     - cron: "0 16 * * *"
   workflow_dispatch: # Allow manual trigger
 
+# hn-digest also takes on-time workflow_dispatch runs from an outside trigger
+# (01:01, 06:00, 11:00, 20:00 UTC), next to its late cron. If this workflow
+# gets the same, two runs land in one slot; run them one after the other so
+# the second sees the first one's merge instead of racing it to a second PR.
+concurrency:
+  group: fetch-claude-docs
+  cancel-in-progress: false
+
 jobs:
   fetch-docs:
     runs-on: ubuntu-latest
@@ -37,10 +45,15 @@ jobs:
       - name: Export token for subsequent steps
         run: echo "GITHUB_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
 
+      # `ref` makes a run that waited in the concurrency queue check out main
+      # as it is now, not the commit from when it was triggered. Without it the
+      # queued run diffs against a tree that predates the first run's merge.
+      # (hn-digest, 2026-10: 21 duplicate editions in 11 days from this.)
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ steps.app-token.outputs.token }}
+          ref: ${{ github.ref }}
 
       - name: Install uv and Python 3.14t
         uses: astral-sh/setup-uv@v7
@@ -110,6 +123,9 @@ jobs:
             - `content/github/` - GitHub repos (cookbooks, skills, plugins, courses)
             - `content/support/` - Support articles (sitemap + .md)
             - `content/claude/` - Product docs (Claude Tag, Cowork, office agents, connectors)
+            - `content/legal/` - Anthropic legal + policy pages: `<slug>.md` is the
+              current text, `<slug>/<date>.md` each version the page lists
+              (Usage Policy, consumer terms, privacy, Supported Regions, credit terms)
 
             ## YOUR WORKFLOW
 
@@ -131,6 +147,18 @@ jobs:
             - Breaking changes
             - Security-related updates
             - New MCP spec versions
+            - ANY change under `content/legal/`. These are the rules Claude
+              subscribers (Free, Pro, Max, Ultra) and API customers are held to:
+              who may use Claude and from where, what is banned, what happens to
+              their data, when credits expire. A new `<slug>/<date>.md` is a new
+              version; an edit to `<slug>.md` with no new version is a silent
+              rewrite - say which one it is. Read the diff of the text (for a new
+              version, `git diff --no-index` it against the previous version's
+              file) and quote the changed sentences. Lead with what changes for a
+              subscriber: new bans, enforcement wording ("learn" vs "suspect"),
+              account limits, data and training use, countries added or removed,
+              credit expiry. Do not trust the effective date alone: Anthropic
+              backfills old versions (see `content/legal/README.md`).
             - ANY deleted files (`git status` shows `D`). The fetcher reaps
               pages that died upstream. A page disappearing is a real editorial
               event and a human should see it, so deletions are never `minor`
@@ -169,7 +197,8 @@ jobs:
 
             - `.decision/signal` - exactly `high` or `minor`
             - `.decision/version` - the Claude Code version from content/claude-code-manifest.json (e.g. `2.1.210`)
-            - `.decision/title` - ONE line, no "docs:" prefix. High: `Claude Code v{version} - {key feature}`. Minor: `{what} (minor)`
+            - `.decision/title` - ONE line, no "docs:" prefix. High: `Claude Code v{version} - {key feature}`. Minor: `{what} (minor)`.
+              When the lead change is legal: `Legal: {document} - {what changed for users}`
             - `.decision/body.md` - the PR body:
 
               ```

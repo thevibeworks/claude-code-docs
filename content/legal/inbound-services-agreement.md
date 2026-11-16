@@ -1,0 +1,219 @@
+---
+title: "Inbound Services Agreement"
+source: https://www.anthropic.com/legal/inbound-services-agreement
+archive: https://www.anthropic.com/legal/archive/78cbea28-4333-4042-a6ce-ea391e890a8a
+version: 78cbea28-4333-4042-a6ce-ea391e890a8a
+effective: 2024-06-18T07:00:00.000Z
+latest: true
+pdf: https://assets.claude.com/9075eacba9c56b4f5ac02d8477ae60060d451bcd.pdf
+---
+
+# Inbound Services Agreement
+
+Effective 2024-06-18
+
+This Inbound Services Agreement (“Agreement”) is an agreement between Anthropic, PBC ("Anthropic") and the company stated in the SOW ("Contractor"). This Agreement governs Contractor's provision of Services and Deliverables as described in the SOW and is effective as of the SOW Effective Date (as defined in the SOW). 
+
+1. Definitions. 
+
+A. "Background IP" means all Intellectual Property owned or licensed by a party (i) before the Effective Date; or (ii) independent of this Agreement. 
+
+B. "Deliverables" means any work product provided by Contractor to Anthropic under this Agreement. 
+
+C. "Developed IP" means any Intellectual Property created, invented or discovered by, or on behalf of, Contractor or Anthropic in connection with this Agreement. 
+
+D. "Intellectual Property" means anything protectable by an Intellectual Property Right. 
+
+E. "Intellectual Property Rights" means all registered or unregistered intellectual property rights throughout the world, including rights in patents, copyrights, trademarks, trade secrets, designs, databases, domain names, and moral rights. 
+
+F. "Personnel" means Contractor and all employees and agents of Contractor and its subcontractors and their agents. 
+
+G. "Services" means all services specified or provided under this Agreement. 
+
+H. "SOW" means the applicable, executed statement of work or similar ordering document that describes specific Services and Deliverables and incorporates the terms of this Agreement. 
+
+I. "Taxes" means all government-imposed tax obligations (including taxes, duties, and withholdings), except those based on Contractor's or Personnel's net income, net worth, asset value, property value, or employment. 
+
+J. "Term" means the term of this Agreement which starts on the Effective Date and continues until the earlier of: (a) termination in accordance with this Agreement, or (b) expiration of the SOW Term (as defined in the SOW). 
+
+K. In this Agreement, (i) "include" or "including" means "including but not limited to," and (ii) examples are illustrative and not the sole examples of a particular concept.
+
+2. Services and Deliverables.
+
+The parties have agreed to enter into a SOW under this Agreement for the provision of Services and Deliverables by Contractor to Anthropic. During the term of the SOW, Anthropic may inspect the Services and Deliverables prior to acceptance. Contractor will promptly notify Anthropic in writing of anything that is likely to cause a delay in the delivery of any Deliverables.
+
+3. Payments.
+
+A. Invoices. Contractor will submit itemized invoices to ap@anthropic.com with a copy to the Anthropic business contact. Contractor will invoice Anthropic in accordance with the fee(s) specified in the SOW and only for accepted Services and Deliverables. Anthropic may initiate invoice disputes in good faith, and will provide a written description of any disputed amounts. Upon Anthropic's request, Contractor will issue separate invoices for undisputed and disputed amounts. Payment of undisputed amounts will not compromise Anthropic's right to object to the disputed amounts. Disputed amounts will not be due until the dispute is finally resolved, and will then be payable according to the terms of Section 3.B (Paying Invoices). 
+
+B. Paying Invoices. Anthropic will pay the Contractor within 30 days after Anthropic receives a correct invoice. Anthropic is not required to pay any invoice submitted more than 180 days after the acceptance of the Services or Deliverables. 
+
+C. Expenses. Anthropic will reimburse Contractor for expenses up to the amounts specified in the SOW, and only if they are: (i) actual and without mark-up or commissions, (ii) approved in advance in writing by Anthropic, and (iii) accompanied by itemized receipts and other documentation requested by Anthropic. 
+
+D. Taxes. For Services performed in the United States, Taxes are not included in the fees and will be separately itemized in Contractor's invoices, if applicable. Otherwise, Taxes are included in the fees. Anthropic will pay correctly-stated Taxes unless Anthropic provides a valid tax exemption certificate. Contractor will timely provide customary tax documentation reasonably requested by Anthropic.
+
+4. Intellectual Property and Deliverables.
+
+A. Background IP. Except for the license rights under Section 5 (Licenses), neither party will own or acquire any right, title, or interest to the other party's Background IP under this Agreement. 
+
+B. Title to Deliverables. Title to the Deliverables will transfer to Anthropic upon delivery. 
+
+C. Ownership of Developed IP. Anthropic owns any Developed IP. Contractor assigns all right, title, and interest in the Developed IP, including Intellectual Property Rights, to Anthropic. Contractor will procure the assignment to Anthropic of all rights in the Developed IP not owned by Contractor. If applicable law prevents future assignments, Contractor will assign (or will procure the assignment of) such rights as they are created. 
+
+D. License to Developed IP if Assignment Fails. If applicable law prevents Contractor from transferring ownership of any Developed IP to Anthropic, Contractor grants to Anthropic a perpetual, irrevocable, exclusive, royalty-free, fully-paid, transferrable, worldwide license (with the right to sublicense) to: (i) reproduce, prepare derivative works of, distribute, publicly perform, publicly display, and otherwise use such Developed IP; and (ii) make, use, sell, offer for sale, import, export any component of, and otherwise dispose of such Developed IP. 
+
+E. Assistance to Accomplish Assignment. If requested by Anthropic, Contractor will timely perform all acts reasonably necessary to accomplish the assignments and other transactions specified in this Agreement. 
+
+F. Moral Rights in Deliverables. Contractor will not assert, and to the extent permitted by applicable law, otherwise waives, any moral rights in the Deliverables and Developed IP. Contractor will ensure that Personnel and other third parties who have moral rights in the Deliverables and Developed IP will also not assert, and to the extent permitted by applicable law, will waive those moral rights.
+
+5. Licenses.
+
+A. Anthropic Background IP and Developed IP. If Anthropic permits Contractor to use any of Anthropic's Background IP or the Developed IP to provide Anthropic with the Services or Deliverables, then subject to this Agreement, Anthropic grants to Contractor a limited, non-exclusive, non-transferable, royalty-free, fully-paid, worldwide license (with the right to sublicense solely to its delegates and subcontractors authorized by Anthropic under Section 13.G (Subcontracting)) to do the following, during the Term, solely for the purpose of, and only to the extent needed for, performing the Services and providing the Deliverables: (i) reproduce, prepare derivative works of, distribute, publicly perform, publicly display, and otherwise use such Background IP and Developed IP; and (ii) make, use, and import such Background IP and Developed IP. 
+
+B. Contractor Background IP. If Contractor's Background IP is incorporated in, or is necessary to use, any Deliverable: (i) Contractor will describe its Background IP in writing if requested by Anthropic; and, (ii) Contractor grants to Anthropic and its affiliates a perpetual, irrevocable, non-exclusive, royalty-free, fully-paid, worldwide license (with the right to sublicense) to: (a) reproduce, prepare derivative works of, distribute, publicly perform, publicly display, and otherwise use such Background IP in connection with the Deliverables and Developed IP; and (b) make, use, sell, offer for sale, import, export any component of, and otherwise dispose of such Background IP in connection with the Deliverables and Developed IP.
+
+6. Confidentiality; Publicity; Privacy and Security.
+
+A. Definitions."Confidential Information" means information that one party (or an affiliate) discloses to the other party under this Agreement, and that is marked as confidential or would normally be considered confidential information under the circumstances. It does not include information that is independently developed by the recipient, is rightfully given to the recipient by a third party without confidentiality obligations, or becomes public through no fault of the recipient. Each party's Background IP is its Confidential Information. The Developed IP and Deliverables are Anthropic's Confidential Information.
+
+B. Confidentiality Obligations. The recipient will not disclose the discloser's Confidential Information, except to employees, affiliates, agents, professional advisors, or third-party contractors ("Delegates") who need to know it and who have a legal obligation to keep it confidential. The recipient will use the Confidential Information only to exercise rights and fulfill obligations under this Agreement while using reasonable care to protect the Confidential Information. Contractor will not enable any AI integrations or share any Anthropic Confidential Information with other large language model providers without Anthropic's consent. The recipient may disclose Confidential Information when legally compelled by a court or other government authority. To the extent permitted by law, recipient will promptly provide the discloser with sufficient notice of all available details of the legal requirement and reasonably cooperate with the discloser's efforts to challenge the disclosure, seek an appropriate protective order, or pursue such other legal action, as the discloser may deem appropriate. The recipient will ensure that its Delegates are also subject to the same non-disclosure and use obligations.
+
+C. No Rights. Except for the limited rights under this Agreement, neither party acquires any right, title, or interest in the other party's Confidential Information.
+
+D. No Publicity. Neither party may make any public statement regarding this Agreement without the other's written approval. Additionally, Contractor may not identify Anthropic as a customer of Contractor or use Anthropic's name, logo or other brand features for any marketing purposes.
+
+E. Privacy and Security. Contractor will comply with Attachment A (Privacy and Security).
+
+7. Independent Contractor; Personnel. 
+
+Contractor is an independent contractor. Contractor and Personnel are not Anthropic employees. Contractor is responsible for: (A) Personnel's acts and omissions; (B) staffing, instructing, and managing Personnel performing Services; (C) providing all equipment necessary for Personnel to perform Services, except where otherwise provided by Anthropic at its discretion, including for security purposes; (D) determining Personnel's compensation (i.e., any stated rates for Services provided are not wage rates); (E) any income tax withholding applicable to Personnel; and (F) all costs associated with terminating Personnel. Contractor and Personnel will not be entitled to any compensation, stock, options, or other rights or benefits provided to Anthropic employees. Anthropic and Contractor do not intend for any transfer laws to apply to Services under this Agreement.
+
+8. Representations and Warranties.
+
+A. Mutual. Each party represents and warrants that it has full power and authority to enter into and fulfill its obligations under this Agreement.
+
+B. Contractor. Contractor represents and warrants that: (i) Contractor's performance under this Agreement will be of professional quality and performed with reasonable skill and care consistent with generally-accepted industry standards; (ii) all Personnel performing Services have the requisite skills, experience, and qualifications; (iii) the Services and Deliverables will meet this Agreement's specifications and requirements; (iv) the Deliverables will be free from any viruses or other malicious code; (v) there are no actual or potential conflicts of interest concerning the Services; (vi) Contractor has and will retain all necessary rights to grant the licenses in this Agreement and provide the Services and Deliverables to Anthropic, at no greater cost to Anthropic than specified in the SOW; (vii) Contractor and Personnel's fulfillment of their obligations under this Agreement will not breach any obligations they have to any third party; (viii) in performing the Services, Contractor will not use or bring to Anthropic any third party's confidential or proprietary information or Intellectual Property unless Contractor obtains the third party's and Anthropic's prior written consent; (ix) Contractor and Personnel will comply with all procedures and policies provided by Anthropic (including Anthropic's environmental, health, safety, and security procedures) and related management systems, when performing Services at Anthropic facilities or using Anthropic-provided networks, systems, or equipment; (x) if Contractor is providing crowd work or crowdsourcing services under this Agreement, Contractor will comply with the minimum expectations and consider implementing best practices described in Anthropic's wellbeing standards for crowd work vendors (a copy of which can be found here or provided by Anthropic at Contractor's request); and (xi) in connection with this Agreement, Contractor and Personnel will comply with all applicable laws and regulations, which may include import and export laws, anti-bribery laws, employment and occupational health and safety laws, and modern slavery laws and regulations. Contractor will use commercially reasonable and good faith efforts to comply with Anthropic's due diligence process, including providing requested information.
+
+9. Defense and Indemnity.
+
+A. Obligations. Contractor will defend and indemnify Anthropic, its affiliates, and their respective directors, officers, and employees against all settlement amounts approved by Contractor and any liabilities, damages, losses, costs, fees (including legal fees), and expenses in connection with any third-party claim or legal proceeding (including action by a government authority) to the extent arising from: (i) Contractor's breach of warranty, negligence, willful misconduct, fraud, misrepresentation, or violation of applicable laws; (ii) any property damage, personal injury, or death related to Contractor's performance of the Services; (iii) Contractor's breach of Section 6 (Confidentiality; Publicity; Privacy and Security) or applicable data protection laws; (iv) any allegation by or on behalf of Personnel, including that Personnel are entitled to employee compensation, benefits, transfer law, or other rights or that is premised on Anthropic or its affiliates jointly or otherwise employing Personnel; or (v) any allegation that use of the Services or Deliverables infringes or misappropriate any third party's rights, including Intellectual Property Rights.
+
+B. Exclusions. This Section 9 (Defense and Indemnity) will not apply to the extent the underlying allegation arises from: (i) modifications to the Services or Deliverables not authorized or made by Contractor; or (ii) compliance with designs or instructions provided by Anthropic in writing.
+
+C. Control of Defense. Anthropic will tender sole control of the indemnified portion of the legal proceeding to Contractor, but: (i) Anthropic has the right to approve controlling counsel, such approval not to be unreasonably withheld (and which approval may be withheld or withdrawn if there is a conflict of interest); (ii) Anthropic may appoint its own non-controlling counsel; and (iii) any settlement requiring Anthropic to admit liability, pay money, or take (or refrain from taking) any action, will require Anthropic's prior written consent.
+
+10. Limitation of Liability.
+
+A. Liability. IN THIS SECTION 10 (LIMITATIONS OF LIABILITY), "LIABILITY" MEANS ANY LIABILITY, WHETHER UNDER CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE (WHETHER OR NOT FORESEEABLE OR CONTEMPLATED BY THE PARTIES).
+
+B. Limitations. SUBJECT TO SECTION 10.C (EXCEPTIONS TO LIMITATIONS): (i) NEITHER PARTY WILL HAVE ANY LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT FOR THE OTHER PARTY'S LOST REVENUES OR PROFITS; INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL LOSSES; OR EXEMPLARY OR PUNITIVE DAMAGES; AND (ii) EACH PARTY'S AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THIS AGREEMENT WILL NOT EXCEED THE TOTAL AMOUNTS PAID AND PAYABLE BY ANTHROPIC TO CONTRACTOR UNDER THIS AGREEMENT.
+
+C. Exceptions to Limitations. THIS AGREEMENT DOES NOT EXCLUDE OR LIMIT EITHER PARTY'S LIABILITY FOR: (i) DEATH OR PERSONAL INJURY RESULTING FROM ITS NEGLIGENCE OR THE NEGLIGENCE OF ITS PERSONNEL; (ii) FRAUD OR FRAUDULENT MISREPRESENTATION; (iii) BREACH OF SECTION 5 (LICENSES); (iv) BREACH OF SECTION 6 (CONFIDENTIALITY; PUBLICITY; PRIVACY AND SECURITY); (v) ITS OBLIGATIONS UNDER SECTION 3 (PAYMENTS) AND SECTION 9 (DEFENSE AND INDEMNITY); OR (vi) MATTERS FOR WHICH LIABILITY CANNOT BE EXCLUDED OR LIMITED UNDER APPLICABLE LAW.
+
+11. Termination.
+
+A. Termination for Breach. Either party may immediately terminate this Agreement on written notice if: (i) the other party breaches Section 6 (Confidentiality; Publicity; Privacy and Security), Section 8 (Representations and Warranties), or Section 12 (Insurance); or (ii) the other party is in material breach of this Agreement and fails to cure that breach within 30 days after receiving written notice from the first party identifying the breach.
+
+B. Termination for Legal Cause. Either party may immediately suspend performance or terminate this Agreement if an applicable law or an applicable government or court order prohibits such performance.
+
+C. Termination for Convenience. Anthropic may terminate this Agreement for convenience on written notice to Contractor.
+
+D. Effects of Termination. Unless otherwise specified in the termination notice, termination is effective immediately and Contractor will stop work immediately on receipt of the termination notice. Contractor will immediately deliver all Deliverables (including work product in progress) to Anthropic in accordance with the terms of this Agreement. Termination of this Agreement terminates all licenses that Anthropic granted under the Agreement, including Section 5.A (Anthropic Background IP and Developed IP). Anthropic will pay for accepted Services and Deliverables invoiced before the date of termination. If Anthropic terminates for convenience, Contractor may also invoice Anthropic for any Services and Deliverables not yet invoiced at a pro-rated price based on the percentage of work completed before the termination date. Additionally, upon the termination or expiration of this Agreement, Contractor will promptly return to Anthropic and destroy all Anthropic Background IP or Developed IP in Contractor (or any third party operating on Contractor's behalf) possession in connection with this Agreement; and where requested certify in writing Contractor's compliance.
+
+E. Survival. Sections 1 (Definitions), 3 (Payments), 4 (Intellectual Property and Deliverables), 5.B (Contractor Background IP), 6 (Confidentiality; Publicity; Privacy and Security), 7 (Independent Contractor; Personnel), 8 (Representations and Warranties), 9 (Defense and Indemnity), 10 (Limitations of Liability), 11.D (Effects of Termination), 12 (Insurance) and 13 (General) will survive any termination of this Agreement.
+
+12. Insurance.
+
+A. Standard Coverages. During the Term and at its own expense, Contractor will maintain at a minimum the following insurance coverage, with insurance carriers rated A- or better by A.M. Best Company: (i) Commercial general liability insurance, including contractual liability coverage, on an occurrence basis for bodily injury, death, "broad form" property damage, products and completed operations, and personal and advertising injury, with coverage limits of not less than US$1,000,000 per occurrence; (ii) Workers' compensation insurance as required by law in the state where the Services will be provided, including employer's liability coverage for injury, disease and death, with coverage limits of not less than US$1,000,000 per accident and employee; and (iii) Umbrella (excess) liability insurance on an occurrence form, with coverage limits of not less than US$1,000,000 per occurrence. Contractor will maintain any additional insurance coverage required by Anthropic that may be specified in the SOW.
+
+B. Coverage Requirements. Contractor's policies will be considered primary without right of contribution from Anthropic's insurance policies. Contractor's policies will apply to the full extent provided by the policies. The coverage requirements will not lower the coverage limits of Contractor's policies, and will not limit Contractor's obligations or liability under this Agreement (including indemnities). Unless specified otherwise in the SOW, Contractor will name Anthropic and its affiliates and their officers, directors, shareholders, employees, agents and assignees as additional insureds in each of the policies required. Contractor will provide Anthropic with notice of cancellation of any policy required above in accordance with policy provisions.
+
+C. Certificate of Insurance. Upon Anthropic's request, Contractor will provide evidence of required insurance coverage to Anthropic or Anthropic's third-party vendor. Anthropic's failure to request, review, or object to the terms of Contractor's certificates of insurance will not: (i) waive any of Contractor's obligations under this Agreement; (ii) waive any of Anthropic's rights under this Agreement; or (iii) limit or diminish Contractor's liability under this Agreement.
+
+13. General.
+
+A. Equal Employment Opportunities. Anthropic is an equal opportunity employer and federal contractor or subcontractor. Consequently, as applicable, the parties will abide by the requirements of 41 CFR 60-1.4(a), 41 CFR 60-300.5(a), and 41 CFR 60-741.5(a) which are incorporated into this Agreement by reference. These regulations prohibit discrimination against qualified individuals based on their status as protected veterans or individuals with disabilities, and prohibit discrimination against all individuals based on their race, color, religion, sex, sexual orientation, gender identity or national origin. These regulations require that covered prime contractors and subcontractors take affirmative action to employ and advance in employment individuals without regard to race, color, religion, sex, sexual orientation, gender identity, national origin, disability, or veteran status. As applicable, the parties will also abide by the requirements of 41 CFR 61-300.10 regarding veteran's employment reports, and Executive Order 13496 (29 CFR Part 471, Appendix A to Subpart A), relating to the notice of employee rights under federal labor laws.
+
+B. Property Damaged or Not Returned. Contractor will, at Anthropic's option, promptly repair, replace, or compensate Anthropic for the value of any Anthropic property that is: (i) lost or damaged by Personnel; or (ii) not returned on completion of the applicable Services.
+
+C. Records and Audit Rights. Contractor will maintain complete and accurate records relating to this Agreement. Anthropic may examine the Deliverables at any time. If a government authority audits any portion of Contractor's business related to the Services or Deliverables, Contractor will promptly notify Anthropic and provide Anthropic with reasonably-requested information about the audit.
+
+D. Notices. All notices must be in English and in writing. Notices of breach or termination must be addressed to the other party's Legal Department. All other notices must be addressed to the other party's primary contact. Emails are written notices. Notice will be treated as given on receipt, as confirmed by written or electronic records.
+
+E. Assignment. Contractor may not assign or transfer its rights or obligations under this Agreement without Anthropic's written consent, and any attempt to do so is void. Anthropic may assign or transfer any of its rights or obligations under this Agreement to an affiliate.
+
+F. Change of Control. Without limiting Contractor's obligations under Section 13.E (Assignment), if during the Term Contractor experiences a change of control (for example, through a stock purchase or sale, merger, or other form of corporate transaction) or sells all or substantially all of its assets, then Contractor will give written notice to Anthropic within 30 days after such event.
+
+G. Subcontracting. Contractor may not delegate or subcontract any of its obligations under this Agreement without Anthropic's written consent. Contractor will remain liable for all subcontracted obligations and all acts or omissions of its subcontractors.
+
+H. No Waiver. A party's delay or omission in exercising any right under this Agreement will not be treated as a waiver of that right. To be effective, a waiver must expressly state the right being waived under this Agreement and be signed by the waiving party.
+
+I. No Agency. This Agreement does not create any agency, partnership, joint venture, or employment relationship.
+
+J. No Third-Party Beneficiaries. There are no third-party beneficiaries under this Agreement unless the Agreement expressly states that there are. The parties can amend, rescind, or terminate this Agreement without any third-party beneficiary's consent.
+
+K. Entire Agreement. This Agreement states all the terms agreed between the parties and supersedes all other agreements between the parties as of the Effective Date relating to its subject matter. In entering into this Agreement, the parties have relied solely on the express statements in this Agreement. Neither party has relied on, and neither party will have any right or remedy based on, any other statement, representation, or warranty (whether made negligently or innocently). Any terms or conditions on a quote, invoice, or other similar document from Contractor related to this Agreement, including any online terms, are void.
+
+L. Amendments. Any amendment must be in writing, signed by both parties, and expressly state that it is amending this Agreement.
+
+M. Severability. If any part of this Agreement is invalid, illegal, or unenforceable, the rest of this Agreement will remain in effect.
+
+N. Order of Precedence. The terms in this Agreement will take precedence over conflicting terms in the SOW, unless the conflicting SOW terms expressly refer to and state the parties' intent to supersede specific Agreement terms.
+
+O. Governing Law. CALIFORNIA LAW WILL GOVERN ALL DISPUTES ARISING OUT OF OR RELATING TO THIS AGREEMENT, REGARDLESS OF ANY CONFLICT OF LAWS RULES. THESE DISPUTES WILL BE RESOLVED EXCLUSIVELY IN THE FEDERAL OR STATE COURTS OF SAN FRANCISCO, CALIFORNIA, USA, AND THE PARTIES CONSENT TO PERSONAL JURISDICTION IN THOSE COURTS. THIS SECTION 13.O (GOVERNING LAW) IS NOT INTENDED TO CREATE ANY CALIFORNIA STATUTORY OR COMMON LAW RIGHTS FOR ANY PERSONNEL WORKING OUTSIDE OF CALIFORNIA.
+
+
+
+                  Attachment A: Data Privacy and Security Terms
+
+This Privacy and Security Attachment ("PSA") forms part of the agreement between Anthropic and Contractor to which it is attached. The terms of this PSA will take precedence over conflicting terms in the Agreement.
+
+1. Definitions. For purposes of this PSA:
+
+A. "Personal Information" means (i) any information about an individual; or (ii) information that is not specifically about an individual but, when combined with other information, may identify an individual. Personal Information includes names, email addresses, postal addresses, telephone numbers, government identification numbers, financial account numbers, payment card information, credit report information, biometric information, online identifiers, network and hardware identifiers, and geolocation information, and any information that constitutes "personal data" or "personal information" within the meaning of applicable data protection laws;
+
+B. "Protected Information" means personal information or any Confidential Information that Contractor may process in performing the Services. Protected Information does not include the parties' phone numbers, email addresses or other reasonably limited information used solely to facilitate the parties' communications for administration of the Agreement; and
+
+2. General. When Contractor processes Anthropic's Protected Information, Contractor will at all times:
+
+A. comply with applicable data protection laws;
+
+B. process Protected Information only on behalf of Anthropic and in accordance with the limited and specified purposes in the Agreement;
+
+C. provide reasonable assistance to Anthropic in its compliance with applicable data protection laws; and
+
+D. promptly notify Anthropic if Contractor believes (i) compliance with this PSA will interfere with Contractor's obligations under applicable data protection laws, or (ii) Contractor can no longer meet its obligations under this PSA.
+
+3. Safeguards. At all times that Contractor processes Protected Information, Contractor will maintain reasonable technical, organizational, administrative, and physical controls and comply with this PSA and applicable data protection laws, including the following:
+
+A. Physical Controls. Contractor will maintain physical controls designed to secure relevant facilities, including layered controls covering perimeter and interior barriers, physical access controls, strongly-constructed facilities, suitable locks with key management procedures, access logging, and intruder alarms/alerts and response procedures.
+
+B. Technical Controls. If Contractor processes Protected Information using its systems, Contractor will: (i) establish and enforce access control policies and measures to ensure that only Personnel who have a legitimate need to process Protected Information will have such access, including multi-factor authentication; (ii) promptly terminate Personnel access to Protected Information when such access is no longer required; (iii) maintain reasonable and up-to-date anti-malware, anti-spam, and similar controls on its networks, systems, and devices; (iv) log the appropriate details of access to Protected Information on its systems and equipment, including: users logging in and out; reading, writing, or deleting operations on applications and system objectives; or security settings changes (including disabling logging). Logs should include user name, IP address, valid timestamp, action performed, and object of this action and should be retained for no fewer than 90 days;(v) maintain controls and processes designed to ensure that all operating system and application security patches are installed within the timeframe recommended or required by the issuer of the patch; (vi) maintain password requirements that: (a) do not limit the length of passwords; (b) do not use secret questions as a sole password reset requirement; (c) require current password in addition to the new password during password change (unless in the case of a forgotten password); (d) verify newly created passwords against common password lists or reasonably available leaked passwords databases; (e) store passwords in a hashed format using a memory-hard or processor-hard one-way hash function; and (f) check existing user passwords for compromise regularly; (g) implement reasonable user account management procedures to securely create, amend, and delete user accounts on networks, systems, and devices through which Contractor processes Protected Information, including monitoring redundant accounts and ensuring that information owners properly authorize all user account requests; and (h) publish a point of contact for security reports on Contractor's website and reasonably monitor and respond to security reports.
+
+C. Personnel Training and Supervision. Contractor will provide reasonable ongoing privacy and information security training and supervision for personnel who process Protected Information. Contractor will maintain personnel policies and practices restricting access to Protected Information, including having appropriate use guidelines and written confidentiality agreements and performing background checks in accordance with applicable data protection laws on all personnel who process Protected Information or who implement, maintain, or administer Contractor's safeguards. Contractor will ensure that its Personnel are made aware that access to Anthropic internal systems will be monitored, logged, and processed subject to Anthropic's policies relating to data protection.
+
+D. Development Controls. To the extent Contractor's Services include software, application, or web development services, Contractor will maintain secure development guidelines and train its Personnel responsible for developing software, applications, or web services to prevent security vulnerabilities, including: authorization bypass, insecure session identifiers, injections, cross-site scripting, cross-site request forgery, and the use of vulnerable libraries.
+
+4. Encryption. Using a reasonable encryption standard, Contractor will encrypt all Protected Information that is: (i) stored on portable devices or portable electronic media; (ii) maintained outside of Anthropic's or Contractor's facilities; (iii) transferred across any external network not solely managed by Contractor; and (iv) where required by applicable data protection law, including where Personal Information is maintained at rest on Contractor's systems.
+
+5. System Access. To the extent that Contractor accesses Anthropic-owned or Anthropic-managed networks, systems, or devices (including Anthropic APIs, corporate email accounts, equipment, or facilities) to process Protected Information, Contractor will comply with Anthropic's written instructions, system requirements, and policies made available to Contractor.
+
+6. Assessment.
+
+A. Self-Assessment. Contractor will continuously monitor risk to Protected Information and ensure that the safeguards are properly designed and maintained to protect the confidentiality, integrity, and availability of Protected Information. As part of Contractor's continuous self-assessment program, Contractor will at a minimum do the following: (i) periodically (but no less than once per year) ensure third party penetration tests, and other appropriate vulnerability tests are conducted, and document the effectiveness of Contractor's safeguards; (ii) promptly fix high and critical severity findings; and (iii) promptly apply any high or critical severity security patches to Your production servers, endpoints, and endpoint management systems.
+
+B. Vulnerability; Security Patches. Contractor will apply security patches to all components of the application stack with severity score higher than "low" or "optional" as determined by the issuer of the patch within one month after release. If either party discovers that Contractor's safeguards contain a vulnerability, Contractor will promptly correct or mitigate at Contractor's own cost (i) any vulnerability within a reasonable period, and (ii) any material vulnerability within a period not to exceed 90 days. If Contractor is unable to correct or mitigate the vulnerabilities within the specified time period, Contractor must promptly notify Anthropic and propose reasonable remedies.
+
+7. Incident Response. Contractor will maintain a reasonable security incident response program. If Contractor becomes aware of a security incident, Contractor will promptly: (i) stop the unauthorized access; (ii) secure Protected Information; (iii) notify Anthropic (in no event more than 48 hours after discovery of the security incident) by sending an email to disclosure@anthropic.com with the information described below, even if Contractor has not conclusively established the nature or extent of the security incident; and (iv) assist Anthropic in complying with its security incident notification or cure obligations under applicable data protection laws and as otherwise reasonably requested. Contractor will provide reasonable information about the security incident, including: (a) a description of Protected Information subject to the security incident (including the categories and number of data records and individuals concerned) and the likely consequences of the security incident; (b) the date and time of the security incident; (c) a description of the circumstances that led to the security incident (e.g., loss, theft, copying); (d) a description of the measures Contractor has taken and propose to take to address the security incident; and (e) relevant contact people who will be reasonably available until the parties mutually agree that the security incident has been resolved. At Contractor's cost, Contractor will take appropriate steps to promptly remediate the root cause(s) of any security incident, and will reasonably cooperate with Anthropic with respect to the investigation and remediation of such incident, including providing such assistance as required to enable Anthropic to satisfy its obligation to notify individuals and cure an alleged violation related to a security incident. Contractor will promptly provide Anthropic the results of the investigation and any remediation already undertaken. Contractor will not engage in any action or inaction that unreasonably prevents Anthropic from curing an alleged violation of applicable data protection laws.
+
+8. Suspension and Termination. In addition to Anthropic's suspension and termination rights in the Agreement, Anthropic may: (A) immediately suspend Contractor's access to Protected Information if: (i) Anthropic reasonably determines that Contractor is not complying with this PSA; (ii) Contractor is reasonably determined to be out of compliance with applicable data protection laws; or (iii) Contractor has engaged in conduct that unreasonably prevents Anthropic from timely curing an alleged violation of applicable data protection laws; or (B) terminate the Agreement if: (i) Anthropic reasonably determines that Contractor has failed to cure material noncompliance with this PSA within a reasonable time; or (ii) Anthropic reasonably believes it needs to do so to comply with applicable data protection laws.
+
+9. Return and Destruction. Upon the termination or expiration of the Agreement, Contractor will promptly: (A) return to Anthropic all copies, whether in written, electronic or other form or media, of Personal Information in Contractor's (or any third party operating on your behalf) possession; and (B) where permitted, delete and render Protected Information unreadable in the course of disposal, securely dispose of all such hard copies, and where requested certify in writing Contractor's compliance.
+
+10. Survival. Contractor's obligations under this PSA will survive expiration or termination of the Agreement and completion of the Services as long as Contractor continues to have access to Protected Information.
+
+## Version history
+
+From the page's own version list.
+
+- 2024-06-18 (this version): [inbound-services-agreement/2024-06-18.md](inbound-services-agreement/2024-06-18.md)

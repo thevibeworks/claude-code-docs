@@ -1,0 +1,41 @@
+---
+title: "Claude Promotional Credit Offer Terms"
+source: https://www.anthropic.com/legal/promotion-credit-terms
+archive: https://www.anthropic.com/legal/archive/65471ced-ae5c-4347-a30b-3ba0b951963b
+version: 65471ced-ae5c-4347-a30b-3ba0b951963b
+effective: 2026-05-19T19:30:00.000Z
+latest: true
+pdf: https://assets.claude.com/8d3039873a8e1adae8b98e487f696b3a524c437b.pdf
+---
+
+# Claude Promotional Credit Offer Terms
+
+Effective 2026-05-19
+
+## The Offer
+
+This Claude promotional credit offer (“Offer”) provides you with promotional usage credit (“Credit” or “Promotional Credit”) in the amount specified in the offer, redeemable toward Usage Credit on your Claude subscription, when you complete the qualifying action described in the offer (the “Qualifying Action”). Offer may be further limited to specific products, features, or seats as stated in the offer.
+
+The Anthropic Consumer Terms of Service (for Pro and Max subscribers), the Anthropic Commercial Terms of Service (for Team and Enterprise subscribers), or other applicable written agreement apply to your use of Claude and any Credit earned under this Offer. The Privacy Policy describes how personal data is handled. By participating in this Offer, you also agree to the Usage Credit Terms and/or the Supplemental Credit Terms where applicable, and you authorize Anthropic to enable Usage Credit on your account if it is not already enabled.
+
+## Earning & Eligibility
+
+This Offer is available only to subscribers with an active paid plan in good standing, unless otherwise specified. Anthropic may apply additional eligibility requirements. Limit one Offer per account unless otherwise stated; referred persons may not be existing or prior paid subscribers.
+
+Credit is earned only when the Qualifying Action is completed in full, as determined by Anthropic. Qualifying Actions may include, for example, completing an onboarding flow, enabling a product feature, or referring another person who subscribes to a paid Claude plan. Where a referral is involved, Credit is earned when the referred person becomes a paid subscriber — not when they begin a free trial.
+
+## Using Credit
+
+Credit applies only toward Usage Credit charges on your Claude subscription — not subscription fees, seat charges, or taxes. Credit has no cash value, is not transferable, and will be applied automatically before your payment method is charged. Credit will be issued in the currency of your billing account. Where the offer is denominated in a different currency, Anthropic will convert the amount at a rate it determines and may round to a convenient value.
+
+## Expiration, Forfeiture & Changes
+
+Credit expires on the date stated in the offer, or 90 days after issuance if no date is stated. Unless otherwise stated, Credit is forfeited if you cancel your subscription or seat, downgrade to a free plan, or if your account or user is suspended or terminated. Forfeited Credit will not be reinstated.
+
+Anthropic may modify, suspend, or terminate this Offer at any time without notice, and may revoke Credit or disqualify participants where it determines there has been fraud, abuse, or violation of these terms. Anthropic’s determination of eligibility, completion, and Credit amounts is final.
+
+## Version history
+
+From the page's own version list.
+
+- 2026-05-19 (this version): [promotion-credit-terms/2026-05-19.md](promotion-credit-terms/2026-05-19.md)
