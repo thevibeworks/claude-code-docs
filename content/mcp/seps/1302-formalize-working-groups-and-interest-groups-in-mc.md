@@ -247,3 +247,6 @@ After this SEP is approved, we can ping each of the groups to confirm they are o
 * tool-interfaces --> Retire
 * ui --> Interest Group
 * schema-validation --> Retire (same as Steering equivalent)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

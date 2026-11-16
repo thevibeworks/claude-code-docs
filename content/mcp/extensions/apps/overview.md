@@ -234,3 +234,6 @@ includes ready-to-run examples demonstrating different use cases:
   [vanilla JavaScript](https://github.com/modelcontextprotocol/ext-apps/tree/main/examples/basic-server-vanillajs)
 
 To start building your own MCP App, see the [build guide](https://modelcontextprotocol.io/extensions/apps/build.md).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

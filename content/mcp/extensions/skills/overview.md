@@ -441,3 +441,6 @@ to implementation documentation.
 
 The full specification is in the [ext-skills repository](https://github.com/modelcontextprotocol/ext-skills/blob/main/specification/beta/skills.mdx).
 Development is coordinated by the [Skills Over MCP Working Group](https://modelcontextprotocol.io/community/working-groups/skills-over-mcp.md).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

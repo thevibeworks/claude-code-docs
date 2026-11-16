@@ -21,6 +21,7 @@ You declare your site's origin, and Claude has to allow that origin for your con
 
 * **Where sites load**: Claude applies different rules to directory connectors and custom connectors, so start with [where embedded sites load](#where-embedded-sites-load)
 * **Device features**: check [which device features your connector's views lose](#device-features-in-views-that-embed-sites), such as the camera
+* **Sign-in**: Claude passes no session to your site, so plan [how users sign in](#sign-a-user-in-to-an-embedded-site)
 
 ## Where embedded sites load
 
@@ -44,7 +45,7 @@ When Claude blocks an origin for a directory connector, the view opens and the `
 
 ### Allowed origins in a custom connector
 
-Where embedded sites are available for custom connectors, Claude lists the origins that you declare for the view and asks the user to allow them.
+Where embedded sites are available for custom connectors, Claude lists the origins that you declare for the view and asks the user to allow them. That request can also warn the user that Anthropic hasn't reviewed the connector or the websites, and the user can still allow them. Under a Verified listing that allows the origins, users get no such warning.
 
 For embedded sites, a connector counts as custom when a user added it by URL and its address matches no directory listing. Check these details of your connector:
 
@@ -205,6 +206,8 @@ An embedded site inherits the sandbox of the view around it, and the browser tre
 * **Navigation**: the site can navigate its own frame and submit forms to its own origin. The site can't navigate the Claude page.
 * **Redirects**: for a redirect in the frame, the destination and each origin that the redirect passes through must be origins that Claude allows
 
+A connector's views load from its own sandbox host under `claudemcpcontent.com`: the same host in every conversation if you set [`ui.domain`](https://claude.com/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude), and a different host in each if you don't.
+
 ### Sessions and cookies in an embedded site
 
 Claude passes no session to the site, and a call to `document.requestStorageAccess()` is rejected. To keep a session inside the frame:
@@ -234,7 +237,7 @@ Plan for other views to lose the same features, including views that embed nothi
 * **Directory connector**: when the listing allows an origin, plan for the connector's other views to lose them
 * **Custom connector**: where [embedded sites are available for custom connectors](#availability-of-embedded-sites-for-custom-connectors), plan for every view of the connector to lose them
 
-To see which features Claude granted a view, read `app.getHostCapabilities()?.sandbox?.permissions` in the view's script after `app.connect()` resolves. Each key is a granted feature.
+To see which features Claude granted a view, read `app.getHostCapabilities()?.sandbox?.permissions` in the view's script after `app.connect()` resolves. Each key is a granted feature. Claude on mobile doesn't report these features.
 
 Also plan for `Element.requestFullscreen()` to fail, in views and in embedded sites. Don't depend on a video player's full-screen button.
 

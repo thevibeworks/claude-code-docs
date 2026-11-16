@@ -129,3 +129,6 @@ The nomination process, sponsorship requirements, review timeline, and inactivit
 ## Current Maintainers and Working Groups
 
 Refer to [the maintainer list](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/MAINTAINERS.md).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

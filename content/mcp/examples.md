@@ -79,3 +79,6 @@ To use an MCP server with Claude, add it to your configuration:
 ## Additional resources
 
 Visit our [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions) to engage with the MCP community.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

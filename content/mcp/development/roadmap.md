@@ -100,3 +100,6 @@ Every priority area above has a Working Group behind it or forming around it, an
 * **Propose or comment on a SEP**: read the [SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md), then open one or weigh in.
 * **Start an experimental extension**: [SEP-2133](https://modelcontextprotocol.io/seps/2133-extensions.md) lets any WG or IG experiment in an `experimental-ext-` repository before a formal SEP.
 * **Contribute directly**: the [contributing guide](https://modelcontextprotocol.io/community/contributing.md) covers the specification, SDKs, and tooling.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

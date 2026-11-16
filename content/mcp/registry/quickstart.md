@@ -321,3 +321,6 @@ You should see your server's metadata in the search results JSON:
 * Learn about [support for remote servers](https://modelcontextprotocol.io/registry/remote-servers.md).
 * Learn how to [use other authentication methods](https://modelcontextprotocol.io/registry/authentication.md), such as [DNS authentication](https://modelcontextprotocol.io/registry/authentication.md#dns-authentication) which enables custom domains for server name prefixes.
 * Learn how to [automate publishing with GitHub Actions](https://modelcontextprotocol.io/registry/github-actions.md).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

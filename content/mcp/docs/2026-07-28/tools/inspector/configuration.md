@@ -341,3 +341,6 @@ The Inspector-specific fields and their defaults:
 | `oauth.tokenUrl` | | Overrides the `token_endpoint` the authorization server's metadata advertises. |
 
 You do not have to hand-write these; the web client can [import an existing client config](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/recipes.md#importing-an-existing-client-config) from Claude Desktop, Cursor, Cline, or VS Code, or a registry `server.json`.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

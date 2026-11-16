@@ -66,7 +66,13 @@ For third-party deployments, the export includes session metadata (event names, 
 
 The export carries logs and metrics. Cowork sessions, Code sessions, and the desktop application's own events arrive under the `service.name` values `cowork`, `claude-code-desktop`, and `claude-desktop` respectively. With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a Cowork session started from the home screen also arrives under `cowork`. The export isn't checked against the [agent egress allowlist](#required-egress-paths), so `otlpEndpoint` doesn't need an entry in `coworkEgressAllowedHosts`; your perimeter firewall still needs to allow the host.
 
-For static collector headers, extra resource attributes, and the log level of the desktop application's own event stream, see [`otlpHeaders`, `otlpResourceAttributes`, and `otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpheaders) in the configuration reference. Events on the `claude-desktop` stream include `desktop_ssh_sandbox_check_failed`, described under [Sandbox status on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#sandbox-status-on-the-remote-host), and `desktop_ssh_policy_check_failed`, described under [Policy status on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#policy-status-on-the-remote-host).
+For static collector headers, extra resource attributes, and the log level of the desktop application's own event stream, see [`otlpHeaders`, `otlpResourceAttributes`, and `otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpheaders) in the configuration reference.
+
+Events on the `claude-desktop` stream include:
+
+* **`desktop_ssh_sandbox_check_failed`**: see [Sandbox status on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#sandbox-status-on-the-remote-host)
+* **`desktop_ssh_policy_check_failed`**: see [Policy status on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#policy-status-on-the-remote-host)
+* **`builtin_m365_call`**: see [Audit local connector tool calls](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#audit-local-connector-tool-calls)
 
 ### Collector endpoint and headers
 

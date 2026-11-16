@@ -793,3 +793,6 @@ Clients **SHOULD** provide tool execution errors to language models to enable se
      when validating tool inputs and outputs against `inputSchema` and `outputSchema`
    * Implement timeouts for tool calls
    * Log tool usage for audit purposes
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -214,3 +214,6 @@ authorization channel, with input from:
 * Aaron Parecki (OAuth/OIDC expertise)
 * Paul Carleton (MCP authorization guidance)
 * Simon Russell (OIDC deployment experience)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

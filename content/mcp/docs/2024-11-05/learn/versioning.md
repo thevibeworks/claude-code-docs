@@ -47,3 +47,6 @@ agree on a single version to use for the session.
 The protocol provides appropriate error handling if version negotiation fails, allowing
 clients to gracefully terminate connections when they cannot find a version compatible
 with the server.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

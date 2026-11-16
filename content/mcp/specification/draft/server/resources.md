@@ -434,3 +434,6 @@ Example error:
 4. Resource permissions **SHOULD** be checked before operations
 5. Servers **MUST** sanitize file paths to prevent directory traversal attacks
    when serving `file://` resources
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

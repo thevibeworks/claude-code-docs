@@ -76,3 +76,6 @@ Discord: [#enterprise-managed-auth-ig](https://discord.com/channels/135886984813
 | - | - |
 | 2026-08-17 | Folded into the Authorization IG; channel archived |
 | 2026-06-16 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

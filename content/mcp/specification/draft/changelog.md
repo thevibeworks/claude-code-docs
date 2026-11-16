@@ -13,3 +13,6 @@ Changes since the most recent release will accumulate here.
 ## Other schema changes
 
 1. Restore the optional `_meta` field on `CreateMessageRequestParams`, `ElicitRequestFormParams`, `ElicitRequestURLParams`, `ElicitResult`, and `ListRootsResult`. It was unintentionally dropped in 2026-07-28 when these types stopped extending `TaskAugmentedRequestParams` and `Result`, leaving `ListRootsRequest` as the only input request that could carry `_meta` ([#3468](https://github.com/modelcontextprotocol/modelcontextprotocol/issues/3468)).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

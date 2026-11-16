@@ -305,3 +305,6 @@ The workflow will run tests, build the package, publish the package to npm, and 
 | "Authentication failed" | Ensure `id-token: write` permission is set for OIDC, or check secrets. |
 | "invalid audience" | Your `mcp-publisher` binary is too old for this registry deployment. Update `MCP_PUBLISHER_VERSION` to a compatible release and rerun the workflow. |
 | "Package validation failed" | Verify your package successfully published to the package registry (e.g., npm, PyPI), and that your package has the [necessary verification information](https://modelcontextprotocol.io/registry/package-types.md). |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

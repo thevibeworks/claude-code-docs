@@ -114,3 +114,6 @@ Meetings are published at
 | - | - |
 | 2026-03-24 | Initial charter (as the Triggers and Events WG) |
 | 2026-10-16 | Renamed to Tasks and Events WG. Tasks scope and its leads moved here from the Agents WG. |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

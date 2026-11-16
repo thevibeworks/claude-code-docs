@@ -95,3 +95,6 @@ Implementers who choose to support custom transports **MUST** ensure they preser
 JSON-RPC message format and lifecycle requirements defined by MCP. Custom transports
 **SHOULD** document their specific connection establishment and message exchange patterns
 to aid interoperability.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

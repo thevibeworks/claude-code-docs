@@ -14,7 +14,7 @@ Enterprise Managed Auth (EMA) lets organizations connect their users to your MCP
 
 Claude calls this feature auto-connect, for identity provider-issued and Claude-issued assertions alike. The connector directory labels listings marked as supporting it **Auto-connect**.
 
-To support auto-connect, you [make your authorization server accept and validate the assertion](#authorization-server-requirements), [test your implementation](#test-your-implementation), and [give customer administrators the settings and documentation they need](#support-customer-administrators).
+To support auto-connect, you [make your authorization server accept and validate the assertion](#authorization-server-requirements), [test your implementation](#test-your-implementation), and [give customer administrators the settings and documentation they need](#support-customer-administrators). You can also [support express admin setup](#support-express-admin-setup), so that administrators can register the trusted issuer directly from Claude.
 
 ## Understand how Enterprise Managed Auth works
 
@@ -79,7 +79,7 @@ Keep the `issuer` value exactly as published, trailing slash included. A Claude-
 
 **2. Register the trusted issuer**
 
-Bind each customer workspace to one trusted issuer rather than accepting any well-formed JWT, and allow that issuer to be a Claude issuer URL, not only a URL on an identity provider's domain. The binding happens in [your product's admin settings](#admin-settings-in-your-product), where a workspace's administrator enters the issuer URL and your authorization server stores it as that workspace's trusted issuer. Resolve each assertion to exactly one workspace, as [Validate the identity assertion](#validate-the-identity-assertion) describes.
+Bind each customer workspace to one trusted issuer rather than accepting any well-formed JWT, and allow that issuer to be a Claude issuer URL, not only a URL on an identity provider's domain. The binding happens in [your product's admin settings](#admin-settings-in-your-product), where a workspace's administrator enters the issuer URL and your authorization server stores it as that workspace's trusted issuer, or automatically through [express admin setup](#support-express-admin-setup). Resolve each assertion to exactly one workspace, as [Validate the identity assertion](#validate-the-identity-assertion) describes.
 
 > [!WARNING]
 >
@@ -236,7 +236,7 @@ A customer's administrator turns on Enterprise Managed Auth for their organizati
 
 ### Admin settings in your product
 
-In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their workspace and a field for the trusted issuer URL. Accept only an `https` URL in the field, and let only the workspace's administrators set it. The administrator copies the URL from their identity provider or, for Claude-issued assertions, from the **Issuer URL** box in Claude's managed authorization setup for your connector. When the administrator saves, register the URL as that workspace's trusted issuer.
+In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their workspace and a field for the trusted issuer URL. Accept only an `https` URL in the field, and let only the workspace's administrators set it. The administrator copies the URL from their identity provider or, for Claude-issued assertions, from the **Issuer URL** box in Claude's managed authorization setup for your connector. When the administrator saves, register the URL as that workspace's trusted issuer. With [express admin setup](#support-express-admin-setup), Claude sets the issuer for them, so they don't copy the URL.
 
 If you identify workspaces by your own tenant ID, show that ID in the same settings. The administrator enters it in the **Tenant ID (optional)** field in Claude's managed authorization setup for your connector, and it then arrives in each Claude-issued assertion as [`aud_tenant`](#identity-assertion-claims).
 
@@ -248,12 +248,86 @@ Publish documentation that walks an enterprise administrator through enabling En
 
 If your product has an app in the Okta Integration Network, work with Okta to enable Cross App Access (XAA) for that app. Until that app supports Cross App Access, customers who use Okta need to create a custom app in Okta for your product before they can set up Enterprise Managed Auth.
 
+## Support express admin setup
+
+Express admin setup lets administrators register the trusted issuer directly from Claude. The administrator clicks the **Connect** button for your connector in Claude's managed authorization setup and approves one consent screen. Claude then sends you the issuer URL, and you send back your tenant ID if you use one. It works with **Claude-issued** and **IdP-managed**, and it's optional but highly recommended for ease of setup.
+
+### What to build for express admin setup
+
+After your server meets the [authorization server requirements](#authorization-server-requirements), add these:
+
+1. **A new scope**: support `ema_issuer:manage`, which allows turning on Enterprise Managed Auth and setting the trusted issuer for one workspace. List it in `scopes_supported` in your authorization server metadata so that Claude shows the **Connect** button. If you prefer not to advertise it, email `mcp-review@anthropic.com` to have your listing marked instead.
+2. **A grant for Claude only**: issue the scope only to the client you registered for Claude or to `https://claude.ai/oauth/mcp-oauth-client-metadata`, plus its `/confidential_client` form if you list `private_key_jwt`. Match the client ID and redirect URI in full. Never grant the scope unasked.
+3. **A consent screen**: name the workspace, say what approval turns on, and let only the workspace's administrators approve.
+4. **Your issuer in the redirect**: include `iss` ([RFC 9207](https://www.rfc-editor.org/rfc/rfc9207)), set to your metadata's `issuer`, in every redirect back to Claude. Set `authorization_response_iss_parameter_supported` to `true` in your metadata, so that Claude can confirm the code came from your authorization server.
+5. **One extra token response field**: return `ema_setup_endpoint`, an `https` URL on the same origin as your issuer, token endpoint, or MCP server. Return no refresh token.
+6. **A setup endpoint**: accept a `PUT` with `ema_issuer`, store it as the trusted issuer of the token's workspace, turn on Enterprise Managed Auth, and return your tenant ID as `aud_tenant` if you use one. Accept both [kinds of issuer URL](#who-issues-the-identity-assertion).
+7. **Checks on every call**: the token carries the scope, the approver administers the workspace, no other customer's workspace has registered the issuer, and the issuer passes the checks you run in your [admin settings](#admin-settings-in-your-product). For an identity provider's issuer, a common check is that it matches the workspace's own single sign-on provider.
+
+### Express admin setup requests
+
+Claude starts with an authorization request for the setup scope:
+
+```http theme={null}
+GET /authorize?response_type=code
+  &client_id=your-registered-client-id
+  &redirect_uri=https://claude.ai/api/mcp/auth_callback
+  &scope=ema_issuer:manage
+  &resource=https://mcp.example.com
+  &state=opaque-value
+  &code_challenge=pkce-challenge&code_challenge_method=S256
+```
+
+Claude exchanges the code at your token endpoint, and your response names the setup endpoint:
+
+```json {6} theme={null}
+{
+  "access_token": "setup-access-token",
+  "token_type": "Bearer",
+  "expires_in": 300,
+  "scope": "ema_issuer:manage",
+  "ema_setup_endpoint": "https://auth.example.com/ema/trusted-issuer"
+}
+```
+
+Claude sends the issuer once, without following redirects, and you answer within 10 seconds:
+
+```http theme={null}
+PUT /ema/trusted-issuer HTTP/1.1
+Host: auth.example.com
+Authorization: Bearer setup-access-token
+Content-Type: application/json
+
+{"ema_issuer": "https://identity.anthropic.com/issuers/<issuer-id>"}
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"aud_tenant": "your-tenant-id"}
+```
+
+To refuse, change nothing and return a `4xx` status with `error` and `error_description`, which Claude shows to the administrator. Use `access_denied` when the user doesn't administer the workspace and `issuer_in_use` when another customer's workspace has registered the issuer.
+
+Claude uses the access token once and doesn't store it. For **Claude-issued**, Claude fills in your tenant ID. For **IdP-managed**, the administrator enters it in their identity provider.
+
+### Test express admin setup
+
+[Add your connector](#add-your-connector-and-run-the-connection-test) from a deployment that advertises the scope, open its managed authorization setup, and click **Connect**. If the button doesn't show and you use Claude's Client ID Metadata Document, check that your metadata lists `none` in `token_endpoint_auth_methods_supported`. Check each of these cases:
+
+* An administrator who completes the flow gets a registered issuer and a passing connection test, with each kind of issuer
+* A user who isn't a workspace administrator can't grant the scope
+* Another client, or a redirect URI that doesn't match in full, is refused the scope
+* An ordinary sign-in is never granted the scope, and its token is refused at the setup endpoint
+* An issuer registered to another customer's workspace is refused
+* A different issuer replaces the first, and an assertion from the first issuer is then refused
+
 ## Launch checklist
 
 Confirm each of the following before you ask Anthropic to mark your directory listing as supporting Enterprise Managed Auth:
 
 * Sign-in works end to end for each kind of assertion your server accepts
 * Every case in [Cases to check before launch](#cases-to-check-before-launch) passes, including the refused ones
+* If you support express admin setup, every case in [Test express admin setup](#test-express-admin-setup) passes
 * Your admin settings let a customer's administrator set the trusted issuer for their workspace
 * Your setup documentation for administrators is published, and its URL is on [your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md)
 

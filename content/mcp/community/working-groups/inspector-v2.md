@@ -112,3 +112,6 @@ Meetings are held at [meet.modelcontextprotocol.io/tag/inspector-v2-wg](https://
 | Date | Change | Author |
 | - | - | - |
 | 2026-04-11 | Initial charter adopted for SEP-2149 compliance. | Cliff Hall (Co-Lead) |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

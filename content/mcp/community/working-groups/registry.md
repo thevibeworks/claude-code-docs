@@ -114,3 +114,6 @@ Discord: `#registry-dev`
 | - | - |
 | 2026-07-30 | @tadasant stepped down as Lead; @rdimitrov is now sole Lead (@tadasant remains a WG Member) |
 | 2026-04-08 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -569,3 +569,6 @@ async def follow_tool_changes(client):
             if app.conversation.is_active():
                 app.conversation.notify_llm_of_new_capabilities()
 ```
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

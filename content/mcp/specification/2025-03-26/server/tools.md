@@ -297,3 +297,6 @@ Example tool execution error:
    * Validate tool results before passing to LLM
    * Implement timeouts for tool calls
    * Log tool usage for audit purposes
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

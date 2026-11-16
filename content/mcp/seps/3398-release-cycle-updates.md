@@ -274,3 +274,6 @@ For this Process SEP, implementation consists of contributor documentation and o
 4. Publish a release checklist covering freeze scope, emergency approvals, SDK milestones, publication, and handoff.
 
 Link the documentation changes, calendar, queue, and assignments here as they become available. Process SEPs are exempt from protocol conformance-test requirements; existing release tooling can continue to perform publication.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -302,3 +302,6 @@ Add a `sampling.standalone` or similar capability for servers that want this beh
 * Current elicitation documentation: `/specification/draft/client/elicitation.mdx`
 * Transport specification: `/specification/draft/basic/transports.mdx`
 * User interaction model discussion in client concepts documentation
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

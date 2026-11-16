@@ -33,3 +33,6 @@ Channels are public by default. Private channels are restricted to designated ma
 Discord is not the record. A Discord discussion heading toward a technical or governance decision must move to a GitHub Discussion. Every technical or governance decision, including a Core Maintainer outcome on a SEP, is written up in a Discussion with the `notes` label, or on the SEP's pull request. Specification changes are also recorded in the [changelog](https://modelcontextprotocol.io/specification/draft/changelog.md), and process changes in these community pages.
 
 A record names who decided, the context, the options considered, the rationale, and the next steps. For meeting agendas and notes, see [Meetings and channels](https://modelcontextprotocol.io/community/working-interest-groups.md#meetings-and-channels).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

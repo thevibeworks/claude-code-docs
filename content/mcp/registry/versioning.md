@@ -166,3 +166,6 @@ MCP Registry aggregators **SHOULD**:
    * If both versions are valid semantic versions, use semantic versioning comparison rules
    * If neither versions are valid semantic versions, compare published timestamp
    * If one version is a valid semantic version and the other is not, treat the semantic version as later
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -110,3 +110,6 @@ Discord: `#agents-wg`
 | - | - |
 | 2026-08-04 | Initial charter (as the Agents WG) |
 | 2026-10-16 | Converted to an Interest Group. Tasks scope moved to the Tasks and Events WG. |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

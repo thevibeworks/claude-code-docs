@@ -184,3 +184,6 @@ example:
 
 This capability negotiation ensures clients and servers have a clear understanding of
 supported functionality while maintaining protocol extensibility.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

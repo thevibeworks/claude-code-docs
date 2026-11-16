@@ -150,3 +150,6 @@ and the [`roadmaps/` directory](https://github.com/modelcontextprotocol/transpor
 | Date | Change |
 | - | - |
 | 2026-08-23 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -92,3 +92,6 @@ The MCP Registry uses multiple mechanisms to prevent spam:
 * **Manual takedown** — The registry maintainers can manually remove spam or malicious servers. See the [Moderation Policy](https://modelcontextprotocol.io/registry/moderation-policy.md) for details on what content is removed.
 
 Future spam prevention measures under consideration include stricter rate limiting, AI-based spam detection, and community reporting capabilities.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

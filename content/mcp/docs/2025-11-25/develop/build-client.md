@@ -2491,3 +2491,6 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > [card] [Example servers](https://modelcontextprotocol.io/examples.md)
 >
 > Check out our gallery of official MCP servers and implementations
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

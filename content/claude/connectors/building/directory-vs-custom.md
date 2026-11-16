@@ -96,7 +96,7 @@ A single directory listing can still serve customers who need elevated permissio
 
 ### Offer a listing and a custom connector
 
-A supported pattern is to list a connector in the directory with safe, broadly applicable defaults, and provide enterprise customers a separate URL to add as a custom connector with elevated permissions or tenant-specific configuration. Document both paths in your own product docs.
+A supported pattern is to list a connector in the directory with safe, broadly applicable defaults, and provide enterprise customers a separate URL to add as a custom connector with elevated permissions or tenant-specific configuration. Claude treats that URL as a custom connector, so it can [mark the connector's open MCP Apps **Unverified**](https://claude.com/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector). Document both paths in your own product docs.
 
 ### Per-tenant URLs
 

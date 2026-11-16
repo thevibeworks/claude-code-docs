@@ -157,3 +157,6 @@ as the server is not waiting for a response with the `InputRequiredResult` patte
    * Check for roots capability before usage
    * Respect root boundaries in operations
    * Cache root information appropriately
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

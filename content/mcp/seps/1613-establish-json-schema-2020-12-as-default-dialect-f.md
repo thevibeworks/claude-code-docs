@@ -194,3 +194,6 @@ Options:
 3. Leave as-is since it doesn't actually conflict with the spec?
 
 Personally I'd prefer (1) in the short term and then (2) as a follow-up.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

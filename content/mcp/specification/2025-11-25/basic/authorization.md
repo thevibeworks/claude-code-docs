@@ -707,3 +707,6 @@ There are several authorization extensions to the core protocol that define addi
 * **Versioned independently** - Extensions follow the core MCP versioning cycle but may adopt independent versioning as needed
 
 A list of supported extensions can be found in the [MCP Authorization Extensions](https://github.com/modelcontextprotocol/ext-auth) repository.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

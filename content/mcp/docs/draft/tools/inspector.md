@@ -164,3 +164,6 @@ Everything else (`--catalog`, `--config`, `--server-url`, `--transport`, `--meth
 > [card] [Debugging guide](https://modelcontextprotocol.io/docs/draft/tools/debugging.md)
 >
 > Broader debugging strategies beyond the Inspector.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

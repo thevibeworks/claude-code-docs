@@ -246,3 +246,6 @@ A legacy Streamable HTTP connection may carry a server-assigned session id (`Mcp
 A legacy connection also opens a standalone `GET` notification stream after `initialize`, to carry notifications that do not belong to any request. The legacy-only **Suppress Notification Stream** option in **Server Settings** skips that stream, so you can inspect a server that cannot serve a second concurrent request. Modern connections never open the stream, so the option does not apply to them.
 
 This has a practical consequence for your own test servers. A stateless modern handler constructed per request cannot hold state between calls, which is why `test-servers/configs/subscriptions-modern-http.json`, unlike its legacy counterpart, omits an `update_resource` tool: the mutation would run against a throwaway server instance and be invisible to the next read.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -535,3 +535,6 @@ Sponsors confirm
 **Sponsor Attestation:**
 - [ ] Sponsor confirms nominee can handle sensitive situations with discretion and fairness
 ```
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -299,3 +299,6 @@ A prototype implementation is available [here](https://github.com/modelcontextpr
 * [RFC 7591 - OAuth 2.0 Dynamic Client Registration](https://www.rfc-editor.org/rfc/rfc7591.html)
 * [MCP Specification - Authorization](https://modelcontextprotocol.org/docs/spec/authorization)
 * [Evolving OAuth Client Registration in the Model Context Protocol](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1027/)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

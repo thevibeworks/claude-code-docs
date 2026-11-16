@@ -150,3 +150,6 @@ A change to a group's charter is proposed by a Lead, a Facilitator or a Core Mai
 A working group is retired when its Lead or a Core Maintainer proposes retirement with rationale and a Core Maintainer or Lead Maintainer approves. It is also retired when it has completed all planned deliverables or has had no active work for a sustained period. Core Maintainers or Lead Maintainers may retire an interest group that is no longer active or needed.
 
 In both cases the group's documentation is archived and its channels are marked inactive.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -47,3 +47,6 @@ A vulnerability with no evidence of exploitation is not a CRA escalation event. 
 ## Communication and records
 
 [Communication](https://modelcontextprotocol.io/community/communication.md) sets out which channel is for what, when a channel may be private, and where decisions are recorded.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

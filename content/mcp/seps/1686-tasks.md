@@ -1106,3 +1106,6 @@ This hierarchical model would support sophisticated server-controlled workflows 
 
   The existing task metadata and status lifecycle are designed to be forward-compatible with these extensions.
 </details>
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

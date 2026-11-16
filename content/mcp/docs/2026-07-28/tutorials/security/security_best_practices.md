@@ -989,3 +989,6 @@ least privilege.
 
 Proper minimization constrains compromise impact, improves audit
 clarity, and reduces consent churn.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

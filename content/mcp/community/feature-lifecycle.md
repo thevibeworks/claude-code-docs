@@ -145,3 +145,6 @@ Core Maintainers approve deprecations, removal timing, extensions,
 restorations, and expedited removals under the
 [governance decision process](https://modelcontextprotocol.io/community/governance.md#decision-process), subject
 to Lead Maintainer veto (see [Governance](https://modelcontextprotocol.io/community/governance.md#roles)).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

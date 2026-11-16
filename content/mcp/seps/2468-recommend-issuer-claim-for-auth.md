@@ -106,3 +106,6 @@ Both record the expected issuer before redirect and compare any received `iss`, 
 ### Acknowledgments
 
 Thanks to Sam Morrow, Max Gerber, Aaron Parecki, Stephen Halter, Nate Barbettini, Karl McGuinness, and Den Delimarsky for reviews and discussion in the Auth Mix-Up Attack Prevention working group.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

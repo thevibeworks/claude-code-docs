@@ -54,3 +54,6 @@ Authorization extension support varies by client. See the [client matrix](https:
 ## Specification
 
 Both extensions are specified in the [ext-auth repository](https://github.com/modelcontextprotocol/ext-auth/tree/main/specification/stable). They use the standard MCP [extension negotiation](https://modelcontextprotocol.io/extensions/overview.md#negotiation) mechanism: clients declare support in the `extensions` field of the `io.modelcontextprotocol/clientCapabilities` they send in each request's `_meta`, and servers advertise theirs in the capabilities returned by [`server/discover`](https://modelcontextprotocol.io/specification/draft/server/discover).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -265,3 +265,6 @@ Icons can be attached to:
 * `Resource`: Visual indicator for different resource types
 
 Multiple icons can be provided to support different display contexts and resolutions. Clients should select the most appropriate icon based on their UI requirements.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

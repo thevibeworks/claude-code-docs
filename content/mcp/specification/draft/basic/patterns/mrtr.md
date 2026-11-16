@@ -275,3 +275,6 @@ the server **SHOULD** respond with a new `InputRequiredResult` requesting the mi
 
 Because `requestState` passes through the client, malicious or compromised clients could attempt to modify it to alter server behavior,
 bypass authorization checks, or corrupt server logic. Servers **MUST** validate request state as described in the [server requirements](#server-requirements-basic-workflow) above.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

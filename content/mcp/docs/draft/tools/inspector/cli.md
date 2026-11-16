@@ -254,3 +254,6 @@ Only the writable catalog (`--catalog`, `MCP_CATALOG_PATH`, or the default) can 
 ## Proxies
 
 Connections to remote HTTP/SSE servers honor the conventional proxy variables: `HTTPS_PROXY` / `HTTP_PROXY` (and their lowercase forms) select the proxy and `NO_PROXY` exempts hosts. No Inspector-specific flag is needed, and the proxy agent is loaded lazily, so runs without a proxy pay nothing. The same applies to the web client's backend.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

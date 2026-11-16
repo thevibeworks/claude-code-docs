@@ -201,3 +201,6 @@ Servers implementing the clarified behavior will provide better model self-recov
 * [MCP Tools Error Handling Specification](https://modelcontextprotocol.io/specification/2025-06-18/server/tools.md#error-handling)
 * [Better MCP tools/call Error Responses: Help Your AI Recover Gracefully](https://dev.to/alpic/better-mcp-toolscall-error-responses-help-your-ai-recover-gracefully-15c7)
 * Related Issue: [https://github.com/modelcontextprotocol/typescript-sdk/pull/824](https://github.com/modelcontextprotocol/typescript-sdk/pull/824)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

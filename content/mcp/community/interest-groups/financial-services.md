@@ -121,3 +121,6 @@ group identifies new areas of interest.
 | Date | Change |
 | - | - |
 | 2026-06-25 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

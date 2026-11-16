@@ -145,3 +145,6 @@ Both icons and websiteUrl are optional fields; clients that ignore them will fal
 ## Security Implications
 
 This shouldn't introduce any new security implications.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -118,3 +118,6 @@ Existing implementations using this pattern:
 * [Envoy AI Gateway](https://github.com/envoyproxy/ai-gateway/blob/6331b54aef81dd6c8d3d184acc4e2cb8167cea2a/internal/tracing/tracingapi/mcp.go)
 * [Logfire](https://github.com/pydantic/logfire/blob/09232402fd7e268c667db59d1e9f890ed30f7850/logfire/_internal/integrations/mcp.py#L149-L162)
 * [ToolHive](https://github.com/stacklok/toolhive/issues/3399)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

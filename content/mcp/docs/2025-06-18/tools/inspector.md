@@ -136,3 +136,6 @@ The Inspector provides several features for interacting with your MCP server:
 > [card] [Debugging Guide](https://modelcontextprotocol.io/docs/2025-06-18/tools/debugging.md)
 >
 > Learn about broader debugging strategies
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

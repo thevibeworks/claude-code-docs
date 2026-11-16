@@ -154,3 +154,6 @@ Owners, progress, and priorities are maintained there rather than in this charte
 | 2026-04-16 | Converted from Interest Group to Working Group |
 | 2026-04-14 | Initial charter (formalized from [experimental-ext-skills](https://github.com/modelcontextprotocol/experimental-ext-skills) repo README, which served as the de facto charter before the charter process was established via [SEP-2149](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2149)) |
 | 2026-02-01 | IG formed; experimental repo created |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -206,3 +206,6 @@ is a community list that also covers requesting applications. For MCP client sup
 > [card] [MCP Authorization](https://modelcontextprotocol.io/specification/latest/basic/authorization.md)
 >
 > Core MCP authorization specification
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

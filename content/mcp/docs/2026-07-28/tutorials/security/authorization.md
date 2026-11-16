@@ -786,3 +786,6 @@ For more details, see:
 * [Security Best Practices](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices.md)
 * [Authorization Extensions](https://modelcontextprotocol.io/extensions/auth/overview.md), for machine-to-machine and enterprise-managed authorization
 * [Available MCP SDKs](https://modelcontextprotocol.io/docs/2026-07-28/sdk.md)
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

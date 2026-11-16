@@ -327,3 +327,6 @@ This proposal builds upon and complements existing MCP security measures:
 * Works within the existing MCP authorization framework (MCP authorization is not affected by this proposal)
 * Follows Security Best Practices regarding token handling
 * Maintains separation of concerns between client-server and server-third-party authorization
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

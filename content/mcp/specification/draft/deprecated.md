@@ -39,3 +39,6 @@ as Deprecated under its [transition provisions](https://modelcontextprotocol.io/
 No features have been removed under this policy yet. When a Deprecated feature
 is removed, its row moves to this section with a link to the changelog entry
 recording the removal.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

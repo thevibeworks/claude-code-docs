@@ -1302,3 +1302,6 @@ interface ToolExecution \{\
 }Execution-related properties for a tool.  taskSupport?: "forbidden" | "optional" | "required"[Permalink](#toolexecution-tasksupport) Indicates whether this tool supports task-augmented execution.
 This allows clients to handle long-running operations through polling
 the task system. <ul> <li>"forbidden": Tool does not support task-augmented execution (default when absent)</li> <li>"optional": Tool may support task-augmented execution</li> <li>"required": Tool requires task-augmented execution</li> </ul> Default: "forbidden"&#x20;
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

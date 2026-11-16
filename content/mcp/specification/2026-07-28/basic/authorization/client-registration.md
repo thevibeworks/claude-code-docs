@@ -200,3 +200,6 @@ Client IDs based on Client ID Metadata Documents are portable
 across authorization servers, since they are self-hosted HTTPS URLs
 resolved by the authorization server on demand. No re-registration
 is needed when the authorization server changes.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

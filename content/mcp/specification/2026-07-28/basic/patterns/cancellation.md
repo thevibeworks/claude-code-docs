@@ -120,3 +120,6 @@ This maintains the "fire and forget" nature of notifications while allowing for 
 conditions in asynchronous communication.
 
 [subscriptions]: https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/subscriptions.md
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

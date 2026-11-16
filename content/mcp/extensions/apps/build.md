@@ -495,3 +495,6 @@ improvements, open an issue on the
 [GitHub repository](https://github.com/modelcontextprotocol/ext-apps/issues).
 For broader discussions about the extension's direction, join the conversation
 in [GitHub Discussions](https://github.com/modelcontextprotocol/ext-apps/discussions).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

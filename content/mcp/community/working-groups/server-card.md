@@ -95,3 +95,6 @@ Discord: [#server-card-wg](https://discord.com/channels/1358869848138059966/1399
 | Date | Change |
 | - | - |
 | 2026-03-26 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

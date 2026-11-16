@@ -60,3 +60,6 @@ MCP is an open protocol supported across a wide range of clients and servers. AI
 > [card] [Contributing](https://modelcontextprotocol.io/community/contributing.md)
 >
 > Learn how to get involved and contribute to MCP
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

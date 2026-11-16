@@ -255,3 +255,6 @@ clients. Task support requires explicit opt-in from both client and server.
 ## Specification
 
 The Tasks extension is specified in the [ext-tasks repository](https://github.com/modelcontextprotocol/ext-tasks). It uses the standard MCP [extension negotiation](https://modelcontextprotocol.io/extensions/overview.md#negotiation) mechanism: clients declare support in the `extensions` field of the `io.modelcontextprotocol/clientCapabilities` they send in each request's `_meta`, and servers advertise theirs in the capabilities returned by [`server/discover`](https://modelcontextprotocol.io/specification/draft/server/discover).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

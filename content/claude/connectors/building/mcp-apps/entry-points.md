@@ -69,6 +69,7 @@ A view is one rendered instance of your app's UI in Claude. When a user opens yo
 * **Arguments**: make every input optional and show a useful starting state when the arguments are `{}`.
   * Claude can choose a value for an optional input, so don't treat a value as proof of the user's choice.
 * **Conversation**: on the web, the app opens in a new conversation each time a user opens it
+* **Icon**: Claude can show an [icon that you declare](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md#declare-an-app-icon-for-claude) on the app's tile and over the open view
 * **Display mode**: on the web, Claude shows the view full screen when the view supports `fullscreen`, so include `fullscreen` if you declare [`availableDisplayModes`](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines#declare-supported-display-modes).
   * Without `fullscreen`, the view appears in the conversation.
 * **Approval**: if the tool's permission is **Needs approval**, Claude asks the user for approval before the view opens. If the conversation's permission setting is **Auto**, Claude can open the view without asking.

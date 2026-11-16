@@ -886,3 +886,6 @@ Additionally, receivers **SHOULD** implement rate limiting on task operations to
 2. Requestors **SHOULD**:
    1. Log task lifecycle events for debugging and audit purposes
    2. Track task IDs and their associated operations
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

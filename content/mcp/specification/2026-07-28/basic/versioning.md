@@ -181,3 +181,6 @@ A dual-era **server** selects its behavior from how the client opens:
 
 A dual-era server **MAY** serve both eras concurrently on the same endpoint
 or process.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

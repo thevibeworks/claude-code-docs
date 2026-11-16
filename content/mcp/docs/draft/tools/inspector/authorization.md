@@ -163,3 +163,6 @@ The `deepLink` in the handoff block navigates a browser straight to a *connected
 * **Web**: the Connection Info panel shows the authorization status, the client registration type, the client ID, granted scopes, and the access token, and offers **Clear OAuth state and disconnect** for the active server. Clearing also revokes the grant unless the server's **Revoke tokens on clear** setting is off.
 * **TUI**: the **Auth** tab (`a`) shows the same fields and clears state the same way.
 * **CLI**: `--list-stored-auth` shows what's on disk, and `--relogin` revokes and discards it and starts over.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

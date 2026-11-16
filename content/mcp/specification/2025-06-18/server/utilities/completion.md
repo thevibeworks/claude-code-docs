@@ -200,3 +200,6 @@ Implementations **MUST**:
 * Implement appropriate rate limiting
 * Control access to sensitive suggestions
 * Prevent completion-based information disclosure
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

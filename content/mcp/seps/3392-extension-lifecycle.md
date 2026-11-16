@@ -298,3 +298,6 @@ setting, where present, lets a peer refuse a revision it does not know.
 ## Reference Implementation
 
 This is a Process SEP and has no protocol implementation. On reaching Final it lands the documentation changes and directory moves listed in [Transition](#transition).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

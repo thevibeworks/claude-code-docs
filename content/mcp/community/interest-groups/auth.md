@@ -115,3 +115,6 @@ The following Discord channels previously hosted authorization sub-groups. They 
 | - | - |
 | 2026-08-17 | Re-charter: single venue and channel for authorization work; agenda-driven calls; SEP feedback in scope; `#auth-wg-*` channels and the Enterprise-Managed Authorization IG folded in |
 | 2026-06-02 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

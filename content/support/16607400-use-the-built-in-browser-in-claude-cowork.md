@@ -18,9 +18,11 @@ The built-in browser lives in the desktop app, so Claude Desktop needs to be ope
 
 ## Sign in to sites
 
-The first time the built-in browser opens, you’ll see the option to "Stay signed in to your sites by importing cookies from your browser." Click the “Import cookies” button to import saved logins from your browser in one step. Import works site by site, so you choose which logins to bring over. Banking, email, and single sign-on sites stay unchecked by default.
+The first time the built-in browser opens, you'll see the option to "Stay signed in to your sites." Click the "Import cookies" button, choose the browser to import from, and confirm. Import works site by site. Every site in the list starts selected, so clear any you don't want. Banking, email, and sign-in provider sites are labeled and listed first.
 
-Importing saved logins is available from Chrome, Edge, and Firefox on macOS, and from Firefox on Windows and Linux (beta). Import isn't available from Safari.
+Importing is available from Chrome, Edge, Brave, Chromium, and Firefox on macOS and Linux (beta), and from Firefox on Windows. Import isn't available from Safari.
+
+On Team and Enterprise plans, an owner can turn off cookie import for the organization. When it's off, you won't see any option to import cookies. You can still sign in to sites directly in the built-in browser.
 
 You can also sign in to sites as you go, and Claude remembers your logins across Cowork sessions so you don't have to sign in again.
 

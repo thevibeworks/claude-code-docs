@@ -163,3 +163,6 @@ Emeritus role-holders keep their recognition in [`MAINTAINERS.md`](https://githu
 ### Removal
 
 A role may be revoked for Code of Conduct violations or sustained non-participation, following appropriate review.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

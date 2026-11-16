@@ -836,3 +836,6 @@ will have no additional effect on the its environment. (This property is meaning
 entities. If false, the tool's domain of interaction is closed.
 For example, the world of a web search tool is open, whereas that
 of a memory tool is not. Default: true&#x20;
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

@@ -164,3 +164,6 @@ subscriptions — the server holds no subscription state across reconnections.
 See [Cancellation][cancellation] for the full rules.
 
 [cancellation]: https://modelcontextprotocol.io/specification/draft/basic/patterns/cancellation.md
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

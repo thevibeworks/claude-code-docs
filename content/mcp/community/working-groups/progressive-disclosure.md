@@ -131,3 +131,6 @@ The following items form the WG's current work agenda. This list is not exhausti
 | - | - |
 | 2026-09-21 | Renamed from Primitive Grouping to Progressive Disclosure and converted from Interest Group to Working Group ([meeting notes](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions/3375)) |
 | 2026-06-18 | Initial charter |
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

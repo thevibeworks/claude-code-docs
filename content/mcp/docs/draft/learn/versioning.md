@@ -64,3 +64,6 @@ and handle a version error if one comes back.
 For interoperability with servers and clients that implement the
 handshake-based protocol revisions (`2025-11-25` and earlier), see
 [Backward Compatibility](https://modelcontextprotocol.io/specification/draft/basic/versioning.md#backward-compatibility-with-initialization-based-versions).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

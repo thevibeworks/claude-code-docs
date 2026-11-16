@@ -106,3 +106,6 @@ Crucially, this design refactors the specification document itself but intention
 This proposal is a **non-breaking change** for existing implementations. It is a refactoring of the *specification document itself* and does not alter the on-the-wire JSON format of the protocol messages. A client or server that is compliant with the old specification structure will remain compliant with the new one, as the resulting JSON payloads are identical.
 
 The primary impact is on developers who read the specification and on tools that parse the specification to generate code or documentation.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

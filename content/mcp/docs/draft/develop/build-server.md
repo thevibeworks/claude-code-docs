@@ -3056,3 +3056,6 @@ When you ask a question:
 > [card] [Build with Agent Skills](https://modelcontextprotocol.io/docs/draft/develop/build-with-agent-skills.md)
 >
 > Use agent skills to guide AI coding assistants through server design
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

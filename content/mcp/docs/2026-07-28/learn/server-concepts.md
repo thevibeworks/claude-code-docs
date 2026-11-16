@@ -564,3 +564,6 @@ Consider a personalized AI travel planner application, with three connected serv
    * `sendEmail` (from Calendar/Email Server) - Sends confirmation with trip details
 
 **The result:** Through multiple MCP servers, the user researched and booked a Barcelona trip tailored to their schedule. The "Plan a vacation" prompt guided the AI to combine Resources (calendar availability and travel history) with Tools (searching flights and hotels, booking them, updating the calendar) across different servers—gathering context and executing the booking. A task that could have taken hours was completed in minutes using MCP.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

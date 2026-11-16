@@ -162,7 +162,7 @@ For `https://example.com/mcp`, the command prints:
 c3d80a4ed901ee05b21755a88273b4a4.claudemcpcontent.com
 ```
 
-If Claude reports `Invalid ui.domain format` or `ui.domain mismatch`, see [Troubleshoot MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/troubleshooting.md#ui-domain-validation-fails).
+If Claude shows an error instead of your app after you set this value, see [Troubleshoot MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/troubleshooting.md#ui-domain-validation-fails).
 
 ### Build with an AI coding agent
 
@@ -182,6 +182,8 @@ Once the MCP Apps skills plugin is installed, ask your agent to "Create an MCP A
 If you have an existing app built on the OpenAI Apps SDK, follow the [migration reference](https://modelcontextprotocol.github.io/ext-apps/api/documents/Migrate_OpenAI_App.html) to move it to the MCP Apps SDK. The MCP Apps skills can also do the migration: ask your agent to "Migrate from OpenAI Apps SDK" or "Convert my OpenAI App to an MCP App".
 
 If your tools already declare global [entry points](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md) under the `openai/ui` key, check what else each tool needs in Claude in [Mark a tool as a global entry point](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md#mark-a-tool-as-a-global-entry-point).
+
+After you migrate, [one codebase can run in Claude and in other hosts that support MCP Apps](#register-tools-and-resources-once-for-every-host). One thing that differs is [`ui.domain`](#set-ui-domain-for-claude): each host has its own format.
 
 ## Send feedback on MCP Apps
 

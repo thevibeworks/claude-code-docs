@@ -261,3 +261,6 @@ Now that you've successfully connected Claude Desktop to a local MCP server, exp
 > [card] [Understand the protocol](https://modelcontextprotocol.io/docs/2025-03-26/learn/architecture.md)
 >
 > Dive deeper into how MCP works and its architecture
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

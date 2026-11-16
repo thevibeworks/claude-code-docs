@@ -113,3 +113,6 @@ The subregistry OpenAPI spec allows subregistries to inject custom metadata via 
 ```
 
 We recommend that custom metadata be put under a key that reflects the subregistry (e.g., `"com.example.subregistry/custom"` in the above example).
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

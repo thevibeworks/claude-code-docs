@@ -129,7 +129,7 @@ To fix the iOS failures, allowlist on the `Origin` header instead of `Referer`, 
 
 ### `ui.domain` validation fails
 
-Setting [`_meta.ui.domain`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiResourceMeta.html#domain) on your resource opts your app into a stable sandbox origin, which you need if your app runs its own OAuth flow. Claude validates the value against your connector URL, and when validation fails it shows an `Invalid ui.domain format` or `ui.domain mismatch` error instead of rendering the app.
+Setting [`_meta.ui.domain`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiResourceMeta.html#domain) on your resource opts your app into a stable sandbox origin, which you need if your app runs its own OAuth flow. Claude validates the value against your connector URL, and when validation fails on the web or in Claude Desktop it shows an error instead of rendering the app.
 
 The value must be exactly `{hash}.claudemcpcontent.com`, where `{hash}` is the first 32 hexadecimal characters of the SHA-256 digest of your full connector URL. Compute it by running this command with your own URL:
 

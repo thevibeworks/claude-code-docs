@@ -28,7 +28,10 @@ When using Microsoft Foundry, the app also sends conversation content only to yo
 
 Microsoft Foundry offers Claude models in two hosting options, Hosted on Azure and Hosted on Anthropic, and you choose one when you configure the model deployment in Microsoft Foundry. Under both options, Anthropic operates the Claude models and handles conversation data as an independent processor for Microsoft. Your use of Claude through Microsoft Foundry is subject to Anthropic's data use terms.
 
-Deployments hosted on Azure run inference in an Anthropic-operated service on Azure infrastructure, not in your Azure tenant, and prompts and completions remain within Azure. The only data the service sends out of Azure to Anthropic is usage metadata and any content that Anthropic's safety systems flag. Deployments hosted on Anthropic send prompts and completions to Anthropic's own infrastructure for inference. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
+* Deployments hosted on Azure run inference in an Anthropic-operated service on Azure infrastructure, not in your Azure tenant. For deployments hosted on Azure, Anthropic processes prompts and completions on Azure infrastructure and stores retained content there. Retained content includes content flagged by Anthropic's safety systems for Anthropic to review. Operational data that contains no prompts or completions is stored on Anthropic's systems outside Azure. Examples include safety classifier scores, identifiers, and usage and billing data.
+* Deployments hosted on Anthropic send prompts and completions to Anthropic's own infrastructure for inference.
+
+See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
 
 See the [Overview](https://claude.com/docs/third-party/claude-desktop/overview.md) for the architecture and [Data handling by provider](https://claude.com/docs/third-party/claude-desktop/overview.md#data-handling-by-provider) for each provider's data path.
 
