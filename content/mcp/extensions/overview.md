@@ -237,9 +237,7 @@ Clients advertise extension support in the `initialize` request:
   "params": {
     "protocolVersion": "2025-11-25",
     "capabilities": {
-      "roots": {
-        "listChanged": true
-      },
+      "elicitation": {},
       "extensions": {
         "io.modelcontextprotocol/ui": {
           "mimeTypes": ["text/html;profile=mcp-app"]
