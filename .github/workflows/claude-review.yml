@@ -201,12 +201,25 @@ jobs:
         if: steps.claude-review.outcome == 'success' && steps.claude-review.outputs.execution_file != ''
         run: |
           f="${{ steps.claude-review.outputs.execution_file }}"
-          if grep -Eq '"is_error":\s*true' "$f"; then
-            echo "::error::Claude returned is_error=true; the review did not happen"
-            grep -Eo '"result":\s*"[^"]{0,300}' "$f" | tail -1 || true
-            exit 1
-          fi
-          echo "review completed (is_error absent)"
+          # The file is every message of the session. Only the final `result`
+          # says whether the session failed: a tool call that errored inside
+          # a good review (a failing check command) carries "is_error": true
+          # too, and grepping for that turned #1474's finished, merged review
+          # red (run 43873492221). No result at all means it never finished.
+          verdict=$(jq -r '[.[] | select(.type == "result")] | last
+                           | if . == null then "missing" else (.is_error | tostring) end' \
+                      "$f" 2>/dev/null) || verdict="unreadable"
+          case "$verdict" in
+            false)
+              echo "review completed (result.is_error=false)" ;;
+            true)
+              echo "::error::Claude returned is_error=true; the review did not happen"
+              jq -r '[.[] | select(.type == "result")] | last | (.result // "")[0:300]' "$f" || true
+              exit 1 ;;
+            *)
+              echo "::error::no final result in the execution file ($verdict); the review did not finish"
+              exit 1 ;;
+          esac
 
       - name: Alert on failure
         if: failure()
