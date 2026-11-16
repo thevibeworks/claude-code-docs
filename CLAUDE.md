@@ -14,7 +14,8 @@ times daily (blog archive frozen, see Fetcher).
 
 Sources: code.claude.com, platform.claude.com, claude.com/docs,
 modelcontextprotocol.io, support.claude.com (sitemap + .md),
-github.com/anthropics/* (10 repos). anthropic.com blog
+github.com/anthropics/* (10 repos), anthropic.com/legal/* (CMS documents
+and version history from the Next.js flight data). anthropic.com blog
 (engineering/research/news) is a FROZEN archive as of 2026-07: the site is
 HTML-only and the jina.ai proxy path was removed.
 
@@ -59,7 +60,7 @@ decision. `discovery.json.review` is the actionable list: domains reachable
 and serving markdown that nothing fetches yet. Empty is the healthy state.
 
 Sections: `claude-code`, `api`, `platform`, `mcp`, `github`, `support`,
-`products`, `all`
+`products`, `legal`, `all`
 
 Source registry: `sources.json`
 Confirmed-dead URLs: `tombstones.json` (self-maintaining; an entry disappears
@@ -159,6 +160,13 @@ Use these paths to reference documentation when helping users:
 - `content/mcp/seps/` - Specification Enhancement Proposals
 - `content/mcp/community/` - Governance, working groups
 
+#### Legal and Policy (from anthropic.com/legal)
+- `content/legal/<slug>.md` - Current text, e.g. `aup.md` (Usage Policy),
+  `consumer-terms.md`, `privacy.md`, `supported-regions.md`,
+  `consumer-credit-terms.md`
+- `content/legal/<slug>/<effective date>.md` - Every version the page lists
+- `content/legal/README.md` - Where Anthropic's version list is not a record
+
 #### Engineering & Research (from anthropic.com) — FROZEN archive, not auto-updated
 - `content/blog/engineering/` - "Building Effective Agents", tool use, harness design
 - `content/blog/research/` - Research papers
@@ -186,6 +194,7 @@ content/                       3,900+ files
   blog/                        Engineering, research, news
   github/                      10 repos (718 files)
   support/                     Help articles (365)
+  legal/                       Legal + policy pages, with versions (92)
 scripts/
   fetcher.py                   Multi-source fetcher
 sources.json                   Source registry

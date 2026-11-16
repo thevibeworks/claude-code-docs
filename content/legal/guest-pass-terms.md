@@ -1,0 +1,52 @@
+---
+title: "Guest Pass Terms"
+source: https://www.anthropic.com/legal/guest-pass-terms
+archive: https://www.anthropic.com/legal/archive/b5377dd5-583c-45c1-a531-9d8326b2b5cf
+version: b5377dd5-583c-45c1-a531-9d8326b2b5cf
+effective: 2026-11-05T17:00:00.000Z
+latest: true
+---
+
+# Guest Pass Terms
+
+Effective 2026-11-05
+
+## 1. The Offer
+
+A Claude guest pass (a "Guest Pass") lets an eligible Claude user (the "Referrer") share access to the Claude plan, product, or feature(s) identified in the offer (the "Guest Plan") with another person (the "Guest") on the terms identified in the offer, which may include a free trial for the period identified in the offer (the "Trial Period"), a discount, promotional credit, or another benefit. Unless the offer says otherwise, a Guest Pass provides a 7-day free trial of the Claude Pro plan. Where the offer says so, the Referrer receives a reward, such as promotional usage credit, when the Guest completes the qualifying action identified in the offer (by default, becoming a paid Claude subscriber).
+
+These Guest Pass Terms are Supplemental Terms under the Anthropic Consumer Terms of Service (Free, Pro, and Max plans), the Anthropic Commercial Terms of Service (Team and Enterprise plans), or another written agreement you have with Anthropic, as applicable (the "Terms"). The Terms and our Usage Policy apply to all use of Claude under a Guest Pass. A Guest's free trial or discounted subscription is also subject to the Claude Subscription Offers Terms and Conditions (the "Subscription Offer Terms"), and any credit a Referrer or Guest receives is also subject to the Claude Promotional Credit Offer Terms. If these terms conflict with those offer terms, these Guest Pass Terms control for Guest Passes.
+
+## 2. Sharing Guest Passes
+
+Guest Passes are available to the Referrer identified in the offer (unless the offer says otherwise, Pro and Max subscribers who have been subscribed for at least 31 days), and Anthropic may apply additional eligibility requirements, including minimum tenure, plan type, or account standing. Each Referrer receives the number of Guest Passes stated in the offer or shown in your account. Guest Passes may expire or be withdrawn; any expiration date will be shown with your passes.
+
+Your referral link works only while you remain an eligible Referrer; if you cancel, downgrade, or otherwise stop meeting the eligibility requirements, your link will stop working and unredeemed passes will be unavailable unless the offer says otherwise. If more people use your link than you have Guest Passes, passes are redeemed on a first-come, first-served basis. Once your Guest Passes have been redeemed, expired, or been withdrawn, no further passes can be redeemed through your link unless Anthropic issues you additional passes.
+
+Guest Passes are for sharing with people you know. You may not sell a Guest Pass or your referral link, post it on coupon, deal, or referral-exchange sites, distribute it in bulk or by automated means, send it as unsolicited commercial messaging, or redeem it yourself or through an account you control or that is controlled by the same person or organization. If you share your link somewhere your relationship with Anthropic is not obvious (for example, in a public post), you must make clear that you may receive a reward if someone subscribes. You are responsible for complying with applicable law when you share a Guest Pass, including laws on unsolicited communications and endorsements.
+
+## 3. Redeeming a Guest Pass
+
+Redeeming a Guest Pass starts a Claude subscription offer, and the Subscription Offer Terms apply to it, including their terms on eligibility, payment method, billing during a free trial, automatic renewal, cancellation, and refunds. For that purpose, the Guest Plan is the "Offer Plan" and the Trial Period is the "Offer Period." Unless the offer says otherwise, the Guest Plan will automatically continue as a paid subscription at the then-current standard price unless you cancel before the Trial Period ends.
+
+In addition, unless the offer says otherwise: (a) Guest Passes may be redeemed only by people who have never had a paid subscription to, or free trial of, any Claude product (including through a Team or Enterprise plan), and are limited to one per person and per account; and (b) a Guest Pass must be redeemed within any redemption window stated in the offer.
+
+Choosing a plan without a trial. If the offer lets you choose a plan other than the Guest Plan, or a plan that does not include a free trial, you will be charged the standard price for that plan at checkout, and your redemption still uses one of the Referrer's Guest Passes and may still earn the Referrer a Reward.
+
+## 4. Referrer Reward
+
+If the offer provides for it, the Referrer receives the reward stated in the offer (the "Reward") when the Guest completes the qualifying action stated in the offer (unless the offer says otherwise, becoming a paid Claude subscriber), as determined by Anthropic. Unless the offer says otherwise, a Reward is not earned when a Guest redeems a pass or starts a trial, and is not earned if the Guest cancels before the Trial Period ends or before the qualifying action is completed. Anthropic may cap the total Reward a Referrer can earn, may delay or withhold a Reward while it reviews activity for fraud or abuse, and may deliver a Reward after a waiting period stated in the offer.
+
+Promotional credit Rewards. Where the Reward is promotional usage credit: credit applies only toward Usage Credit charges on your Claude subscription, has no cash value, and is non-transferable. Unless the offer says otherwise, credit expires 90 days from the date it is issued, and is forfeited if you cancel your subscription or downgrade to the free tier. Credit is applied through the Usage Credit feature on your account, which works as described in our Help Center; by accepting credit you authorize Anthropic to enable Usage Credit on your account if it is not already enabled.
+
+Other Rewards. Where the Reward is something other than promotional credit (for example, access to a feature, a discount, or additional Guest Passes), any conditions, duration, and limits will be stated in the offer.
+
+## 5. Fraud, Changes, and General
+
+Anthropic may refuse or revoke a Guest Pass or Reward, and may suspend or terminate accounts, where it determines there has been fraud, abuse, or a breach of the Terms or these Guest Pass Terms, including creating multiple accounts, self-referral, or distributing passes in a way these terms do not allow. The Guest Pass program is offered for a limited time; Anthropic may modify, suspend, or end the program, any offer, or these Guest Pass Terms at any time, including to correct errors, and may run different offers for different products, regions, or groups of users. Ending the program or an offer does not affect trials already started or Rewards already issued, unless required to address fraud or abuse. Anthropic's determination of eligibility, conversion, and Reward amounts is final. Void where prohibited. The Terms apply in full.
+
+## Version history
+
+From the page's own version list.
+
+- 2026-11-05 (this version): [guest-pass-terms/2026-11-05.md](guest-pass-terms/2026-11-05.md)

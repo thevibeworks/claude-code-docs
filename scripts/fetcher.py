@@ -10,6 +10,8 @@ Sources (see sources.json for the complete registry):
   - claude.com/docs         -> Product docs (sitemap + .md suffix)
   - anthropic.com blog      -> FROZEN 2026-07 (HTML-only, no .md variant;
                                the jina.ai proxy path was removed)
+  - anthropic.com/legal     -> Legal + policy pages with version history
+                               (CMS document in the Next.js flight data)
   - github.com/anthropics/* -> Repos (raw.githubusercontent.com)
 
 Usage:
@@ -81,6 +83,9 @@ FETCHED_DOMAINS = {
 # Archived, deliberately not refreshed: anthropic.com is HTML-only and the
 # jina.ai proxy path was removed in 2026-07.
 FROZEN_DOMAINS = {"anthropic.com"}
+# Frozen domains with one path that is still fetched, because it needs no
+# proxy (see LEGAL_BASE).
+FETCHED_PATHS = {"anthropic.com": "/legal/"}
 
 
 def normalize_url(url: str) -> str:
@@ -109,6 +114,164 @@ def looks_like_html(content: bytes) -> bool:
     """
     head = content[:512].lstrip().lower()
     return head.startswith(b"<!doctype html") or head.startswith(b"<html")
+
+
+# -- anthropic.com/legal: CMS documents inside Next.js flight data ------------
+#
+# anthropic.com serves no markdown, which is why the blog is frozen. The legal
+# pages are the exception that needs no proxy: each one embeds its CMS document
+# (portable-text body, effective date) and a `versionHistory` list in the RSC
+# flight data, and every past version is served at /legal/archive/<_id>. So the
+# archive can hold Anthropic's own version record, not just today's text.
+
+LEGAL_BASE = "https://www.anthropic.com/legal"
+
+
+def flight_payload(html: str) -> str:
+    """The page's RSC flight data, with text rows put back in place.
+
+    Long strings are moved out of the JSON into rows `<id>:T<hex bytes>,<text>`
+    and referenced as "$<id>". Left unresolved, a clause reads "$6f": eight
+    legal documents lost text that way before this step existed.
+    """
+    chunks = re.findall(r'self\.__next_f\.push\(\[1,"(.*?)"\]\)</script>', html, re.S)
+    s = "".join(json.loads('"' + c + '"') for c in chunks)
+    # Walk the rows in order. A text row is length-prefixed, not newline-ended,
+    # so the next row can start right after it; a regex anchored on "\n" missed
+    # those and left "$6f" in the CPNA.
+    rows = {}
+    b = s.encode("utf-8")
+    head = re.compile(rb"([0-9a-f]*):(T([0-9a-f]+),)?")
+    i = 0
+    while i < len(b):
+        m = head.match(b, i)
+        if m and m.group(2):
+            n = int(m.group(3), 16)
+            rows[m.group(1).decode()] = b[m.end():m.end() + n].decode("utf-8", "replace")
+            i = m.end() + n
+        else:
+            nl = b.find(b"\n", i)
+            i = len(b) if nl < 0 else nl + 1
+    return re.sub(
+        r'"\$([0-9a-f]+)"',
+        lambda m: (json.dumps(rows[m.group(1)], ensure_ascii=False)
+                   if m.group(1) in rows else m.group(0)),
+        s)
+
+
+def find_objects(s: str, key: str) -> List[dict]:
+    """Every JSON object in `s` that has `key` at its top level."""
+    out = []
+    decoder = json.JSONDecoder()
+    for m in re.finditer('"%s":' % re.escape(key), s):
+        depth, i = 0, m.start()
+        while i > 0:
+            i -= 1
+            if s[i] == "}":
+                depth += 1
+            elif s[i] == "{":
+                if depth == 0:
+                    break
+                depth -= 1
+        try:
+            obj, _ = decoder.raw_decode(s[i:])
+        except ValueError:
+            continue
+        if isinstance(obj, dict) and key in obj:
+            out.append(obj)
+    return out
+
+
+def portable_text(blocks) -> str:
+    """Render Sanity portable text as markdown. Unknown types stay visible."""
+    lines = []
+    for b in blocks or []:
+        t = b.get("_type")
+        if t == "table":
+            if b.get("caption"):
+                lines.append("Table: " + b["caption"])
+            for r in b.get("rows", []):
+                cells = [portable_text(c.get("content")).replace("\n\n", " / ")
+                         for c in r.get("cells", [])]
+                lines.append("| " + " | ".join(cells) + " |")
+            continue
+        if t == "accordionList":
+            for it in b.get("items", []):
+                title = it.get("title") or it.get("heading") or ""
+                if title:
+                    lines.append("### " + title)
+                lines.append(portable_text(it.get("content")))
+            continue
+        if t == "horizontalRule":
+            lines.append("---")
+            continue
+        if t != "block":
+            # Printed, not dropped: a new block type must show up in a diff.
+            lines.append(f"[unrendered {t}]")
+            continue
+        text = "".join(ch.get("text", "") for ch in b.get("children", []))
+        style = b.get("style", "normal")
+        if b.get("listItem"):
+            bullet = "* " if b["listItem"] == "bullet" else "1. "
+            text = "  " * (b.get("level", 1) - 1) + bullet + text
+        elif style.startswith("h") and style[1:].isdigit():
+            text = "#" * int(style[1:]) + " " + text
+        lines.append(text)
+    return "\n\n".join(lines)
+
+
+def parse_legal_page(html: str) -> dict:
+    """The CMS document and version list a legal page embeds.
+
+    Raises ValueError when either is missing. That means the page format
+    changed, and the archive must say so instead of writing an empty file.
+    """
+    s = flight_payload(html)
+    docs = [o for o in find_objects(s, "internalName") if "effectiveDate" in o]
+    if not docs:
+        raise ValueError("no CMS document in flight data (page format changed?)")
+    doc = docs[0]
+    history = next((o["versionHistory"] for o in find_objects(s, "versionHistory")
+                    if isinstance(o.get("versionHistory"), list)), None)
+    if not history:
+        raise ValueError("no versionHistory in flight data (page format changed?)")
+    body = next((v for v in doc.values()
+                 if isinstance(v, list) and v and isinstance(v[0], dict)
+                 and v[0].get("_type") == "block"), None)
+    if body is None:
+        raise ValueError("CMS document has no portable-text body")
+    return {"title": doc.get("title") or "", "effective": doc["effectiveDate"],
+            "pdf": (doc.get("pdfFile") or {}).get("url"),
+            "history": history, "body": portable_text(body)}
+
+
+def legal_version_names(history: List[dict]) -> Dict[str, str]:
+    """version _id -> file stem. The effective date, made unique when two
+    versions share one."""
+    dates = [v["effectiveDate"][:10] for v in history]
+    return {v["_id"]: (d if dates.count(d) == 1 else f"{d}-{v['_id'][:8]}")
+            for v, d in zip(history, dates)}
+
+
+def render_legal(title: str, url: str, version: dict, body: str, pdf) -> str:
+    """One version as markdown. Front matter holds stable facts only (no fetch
+    time), so a file changes only when the document or its standing does."""
+    front = [
+        "---",
+        f"title: {json.dumps(title, ensure_ascii=False)}",
+        f"source: {url}",
+        f"archive: {LEGAL_BASE}/archive/{version['_id']}",
+        f"version: {version['_id']}",
+        f"effective: {version['effectiveDate']}",
+        f"latest: {'true' if version.get('isLatest') else 'false'}",
+    ]
+    if version.get("previousVersionId"):
+        front.append(f"previous: {version['previousVersionId']}")
+    if pdf:
+        front.append(f"pdf: {pdf}")
+    front.append("---")
+    return ("\n".join(front) + f"\n\n# {title}\n\n"
+            f"Effective {version['effectiveDate'][:10]}\n\n{body}\n")
 
 
 class Fetcher:
@@ -418,6 +581,157 @@ class Fetcher:
                 self.stats["failed"] += 1
                 return {"url": url, "status": "failed", "error": str(e)}
 
+    # -- anthropic.com/legal ----------------------------------------------
+
+    # One host, and every page is about 1 MB of HTML: stay polite.
+    LEGAL_JOBS = 8
+
+    def legal_urls(self, sitemap_xml: str) -> List[str]:
+        """Legal pages from the sitemap, plus every one we already hold.
+
+        The second half is rule 1 (discovery surfaces are incomplete) applied
+        here: a page the sitemap drops is still refreshed, and reported as gone
+        only when it answers 404.
+        """
+        prefix = f"{LEGAL_BASE}/"
+        urls = [u for u in self.extract_sitemap_urls(sitemap_xml, prefix)
+                if "/" not in u.removeprefix(prefix)]
+        base = self.output_dir / "legal"
+        if base.is_dir():
+            for p in sorted(base.glob("*.md")):
+                if p.stem != "README" and f"{prefix}{p.stem}" not in urls:
+                    urls.append(f"{prefix}{p.stem}")
+        return urls
+
+    def _legal_fail(self, url: str, error: str) -> Dict:
+        # Same accounting as download_doc: every failure counts once, and a URL
+        # in dead_now is moved from "failed" to "gone" by _finalize_stats.
+        self.stats["failed"] += 1
+        dead = url in self.dead_now and url in self.tombstones
+        return {"url": url, "status": "dead" if dead else "failed", "error": error}
+
+    async def _legal_get(self, session, url: str, sem):
+        """GET one legal page. Returns (html, None) or (None, failure result)."""
+        async with sem:
+            try:
+                async with session.get(url) as r:
+                    r.raise_for_status()
+                    html = await r.text()
+                    landed = normalize_url(str(r.url))
+            except aiohttp.ClientResponseError as e:
+                if e.status in (404, 410):
+                    self.dead_now[url] = f"HTTP {e.status}"
+                return None, self._legal_fail(url, f"HTTP {e.status}")
+            except Exception as e:
+                return None, self._legal_fail(url, str(e))
+        if landed != url:
+            # Rule 3: the body belongs to the target. /legal/supported-countries
+            # did this on 2026-10-13 when it became /legal/supported-regions.
+            self.dead_now[url] = f"moved -> {landed}"
+            return None, self._legal_fail(url, f"moved to {landed}")
+        return html, None
+
+    async def _write_legal(self, path: Path, url: str, text: str) -> Dict:
+        data = text.encode("utf-8")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        async with aiofiles.open(path, "wb") as f:
+            await f.write(data)
+        self.stats["downloaded"] += 1
+        if url in self.tombstones:
+            self.resurrected.append(url)
+        return {"url": url, "status": "success",
+                "path": str(path.relative_to(self.output_dir)),
+                "sha256": hashlib.sha256(data).hexdigest(), "size": len(data)}
+
+    async def download_legal(self, session, url: str, sem) -> List[Dict]:
+        """One legal document and every version its page lists.
+
+        Writes legal/<slug>.md (the current text, a stable path whose git log
+        is the change record) and legal/<slug>/<effective date>.md for each
+        version in the page's versionHistory, past ones from /legal/archive/.
+        Versions are refetched every run like everything else: Anthropic does
+        rewrite old ones (supported-regions "2026-05-12" was created on
+        2026-10-13 and holds the October text).
+        """
+        slug = url.rsplit("/", 1)[1]
+        html, fail = await self._legal_get(session, url, sem)
+        if fail:
+            return [fail]
+        try:
+            page = parse_legal_page(html)
+        except ValueError as e:
+            print(f"::error::{url}: {e}", file=sys.stderr)
+            return [self._legal_fail(url, str(e))]
+
+        history = page["history"]
+        latest = next((v for v in history if v.get("isLatest")), None)
+        if latest is None or latest["effectiveDate"] != page["effective"]:
+            msg = (f"page shows version effective {page['effective']}, "
+                   f"but versionHistory marks no such version latest")
+            print(f"::error::{url}: {msg}", file=sys.stderr)
+            return [self._legal_fail(url, msg)]
+
+        names = legal_version_names(history)
+        folder = self.output_dir / "legal" / slug
+        results = []
+        for v in history:
+            archive = f"{LEGAL_BASE}/archive/{v['_id']}"
+            if v["_id"] == latest["_id"]:
+                title, body, pdf = page["title"], page["body"], page["pdf"]
+            else:
+                old_html, fail = await self._legal_get(session, archive, sem)
+                if fail:
+                    results.append(fail)
+                    continue
+                try:
+                    old = parse_legal_page(old_html)
+                except ValueError as e:
+                    results.append(self._legal_fail(archive, str(e)))
+                    continue
+                if old["effective"] != v["effectiveDate"]:
+                    results.append(self._legal_fail(
+                        archive, f"archive serves {old['effective']}, "
+                                 f"versionHistory says {v['effectiveDate']}"))
+                    continue
+                title, body = old["title"], old["body"]
+                pdf = v.get("pdfUrl") or old["pdf"]
+            results.append(await self._write_legal(
+                folder / f"{names[v['_id']]}.md", archive,
+                render_legal(title, url, v, body, pdf)))
+
+        # A version we hold that the page no longer lists. Real text, maybe the
+        # only copy left, so it is kept and tombstoned, never reaped.
+        listed = set(names.values())
+        if folder.is_dir():
+            for p in sorted(folder.glob("*.md")):
+                if p.stem in listed:
+                    continue
+                m = re.search(r"^archive: (\S+)$", p.read_text(), re.M)
+                gone = m.group(1) if m else f"{url}#{p.stem}"
+                self.dead_now[gone] = "dropped from versionHistory"
+                results.append(self._legal_fail(gone, "dropped from versionHistory"))
+
+        index = "\n".join(
+            f"- {v['effectiveDate'][:10]}"
+            f"{' (this version)' if v['_id'] == latest['_id'] else ''}: "
+            f"[{slug}/{names[v['_id']]}.md]({slug}/{names[v['_id']]}.md)"
+            for v in history)
+        current = render_legal(page["title"], url, latest, page["body"], page["pdf"])
+        results.append(await self._write_legal(
+            self.output_dir / "legal" / f"{slug}.md", url,
+            current + f"\n## Version history\n\nFrom the page's own version list.\n\n{index}\n"))
+        return results
+
+    async def fetch_legal(self, session) -> List[Dict]:
+        xml = await self.fetch_text(session, "https://www.anthropic.com/sitemap.xml")
+        urls = self.legal_urls(xml)
+        print(f"  {len(urls)} documents (each with its version history)")
+        sem = asyncio.Semaphore(self.LEGAL_JOBS)
+        nested = await tqdm_asyncio.gather(
+            *(self.download_legal(session, u, sem) for u in urls),
+            desc="Legal", unit="doc")
+        return [r for rs in nested for r in rs]
+
     # -- GitHub repo listing -----------------------------------------------
 
     def _github_headers(self) -> Dict:
@@ -527,6 +841,13 @@ class Fetcher:
             # HTML-only upstream (no llms.txt / .md variant); the jina.ai
             # proxy path was removed. content/blog/ stays as a static archive.
 
+            # -- Legal (anthropic.com/legal): CMS documents, see LEGAL_BASE --
+            legal_results = []
+            if self.want("legal"):
+                print("Source: www.anthropic.com/sitemap.xml (/legal/)")
+                legal_results = await self.fetch_legal(session)
+                counts["legal"] = len(legal_results)
+
             # -- Support articles --
             if self.want("support"):
                 print("Source: support.claude.com/sitemap.xml")
@@ -576,13 +897,14 @@ class Fetcher:
                             session, repo, branch, filepath, semaphore))
 
             # -- Execute --
-            self.stats["total"] = len(tasks)
+            self.stats["total"] = len(tasks) + len(legal_results)
             total_parts = " + ".join(f"{v} {k}" for k, v in counts.items())
-            print(f"\nTotal: {len(tasks)} ({total_parts})")
+            print(f"\nTotal: {self.stats['total']} ({total_parts})")
             print()
 
-            if tasks:
+            if tasks or legal_results:
                 results = await tqdm_asyncio.gather(*tasks, desc="Fetching", unit="file")
+                results += legal_results
                 await self._save_metadata(results)
                 self._print_failures(results)
 
@@ -925,6 +1247,8 @@ class Fetcher:
             probe = await self._probe_domain(session, domain)
             if domain in FETCHED_DOMAINS:
                 status = "fetched"
+            elif domain in FETCHED_PATHS:
+                status = f"fetched: {FETCHED_PATHS[domain]} only, rest frozen"
             elif domain in FROZEN_DOMAINS:
                 status = "frozen"
             else:
@@ -956,7 +1280,8 @@ class Fetcher:
         review = sorted(
             f"{d}: reachable and serves .md, but not fetched"
             for d, v in domains.items()
-            if v.get("serves_markdown") and v["status"] not in ("fetched", "frozen")
+            if v.get("serves_markdown")
+            and v["status"] != "frozen" and not v["status"].startswith("fetched")
         )
 
         snapshot = {
@@ -1242,6 +1567,7 @@ Sections:
   github        All configured GitHub repos
   support       Support articles (support.claude.com, sitemap + .md)
   products      Product docs (claude.com/docs: Claude Tag, Cowork, connectors)
+  legal         Legal + policy pages and their versions (anthropic.com/legal)
   all           Everything (default)
 
 Note: content/blog/ (anthropic.com engineering/research/news) is a
@@ -1266,7 +1592,7 @@ Examples:
         "--section", "-s",
         choices=[
             "claude-code", "api", "platform", "mcp",
-            "github", "support", "products", "all",
+            "github", "support", "products", "legal", "all",
         ],
     )
     parser.add_argument("--incremental", action="store_true", help="Skip existing files")

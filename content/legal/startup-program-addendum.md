@@ -1,0 +1,65 @@
+---
+title: "Claude Startups Additional Benefits Addendum"
+source: https://www.anthropic.com/legal/startup-program-addendum
+archive: https://www.anthropic.com/legal/archive/ef2e3270-5445-4ca8-a3ea-213db0fe424d
+version: ef2e3270-5445-4ca8-a3ea-213db0fe424d
+effective: 2026-10-06T04:00:00.000Z
+latest: true
+pdf: https://assets.claude.com/972b53b2c36b22e041be20abb596634766a5d65f.pdf
+---
+
+# Claude Startups Additional Benefits Addendum
+
+Effective 2026-10-06
+
+This Claude Startups Program Additional Benefits Addendum ("Addendum") supplements the Anthropic Startup Program Official Terms (the "Program Terms") and applies in relation to access to and use of the Additional Benefits (defined below) by you and/or the entity you represent (“you” or “your”), as applicable, as part of the Program.
+
+The Program Terms are incorporated by reference into this Addendum. Capitalized terms not defined in this Addendum will have the meanings set out in the Program Terms. If there is a conflict between this Addendum and the Program Terms relating to the Additional Benefits, this Addendum will prevail solely to the extent of such conflict. By accessing the Additional Benefits pages, viewing any Additional Benefits, using any code or link obtained through the Additional Benefits, or otherwise indicating acceptance, you agree to this Addendum, and if you are agreeing to this Addendum on behalf of an entity, you represent that you have legal authority to bind that entity.
+
+“Additional Benefits” are collectively, the Claude Startup Stack Benefits, Applied AI Office Hour Benefits, Promotional Credit Benefits, and other similar benefits that Anthropic, in its sole discretion, may make available to you from time to time in connection with the Claude Startups Program.
+
+## 1. Claude Startup Stack Benefits
+
+1.1 Anthropic not Provider; No Endorsement. Anthropic hosts through the Claude Startup Stacks portal a listing of discounts, credits and other promotional offers ("Stack Benefits") made available by independent third-party companies (each a "Provider") to validated members of the Program (“Members”). Each Stack Benefit is identified with the name of the Provider that offers it. Anthropic does not create, offer, issue, fund, redeem, supply, provide, sell, fulfill, administer, verify or guarantee any Stack Benefit, is not responsible for the accuracy or content of any Stack Benefit, and is not a party to any transaction, agreement or relationship between you and a Provider. Anthropic's role is limited to displaying Stack Benefits and directing you as a Member to the Provider’s designated landing page. While Providers may be Anthropic customers or have commercial relationships with Anthropic, the listing of a Provider or Stack Benefit is not a recommendation, endorsement, certification or warranty by Anthropic of the Provider, its products or services, the Stack Benefit, or their suitability for your business. You agree that you are not relying on Anthropic in your redemption or use of any Stack Benefit (or any products or services of any Provider).
+
+1.2 Provider Terms Govern. Your redemption and use of any Stack Benefit, and your use of any Provider's products or services, are governed exclusively by that Provider's own terms of service, privacy policy and the applicable Stack Benefit specific conditions, if any (the "Provider Terms"). Anthropic is not a party to the Provider Terms and has no obligations or liabilities under or otherwise related to them. You are responsible for reviewing the Provider Terms before redeeming a Stack Benefit. By redeeming a Stack Benefit, using a code or a Provider’s products or services, or otherwise accepting any Provider Terms, you contract solely with the Provider, not Anthropic. Any information you disclose to a Provider through your redemption and use of any Stack Benefit, or your use of any Provider’s products or services, is collected and processed by that Provider under its own privacy policy.
+
+1.3 Use. Unless the Provider states otherwise, each Stack Benefit may be redeemed once per Member, is non-transferable, has no cash value, may not be sold, resold, auctioned, bartered or combined with other offers, and is void where prohibited. You may not share, forward, publish or redistribute any code, link or Stack Benefits details outside your company, or use any automated means to access or harvest Stack Benefits. Anthropic may suspend or revoke your access to the Stack Benefits, and may notify the relevant Provider, if Anthropic reasonably believes you have breached this Section 1.3 or the Program Terms. This is without prejudice to Anthropic’s rights set out in Section 9 of the Program Terms.
+
+1.4 Availability and Changes. Stack Benefits are offered at each Provider's discretion and may change. Anthropic does not guarantee that any Stack Benefit is current, accurate, available or will be honored by the Provider. Anthropic may add, modify, suspend, or remove any Stack Benefits, Provider or the Stack Benefits page as a whole, and may modify this Addendum, at any time without notice or liability. For the avoidance of doubt, Anthropic has no obligation to maintain the Stack Benefits page or any Stack Benefit for any period. This is without prejudice to Anthropic’s rights set out in Section 9 of the Program Terms. Anthropic does not commit to any launch date, event, announcement or feature relating to the Stack Benefits.
+
+1.5 Third-Party Links. The Stack Benefits page contains links to websites operated by Providers. Those websites are not under Anthropic's control. Anthropic is not responsible for their content, availability, security or privacy practices, and provides links solely for your convenience. Your use of any linked website is at your own risk and subject to that website's terms. This paragraph is without limitation to Section 1.2 of this Addendum.
+
+## 2. Applied AI Office Hour Benefits
+
+2.1. Advisory Services. In connection with this program, Anthropic may, in its sole discretion, make available resources from its Applied AI team to provide you with guidance related to your AI initiatives, such as prompt engineering optimization and architecture review (the “Advisory Services”). Anthropic does not commit to any particular amount of support or engagement, and may decline, modify, or discontinue the Advisory Services at any time. The Advisory Services are consultative only. You retain sole responsibility for your products, systems, and decisions.
+
+2.2 Suggestions. “Suggestions” means any advice or guidance provided to you in connection with the Advisory Services, including suggestions relating to your products and services, prompt engineering and optimization, and your data structure, architecture, and systems for LLM integration. You may use Suggestions for any purpose, including incorporating them into your products and services. Your use of any Suggestion is at your sole discretion and risk.
+
+2.3 Anthropic Materials. Any materials, methodologies, or frameworks provided or used by Anthropic in connection with the Advisory Services, and all improvements to them (“Anthropic Materials”), remain the sole and exclusive property of Anthropic. To the extent Anthropic Materials are embodied in a Suggestion, you may use them solely as part of that Suggestion. No other license is granted, by implication or otherwise.
+
+2.4 Residuals. Anthropic may use, for any purpose and without obligation to you, any information, ideas, know-how, and techniques of a general nature retained in the unaided memory of Anthropic personnel who had access to your Confidential Information (“Residuals”). This Section does not grant a license under your patents or copyrights or permit disclosure of your Confidential Information itself. You acknowledge that Anthropic serves many customers, may independently develop similar or competitive technology, and may assign the same personnel to other customers, and nothing in this Addendum restricts Anthropic from doing so.
+
+## 3. Promotional Credit Benefits
+
+Your use and redemption of the Promotional Credit Benefits is subject to the Claude Promotional Credit Offer Terms.
+
+## 4. Eligibility for Additional Benefits
+
+Additional Benefits are available only to Members for use by Members, and only while Members remain in good standing with Anthropic and compliant with all applicable Anthropic terms and conditions.
+
+## 5. Disclaimer and Limitation of Liability
+
+5.1 TO THE MAXIMUM EXTENT PERMITTED UNDER APPLICABLE LAW: (A) ALL ADDITIONAL BENEFITS ARE PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF ANY KIND, AND (B) ANTHROPIC MAKES NO WARRANTIES, EXPRESS OR IMPLIED, RELATING TO ANY ADDITIONAL BENEFITS PAGE, AND ANY PROVIDER OR ITS PRODUCTS OR SERVICES. ANTHROPIC EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY AND AVAILABILITY, AS WELL AS ANY IMPLIED WARRANTY ARISING FROM STATUTE, COURSE OF DEALING OR PERFORMANCE, OR TRADE USE.
+
+5.2 TO THE MAXIMUM EXTENT PERMITTED UNDER APPLICABLE LAW, THE LIMITATION OF LIABILITY SECTION 11 OF THE PROGRAM TERMS SHALL APPLY TO THE ADDITIONAL BENEFITS. FOR PURPOSES OF SUCH LIMITATION OF LIABILITY, THE STACK BENEFITS ARE NOT “PROGRAM BENEFITS” WITH ANY ATTRIBUTABLE VALUE.
+
+## 6. General
+
+For clarity, the governing law, venue, modification and all other provisions of the Program Terms apply to this Addendum. Anthropic's Privacy Policy describes how Anthropic handles information you provide in connection with the Program. Anthropic may modify this Addendum, at any time without notice or liability.
+
+## Version history
+
+From the page's own version list.
+
+- 2026-10-06 (this version): [startup-program-addendum/2026-10-06.md](startup-program-addendum/2026-10-06.md)
