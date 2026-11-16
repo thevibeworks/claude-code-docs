@@ -106,15 +106,15 @@ Starring a project allows for quick access from your projects and chats list, vi
 
 You can move a standalone chat into a project by clicking on the dropdown arrow next to the chat name, then “Add to project”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1794834900&amp;signature=ce92ab6a269cceada734cfef857caf422bf9041bfc1aafb4641447cb501535d7&amp;req=dScvEsh3nYNbUfMW1HO4zQABaGVkSaQcBSXNVFXQ%2FVFPWD7YNYhMvkuiWreP%0AxWoOnJnv%2BdK2BDt18Nk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39)
 
 Browse or search for the correct project in the **Move chat** modal that appears, then click on it to move the chat.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1794834900&amp;signature=f6bb8369770f739367e66f30d5db10cfed1f6cef1c1dca59ab2be14e997b258d&amp;req=dScvEsh3nYhaWPMW1HO4zSMECyS4yA0IgYbpTjViBxD9pGMk2tkzTemR2cJ1%0AdCpCEc%2BdQm%2BRdoWoy80%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76)
 
 You can also remove chats from projects, or move them between projects, using the same dropdown menu within the chat:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1794834900&amp;signature=bc91e517661dc8c15a298b87d30fc8f41a4d5cb29e53eab7aec321edaf6e3e7d&amp;req=dScvEsh2mIdXW%2FMW1HO4zb6DufMkDUEDS2r1%2FGRlqOSG6N5UyjhqQAJjqQPh%0AVNjFj3EprJbEgF24Yoc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35)
 
 ---
 

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-16T12:49:36.147367Z",
+    "fetch_date": "2026-11-16T13:01:54.755937Z",
     "section": "all"
   },
   "items": [
@@ -10446,8 +10446,8 @@
       "url": "https://support.claude.com/en/articles/8114491-get-started-with-claude",
       "status": "success",
       "path": "support/8114491-get-started-with-claude.md",
-      "sha256": "dc07ffd4c5a0ff2fe04eabb380977fa8115466dea665565ef2e8c62c303d8969",
-      "size": 5214
+      "sha256": "8c5c1ab074e38732edb7d24e9a4f139e058d31c9b79fb5235d59bf320693db2d",
+      "size": 5013
     },
     {
       "url": "https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data",
@@ -10523,8 +10523,8 @@
       "url": "https://support.claude.com/en/articles/8230524-delete-or-rename-a-conversation",
       "status": "success",
       "path": "support/8230524-delete-or-rename-a-conversation.md",
-      "sha256": "168297118fab7e90744d154fc6dde83a6e75806ae1b90ae962468dceaf8644d5",
-      "size": 5887
+      "sha256": "7a9d32fb1e22c91cf92b6e088a90cbe23d47d05cd01d32307cea646558dfd1e3",
+      "size": 4295
     },
     {
       "url": "https://support.claude.com/en/articles/8241126-upload-files-to-claude",
@@ -10593,8 +10593,8 @@
       "url": "https://support.claude.com/en/articles/8325618-paid-plan-billing-faqs",
       "status": "success",
       "path": "support/8325618-paid-plan-billing-faqs.md",
-      "sha256": "46dc7dcbb65c730f4f169c609b723bb4f002765a35dc4e8f75fc4409a29ee7a3",
-      "size": 5645
+      "sha256": "b2f86dce60851063b5ca14b82114704b31f2615d59ef1941d2b944bed25415dd",
+      "size": 5450
     },
     {
       "url": "https://support.claude.com/en/articles/8325621-i-would-like-to-input-sensitive-data-into-my-chats-with-claude-who-can-view-my-conversations",
@@ -10656,8 +10656,8 @@
       "url": "https://support.claude.com/en/articles/8887527-customizing-your-appearance-settings",
       "status": "success",
       "path": "support/8887527-customizing-your-appearance-settings.md",
-      "sha256": "1abdb72871000b7cb8b57a979fc53fb9623e2dc141c09815e8c24a3b2d2dc509",
-      "size": 1914
+      "sha256": "c66e8bdd4c084a71dd9eae586d7315926dc43eddcb4adaeecbbbe8ef6bbcc931",
+      "size": 1311
     },
     {
       "url": "https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler",
@@ -10831,8 +10831,8 @@
       "url": "https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization",
       "status": "success",
       "path": "support/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization.md",
-      "sha256": "c57724b88cc03153499464319b169c2dd09d47c11fdf810973a067893557cc95",
-      "size": 20953
+      "sha256": "0aa5271a38fb6d39fc1461e68c8b6ac9455d685111886119fa48d9f3cbb147d7",
+      "size": 20756
     },
     {
       "url": "https://support.claude.com/en/articles/9301722-updates-to-our-acceptable-use-policy-now-usage-policy-consumer-terms-of-service-and-privacy-policy",
@@ -10873,8 +10873,8 @@
       "url": "https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects",
       "status": "success",
       "path": "support/9519177-how-can-i-create-and-manage-projects.md",
-      "sha256": "dcae9444cc1a4d7f88a799240a99d49f1ecff5c4e2b586ada540a0c057b78abb",
-      "size": 9619
+      "sha256": "53a2ab59584dee2f19f05545169a72af0b10a24898169ae1bf73289aff22d598",
+      "size": 9022
     },
     {
       "url": "https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing",
@@ -11174,8 +11174,8 @@
       "url": "https://support.claude.com/en/articles/10504844-manage-user-feedback-settings-on-team-and-enterprise-plans",
       "status": "success",
       "path": "support/10504844-manage-user-feedback-settings-on-team-and-enterprise-plans.md",
-      "sha256": "042d7793b1935f0143dba691c193287a07fef97dc693b70bac846fa291923eac",
-      "size": 1038
+      "sha256": "4d053a27ab0c607fab517b56bb49e032d4129d60b115eae1fd00408e04777060",
+      "size": 839
     },
     {
       "url": "https://support.claude.com/en/articles/10504853-manage-user-feedback-settings-on-claude-console",
@@ -11195,8 +11195,8 @@
       "url": "https://support.claude.com/en/articles/10593882-share-and-unshare-chats",
       "status": "success",
       "path": "support/10593882-share-and-unshare-chats.md",
-      "sha256": "716822bb3cf1aebe8ef7dc99927e72bb6c875a5e19f69a07184b33956f06af64",
-      "size": 4332
+      "sha256": "290908fc5c51198512658353dc844766244d87fe2d5e236acb5c915306933222",
+      "size": 3739
     },
     {
       "url": "https://support.claude.com/en/articles/10684626-enable-and-use-web-search",
@@ -11223,8 +11223,8 @@
       "url": "https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop",
       "status": "success",
       "path": "support/10949351-getting-started-with-local-mcp-servers-on-claude-desktop.md",
-      "sha256": "ac02be6dc528782dad9fa7468d0d1c60f37608c42c0d961c87409c276de2bb2b",
-      "size": 8957
+      "sha256": "5f1acde3adb991e8c14702b1cb10537a9e89a02d9ea7d32c8634557a3cbd45b6",
+      "size": 8760
     },
     {
       "url": "https://support.claude.com/en/articles/11049741-what-is-the-max-plan",
@@ -11258,8 +11258,8 @@
       "url": "https://support.claude.com/en/articles/11101966-use-voice-mode",
       "status": "success",
       "path": "support/11101966-use-voice-mode.md",
-      "sha256": "123e4ea89d357e29560f03070920f2bd70237c4b9e67cb0a0e177eb174f1243d",
-      "size": 11228
+      "sha256": "1a061736089beaa4a6f5bced7b29c965eea7cb54c4158b9ff734a5c6d8622f61",
+      "size": 10474
     },
     {
       "url": "https://support.claude.com/en/articles/11107691-why-is-a-coupon-or-promotion-not-available-for-my-account",
@@ -11391,8 +11391,8 @@
       "url": "https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure",
       "status": "success",
       "path": "support/11725453-set-up-the-claude-lti-in-canvas-by-instructure.md",
-      "sha256": "d460f718b05daaabfb8e925c0ae04379e4dd0923c0af5dc9481258967f260803",
-      "size": 2748
+      "sha256": "1ee293ccdc5d4c72c41b87bb6a3d3f392b73bf3972d2508bb71f04f8ee4d3347",
+      "size": 2551
     },
     {
       "url": "https://support.claude.com/en/articles/11732894-who-owns-and-manages-the-data-of-my-claude-for-education-account",
@@ -11405,15 +11405,15 @@
       "url": "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
       "status": "success",
       "path": "support/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context.md",
-      "sha256": "71e3f8f30712c729cd3719ab9cfbf9cc527de76b9f53151edc4b814c94db0c2d",
-      "size": 31416
+      "sha256": "1cee23045dcb3f8e72ec9fe84a2073c3ee7a3ff872480f13ea801cb7c3a8a214",
+      "size": 30823
     },
     {
       "url": "https://support.claude.com/en/articles/11818288-why-am-i-being-asked-to-verify-my-payment-method",
       "status": "success",
       "path": "support/11818288-why-am-i-being-asked-to-verify-my-payment-method.md",
-      "sha256": "0d9b80e921dd1cf4898df69db3fc57035bb3892d18c5a4724cfa19d4741373c5",
-      "size": 816
+      "sha256": "c95720d388013f1770e5ba1e2af3c8f8676ec8c87fc8539e4f875c0d6eb37291",
+      "size": 615
     },
     {
       "url": "https://support.claude.com/en/articles/11825384-how-to-update-claude-for-ios",
@@ -11447,8 +11447,8 @@
       "url": "https://support.claude.com/en/articles/11869629-use-claude-with-android-apps",
       "status": "success",
       "path": "support/11869629-use-claude-with-android-apps.md",
-      "sha256": "b78605605fab4890795912aa19f50cc36ce380d6d1bc61fd568315d3cbf70758",
-      "size": 14027
+      "sha256": "b6d8644c021818a580807e63ea175c53addb55da2b9115485167b746982f872f",
+      "size": 13826
     },
     {
       "url": "https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code",
@@ -11489,8 +11489,8 @@
       "url": "https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome",
       "status": "success",
       "path": "support/12012173-get-started-with-claude-in-chrome.md",
-      "sha256": "520da81ba609f01618ff87b0516941d3abd90bacc273bf4e588e5bdd313e84ba",
-      "size": 14723
+      "sha256": "e7d446484c65a19d64caf60546ea1f7c4403c42557fd68c69c866b34bd9ae966",
+      "size": 14524
     },
     {
       "url": "https://support.claude.com/en/articles/12053672-what-happens-to-a-user-s-data-when-they-are-removed-from-a-team-or-enterprise-organization",
@@ -11503,8 +11503,8 @@
       "url": "https://support.claude.com/en/articles/12083917-change-your-team-plan-from-monthly-to-annual-billing",
       "status": "success",
       "path": "support/12083917-change-your-team-plan-from-monthly-to-annual-billing.md",
-      "sha256": "927894ad94b0e20bd9bdd4ce533346c8d8e7a8ba782806660af0bda396fa1e38",
-      "size": 1396
+      "sha256": "fa258a72dfc4098028c069b01ab5dbd9d076a0ecd48993ff43b449855ebf39f9",
+      "size": 1026
     },
     {
       "url": "https://support.claude.com/en/articles/12109679-creating-a-new-account-after-deletion",
@@ -11517,8 +11517,8 @@
       "url": "https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude",
       "status": "success",
       "path": "support/12111783-create-and-edit-files-with-claude.md",
-      "sha256": "656bc19ddc2bfd104e1f863c755466e2f89e9b17e024ccfa304e55b5a2a8fdfc",
-      "size": 18489
+      "sha256": "f2bb4984eed80caaefdbca6e40bb0910356acd1aa38db63530d67b01eb4bfedd",
+      "size": 17902
     },
     {
       "url": "https://support.claude.com/en/articles/12119250-model-safety-bug-bounty-program",
@@ -11545,22 +11545,22 @@
       "url": "https://support.claude.com/en/articles/12157520-claude-code-usage-analytics",
       "status": "success",
       "path": "support/12157520-claude-code-usage-analytics.md",
-      "sha256": "34fef73d9963ff9178b9ee1520d792a77814b11d9b7de6aee6dff276aa40f011",
-      "size": 6376
+      "sha256": "57fa14a0eca40427650bff4769f47672a1216940a3d06333a4b441eddc184496",
+      "size": 6179
     },
     {
       "url": "https://support.claude.com/en/articles/12260368-use-incognito-chats",
       "status": "success",
       "path": "support/12260368-use-incognito-chats.md",
-      "sha256": "012bce908f67c8aa6cd771282803a74052f84a04c453c97034d5df540b1d1d27",
-      "size": 4386
+      "sha256": "3f8443ff9b66122480c46e6535c161feaffd44bee0f9bc9b715a602cbbc51145",
+      "size": 4189
     },
     {
       "url": "https://support.claude.com/en/articles/12293051-use-claude-in-xcode",
       "status": "success",
       "path": "support/12293051-use-claude-in-xcode.md",
-      "sha256": "236cb1254b7dcdc63256c6c68ca874f79d6a6b80cc003dc5b705ee084502ec85",
-      "size": 1919
+      "sha256": "3f8a031f44a468d21028f6993d8c87bd4d0df8261ab65648ab0577c66439880a",
+      "size": 1720
     },
     {
       "url": "https://support.claude.com/en/articles/12304248-manage-api-key-environment-variables-in-claude-code",
@@ -11629,8 +11629,8 @@
       "url": "https://support.claude.com/en/articles/12512180-use-skills-in-claude",
       "status": "success",
       "path": "support/12512180-use-skills-in-claude.md",
-      "sha256": "d504d0029a55b9ff342c03968738297ab7ffb5ef46150890ad0bb1149b2d1184",
-      "size": 19871
+      "sha256": "d0686191afe5f7d038e9eb210d81b1ceb684dd27ad0acd552c907726094e87b8",
+      "size": 19686
     },
     {
       "url": "https://support.claude.com/en/articles/12512198-how-to-create-custom-skills",
@@ -11650,8 +11650,8 @@
       "url": "https://support.claude.com/en/articles/12592343-enabling-and-using-the-desktop-extension-allowlist",
       "status": "success",
       "path": "support/12592343-enabling-and-using-the-desktop-extension-allowlist.md",
-      "sha256": "bfe6acead48e91c0fdb8ea105cb4a79f0c3445c9e59c15a0f9a08a1b362060f6",
-      "size": 6069
+      "sha256": "165af6592faace8988290cb6687680edbf1b7454a0b55bae6082cb22525c3b93",
+      "size": 5305
     },
     {
       "url": "https://support.claude.com/en/articles/12611117-deploy-claude-desktop-for-macos",
@@ -11664,8 +11664,8 @@
       "url": "https://support.claude.com/en/articles/12618689-use-claude-code-in-the-cloud",
       "status": "success",
       "path": "support/12618689-use-claude-code-in-the-cloud.md",
-      "sha256": "f6ef19623a4cbc1fde6046a463162013115fdd133c0afb50f54c744db606ea8d",
-      "size": 11123
+      "sha256": "6771272825ac48553e1d4d3f18288bf65ef107ee9999480231511c2e6629d0fb",
+      "size": 10520
     },
     {
       "url": "https://support.claude.com/en/articles/12622667-enterprise-configuration-for-claude-desktop",
@@ -11685,8 +11685,8 @@
       "url": "https://support.claude.com/en/articles/12626668-use-quick-entry-with-claude-desktop-on-mac",
       "status": "success",
       "path": "support/12626668-use-quick-entry-with-claude-desktop-on-mac.md",
-      "sha256": "20412c901b9623061cfbe0c3db02920ec520fa3ac63755794c6bda6b27d1862a",
-      "size": 6267
+      "sha256": "91e6d40342afb49cb64f582c41e538fea6ec3847bc6c0e3e975d4385753e7605",
+      "size": 6068
     },
     {
       "url": "https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide",
@@ -11720,8 +11720,8 @@
       "url": "https://support.claude.com/en/articles/12883420-view-usage-analytics-for-team-and-enterprise-plans",
       "status": "success",
       "path": "support/12883420-view-usage-analytics-for-team-and-enterprise-plans.md",
-      "sha256": "dbb9cbbee8331240920ffda0554c4aa9930b85a2d010a0e47550061b55fe63d5",
-      "size": 15133
+      "sha256": "00fdcb7baa99102439205a6d04ece52f9049253520fc7958f6da79f5f7c65ff2",
+      "size": 12747
     },
     {
       "url": "https://support.claude.com/en/articles/12902405-claude-in-chrome-troubleshooting",
@@ -11741,8 +11741,8 @@
       "url": "https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide",
       "status": "success",
       "path": "support/12902446-claude-in-chrome-permissions-guide.md",
-      "sha256": "beba4cc3127dda8f527a7ad8295110ac15b2f3d10a6dc5d75e67ab61ad28b4a7",
-      "size": 9084
+      "sha256": "c7698ef949c1773e7e620e1e8a62c99afdc07c56bff51122b84aca47343045ad",
+      "size": 8686
     },
     {
       "url": "https://support.claude.com/en/articles/12938627-how-to-gift-a-claude-subscription",
@@ -11769,8 +11769,8 @@
       "url": "https://support.claude.com/en/articles/12997503-team-plan-billing-faqs",
       "status": "success",
       "path": "support/12997503-team-plan-billing-faqs.md",
-      "sha256": "b5e40d215c5699bc832ff38dbe48ef4977d16f630c327484cf4c10e77595bb84",
-      "size": 5595
+      "sha256": "49e0b0525976fde5595f60b6c06f1cb1a9754954e0117fff44b27fc74a80628c",
+      "size": 5396
     },
     {
       "url": "https://support.claude.com/en/articles/13015708-access-the-compliance-api",
@@ -11818,15 +11818,15 @@
       "url": "https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso",
       "status": "success",
       "path": "support/13132885-set-up-single-sign-on-sso.md",
-      "sha256": "9517b888305e7698c2f0428a88680b2c999bcb34a7a06062f50697767c827d29",
-      "size": 13643
+      "sha256": "396b679ec7058767d0c7163e96e83dddb052d877aafbe8e90373928e71c34598",
+      "size": 12885
     },
     {
       "url": "https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning",
       "status": "success",
       "path": "support/13133195-set-up-jit-or-scim-provisioning.md",
-      "sha256": "75eb89b152182322b1403dc7e2a08850c6cdb549676594decd9bdddce6bb7eec",
-      "size": 22529
+      "sha256": "e297d9b9903cfeb56887b8b4af15c8adccfd8570307d7697d2123b3e0f357243",
+      "size": 21960
     },
     {
       "url": "https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans",
@@ -11853,8 +11853,8 @@
       "url": "https://support.claude.com/en/articles/13163631-configuring-session-security-settings",
       "status": "success",
       "path": "support/13163631-configuring-session-security-settings.md",
-      "sha256": "55f556caf1c7ba0deb63953bb0473f2b2bc1171e876d1aea8e600d1ae614c639",
-      "size": 3701
+      "sha256": "1ce3fdbb9144cbb4a699f5412dbc68997115a3a86943406dc45d1f318c6cfc40",
+      "size": 3104
     },
     {
       "url": "https://support.claude.com/en/articles/13171706-crisis-helpline-support-in-claude",
@@ -11867,8 +11867,8 @@
       "url": "https://support.claude.com/en/articles/13189465-log-in-to-your-claude-account",
       "status": "success",
       "path": "support/13189465-log-in-to-your-claude-account.md",
-      "sha256": "1725c82f2ac1aca23c31e10ac8b52e409b80d32b5814550f2f3c9eacf09b7a5c",
-      "size": 7363
+      "sha256": "edb42ebe0cce80711fc9bd377d80fb652bed2823c5dca8dd514516a3c79e3902",
+      "size": 7164
     },
     {
       "url": "https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions",
@@ -11895,15 +11895,15 @@
       "url": "https://support.claude.com/en/articles/13325567-account-management-faqs",
       "status": "success",
       "path": "support/13325567-account-management-faqs.md",
-      "sha256": "0ea2473d6408b5ee24ffe3b2856b9dc4b0fb6ccf7c51e093c9b8250648d5aeda",
-      "size": 2600
+      "sha256": "b0b644ba64a91a05d281a9aa0621596f8524e5b61519074a96ff44ccf9ffeec0",
+      "size": 2397
     },
     {
       "url": "https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork",
       "status": "success",
       "path": "support/13345190-get-started-with-claude-cowork.md",
-      "sha256": "f54eb5a14ce98a6d1f2d4ffb9e98e72b18cbdf812d0bd8ae9df86e90a3b7df24",
-      "size": 22084
+      "sha256": "9599c465a02c07f8a253425d0211453c7d9d44ac9682455ee9141134e89aeb32",
+      "size": 21889
     },
     {
       "url": "https://support.claude.com/en/articles/13346458-customize-your-console-appearance-settings",
@@ -11930,8 +11930,8 @@
       "url": "https://support.claude.com/en/articles/13371040-log-in-to-your-console-account",
       "status": "success",
       "path": "support/13371040-log-in-to-your-console-account.md",
-      "sha256": "6dfb9d84fec744ea52bfef3c089ee12b1ecd18b6354a54a86e6d9a11136a4824",
-      "size": 4611
+      "sha256": "f00017c145f0094a83e2066268359e266edf539eaa1b41b2ab7b912b8e833c42",
+      "size": 4410
     },
     {
       "url": "https://support.claude.com/en/articles/13393991-purchase-and-manage-seats-on-enterprise-plans",
@@ -11986,8 +11986,8 @@
       "url": "https://support.claude.com/en/articles/13641943-visual-and-interactive-content",
       "status": "success",
       "path": "support/13641943-visual-and-interactive-content.md",
-      "sha256": "1a80b3108e8a928db6626cff80f4e94c0de33c66d700c1e5b49ca212455d2163",
-      "size": 6517
+      "sha256": "2a8546e96cc86ed7f94358c7d52f10c6cc1ec04032184d621189565b210dcf11",
+      "size": 5916
     },
     {
       "url": "https://support.claude.com/en/articles/13663666-use-visual-and-interactive-content-on-team-and-enterprise-plans",
@@ -12042,8 +12042,8 @@
       "url": "https://support.claude.com/en/articles/13837440-use-plugins-in-claude",
       "status": "success",
       "path": "support/13837440-use-plugins-in-claude.md",
-      "sha256": "3dffdab5ba07d6dda839a421eca2c311fe04cd501a508222e22a39b7e72be71a",
-      "size": 15265
+      "sha256": "36fa42d1f10d57280c835ef29bb0e5fc7494e028578f62601cd6fbcb11bc53b5",
+      "size": 14869
     },
     {
       "url": "https://support.claude.com/en/articles/13854387-schedule-recurring-tasks-in-claude-cowork",
@@ -12140,8 +12140,8 @@
       "url": "https://support.claude.com/en/articles/13947068-assign-tasks-from-anywhere-in-claude-cowork",
       "status": "success",
       "path": "support/13947068-assign-tasks-from-anywhere-in-claude-cowork.md",
-      "sha256": "7d7802d1bf371db3f6c7f522ca51f2f4a836a1a2f92405915d7d4e72be4ae8c8",
-      "size": 8975
+      "sha256": "85172bcd2121d5603a706e61b3902e6bfae427b2ef7991d28e87fbcf904d313a",
+      "size": 8615
     },
     {
       "url": "https://support.claude.com/en/articles/13979539-custom-visuals-in-chat-and-cowork",
@@ -12161,8 +12161,8 @@
       "url": "https://support.claude.com/en/articles/14116274-organize-your-tasks-with-projects-in-claude-cowork",
       "status": "success",
       "path": "support/14116274-organize-your-tasks-with-projects-in-claude-cowork.md",
-      "sha256": "9da8f8ec2b597075088a4dc3caec9dee69930bc8dba151c8d00cb52e358d281b",
-      "size": 7859
+      "sha256": "e2a1eab3fd3fde374c28d54685630786aff9e4a087306ebd8be87d441af018f2",
+      "size": 6667
     },
     {
       "url": "https://support.claude.com/en/articles/14128542-let-claude-use-your-computer-in-cowork",
@@ -12224,8 +12224,8 @@
       "url": "https://support.claude.com/en/articles/14499648-how-scim-sync-works-for-enterprise-organizations",
       "status": "success",
       "path": "support/14499648-how-scim-sync-works-for-enterprise-organizations.md",
-      "sha256": "9424026ac4c22926c29544b815a745871bd71109cf0d1bae2aeacc306741df60",
-      "size": 7674
+      "sha256": "669c8853faa67071c699dbd3f86cb3fe4e264feaba0e1e94b19ad0622dd1666d",
+      "size": 7310
     },
     {
       "url": "https://support.claude.com/en/articles/14503520-available-beta-and-research-preview-features",
@@ -12448,8 +12448,8 @@
       "url": "https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization",
       "status": "success",
       "path": "support/15330088-set-a-default-model-for-your-organization.md",
-      "sha256": "e798f9db6f3849f9fa0987ae0541f871000975b03fc28dd14f2ed2442f9399d7",
-      "size": 11306
+      "sha256": "32d4de9e719e2612380d5b35bae9a3e23cee2a760204d9fdfe250b363ec79a70",
+      "size": 11107
     },
     {
       "url": "https://support.claude.com/en/articles/15330651-claude-enterprise-admin-api-reference-guide",
@@ -12560,8 +12560,8 @@
       "url": "https://support.claude.com/en/articles/15694740-manage-model-access-for-your-organization",
       "status": "success",
       "path": "support/15694740-manage-model-access-for-your-organization.md",
-      "sha256": "1c7cb6a4d5a8552182a7e05f67a98ecd4a3d0af73dadd08f020922446f614f04",
-      "size": 10332
+      "sha256": "ba781757778441e79b5b7abe0980fe15173403672e3613a4d2fade6c2f28082d",
+      "size": 9540
     },
     {
       "url": "https://support.claude.com/en/articles/15707726-using-claude-for-legal-work-privilege-confidentiality-and-how-to-think-about-configuration",
@@ -12595,8 +12595,8 @@
       "url": "https://support.claude.com/en/articles/15936181-get-started-with-1password-for-claude",
       "status": "success",
       "path": "support/15936181-get-started-with-1password-for-claude.md",
-      "sha256": "0d42104e367491da98f2b3d9e296e77754ffef47a2101c8de0666d58547aea0a",
-      "size": 5065
+      "sha256": "9ca505aff2e44b591dffe09d27fdf6eeac428aeae5632730d6ecdda5fe864a25",
+      "size": 4866
     },
     {
       "url": "https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5-or-opus-5-5",
@@ -12644,8 +12644,8 @@
       "url": "https://support.claude.com/en/articles/16607638-understanding-your-pro-max-or-ultra-plan-invoices",
       "status": "success",
       "path": "support/16607638-understanding-your-pro-max-or-ultra-plan-invoices.md",
-      "sha256": "36167cc27005e6e83374a9e63500dca5d14de337631be9854b172c9dcc40035b",
-      "size": 5891
+      "sha256": "71294167b67bf3b39bd57faf72784c2f0623a5b66835d40c1aa0a72415b8190f",
+      "size": 5690
     },
     {
       "url": "https://support.claude.com/en/articles/16607668-understanding-your-team-plan-invoices",
@@ -12728,8 +12728,8 @@
       "url": "https://support.claude.com/en/articles/16893491-get-started-with-smart-reports",
       "status": "success",
       "path": "support/16893491-get-started-with-smart-reports.md",
-      "sha256": "c2ef6018c3ca3f58b065496e2e117e52e43a2677e4a32cc839865b3ca620f92b",
-      "size": 17288
+      "sha256": "d38125e05f0f4154a7c82736982aa56a9eb6bc3aebf63ce40f10d129fb60dddd",
+      "size": 15895
     },
     {
       "url": "https://support.claude.com/en/articles/16923645-get-started-with-claude-docs",
@@ -12749,8 +12749,8 @@
       "url": "https://support.claude.com/en/articles/16951679-use-claude-in-google-docs-sheets-and-slides",
       "status": "success",
       "path": "support/16951679-use-claude-in-google-docs-sheets-and-slides.md",
-      "sha256": "925fe7d39aa7e25cfa9db19325aacdc86c60a49b6302515eb923e45c8d2e192c",
-      "size": 21999
+      "sha256": "9926b59d7ecd34cab64a94a4122811ace1bb94f56d83c74992901f981be1d193",
+      "size": 21641
     },
     {
       "url": "https://support.claude.com/en/articles/16952184-set-up-salesforce-in-claude-for-your-organization",
@@ -12777,8 +12777,8 @@
       "url": "https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans",
       "status": "success",
       "path": "support/17005973-manage-pooled-group-budgets-on-enterprise-plans.md",
-      "sha256": "1f453a12aa1bc9f342b6a12eb46a13c0299fd78bf4c6cdcb30e1af43471b2a81",
-      "size": 7915
+      "sha256": "0a80bd03700992cd9855bcbdf3aee7d0a33c9574a672cf9e7719e8247a0d041c",
+      "size": 7714
     },
     {
       "url": "https://support.claude.com/en/articles/17007452-what-is-a-limit-reset",
@@ -12826,8 +12826,8 @@
       "url": "https://support.claude.com/en/articles/17203415-set-up-claude-for-intune",
       "status": "success",
       "path": "support/17203415-set-up-claude-for-intune.md",
-      "sha256": "a6e54d560d461a9d3eedb1c76ff31245d78a81fe833225a06f6e113a85e59e60",
-      "size": 14363
+      "sha256": "28964dcc7fad884def1cf007f0015fc1faae18ffca0cc03ad4463142f4e1259c",
+      "size": 12376
     },
     {
       "url": "https://support.claude.com/en/articles/17318731-use-claude-code-local-mode-and-claude-cowork-local-mode-on-a-hipaa-ready-enterprise-plan",
@@ -12854,8 +12854,8 @@
       "url": "https://support.claude.com/en/articles/17444462-set-up-and-manage-the-new-unified-claude-experience-for-your-enterprise-organization",
       "status": "success",
       "path": "support/17444462-set-up-and-manage-the-new-unified-claude-experience-for-your-enterprise-organization.md",
-      "sha256": "950ceb1906ed71105698a776388692754922316acd09a2980eebe2783b6bd4f7",
-      "size": 28627
+      "sha256": "0cae9d01e0e2d43b4db355108b18d87a157264c40ccf80f1ae98755cf727114b",
+      "size": 28231
     },
     {
       "url": "https://support.claude.com/en/articles/17454700-get-started-with-claude-data",
@@ -13015,15 +13015,15 @@
       "url": "https://support.claude.com/en/articles/18342806-set-up-and-manage-the-new-unified-claude-experience-for-your-team-organization",
       "status": "success",
       "path": "support/18342806-set-up-and-manage-the-new-unified-claude-experience-for-your-team-organization.md",
-      "sha256": "2a684ae82b14e6896a04becc3a7135e147b7f7eea336b9a6d2fbdd655c29618d",
-      "size": 12413
+      "sha256": "ee995d59cbbbc18f9f11d6361dd2d887cab9489cef2d5246271e17145a84f816",
+      "size": 12210
     },
     {
       "url": "https://support.claude.com/en/articles/18426225-move-from-claude-enterprise-to-claude-desktop-on-a-cloud-provider",
       "status": "success",
       "path": "support/18426225-move-from-claude-enterprise-to-claude-desktop-on-a-cloud-provider.md",
-      "sha256": "0570ae1e4d1ecf6d2d778178e92208ef488a376325df56b3d199221cd23213ea",
-      "size": 87235
+      "sha256": "c6f2c70b245a8e24f95bd344e4ae6125759b47de131002f0e27999138ea008b4",
+      "size": 87036
     },
     {
       "url": "https://claude.com/docs/build/overview",
@@ -26410,20 +26410,6 @@
       "size": 327
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.github/policy/prompt.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/.github/policy/prompt.md",
-      "sha256": "e90eecc461c4797a874b8d75205feb4cc9bd3b8ab2da4ad8d5e6978a9bfbf3fb",
-      "size": 7977
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.github/policy/schema.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/.github/policy/schema.json",
-      "sha256": "cd6d6306ad5b6e091c34c7d4ac10c7cc44004e0e70bed40e0d5dc5e29bde8ede",
-      "size": 1972
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/README.md",
       "status": "success",
       "path": "github/claude-plugins-official/README.md",
@@ -26438,13 +26424,6 @@
       "size": 374
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/asana/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/asana/README.md",
-      "sha256": "00536d0ee48368a2afc3c2311ee1ca04c69e31603d87a4be72b7f4dc98cbb98f",
-      "size": 3249
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/asana/commands/asana-setup.md",
       "status": "success",
       "path": "github/claude-plugins-official/external_plugins/asana/commands/asana-setup.md",
@@ -26457,13 +26436,6 @@
       "path": "github/claude-plugins-official/external_plugins/context7/.claude-plugin/plugin.json",
       "sha256": "9c61f72909301338f08025cafa67a7055e55572ba1bb76ba68f74d4d21c9c682",
       "size": 427
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/context7/.mcp.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/context7/.mcp.json",
-      "sha256": "e5dfed1749b361fbb2d0ad64a3792a28622e788c3c058fa0f0c923991f941c17",
-      "size": 142
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/context7/README.md",
@@ -26494,13 +26466,6 @@
       "size": 6599
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/discord/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/discord/README.md",
-      "sha256": "328fdbda672da357bb424d396b37fc60f2d6d4f24036ab80485f5c8ec8b3070a",
-      "size": 4888
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/discord/package.json",
       "status": "success",
       "path": "github/claude-plugins-official/external_plugins/discord/package.json",
@@ -26515,46 +26480,11 @@
       "size": 4357
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/discord/skills/configure/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/discord/skills/configure/SKILL.md",
-      "sha256": "9364d7895d6f38b917a711128e7b391884fb8b8d69a62c7d72a81e95b6e2b948",
-      "size": 4324
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/fakechat/.claude-plugin/plugin.json",
-      "sha256": "f8ab6ee13afeb0f988a1e48ac6c955efd671c9ed3a67b47ad8c6e1fd8a215f48",
-      "size": 300
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/.mcp.json",
       "status": "success",
       "path": "github/claude-plugins-official/external_plugins/fakechat/.mcp.json",
       "sha256": "3917f449284d362f213a42e0d7ef3bb9a75db795b7909d6febdb1fd94d0df68e",
       "size": 166
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/fakechat/README.md",
-      "sha256": "be41e946d68e0c78b995ecb4f88d28bfb1a1cee4a65d99be5cb0243afa5c2af8",
-      "size": 1308
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/package.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/fakechat/package.json",
-      "sha256": "e3e02600f8a2a35124a984070be5fb04303744fb77bb6cd2155434aac43bba02",
-      "size": 333
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/firebase/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/firebase/.claude-plugin/plugin.json",
-      "sha256": "72250fde24860d0b1ed3666ee056073bf389e784afba1b693f6596eceab83980",
-      "size": 281
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/firebase/.mcp.json",
@@ -26564,25 +26494,11 @@
       "size": 97
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/github/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/github/.claude-plugin/plugin.json",
-      "sha256": "86a6c2ffb21e8b1e1a74db18c26bdf7fbb46079a0b6a42e72d741b3cbba979c9",
-      "size": 271
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/github/.mcp.json",
       "status": "success",
       "path": "github/claude-plugins-official/external_plugins/github/.mcp.json",
       "sha256": "b536ea03380d2f2f93f31c87a158e21e74cce5f664d20f7bdb81c6710418e06d",
       "size": 178
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/gitlab/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/gitlab/.claude-plugin/plugin.json",
-      "sha256": "986e551c1f4f6eb0029dfab23ea78cbaa2a9663f72b6d686cd72ff221e9c8747",
-      "size": 254
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/gitlab/.mcp.json",
@@ -26592,46 +26508,11 @@
       "size": 85
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/imessage/.claude-plugin/plugin.json",
-      "sha256": "bfd3b6f580281421c72bfec2f18363214ecf9c24064bfa86f1a3c8fa0c6a5b74",
-      "size": 319
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/.mcp.json",
       "status": "success",
       "path": "github/claude-plugins-official/external_plugins/imessage/.mcp.json",
       "sha256": "3c3faf1e53fb79b3ecb0a4bb401b55baf21fea6dad1e363ff988a1490997c978",
       "size": 166
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/ACCESS.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/imessage/ACCESS.md",
-      "sha256": "f63fb3e4055a4cbeb3e22439ae8a6bc9a02b57baf9a081df346160a58e075f82",
-      "size": 6764
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/imessage/README.md",
-      "sha256": "352945fe0c4015b99c0efee1892b2ca5914d12d89b274ebf2c8fee68f076ea92",
-      "size": 4475
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/package.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/imessage/package.json",
-      "sha256": "4a9df84985f21a7d6df518520919812889c8d4408e66c276c213df8eaf16ecfc",
-      "size": 355
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/skills/access/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/imessage/skills/access/SKILL.md",
-      "sha256": "ac994a86aab3a2724651a13a62ee9deae985196c8687a33bb79c4b7898aa5be7",
-      "size": 4754
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/skills/configure/SKILL.md",
@@ -26641,46 +26522,11 @@
       "size": 3546
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/laravel-boost/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/laravel-boost/.claude-plugin/plugin.json",
-      "sha256": "bb195fa8dd2e0405155edf3233cee0467775306df3238eece559748e0285116f",
-      "size": 295
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/laravel-boost/.mcp.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/laravel-boost/.mcp.json",
-      "sha256": "f7aa15d771660f4f05a7d09075be432f2ce0a0fdd4848ba7c4a766bdcce6c093",
-      "size": 88
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/linear/.claude-plugin/plugin.json",
       "status": "success",
       "path": "github/claude-plugins-official/external_plugins/linear/.claude-plugin/plugin.json",
       "sha256": "25d00b56e7789e19ce0d3b311a6686fb2e23a4dd91e3f1f3bb33e3aba684b390",
       "size": 279
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/linear/.mcp.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/linear/.mcp.json",
-      "sha256": "60bc954e5c2018171f5efa358ddbfa6062a63b456f8d7fa567fd926910030e9f",
-      "size": 82
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/playwright/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/playwright/.claude-plugin/plugin.json",
-      "sha256": "f2d7c0f611b93287ebb07454255d0cccf3a343d7095b7f8f763ff21d1995c096",
-      "size": 295
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/playwright/.mcp.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/playwright/.mcp.json",
-      "sha256": "b6fd7e9ccee1682af353854195516826da6970026b68c86ad800ff4d931d3250",
-      "size": 87
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/serena/.claude-plugin/plugin.json",
@@ -26704,13 +26550,6 @@
       "size": 294
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/telegram/.mcp.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/telegram/.mcp.json",
-      "sha256": "0ee637b9a76aa35b3b9eb9a76b4b8fb036bc61651711e1af72badedde5e3c875",
-      "size": 166
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/telegram/ACCESS.md",
       "status": "success",
       "path": "github/claude-plugins-official/external_plugins/telegram/ACCESS.md",
@@ -26723,13 +26562,6 @@
       "path": "github/claude-plugins-official/external_plugins/telegram/README.md",
       "sha256": "dc0acf9f6d784e711ac3b239506b7b9239f9bec82961aabf3115ad2621f8e085",
       "size": 4478
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/telegram/package.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/telegram/package.json",
-      "sha256": "5e8b32eab6f4e168524204955a9458158401bc1c369816076b1a8dc9f9727c72",
-      "size": 307
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/telegram/skills/access/SKILL.md",
@@ -26746,20 +26578,6 @@
       "size": 4308
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/terraform/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/terraform/.claude-plugin/plugin.json",
-      "sha256": "b8f0b65d4a2f4d8fe11fea591e3839071037ec86cfaa9ae09832bc2bb840e0a3",
-      "size": 274
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/terraform/.mcp.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/external_plugins/terraform/.mcp.json",
-      "sha256": "5dee84b3c21553c53422f4f005781904c02be6c32b00c46ae1949c61ddf1769c",
-      "size": 192
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/agent-sdk-dev/.claude-plugin/plugin.json",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/agent-sdk-dev/.claude-plugin/plugin.json",
@@ -26774,13 +26592,6 @@
       "size": 6397
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/agent-sdk-dev/agents/agent-sdk-verifier-py.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/agent-sdk-dev/agents/agent-sdk-verifier-py.md",
-      "sha256": "a72c50412f4f9940932cac0f3ca61d6ced7354b8ac8892e3f1507bcd2957006e",
-      "size": 5206
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/agent-sdk-dev/agents/agent-sdk-verifier-ts.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/agent-sdk-dev/agents/agent-sdk-verifier-ts.md",
@@ -26793,27 +26604,6 @@
       "path": "github/claude-plugins-official/plugins/agent-sdk-dev/commands/new-sdk-app.md",
       "sha256": "d273539c037e63bec2be30ac0e3474371a8725d7b0c39cb9e4341534fde83fb6",
       "size": 7846
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/champion-kit/.claude-plugin/plugin.json",
-      "sha256": "8076bb52d2f75cd1b52ab9dffc221a2266df0f18d8442203bfcc7c8b65f4a520",
-      "size": 487
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/champion-kit/README.md",
-      "sha256": "d22513c59a9c7a19222299e8ef50521cefb9a62b97d4c0ce17a920a639227ec6",
-      "size": 5137
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/agents/repo-scout.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/champion-kit/agents/repo-scout.md",
-      "sha256": "1af533964777e638cd840fdf860e068a8350bbbdd31d88d40b623ef50220ab15",
-      "size": 3853
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/skills/climb/SKILL.md",
@@ -26844,39 +26634,11 @@
       "size": 11135
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/skills/office-hours/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/champion-kit/skills/office-hours/SKILL.md",
-      "sha256": "d29d0b3fe3b8370b6671d2fd905681d9edc5e17ee0e0f76c08bf43ce9327e0db",
-      "size": 5280
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/skills/patterns/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/champion-kit/skills/patterns/SKILL.md",
-      "sha256": "415ccde13f14428525a791b914342c59cb02c7b9beab8e97abc891301e222b5d",
-      "size": 8898
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/skills/routines/SKILL.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/champion-kit/skills/routines/SKILL.md",
       "sha256": "98de31ba1a08b81f4874a75e2ee9ec10e8a6eebb11ba3c314890a48571db08ff",
       "size": 8501
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/clangd-lsp/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/clangd-lsp/.claude-plugin/plugin.json",
-      "sha256": "114e01a8c1e10377b1b6fce0e3686d171e94c7d8d09ab36d7037869bd549f55f",
-      "size": 561
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/clangd-lsp/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/clangd-lsp/README.md",
-      "sha256": "a0fdedc4a195d8bf015c95ca69ef5fd64f9314eae7b4e688bbb5ea96e31102dc",
-      "size": 780
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/.claude-plugin/plugin.json",
@@ -26893,20 +26655,6 @@
       "size": 1015
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/SKILL.md",
-      "sha256": "441c57e26f0931b64dd085deaad9213c4e3efea27d916dd7443cd33c7e338227",
-      "size": 10995
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/hooks-patterns.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/hooks-patterns.md",
-      "sha256": "7b6e91b53aa0f1ed471fd66e177de17a88c1d6620ce95f5c8e8cdfebd20d939e",
-      "size": 6316
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/mcp-servers.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/mcp-servers.md",
@@ -26919,27 +26667,6 @@
       "path": "github/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/plugins-reference.md",
       "sha256": "6570ff4c853253b3f15fb62e5d540cbf0ce3371936437791dde8fb53b7d444f3",
       "size": 3016
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/skills-reference.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/skills-reference.md",
-      "sha256": "b4b57d953526a07146d5757ca5332034b9b4b4eeba839e4bb08111398c94556f",
-      "size": 9612
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/subagent-templates.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-code-setup/skills/claude-automation-recommender/references/subagent-templates.md",
-      "sha256": "7f9a107d8619ff96fea07d5a17da31b269cec0ee343e5a9ff643c0d6cb4ba944",
-      "size": 5049
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/.claude-plugin/plugin.json",
-      "sha256": "53027f0a7eb0658104a8b19ad62002a54f8e5fffbd6357b4cf704ef6d64b6709",
-      "size": 946
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/.mcp.json",
@@ -26956,13 +26683,6 @@
       "size": 18954
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/absent-is-not-zero.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/absent-is-not-zero.md",
-      "sha256": "286a08e0879ba8841a37e052e0afb09348e88a2e96977d2e96408cbef1c7936b",
-      "size": 7192
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/approval-gates.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/approval-gates.md",
@@ -26977,27 +26697,6 @@
       "size": 12880
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/command-center.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/command-center.md",
-      "sha256": "c18b9b952e41ab1a0faec38e3d26cf7ddc5efb068cfc593cb99c0cddfc58437e",
-      "size": 6617
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/computed-figures.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/computed-figures.md",
-      "sha256": "9bdcf3a65d9cf3a25c13a854420907b930f667c771e42af3a2f972dd02db1ebd",
-      "size": 4083
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/README.md",
-      "sha256": "49d2289b7feb31d66e8e809fe47acff359dd641402bcc2146d8801827a4d799a",
-      "size": 6865
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/consolidated-dataset.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/consolidated-dataset.md",
@@ -27005,32 +26704,11 @@
       "size": 20340
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/downtime-record.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/downtime-record.md",
-      "sha256": "72767c6b4ce1b2bde51994ca2a5f108d8f8d03ca6dced8b05d08d985f1a684fb",
-      "size": 8401
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/floor-layout.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/floor-layout.md",
       "sha256": "2af6b4719a02837e7e9d5a8e822dfb9703409b904c46641f7c99be26c1278c23",
       "size": 5713
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/geometry-estimate.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/geometry-estimate.md",
-      "sha256": "e77435d9af7d7b0ac92529ff3188627857cefb203c71e05f2512923657b79210",
-      "size": 19637
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/intake-form.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/intake-form.md",
-      "sha256": "33054e4386af2852ab04e8ac453d9b9ed197daa658026a7d7d299e94c29d51ad",
-      "size": 23196
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/ncr.md",
@@ -27045,27 +26723,6 @@
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/pulse-day-record.md",
       "sha256": "28adc3dc3abc411b5aef655ad02b26859495021355e223b9c1426fb528e3e343",
       "size": 8900
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/quality-register-record.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/quality-register-record.md",
-      "sha256": "2dde5a180aef544b4480d1717d69e1480d34f27697359bb0dcc7a5a029ac59b5",
-      "size": 8446
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/supplier-bid.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/supplier-bid.md",
-      "sha256": "a14698a4c3344f9ca7d0cf88e7ad893b58172ab9197609f7b096e849290521f3",
-      "size": 15100
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/supplier-caused-flag.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/contracts/supplier-caused-flag.md",
-      "sha256": "bbfa3c4e49e3d6dceebd11c68198135b157fbac117ca2c3153eb00dff50d7e86",
-      "size": 10143
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/variant-manifest.md",
@@ -27096,13 +26753,6 @@
       "size": 14373
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/scheduling.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/scheduling.md",
-      "sha256": "4eed6775c982164a88a67c627f812f210bcbc590764a493d8888b8ce6f72225e",
-      "size": 4684
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/secret-config.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/shared/secret-config.md",
@@ -27122,27 +26772,6 @@
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/breakdown-diagnosis/reference/bad-actor-mode.md",
       "sha256": "b386ada00b76cffcc54b93ccb2bfdec8fb02267dbfa319775b195d02f570a6a3",
       "size": 3891
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/breakdown-diagnosis/reference/evidence-sources.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/breakdown-diagnosis/reference/evidence-sources.md",
-      "sha256": "6c5d719ad2ebda265f43d5adfb8a58baa5473eb913014710c97d56264430affb",
-      "size": 6341
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/breakdown-to-next-report/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/breakdown-to-next-report/SKILL.md",
-      "sha256": "dee6e6f5479804ff710544f0d0fa6ef5dbb7192097e453bffeeb138662d5ef7b",
-      "size": 10308
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/custom-connector/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/custom-connector/SKILL.md",
-      "sha256": "4195cfae044e2d97262a823287894efa6146432c5b53062abc9eb55cda1784b8",
-      "size": 23142
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/custom-connector/reference/access-ladder.md",
@@ -27187,46 +26816,11 @@
       "size": 7002
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/customer-inquiry-intake/reference/registers.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/customer-inquiry-intake/reference/registers.md",
-      "sha256": "5b95f01006f70245a82bf406fcef3aba9d98e381ba8b9f8d834a676aca8f6226",
-      "size": 4072
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/daily-production-report/SKILL.md",
-      "sha256": "39838cbd9d12635dfba843f2fcc41e49beb411d26f2e6378814fedc70984fd35",
-      "size": 27653
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/reference/floor-schematic.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/daily-production-report/reference/floor-schematic.md",
-      "sha256": "df94af10a57044c28a22197d68d2fdd3982b758e69cb5cb517c15ce35c06bd3b",
-      "size": 13452
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/reference/oee.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/daily-production-report/reference/oee.md",
-      "sha256": "ef5b23f247f8da8a5d598dea5a3546ec8048dbb00e6bf7820e5c294298a357e8",
-      "size": 5965
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/reference/reschedule-scope.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/daily-production-report/reference/reschedule-scope.md",
       "sha256": "cb0fa8a32b22deaf377d9d008121e185712f02fa76df31852e7e6fdcb7e8a86b",
       "size": 4412
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/data-consolidate/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/data-consolidate/SKILL.md",
-      "sha256": "1aa4ce5933de050d3b8cf1c971efbca810064d562a9c5bc131f51e0b87c1aad5",
-      "size": 27373
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/data-consolidate/reference/join-keys.md",
@@ -27257,34 +26851,6 @@
       "size": 6733
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/cad-adapter.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/design-space-explore/reference/cad-adapter.md",
-      "sha256": "01cf7f7a7abbd1c40fef1cd6b8cca160f0b45bff8de805a43bc19e2718c49111",
-      "size": 10827
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/parametric-check.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/design-space-explore/reference/parametric-check.md",
-      "sha256": "d188d818741fbe695b7ce25e97f501e1b2d7c1b370fddd6ecf4977b6c006b386",
-      "size": 3651
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/variant-generation.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/design-space-explore/reference/variant-generation.md",
-      "sha256": "558ed259e3f66cb4a929f2af66efa732632206fd5edc10049c988c0b3215b336",
-      "size": 5575
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/inspection-to-capa/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/inspection-to-capa/SKILL.md",
-      "sha256": "e39166dfa08de8544e84afad874b3aedc91a646c6f59d467103912e807d390b3",
-      "size": 9768
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/morning-plant-pulse/SKILL.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/morning-plant-pulse/SKILL.md",
@@ -27292,39 +26858,11 @@
       "size": 21480
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/compute-engine.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/compute-engine.md",
-      "sha256": "752d8a86aaca8b5781e33055085d89d94f6684f6b02c8b4051b8e56fdf6db7d4",
-      "size": 7198
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/operations-dashboard.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/operations-dashboard.md",
       "sha256": "ebef869bcf2afd5af46f22ff508a0466afc5e14c04c4f53457b9f722c1e38c73",
       "size": 5002
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/short-page.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/short-page.md",
-      "sha256": "b732bef5f06d657b62b6aaa1e1f5bbcacae1300f457d19ad26ac4226f00dae4a",
-      "size": 3493
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/ncr-writeup/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/ncr-writeup/SKILL.md",
-      "sha256": "a2e496f4d60ad441a829f38bdf2132f3f2c52fba0df9cbd3b26070ec82edf59c",
-      "size": 21122
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/ncr-writeup/reference/recurrence-and-escape.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/ncr-writeup/reference/recurrence-and-escape.md",
-      "sha256": "a0ce9752dc95fb85cd5ef8705cfd9897669886d3d24e363feebe2da2500e465c",
-      "size": 4131
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/ncr-writeup/reference/requirement-citation.md",
@@ -27383,20 +26921,6 @@
       "size": 17780
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/onboarding/reference/time-config.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/onboarding/reference/time-config.md",
-      "sha256": "2d30e5d2df1c210b4f56d7d5285dd111c9d44e45621b301af6376eaf78650628",
-      "size": 6381
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/quote-build/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/quote-build/SKILL.md",
-      "sha256": "90a238498807c7e0cff856d86b8d96b8f55013a653f2a886efd26bc1442a0cfd",
-      "size": 28688
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/quote-build/reference/cost-buildup.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/quote-build/reference/cost-buildup.md",
@@ -27418,39 +26942,11 @@
       "size": 13659
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/quote-build/reference/revisions.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/quote-build/reference/revisions.md",
-      "sha256": "93e0a814b22798159e310c98e48049043e0999dd23c76195ea3d7f765d9b7245",
-      "size": 4072
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/rfq-to-quote/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/rfq-to-quote/SKILL.md",
-      "sha256": "8f4a8247cabd8ab8c9287b0a62e64f12ba225c6f2c78920112932a2f34444df1",
-      "size": 19518
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/rfq-to-quote/reference/design-step.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/rfq-to-quote/reference/design-step.md",
       "sha256": "1168c4536c3b4db7aa714f8cf8ecb5facfe88b874b3159e5d2e0b79fe0d51af3",
       "size": 15100
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/root-cause-capa/SKILL.md",
-      "sha256": "49fd42fda8b83d1daec265aeb286d2f69cf3c7c181df1d71754543ac9d026d98",
-      "size": 22705
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/8d-and-candidates.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/8d-and-candidates.md",
-      "sha256": "672152b6525430fc78cc5a343ad289e30791dffac6373e0ff45abbe01c9983e5",
-      "size": 5673
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/pattern-checks.md",
@@ -27467,13 +26963,6 @@
       "size": 4301
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/time-alignment.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/time-alignment.md",
-      "sha256": "101bada57f93aa979b688f0c3782c8c70e7c3e23df152ab22751bf81534d2fc7",
-      "size": 4226
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-escape-to-alternate-source/SKILL.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/supplier-escape-to-alternate-source/SKILL.md",
@@ -27488,39 +26977,11 @@
       "size": 23056
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/bid-comparability.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/bid-comparability.md",
-      "sha256": "d50bdd275c5a8d0e654aa567fe8beef0954291641258a45b7e07e8d9d5d5f0a7",
-      "size": 4243
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/bid-comparison.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/bid-comparison.md",
-      "sha256": "6bf6c9828bf3bb48a507617911fbeb4121ba7c4bbd5cc5cd8a7d5d8000e25bb0",
-      "size": 11407
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/hard-stops.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/hard-stops.md",
-      "sha256": "c1ee811a30d27f09d8f71232c50056b28ed9214c187f3274ae596b5b093a3aff",
-      "size": 4378
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/quality-clauses.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/quality-clauses.md",
       "sha256": "4152848694e7a893eff657af0f7bd52d991239cb27c6b61d23cec9636215ceef",
       "size": 4339
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/supplier-loop.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/supplier-loop.md",
-      "sha256": "99d6e981976bcb04936c4b7e1e9fc8bd626649da0d121db84d8fd0371a875290",
-      "size": 10564
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/trade-study-report/SKILL.md",
@@ -27586,13 +27047,6 @@
       "size": 2617
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-md-management/skills/claude-md-improver/references/templates.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/references/templates.md",
-      "sha256": "de0aa3ac30120a0c77f9cd82738a75ed8326864f98feb89356a253f2deaf3ab0",
-      "size": 3687
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-md-management/skills/claude-md-improver/references/update-guidelines.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-md-management/skills/claude-md-improver/references/update-guidelines.md",
@@ -27605,13 +27059,6 @@
       "path": "github/claude-plugins-official/plugins/claude-security/.claude-plugin/plugin.json",
       "sha256": "3576c397867ad312519d7346afba035f1363007b400d12b5e241e15dd50b81fd",
       "size": 750
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/NOTICE.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-security/NOTICE.md",
-      "sha256": "de9f06a5e0b160f563704ef53f03336f17b65685285b0b077a574ff3f3d28d8f",
-      "size": 1037
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/README.md",
@@ -27635,13 +27082,6 @@
       "size": 4039
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/explore.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-security/agents/explore.md",
-      "sha256": "33469106c1b754c53000fada8dd5f72eb1f17348d9e7da435b0997795155dac9",
-      "size": 2516
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/patch-generator.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-security/agents/patch-generator.md",
@@ -27656,39 +27096,11 @@
       "size": 9052
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-inventory.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-security/agents/scan-inventory.md",
-      "sha256": "84dc5a96c9ae4c198ab39e3c8db6f2e2729ff032f9e80ab5ab766ed64adea465",
-      "size": 4589
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-loader.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-security/agents/scan-loader.md",
       "sha256": "6dd1b274aae7de7b1b3c8810a469aeee46eba8ccaccccb0cba1fd1b55bd1a2f1",
       "size": 606
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-redactor.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-security/agents/scan-redactor.md",
-      "sha256": "9261f274a1c4930ad95d62b1cc1f25719af414543aa434dd9b2ab52d089d95e9",
-      "size": 3114
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-researcher.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-security/agents/scan-researcher.md",
-      "sha256": "e708259950956244471f6fef4adbc50bf99e189c68a48b925f8dca0f674df659",
-      "size": 7678
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-verifier.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/claude-security/agents/scan-verifier.md",
-      "sha256": "6a24be23785cd44069c4999c30a62aabb2d8c799100916fb8d76da7e3249fa9b",
-      "size": 5713
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/hooks/hooks.json",
@@ -27754,13 +27166,6 @@
       "size": 14851
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-modernization/.claude-plugin/plugin.json",
-      "sha256": "ed8e665a37a2598bd3d384370b3d65f76ecdc568ef9c419e0d76837f7026ac2b",
-      "size": 2830
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/CHANGELOG.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/code-modernization/CHANGELOG.md",
@@ -27780,27 +27185,6 @@
       "path": "github/claude-plugins-official/plugins/code-modernization/agents/architecture-critic.md",
       "sha256": "a1de2a6a3d5a208a5722dd3902dcb2488ff9a879a5494f34a170518126495065",
       "size": 3052
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/business-rules-extractor.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-modernization/agents/business-rules-extractor.md",
-      "sha256": "77edbaced0c0c66a836c5313d1709ad993424fdc98f2c005be836607a07ff32f",
-      "size": 3781
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/legacy-analyst.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-modernization/agents/legacy-analyst.md",
-      "sha256": "b31ec09dfeb1ba12514979d982d26eff6adcd86e86ea3605eee33efc749acc4a",
-      "size": 3707
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/scaffolder.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-modernization/agents/scaffolder.md",
-      "sha256": "a17b67e7c6c2496220cbccc17f1132b9d5030d09b9f895d757e7ce7514bffa78",
-      "size": 1991
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/security-auditor.md",
@@ -27866,13 +27250,6 @@
       "size": 10860
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-preflight.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-modernization/commands/modernize-preflight.md",
-      "sha256": "ba85391e98e44ecf396fb636e00d9287eeeea48ad0b53f637d1db5cacb961be7",
-      "size": 12945
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-reimagine.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/code-modernization/commands/modernize-reimagine.md",
@@ -27894,20 +27271,6 @@
       "size": 4159
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-transform.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-modernization/commands/modernize-transform.md",
-      "sha256": "9ec68f1814620c4809174775c9d13e4801dac28810450c73200525d0c5c6edc2",
-      "size": 8605
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-uplift.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-modernization/commands/modernize-uplift.md",
-      "sha256": "1ab1c23e031aa5297608959c5d1020c14126d91779f07c74273fb8a683617049",
-      "size": 20123
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-verify.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/code-modernization/commands/modernize-verify.md",
@@ -27920,13 +27283,6 @@
       "path": "github/claude-plugins-official/plugins/code-modernization/commands/modernize.md",
       "sha256": "fc3ba0a9a3e3b8d72fcee3ab686364fc6b8c6b97e8b2af814045070bb4c36d7c",
       "size": 4362
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/hooks/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-modernization/hooks/README.md",
-      "sha256": "2cf39eec32a2284a38f6f9ee7ad7c2b2d1ee3d89651d7f83ac15965f22cb5091",
-      "size": 15546
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/hooks/hooks.json",
@@ -27964,13 +27320,6 @@
       "size": 7329
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-simplifier/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/code-simplifier/.claude-plugin/plugin.json",
-      "sha256": "f18fb26b2f03e95ad165a4333c73ecd292da18e74d2b89d89bd9848839f8d0e7",
-      "size": 271
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-simplifier/agents/code-simplifier.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/code-simplifier/agents/code-simplifier.md",
@@ -27992,13 +27341,6 @@
       "size": 5908
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/commit-commands/commands/clean_gone.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/commit-commands/commands/clean_gone.md",
-      "sha256": "4f07fa2ccf4f81a69c6455bdc563b53a3d3b20aea6e4e82337c52b172ee02344",
-      "size": 1865
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/commit-commands/commands/commit-push-pr.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/commit-commands/commands/commit-push-pr.md",
@@ -28013,25 +27355,11 @@
       "size": 624
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/csharp-lsp/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/csharp-lsp/.claude-plugin/plugin.json",
-      "sha256": "d96b25fc4af392fec08990b21835a6b49f2105be64b10304fd878684adbc9685",
-      "size": 332
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/csharp-lsp/README.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/csharp-lsp/README.md",
       "sha256": "aa15664aff0ecd3d5c0db1aa149c2286061990ba7df68dd7a8d0f98dafb12db3",
       "size": 486
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/cwc-makers/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/cwc-makers/.claude-plugin/plugin.json",
-      "sha256": "daea51ab5138181571bf207637ff431b4abc439110a0466ac016381f112a33b7",
-      "size": 649
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/cwc-makers/README.md",
@@ -28081,20 +27409,6 @@
       "path": "github/claude-plugins-official/plugins/example-plugin/README.md",
       "sha256": "7c54f9964bc18643720e9cd05ea226f195e6db8a31fbb2f307408b1d6abe9790",
       "size": 1881
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/example-plugin/commands/example-command.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/example-plugin/commands/example-command.md",
-      "sha256": "809f5b818fcee015e6b9d66d44e05e766392e87f4a1e494953c16278d11794f5",
-      "size": 1247
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/example-plugin/skills/example-command/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/example-plugin/skills/example-command/SKILL.md",
-      "sha256": "d561981660827f3818b0daec456ae5b31894f68c22407d8c495a77b3105ba96d",
-      "size": 1226
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/example-plugin/skills/example-skill/SKILL.md",
@@ -28237,20 +27551,6 @@
       "size": 4624
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/hookify/commands/hookify.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/hookify/commands/hookify.md",
-      "sha256": "7560e58edc6cbb899c0b171292f63654fd1a0bd77354e7f89e2457acd0241e30",
-      "size": 7667
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/hookify/commands/list.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/hookify/commands/list.md",
-      "sha256": "6128e44611d981e911c0e956d619b02924f46407a00bbb9deff2e4f3465b9368",
-      "size": 2020
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/hookify/examples/console-log-warning.local.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/hookify/examples/console-log-warning.local.md",
@@ -28293,13 +27593,6 @@
       "size": 8423
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/jdtls-lsp/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/jdtls-lsp/.claude-plugin/plugin.json",
-      "sha256": "72a3f954c7df3cc20c568747606b8cde7e74cb35c00f81612ab303c661e43d19",
-      "size": 374
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/jdtls-lsp/README.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/jdtls-lsp/README.md",
@@ -28312,13 +27605,6 @@
       "path": "github/claude-plugins-official/plugins/kotlin-lsp/.claude-plugin/plugin.json",
       "sha256": "a8bc2a6cf60baf79bcf23caf5d9447467e129e509f2816a56d3b711187492527",
       "size": 439
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/kotlin-lsp/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/kotlin-lsp/README.md",
-      "sha256": "fdab0fcfa4f4d1fff43a3e2b639a58b503551317424048727fb46171c9d7935a",
-      "size": 485
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/learning-output-style/.claude-plugin/plugin.json",
@@ -28354,13 +27640,6 @@
       "path": "github/claude-plugins-official/plugins/lua-lsp/README.md",
       "sha256": "ac2e0d0a04360bef98408337e2eb92128150641d540fd989fdb988898bb02f38",
       "size": 705
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/.claude-plugin/plugin.json",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/math-olympiad/.claude-plugin/plugin.json",
-      "sha256": "8c74f63e67cb9cbea57752f12c8afe5dcab569ae978503f28b18b07416bcae73",
-      "size": 356
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/README.md",
@@ -28403,20 +27682,6 @@
       "path": "github/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/known_constructions.md",
       "sha256": "5135bca2eb1c448f1144cda2b1cfa796be5cb6a082306e589ad8308636b1e065",
       "size": 2024
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/skills/math-olympiad/references/model_tier_defaults.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/model_tier_defaults.md",
-      "sha256": "fa44e35b3c73c12c4098568df2d8fc6ff54dbed16b8d592e82272554c3eeaeb0",
-      "size": 2970
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/skills/math-olympiad/references/presentation_prompts.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/math-olympiad/skills/math-olympiad/references/presentation_prompts.md",
-      "sha256": "19eb3e242eb5879a5fe2768eea9d0e5a35b3df38a5c02cccd101e0b1f07e7d09",
-      "size": 6150
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/skills/math-olympiad/references/solver_heuristics.md",
@@ -28487,13 +27752,6 @@
       "path": "github/claude-plugins-official/plugins/mcp-server-dev/.claude-plugin/plugin.json",
       "sha256": "1c99fc6e35a0716a5b0adab482d13235feff3cf5e398497235bd7c250a1c19fe",
       "size": 334
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/mcp-server-dev/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/mcp-server-dev/README.md",
-      "sha256": "ce84eef3190f84cf46a49fe23a46981be892c935cf43231f9d55dd7a0a09a095",
-      "size": 1547
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/mcp-server-dev/skills/build-mcp-app/SKILL.md",
@@ -28622,13 +27880,6 @@
       "size": 5384
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/mcp-server-dev/skills/build-mcpb/references/manifest-schema.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/mcp-server-dev/skills/build-mcpb/references/manifest-schema.md",
-      "sha256": "6a97f9481107ebdbe8a75f06a5e126ba28021e1e8652677109e53d63a5793c72",
-      "size": 5359
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/mcp-tunnels/.claude-plugin/plugin.json",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/mcp-tunnels/.claude-plugin/plugin.json",
@@ -28669,13 +27920,6 @@
       "path": "github/claude-plugins-official/plugins/playground/.claude-plugin/plugin.json",
       "sha256": "2975f5ccac97a08db8a4f52f214057a0d784115dd55cbbd398ea2d871b3df0bb",
       "size": 277
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/playground/README.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/playground/README.md",
-      "sha256": "37b39ef813524c626d5f320d550ef2deee55743ed2a99cd7adfe27f298572102",
-      "size": 1258
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/playground/skills/playground/SKILL.md",
@@ -28895,13 +28139,6 @@
       "size": 16246
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/plugin-dev/skills/hook-development/references/advanced.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/plugin-dev/skills/hook-development/references/advanced.md",
-      "sha256": "5b139ceeb6a3ef16555a6eef421e2642e6ca286b5527ee2b4e02c11ae5b75dd5",
-      "size": 10148
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/plugin-dev/skills/hook-development/references/migration.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/plugin-dev/skills/hook-development/references/migration.md",
@@ -29012,13 +28249,6 @@
       "path": "github/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/README.md",
       "sha256": "c7cb4931d6d71198cba6b552e4733b41940be56a65552a2ff7c5656750b95184",
       "size": 3210
-    },
-    {
-      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/plugin-dev/skills/plugin-structure/SKILL.md",
-      "status": "success",
-      "path": "github/claude-plugins-official/plugins/plugin-dev/skills/plugin-structure/SKILL.md",
-      "sha256": "a2dbc1e5502aacb360d0ca74732cdd7be4f6a12a49edf4f2ade4134fbc026247",
-      "size": 13796
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/plugin-dev/skills/plugin-structure/examples/advanced-plugin.md",
@@ -31513,13 +30743,6 @@
       "size": 14455
     },
     {
-      "url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/packages/aws-sdk/README.md",
-      "status": "success",
-      "path": "github/anthropic-sdk-typescript/packages/aws-sdk/README.md",
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "size": 0
-    },
-    {
       "url": "https://raw.githubusercontent.com/anthropics/anthropic-sdk-typescript/main/packages/bedrock-sdk/CHANGELOG.md",
       "status": "success",
       "path": "github/anthropic-sdk-typescript/packages/bedrock-sdk/CHANGELOG.md",
@@ -31614,218 +30837,218 @@
       "url": "https://www.anthropic.com/legal/archive/0ccab40f-7955-4c8b-8783-b6d2c54c1b05",
       "status": "success",
       "path": "legal/acst-disclosure/2026-03-11.md",
-      "sha256": "1ff7698585db18dd03aaa660c45f2274aff2de9d2b05c9b5e4ecd5dfbf9a3075",
-      "size": 4184
+      "sha256": "f9d77695ca6abf322769067a8af3f13c8b3e422a4b30fac1c75d68f322b66071",
+      "size": 4706
     },
     {
       "url": "https://www.anthropic.com/legal/acst-disclosure",
       "status": "success",
       "path": "legal/acst-disclosure.md",
-      "sha256": "8eb3f2df24f87b483f19c8f7d4be2681a032fc8aa2866f0210ffdceff431fbf8",
-      "size": 4332
+      "sha256": "e61fa3df61807a539165547de78f3e84f422836935795d7844a2c792b056a34b",
+      "size": 4854
     },
     {
       "url": "https://www.anthropic.com/legal/archive/fbaea72f-9ddc-47cc-bb3e-45c94c0b4dd1",
       "status": "success",
       "path": "legal/aup/2026-11-12.md",
-      "sha256": "6c96903196f7f169510bb592a58db9b61519c9c2e80651def8702754faf3673c",
-      "size": 31860
+      "sha256": "929ce5718ace016631493a3e00cef82bc4080fc9d93816fb11bbcdbd256765b0",
+      "size": 32623
     },
     {
       "url": "https://www.anthropic.com/legal/archive/22742366-2ef0-4c7a-a833-6523f10d3944",
       "status": "success",
       "path": "legal/aup/2025-09-15.md",
-      "sha256": "7e43d48971b6ea003266ac700ce126fe73c72063bb9cb3cabe2f54773d5c0915",
-      "size": 18164
+      "sha256": "bb5c9a604a6547ce51aa7836d1f8f702993c42483416f7d74bafad6f01951d24",
+      "size": 18597
     },
     {
       "url": "https://www.anthropic.com/legal/archive/7197103a-5e27-4ee4-93b1-f2d4c39ba1e7",
       "status": "success",
       "path": "legal/aup/2024-06-26.md",
-      "sha256": "87fcdf6908d0353be64738499973e9adf7b8b0568a5d5e9b683e7b3aa2d07efc",
-      "size": 16159
+      "sha256": "68702d4149ddb9bf43841cd1dfa557d9ee6d2ee612b69731f198d684f81be5d3",
+      "size": 16398
     },
     {
       "url": "https://www.anthropic.com/legal/archive/89e829b9-91a1-44e1-8915-d08ce3007cfe",
       "status": "success",
       "path": "legal/aup/2024-06-06.md",
-      "sha256": "0a0b96b0d482b7ac4b6b2d03002d3e327b838cfddbe39f3619cad68edfc3e273",
-      "size": 15707
+      "sha256": "0275f629ba6feea89ff68a4623f23bd2fdde111a765678b4ee1ae7fc37593d79",
+      "size": 15946
     },
     {
       "url": "https://www.anthropic.com/legal/archive/4903a61b-037c-4293-9996-88eb1908f0b2",
       "status": "success",
       "path": "legal/aup/2023-09-15.md",
-      "sha256": "4ff461094ddb06ca0dd2382e5cba89fcf0f9bf43077d3c5af7d69088fd91ee5f",
-      "size": 7737
+      "sha256": "47c2daff351c2f80495a58bdb1a1466c511ac5119e8abab17d4a4577bdfe4f17",
+      "size": 7772
     },
     {
       "url": "https://www.anthropic.com/legal/aup",
       "status": "success",
       "path": "legal/aup.md",
-      "sha256": "fe4000db88c7e059e927723bf858d37031fe34ca50d45383ef29489318bee4e2",
-      "size": 32196
+      "sha256": "18df24949224cc153ad77faaa62017144ffaa46ea9b808f606f3275b463b3aef",
+      "size": 32959
     },
     {
       "url": "https://www.anthropic.com/legal/archive/af81645b-040b-485c-a4a0-3205ccfb3792",
       "status": "success",
       "path": "legal/commercial-terms/2025-06-17.md",
-      "sha256": "79afd42d1e016b774019b391083aee5a20b15b616ef48834ba3c0a0050c73420",
-      "size": 25053
+      "sha256": "d86da61dd4341d8cdef6adf6ff7a223fd20b211dc97800a071b3386dfbb35b21",
+      "size": 25691
     },
     {
       "url": "https://www.anthropic.com/legal/archive/7a267be3-2027-40f5-9fdf-230ff70e2cf6",
       "status": "success",
       "path": "legal/commercial-terms/2025-02-24.md",
-      "sha256": "d3ff578369dad7d99c005ff0e5bab50edaad7104def395e976fbb52bce1c86f6",
-      "size": 24819
+      "sha256": "c6d6bead191ed5e2aa763df302ad1d5966a2df2e4cc9f755a9c45c9bb0fb207d",
+      "size": 25430
     },
     {
       "url": "https://www.anthropic.com/legal/archive/c87a6bf8-106e-47d8-9b7b-47ae3a0fecbf",
       "status": "success",
       "path": "legal/commercial-terms/2024-05-14.md",
-      "sha256": "d4c00affa4500d1d3713c5bc0b245262ce7b0f904bff6372819010fc412a2f67",
-      "size": 54562
+      "sha256": "3319f8efea437bbc03160430f311a0ece3730e0917abbab2fb881b00fbc51701",
+      "size": 55098
     },
     {
       "url": "https://www.anthropic.com/legal/archive/ce2bb249-89c0-438c-b95f-fa55cbc0ae61",
       "status": "success",
       "path": "legal/commercial-terms/2024-05-01.md",
-      "sha256": "758b386bef21c5be21bb610bcfc348e0f5c4db123724eafe89e90c279836a89f",
-      "size": 53565
+      "sha256": "401dd7a22c63b5a3b18423b68ba636f171f9fba93c72a44f827b50a66f8d2d7d",
+      "size": 53979
     },
     {
       "url": "https://www.anthropic.com/legal/archive/4f67d536-8430-4fa6-86a0-fe07f74ec12c",
       "status": "success",
       "path": "legal/commercial-terms/2024-03-04.md",
-      "sha256": "e773270207607cec6e0f0fe94ddd9eb99b252434208ff6f2058b86ea810f3851",
-      "size": 52548
+      "sha256": "43303f29f89ba9ba281e1f923ab380996c824e9648d249e7b0db927bc6966ed2",
+      "size": 52846
     },
     {
       "url": "https://www.anthropic.com/legal/archive/22651267-10f6-43a1-a689-5276f8f1f5f7",
       "status": "success",
       "path": "legal/commercial-terms/2024-01-03.md",
-      "sha256": "fbc53793e347324358ef636940e5e8ff1a818ba5ab003bdbb16afa5464b3fbc4",
-      "size": 22669
+      "sha256": "63017d99d218eb01902ca6beb8da6f644fb194296c7f04f0b157fa84e85de882",
+      "size": 22751
     },
     {
       "url": "https://www.anthropic.com/legal/commercial-terms",
       "status": "success",
       "path": "legal/commercial-terms.md",
-      "sha256": "1d0830512a4735416ab028ccecd8559152a33aaa906d2362e80c769e48c13bd4",
-      "size": 25598
+      "sha256": "cbc3baf8f66c44e8b3c0fea2217b89aea22ce4916dfcd596f837633111480dd9",
+      "size": 26236
     },
     {
       "url": "https://www.anthropic.com/legal/archive/3d1b0b5a-048b-4567-87d8-c165f8c57804",
       "status": "success",
       "path": "legal/consumer-credit-terms/2026-11-06.md",
-      "sha256": "e69ade2f02e0f3010fe1472f1db3fb90e13075640655a6088436b45109d18275",
-      "size": 4161
+      "sha256": "111a0119d45d7ecc87f6644d4f9f90f28d051c9e5c4c845cd9933b3a3b47078a",
+      "size": 4320
     },
     {
       "url": "https://www.anthropic.com/legal/consumer-credit-terms",
       "status": "success",
       "path": "legal/consumer-credit-terms.md",
-      "sha256": "3ae0e853d5b5d44087bc3a0f0769e3a4f172be584b837ad302139d0e884e7176",
-      "size": 4321
+      "sha256": "64920798359e8b3d0d3da3112d494a3ba1e0ab78e871a0a4634a15a6c33bc9c5",
+      "size": 4480
     },
     {
       "url": "https://www.anthropic.com/legal/archive/a8060e10-8dcd-45ba-9ace-d6a42e8529a0",
       "status": "success",
       "path": "legal/consumer-health-data-privacy-policy/2026-01-12.md",
-      "sha256": "cd80d0328f32c5c46a74583b61cc9d20357f6f59fbbf43758bd37f8ddc0cb24c",
-      "size": 4383
+      "sha256": "3eb185ae4995a14cf0f87190a7cb379f83556db7c6b0f00a3868c4f3f516f0b3",
+      "size": 4561
     },
     {
       "url": "https://www.anthropic.com/legal/consumer-health-data-privacy-policy",
       "status": "success",
       "path": "legal/consumer-health-data-privacy-policy.md",
-      "sha256": "5e577365278fc94d201513261e34ee712088f68606fb1d4833a641b59764ae7b",
-      "size": 4571
+      "sha256": "db135b7ad11464c2672c4c08434f42d1f21c4847eac8359c97f086bcbf38ff0d",
+      "size": 4749
     },
     {
       "url": "https://www.anthropic.com/legal/archive/79dbc8c6-7f64-43d6-8101-207cede59a4d",
       "status": "success",
       "path": "legal/consumer-terms/2025-10-08.md",
-      "sha256": "4c2705f729afa8ed5276f7d383051585ee4def2465b04ebf6c5d5db2899e609d",
-      "size": 29531
+      "sha256": "400ef51aacda9fee0c89a230a6f3680973355a4aa487dd0bd8a279c48539a59e",
+      "size": 30187
     },
     {
       "url": "https://www.anthropic.com/legal/archive/80e847ae-5c9e-4a7b-b2cb-88895aa972d5",
       "status": "success",
       "path": "legal/consumer-terms/2025-05-01.md",
-      "sha256": "dc90c7e7b515c199dae6d13cf076095c1bf11d10383b525c553e69ae171d2c02",
-      "size": 27294
+      "sha256": "18eabe74702caf2fc87818d457178fc25065794541eb2ebfc9815b221d77c377",
+      "size": 27979
     },
     {
       "url": "https://www.anthropic.com/legal/archive/99a99900-9830-4383-85ab-47896850d1e5",
       "status": "success",
       "path": "legal/consumer-terms/2025-04-15.md",
-      "sha256": "483c2d32921269466ad52769c9098953ab1d425239b6f7ff280def7dbb7f49ff",
-      "size": 26858
+      "sha256": "37784515ca0397ef27ed33e6e05366ee152185da4d05af01084158c8b2d447a2",
+      "size": 27543
     },
     {
       "url": "https://www.anthropic.com/legal/archive/df08d2e9-1a7d-4f92-8d52-ea57c42712d7",
       "status": "success",
       "path": "legal/consumer-terms/2025-02-19.md",
-      "sha256": "4818d671c09ec720e1bec95ce24d3f7a42f1d16b8d8ecd5405cdb67a503e8a9c",
-      "size": 26024
+      "sha256": "8ed868bbe9e58be932df17230913b2d1caa53f6b6354ed9f15baeb516c914c82",
+      "size": 26835
     },
     {
       "url": "https://www.anthropic.com/legal/archive/90113ac5-6846-4777-84d8-edde3719ac06",
       "status": "success",
       "path": "legal/consumer-terms/2024-06-13.md",
-      "sha256": "7542a6955213f2827f108cacbf2e7c38e15d4713b4b29984f34b49680a976ac3",
-      "size": 25473
+      "sha256": "49a8aa6cada3e9e23141a19ba178bd13107795216c30d1d4b68b25a5dd66822a",
+      "size": 26052
     },
     {
       "url": "https://www.anthropic.com/legal/archive/d1642ca5-a466-4326-ac3d-a9de6e60e627",
       "status": "success",
       "path": "legal/consumer-terms/2024-05-01.md",
-      "sha256": "dcfd298e164f95a5ff3bb1c5d0bc9fca3a03dd6de10573ddd7fdc18886936767",
-      "size": 25801
+      "sha256": "39ecf4dff43adca35400c9bb57e8fa8f2f480a9dd6b5b00660ba8932ce6338c1",
+      "size": 26375
     },
     {
       "url": "https://www.anthropic.com/legal/archive/60422e4b-4c80-462d-af4a-7ddd10289cf4",
       "status": "success",
       "path": "legal/consumer-terms/2024-04-15.md",
-      "sha256": "3fae73b81990ee6398d00a98693afca8130c4d0e9d0e9e18f6e752b1c720bb66",
-      "size": 25107
+      "sha256": "fba9bf784c2a28a36cef15eeb175d69562c0581681a1afad022ac37b3b47e719",
+      "size": 25549
     },
     {
       "url": "https://www.anthropic.com/legal/archive/71085c3c-857c-464d-8075-ae918f0e5555",
       "status": "success",
       "path": "legal/consumer-terms/2024-02-03.md",
-      "sha256": "ee7cd311823ead82137ecccb802a1cb92df14e65b79aa6e84042662a8b786ac2",
-      "size": 24376
+      "sha256": "200b18842e482cc2a612f935f3520e3b7521fffddd58b76ff1b35a1bbd30ac7c",
+      "size": 24740
     },
     {
       "url": "https://www.anthropic.com/legal/consumer-terms",
       "status": "success",
       "path": "legal/consumer-terms.md",
-      "sha256": "981905ddc60ae0e06f9364eb43549d14e748a989417e6d44af7a82d2a0152f18",
-      "size": 30202
+      "sha256": "062ded16a5967a5f66165086f310bb264b7ac8ccc3b24e22dc3dae5123cdd862",
+      "size": 30858
     },
     {
       "url": "https://www.anthropic.com/legal/archive/5c7ecf37-e2e1-4788-b718-a0d914fead48",
       "status": "success",
       "path": "legal/cookies/2024-03-19.md",
-      "sha256": "c15e9d1931db62158cd84b2e538024f75ada15a6ad1e7b00187049d04748d9d2",
-      "size": 3884
+      "sha256": "da4bf040b64a628fef0c546d53b3cfae9b6570cf241c19e0ce9a904f59dfc87d",
+      "size": 4109
     },
     {
       "url": "https://www.anthropic.com/legal/archive/2348a4cb-44b5-4882-bddf-8068b9151769",
       "status": "success",
       "path": "legal/cookies/2024-03-04.md",
-      "sha256": "a2f45392ba67c1132abec4f548ac41704ade6e0891744a08cdb4734d8ff6e716",
-      "size": 3792
+      "sha256": "efe7b8dc28566733cdfb38fe02c1e2d25b21d94167cd5cd9e1c5ea9037a2862d",
+      "size": 4017
     },
     {
       "url": "https://www.anthropic.com/legal/cookies",
       "status": "success",
       "path": "legal/cookies.md",
-      "sha256": "5a8fa24079b2a2b843ec5d6e0a2638375a7e453d08ea6445cb85156ead998119",
-      "size": 4077
+      "sha256": "1d2ce03b397de444d328a2582003a16a8d2309a10a52e6e8b5ab61761da42383",
+      "size": 4302
     },
     {
       "url": "https://www.anthropic.com/legal/archive/5b1e4806-ae3f-4c1b-8471-c8df2141a561",
@@ -31845,29 +31068,29 @@
       "url": "https://www.anthropic.com/legal/archive/8a492ef8-a09b-4de4-b364-2e155b674b27",
       "status": "success",
       "path": "legal/credit-terms/2024-03-04.md",
-      "sha256": "02371f80cd4412a7bbafd8de882eaa9a564963124b08795a0ef79db4c513da2c",
-      "size": 3406
+      "sha256": "6f048d92f0fce41c7fa20bd752076ef207032b336d53a869596fc8b6a1418b17",
+      "size": 3539
     },
     {
       "url": "https://www.anthropic.com/legal/credit-terms",
       "status": "success",
       "path": "legal/credit-terms.md",
-      "sha256": "65eb487162daa1c997e56f6edaf5ab250ba1b9eda32b587f23c1b4613cbd8138",
-      "size": 3548
+      "sha256": "12e256ed9da62dea02b14363ea83a1d1fe222e51749117ff8e84089bd2cfc9a1",
+      "size": 3681
     },
     {
       "url": "https://www.anthropic.com/legal/archive/0e12c29d-6cbb-4bbe-a71d-52c38a2f9102",
       "status": "success",
       "path": "legal/data-processing-addendum/2025-02-24.md",
-      "sha256": "0ff206fdeebdafbba17e6544a4b1f6c3ce3f257c0ef730a337cd4c59e0f00689",
-      "size": 35212
+      "sha256": "2cc72c404ae36c0762823612e29d2dcc8bd19a42e98f7e1408f2f2e8871c709a",
+      "size": 35435
     },
     {
       "url": "https://www.anthropic.com/legal/data-processing-addendum",
       "status": "success",
       "path": "legal/data-processing-addendum.md",
-      "sha256": "587446f8e82929c2c949a507d27a2bc24c52cdd4064eb6c857a4bf6ec4a7a065",
-      "size": 35378
+      "sha256": "cd2fcf090bcc236fbe1d656072e70d940e6a633da72fa42666d22507d4957258",
+      "size": 35601
     },
     {
       "url": "https://www.anthropic.com/legal/archive/guest-investigator-program-terms-v1",
@@ -31887,29 +31110,29 @@
       "url": "https://www.anthropic.com/legal/archive/b5377dd5-583c-45c1-a531-9d8326b2b5cf",
       "status": "success",
       "path": "legal/guest-pass-terms/2026-11-05.md",
-      "sha256": "6b50f1ef433191b600fd404910b9ea5e1eb42ba0a7499210f21e9a3e7732b8a5",
-      "size": 7103
+      "sha256": "56abc76de6407d8cd7fd667eac661ce55e06e995a82aecee9e8e187056745b49",
+      "size": 7348
     },
     {
       "url": "https://www.anthropic.com/legal/guest-pass-terms",
       "status": "success",
       "path": "legal/guest-pass-terms.md",
-      "sha256": "15c95e737c4b545a57add44b4729a4805ebbfcf749a2338a7a36a742fe71e7f6",
-      "size": 7253
+      "sha256": "68d81f22e8adcfc7d3acfe3092460371653a04794a4a84e9ee20b50730b4520a",
+      "size": 7498
     },
     {
       "url": "https://www.anthropic.com/legal/archive/78cbea28-4333-4042-a6ce-ea391e890a8a",
       "status": "success",
       "path": "legal/inbound-services-agreement/2024-06-18.md",
-      "sha256": "abc9514da7ad37848fdae7bb483dd8686d8cab737a43893ed7568e7e8da25ee1",
-      "size": 39332
+      "sha256": "8f5f48f74993a31842a84095545157b20e131af779116af1dbf6966823a87788",
+      "size": 39459
     },
     {
       "url": "https://www.anthropic.com/legal/inbound-services-agreement",
       "status": "success",
       "path": "legal/inbound-services-agreement.md",
-      "sha256": "6144cb547168dd7d3638b55611467bbd5875521b892eeb7f193c0587ebee6845",
-      "size": 39502
+      "sha256": "6b9088bd8f9916dea9b43dd917c898572234de169f8e36c907760d2fbd04a3b0",
+      "size": 39629
     },
     {
       "url": "https://www.anthropic.com/legal/archive/b79d13ce-acc1-4714-93fc-6bd037e65406",
@@ -31936,8 +31159,8 @@
       "url": "https://www.anthropic.com/legal/archive/7d41c516-d796-417f-8411-0f473f33f6af",
       "status": "success",
       "path": "legal/k12-terms/2026-07-14.md",
-      "sha256": "e880e2267e912f662ef6886e2a9c9adbb99cb8d05f2aae08169621a7fa41a9d1",
-      "size": 48124
+      "sha256": "8ddcf01c2380990b20251507102e44ca754f963ff0ca5fa5ad069356a2ef696f",
+      "size": 48285
     },
     {
       "url": "https://www.anthropic.com/legal/k12-terms",
@@ -31950,141 +31173,141 @@
       "url": "https://www.anthropic.com/legal/archive/a350bf3a-22ec-45f4-8a39-398e454b37f6",
       "status": "success",
       "path": "legal/non-user-privacy-policy/2026-07-08.md",
-      "sha256": "f7259fa9088995fe0d670140c010fb79023c7fe9a54024e35731efff2a2e98ac",
-      "size": 20982
+      "sha256": "d03b82a3648fd600ee718f38287b9026ecfbd145c028c224d2f0e34549842f9c",
+      "size": 22140
     },
     {
       "url": "https://www.anthropic.com/legal/archive/a2eb2e3e-fd03-4dbf-8db5-2cc0e9fb31f9",
       "status": "success",
       "path": "legal/non-user-privacy-policy/2025-08-28.md",
-      "sha256": "7ca67f2b56234b2abc9c9f42aa27547b02984d1fb35fdd90d4c96b39d448752e",
-      "size": 16941
+      "sha256": "644b08743f34635fa9150229ff84b0433dc6a380d3d0ee85edb2b68dd27a62ed",
+      "size": 17648
     },
     {
       "url": "https://www.anthropic.com/legal/archive/e5a251b9-01af-411f-bc1b-f2e0c46b1b18",
       "status": "success",
       "path": "legal/non-user-privacy-policy/2024-12-17.md",
-      "sha256": "1a4ae8ad9800974fbe5dc060b1fec7e9b4470d04bd68ca3016465fafaa3f69a3",
-      "size": 16229
+      "sha256": "0a39659d3db8ad00832030f5bc46c1c17f86527a74da30a8f01a2cad04c10d73",
+      "size": 16866
     },
     {
       "url": "https://www.anthropic.com/legal/non-user-privacy-policy",
       "status": "success",
       "path": "legal/non-user-privacy-policy.md",
-      "sha256": "b102035c069166c281fead768ed09439f20a4e826cae0d42875cdaee4b25a8c4",
-      "size": 21332
+      "sha256": "c085723ac7ebb74a45e191cf198ac0d25666e0d94a9d8d593f3d510fb3e2c9de",
+      "size": 22490
     },
     {
       "url": "https://www.anthropic.com/legal/archive/baeb68ac-c81c-4931-9539-58f46b6f090c",
       "status": "success",
       "path": "legal/privacy/2026-09-10.md",
-      "sha256": "cd2c1b2a59b437ed4a74a460d7a379e76d3a4169f5cb6d4f739699848d178184",
-      "size": 41386
+      "sha256": "6141d20682579c4cb9a37eff013a095112aa036bfca33c3d137b73b96da30ff8",
+      "size": 43973
     },
     {
       "url": "https://www.anthropic.com/legal/archive/21d66aa9-68f6-4356-ba01-2825b0f81805",
       "status": "success",
       "path": "legal/privacy/2026-07-08.md",
-      "sha256": "32628f91bb6b0fb804229f71bb0f5890c53d80d1ba7ca00d4b1f4ef48a167ff2",
-      "size": 39327
+      "sha256": "4260b8a555c60820204ae89f314649e8178ad5e46348f3b0b2cc796739283b1b",
+      "size": 41648
     },
     {
       "url": "https://www.anthropic.com/legal/archive/d254257b-3920-4d8c-842d-b193c7372ba9",
       "status": "success",
       "path": "legal/privacy/2026-01-12.md",
-      "sha256": "37dfb02991c005a3c524d5b94114900d79cc7a9d8ed4c24996b5533ea669da79",
-      "size": 34257
+      "sha256": "1d2b8c30702b18fa590860adafa4d3d5c9f96405c71600f1f2fa19d28f70f23e",
+      "size": 36236
     },
     {
       "url": "https://www.anthropic.com/legal/archive/7251e1b0-37ff-49eb-9fb7-7d7c5a92ac84",
       "status": "success",
       "path": "legal/privacy/2025-10-08.md",
-      "sha256": "782bcc332e80407dd9dcd5c47eec02cc14571a03a8ae85e1e5bca2e4f21324a8",
-      "size": 34125
+      "sha256": "3e07f7ca40ddcee6c1f4a87f1a7cd160dcb9c0498de059688efc471a00094e75",
+      "size": 35982
     },
     {
       "url": "https://www.anthropic.com/legal/archive/fbe2e87e-8f4e-4bba-9e5e-a6a8b15afc0e",
       "status": "success",
       "path": "legal/privacy/2025-09-28.md",
-      "sha256": "2ad130420a2ec30e9a075a0f9314ec196226e054a237bc788699a135d473abf6",
-      "size": 33058
+      "sha256": "32a3c9fd2b68a906f1b07740c19bf06559a08cfb16ed479b129280b22e95ed89",
+      "size": 34915
     },
     {
       "url": "https://www.anthropic.com/legal/archive/86d180d7-2d2c-4821-9258-b2224acc06ea",
       "status": "success",
       "path": "legal/privacy/2025-05-01.md",
-      "sha256": "0b48fd9a1597cc6cd3a7c99809046e833a60339e22870eda38fd18a3b410ae08",
-      "size": 31911
+      "sha256": "ac693aa611977d684ef4b0c9eb6b6ac97caa20ef232d237c836f0ce3329b9bb0",
+      "size": 33763
     },
     {
       "url": "https://www.anthropic.com/legal/archive/a2eecf43-807a-4a53-89dd-04c44c351138",
       "status": "success",
       "path": "legal/privacy/2025-02-19.md",
-      "sha256": "605d8c0cc637a2b5e61e4fa3218f907631280a9937f5f25fdddb32b499be01c8",
-      "size": 31853
+      "sha256": "663600638a1d06a94e1a482dc598fd7c615c0483066018d4abe24784f8faacbe",
+      "size": 33613
     },
     {
       "url": "https://www.anthropic.com/legal/archive/fb6e63a8-fdd2-46fa-baf1-0fba326971a0",
       "status": "success",
       "path": "legal/privacy/2024-12-17.md",
-      "sha256": "4260c52ee1ceb9f5f1498f0fef17b2b8631c8ae8f9997355235caa8778eafd1a",
-      "size": 31088
+      "sha256": "2d371aab9e3ac96b5afd60f762c4b3c8aab4b8fdde37b79fade72c20c49a0472",
+      "size": 32848
     },
     {
       "url": "https://www.anthropic.com/legal/archive/628feec9-7df9-4d38-bc69-fbf104df47b0",
       "status": "success",
       "path": "legal/privacy/2024-06-05.md",
-      "sha256": "77b9b6d3f9257b6f64bf110d03e299cc77d5fe0c1e8dda3a5f457cab54c2e18f",
-      "size": 25748
+      "sha256": "090f3a01b809c1ed5242ae1451cf2f3ae3aecb15c538f42965e448ece9470c62",
+      "size": 26876
     },
     {
       "url": "https://www.anthropic.com/legal/archive/2ade2db3-de5e-4a20-a0ee-2c271bd6291f",
       "status": "success",
       "path": "legal/privacy/2024-05-13.md",
-      "sha256": "8c1265d94d8da3c14e84c2f41266f2aee2b3f91318f452fd9cd7349cabf280a8",
-      "size": 22262
+      "sha256": "4463e43f9af33007cbde99498d85a0ec281f8f10e1dfb2ea9fe3ce6051eaed2b",
+      "size": 23182
     },
     {
       "url": "https://www.anthropic.com/legal/archive/91bdfcc6-fe1d-44f4-b269-7ea7b07a4ea0",
       "status": "success",
       "path": "legal/privacy/2024-05-01.md",
-      "sha256": "901e1615569de291929b4fc3921e11521293b85e87bc1210fb1ec27a90564166",
-      "size": 21952
+      "sha256": "81c9acd79fadfb76d8d5a1c1722fe34f56df1ce9e61689f70b027bc0e401483c",
+      "size": 22844
     },
     {
       "url": "https://www.anthropic.com/legal/archive/cf9213dc-642f-43ff-bb0b-f07e10eb0d9f",
       "status": "success",
       "path": "legal/privacy/2024-03-04.md",
-      "sha256": "93275b0cf21e85cb54dbbb2030a332dc986a4fb5a7591a6494e5eafb2cb0fd6b",
-      "size": 21580
+      "sha256": "d6ef83795de550923ee83d533039a91d93ea2b9adc7f388d60a907cbaafe05b9",
+      "size": 22472
     },
     {
       "url": "https://www.anthropic.com/legal/archive/11fe4b9e-49c2-4d1a-bad0-b81536efd524",
       "status": "success",
       "path": "legal/privacy/2023-07-08.md",
-      "sha256": "d414f5b7624fdf5d3ee2d28d51a2a3ba90d42bbf6e305014fa10cee11124cdc1",
-      "size": 18830
+      "sha256": "114af029c71555d047f65833d7185701a185ca93f9cb43a35b671db338c88bdb",
+      "size": 19477
     },
     {
       "url": "https://www.anthropic.com/legal/privacy",
       "status": "success",
       "path": "legal/privacy.md",
-      "sha256": "faf397e88c2d3d37ab9b9c163b014e87a0249ca529a9223170786fd0c2e6d2dd",
-      "size": 42250
+      "sha256": "74313f4bb3f3d6ef96ca836f8bef419a78210b4695d8a649bfaf9d9f9408611a",
+      "size": 44837
     },
     {
       "url": "https://www.anthropic.com/legal/archive/65471ced-ae5c-4347-a30b-3ba0b951963b",
       "status": "success",
       "path": "legal/promotion-credit-terms/2026-05-19.md",
-      "sha256": "776c13fcd832765d6dd2063e07294fb5b815376490e5068ecfd99893d8d34971",
-      "size": 3258
+      "sha256": "2b4bb7c8a4d12a9d4ee0e84a11bf92ee88790addd6efef58e2a4a3a751557ba0",
+      "size": 3536
     },
     {
       "url": "https://www.anthropic.com/legal/promotion-credit-terms",
       "status": "success",
       "path": "legal/promotion-credit-terms.md",
-      "sha256": "a95b20a11ebb80f6ea294cc8da67d82c03290c93ce8170fe84a947e916b2d435",
-      "size": 3420
+      "sha256": "1717c6ecb69432eb73d67f7fd53746d165371427e0eb4ae4e1c0e9fc9179fbee",
+      "size": 3698
     },
     {
       "url": "https://www.anthropic.com/legal/archive/004abf2e-b477-4116-905c-a7ac1a318076",
@@ -32139,71 +31362,71 @@
       "url": "https://www.anthropic.com/legal/archive/6b8ac587-0839-4c7b-9682-a1be33685846",
       "status": "success",
       "path": "legal/service-specific-terms/2026-08-31.md",
-      "sha256": "f41f91240708129718667352164432fa3ff0478b6ac27d5540db98dc8432abe6",
-      "size": 6691
+      "sha256": "907d59831b6976649426e6f7f9a3db4dcaacde6397f3896ee8e34f67ff132d04",
+      "size": 6889
     },
     {
       "url": "https://www.anthropic.com/legal/archive/cff7fdc6-c014-4239-a0ab-3b95a441a1fa",
       "status": "success",
       "path": "legal/service-specific-terms/2026-06-08.md",
-      "sha256": "fc3c278c62ee9136c812942ec71cd7d00136d0a22cfa9d2c9290752a5ce740dd",
-      "size": 6036
+      "sha256": "d1855255380b49d183da94b0386dc92772cef07e3004158f5e4f9feb733aab16",
+      "size": 6234
     },
     {
       "url": "https://www.anthropic.com/legal/archive/a914c3ed-01b5-4fd3-b943-e13cb408c3b2",
       "status": "success",
       "path": "legal/service-specific-terms/2025-11-20.md",
-      "sha256": "947904bd9a58de17ff276bd6bca45ddbe685b80ebac5bddf64b970aec9e93990",
-      "size": 5041
+      "sha256": "636fa5c24e0711fb16f0fff4439c12dac3ab1a06dd98c6a04183d2711388d9ef",
+      "size": 5179
     },
     {
       "url": "https://www.anthropic.com/legal/archive/1d6dcbe8-a9cd-4238-943c-ee793f3e520b",
       "status": "success",
       "path": "legal/service-specific-terms/2025-05-01.md",
-      "sha256": "3a2d61e3ce28018748992e3229c10be32dc1aa7aec63ac3d26f9ef1c1a44e1c5",
-      "size": 4786
+      "sha256": "6be8549c03801ffc39571e6659d767ef2d7ea5c8118037e9a85d9cf6319ba956",
+      "size": 4924
     },
     {
       "url": "https://www.anthropic.com/legal/archive/7ffe1220-3b8e-4765-82b9-427fccf1d561",
       "status": "success",
       "path": "legal/service-specific-terms/2025-02-24.md",
-      "sha256": "2367e25786db5242be286315c84bc22957a73e168a94b1ef42a170e82f8708c1",
-      "size": 4338
+      "sha256": "b121854553987076dd556372f0a6511fc9f2b0b33d60c7af2c7e0b8e0431ca95",
+      "size": 4476
     },
     {
       "url": "https://www.anthropic.com/legal/archive/3532a733-9117-4f72-b81f-27ef243b80f7",
       "status": "success",
       "path": "legal/service-specific-terms/2024-09-04.md",
-      "sha256": "20fcd9579dfb062d4a027f6d2109b2e4348abf58c3177c8769ec51c3f5f1c1cb",
-      "size": 1562
+      "sha256": "11485016702557f5e22b150685beb552f7f2ebb5351a0e8d5c69baeebf998a75",
+      "size": 1647
     },
     {
       "url": "https://www.anthropic.com/legal/archive/3e19c505-baca-4d54-a67d-83a13ce68224",
       "status": "success",
       "path": "legal/service-specific-terms/2024-05-01.md",
-      "sha256": "c5cd7b44d918051e676bcdde0513694073ec9698883b70e95bdfe62c0b7778a2",
-      "size": 1477
+      "sha256": "16914bdc27d4b50cad945b7387566aeb05f9d31842f2a04b1201159a5ca371e4",
+      "size": 1562
     },
     {
       "url": "https://www.anthropic.com/legal/service-specific-terms",
       "status": "success",
       "path": "legal/service-specific-terms.md",
-      "sha256": "a9bc935aed5e8c7e7dab1416731b92d3228952883792c3691650003f407ba83f",
-      "size": 7399
+      "sha256": "542e15dfc633eb94fc0df1833aa0d1d867cc10e03a1b4cc5220bf134e1ba21f6",
+      "size": 7597
     },
     {
       "url": "https://www.anthropic.com/legal/archive/ef2e3270-5445-4ca8-a3ea-213db0fe424d",
       "status": "success",
       "path": "legal/startup-program-addendum/2026-10-06.md",
-      "sha256": "99578aeb074314d5d7808e8c5acbfb7ee37007e3a4ff34607eb6ec5d82050f03",
-      "size": 9667
+      "sha256": "73fba7aec8c5de288a123c75c9d02fd1a18cedefbe155a74637c95914921b54d",
+      "size": 9828
     },
     {
       "url": "https://www.anthropic.com/legal/startup-program-addendum",
       "status": "success",
       "path": "legal/startup-program-addendum.md",
-      "sha256": "34881556ab95927a6fc90b4f6563ddc2f26fd6523d9aa0c32ecca38484b67b95",
-      "size": 9833
+      "sha256": "d67b89633764b8201c845bbba1ce3ac41c8ddbde8a090a91b044a76fdc5c9d38",
+      "size": 9994
     },
     {
       "url": "https://www.anthropic.com/legal/archive/ec08a1e7-a194-462d-9159-4ee41c553a28",
@@ -32255,7 +31478,448 @@
       "size": 2548
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.github/policy/prompt.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.github/policy/prompt.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.github/policy/schema.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.github/policy/schema.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/asana/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/asana/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/context7/.mcp.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/context7/.mcp.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/discord/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/discord/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/discord/skills/configure/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/discord/skills/configure/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/package.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/fakechat/package.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/firebase/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/firebase/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/github/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/github/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/gitlab/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/gitlab/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/ACCESS.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/ACCESS.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/package.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/package.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/skills/access/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/imessage/skills/access/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/laravel-boost/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/laravel-boost/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/laravel-boost/.mcp.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/laravel-boost/.mcp.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/linear/.mcp.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/linear/.mcp.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/playwright/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/playwright/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/playwright/.mcp.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/playwright/.mcp.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/telegram/.mcp.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/telegram/.mcp.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/telegram/package.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/telegram/package.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/terraform/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/terraform/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/terraform/.mcp.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/external_plugins/terraform/.mcp.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/agent-sdk-dev/agents/agent-sdk-verifier-py.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/agent-sdk-dev/agents/agent-sdk-verifier-py.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/agents/repo-scout.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/agents/repo-scout.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/skills/office-hours/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/skills/office-hours/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/skills/patterns/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/champion-kit/skills/patterns/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/clangd-lsp/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/clangd-lsp/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/clangd-lsp/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/clangd-lsp/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/hooks-patterns.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/hooks-pattern"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/skills-reference.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/skills-refere"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/subagent-templates.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-code-setup/skills/claude-automation-recommender/references/subagent-temp"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/absent-is-not-zero.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/absent-is-not-zero.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/command-center.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/command-center.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/computed-figures.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/computed-figures.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/downtime-record.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/downtime-record.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/geometry-estimate.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/geometry-estimate.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/intake-form.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/intake-form.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/quality-register-record.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/quality-register-record.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/supplier-bid.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/supplier-bid.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/supplier-caused-flag.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/contracts/supplier-caused-flag.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/scheduling.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/shared/scheduling.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/breakdown-diagnosis/reference/evidence-sources.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/breakdown-diagnosis/reference/evidence-sources."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/breakdown-to-next-report/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/breakdown-to-next-report/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/custom-connector/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/custom-connector/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/customer-inquiry-intake/reference/registers.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/customer-inquiry-intake/reference/registers.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/reference/floor-schematic.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/reference/floor-schemat"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/reference/oee.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/daily-production-report/reference/oee.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/data-consolidate/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/data-consolidate/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/cad-adapter.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/cad-adapter.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/parametric-check.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/parametric-check"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/variant-generation.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/design-space-explore/reference/variant-generati"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/inspection-to-capa/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/inspection-to-capa/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/compute-engine.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/compute-engine.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/short-page.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/morning-plant-pulse/reference/short-page.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/ncr-writeup/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/ncr-writeup/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/ncr-writeup/reference/recurrence-and-escape.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/ncr-writeup/reference/recurrence-and-escape.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/onboarding/reference/time-config.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/onboarding/reference/time-config.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/quote-build/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/quote-build/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/quote-build/reference/revisions.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/quote-build/reference/revisions.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/rfq-to-quote/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/rfq-to-quote/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/8d-and-candidates.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/8d-and-candidates.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/time-alignment.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/root-cause-capa/reference/time-alignment.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/bid-comparability.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/bid-comparabil"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/bid-comparison.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/bid-comparison"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/hard-stops.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/hard-stops.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/supplier-loop.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-for-manufacturing/skills/supplier-quote-request/reference/supplier-loop."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-md-management/skills/claude-md-improver/references/templates.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-md-management/skills/claude-md-improver/references/templates.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/NOTICE.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/NOTICE.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/explore.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/explore.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-inventory.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-inventory.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-redactor.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-redactor.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-researcher.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-researcher.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-verifier.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/scan-verifier.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/business-rules-extractor.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/business-rules-extractor.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/legacy-analyst.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/legacy-analyst.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/scaffolder.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/agents/scaffolder.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-preflight.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-preflight.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-transform.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-transform.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-uplift.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/commands/modernize-uplift.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/hooks/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-modernization/hooks/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-simplifier/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/code-simplifier/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/commit-commands/commands/clean_gone.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/commit-commands/commands/clean_gone.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/csharp-lsp/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/csharp-lsp/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/cwc-makers/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/cwc-makers/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/example-plugin/commands/example-command.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/example-plugin/commands/example-command.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/example-plugin/skills/example-command/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/example-plugin/skills/example-command/SKILL.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/hookify/commands/hookify.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/hookify/commands/hookify.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/hookify/commands/list.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/hookify/commands/list.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/jdtls-lsp/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/jdtls-lsp/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/kotlin-lsp/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/kotlin-lsp/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/.claude-plugin/plugin.json",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/.claude-plugin/plugin.json'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/skills/math-olympiad/references/model_tier_defaults.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/skills/math-olympiad/references/model_tier_defaults.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/skills/math-olympiad/references/presentation_prompts.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/math-olympiad/skills/math-olympiad/references/presentation_prompts.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/mcp-server-dev/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/mcp-server-dev/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/mcp-server-dev/skills/build-mcpb/references/manifest-schema.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/mcp-server-dev/skills/build-mcpb/references/manifest-schema.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/playground/README.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/playground/README.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/plugin-dev/skills/hook-development/references/advanced.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/plugin-dev/skills/hook-development/references/advanced.md'"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/plugin-dev/skills/plugin-structure/SKILL.md",
+      "error": "429, message='Too Many Requests', url='https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/plugin-dev/skills/plugin-structure/SKILL.md'"
+    }
+  ],
   "dead": [
     {
       "url": "https://code.claude.com/docs/en/claude-tag",
@@ -33543,11 +33207,11 @@
     }
   ],
   "summary": {
-    "total": 4928,
-    "downloaded": 4607,
+    "total": 4927,
+    "downloaded": 4496,
     "skipped": 0,
-    "failed": 0,
+    "failed": 110,
     "dead": 321,
-    "success_rate": 100.0
+    "success_rate": 97.6
   }
 }

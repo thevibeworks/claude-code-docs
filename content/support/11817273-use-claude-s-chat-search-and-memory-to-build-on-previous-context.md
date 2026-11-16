@@ -282,7 +282,7 @@ When Claude searches your previous chats, you will see this reflected in your cu
 
 Yes, navigate to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout) and find the **Memory** section. Switch the toggle next to “Search and reference chats” off:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd?expires=1794834900&amp;signature=3a2db8e30f746df23e82c049c10787ba54a829da1c6df9c5478dd5cc6f237191&amp;req=dScmH859nYlXUPMW1HO4zRzXHls4IDXLJG68qZhl781CWuslLdOr8M6VaEMi%0Ac39%2BzV4A2OYq8dAy8AU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730889/3fafbf5ecaa0ae31d7d84a66229b/c25536c1-7433-4b94-a5e9-cd5acf97a4fd)
 
 ### Can I exclude a specific past chat from searches?
 
@@ -290,7 +290,7 @@ Incognito chats are available to all Claude users (Free, Pro, Max, Ultra, Team, 
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26?expires=1794834900&amp;signature=9ee902b51088b91a27cb48e237386adf737e8fa3f0edb8dc301d92897a7a1e7f&amp;req=dScmH859nYlWWvMW1HO4za54sadkP4KyXDpzhlKsgjOpA9UemJXlEksQd1q3%0AcLcd%2Fh1n4VxSXHF51uw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730893/9549b21954e0070ceb6b85231fd5/88e59234-6fc2-4229-84fe-733b33efff26)
 
 Clicking the ghost icon will open an incognito chat, creating a temporary conversation that isn’t saved to your chat history. Claude won’t pull information from incognito chats when searching previous conversations.
 
@@ -322,7 +322,7 @@ Each project has its own separate memory space and dedicated project summary, so
 
 You can toggle Claude's memory on by navigating to **Settings > Your Claude** (or **Settings > Capabilities** in the older Settings layout):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1?expires=1794834900&amp;signature=ad7bfbcf3a41501618c7bfc46849728ef47235148d37dc11c971b135a925442f&amp;req=dScmH859nYlWW%2FMW1HO4zTD5McXudOBMBq9N9dRTKYfZoctLutKQUf%2Bsd9us%0AkcduJxRVEtwuf0cS2KA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719730892/62f9f2b68d675a8e33393f06024f/89198978-192f-4c52-915d-5294b16f3fe1)
 
 If you want to disable Claude’s memory, click the toggle to see two options:
 

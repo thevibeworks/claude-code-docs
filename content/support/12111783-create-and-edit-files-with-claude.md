@@ -48,7 +48,7 @@ These capabilities make it easy to produce professional documents by simply chat
 
 To give Claude access to external data sources, toggle **Allow network egress** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png?expires=1794834900&amp;signature=ceac905c0f58f6a425e1b8bec53ffd2cfbd2e9eb12d0ec364e9b564a06630aa3&amp;req=diAiEs55mYFfXPMW1HO4zYFJyglND53HPQVowIiib2nXm8ZZQNFc72wmX8au%0Aq5yvqxE2RxewEn2FNA8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png)
 
 ### Enabling on Claude Mobile
 
@@ -66,11 +66,11 @@ Team and Enterprise organization owners can control network access settings in *
 
 - **Allow network egress to package managers and specific domains:** Claude can access package managers plus additional domains you specify. Add domains individually to whitelist specific resources your organization needs:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a?expires=1794834900&amp;signature=6697c9b01b8a53804d4d48e5607322d545d6538b687d8601c49f2f3868a4a18c&amp;req=dScvH8B6mIJZW%2FMW1HO4zXJcB2lLli1CpMW6Iph6YZdWOccJUwKWWFVJhsTb%0AH4PPqDfg8p3ShtHrf6M%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a)
 
 **All domains:** Claude has full internet access except for domains on Anthropic's legal blocklist. While this provides maximum flexibility for file creation and analysis tasks, it’s also the riskiest option. Please review the **[security considerations below](#h_0ee9d698a1)** before enabling “All domains”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28?expires=1794834900&amp;signature=d736c7f37e14ff3af07476b8dce01cdd70ed70e1962bdd09c598deca9af5ace7&amp;req=dScvH8B6mIJZWPMW1HO4zdnseRCa7TurqgKIA6CM1tqc10UVMGnDZOlfNS3d%0AdBvoFdn4MHq07ONm2fA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28)
 
 ---
 
