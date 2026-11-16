@@ -355,6 +355,8 @@ class Fetcher:
         # Collected here and reaped after the run, not deleted inline, so the
         # circuit breaker below can see the whole batch at once.
         self.soft_404_paths: List[Path] = []
+        # (repo, path) the tree lists at 0 bytes; written empty, never fetched
+        self.empty_github_files: set = set()
 
         # Legal pages whose CMS data could not be read: url -> why. Written to
         # content/legal/.parse-errors.json, not just printed. A broken parser
@@ -610,7 +612,10 @@ class Fetcher:
                 self.stats["skipped"] += 1
                 return {"url": url, "status": "skipped"}
             try:
-                content = await self.fetch_bytes(session, url)
+                if (repo, filepath) in self.empty_github_files:
+                    content = b""
+                else:
+                    content = await self.fetch_bytes(session, url)
                 if filepath.endswith(".md") and looks_like_html(content):
                     self.stats["failed"] += 1
                     return {
@@ -860,16 +865,18 @@ class Fetcher:
         for item in data.get("tree", []):
             if item["type"] != "blob":
                 continue
-            # An empty file has nothing to archive, and raw.githubusercontent
-            # answers about half the requests for one with an error aiohttp
-            # rejects ("501 ... Transfer-Encoding not supported"): the 0-byte
-            # anthropic-sdk-typescript packages/aws-sdk/README.md flipped
-            # `failures` between 0 and 1 on most runs, keeping
-            # .metadata.json dirty on its own.
-            if item.get("size") == 0:
-                continue
             if any(item["path"].endswith(ext) for ext in extensions):
                 files.append(item["path"])
+                # raw.githubusercontent answers about half the requests for a
+                # 0-byte file with an error aiohttp rejects ("501 ...
+                # Transfer-Encoding not supported"): the empty
+                # anthropic-sdk-typescript packages/aws-sdk/README.md flipped
+                # `failures` between 0 and 1 on most runs. The tree already says
+                # what such a file holds, so it is written empty without a
+                # request. Skipping it instead (#1470) would have kept a stale
+                # copy forever once upstream emptied a file.
+                if item.get("size") == 0:
+                    self.empty_github_files.add((repo, item["path"]))
         return files
 
     # -- Meta fetchers -----------------------------------------------------
