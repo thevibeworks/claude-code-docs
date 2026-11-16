@@ -17,7 +17,7 @@ Welcome to Anthropic! Before accessing our Services, please read these Commercia
 
 These Commercial Terms of Service (“Terms”) are an agreement between Anthropic and you or the organization, company, or other entity that you represent (“Customer”). “Anthropic” means Anthropic Ireland, Limited if Customer resides in the European Economic Area (“EEA”), Switzerland or UK, and Anthropic, PBC if Customer resides anywhere else. They govern Customer’s use of Anthropic API keys and any other Anthropic offerings that references these Terms, as well as all related Anthropic tools, documentation and services (the “Services”). These Terms are effective on the earlier of the date that Customer first electronically consents to a version of these Terms and the date that Customer first accesses the Services (“Effective Date”).
 
-Please note: You may not enter into these Terms on behalf of an organization, company, or other entity unless you have the legal authority to bind that entity. Services under these Terms are not for consumer use. Our consumer offerings (e.g., Claude.ai) are governed by our Consumer Terms of Service instead.
+Please note: You may not enter into these Terms on behalf of an organization, company, or other entity unless you have the legal authority to bind that entity. Services under these Terms are not for consumer use. Our consumer offerings (e.g., Claude.ai) are governed by our [Consumer Terms of Service](https://www.anthropic.com/legal/terms) instead.
 
 ### A. Services
 
@@ -33,13 +33,13 @@ As between the parties and to the extent permitted by applicable law, Anthropic 
 
 ### C. Data Privacy
 
-Data submitted through the Services will be processed in accordance with the Anthropic Data Processing Addendum (“DPA”), which is incorporated into these Terms by reference.
+Data submitted through the Services will be processed in accordance with the [Anthropic Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum) (“DPA”), which is incorporated into these Terms by reference.
 
 ### D. Trust and Safety; Restrictions
 
 D.1. Compliance. Each party will comply with all laws applicable to the provision (for Anthropic) and use (for Customer) of the Services, including any applicable data privacy laws.
 
-D.2. Policies and Service Terms. Customer and its Users may only use the Services in compliance with these Terms, including (a) the Usage Policy (“Usage Policy”, which was previously referred to as the Acceptable Use Policy), (b) our policy on the countries and regions Anthropic currently supports (“Supported Regions Policy”) and (c) our Service Specific Terms, each of which is incorporated by reference into these Terms. Customer must cooperate with reasonable requests for information from Anthropic to support compliance with its Usage Policy, including to verify Customer’s identity and use of the Services.
+D.2. Policies and Service Terms. Customer and its Users may only use the Services in compliance with these Terms, including (a) the [Usage Policy](https://console.anthropic.com/legal/aup) (“Usage Policy”, which was previously referred to as the Acceptable Use Policy), (b) our policy on the [countries and regions Anthropic currently supports](https://www.anthropic.com/supported-countries) (“Supported Regions Policy”) and (c) our [Service Specific Terms](https://www.anthropic.com/legal/service-specific-terms), each of which is incorporated by reference into these Terms. Customer must cooperate with reasonable requests for information from Anthropic to support compliance with its Usage Policy, including to verify Customer’s identity and use of the Services.
 
 D.3. Limitations of Outputs; Notice to Users. It is Customer’s responsibility to evaluate whether Outputs are appropriate for Customer’s use case, including where human review is appropriate, before using or sharing Outputs. Customer acknowledges, and must notify its Users, that factual assertions in Outputs should not be relied upon without independently checking their accuracy, as they may be false, incomplete, misleading or not reflective of recent events or information. Customer further acknowledges that Outputs may contain content inconsistent with Anthropic’s views.
 
@@ -63,11 +63,11 @@ Except as expressly stated in these Terms, these Terms do not grant either party
 
 ### G. Publicity
 
-Anthropic may use Customer’s name and logo to publicly identify Customer as a customer of the Services; provided that Customer may opt-out via this request form. Customer will consider in good faith any request by Anthropic to (1) provide a quote from a Customer executive regarding Customer’s motivation for using the Services that Anthropic may use publicly and (2) participate in a public co-marketing activity.
+Anthropic may use Customer’s name and logo to publicly identify Customer as a customer of the Services; provided that Customer may opt-out via [this request form](https://ea4l3.share.hsforms.com/2SPy6FrbrRAGnV6R81qaHnA). Customer will consider in good faith any request by Anthropic to (1) provide a quote from a Customer executive regarding Customer’s motivation for using the Services that Anthropic may use publicly and (2) participate in a public co-marketing activity.
 
 ### H. Fees
 
-H.1. Payment of Fees. Customer is responsible for fees incurred by its account, at the rates specified on the Model Pricing Page, unless otherwise agreed by the parties. Anthropic may require prepayment for the Services in the form of credits or offer other types of credits, all of which are subject to Anthropic’s Supplemental Credits Terms. Anthropic may update the published rates, to be effective the earlier of 30 days after the updates are posted by Anthropic or Customer otherwise receives Notice.
+H.1. Payment of Fees. Customer is responsible for fees incurred by its account, at the rates specified on the [Model Pricing Page](https://www.anthropic.com/pricing), unless otherwise agreed by the parties. Anthropic may require prepayment for the Services in the form of credits or offer other types of credits, all of which are subject to Anthropic’s [Supplemental Credits Terms](https://www.anthropic.com/legal/credit-terms). Anthropic may update the published rates, to be effective the earlier of 30 days after the updates are posted by Anthropic or Customer otherwise receives Notice.
 
 H.2. Taxes. Fees do not include any taxes, duties, or assessments that may be owed by Customer for use of the Services ("Taxes"), unless otherwise specified in the applicable invoice. Customer is responsible for remitting any necessary withholding Taxes to the relevant authority on a timely basis and providing Anthropic with evidence of the same upon request. Where law provides for the reduction or elimination of withholding taxes, including via tax treaty, the parties will collaborate in good faith to do so. For clarity, Customer must pay Anthropic the amount ("Gross-up Payment") that will ensure that Anthropic receives the same total amount that it would have received if no such withholding or reduction by Customer had been required (taking into account any and all applicable Taxes (including any Taxes imposed on the Gross-up Payment)).
 
@@ -155,7 +155,7 @@ M.7.b. Any suits, actions, or proceedings related to these Terms that are not re
 
 M.8. Export and Sanctions. Customer may not export or provide access to the Services to persons or entities or into countries or for uses where it is prohibited under U.S. or other applicable international law. Without limiting the foregoing sentence, this restriction applies (a) to countries where export from the US or into such country would be prohibited or illegal without first obtaining the appropriate license, and (b) to persons, entities, or countries covered by U.S. sanctions.
 
-M.9. Integration. These Terms (including the Usage Policy, Supported Regions Policy, Service Specific Terms, DPA, Model Pricing Page and other documents or terms that are incorporated by reference by these Terms) constitute the parties’ entire understanding as to the Services’ provision and use. These Terms supersede all other understandings or agreements between the parties regarding the Services.
+M.9. Integration. These Terms (including the [Usage Policy](https://console.anthropic.com/legal/aup), [Supported Regions Policy](https://www.anthropic.com/supported-countries), [Service Specific Terms](https://www.anthropic.com/legal/service-specific-terms), [DPA](https://www.anthropic.com/legal/data-processing-addendum), [Model Pricing Page](https://anthropic.com/pricing) and other documents or terms that are incorporated by reference by these Terms) constitute the parties’ entire understanding as to the Services’ provision and use. These Terms supersede all other understandings or agreements between the parties regarding the Services.
 
 M.10. Force Majeure. Neither party will be liable for failure or delay in performance to the extent caused by circumstances beyond its reasonable control.
 

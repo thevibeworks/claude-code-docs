@@ -159,6 +159,9 @@ jobs:
               account limits, data and training use, countries added or removed,
               credit expiry. Do not trust the effective date alone: Anthropic
               backfills old versions (see `content/legal/README.md`).
+              If `content/legal/.parse-errors.json` appeared, the legal parser
+              broke and those pages are stale: say so in the title. If it
+              disappeared, the parser recovered.
             - ANY deleted files (`git status` shows `D`). The fetcher reaps
               pages that died upstream. A page disappearing is a real editorial
               event and a human should see it, so deletions are never `minor`

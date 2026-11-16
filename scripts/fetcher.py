@@ -182,6 +182,33 @@ def find_objects(s: str, key: str) -> List[dict]:
     return out
 
 
+def inline_text(block: dict) -> str:
+    """A block's spans, with link targets kept as [text](href).
+
+    The target is part of the document: a policy that starts pointing at a
+    different page has changed even when no word did. Bold and italic marks
+    are dropped on purpose; they do not change what a clause says, and
+    toggling them would only add noise to the diffs.
+    """
+    links = {d.get("_key"): d.get("href") for d in block.get("markDefs") or []
+             if d.get("_type") == "link" and d.get("href")}
+    out, run, run_key = [], [], None
+
+    def flush():
+        text = "".join(run)
+        out.append(f"[{text}]({links[run_key]})" if run_key and text else text)
+
+    # Neighbouring spans that share one link (part of it bold, say) are one link.
+    for ch in block.get("children") or []:
+        key = next((m for m in ch.get("marks") or [] if m in links), None)
+        if key != run_key:
+            flush()
+            run, run_key = [], key
+        run.append(ch.get("text", ""))
+    flush()
+    return "".join(out)
+
+
 def portable_text(blocks) -> str:
     """Render Sanity portable text as markdown. Unknown types stay visible."""
     lines = []
@@ -209,7 +236,7 @@ def portable_text(blocks) -> str:
             # Printed, not dropped: a new block type must show up in a diff.
             lines.append(f"[unrendered {t}]")
             continue
-        text = "".join(ch.get("text", "") for ch in b.get("children", []))
+        text = inline_text(b)
         style = b.get("style", "normal")
         if b.get("listItem"):
             bullet = "* " if b["listItem"] == "bullet" else "1. "
@@ -313,6 +340,13 @@ class Fetcher:
         # Collected here and reaped after the run, not deleted inline, so the
         # circuit breaker below can see the whole batch at once.
         self.soft_404_paths: List[Path] = []
+
+        # Legal pages whose CMS data could not be read: url -> why. Written to
+        # content/legal/.parse-errors.json, not just printed. A broken parser
+        # otherwise changes nothing but .metadata.json, the night shift calls
+        # that minor and self-merges it, and the legal archive goes stale with
+        # every run green. (Codex review of #1466.)
+        self.legal_errors: Dict[str, str] = {}
 
         # URLs already confirmed gone upstream, with the date we confirmed it.
         # Without this every dead page fails on every run forever: 123 permanent
@@ -610,6 +644,19 @@ class Fetcher:
         dead = url in self.dead_now and url in self.tombstones
         return {"url": url, "status": "dead" if dead else "failed", "error": error}
 
+    def _legal_broken(self, url: str, error: str) -> Dict:
+        """A page we reached but could not read: a format change, not an outage."""
+        self.legal_errors[url] = error
+        print(f"::error::{url}: {error}", file=sys.stderr)
+        return self._legal_fail(url, error)
+
+    def _legal_skip(self, path: Path, url: str) -> Optional[Dict]:
+        """--incremental: keep a file we already hold, like the other downloaders."""
+        if not (self.incremental and path.exists()):
+            return None
+        self.stats["skipped"] += 1
+        return {"url": url, "status": "skipped"}
+
     async def _legal_get(self, session, url: str, sem):
         """GET one legal page. Returns (html, None) or (None, failure result)."""
         async with sem:
@@ -632,6 +679,9 @@ class Fetcher:
         return html, None
 
     async def _write_legal(self, path: Path, url: str, text: str) -> Dict:
+        skipped = self._legal_skip(path, url)
+        if skipped:
+            return skipped
         data = text.encode("utf-8")
         path.parent.mkdir(parents=True, exist_ok=True)
         async with aiofiles.open(path, "wb") as f:
@@ -660,22 +710,25 @@ class Fetcher:
         try:
             page = parse_legal_page(html)
         except ValueError as e:
-            print(f"::error::{url}: {e}", file=sys.stderr)
-            return [self._legal_fail(url, str(e))]
+            return [self._legal_broken(url, str(e))]
 
         history = page["history"]
         latest = next((v for v in history if v.get("isLatest")), None)
         if latest is None or latest["effectiveDate"] != page["effective"]:
             msg = (f"page shows version effective {page['effective']}, "
                    f"but versionHistory marks no such version latest")
-            print(f"::error::{url}: {msg}", file=sys.stderr)
-            return [self._legal_fail(url, msg)]
+            return [self._legal_broken(url, msg)]
 
         names = legal_version_names(history)
         folder = self.output_dir / "legal" / slug
         results = []
         for v in history:
             archive = f"{LEGAL_BASE}/archive/{v['_id']}"
+            target = folder / f"{names[v['_id']]}.md"
+            skipped = self._legal_skip(target, archive)
+            if skipped:
+                results.append(skipped)
+                continue
             if v["_id"] == latest["_id"]:
                 title, body, pdf = page["title"], page["body"], page["pdf"]
             else:
@@ -686,18 +739,17 @@ class Fetcher:
                 try:
                     old = parse_legal_page(old_html)
                 except ValueError as e:
-                    results.append(self._legal_fail(archive, str(e)))
+                    results.append(self._legal_broken(archive, str(e)))
                     continue
                 if old["effective"] != v["effectiveDate"]:
-                    results.append(self._legal_fail(
+                    results.append(self._legal_broken(
                         archive, f"archive serves {old['effective']}, "
                                  f"versionHistory says {v['effectiveDate']}"))
                     continue
                 title, body = old["title"], old["body"]
                 pdf = v.get("pdfUrl") or old["pdf"]
             results.append(await self._write_legal(
-                folder / f"{names[v['_id']]}.md", archive,
-                render_legal(title, url, v, body, pdf)))
+                target, archive, render_legal(title, url, v, body, pdf)))
 
         # A version we hold that the page no longer lists. Real text, maybe the
         # only copy left, so it is kept and tombstoned, never reaped.
@@ -730,7 +782,32 @@ class Fetcher:
         nested = await tqdm_asyncio.gather(
             *(self.download_legal(session, u, sem) for u in urls),
             desc="Legal", unit="doc")
+        self._write_legal_errors()
         return [r for rs in nested for r in rs]
+
+    def _write_legal_errors(self):
+        """Rule 5 for the parser: a failure only counts once it is a file.
+
+        The file exists only while something is broken, and holds no dates, so
+        it appears the run the parser breaks, stays put while it stays broken,
+        and disappears the run it recovers. Each of those is one diff under
+        content/legal/, which the night shift treats as high signal.
+        Network errors are left out: they say nothing about the format.
+        """
+        path = self.output_dir / "legal" / ".parse-errors.json"
+        if not self.legal_errors:
+            path.unlink(missing_ok=True)
+            return
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps({
+            "note": ("Legal pages the fetcher reached but could not read. The "
+                     "page format probably changed: fix parse_legal_page in "
+                     "scripts/fetcher.py. The files under content/legal/ for "
+                     "these pages are stale until then."),
+            "errors": dict(sorted(self.legal_errors.items())),
+        }, indent=2) + "\n")
+        print(f"\n::error::{len(self.legal_errors)} legal page(s) could not be "
+              f"parsed; see {path}")
 
     # -- GitHub repo listing -----------------------------------------------
 

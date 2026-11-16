@@ -13,11 +13,11 @@ pdf: https://assets.claude.com/baadf203001a6976ba854062110e8b6ab5eed0c3.pdf
 
 Effective 2026-08-31
 
-These Service Specific Terms (“Service Specific Terms”) contain supplemental terms that apply to specific Services and form part of the agreement you or the organization, company, or other entity that you represent (“Customer”) have with Anthropic for such Services that links to or otherwise references these Service Specific Terms, such as the Commercial Terms of Service (“Agreement”). Any capitalized terms not defined in these Service Specific Terms will have the definitions stated in the Agreement. In the event of any conflict between the Terms and these Service Specific Terms, these Service Specific Terms control for the relevant Services.
+These Service Specific Terms (“Service Specific Terms”) contain supplemental terms that apply to specific Services and form part of the agreement you or the organization, company, or other entity that you represent (“Customer”) have with Anthropic for such Services that links to or otherwise references these Service Specific Terms, such as the [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) (“Agreement”). Any capitalized terms not defined in these Service Specific Terms will have the definitions stated in the Agreement. In the event of any conflict between the Terms and these Service Specific Terms, these Service Specific Terms control for the relevant Services.
 
 ### A. Claude for Work (Team Plan; Enterprise Plan)
 
-Customer must inform its Users that (i) they are accessing an administered service offering that enables Customer’s access to and control over data submitted to the Services by Customer and its Users, and (ii) use of the Services is subject to Anthropic’s policies, including the Privacy Policy and Usage Policy. Customer is responsible for obtaining any necessary User consents and providing all User notices required by applicable law.
+Customer must inform its Users that (i) they are accessing an administered service offering that enables Customer’s access to and control over data submitted to the Services by Customer and its Users, and (ii) use of the Services is subject to Anthropic’s policies, including the [Privacy Policy](https://www.anthropic.com/legal/privacy) and [Usage Policy](https://console.anthropic.com/legal/aup). Customer is responsible for obtaining any necessary User consents and providing all User notices required by applicable law.
 
 ### B. Beta Services
 
@@ -45,7 +45,7 @@ Anthropic may designate certain models available through the Services as “Cove
 
 1. Customer agrees that Anthropic may retain and perform safety reviews on Inputs, Outputs, and other data regarding Customer’s use of the Covered Models. For clarity, this supersedes any modified retention commitments (e.g., ZDR) provided by Anthropic that may otherwise apply to Customer’s use of the Services.
 
-1. For Inputs, Outputs, and other data regarding Customer’s use of the Covered Models via a Cloud Platform, Anthropic will process such data on Customer's behalf in accordance with the Anthropic Data Processing Agreement (or other applicable data processing agreement between the parties) consistent with the terms governing the processing of Customer Data. Customer will affirm the same to the relevant Marketplace Provider.
+1. For Inputs, Outputs, and other data regarding Customer’s use of the Covered Models via a Cloud Platform, Anthropic will process such data on Customer's behalf in accordance with the [Anthropic Data Processing Agreement](https://www.anthropic.com/legal/data-processing-addendum) (or other applicable data processing agreement between the parties) consistent with the terms governing the processing of Customer Data. Customer will affirm the same to the relevant Marketplace Provider.
 
 ### G. Trusted Access and Verification Programs
 

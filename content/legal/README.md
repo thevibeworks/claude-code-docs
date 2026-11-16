@@ -14,6 +14,12 @@ does not touch it.
 A version that disappears from the list is kept and recorded in
 `tombstones.json` ("dropped from versionHistory"). It is never deleted.
 
+`.parse-errors.json` exists only while the fetcher can reach a page but not
+read its CMS data, which means the page format changed. The files of the pages
+it lists are stale until `parse_legal_page` in `scripts/fetcher.py` is fixed.
+
+Link targets are kept as `[text](url)`. Bold and italic are not.
+
 ## The version list is Anthropic's account, not a record
 
 The fetcher refetches old versions on every run, because Anthropic does rewrite

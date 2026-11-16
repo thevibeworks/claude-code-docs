@@ -34,7 +34,7 @@ A.8. "Standard Contractual Clauses" or “SCCs” means Module Two (controller t
 
 A.9. "Subprocessor" means an entity engaged by Anthropic to process Customer Personal Data.
 
-A.10. “UK Addendum” means the International Data Transfer Addendum to the SCCs, issued by the Information Commissioner under S119A(1) Data Protection Act 2018, available at https://ico.org.uk/media2/migrated/4019538/international-data-transfer-agreement.pdf).
+A.10. “UK Addendum” means the International Data Transfer Addendum to the SCCs, issued by the Information Commissioner under S119A(1) Data Protection Act 2018, available at [https://ico.org.uk/media2/migrated/4019538/international-data-transfer-agreement.pdf](https://ico.org.uk/media2/migrated/4019538/international-data-transfer-agreement.pdf)).
 
 A.11. The terms “personal data”, “data subject”, “processing”, “controller”, and “processor” as used in this DPA have the meanings given by Applicable Data Protection Laws or, absent any such meaning or law, by GDPR.
 
@@ -84,7 +84,7 @@ E.2. The parties agree that the measures set out in Schedule 2 provide an approp
 
 ### F. Compliance and Audits
 
-F.1. Anthropic is audited annually against known, established industry standards performed by external auditors. Upon Customer’s written request, and subject to the confidentiality obligations set forth in the Agreement, Anthropic will provide Customer with such audit reports or certificates applicable to the Services (e.g., SOC 2 report), to the extent available, or such other information reasonably necessary to demonstrate compliance with this DPA. Anthropic’s current certifications are available for Customer’s review at trust.anthropic.com.
+F.1. Anthropic is audited annually against known, established industry standards performed by external auditors. Upon Customer’s written request, and subject to the confidentiality obligations set forth in the Agreement, Anthropic will provide Customer with such audit reports or certificates applicable to the Services (e.g., SOC 2 report), to the extent available, or such other information reasonably necessary to demonstrate compliance with this DPA. Anthropic’s current certifications are available for Customer’s review at [trust.anthropic.com](http://trust.anthropic.com).
 
 F.2. Upon Customer’s written request, Anthropic will permit Customer, at Customer’s expense, to audit Anthropic’s applicable controls and compliance with this DPA (an “Audit”), provided such Audit is (a) conducted by Customer or a third-party auditor designated by Customer that has executed an appropriate confidentiality agreement with Anthropic, (b) Customer and Anthropic mutually agree on reasonable details of the Audit, including the start date, scope and duration of, and security and confidentiality controls applicable to such audit, and (c) a similar Audit has not already been conducted less than twelve (12) months prior, unless there are indications of non-compliance and/or it is required by a supervisory authority or other regulatory authority responsible for the enforcement of Applicable Data Protection Laws.
 
@@ -156,7 +156,7 @@ Where the data exporter is not established in an EU Member State, but falls with
 
 Schedule 2 - Technical and Organizational Measures
 
-Anthropic has implemented and will maintain technical and organizational measures designed in accordance with industry standard practices to protect the security, confidentiality, and integrity of the Customer Data, as set out below. Anthropic may review and update these measures from time to time, provided that any such update will not materially diminish the overall security of the Customer Data during the term of the Agreement. Additional information about Anthropic’s information security program can be found at https://trust.anthropic.com.
+Anthropic has implemented and will maintain technical and organizational measures designed in accordance with industry standard practices to protect the security, confidentiality, and integrity of the Customer Data, as set out below. Anthropic may review and update these measures from time to time, provided that any such update will not materially diminish the overall security of the Customer Data during the term of the Agreement. Additional information about Anthropic’s information security program can be found at [https://trust.anthropic.com](https://trust.anthropic.com).
 
 ### A. Security Program and Policies
 
@@ -240,7 +240,7 @@ D.1. Anthropic defines audit and risk assessment procedures for the purposes of:
 
 D.2. Anthropic’s information security program is assessed annually by independent third-party auditors and reports from such annual assessments are made available to Anthropic’s customers.
 
-D.3. To request access to any of our reports and certifications, please go to https://trust.anthropic.com.
+D.3. To request access to any of our reports and certifications, please go to [https://trust.anthropic.com.](https://trust.anthropic.com)
 
 ### E. Encryption Standards
 
@@ -378,7 +378,7 @@ Customer warrants that it and/or Customer Affiliates have made any notifications
 
 ### Schedule 4 - Subprocessors
 
-Anthropic’s list of subprocessors is available at https://www.anthropic.com/subprocessors.
+Anthropic’s list of subprocessors is available at [https://www.anthropic.com/subprocessors](https://www.anthropic.com/subprocessors).
 
 
 
