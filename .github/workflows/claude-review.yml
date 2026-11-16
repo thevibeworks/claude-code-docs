@@ -66,7 +66,11 @@ jobs:
         id: claude-review
         if: |
           !contains(github.event.pull_request.title, '[skip-review]') &&
-          !contains(github.event.pull_request.title, '[WIP]')
+          !contains(github.event.pull_request.title, '[WIP]') &&
+          !endsWith(github.event.pull_request.title, '(minor)')
+        # `(minor)` PRs are self-merged by Publish seconds after they open, so
+        # a review of one reviews a merged PR (about $0.10 of Opus each, #1462
+        # and #1463).
         # This action's headless SDK mode does NOT honor the .claude/settings.json
         # permission allowlist (proven across 5 fetch-workflow runs, July 2026):
         # gh pr merge, Write, mkdir were all denied despite matching rules. The
