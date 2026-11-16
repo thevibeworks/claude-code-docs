@@ -18,7 +18,7 @@ Claude can show current weather conditions and forecasts when you ask about the 
 
 Claude automatically displays temperatures in Fahrenheit for US locations and Celsius for everywhere else.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544927/3a9c695b24df387ecdd766ad308c/8be9f393-dcb0-4ff8-89e8-5fa47bedaa38?expires=1794834900&amp;signature=165b4478e6bf771dd412e9f22460d30c230bdb22b21d185c11ca8a1b4421bfab&amp;req=diAjFsx6mYhdXvMW1HO4zXlB7Dqy1hyBdgndksVD5R0Cw%2BExRR%2FdiN60WR%2Fe%0AhwC2iL50C%2BqRUu6Y%2BQk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544927/3a9c695b24df387ecdd766ad308c/8be9f393-dcb0-4ff8-89e8-5fa47bedaa38)
 
 Weather is powered by Google Maps (<https://policies.google.com/privacy>).
 
@@ -28,7 +28,7 @@ When you ask about recipes, Claude can display formatted recipe cards that are e
 
 **Note:** Visual recipe cards are available on web and desktop only. On mobile, Claude provides recipe information as text in the conversation.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544929/12f4c51eda7779d65d3ea2c7ab16/d0f4a314-cff8-421a-b401-10c2bf50374e?expires=1794834900&amp;signature=b8e6d0812b669a216218b68efce4d45dac86ae98cf26fd7cb2fed3af31deec65&amp;req=diAjFsx6mYhdUPMW1HO4zUQperQd0VCerIPm%2FImZVg20lJbBgc%2FpnBUn3uqI%0Af6pkenEPxOXxbV%2BSnvc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544929/12f4c51eda7779d65d3ea2c7ab16/d0f4a314-cff8-421a-b401-10c2bf50374e)
 
 ### Custom visuals
 
@@ -76,7 +76,7 @@ For example, if you ask Claude to help you plan a trip, it might ask you to:
 
 This content appears at the bottom of the chat. You can still type a response if you prefer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544930/9ad066e137d11e4b559b0217e12d/9bf30d2d-1715-42b3-9da5-2a9298f41f08?expires=1794834900&amp;signature=7347147a3fb7b330f6782d02404af6bff236ae0f7bb877b6996d9b0c27881b88&amp;req=diAjFsx6mYhcWfMW1HO4zWmF5vG2ahqrx4wz0C7CTAIOmD2jFHQCrOtNBTY4%0AdUsv5AHb3lKDdNaU49A%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544930/9ad066e137d11e4b559b0217e12d/9bf30d2d-1715-42b3-9da5-2a9298f41f08)
 
 ---
 

@@ -32,7 +32,7 @@ You'll need:
 
 - **Your provider determines who processes your data.** On Amazon Bedrock and Google Cloud, the cloud provider processes conversation data in the region or routing option you choose, and the app **[doesn't send user data, prompts, or completions to Anthropic](https://claude.com/docs/third-party/claude-desktop/overview)**. On Microsoft Foundry, **[Anthropic operates the Claude models](https://claude.com/docs/third-party/claude-desktop/foundry)** as an independent processor for Microsoft. Some models add their own data retention and data sharing requirements. See **Compare cloud providers**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2806511265/bf14805691a94c651943902ed7ad/CleanShot+2026-11-12+at+2_43_29+PM.png?expires=1794834900&amp;signature=db5a85a8e1ed017692c98824b7c08d0b0660a913d088801aa1c2b29752715597&amp;req=dignEMx%2FnINZXPMW1HO4zUslpEBP4XIxwA0QijyN3qqqjk%2FgZcuZA1qbaY9r%0AXKm2GdbNEHjFGaVoWcg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2806511265/bf14805691a94c651943902ed7ad/CleanShot+2026-11-12+at+2_43_29+PM.png)
 
 You can run Claude Enterprise and Claude Desktop on 3P side by side during the move. Claude Desktop on 3P keeps its application data in a separate directory, **[so the two can coexist on one computer](https://claude.com/docs/third-party/claude-desktop/data-storage)**. They share a few folders, such as `~/Claude/` and `~/.claude/`. If you need to go back later, see **[Migrate Claude Desktop from a cloud provider to Claude Enterprise](https://claude.com/docs/third-party/claude-desktop/move-to-claude-enterprise)**.
 
