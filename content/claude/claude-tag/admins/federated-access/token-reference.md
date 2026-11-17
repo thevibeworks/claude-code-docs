@@ -14,6 +14,8 @@ When Claude calls a system you connected through Federated agent access, it prov
 
 This page lists what the token contains so the engineer who configures the verifying side can pin the right values. For setup steps, see [Connect a gateway](https://claude.com/docs/claude-tag/admins/federated-access/connect-a-gateway.md), [Connect an AWS role](https://claude.com/docs/claude-tag/admins/federated-access/aws.md), [Connect a Google Cloud identity](https://claude.com/docs/claude-tag/admins/federated-access/gcp.md), or [Connect an authorization server](https://claude.com/docs/claude-tag/admins/federated-access/authorization-server.md).
 
+The token is based on the [Workload Authorization Grant](https://datatracker.ietf.org/doc/draft-carleton-workload-authz-grant/), an Internet-Draft that is a work in progress. Where the draft and this page differ, configure your verifier from this page, and always [check the subject](#authorize-on-the-subject), because one issuer serves every Claude Tag organization.
+
 ## Issuer and signing keys
 
 | Item | Value |

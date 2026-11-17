@@ -68,7 +68,7 @@ Your district's admins can also delete any member's data through the Compliance 
 
 When you verify, your account moves onto a Claude for Teachers plan—a free Claude for Teams plan for verified educators. It comes with educator-specific terms and a data processing agreement, your chats and files aren't used to train our models, and student-data protections are built in. Your usage limits are higher than a standard free account—enough for everyday classroom work like lesson planning, quizzes, and parent communication.
 
-Some Team plan features are turned off for Claude for Teachers. You won't see billing and seat purchasing, **[member invitations and management](https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans)**, roles and permissions, SSO and domain capture, spend controls, usage credits, or premium seats. For questions, **[reach out to our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+Some Team plan features are turned off for Claude for Teachers. You won't see billing and seat purchasing, **[member invitations and management](https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans)**, roles and permissions, SSO and domain capture, or premium seats. For questions, **[reach out to our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
 
 ### School and district organizations
 

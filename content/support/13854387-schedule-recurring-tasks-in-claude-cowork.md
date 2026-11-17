@@ -36,7 +36,7 @@ Each scheduled task runs as its own Cowork session. You can review the results w
 
 Scheduled tasks run remotely, so they run on their cadence even when your computer is asleep or the Claude Desktop app is closed. Review upcoming and past runs by clicking "Scheduled" in the left sidebar on any surface.
 
-**Note:** Scheduled tasks use the built-in schedule options and work with your connectors and the files saved to your Claude account. On Pro, Max, and Ultra plans, scheduled tasks you created before October 6 that run on your computer keep running there.
+**Note:** Scheduled tasks use the built-in schedule options and work with your connectors and the files saved to your Claude account. On Pro, Max, and Ultra plans, and on Team and Enterprise plans with Cowork in the cloud turned on, scheduled tasks you created on your computer move to the cloud automatically.
 
 For Team and Enterprise organizations, admins control Cowork access through the admin toggle. For more details, see **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879)**.
 
@@ -94,7 +94,7 @@ There are two ways to create a scheduled task in Cowork:
 
   6. Which folder Claude should work in (optional)
 
-    1. **Note:** If a scheduled task requires local files or apps, it will only run locally.
+    1. **Note:** If you pick a folder, **Require this computer** turns on, and the task runs only while your computer is awake and Claude Desktop is open. The **Require this computer** option is only offered to organizations with Computer access turned on.
 
 4. Click “Save” to add a new task to the **Scheduled tasks** page.
 

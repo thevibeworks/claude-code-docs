@@ -500,12 +500,18 @@ confirm, Claude reads your recent sent mail once and writes a style guide, so
 the draft matches your sentence length and formality register. Claude does
 not read your sent mail to write the guide at any other time. It can still
 read sent messages for other tasks, such as drafting a reply. To update the
-guide, select the button again. To delete the style guide, Claude's
+guide, select the button again, edit it in Settings, or tell Claude in chat how
+drafts should sound. Claude shows you the change to the guide in a card and
+saves it only if you allow it. Claude suggests such changes while "Let Claude
+suggest improvements" is on under Instructions in Settings. To delete the style
+guide, Claude's
 scratchpad, and what Claude learned from your edits on this device, select
 "Delete what Claude
-has learned about my writing" under Writing style in Settings. Claude leaves
-the closing off so Outlook can append your configured signature without
-duplication.
+has learned about my writing" under Writing style in Settings. Claude usually
+ends a draft with your sign-off from the guide, or, with no guide or one that
+doesn't say, a short closing and your first name, even if Outlook adds your
+signature below it. If the guide says you don't sign off, Claude adds none. To
+change how drafts end, tell Claude.
 Claude chooses reply versus reply-all deliberately and warns before adding
 anyone who was not on the thread.
 

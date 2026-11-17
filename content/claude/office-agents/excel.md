@@ -233,8 +233,13 @@ context in recently closed workbooks.
 Chat history is stored locally in your browser using IndexedDB. It is
 not synced across devices and can be cleared from Settings at any time.
 Reinstalling the add-in or switching between Claude add-ins does not
-remove it. See [Data storage and retention](https://claude.com/docs/office-agents/data-storage.md)
-for where it sits on disk and how long it is kept.
+remove it. When you open the Claude pane in a workbook you have used it
+in before, it reopens your most recent conversation in that workbook and
+shows a notice saying so; select New chat to start a fresh one. In a copy
+of the workbook, or the same workbook under another name or folder, the pane
+offers that conversation instead; select Continue to reopen it. See
+[Data storage and retention](https://claude.com/docs/office-agents/data-storage.md) for where it
+sits on disk and how long it is kept.
 
 When you sign in with a Claude account, the add-in sends your
 conversations to Anthropic, including the content Claude reads from your
