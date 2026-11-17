@@ -135,17 +135,17 @@ Beyond guiding users toward the right model, you can set the model that new conv
 
 You have two options:
 
-- **Anthropic recommended** — automatically updates as new models ship, so your org always starts on our current recommended general-purpose model with no manual upkeep.
+- **Anthropic recommended** — automatically updates as new models ship, so your org always starts on our current recommended model for each product with no manual upkeep. Today, that's Sonnet in chat and the unified Claude experience, and Opus in Claude Code and Claude Cowork.
 
 - **Choose your own** — sets a specific model as the org default and holds it there until you change it. Use this when you want to standardize on a known model for consumption predictability (for example, defaulting to Opus and giving Fable to the roles that do the hardest work).
 
-This setting applies to new conversations in chat, Claude Cowork, Claude Code (CLI 2.1.199 or later), and Claude for Microsoft 365. If the selected model isn't available in a product, Anthropic's recommended default is used. If you also pin a model for Claude Code through managed settings, that setting takes precedence for the CLI and IDE. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
+This setting applies to new conversations in chat, Claude Cowork, the unified Claude experience, Claude Code (CLI 2.1.199 or later), and Claude for Microsoft 365. If the selected model isn't available in a product, Anthropic's recommended default is used. If you also pin a model for Claude Code through managed settings, that setting takes precedence for the CLI and IDE. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
 **Sticky defaults - always start with the default model and effort level.** By default, the model picker is sticky: new conversations start on whatever model a member last used. To change that, turn on **Always start with the default model and effort level** in **Organization settings > Models**. Every new conversation then starts on the org's default model and default effort level. Members can still change both within a conversation.
 
 Sticky defaults upgrade automatically. When a launch changes the default model, the sticky model moves to the new default, so no one is left on an older model. Roles that set their own default model have the same switch in the role editor. It works in chat, Claude Cowork, Claude Code, Claude for Microsoft 365, Claude Design, and Claude Science. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
-To follow the recommended configuration above, set defaults by role through Custom Roles. For example, you might make Claude Opus the org default and Claude Fable the default for your research and analysis roles. This builds on the RBAC groups you've already set up (see **Role-based access controls** above).
+You can also set defaults by role through Custom Roles. For example, you might make Claude Opus the org default and Claude Fable the default for your research and analysis roles. This builds on the RBAC groups you've already set up (see **Role-based access controls** above).
 
 **How to configure:** **Organization settings > Models** for the org default. For role defaults, go to **Organization settings > Roles > select a role > Models tab**.
 
@@ -175,15 +175,15 @@ Model access and effort restrictions are enforced across most Claude products, i
 
 - If you have high-volume, low-complexity workflows (e.g., summarizing support tickets, generating first-draft emails), evaluate whether Haiku is a better fit—it can significantly reduce consumption for these use cases.
 
-- Periodically audit which models your users are actually selecting. If most of your consumption is on Opus, that's a signal that your model guidance isn't landing.
+- Periodically audit which models your users are actually selecting. If usage is far from your defaults, check whether your model guidance is landing.
 
 ### What to tell your users about model choice
 
-**Sonnet is your daily driver.** It's fast, highly capable, and is designed for the vast majority of tasks—writing, analysis, coding help, and Q&A.
+**Sonnet is** **for everyday work.** It's fast, highly capable, and is designed for well-scoped tasks—writing, analysis, and Q&A.
 
-**Opus is for the harder, more complex work.** Use it when you're working on a genuinely complex multi-step problem, or when quality matters more than speed.
+**Opus is for the harder, more complex work, including coding and agentic tasks.** Use it when you're working on a genuinely complex multi-step problem, or when quality matters more than speed.
 
-**When in doubt, start with Sonnet.** You can always switch the model mid conversation to Opus if you need more depth.
+**When in doubt, start with** **your organization's default.** The Anthropic recommended default is Sonnet in chat and the unified Claude experience, and Opus in Claude Code and Claude Cowork**.** You can always switch the model mid conversation if you need more depth.
 
 ---
 
@@ -197,7 +197,7 @@ A few ways you can use organization instructions to manage consumption and usage
 
 - **Point users to internal resources.** Reference your team's wiki, best-practices docs, or usage guidelines directly in the preference. Claude will surface them when relevant—steering users toward the right internal context instead of reinventing it each time.
 
-- **Reinforce model selection norms.** Remind Claude (and by extension, users) that Sonnet is the default and Opus is reserved for specific workflows. This complements user education without requiring everyone to internalize it up front.
+- **Reinforce model selection norms.** Remind Claude (and by extension, users) which model is your default and which workflows need a different one. This complements user education without requiring everyone to internalize it up front.
 
 ---
 
@@ -283,7 +283,7 @@ For consumption management, focus on these sections:
 
 Smart reports are designed to help you understand adoption and plan investment, not to evaluate individual performance. For availability, setup, and how to create and share reports, see **[Get started with smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports)**.
 
-### Surveys (beta)
+### Surveys
 
 You can run a short survey inside Claude to learn what people use Claude for, what it's worth to them, and where they're stuck. Then compare their answers with your spend data.
 
@@ -319,7 +319,7 @@ When you onboard users, share the following:
 
 **How to choose a model**
 
-- Sonnet is the default and handles most tasks well. Use Opus only when Sonnet isn't getting you where you need to go.
+- Sonnet handles most everyday tasks well. Use Opus for complex, multi-step work, such as coding.
 
 - Your org has a default model set for new conversations; you can still pick a different model. Choose it at the start of a task.
 

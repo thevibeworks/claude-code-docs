@@ -211,7 +211,7 @@ Fine-grained tool streaming is one of the direct-connection defaults: it is off 
 
 ### Beta header and body field pairs
 
-Capabilities that add body fields pair them with a beta header, and the pair travels together. A gateway that strips the header while passing the body, or forwards an Anthropic-format body to an upstream with a different schema, produces `400` errors. When both halves are absent together, the feature turns off quietly.
+Capabilities that add body fields pair them with a beta header, and the pair travels together. A gateway that strips the header while passing the body, or forwards an Anthropic-format body to an upstream with a different schema, produces `400` errors.
 
 A gateway that rewrites or redacts request bodies for content inspection breaks the pairing the same way stripping does, so inspect without modifying. The table notes where a feature deviates from the pairing.
 

@@ -149,7 +149,7 @@ Run these checks, in this order, on every token request. When a check fails, rej
 
 Before the first check, find the one workspace the assertion is for. If you identify workspaces by your own tenant ID and the assertion carries [`aud_tenant`](#identity-assertion-claims), take the workspace that `aud_tenant` names. Otherwise, take the workspace that registered `iss`, and reject the assertion if no workspace or more than one did.
 
-1. **Issuer**: `iss` equals, as an exact string, the trusted issuer registered for that workspace. A prefix or host match admits other customers' users. Check this before you fetch any keys.
+1. **Issuer**: `iss` equals, as an exact string, the trusted issuer registered for that workspace. **Match the entire issuer URL, including its path, not just the host.** Claude issuer URLs differ only in the issuer ID at the end of the path, so a prefix or host match admits other customers' users. Check this before you fetch any keys.
 2. **Keys**: fetch `<iss>/.well-known/openid-configuration`, confirm that the document's `issuer` equals `iss`, and fetch the key set from the document's `jwks_uri`. Use only keys from that key set, and ignore any key or key URL carried in the assertion's header. Don't pin a single key. Cache keys for as long as the response headers allow, and fetch them again when an assertion names a `kid` you haven't seen.
 3. **Signature**: the signature verifies against a key from that key set. Accept ES256 and RS256, and reject every other `alg`, including `none` and HMAC algorithms such as HS256. Claude-issued assertions use ES256.
 4. **Type**: the `typ` header is `oauth-id-jag+jwt`. Check `typ` yourself if your JWT library doesn't check it.
@@ -211,7 +211,7 @@ For **IdP-managed**, follow the first step under **Setup guide** to register Cla
 
 **3. Register the issuer in your test workspace**
 
-Register the issuer URL as the trusted issuer of a test workspace in your product. For **Claude-issued**, copy the **Issuer URL** that the setup shows into your test workspace, and if you identify workspaces by your own tenant ID, enter the test workspace's ID in **Tenant ID (optional)**.
+Register the issuer URL as the trusted issuer of a test workspace in your product. For **Claude-issued**, copy the **Issuer URL** that the setup shows into your test workspace, and if you identify workspaces by your own tenant ID, enter the test workspace's ID in **Tenant ID**.
 
 **4. Run the connection test**
 
@@ -238,7 +238,7 @@ A customer's administrator turns on Enterprise Managed Auth for their organizati
 
 In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their workspace and a field for the trusted issuer URL. Accept only an `https` URL in the field, and let only the workspace's administrators set it. The administrator copies the URL from their identity provider or, for Claude-issued assertions, from the **Issuer URL** box in Claude's managed authorization setup for your connector. When the administrator saves, register the URL as that workspace's trusted issuer. With [express admin setup](#support-express-admin-setup), Claude sets the issuer for them, so they don't copy the URL.
 
-If you identify workspaces by your own tenant ID, show that ID in the same settings. The administrator enters it in the **Tenant ID (optional)** field in Claude's managed authorization setup for your connector, and it then arrives in each Claude-issued assertion as [`aud_tenant`](#identity-assertion-claims).
+If you identify workspaces by your own tenant ID, show that ID in the same settings. The administrator enters it in the **Tenant ID** field in Claude's managed authorization setup for your connector, and it then arrives in each Claude-issued assertion as [`aud_tenant`](#identity-assertion-claims).
 
 ### Provide setup documentation
 

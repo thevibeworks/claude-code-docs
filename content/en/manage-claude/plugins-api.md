@@ -41,6 +41,8 @@ The API exposes 18 endpoints across five resources:
 
 Plugins that Anthropic publishes are not inventoried; their usage is reported by the [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api). Marketplaces are created, connected to repositories, and deleted in claude.ai, not through this API.
 
+Members and administrators can add plugins in claude.ai, so the inventory might list plugins that none of your pipelines created.
+
 ## Prerequisites
 
 * Your organization must be on a Claude Enterprise plan.
@@ -204,7 +206,7 @@ List the plugins in your organization’s own marketplaces, newest first:
 }
 ```
 
-In this example the plugin is pinned to an earlier version: a newer version (`latest_version_id`) is stored but not yet served.
+In this example the plugin is pinned to an earlier version: a newer version (`latest_version_id`) is stored but not served.
 
 ## Scopes
 
@@ -219,7 +221,7 @@ A key can carry several scopes. An integration that uploads a plugin and then re
 
 ### Access to members’ plugin files
 
-Each of these read scopes (`read:plugins`, `read:org_audit`, and `read:compliance_org_data`) can download the files of plugins in members’ personal marketplaces, including files that claude.ai’s admin settings do not show, and a `read:org_audit` or `read:compliance_org_data` key bound to your parent organization can do this in any organization under it that has access to this API, by passing `organization_id` (see [Reading another organization under the same parent](https://platform.claude.com/docs/en/manage-claude/plugins-api#reading-another-organization-under-the-same-parent)). Each such download records a `claude_plugin_archive_accessed` event on the [Compliance API Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed), identifying the key, the plugin, the version, and the member (see [Activity Feed events](https://platform.claude.com/docs/en/manage-claude/plugins-api#activity-feed-events)). Downloads of organization-owned plugins are not recorded.
+Each of these read scopes can download the files of plugins in members’ personal marketplaces: `read:plugins`, `read:org_audit`, and `read:compliance_org_data`. That includes files that claude.ai’s admin settings do not show. A `read:org_audit` or `read:compliance_org_data` key bound to your parent organization can do this in any organization under it that has access to this API. To do so, pass `organization_id` (see [Reading another organization under the same parent](https://platform.claude.com/docs/en/manage-claude/plugins-api#reading-another-organization-under-the-same-parent)). Each download of a member-owned plugin’s files through this API records a `claude_plugin_archive_accessed` event on the Compliance API Activity Feed (see [Query the Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed)). The event identifies the key, the plugin, the version, and the member (see [Activity Feed events](https://platform.claude.com/docs/en/manage-claude/plugins-api#activity-feed-events)). Downloads of organization-owned plugins are not recorded.
 
 ### Reading another organization under the same parent
 
@@ -236,7 +238,7 @@ A **plugin** is a package that extends Claude for your organization’s members.
 | Skill      | Instructions and files that Claude loads when a task calls for it.                                      |
 | Command    | A saved prompt a member runs by typing `/` followed by the command’s name.                              |
 | Agent      | A helper assistant with its own instructions, to which Claude can hand part of a task.                  |
-| Hook       | A command that runs automatically when an event occurs in a session, such as before Claude uses a tool. |
+| Hook       | An action that runs automatically when an event occurs in a session, such as before Claude uses a tool. |
 | MCP server | A connection from Claude to tools and data in another system (Model Context Protocol).                  |
 | CLI        | A command-line program that the plugin lets Claude run.                                                 |
 
@@ -269,13 +271,40 @@ Every upload creates a new, immutable **version**, whether it comes from this AP
 
 By default `served_version_pinned` is `false`: the served version normally follows the newest one. When content scanning is on, a version saved in claude.ai might **wait** for its content scan: it is stored but not served at once. This page uses “wait” only for a version saved in claude.ai, not for one that a member or an administrator publishes into a plugin. While scanning is on, a waiting version is served only when its `content_scan` reads `completed` with `pass` or `warn`. While a version waits, `served_version_id` names an earlier version than `latest_version_id`. Do not poll until the two IDs match: they might stay different, for example when the scan fails.
 
-Choosing a version with `POST /v1/organizations/plugins/{plugin_id}` **pins** the plugin (`served_version_pinned: true`). So does an administrator choosing a version in claude.ai, or accepting a member’s request to publish into the plugin. From then on, new uploads are stored and advance `latest_version_id`, but members keep the pinned version until you point `served_version_id` at another one. A plugin whose two pointers differ has a stored version that is not being served.
+The rules in this section describe organization-owned plugins. A member-owned plugin’s served version is controlled by its owner in claude.ai.
 
-This lets a release pipeline upload each build, test it, and then promote it. To have your pipeline determine when each build is served, pin the plugin once by setting `served_version_id` to its current version; from then on, promote each build you want served. With content scanning on, that first pin returns `409 scan_pending` while the current version’s `content_scan` reads `processing`, and `400 scan_failed` if the scan reads `fail`, `unknown`, or `errored` (`warn` is accepted). A pinned plugin cannot be unpinned, here or in claude.ai.
+#### Pins
+
+A plugin becomes **pinned** to a version (`served_version_pinned: true`) in any of these ways:
+
+* You choose the version with `POST /v1/organizations/plugins/{plugin_id}`.
+* An administrator chooses the version in claude.ai.
+* A member or an administrator publishes the version into the plugin, and the publish goes through.
+
+A plugin stays pinned permanently: it cannot be unpinned. Any of these actions can pin it again later, to the same version or to another one.
+
+While a plugin is pinned, a new version from this API or from a Git synchronization is stored and advances `latest_version_id`. It is not served until someone chooses it.
+
+The table shows what happens to a version that an administrator saves in claude.ai. The result depends on where the pin was last set and on the plugin’s newest version before the save.
+
+| Where the pin was last set | The plugin’s newest version before the save                              | The version saved in claude.ai                                                                    |
+| -------------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| Through this API           | Any version                                                              | Is stored and is not served until someone chooses it.                                             |
+| In claude.ai               | The served version or a waiting version                                  | Might become the served version without anyone choosing it. `served_version_pinned` stays `true`. |
+| In claude.ai               | Another version (for example, an upload of yours that is not served yet) | Is stored and is not served until someone chooses it.                                             |
+
+Treat a pin that was set through this API before November 8, 2026, as set in claude.ai. To replace it, use this API to set the version you want served.
+
+No field shows where the pin was last set. If your pipeline should determine what is served, [set the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#change-the-served-version) through this API on every run. Send the request with the version you want served, even if that version is already served. Do the same to replace a pin set through this API before November 8, 2026.
+
+Each successful request also has two effects:
+
+* **It sets the pin through this API again.** The pin stays set through this API until someone chooses a version in claude.ai or until a publish into the plugin goes through. After that, the plugin is still pinned. However, until your next run, saves in claude.ai might change the served version again.
+* **It cancels any wait.** A version that was waiting for its content scan stays stored. It is served only if someone chooses it.
+
+A pin lets a release pipeline upload each build, test it, and then promote it. To have your pipeline determine when each build is served, pin the plugin. [Set `served_version_id`](https://platform.claude.com/docs/en/manage-claude/plugins-api#change-the-served-version) to the version you want served, even if that version is already served. From then on, promote each build you want served. With content scanning on, the request that pins the plugin returns `409 scan_pending` while the version’s `content_scan` reads `processing`. It returns `400 scan_failed` if the scan reads `fail`, `unknown`, or `errored` (`warn` is accepted). Any later request that changes the served version gets the same checks (see [Content scanning](https://platform.claude.com/docs/en/manage-claude/plugins-api#content-scanning)).
 
 To roll back, set `served_version_id` to an earlier version. Roll forward the same way.
-
-These rules describe organization-owned plugins. A member-owned plugin’s served version is controlled by its owner in claude.ai.
 
 ### Installation settings
 
@@ -306,11 +335,11 @@ If your organization has turned off a kind of sharing in its claude.ai settings,
 
 ### Content scanning
 
-Content scanning is an organization setting in claude.ai. When it is on, newly stored versions are scanned (claude.ai exempts a few) and the result is reported in `content_scan`; a version that was not scanned, for example one stored before scanning was turned on, has `content_scan: null`. Scanning is not offered to organizations that use customer-managed encryption keys or zero data retention.
+Content scanning is an organization setting in claude.ai. When it is on, newly stored versions are scanned (claude.ai exempts some) and the result is reported in `content_scan`. A version that was not scanned has `content_scan: null`. For example, it might have been stored before scanning was turned on. Scanning is not offered to organizations that use customer-managed encryption keys or zero data retention.
 
 While scanning is on, members are served a plugin only when its served version’s scan is `completed` with `pass` or `warn`. While the scan is `processing` or `errored`, or reads `fail` or `unknown`, the plugin is withheld from members, and an earlier version is not served in its place. A version that was never scanned (`content_scan: null`) is served normally.
 
-A version you upload through this API never waits for its content scan. When it becomes the served version, members lose the plugin until its `content_scan` reads `completed` with `pass` or `warn`. If members should keep the current version while a new one is scanned, pin the plugin first (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)).
+A version you upload through this API never waits for its content scan. When it becomes the served version, members lose the plugin until its `content_scan` reads `completed` with `pass` or `warn`. If members should keep the current version while a new one is scanned, pin the plugin first (see [Pins](https://platform.claude.com/docs/en/manage-claude/plugins-api#pins)).
 
 While a version saved in claude.ai waits for its scan, the served version does not change. When your API upload becomes the served version, any wait ends: the waiting version is served only if someone chooses it. To see a waiting version’s scan, read the version (see [List a plugin’s versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions)).
 
@@ -324,17 +353,40 @@ In claude.ai, organization owners can allow a version whose scan failed. So can 
 
 `reach` summarizes, in one value, how far a version reaches on members’ machines and beyond:
 
-| Value        | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `remote`     | Declares an MCP server or a CLI, whatever else it declares.                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| `privileged` | Declares no MCP server or CLI, but declares a hook, a monitor (a background command that keeps running during a session), an LSP (Language Server Protocol) server, a workflow (a script that Claude Code can run; any file in a `workflows/` folder at the plugin’s root counts as one), or settings the plugin applies to the member’s app, or contains a skill, command, or any other Markdown file whose frontmatter pre-approves tools (`allowed-tools`). These run, or take effect, on the member’s own computer. |
-| `contained`  | Declares no MCP server, CLI, hook, monitor, LSP server, workflow, or app settings, and none of its Markdown files pre-approves tools (for example, a plugin that holds only skills, commands, and agents, none with `allowed-tools`).                                                                                                                                                                                                                                                                                   |
+| Value        | Meaning                                                                                                                                        |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `remote`     | Declares an MCP server, a CLI, or something that counts as one, whatever else it declares.                                                     |
+| `privileged` | Is not `remote` but meets at least one condition in the list after this table.                                                                 |
+| `contained`  | Is neither `remote` nor `privileged` (typically, a plugin that holds only skills, commands, and agents, and none of them has `allowed-tools`). |
 
-`reach` counts everything the version declares, including monitors, LSP servers, workflows, and app settings, which `components` does not list, so a version with an empty `components` list can still be `privileged`. It is `null` for a version stored before components were recorded, and for a version whose reach could not be determined because the `SKILL.md` of one of its skills, or one of its command files, could not be read; treat `null` as unclassified. The value is normally worked out when a version is stored, under the rules of that time. An older version can therefore be `contained` where the same files stored today would be `privileged`.
+A `privileged` version meets at least one of these conditions:
+
+* It declares a hook of any type, even one that posts to a URL (see the [Claude Code hooks reference](https://code.claude.com/docs/en/hooks)).
+* It declares a monitor (a background command that keeps running during a session).
+* It declares an LSP (Language Server Protocol) server.
+* It declares a workflow (a script that Claude Code can run). Any file in a `workflows/` folder at the plugin’s root counts as one.
+* It declares settings that the plugin applies to the member’s app.
+* It contains a Markdown file whose frontmatter pre-approves tools (`allowed-tools`). The file can be a skill, a command, or any other Markdown file. An `allowed-tools` value does not count if it is empty or if it lists one or more of `AskUserQuestion`, `TodoWrite`, and `ToolSearch` and nothing else.
+
+All of these run or take effect on the member’s own computer. From there, some can still send data elsewhere, as a hook that posts to a URL does.
+
+`reach` counts everything that the version declares. That includes monitors, LSP servers, workflows, and app settings, which `components` does not list. A version with an empty `components` list can therefore still be `privileged`. Such a version can also be `remote` if something else it declares makes it `remote`.
+
+`reach` can be `null` for these versions:
+
+* A version stored before components were recorded
+* A version whose reach could not be determined because one of its skills’ `SKILL.md` or one of its command files could not be read
+
+A version that declares an MCP server or a CLI is `remote` even if a `SKILL.md` or command file could not be read. Under today’s rules, a version with an unreadable `SKILL.md` or command file is never `contained`: if it is not `remote`, it is `null` or `privileged`. Treat `null` as unclassified, not as `contained`.
+
+The server normally works out the value when a version is stored, under the rules of that time. An older version can therefore have a different value from the one that the same files would get today:
+
+* An older version can be `contained` where the same files, stored today, would be `privileged`, `remote`, or `null`.
+* An older version can be `privileged` where the same files, stored today, would be `remote`.
 
 ### Upload requirements
 
-Uploads follow the same rules as plugin uploads in claude.ai, so the same archives are accepted in both places.
+Uploads through this API follow these rules:
 
 * The upload is either one `.zip` or `.plugin` archive, or a set of individual files. An archive may wrap everything in one top-level folder.
 * It must contain exactly one manifest, at `.claude-plugin/plugin.json`, which must declare a `name`. A bare `SKILL.md` without a manifest is rejected.
@@ -353,13 +405,59 @@ Uploads follow the same rules as plugin uploads in claude.ai, so the same archiv
 
 ### Publish each build from a release pipeline
 
-Upload every tagged build from CI, and let the pipeline determine when a build is served.
+Upload every tagged build from CI and let the pipeline determine when a build is served. The key needs the `read:plugins` and `write:plugins` scopes.
 
-1. Find the marketplace to upload into with `GET /v1/organizations/plugin_marketplaces?owner_type=organization`, or omit `marketplace_id` to use the library marketplace.
-2. On the first release, [create the plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#create-a-plugin) with `POST /v1/organizations/plugins`. On every later release, record the plugin’s `latest_version_id`, then [upload a version](https://platform.claude.com/docs/en/manage-claude/plugins-api#create-a-version) with `POST /v1/organizations/plugins/{plugin_id}/versions`. If the upload’s response is lost, read the plugin and retry only if `latest_version_id` is unchanged (see [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads)).
-3. To keep members on the current version while each new build is checked, pin the plugin once by setting `served_version_id` to its current version. From then on each upload is stored without being served, and the pin cannot be undone: every build you want served needs step 5.
-4. When content scanning is on, poll `GET /v1/organizations/plugins/{plugin_id}/versions/{version}` until `content_scan.status` is no longer `processing`, and promote only when it is `completed` with `pass` or `warn`.
-5. [Promote the build](https://platform.claude.com/docs/en/manage-claude/plugins-api#change-the-served-version) with `POST /v1/organizations/plugins/{plugin_id}` and `{"served_version_id": "<the new version's ID>"}`. To roll back, send the previous version’s ID the same way.
+This workflow has a one-time setup and then steps for each new build. Where you start depends on the plugin:
+
+* **A new plugin:** Start at step 1 of the setup.
+* **An existing plugin, pinned or not:** Decide on the version you want served (see [List a plugin’s versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions)) and keep its ID. Then start at step 3 of the setup.
+
+Set up the plugin once:
+
+<Steps>
+  <Step title="Find the marketplace">
+    Find the marketplace to upload into with `GET /v1/organizations/plugin_marketplaces?owner_type=organization&source=manual`. Pass its ID as `marketplace_id` in step 2. To use the library marketplace, omit `marketplace_id`.
+  </Step>
+
+  <Step title="Create the plugin">
+    [Create the plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#create-a-plugin) from your first build with `POST /v1/organizations/plugins`. Your first build becomes the served version. It is the version you want served, so keep its ID. The response’s `latest_version_id` is that ID. If the response is lost, see [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads) before you send the request again.
+  </Step>
+
+  <Step title="Check the scan of the version you want served">
+    When content scanning is on, poll `GET /v1/organizations/plugins/{plugin_id}/versions/{version}` until the `content_scan.status` of the version you want served is no longer `processing`. Then act on the result:
+
+    * **`content_scan` is `null`:** The version has no scan to check. Go on to step 4.
+    * **`completed` with `pass` or `warn`:** Go on to step 4.
+    * **`errored`:** Read it again after a few minutes, because a later read might report the result.
+    * **`fail`, `unknown`, or still `errored`:** Decide on another version and repeat this step for it. If no other version is suitable, [upload a new version](https://platform.claude.com/docs/en/manage-claude/plugins-api#create-a-version). That new version is now the version you want served, so repeat this step for it. If the plugin is not pinned (`served_version_pinned: false`), the upload is normally served at once. In that case, members cannot get the plugin until that version’s scan reads `completed` with `pass` or `warn`.
+
+    When content scanning is off, go on to step 4.
+  </Step>
+
+  <Step title="Pin the plugin">
+    To keep members on one version while each new build is checked, pin the plugin. [Set `served_version_id`](https://platform.claude.com/docs/en/manage-claude/plugins-api#change-the-served-version) to the version you want served, even if that version is already served. Keep that version’s ID. If the plugin is already pinned, this request sets the pin through this API, no matter how it was set before (see [Pins](https://platform.claude.com/docs/en/manage-claude/plugins-api#pins)). After the pin is set, each upload is stored without being served. A plugin cannot be unpinned, so every later build you want served must be promoted.
+  </Step>
+</Steps>
+
+Then follow these steps for each new build:
+
+<Steps>
+  <Step title="Upload the build">
+    Record the plugin’s `latest_version_id`. Then [upload a version](https://platform.claude.com/docs/en/manage-claude/plugins-api#create-a-version) with `POST /v1/organizations/plugins/{plugin_id}/versions`. If the upload’s response is lost, read the plugin and retry only if `latest_version_id` is unchanged (see [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads)).
+  </Step>
+
+  <Step title="Check the new version’s scan">
+    When content scanning is on, poll `GET /v1/organizations/plugins/{plugin_id}/versions/{version}` until `content_scan.status` is no longer `processing`. If `content_scan` is `null`, there is no scan to check, so you can promote the build. Otherwise, promote it only when the scan is `completed` with `pass` or `warn`. If the scan reads `errored`, read it again after a few minutes, because a later read might report the result. Go on to the next step even if you will not promote the build.
+  </Step>
+
+  <Step title="Set the served version">
+    To [promote the build](https://platform.claude.com/docs/en/manage-claude/plugins-api#change-the-served-version), send `POST /v1/organizations/plugins/{plugin_id}` with `{"served_version_id": "<the new version's ID>"}`. To roll back, send an earlier version’s ID the same way. If a run promotes no build, still send the request. Send it with the version you want served, even if that version is already served. Keep the ID of each version you set. Your pipeline needs it when a run promotes no build. Do not take that ID from `served_version_id`, which might name a version saved in claude.ai. Each successful request sets the pin through this API again and cancels any wait (see [Pins](https://platform.claude.com/docs/en/manage-claude/plugins-api#pins)).
+  </Step>
+</Steps>
+
+The pin always holds back your own uploads. It does not always hold back a version that an administrator saves in claude.ai. [Pins](https://platform.claude.com/docs/en/manage-claude/plugins-api#pins) explains when such a version can become the served version and what to do about it.
+
+Serving a version does not make the plugin available to members. A plugin created through this API inherits its marketplace’s default, which is `not_available` unless someone has set one (see [Installation settings](https://platform.claude.com/docs/en/manage-claude/plugins-api#installation-settings)).
 
 ### Roll a plugin out to a pilot group, then to everyone
 
@@ -504,12 +602,46 @@ Upload every tagged build from CI, and let the pipeline determine when a build i
 
 ### Keep a security inventory in sync
 
-Run a nightly job that flags plugins that reach outside the member’s session or whose content scan reads `warn`, `fail`, or `unknown`.
+Run these steps as a nightly job:
 
-1. Page through [`GET /v1/organizations/plugins?limit=100`](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-plugins) until `next_page` is `null` (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)). Read each plugin’s `reach` and `content_scan` from that list on every run: a change to `content_scan` alone, such as a verdict that arrives later, does not move `updated_at`. `updated_at` normally tells you which plugins have new content or a new served version since the last run (worth a fresh archive download). A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) moves `updated_at` when it becomes the served version, not necessarily when it is stored. To notice one, compare `latest_version_id` with the value from your last run. The full re-list is also what catches removals, because a plugin removed by a Git synchronization or an account deletion disappears without an event.
-2. Flag each plugin whose `reach` is `remote` (it declares an MCP server or a CLI), or whose `content_scan.assessment` is `warn`, `fail`, or `unknown`. A `warn` can also be a [failed scan that was allowed in claude.ai](https://platform.claude.com/docs/en/manage-claude/plugins-api#failed-scans-allowed-in-claude-ai). Leave `warn` out only if you accept every failed scan that is allowed there. These fields describe the served version. To also check a newer version that is not served, list the plugin’s versions when `latest_version_id` differs from `served_version_id` (see [List a plugin’s versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions)).
-3. For each flagged plugin, download the served version’s archive for review with `GET /v1/organizations/plugins/{plugin_id}/versions/{served_version_id}/content` (see [Download a version’s files](https://platform.claude.com/docs/en/manage-claude/plugins-api#download-a-versions-files)). Also download any unserved version that meets step 2’s test, by its ID.
-4. To take a plugin away from members while you review it, see [Delete a plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#delete-a-plugin) for the reversible (organization-owned) and permanent options.
+<Steps>
+  <Step title="List every plugin">
+    Page through [`GET /v1/organizations/plugins?limit=100`](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-plugins) until `next_page` is `null` (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)). Read each plugin’s `reach` and `content_scan` from that list.
+
+    Do this for every plugin on every run. `updated_at` normally tells you which plugins have new content or a new served version since the last run. It can miss these changes:
+
+    * **A change to `content_scan` alone:** This change does not move `updated_at`. One example is a verdict that arrives later.
+    * **A waiting version:** A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) moves `updated_at` when it becomes the served version. It does not necessarily move `updated_at` when it is stored. To notice one, compare `latest_version_id` with the value from your last run.
+    * **A removed plugin:** A plugin disappears without an event when a Git synchronization or an account deletion removes it. The full list is what shows that it is gone.
+  </Step>
+
+  <Step title="Flag plugins for review">
+    Flag each plugin that meets either of these tests:
+
+    * Its `reach` is `remote`. For example, it declares an MCP server or a CLI.
+    * Its `content_scan.assessment` is `warn`, `fail`, or `unknown`. A `warn` can also be a [failed scan that was allowed in claude.ai](https://platform.claude.com/docs/en/manage-claude/plugins-api#failed-scans-allowed-in-claude-ai). Leave `warn` out only if you accept every failed scan that is allowed there.
+
+    For a stricter job, add one or both of these tests:
+
+    * Its `reach` is anything other than `contained` (see [Reach](https://platform.claude.com/docs/en/manage-claude/plugins-api#reach)). This test adds `privileged`, `null` (unclassified), and any value added later.
+    * Its `content_scan` or its `content_scan.assessment` is `null`, so no completed scan is reported. Where content scanning is off, this test can flag every plugin.
+
+    The tests in this step have two limits:
+
+    * The tests on `reach` read the stored value. For an older version, that value can understate its reach (see [Reach](https://platform.claude.com/docs/en/manage-claude/plugins-api#reach)).
+    * `reach` and `content_scan` describe the served version. To also check a newer version that is not served, list the plugin’s versions when `latest_version_id` differs from `served_version_id` (see [List a plugin’s versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions)).
+  </Step>
+
+  <Step title="Download the flagged versions">
+    For each flagged plugin, download the served version’s archive for review with `GET /v1/organizations/plugins/{plugin_id}/versions/{served_version_id}/content` (see [Download a version’s files](https://platform.claude.com/docs/en/manage-claude/plugins-api#download-a-versions-files)). Also download any unserved version that meets one of the tests you use in step 2. Use that version’s ID in place of `{served_version_id}`.
+
+    A version’s files never change. You can skip a version that you have already reviewed unless its `content_scan` has changed since then.
+  </Step>
+
+  <Step title="Take a plugin away from members if you need to">
+    To take a plugin away from members while you review it, see [Delete a plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#delete-a-plugin). That section has two options: a reversible one for organization-owned plugins and a permanent one.
+  </Step>
+</Steps>
 
 ## Plugins
 
@@ -521,19 +653,19 @@ The plugin object describes a plugin in one of your organization’s marketplace
 | `name`                                                                                   | From the manifest. Unique within its marketplace, not across the organization. Fixed for an organization-owned plugin; changes if a member renames their own plugin in claude.ai.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `display_name`, `description`, `manifest_version`                                        | The served version’s manifest `displayName`, `description`, and `version`; each is `null` when the manifest declares none. `description` might be a skill’s `description` rather than the manifest’s (described after this table). `manifest_version` is normalized for display: one leading `v` or `V` is dropped, so a manifest `version` of `"v1.4.0"` is returned as `"1.4.0"`. It is also `null` for a value that does not look like a version number, such as `"latest"`, and for a plugin version created before claude.ai started recording this field in August 2026. An upload is never refused because of its `version`, and `manifest_version` is not unique. |
 | `served_version_id`, `latest_version_id`                                                 | Prefixed `pluginver_`: the version members are served, and the newest version. See [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version).                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `served_version_pinned`                                                                  | `false` until the plugin is pinned (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)); `true` from then on.                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `served_version_pinned`                                                                  | `false` until the plugin is pinned (see [Pins](https://platform.claude.com/docs/en/manage-claude/plugins-api#pins)); `true` from then on.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `owner`                                                                                  | `{"type": "organization"}`, or `{"type": "user", "user_id": "user_..."}` for a member’s personal marketplace.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | `marketplace_id`                                                                         | Prefixed `marketplace_`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `created_by`                                                                             | Who created the plugin: `{"type": "user_actor", "user_id": "user_...", "email_address": "..."}` for a person in claude.ai (`email_address` might be `null`), or `{"type": "api_actor", "api_key_id": "apikey_..."}` for an API key. Other actor types may appear. `null` when no creator is recorded, such as for plugins synchronized from Git.                                                                                                                                                                                                                                                                                                                          |
+| `created_by`                                                                             | Who created the plugin: `{"type": "user_actor", "user_id": "user_...", "email_address": "..."}` for a person in claude.ai (`email_address` might be `null`) or `{"type": "api_actor", "api_key_id": "apikey_..."}` for an API key. Other actor types might appear. `null` when no creator is recorded, such as for plugins synchronized from Git.                                                                                                                                                                                                                                                                                                                         |
 | `organization_installation_preference`, `organization_installation_preference_inherited` | Organization-owned: the organization-wide value, and whether it comes from the marketplace’s default (see [Installation settings](https://platform.claude.com/docs/en/manage-claude/plugins-api#installation-settings)). Member-owned: both `null`.                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | `content_scan`                                                                           | The served version’s scan result, an object with `status`, `assessment`, and `reason` (described after this table). `null` when it was never scanned.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `components`                                                                             | The served version’s components, each `{"type", "name", "description"}` with `type` one of `skill`, `mcp_server`, `command`, `agent`, `hook`, or `cli`, listed in that type order and then by name. For an MCP server, `name` is its key in the manifest; for a hook, the event it runs on; for a CLI, the executable’s name. `description` is always `null` for MCP servers, hooks, and CLIs. `null` when not recorded.                                                                                                                                                                                                                                                  |
-| `reach`                                                                                  | `contained`, `privileged`, or `remote`. See [Reach](https://platform.claude.com/docs/en/manage-claude/plugins-api#reach).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `reach`                                                                                  | `contained`, `privileged`, `remote`, or `null`. See [Reach](https://platform.claude.com/docs/en/manage-claude/plugins-api#reach).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `updated_at`                                                                             | Changes when the served version changes, when the plugin becomes pinned, and normally when a new version is stored. A waiting version (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)) changes it when it becomes the served version, not necessarily when it is stored. It does not change for installation settings, shares, or a change to `content_scan` alone.                                                                                                                                                                                                                 |
 
 `description` is not always the manifest’s. A `description` that the manifest takes from a top-level `SKILL.md` is cut to its first 500 characters (see [Upload requirements](https://platform.claude.com/docs/en/manage-claude/plugins-api#upload-requirements)). If the manifest’s `description` is the first 500 characters of exactly one distinct skill `description` in `components`, the API returns that skill `description` instead. As a result:
 
-* A `description` that you read might be longer than 500 characters, the limit for an uploaded manifest. An upload whose `plugin.json` sets such a `description` returns `400`.
+* A `description` that you read might be longer than 500 characters, the limit on `description` in an uploaded manifest. An upload whose `plugin.json` sets such a `description` returns `400`.
 * In the [files you download](https://platform.claude.com/docs/en/manage-claude/plugins-api#download-a-versions-files), `.claude-plugin/plugin.json` might have a different `description`, or none.
 
 The `content_scan` object:
@@ -568,6 +700,8 @@ A `plugin_id` that lacks the `plugin_` prefix returns `400`. A `plugin_id` that 
 ### List plugins
 
 `GET /v1/organizations/plugins` lists the plugins in your organization, in the organization’s marketplaces and in members’ personal marketplaces, ordered by `created_at` descending. Filter by `owner_type` (`organization` or `user`), `owner_user_id` (an ID prefixed `user_`, which finds a member’s plugins, including after the member leaves the organization), `marketplace_id`, and `created_at[gte]`, `created_at[gt]`, `created_at[lte]`, `created_at[lt]` (RFC 3339 timestamps). Filters combine with AND. A `marketplace_id` or `owner_user_id` that matches nothing in your organization returns an empty page, not an error. The response has the shape shown in [Quick start](https://platform.claude.com/docs/en/manage-claude/plugins-api#quick-start). Requires the `read:plugins` scope.
+
+To find plugins that are new since you last listed them, compare the `id` values in the full list with those in the earlier list. Do not rely on `created_at[gt]` for this: a plugin might enter this list with a `created_at` earlier than the time of your last list.
 
 <CodeGroup>
   ```bash cURL
@@ -852,7 +986,7 @@ Upload an archive:
 }
 ```
 
-Upload individual files into a named marketplace. Attach each file under its path within the plugin (the `;filename=` suffix in the cURL example, the file name arguments in the SDK examples); a file sent under its base name alone means the manifest is not found. The TypeScript and Java SDKs and the `ant` CLI cannot yet attach files under a path, so those examples upload the plugin as one archive into the marketplace instead:
+To upload individual files, attach each file under its path within the plugin. Each part’s file name sets that path. A manifest sent under its base name alone (`plugin.json`) is not found. Where a file’s path cannot be set, upload the plugin as one archive instead. Upload into a named marketplace:
 
 <CodeGroup>
   ```bash cURL
@@ -1153,7 +1287,15 @@ Besides a `400` for an upload that breaks the [upload requirements](https://plat
 
 ### Change the served version
 
-`POST /v1/organizations/plugins/{plugin_id}` changes which version of an organization-owned plugin members are served. Pass an earlier version to roll back, or a newer one to promote a build that was stored without being served. This pins the plugin, and a pinned plugin cannot be unpinned, here or in claude.ai (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)). The only updatable field is `served_version_id`, and it is required. The change reaches members before the response returns and does not create a version. When content scanning is on, the version must be one members can be served (see [Content scanning](https://platform.claude.com/docs/en/manage-claude/plugins-api#content-scanning)). Passing the version already served on a pinned plugin changes nothing; passing it on an unpinned plugin pins it there, so later uploads stop being served automatically. Pinning also ends any wait: a version that was waiting for its content scan stays stored, and is served only if someone chooses it. Returns the plugin. Requires the `write:plugins` scope.
+`POST /v1/organizations/plugins/{plugin_id}` changes which version of an organization-owned plugin members are served. Pass an earlier version to roll back or a newer one to promote a build that was stored without being served. The only updatable field is `served_version_id`, and it is required. The change reaches members before the response returns and does not create a version. When content scanning is on, the version must be one members can be served (see [Content scanning](https://platform.claude.com/docs/en/manage-claude/plugins-api#content-scanning)). Returns the plugin. Requires the `write:plugins` scope.
+
+Every successful request also has these effects:
+
+* It pins the plugin to that version, and a pinned plugin cannot be unpinned here or in claude.ai. Passing the version already served pins an unpinned plugin, so later uploads stop being served automatically.
+* It sets the pin through this API. From then on, saves in claude.ai do not change the served version until someone chooses a version in claude.ai or until a publish into the plugin goes through (see [Pins](https://platform.claude.com/docs/en/manage-claude/plugins-api#pins)). The plugin stays pinned either way.
+* It cancels any wait (see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#versions-and-the-served-version)). A version that was waiting for its content scan stays stored. It is served only if someone chooses it.
+
+If the plugin is already pinned and no version is waiting, passing the version already served changes no field and records no event. It still sets the pin through this API, which no field shows.
 
 <CodeGroup>
   ```bash cURL
@@ -1311,13 +1453,15 @@ Besides the shared responses (a `403` for a member-owned plugin, and `409 scan_p
 | 400                    | The body omits `served_version_id`, sets it to `null`, or contains any other field; or the value lacks the `pluginver_` prefix or is `latest`. | Send exactly `{"served_version_id": "pluginver_..."}`.                                                                              |
 | 404                    | `served_version_id` is not a version of this plugin.                                                                                           | Take the ID from [List a plugin’s versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions). |
 | 409 (no `error_code`)  | An upload to this plugin or another served-version change is still in progress.                                                                | Retry shortly.                                                                                                                      |
-| 409 `skill_name_taken` | The plugin is in the library marketplace and the version has a skill whose name an organization skill now uses.                                | Choose another version, or rename one of the skills.                                                                                |
+| 409 `skill_name_taken` | The plugin is in the library marketplace and the version has a skill whose name an organization skill now uses.                                | Choose another version, upload one with the skill renamed, or remove the organization skill in claude.ai.                           |
 
 ### Delete a plugin
 
 `DELETE /v1/organizations/plugins/{plugin_id}` permanently deletes a plugin and every version it holds, just as an administrator’s delete in claude.ai does. It works on any plugin in a `manual` marketplace, including a member’s plugin, even if that member has since left the organization. When the delete returns, the plugin, its versions, and their files are gone from every read, and members are no longer served it. An organization-owned plugin’s installation settings are removed with it; a member-owned plugin’s shares are withdrawn, and it disappears for its owner too. A plugin in a marketplace synchronized from Git returns `400`: remove it from the repository, or remove the marketplace in claude.ai. Requires the `write:plugins` scope.
 
 Deletion cannot be undone, and there is no per-version delete. To withhold an organization-owned plugin reversibly instead, set its organization-wide installation setting to `not_available` (a plugin that was inheriting its marketplace’s default gets a setting of its own, and [removing that organization-wide setting](https://platform.claude.com/docs/en/manage-claude/plugins-api#remove-an-installation-setting) later returns the plugin to the default), and remove (or set to `not_available`) every group setting that `GET /v1/organizations/plugins/{plugin_id}/installation_settings` lists, because a group’s setting overrides the organization-wide value for its members. Send these writes one after another, not in parallel (see [Set an installation setting](https://platform.claude.com/docs/en/manage-claude/plugins-api#set-an-installation-setting)). A member-owned plugin cannot be withheld through this API except by deleting it, and only if its marketplace is `manual`.
+
+Do not delete a plugin only because your pipeline did not create it: a member or an administrator might have added it in claude.ai. Before a script deletes a plugin because your pipeline created it, check that the plugin’s `created_by` is an `api_actor` with the `api_key_id` of one of your pipeline’s keys. With any other value, including `null`, do not assume that your pipeline created the plugin. A delete also removes any versions that other people added to the plugin. Make the same check on each version’s `created_by` and read every page of [List a plugin’s versions](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-a-plugins-versions). Do not delete the plugin automatically if any version fails the check, including one whose `created_by` is `null`.
 
 <CodeGroup>
   ```bash cURL
@@ -1538,7 +1682,7 @@ A `{version}` that lacks the `pluginver_` prefix returns `400` (except the liter
 
 ### Create a version
 
-`POST /v1/organizations/plugins/{plugin_id}/versions` adds a version to an organization-owned plugin in a `manual` marketplace. The body is `multipart/form-data`, with the same `files[]` and `release_notes` fields, [upload requirements](https://platform.claude.com/docs/en/manage-claude/plugins-api#upload-requirements), and file, manifest, archive, and size errors as [Create a plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#create-a-plugin). The uploaded name (the manifest’s `name`) must equal the plugin’s `name`. If the plugin is not pinned, the new version is normally served as soon as it is stored; if it is pinned, the version is stored but not served until you change the served version to it. To check, compare the response’s `id` with the plugin’s `served_version_id`. Returns the version. Requires the `write:plugins` scope.
+`POST /v1/organizations/plugins/{plugin_id}/versions` adds a version to an organization-owned plugin in a `manual` marketplace. The body is `multipart/form-data`, with the same `files[]` and `release_notes` fields, [upload requirements](https://platform.claude.com/docs/en/manage-claude/plugins-api#upload-requirements), and file, manifest, archive, and size errors as [Create a plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#create-a-plugin). The uploaded name (the manifest’s `name`) must equal the plugin’s `name`. If the plugin is not pinned, the new version is normally served as soon as it is stored. In that case, when content scanning is on, members lose the plugin until that version’s `content_scan` reads `completed` with `pass` or `warn` (see [Content scanning](https://platform.claude.com/docs/en/manage-claude/plugins-api#content-scanning)). If the plugin is pinned, the version is stored but not served until someone chooses it (see [Change the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api#change-the-served-version)). To check, compare the response’s `id` with the plugin’s `served_version_id`. Returns the version. Requires the `write:plugins` scope.
 
 <CodeGroup>
   ```bash cURL
@@ -2366,6 +2510,8 @@ Shares exist only on member-owned plugins and are read-only in this API (see [Sh
 
 `GET /v1/organizations/plugins/{plugin_id}/shares` lists who the owner of a member-owned plugin has shared it with, ordered by `granted_at` descending: every member (`organization`), a group (`rbac_group`), or a named member (`organization_member`). Filter by `target_type`. A plugin its owner has not shared returns an empty list; an organization-owned plugin returns `404`. Shares are read-only on this API, and a listed share gives access only while that kind of sharing is turned on for your organization in claude.ai (see [Shares](https://platform.claude.com/docs/en/manage-claude/plugins-api#shares)). `granted_at` is when the share was given; if the owner later changes the share in claude.ai, it is the time of that change. Requires the `read:plugins` scope.
 
+An empty page is the whole list only if its `next_page` is `null` (see [Pagination](https://platform.claude.com/docs/en/manage-claude/plugins-api#pagination)).
+
 <CodeGroup>
   ```bash cURL
   curl "https://api.anthropic.com/v1/organizations/plugins/plugin_01Mr2wP7sU3aJ8vX5cY6nS9t/shares" \
@@ -3151,11 +3297,11 @@ Problems with the content never fail the request. Apart from the responses every
 
 #### Report codes
 
-Each finding in a report has a stable code: `manifest_error_code` when nothing could be validated, `error_code` on each `plugin_errors` entry, and `error_code` on each warning. When a plugin has several problems, `error_code` is the first one’s and `error` joins their messages. New codes may be added; an unrecognized `manifest_error_code` still means the content could not be validated, one on a `plugin_errors` entry still means the plugin would be skipped, and one on a warning still means the plugin would synchronize. These codes indicate transient conditions, so the same request might succeed later: `marketplace_host_rate_limited`, `marketplace_host_server_error`, `marketplace_host_timeout`, `marketplace_host_unreachable`, `marketplace_repo_access_denied`, `marketplace_sync_transient_fetch_budget_exhausted`, `marketplace_validate_network_error`, and usually `marketplace_validate_deadline_exceeded`.
+Each finding in a report has a stable code: `manifest_error_code` when nothing could be validated, `error_code` on each `plugin_errors` entry, and `error_code` on each warning. When a plugin has several problems, `error_code` is the first one’s and `error` joins their messages. New codes might be added. An unrecognized `manifest_error_code` still means that the content could not be validated. An unrecognized `error_code` on a `plugin_errors` entry still means that the plugin would be skipped. An unrecognized `error_code` on a warning still means that the plugin would synchronize. These codes indicate transient conditions, so the same request might succeed later: `marketplace_host_rate_limited`, `marketplace_host_server_error`, `marketplace_host_timeout`, `marketplace_host_unreachable`, `marketplace_repo_access_denied`, `marketplace_sync_transient_fetch_budget_exhausted`, `marketplace_validate_network_error`, and usually `marketplace_validate_deadline_exceeded`.
 
 ## Unrecognized values
 
-Every string value on this page (component types, `reach`, scan fields, marketplace `source`, error codes) may gain new values at any time. Treat a value you do not recognize as you would any unknown string rather than failing.
+Every string value on this page (component types, `reach`, scan fields, marketplace `source`, error codes) might gain new values at any time. Treat a value you do not recognize as you would any unknown string rather than failing.
 
 ## Rate limiting
 
@@ -3165,7 +3311,7 @@ An upload, a served-version change, or a validation can also return `429` with `
 
 ## Pagination
 
-List endpoints use an **opaque cursor**. The first request returns up to `limit` rows plus a `next_page` cursor; pass the cursor unchanged as the `page` parameter on the next request, and repeat until `next_page` is `null`. Treat the cursor string as opaque: don’t parse, modify, or construct it yourself. [List plugins](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-plugins) can return a page with fewer than `limit` plugins, or none, while `next_page` is still set, so keep requesting pages until `next_page` is `null`. The Python, TypeScript, C#, Go, Java, and Ruby SDKs’ list iterators and the CLI (except with `--format raw`) do that for you. They request the next page while `next_page` is set, so a short or empty page does not end them. In PHP and curl, request each page yourself and pass its `next_page` as `page`.
+List endpoints use an **opaque cursor**. The first request returns up to `limit` rows plus a `next_page` cursor. Pass the cursor unchanged as the `page` parameter on the next request, and repeat until `next_page` is `null`. Treat the cursor string as opaque: don’t parse, modify, or construct it yourself. [List plugins](https://platform.claude.com/docs/en/manage-claude/plugins-api#list-plugins) might return a page with fewer than `limit` rows or with no rows while `next_page` is still set. A short or empty page is therefore not always the last one. The list iterators in the Python, TypeScript, C#, Go, Java, and Ruby SDKs allow for this. The CLI also allows for this, except with `--format raw`. Both request the next page while `next_page` is set. In PHP and cURL, request each page yourself and pass its `next_page` as `page`.
 
 `limit` defaults to 20 and has a minimum of 1. The maximum is 100 for plugins, installation settings, and shares, and 1,000 for versions and marketplaces. Every list is ordered newest first.
 
@@ -3205,14 +3351,14 @@ When one status has several causes that you would handle differently, the error 
 | `error_code`                                    | Status | Meaning and what to do                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | ----------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `plugin_name_taken`                             | 409    | The marketplace already holds this name. `details.plugin_id` is the plugin that holds it, and someone else might have made it. To see who, [get the plugin](https://platform.claude.com/docs/en/manage-claude/plugins-api#get-a-plugin) and read its `created_by`, which is `null` when no creator is recorded. Upload versions to it only if it is the plugin you meant to update. Otherwise, or when `plugin_id` is absent, upload under another name. |
-| `skill_name_taken`                              | 409    | The plugin is in the library marketplace and one of its skills has the same name as an organization skill (a skill an administrator uploaded for the whole organization in claude.ai). `details.skill_name` names it. Rename or remove one of them.                                                                                                                                                                                                      |
+| `skill_name_taken`                              | 409    | The plugin is in the library marketplace and one of its skills has the name of an organization skill. `details.skill_name` names it. Retry with an upload or a version that has no skill of that name. You can also remove the organization skill in claude.ai.                                                                                                                                                                                          |
 | `registration_pending`                          | 503    | The files were stored, but the plugin’s skills could not yet be made available to members. See [Retrying uploads](https://platform.claude.com/docs/en/manage-claude/plugins-api#retrying-uploads).                                                                                                                                                                                                                                                       |
 | `scan_pending`                                  | 409    | The version’s `content_scan` reads `processing`. Retry once the scan finishes.                                                                                                                                                                                                                                                                                                                                                                           |
 | `scan_failed`                                   | 400    | The version’s `content_scan` reads `fail`, `unknown`, or `errored`, so it cannot be served. Choose another version.                                                                                                                                                                                                                                                                                                                                      |
 | `cmek_key_disabled`, `cmek_key_network_blocked` | 400    | Your organization’s customer-managed encryption key is unavailable. See [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/plugins-api#customer-managed-encryption-keys).                                                                                                                                                                                                                                              |
 | `unsupported_charset`                           | 400    | On an upload or `validate_archive`, the request’s `Content-Type` header names a charset other than UTF-8, ISO-8859-1, or US-ASCII. Send the request with no charset, or with one of these.                                                                                                                                                                                                                                                               |
 
-New codes may be added. Treat a code you do not recognize the way you treat its status.
+New codes might be added. Treat a code you do not recognize the way you treat its status.
 
 ### Retrying uploads
 
@@ -3227,7 +3373,7 @@ If a create’s response is lost, send the create again. A `409 plugin_name_take
 
 ## Activity Feed events
 
-Every write through this API is recorded on your organization’s [Compliance API Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed), attributed to the API key as an `api_actor` carrying its `apikey_` ID. The same actor appears in `created_by` on the plugins and versions the key creates.
+Writes through this API are recorded on your organization’s Compliance API Activity Feed (see [Query the Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed)), attributed to the API key as an `api_actor` carrying its `apikey_` ID. The same actor appears in `created_by` on the plugins and versions the key creates. A write that changes no field or setting records nothing.
 
 | Event                                    | Emitted when                                                                                                                                                                        |
 | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -3245,7 +3391,7 @@ Every write through this API is recorded on your organization’s [Compliance AP
 
 The plugin, version, and marketplace IDs in these events are the same IDs this API returns. An event can also name a marketplace that this API does not list, such as a marketplace of plugins that Anthropic publishes. `plugin_installation_preference_updated` identifies the plugin by its `name` and `marketplace_id` rather than its `id`. In `claude_plugin_security_scan_completed`, `plugin_version` is not a version ID, and no field of a [plugin version](https://platform.claude.com/docs/en/manage-claude/plugins-api#plugin-versions) corresponds to it.
 
-Changing a marketplace’s default records one `marketplace_updated` event and no per-plugin events, even though it changes the value of every plugin that inherits the default. Reads are not recorded, except downloads of a member-owned plugin’s archive. A write that changes nothing records nothing.
+Changing a marketplace’s default installation setting records one `marketplace_updated` event. It records no per-plugin events, even though the organization-wide value of every plugin that inherits the default changes. Reads are not recorded, except downloads of a member-owned plugin’s archive.
 
 Shares given or withdrawn in claude.ai appear on the feed as `role_assignment_granted` and `role_assignment_revoked` events. This API does not report deletions: a deleted plugin is absent from the next list. A plugin removed by a Git synchronization, by deleting its marketplace (one `marketplace_deleted` event), or by deleting a member’s account or the organization emits no per-plugin event, so re-list the full inventory periodically to catch removals.
 

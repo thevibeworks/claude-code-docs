@@ -178,7 +178,18 @@ An API key that managed configuration delivers is never stored in the `configLib
 
 ## Automatic deletion of idle sessions
 
-By default, chats, Cowork tasks, and Code sessions stay on the device until the user deletes them. To delete them after a period without activity, set [`chatSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#chatsessionretentiondays), [`coworkSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#coworksessionretentiondays), or [`codeSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#codesessionretentiondays) to a number of days from 1 to 3650. Each key covers one kind of session, and a kind you leave unset is kept until the user deletes it. Idle time counts from the session's last activity, and pinned sessions are not exempt.
+By default, chats, Cowork tasks, and Code sessions stay on the device until the user deletes them. To delete them after a period without activity, set [`chatSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#chatsessionretentiondays), [`coworkSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#coworksessionretentiondays), or [`codeSessionRetentionDays`](https://claude.com/docs/third-party/claude-desktop/configuration#codesessionretentiondays) to a number of days from 1 to 3650. Each key covers one kind of session, and a kind you leave unset is kept until the user deletes it. Idle time counts from the session's last activity, such as a message, and pinned sessions aren't exempt.
+
+> [!WARNING]
+>
+> If you set `chatSessionRetentionDays` or `coworkSessionRetentionDays`, an upcoming release of Claude Desktop deletes idle chats and Cowork tasks that earlier versions keep past the period you set. The app can delete many of them at once, shortly after it first starts on that release. Users see no notice, and deleted sessions can't be recovered.
+>
+> Earlier versions keep an idle chat or Cowork task for one more period after actions such as these, which the upcoming release doesn't count as activity:
+>
+> * **Turning a connector or tool on or off**: from Claude Desktop 3.1623.0 until the upcoming release, when a user does this, the app can keep all of that user's idle chats and Cowork tasks
+> * **Renaming or pinning a chat or task without sending a message**: this affects only that chat or task
+>
+> If you want those sessions deleted, you don't need to do anything. To keep some users' sessions, make the change described under [Keep sessions for some users](#keep-sessions-for-some-users) now, before their devices update.
 
 With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a conversation started from the home screen on a device that can run Cowork is a Cowork session. `coworkSessionRetentionDays` covers it along with users' other Cowork tasks, and `chatSessionRetentionDays` still covers Chat conversations. While `coworkSessionRetentionDays` is unset, neither key deletes a home-screen conversation that is a Cowork session, even if `chatSessionRetentionDays` is set. If you use `chatSessionRetentionDays`, keep it and set `coworkSessionRetentionDays` as well.
 

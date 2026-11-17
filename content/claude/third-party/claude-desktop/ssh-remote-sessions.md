@@ -211,6 +211,53 @@ To prevent or limit the move, set one of these keys in the profile itself:
 
 Before you add either key to a profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence), such as `disableAutoUpdates`, read the warning under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
 
+### File downloads from the remote host
+
+Users can download files from a remote session's folders to their device. For example, they right-click a file in the **Files** pane and select **Download file**. The [`remoteFileDownloads`](https://claude.com/docs/third-party/claude-desktop/configuration#remotefiledownloads) key sets which files they can download from an SSH host and from a Code session in Windows Subsystem for Linux (WSL).
+
+The key requires Claude Desktop 5.1231.0 or later. Earlier versions don't read the value and offer at most what `limited` allows. Before you put the key in a profile or policy that an earlier version reads, see [Deploy remoteFileDownloads through device management](#deploy-remotefiledownloads-through-device-management).
+
+Each value lets users download these files.
+
+| Value | Files that users can download |
+| - | - |
+| Unset or `limited` | `.pdf`, `.docx`, `.xlsx`, and `.pptx` files up to 25 MiB, images up to 10 MiB, and text files up to 1 MiB |
+| `all` | Files of any size, of any type that Claude Desktop doesn't refuse |
+| `none` | No files. Claude Desktop hides its **Download file** options. |
+
+Under `limited` and `all`, Claude Desktop refuses a fixed list of file types that an operating system can run or act on when opened, such as `.exe`, `.js`, `.ps1`, and `.jar`. Claude Desktop goes by the file's extension. Scripts such as `.py` and `.sh` aren't on the list.
+
+On a [host without SFTP](#hosts-without-sftp), `limited` and `all` both allow text files up to 1 MiB and nothing else.
+
+> [!WARNING]
+>
+> Where Claude Desktop is the only program on a device that can reach the host, `all` gives users a way to take files off the host in bulk. Claude Desktop's logs and telemetry keep no list of the files that were downloaded. `ssh.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) on the device names the hosts that Claude Desktop connects to and, under `all`, records each copy's size and duration. On such devices, set the key to `limited` where users can't change it (see [Deploy remoteFileDownloads through device management](#deploy-remotefiledownloads-through-device-management)), unless users need other file types or larger files.
+
+`none` isn't a security boundary. In Claude Desktop, users can still open the files that they can't download, and Claude can still read them. To limit which files a user can reach on the host, review the SSH user's rights there (see [Account that a remote session runs under](#account-that-a-remote-session-runs-under)).
+
+Claude Desktop reads and applies the value by these rules:
+
+* **Spelling**: Claude Desktop ignores letter case. It treats a value that isn't `limited`, `all`, `none`, or empty as `none`, so a mistyped `all` turns downloads off. An empty value counts as unset. On Windows, a mistyped value in a machine policy also makes Claude Desktop refuse WSL sessions, even where machine policy sets [`disableWslSessions`](https://claude.com/docs/third-party/claude-desktop/configuration#disablewslsessions) to `false`.
+* **When a change takes effect**: an open app applies a new value from device management, the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), or a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) without a relaunch, once a [re-check](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect) reads it and a second check about 30 seconds later confirms it. A value set in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) applies no later than the relaunch that **Apply Changes** asks for.
+
+You can set the key in these places:
+
+* **Device management**: users can't edit a machine-scoped profile or policy. For when its value applies, see [Deploy remoteFileDownloads through device management](#deploy-remotefiledownloads-through-device-management).
+* **Enterprise Admin Console**: the console's value applies unless the device has a profile or policy that holds this key and, beside it, nothing but the [app-behavior keys and the keys treated like them](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence). On a Windows device with no machine policy (`HKLM`), a per-user policy (`HKCU`) counts as such a policy. Whoever can write to `HKCU` can then set `all` over the console's `none` (see **A machine policy on Windows** under [Deploy remoteFileDownloads through device management](#deploy-remotefiledownloads-through-device-management)).
+* **Bootstrap response**: put the key inside the `codeSurface` object.
+* **In-app configuration window**: the key appears in the **Code surface** section while Code is enabled, in Claude Desktop 5.11492.0 or later. The user can change a value that is set there.
+
+### Deploy remoteFileDownloads through device management
+
+Connection settings are the keys that say where Claude Desktop gets inference or its configuration, such as the inference provider keys or the bootstrap keys. Before you deploy [`remoteFileDownloads`](#file-downloads-from-the-remote-host) through [device management](https://claude.com/docs/third-party/claude-desktop/mdm.md), plan for these cases:
+
+* **Devices on a version before 5.1231.0**: update all devices to Claude Desktop 5.1231.0 or later first. On earlier versions, on Windows and Linux, a profile or policy that holds this key can turn off other settings, connection settings included. On macOS, Claude Desktop doesn't see the key. For each platform's case, see [Keys that an earlier version does not recognize](https://claude.com/docs/third-party/claude-desktop/mdm.md#keys-that-an-earlier-version-does-not-recognize).
+* **A profile or policy that holds your connection settings**: set the key in that same profile or policy, and set the same value in the bootstrap response or the console too. Connection settings are outside the [app-behavior keys and the keys treated like them](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence). Where a profile or policy holds any key outside them, a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) or an [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) that leaves `remoteFileDownloads` out overrides the profile's value, and the key counts as unset.
+* **A profile or policy that holds this key and, beside it, nothing but the app-behavior keys and the keys treated like them**: the user's or the console's configuration stays in place. The profile's value takes precedence over the value from the Enterprise Admin Console, a bootstrap server, or the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md).
+* **A machine policy on Windows**: while machine policy (`HKLM`) holds this key, Claude Desktop applies nothing from a per-user policy (`HKCU`). Move what the per-user policy holds, connection settings included, into the machine policy.
+
+A profile or policy, even one that holds only this key, also changes how WSL sessions and shell commands in Code sessions work on the device (see [What a profile or policy changes on a device](https://claude.com/docs/third-party/claude-desktop/mdm.md#what-a-profile-or-policy-changes-on-a-device)).
+
 ## Inference credentials on the remote host
 
 > [!WARNING]
@@ -442,7 +489,7 @@ These features need SFTP, so they are off in that session. Users can keep workin
 * File attachments
 * The Changes pane
 * Plugins that Claude Desktop copies from the device
-* Downloads of PDF and Office files: the download option is missing, or the download fails with `Couldn't download <name>`
+* [File downloads](#file-downloads-from-the-remote-host), except text files up to 1 MiB: the download option is missing, or the download fails with `Couldn't download <name>`
 
 A session without SFTP needs at least the following. Where one is missing, setup fails (see [Setup on the host fails after SSH connects](#setup-on-the-host-fails-after-ssh-connects)).
 

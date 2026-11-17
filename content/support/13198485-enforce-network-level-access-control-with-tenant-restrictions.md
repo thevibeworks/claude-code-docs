@@ -127,6 +127,8 @@ If your proxy sends the headers incorrectly, requests fail with a 400 status and
 
 - Cloudflare Zero Trust / Gateway (HTTP policy, add custom request headers)
 
+- Island (header injection in Island Enterprise Browser, Island Extension, and Secure Web Gateway)
+
 - Netskope (Header Insertion rules)
 
 - Palo Alto Prisma Access (SaaS App Management)

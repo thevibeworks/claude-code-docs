@@ -68,7 +68,7 @@ Learn more in **[Get started with Claude Data](https://support.claude.com/en/art
 
 Standalone Claude Design at **claude.ai/design** closes on December 14, 2026. Until then, it has its own setting in **[Organization settings > Claude Design](https://claude.ai/admin-settings/claude-design)**, separate from the **Design** template. Users' existing projects stay at **claude.ai/design** until it closes, and up to 60 of them also appear in the **Artifacts** tab.
 
-Moving projects to Claude is rolling out gradually to paid plans, and a project or design system that moves to Claude becomes an artifact. To let users move their projects and move their design systems, keep **Artifacts** and **Design systems** on for your organization. On Enterprise plans with custom roles, each user's role needs them too. Learn more in **[Move from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
+A project or design system that moves to Claude becomes an artifact. To let users move their projects and move their design systems, keep **Artifacts** and **Design systems** on for your organization. On Enterprise plans with custom roles, each user's role needs them too. Learn more in **[Move from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 ---
 
