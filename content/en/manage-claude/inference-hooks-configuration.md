@@ -163,7 +163,7 @@ Each trip is also recorded in your organization’s [Activity Feed](https://plat
 
 To recover, fix the server, then turn **Enforce verdicts** back on to reset the breaker.
 
-The breaker can also reset on its own. Starting 10 minutes after the trip, Anthropic checks whether your server has recovered by sending it a test request in the background, at most about once per minute; no user request is involved. If your server responds with a valid verdict, allow or deny, the breaker resets and enforcement resumes. Otherwise the breaker stays tripped and the checks continue.
+The breaker can also reset on its own. Starting 3 minutes after the trip, Anthropic checks whether your server has recovered. At most about once per minute, it sends your server a test request in the background. No user request is involved. If your server responds with a valid verdict, allow or deny, the breaker resets and enforcement resumes. Otherwise, the breaker stays tripped and the checks continue.
 
 Automatic recovery runs only while your Inference hooks settings are unchanged since the trip. If you change any Inference hooks setting after a trip, including rotating the signing secret, the checks stop and the breaker no longer resets on its own; turn **Enforce verdicts** back on when your server is fixed. Automatic recovery applies only to trips: if you turn **Enforce verdicts** off yourself, enforcement stays off until you turn it back on.
 

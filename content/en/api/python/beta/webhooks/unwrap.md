@@ -639,6 +639,26 @@ signature is missing or invalid.
 
       - `organization_id: str`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `type: Literal["external_key.failed"]`
+
+      - `id: str`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `type: Literal["external_key.recovered"]`
+
+      - `id: str`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: str`
+
 ## Example
 
 ```python

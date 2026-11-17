@@ -227,6 +227,8 @@ Create a new environment with the specified configuration.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -593,6 +595,8 @@ List environments with pagination support.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -949,6 +953,8 @@ Retrieve a specific environment by ID.
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1417,6 +1423,8 @@ Update an existing environment's configuration.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -1782,6 +1790,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -1988,6 +1998,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -2919,6 +2931,8 @@ Retrieve detailed information about a specific work item.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -3223,6 +3237,8 @@ Long poll for work items in the queue.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -3501,6 +3517,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -3786,6 +3804,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -4016,6 +4036,8 @@ Stop a work item, initiating graceful or forced shutdown.
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -4319,6 +4341,8 @@ List work items in an environment.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -4604,6 +4628,8 @@ Update work item metadata with merge semantics.
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -4900,6 +4926,8 @@ Get statistics about the work queue for an environment.
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

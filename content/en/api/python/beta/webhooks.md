@@ -641,6 +641,26 @@ signature is missing or invalid.
 
       - `organization_id: str`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `type: Literal["external_key.failed"]`
+
+      - `id: str`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `type: Literal["external_key.recovered"]`
+
+      - `id: str`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: str`
+
 ### Example
 
 ```python
@@ -1290,6 +1310,26 @@ you have already verified the signature yourself.
       - `id: str`
 
         ID of the user profile that triggered the event.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `type: Literal["external_key.failed"]`
+
+      - `id: str`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `type: Literal["external_key.recovered"]`
+
+      - `id: str`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
 
       - `organization_id: str`
 
@@ -2166,6 +2206,26 @@ print(event)
 
       - `organization_id: str`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `type: Literal["external_key.failed"]`
+
+      - `id: str`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `type: Literal["external_key.recovered"]`
+
+      - `id: str`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: str`
+
 ### Beta Webhook Event Data
 
 - `type BetaWebhookEventData = ...`
@@ -2763,6 +2823,50 @@ print(event)
       ID of the user profile that triggered the event.
 
     - `organization_id: str`
+
+  - `class BetaWebhookExternalKeyFailedEventData`
+
+    - `type: Literal["external_key.failed"]`
+
+    - `id: str`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `organization_id: str`
+
+  - `class BetaWebhookExternalKeyRecoveredEventData`
+
+    - `type: Literal["external_key.recovered"]`
+
+    - `id: str`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `organization_id: str`
+
+### Beta Webhook External Key Failed Event Data
+
+- `class BetaWebhookExternalKeyFailedEventData`
+
+  - `type: Literal["external_key.failed"]`
+
+  - `id: str`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `organization_id: str`
+
+### Beta Webhook External Key Recovered Event Data
+
+- `class BetaWebhookExternalKeyRecoveredEventData`
+
+  - `type: Literal["external_key.recovered"]`
+
+  - `id: str`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `organization_id: str`
 
 ### Beta Webhook Memory Store Archived Event Data
 

@@ -129,6 +129,8 @@ Add Session Resource
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -350,6 +352,8 @@ List Session Resources
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -665,6 +669,8 @@ Get Session Resource
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -973,6 +979,8 @@ Update Session Resource
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -1275,6 +1283,8 @@ Delete Session Resource
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

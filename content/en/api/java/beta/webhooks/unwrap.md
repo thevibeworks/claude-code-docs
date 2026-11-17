@@ -641,6 +641,26 @@ signature is missing or invalid.
 
       - `String organizationId`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `JsonValue type = "external_key.failed"`
+
+      - `String id`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `String organizationId`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `JsonValue type = "external_key.recovered"`
+
+      - `String id`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `String organizationId`
+
 ## Example
 
 ```java

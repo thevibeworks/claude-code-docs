@@ -56,6 +56,8 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Claude" -Name "isClaudeCodeForDe
 | `coworkEDRIntegration`               | string          | Not set      | Full path of your EDR vendor's signed sensor package on the user's computer (beta). If it isn't set, no package is installed. On Windows, set this under `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Claude`.                                                                                                                                                                                                                                |
 | `coworkEDRIntegrationVendor`         | string          | Not set      | Your EDR vendor's ID, in lowercase. On Windows, set this under `HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Claude`. Learn more about **[running your EDR sensor in Claude Cowork](https://support.claude.com/en/articles/17828685-run-your-endpoint-detection-and-response-edr-sensor-in-claude-cowork)**.                                                                                                                                   |
 
+Setting any Claude Desktop policy key hides the **Release channel** setting, and that device follows Stable. A device already on Latest keeps its version until a newer Stable version comes out. Learn more about **[choosing a release channel](https://support.claude.com/en/articles/10065433-install-claude-desktop#h_ac219b3bde)**.
+
 ---
 
 ## Manage Claude Desktop from Organization settings (beta)

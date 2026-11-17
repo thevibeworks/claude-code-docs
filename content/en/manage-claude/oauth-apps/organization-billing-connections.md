@@ -1421,6 +1421,33 @@ On the cost endpoint, a request that your customer pays for adds 0 to `amount` a
 
 Don’t use these figures to stop a customer’s usage at an amount that you choose. Neither the Console nor the API reports in real time. The Console’s figures refresh about once an hour, and a request can take a few hours to appear. For the API’s delay, see [Data freshness](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api#data-freshness). [Spend caps](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#spend-caps) says what the customer’s own limits do.
 
+### Reading a customer’s link status
+
+To read a customer’s link status from your back end, request their user profile with your app’s client ID in `oauth_app_id`, and send the `user-profiles-search-2026-08-30` beta header. Authenticate as your operator service account (Step 3), with its access token or an API key bound to it. The access token must come from a federation rule with the `workspace:developer` scope, which is the default.
+
+<CodeGroup exclude="shell:CLI, python, typescript, csharp, go, java, php, ruby">
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/user_profiles/uprof_01HV9Z?oauth_app_id=YOUR_CLIENT_ID" \
+    -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -H "anthropic-version: 2026-10-21" \
+    -H "anthropic-beta: user-profiles-search-2026-08-30"
+  ```
+</CodeGroup>
+
+In the response, `connection_status` describes the user profile’s link to your app:
+
+| `connection_status.type` | Meaning                                                                                                                                                                                                                                                                                                    |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `connected`              | At least one connection between the user profile and your app is active.                                                                                                                                                                                                                                   |
+| `disconnected`           | The user profile was linked, and every connection has ended. `last_revoked_at` says when the last one ended. `last_revoked_reason.type` says why, for example `revoked_by_admin` (an administrator of the customer’s organization) or `revoked_by_app_owner` (your organization, including your back end). |
+| `not_connected`          | The user profile has never been linked to your app.                                                                                                                                                                                                                                                        |
+
+Treat a `connection_status` of `null`, or a `type` you don’t recognize, as unknown. Treat a reason you don’t recognize as `other`. `oauth_connections.data` lists the connections themselves.
+
+`connected` doesn’t promise that a request will succeed. It says only that a connection is active. The Claude API still checks each request that sets `bill_to: "user_profile"`. It can refuse the request, for example because the customer’s organization isn’t an [eligible customer](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#eligible-customers-and-endpoints) or has reached a spend limit. So handle the [expected errors](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#expected-errors) on every request, even for a user profile that reads `connected`.
+
+A 400 means that the beta header is missing or `oauth_app_id` isn’t in the form of a client ID. A 403 means that the caller isn’t the operator service account of the app in `oauth_app_id`. A 404 means that the user profile doesn’t exist. On a 503, retry with backoff.
+
 ### Unlinking a customer
 
 To unlink a customer in the Console, use the list on the [User profiles page](https://platform.claude.com/user-profiles) or the **Unlink** button at the top right of a user profile’s detail page.
@@ -1682,7 +1709,31 @@ To unlink a customer from your back end, send the connection ID that you stored 
 
 `auth.claude.com` responds with HTTP 200 and `revoked_connection_ids`, the IDs of the connections that this request ended. The list is empty if the connection has already ended, so you can safely repeat a request that sends `connection_id`. It is also empty if the ID is unknown, so an empty list doesn’t prove that the connection existed. See [Revocation](https://platform.claude.com/docs/en/manage-claude/oauth-apps/oauth-reference#revocation) for the other parameters and [Errors from the revocation endpoint](https://platform.claude.com/docs/en/manage-claude/oauth-apps/oauth-reference#errors-from-the-revocation-endpoint).
 
+To unlink a customer through the Claude API instead, send your app’s client ID in `oauth_app_id` to `POST /v1/user_profiles/{id}/unlink`. This ends the same connections as the revocation endpoint with `user_profile_id`. The two requests differ as follows:
+
+|                    | Revocation endpoint                                                | Unlink                                                                                                                                                                                             |
+| ------------------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Host**           | `auth.claude.com`                                                  | `api.anthropic.com`                                                                                                                                                                                |
+| **Authentication** | Your app’s client authentication (Step 2)                          | Your operator service account (Step 3): its access token, or an API key bound to it. The access token must come from a federation rule with the `workspace:developer` scope, which is the default. |
+| **Beta header**    | None                                                               | `user-profiles-search-2026-08-30`                                                                                                                                                                  |
+| **What it ends**   | One connection, or all of your app’s connections on a user profile | All of your app’s connections on a user profile                                                                                                                                                    |
+
+<CodeGroup exclude="shell:CLI, python, typescript, csharp, go, java, php, ruby">
+  ```bash cURL
+  curl https://api.anthropic.com/v1/user_profiles/uprof_01HV9Z/unlink \
+    -H "Authorization: Bearer $ACCESS_TOKEN" \
+    -H "anthropic-version: 2026-10-21" \
+    -H "anthropic-beta: user-profiles-search-2026-08-30" \
+    -H "content-type: application/json" \
+    -d '{"oauth_app_id": "YOUR_CLIENT_ID"}'
+  ```
+</CodeGroup>
+
+The response has `revoked_connection_ids`, the IDs of the connections that this request ended. The list is empty if no connection was active. A 400 means that `oauth_app_id` is missing or isn’t in the form of a client ID. A 403 means that the caller isn’t the operator service account of the app in `oauth_app_id`. A 404 means that the user profile doesn’t exist or the beta header is missing.
+
 After the connection ends, the user profile displays as **Unlinked**, and a request that sets `bill_to: "user_profile"` for this customer receives `user_profile_not_billable`. You can still serve the customer at your own cost with `bill_to: "self"`. [After linking](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#after-connecting) says what your customer sees, and [Emails about linking and unlinking](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#emails-to-your-customer) says which way of unlinking sends them an email.
+
+If the unlink request returns a 503, it might have ended only some of the connections. Within a day of the first request, repeat it with backoff until you get a 200. After a day, send each `connection_id` that you stored before the first request to the revocation endpoint instead. That ends what’s left, even if `revoked_connection_ids` is empty. A repeat that late can return a 200 with an empty list and skip connections that ended with tokens or billing access left. Also send `connection_id` this way if the customer might have linked again since the first request, because a repeat ends the new connection too.
 
 ### Linking a customer to a different Claude organization
 
@@ -1749,7 +1800,7 @@ The approval page uses whichever Claude account is signed in to the browser and 
 
 ### After linking
 
-Your customers manage their connections on the [Linked platforms](https://platform.claude.com/linked-platforms) page in the Claude Console. They can unlink your app at any time. Anthropic doesn’t notify you when they do: you get no webhook event and no email.
+Your customers manage their connections on the [Linked platforms](https://platform.claude.com/linked-platforms) page in the Claude Console. They can unlink your app at any time. Anthropic doesn’t notify you when they do: you get no webhook event and no email. To check a customer’s status, see [Reading a customer’s link status](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#reading-link-status).
 
 After a customer unlinks, requests that you bill to that customer are refused with 403 `user_profile_not_billable` (see [Causes of `user_profile_not_billable`](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#user-profile-not-billable)). The customer’s user profile displays as **Unlinked** on your [User profiles](https://platform.claude.com/user-profiles) page in the Console. To link again, run [Steps 5 to 8](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#runtime-step-2) again with the customer’s existing user profile.
 

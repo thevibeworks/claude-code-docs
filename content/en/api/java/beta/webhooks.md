@@ -643,6 +643,26 @@ signature is missing or invalid.
 
       - `String organizationId`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `JsonValue type = "external_key.failed"`
+
+      - `String id`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `String organizationId`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `JsonValue type = "external_key.recovered"`
+
+      - `String id`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `String organizationId`
+
 ### Example
 
 ```java
@@ -1300,6 +1320,26 @@ you have already verified the signature yourself.
       - `String id`
 
         ID of the user profile that triggered the event.
+
+      - `String organizationId`
+
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `JsonValue type = "external_key.failed"`
+
+      - `String id`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `String organizationId`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `JsonValue type = "external_key.recovered"`
+
+      - `String id`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
 
       - `String organizationId`
 
@@ -2179,6 +2219,26 @@ public final class Main {
 
       - `String organizationId`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `JsonValue type = "external_key.failed"`
+
+      - `String id`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `String organizationId`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `JsonValue type = "external_key.recovered"`
+
+      - `String id`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `String organizationId`
+
 ### Beta Webhook Event Data
 
 - `class BetaWebhookEventData: union`
@@ -2776,6 +2836,50 @@ public final class Main {
       ID of the user profile that triggered the event.
 
     - `String organizationId`
+
+  - `class BetaWebhookExternalKeyFailedEventData`
+
+    - `JsonValue type = "external_key.failed"`
+
+    - `String id`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `String organizationId`
+
+  - `class BetaWebhookExternalKeyRecoveredEventData`
+
+    - `JsonValue type = "external_key.recovered"`
+
+    - `String id`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `String organizationId`
+
+### Beta Webhook External Key Failed Event Data
+
+- `class BetaWebhookExternalKeyFailedEventData`
+
+  - `JsonValue type = "external_key.failed"`
+
+  - `String id`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `String organizationId`
+
+### Beta Webhook External Key Recovered Event Data
+
+- `class BetaWebhookExternalKeyRecoveredEventData`
+
+  - `JsonValue type = "external_key.recovered"`
+
+  - `String id`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `String organizationId`
 
 ### Beta Webhook Memory Store Archived Event Data
 

@@ -592,6 +592,7 @@ The following aren’t supported on Claude Models on Google Cloud (Anthropic man
 * **MCP tunnels:** [MCP tunnels](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview) aren’t available on Claude Models on Google Cloud (Anthropic managed).
 * **[Memory stores on self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory):** Memory stores aren’t supported for sessions on self-hosted environments.
 * **Pre-built self-hosted sandbox workers:** The [self-hosted workers](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers) in the `ant` CLI and in the Python, TypeScript, and Go SDKs don’t support Claude Models on Google Cloud (Anthropic managed). Instead, implement your own worker that calls the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work) directly. For the roles and permissions your worker needs, see [IAM permissions for environments](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions#environments).
+* **Linked billing (beta):** [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections) isn’t available on Claude Models on Google Cloud (Anthropic managed).
 
 ### Context window
 

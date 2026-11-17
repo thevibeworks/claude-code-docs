@@ -44,7 +44,7 @@ If you’re an agent that runs these steps for a person:
 
 <Steps>
   <Step title="Extract the archive">
-    Extract the archive, and work from its `compose` directory. In the command, replace `<archive>` with your archive’s name, without `.tar.gz`.
+    Extract the archive and work from its `compose` directory. In the command, replace `<archive>` with your archive’s name, without `.tar.gz`.
 
     ```bash
     tar -xzf <archive>.tar.gz && cd <archive>/compose

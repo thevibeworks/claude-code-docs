@@ -119,6 +119,8 @@ Retrieve detailed information about a specific work item.
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -431,6 +433,8 @@ Long poll for work items in the queue.
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -715,6 +719,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -1008,6 +1014,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -1242,6 +1250,8 @@ Stop a work item, initiating graceful or forced shutdown.
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -1559,6 +1569,8 @@ List work items in an environment.
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -1843,6 +1855,8 @@ Update work item metadata with merge semantics.
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -2154,6 +2168,8 @@ Get statistics about the work queue for an environment.
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 

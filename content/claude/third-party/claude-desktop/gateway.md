@@ -527,6 +527,15 @@ The following table lists what the model configuration and the gateway need to p
 
 On a response that delivers only keep-alive pings, a session accepts about five minutes of pings and then waits [`inferenceStreamIdleTimeoutSec`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencestreamidletimeoutsec) seconds more for model output (300 by default, so about ten minutes in all). Raise that key if your provider needs longer than that before its first output on a large request.
 
+### Gateway requirements for preserved thinking
+
+On models with [preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking), the provider ties each thinking block that Claude produces to the `system`, `tools`, and `messages` content that came before it. A session sends the thinking blocks from earlier turns back in later requests. That content can change after Claude produces a block, for example in your gateway or after a Claude Desktop update. If it has changed, the provider can reject the request with a `400` whose message says that the block is `bound to a different conversation`.
+
+On these models, your gateway needs to do the following:
+
+* **Forward the request content unchanged**: send `system`, `tools`, and `messages` to the provider as the session sent them, including the [attribution block](https://code.claude.com/docs/en/llm-gateway-protocol#system-prompt-attribution-block) that Claude Code puts first in the `system` array. To check, compare these fields in the request that the gateway received and in the one that it sent to the provider. Apart from `cache_control` markers, their content should be identical.
+* **Forward the rejection unchanged**: when the provider's status code and error body reach the session unchanged, the session removes the earlier thinking blocks and retries. The user sees only the reply. If your gateway rewrites the error, the user can see the error. Each later message in that conversation then fails the same way. To check, see the error-forwarding requirement in [Context window and compaction](#context-window-and-compaction).
+
 ### MCP tool search
 
 [MCP tool search](https://code.claude.com/docs/en/mcp#scale-with-mcp-tool-search) loads MCP tool schemas on demand instead of inlining every schema into the context window. It reduces context pressure when many MCP tools are configured (sessions that otherwise compact every turn or two).
@@ -739,3 +748,5 @@ If the output doesn't include the intermediate certificate that issued the gatew
 * **`400` with your gateway's own error text**: the gateway rejected the summary request itself, for example on a request-size or token limit of its own. Raise or remove that limit for these requests.
 
 For `Prompt is too long` without `automatic compaction failed`, or your gateway's own request-too-large error shown in the session, check the `usage` and error-forwarding requirements in [Context window and compaction](#context-window-and-compaction) first. [Prompt is too long](https://code.claude.com/docs/en/errors#prompt-is-too-long) in the Claude Code error reference covers the other causes.
+
+**Every message in one conversation fails, and new conversations work.** In the gateway's logs, find the provider's response to one of the failed requests. If its message says that a thinking block is `bound to a different conversation`, compare it with the response that your gateway returned for that request. If the status code or the error body differs, see [Gateway requirements for preserved thinking](#gateway-requirements-for-preserved-thinking). Once your gateway forwards the error unchanged, the user's next message in the same conversation goes through.

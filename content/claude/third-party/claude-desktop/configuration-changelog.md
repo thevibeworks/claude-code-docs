@@ -8,6 +8,20 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v6.6395.0**
+
+2026-11-17
+
+**Changed:**
+
+* `builtinToolPolicy` and `disabledBuiltinTools`: the tool name `SetGoal` takes the place of `ProposeGoal`. Entries that say `ProposeGoal` are still accepted.
+* `remoteFileDownloads` (beta): when unset, it now allows all but blocked file types from SSH hosts and WSL in Code. Device policy for this app, a configuration server, Admin Console or managed Claude Code settings keep it `limited`. A script-installed file doesn't, so set `limited` in it.
+* `skipWebFetchPreflight`: where `disabledBuiltinTools` lists `WebFetch`, Code sessions skip the WebFetch domain check, whatever this key says. Setup's Firewall allowlist then no longer lists `api.anthropic.com` as needed for that check.
+* `mcpToolTimeoutSec`: a shell command in Chat and Cowork can now run for up to 600 seconds, or this value if it is set and lower. With the key unset it used to stop after about 3 minutes.
+* `allowedWorkspaceFolders`: in local Code sessions the Read tool can now open a long tool result that its own session saved, outside the listed folders.
+* `allowedWorkspaceFolders`: over SSH to Linux and Mac hosts, file work in the folders a session started with now goes on while the app is away, and a tighter list reaches a running session only when the app is back.
+* `coworkEgressAllowedHosts`: while `builtinBrowserEnabled` is off, a list other than `*`, even an empty one, now limits Code-tab preview pages to listed hosts and loopback addresses. An unset list does not.
+
 **v5.11492.5**
 
 2026-11-13

@@ -293,6 +293,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
@@ -736,6 +737,8 @@ interface MessageCreateParams {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
+  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. */
+  billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
   /** Compaction configuration. When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`. */
@@ -1113,6 +1116,12 @@ type Model =
    */
   | "claude-sonnet-4-5-20250929"
   | (string & {});
+
+interface BetaBillingPolicy {
+  type: "billing_policy";
+  /** Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. */
+  bill_to?: BetaBillTo;
+}
 
 interface BetaCacheControlEphemeral {
   type: "ephemeral";
@@ -1986,6 +1995,8 @@ interface BetaBrowserStateChangeDownloadFailed {
   /** The failure or cancellation detail, when known. */
   error?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 }
+
+type BetaBillTo = "self" | "user_profile";
 
 interface BetaSkillParams {
   /** Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined) */
@@ -4063,6 +4074,8 @@ interface MessageCountTokensParams {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
+  /** Declares which organization is billed when this body is sent to `/v1/messages`. Accepted here so that you can count the tokens of the exact body you will send, and otherwise ignored: counting tokens bills nobody, so no user profile is required. */
+  billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
   /** Compaction configuration. When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`. */
@@ -4458,6 +4471,8 @@ interface Params {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
+  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. */
+  billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
   /** Compaction configuration. When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`. */
@@ -5390,7 +5405,7 @@ interface BetaManagedAgentsServiceAccountExecutionIdentityParams {
   type: "service_account";
 }
 
-/** A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster. */
+/** Recommendation: use `multiagent_20261001` instead of `coordinator`. A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster. */
 interface BetaManagedAgentsMultiagentCoordinatorParams {
   type: "coordinator";
   /** Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1). */
@@ -15873,7 +15888,7 @@ interface BetaWebhookEvent {
 #### Types
 
 ```ts
-type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | BetaWebhookSessionIdledEventData | BetaWebhookSessionRequiresActionEventData | BetaWebhookSessionArchivedEventData | BetaWebhookSessionDeletedEventData | BetaWebhookSessionStatusRescheduledEventData | BetaWebhookSessionStatusRunStartedEventData | BetaWebhookSessionStatusIdledEventData | BetaWebhookSessionStatusTerminatedEventData | BetaWebhookSessionThreadCreatedEventData | BetaWebhookSessionThreadIdledEventData | BetaWebhookSessionThreadTerminatedEventData | BetaWebhookSessionOutcomeEvaluationEndedEventData | BetaWebhookVaultCreatedEventData | BetaWebhookVaultArchivedEventData | BetaWebhookVaultDeletedEventData | BetaWebhookVaultCredentialCreatedEventData | BetaWebhookVaultCredentialArchivedEventData | BetaWebhookVaultCredentialDeletedEventData | BetaWebhookVaultCredentialRefreshFailedEventData | BetaWebhookSessionUpdatedEventData | BetaWebhookAgentCreatedEventData | BetaWebhookAgentArchivedEventData | BetaWebhookAgentDeletedEventData | BetaWebhookDeploymentPausedEventData | BetaWebhookDeploymentRunFailedEventData | BetaWebhookDeploymentCreatedEventData | BetaWebhookDeploymentUpdatedEventData | BetaWebhookDeploymentUnpausedEventData | BetaWebhookAgentUpdatedEventData | BetaWebhookDeploymentArchivedEventData | BetaWebhookDeploymentRunStartedEventData | BetaWebhookDeploymentDeletedEventData | BetaWebhookDeploymentRunSucceededEventData | BetaWebhookEnvironmentCreatedEventData | BetaWebhookEnvironmentUpdatedEventData | BetaWebhookEnvironmentArchivedEventData | BetaWebhookEnvironmentDeletedEventData | BetaWebhookMemoryStoreCreatedEventData | BetaWebhookMemoryStoreArchivedEventData | BetaWebhookMemoryStoreDeletedEventData | BetaWebhookSessionBudgetReachedEventData | BetaWebhookUserProfileEnforcementActionOpenedEventData | BetaWebhookUserProfileEnforcementActionResolvedEventData | BetaWebhookUserProfileProgramStatusUpdatedEventData;
+type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | BetaWebhookSessionIdledEventData | BetaWebhookSessionRequiresActionEventData | BetaWebhookSessionArchivedEventData | BetaWebhookSessionDeletedEventData | BetaWebhookSessionStatusRescheduledEventData | BetaWebhookSessionStatusRunStartedEventData | BetaWebhookSessionStatusIdledEventData | BetaWebhookSessionStatusTerminatedEventData | BetaWebhookSessionThreadCreatedEventData | BetaWebhookSessionThreadIdledEventData | BetaWebhookSessionThreadTerminatedEventData | BetaWebhookSessionOutcomeEvaluationEndedEventData | BetaWebhookVaultCreatedEventData | BetaWebhookVaultArchivedEventData | BetaWebhookVaultDeletedEventData | BetaWebhookVaultCredentialCreatedEventData | BetaWebhookVaultCredentialArchivedEventData | BetaWebhookVaultCredentialDeletedEventData | BetaWebhookVaultCredentialRefreshFailedEventData | BetaWebhookSessionUpdatedEventData | BetaWebhookAgentCreatedEventData | BetaWebhookAgentArchivedEventData | BetaWebhookAgentDeletedEventData | BetaWebhookDeploymentPausedEventData | BetaWebhookDeploymentRunFailedEventData | BetaWebhookDeploymentCreatedEventData | BetaWebhookDeploymentUpdatedEventData | BetaWebhookDeploymentUnpausedEventData | BetaWebhookAgentUpdatedEventData | BetaWebhookDeploymentArchivedEventData | BetaWebhookDeploymentRunStartedEventData | BetaWebhookDeploymentDeletedEventData | BetaWebhookDeploymentRunSucceededEventData | BetaWebhookEnvironmentCreatedEventData | BetaWebhookEnvironmentUpdatedEventData | BetaWebhookEnvironmentArchivedEventData | BetaWebhookEnvironmentDeletedEventData | BetaWebhookMemoryStoreCreatedEventData | BetaWebhookMemoryStoreArchivedEventData | BetaWebhookMemoryStoreDeletedEventData | BetaWebhookSessionBudgetReachedEventData | BetaWebhookUserProfileEnforcementActionOpenedEventData | BetaWebhookUserProfileEnforcementActionResolvedEventData | BetaWebhookUserProfileProgramStatusUpdatedEventData | BetaWebhookExternalKeyFailedEventData | BetaWebhookExternalKeyRecoveredEventData;
 
 interface BetaWebhookSessionCreatedEventData {
   type: "session.created";
@@ -16262,6 +16277,20 @@ interface BetaWebhookUserProfileEnforcementActionResolvedEventData {
 interface BetaWebhookUserProfileProgramStatusUpdatedEventData {
   type: "user_profile.program_status_updated";
   /** ID of the user profile that triggered the event. */
+  id: string;
+  organization_id: string;
+}
+
+interface BetaWebhookExternalKeyFailedEventData {
+  type: "external_key.failed";
+  /** ID (`ekey_...`) of the external key that stopped working or works again. */
+  id: string;
+  organization_id: string;
+}
+
+interface BetaWebhookExternalKeyRecoveredEventData {
+  type: "external_key.recovered";
+  /** ID (`ekey_...`) of the external key that stopped working or works again. */
   id: string;
   organization_id: string;
 }
@@ -18418,7 +18447,7 @@ interface ExternalKeyCreateParams {
   display_name?: string | null; // minLength: 1, maxLength: 255
   /** Data residency geo. Only `us` is supported. */
   geo?: "us";
-  /** ID of a user profile to bind the key to. A user profile represents one of your customers: bind a customer's key to that customer's user profile. A key bound to a user profile can only be attached to a Workspace that has the same user profile, and the binding cannot be changed later. Omit this field only for your organization's own key, because a key created without a user profile ID can be attached to any Workspace, including another customer's. */
+  /** ID of a user profile to bind the key to. A user profile represents one of your customers: bind a customer's key to that customer's user profile. A key bound to a user profile can only be attached to a Workspace that has the same user profile, and the binding cannot be changed later. Omit this field only for your organization's own key, never a customer's. A key created without a user profile ID can't be attached to a Workspace that has a user profile, and you can't add one to the key later. */
   user_profile_id?: string | null;
 }
 ```
@@ -18441,7 +18470,7 @@ interface BetaExternalKey {
   /** KMS provider identity and auth coordinates. */
   provider_config: BetaAWSExternalKeyConfig | BetaGCPExternalKeyConfig | BetaAzureExternalKeyConfig;
   updated_at: string; // format: date-time
-  /** ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can be attached to a Workspace whatever its user profile. */
+  /** ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can only be attached to a Workspace that has no user profile. */
   user_profile_id: string | null;
 }
 ```
@@ -21508,7 +21537,9 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaWorkspace = await client.beta.organization.workspaces.create({ name: "x" });
+const betaWorkspace = await client.beta.organization.workspaces.create({
+  name: "Workspace Name"
+});
 
 console.log(betaWorkspace.id);
 ```
@@ -21573,7 +21604,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `KeyProfileMismatchError` (HTTP status 400, error code `key_profile_mismatch`)
 
-  The External Key is bound to a user profile, and the Workspace does not have that user profile. A Workspace can use only a key bound to its own user profile or a key that isn't bound to one.
+  After this request, the External Key and the Workspace would not have the same user profile. A key and its Workspace must have the same user profile, or both have none.
 
 - `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
 
@@ -21715,7 +21746,7 @@ interface WorkspaceUpdateParams {
   name?: string; // minLength: 1, maxLength: 255
   /** User-defined tags as string key-value pairs. Keys may not begin with `anthropic`. */
   tags?: Record<string, string | null> | null;
-  /** ID of a user profile to attach to the Workspace. Every inference request through the Workspace must then name this user profile; the API rejects a request that names none or a different one. Once set, it can't be replaced or removed (sending the same ID again changes nothing); only deleting the user profile clears it. The default Workspace can't have a user profile. */
+  /** ID of a user profile to attach to the Workspace. Every inference request through the Workspace must then name this user profile; the API rejects a request that names none or a different one. Once set, it can't be replaced or removed (sending the same ID again changes nothing); only deleting the user profile clears it. It can't be set on a Workspace whose External Key isn't bound to this user profile. The default Workspace can't have a user profile. */
   user_profile_id?: string;
 }
 ```
@@ -21734,7 +21765,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `KeyProfileMismatchError` (HTTP status 400, error code `key_profile_mismatch`)
 
-  The External Key is bound to a user profile, and the Workspace does not have that user profile. A Workspace can use only a key bound to its own user profile or a key that isn't bound to one.
+  After this request, the External Key and the Workspace would not have the same user profile. A key and its Workspace must have the same user profile, or both have none.
 
 - `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
 
@@ -27637,7 +27668,7 @@ interface BetaPluginComponent {
 interface BetaPluginContentScan {
   /** The scan's verdict; set only when `status` is `completed`. A `warn` can mean a `fail` that was allowed in claude.ai. */
   assessment: "fail" | "pass" | "unknown" | "warn" | null;
-  /** The primary mechanism behind a `warn` or `fail`, such as `credential-exposure` or `guardrail-tampering`; a mechanism this API does not yet name reads as `other`. Null on a `pass`, whenever `assessment` is null, and when no mechanism is reported for the verdict. */
+  /** The primary mechanism behind a `warn` or `fail`, such as `credential-exposure` or `guardrail-tampering`; a mechanism this API does not yet name reads as `other`. Read `status` first: on an `errored` scan it is not a finding but why there is no verdict: `scan-invalid-archive`, the scan refused the version's archive, or could not process it, before checking what its files say, and running it again will not help, so change the files and store a new version; `scan-did-not-finish`, the scan did not finish or its result is no longer available, so retry the scan in claude.ai if it offers a retry; `scan-unavailable`, the scan could not run or its result cannot be read right now, so read the version again later, then retry the scan in claude.ai if it offers a retry. If these steps do not help, contact support. Null on a `pass`, while a scan runs, and when no mechanism is reported for the verdict. On an errored scan, null means that a compliance configuration ruled out the scan. */
   reason: string | null;
   /** `processing` while a scan runs, `completed` when it ran to completion, `errored` when it could not run. Once a scan of the version has completed, `content_scan` describes the newest completed scan, even while a later scan runs. While the scan outcome cannot be read, `status` is `errored` instead. */
   status: "completed" | "errored" | "processing";
@@ -30149,8 +30180,11 @@ const client = new Anthropic({
 });
 
 const betaNewOrganizationWebhookEndpoint = await client.beta.organization.webhooks.create({
-  enabled_events: ["user_profile.enforcement_action_opened"],
-  url: "x"
+  enabled_events: [
+    "user_profile.enforcement_action_opened",
+    "user_profile.enforcement_action_resolved"
+  ],
+  url: "https://example.com/anthropic-webhooks"
 });
 
 console.log(betaNewOrganizationWebhookEndpoint.id);
@@ -30165,7 +30199,7 @@ console.log(betaNewOrganizationWebhookEndpoint.id);
   "description": "description",
   "disabled_reason": "disabled_reason",
   "enabled_events": [
-    "user_profile.enforcement_action_opened"
+    "external_key.failed"
   ],
   "name": "name",
   "signing_secret": "signing_secret",
@@ -30180,7 +30214,7 @@ console.log(betaNewOrganizationWebhookEndpoint.id);
 ```ts
 interface WebhookCreateParams {
   /** The event types to deliver to the endpoint. Must list at least one. */
-  enabled_events: Array<"user_profile.enforcement_action_opened" | "user_profile.enforcement_action_resolved" | "user_profile.program_status_updated">;
+  enabled_events: Array<"external_key.failed" | "external_key.recovered" | "user_profile.enforcement_action_opened" | "user_profile.enforcement_action_resolved" | "user_profile.program_status_updated">;
   /** The HTTPS URL that deliveries are sent to. */
   url: string; // minLength: 1
   /** Notes about the endpoint. */
@@ -30206,7 +30240,7 @@ interface BetaNewOrganizationWebhookEndpoint {
   /** Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it. */
   disabled_reason: string;
   /** The event types delivered to the endpoint. */
-  enabled_events: Array<"user_profile.enforcement_action_opened" | "user_profile.enforcement_action_resolved" | "user_profile.program_status_updated">;
+  enabled_events: Array<"external_key.failed" | "external_key.recovered" | "user_profile.enforcement_action_opened" | "user_profile.enforcement_action_resolved" | "user_profile.program_status_updated">;
   /** A short label for the endpoint. An empty string when none was given. */
   name: string;
   /** The secret Anthropic signs deliveries to the endpoint with (prefix `whsec_`). No other response returns it, so store it now. To replace it, regenerate the signing secret. */
@@ -30265,7 +30299,7 @@ for await (const betaOrganizationWebhookEndpoint of client.beta.organization.web
       "description": "description",
       "disabled_reason": "disabled_reason",
       "enabled_events": [
-        "user_profile.enforcement_action_opened"
+        "external_key.failed"
       ],
       "name": "name",
       "state": "disabled",
@@ -30310,7 +30344,7 @@ interface BetaOrganizationWebhookEndpoint {
   /** Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it. */
   disabled_reason: string;
   /** The event types delivered to the endpoint. */
-  enabled_events: Array<"user_profile.enforcement_action_opened" | "user_profile.enforcement_action_resolved" | "user_profile.program_status_updated">;
+  enabled_events: Array<"external_key.failed" | "external_key.recovered" | "user_profile.enforcement_action_opened" | "user_profile.enforcement_action_resolved" | "user_profile.program_status_updated">;
   /** A short label for the endpoint. An empty string when none was given. */
   name: string;
   /** Whether deliveries are sent to the endpoint. */
@@ -30357,7 +30391,7 @@ console.log(betaOrganizationWebhookEndpoint.id);
   "description": "description",
   "disabled_reason": "disabled_reason",
   "enabled_events": [
-    "user_profile.enforcement_action_opened"
+    "external_key.failed"
   ],
   "name": "name",
   "state": "disabled",
@@ -30414,7 +30448,7 @@ console.log(betaOrganizationWebhookEndpoint.id);
   "description": "description",
   "disabled_reason": "disabled_reason",
   "enabled_events": [
-    "user_profile.enforcement_action_opened"
+    "external_key.failed"
   ],
   "name": "name",
   "state": "disabled",
@@ -30433,7 +30467,7 @@ interface WebhookUpdateParams {
   /** Notes about the endpoint. */
   description?: string;
   /** The event types to deliver to the endpoint. Replaces the whole set; an empty list leaves it unchanged. */
-  enabled_events?: Array<"user_profile.enforcement_action_opened" | "user_profile.enforcement_action_resolved" | "user_profile.program_status_updated">;
+  enabled_events?: Array<"external_key.failed" | "external_key.recovered" | "user_profile.enforcement_action_opened" | "user_profile.enforcement_action_resolved" | "user_profile.program_status_updated">;
   /** A short label for the endpoint. */
   name?: string;
   /** `disabled` stops deliveries. `enabled` resumes them and clears `disabled_reason`. Events that happen while the endpoint is disabled are never delivered. */
@@ -31753,6 +31787,7 @@ for await (const betaClaudeTagBundle of client.beta.organization.claudeTag.bundl
       "created_at": "2019-12-27T18:11:19.117Z",
       "description": "description",
       "display_name": "display_name",
+      "instructions": "instructions",
       "type": "bundle",
       "updated_at": "2019-12-27T18:11:19.117Z"
     }
@@ -31777,7 +31812,7 @@ interface BundleListParams {
 #### Returns
 
 ```ts
-/** A named set of access that Claude can use in a Slack channel or a Slack workspace: connectors, repositories and credentials. Created and edited in claude.ai. */
+/** A named set of access that Claude can use in a Slack channel or a Slack workspace: connectors, repositories and credentials. Created and edited in claude.ai; Update Bundle also changes its instructions. */
 interface BetaClaudeTagBundle {
   type: "bundle";
   /** The Bundle's identifier. Starts with `capp_`. */
@@ -31788,6 +31823,8 @@ interface BetaClaudeTagBundle {
   description: string | null;
   /** The Bundle's name. Always set. Read-only. */
   display_name: string;
+  /** Instructions for Claude, added to the instructions of every session that can use the Bundle. Null when it has none. */
+  instructions: string | null;
   /** Time of the last change to the Bundle. */
   updated_at: string; // format: date-time
 }
@@ -31845,6 +31882,7 @@ console.log(betaClaudeTagBundle.id);
   "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "display_name": "display_name",
+  "instructions": "instructions",
   "type": "bundle",
   "updated_at": "2019-12-27T18:11:19.117Z"
 }
@@ -31881,6 +31919,91 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
 
   The credential is not a scoped API key that is bound at the organization level.
+
+### Update Bundle
+
+- Signature: `client.beta.organization.claudeTag.bundles.update(bundleID: string, params: BundleUpdateParams, options?: RequestOptions): BetaClaudeTagBundle`
+- Endpoint: `POST /v1/organizations/claude_tag/bundles/{bundle_id}`
+- Beta header: `anthropic-beta: experimental-claude-tag-2026-10-21`
+
+Change a Bundle's instructions. The update is partial: a field left out is unchanged, and `instructions` sent as null or as an empty string clears them. The later of two updates wins. Sessions that start after the change use the new instructions; sessions already running keep the ones they started with. Some Bundles are managed in claude.ai, and an update of one returns 400.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaClaudeTagBundle = await client.beta.organization.claudeTag.bundles.update(
+  "capp_011CZkZjLP1cWxj5EtMmdgbq",
+  {}
+);
+
+console.log(betaClaudeTagBundle.id);
+```
+
+#### Example response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "description": "description",
+  "display_name": "display_name",
+  "instructions": "instructions",
+  "type": "bundle",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+#### Parameters
+
+```ts
+/** The Bundle's identifier, starting with `capp_`. */
+bundleID: string; // path parameter
+
+interface BundleUpdateParams {
+  /** Instructions for Claude, up to 10,000 bytes (UTF-8), added to the instructions of every session that can use the Bundle. Null or an empty string clears them. */
+  instructions?: string | null;
+  /** This endpoint is in beta: requests must send `experimental-claude-tag-2026-10-21` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaBundleAttachmentNotSupportedError` (HTTP status 400, error code `bundle_attachment_not_supported`)
+
+  The Bundle has an attachment this API does not support editing, so its instructions can be changed only in claude.ai.
+
+- `BetaBundleOnCallError` (HTTP status 400, error code `bundle_on_call`)
+
+  This Bundle's instructions are managed in claude.ai and can't be changed through the API.
+
+- `BetaAPIKeyScopeMissingError` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `BetaClaudeTagWritesNotEnabledError` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `BetaComplianceConfigurationRestrictedError` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `BetaOrganizationLevelScopedAPIKeyRequiredError` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
+- `BetaSlackChannelSetUpSettingsConflictError` (HTTP status 409, error code `slack_channel_set_up_settings_conflict`)
+
+  The request set the channel up, and something else then changed the channel or removed it. Nothing of `settings` was stored.
 
 ## Beta › Organization › Claude Tag › Bundles › Targets
 

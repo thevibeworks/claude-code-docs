@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/messages/create
 
 # Create a Message
 
-`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?BetaThinkingConfigParam thinking, ?BetaMessageThreadParam thread, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
+`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaBillingPolicy billingPolicy, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?BetaThinkingConfigParam thinking, ?BetaMessageThreadParam thread, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
 
 **POST** `/v1/messages`
 
@@ -631,6 +631,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
 use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Messages\BetaBillTo;
 use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
 use Anthropic\Messages\Model;
 
@@ -640,6 +641,7 @@ $betaMessage = $client->beta->messages->create(
   maxTokens: 1024,
   messages: [['content' => 'Hello, world', 'role' => 'user']],
   model: Model::CLAUDE_OPUS_5_5,
+  billingPolicy: ['type' => 'billing_policy', 'billTo' => BetaBillTo::SELF],
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   container: [

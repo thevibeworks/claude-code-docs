@@ -639,6 +639,26 @@ signature is missing or invalid.
 
       - `organization_id: String`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `type: :"external_key.failed"`
+
+      - `id: String`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `type: :"external_key.recovered"`
+
+      - `id: String`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: String`
+
 ## Example
 
 ```ruby

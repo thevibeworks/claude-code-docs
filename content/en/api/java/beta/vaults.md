@@ -113,6 +113,8 @@ Create a Vault
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -369,6 +371,8 @@ List Vaults
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -607,6 +611,8 @@ Retrieve a Vault
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -839,6 +845,8 @@ Update a Vault
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -1083,6 +1091,8 @@ Delete a Vault
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -1282,6 +1292,8 @@ Archive a Vault
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -1569,6 +1581,8 @@ Create a Credential
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -2124,6 +2138,8 @@ List Credentials
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -2489,6 +2505,8 @@ Retrieve a Credential
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -2852,6 +2870,8 @@ Update a Credential
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -3357,6 +3377,8 @@ Delete a Credential
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -3564,6 +3586,8 @@ Archive a Credential
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
@@ -3928,6 +3952,8 @@ Validate an MCP OAuth Credential
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 

@@ -201,7 +201,7 @@ Add your MCP server as a custom connector for the test organization, as [Add the
 
 If your MCP server is already in the [Connectors Directory](https://claude.com/docs/connectors/directory.md), add the custom connector at a different URL from your listing's, such as a staging deployment of the same server. A connector at your listing's URL, whether you add it from the directory or by URL, shows **Managed authorization** once your listing is marked as supporting Enterprise Managed Auth. The **Authentication** section is on the connector's **Configuration** tab.
 
-To test at your listing's production URL before your listing is marked, email `mcp-review@anthropic.com` and ask to have Enterprise Managed Auth enabled for your connector in your test organization. Include your listing's name and the **Organization ID**, which you copy from [**Organization settings > Organization and access**](https://claude.ai/admin-settings/organization).
+To test at your listing's production URL before your listing is marked, email `mcp-review@anthropic.com` and ask to have Enterprise Managed Auth enabled for your connector in your test organization. Include your listing's name and the **Organization ID**, which you copy from [**Organization settings > Organization and access**](https://claude.ai/admin-settings/organization). If your server needs [`aud_tenant`](#identity-assertion-claims) in Claude-issued assertions, say so in the same email.
 
 **2. Open the managed authorization setup**
 
@@ -239,6 +239,10 @@ A customer's administrator turns on Enterprise Managed Auth for their organizati
 In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their workspace and a field for the trusted issuer URL. Accept only an `https` URL in the field, and let only the workspace's administrators set it. The administrator copies the URL from their identity provider or, for Claude-issued assertions, from the **Issuer URL** box in Claude's managed authorization setup for your connector. When the administrator saves, register the URL as that workspace's trusted issuer. With [express admin setup](#support-express-admin-setup), Claude sets the issuer for them, so they don't copy the URL.
 
 If you identify workspaces by your own tenant ID, show that ID in the same settings. The administrator enters it in the **Tenant ID** field in Claude's managed authorization setup for your connector, and it then arrives in each Claude-issued assertion as [`aud_tenant`](#identity-assertion-claims).
+
+> [!NOTE]
+>
+> If your server needs `aud_tenant` in Claude-issued assertions, email `mcp-review@anthropic.com` with your listing's name so that administrators who add your connector from the directory see the **Tenant ID** field.
 
 ### Provide setup documentation
 
@@ -334,6 +338,8 @@ Confirm each of the following before you ask Anthropic to mark your directory li
 * Your setup documentation for administrators is published, and its URL is on [your directory listing](https://claude.com/docs/connectors/building/managing-your-listing.md)
 
 Then email `mcp-review@anthropic.com` with your listing's name and the kinds of assertion your server accepts. If your connector isn't listed yet, [submit it](https://claude.com/docs/connectors/building/submission.md) before you email. Anthropic reviews the request and sets which kinds the listing is marked as supporting.
+
+If your server needs [`aud_tenant`](#identity-assertion-claims) in Claude-issued assertions, say so in the same email.
 
 ## Related resources
 

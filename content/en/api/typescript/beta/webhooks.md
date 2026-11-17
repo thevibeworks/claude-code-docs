@@ -67,7 +67,7 @@ interface BetaWebhookEvent {
 ### Types
 
 ```ts
-type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | BetaWebhookSessionIdledEventData | BetaWebhookSessionRequiresActionEventData | BetaWebhookSessionArchivedEventData | BetaWebhookSessionDeletedEventData | BetaWebhookSessionStatusRescheduledEventData | BetaWebhookSessionStatusRunStartedEventData | BetaWebhookSessionStatusIdledEventData | BetaWebhookSessionStatusTerminatedEventData | BetaWebhookSessionThreadCreatedEventData | BetaWebhookSessionThreadIdledEventData | BetaWebhookSessionThreadTerminatedEventData | BetaWebhookSessionOutcomeEvaluationEndedEventData | BetaWebhookVaultCreatedEventData | BetaWebhookVaultArchivedEventData | BetaWebhookVaultDeletedEventData | BetaWebhookVaultCredentialCreatedEventData | BetaWebhookVaultCredentialArchivedEventData | BetaWebhookVaultCredentialDeletedEventData | BetaWebhookVaultCredentialRefreshFailedEventData | BetaWebhookSessionUpdatedEventData | BetaWebhookAgentCreatedEventData | BetaWebhookAgentArchivedEventData | BetaWebhookAgentDeletedEventData | BetaWebhookDeploymentPausedEventData | BetaWebhookDeploymentRunFailedEventData | BetaWebhookDeploymentCreatedEventData | BetaWebhookDeploymentUpdatedEventData | BetaWebhookDeploymentUnpausedEventData | BetaWebhookAgentUpdatedEventData | BetaWebhookDeploymentArchivedEventData | BetaWebhookDeploymentRunStartedEventData | BetaWebhookDeploymentDeletedEventData | BetaWebhookDeploymentRunSucceededEventData | BetaWebhookEnvironmentCreatedEventData | BetaWebhookEnvironmentUpdatedEventData | BetaWebhookEnvironmentArchivedEventData | BetaWebhookEnvironmentDeletedEventData | BetaWebhookMemoryStoreCreatedEventData | BetaWebhookMemoryStoreArchivedEventData | BetaWebhookMemoryStoreDeletedEventData | BetaWebhookSessionBudgetReachedEventData | BetaWebhookUserProfileEnforcementActionOpenedEventData | BetaWebhookUserProfileEnforcementActionResolvedEventData | BetaWebhookUserProfileProgramStatusUpdatedEventData;
+type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | BetaWebhookSessionIdledEventData | BetaWebhookSessionRequiresActionEventData | BetaWebhookSessionArchivedEventData | BetaWebhookSessionDeletedEventData | BetaWebhookSessionStatusRescheduledEventData | BetaWebhookSessionStatusRunStartedEventData | BetaWebhookSessionStatusIdledEventData | BetaWebhookSessionStatusTerminatedEventData | BetaWebhookSessionThreadCreatedEventData | BetaWebhookSessionThreadIdledEventData | BetaWebhookSessionThreadTerminatedEventData | BetaWebhookSessionOutcomeEvaluationEndedEventData | BetaWebhookVaultCreatedEventData | BetaWebhookVaultArchivedEventData | BetaWebhookVaultDeletedEventData | BetaWebhookVaultCredentialCreatedEventData | BetaWebhookVaultCredentialArchivedEventData | BetaWebhookVaultCredentialDeletedEventData | BetaWebhookVaultCredentialRefreshFailedEventData | BetaWebhookSessionUpdatedEventData | BetaWebhookAgentCreatedEventData | BetaWebhookAgentArchivedEventData | BetaWebhookAgentDeletedEventData | BetaWebhookDeploymentPausedEventData | BetaWebhookDeploymentRunFailedEventData | BetaWebhookDeploymentCreatedEventData | BetaWebhookDeploymentUpdatedEventData | BetaWebhookDeploymentUnpausedEventData | BetaWebhookAgentUpdatedEventData | BetaWebhookDeploymentArchivedEventData | BetaWebhookDeploymentRunStartedEventData | BetaWebhookDeploymentDeletedEventData | BetaWebhookDeploymentRunSucceededEventData | BetaWebhookEnvironmentCreatedEventData | BetaWebhookEnvironmentUpdatedEventData | BetaWebhookEnvironmentArchivedEventData | BetaWebhookEnvironmentDeletedEventData | BetaWebhookMemoryStoreCreatedEventData | BetaWebhookMemoryStoreArchivedEventData | BetaWebhookMemoryStoreDeletedEventData | BetaWebhookSessionBudgetReachedEventData | BetaWebhookUserProfileEnforcementActionOpenedEventData | BetaWebhookUserProfileEnforcementActionResolvedEventData | BetaWebhookUserProfileProgramStatusUpdatedEventData | BetaWebhookExternalKeyFailedEventData | BetaWebhookExternalKeyRecoveredEventData;
 
 interface BetaWebhookSessionCreatedEventData {
   type: "session.created";
@@ -456,6 +456,20 @@ interface BetaWebhookUserProfileEnforcementActionResolvedEventData {
 interface BetaWebhookUserProfileProgramStatusUpdatedEventData {
   type: "user_profile.program_status_updated";
   /** ID of the user profile that triggered the event. */
+  id: string;
+  organization_id: string;
+}
+
+interface BetaWebhookExternalKeyFailedEventData {
+  type: "external_key.failed";
+  /** ID (`ekey_...`) of the external key that stopped working or works again. */
+  id: string;
+  organization_id: string;
+}
+
+interface BetaWebhookExternalKeyRecoveredEventData {
+  type: "external_key.recovered";
+  /** ID (`ekey_...`) of the external key that stopped working or works again. */
   id: string;
   organization_id: string;
 }
