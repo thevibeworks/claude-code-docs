@@ -400,7 +400,7 @@ Before running these examples, complete the steps in [Before making API calls](h
   ```
 </CodeGroup>
 
-The cURL example asks gcloud for an Application Default Credentials token. Access tokens are short-lived. Generate one for each session instead of storing it.
+To call the API over raw HTTP, send an access token from Application Default Credentials. On a machine with the gcloud CLI, `gcloud auth application-default print-access-token` prints one. Access tokens are short-lived, so generate a new one when you need it instead of storing it. For other credential sources, see [Authentication](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication).
 
 ### API model IDs
 
@@ -623,10 +623,10 @@ A ZDR arrangement on another Anthropic organization doesn’t carry over to your
 
 [Cloud Audit Logs](https://cloud.google.com/logging/docs/audit) records API activity for Claude Models on Google Cloud (Anthropic managed) in your project. The entries appear under the `claude.googleapis.com` service. Each API route belongs to one of two log types:
 
-* **Data Access logs:** These cover most routes, including messages, batches, files, skills, models, and most Claude Managed Agents resources. They’re off by default.
-* **Admin Activity logs:** These cover the other routes, including the encryption key routes and most credential vault routes. The exception is the route for `vaults.verify`, which is Data Access. Admin Activity logs are always on.
+* **Data Access logs:** These cover most routes, including messages, batches, files, skills, models, and Claude Managed Agents resources such as credential vaults. These logs are off by default.
+* **Admin Activity logs:** These cover the encryption key routes and some other [organization-level routes](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles) that the IAM permissions page doesn’t list. Admin Activity logs are always on.
 
-To keep a record of requests, turn on Data Access logs for `claude.googleapis.com` in your project’s audit log settings.
+To keep a record of requests, [turn on Data Access logs](https://docs.cloud.google.com/logging/docs/audit/configure-data-access) for `claude.googleapis.com` in your project’s audit log settings. Select all the Data Access log types, because different routes use different ones.
 
 For audit log types by route, see [IAM permissions for Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions).
 
@@ -861,7 +861,7 @@ To move to Claude Models on Google Cloud (Anthropic managed), complete the follo
 
 ## Support
 
-[Google Cloud Support](https://cloud.google.com/support) handles your Google Cloud account, access, and billing. [Anthropic Support](https://support.claude.com/en/articles/9015913-how-to-get-support) handles Claude itself, including models, API errors, and rate limits. To request higher rate limits, see [Rate limits](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#rate-limits).
+[Google Cloud Support](https://cloud.google.com/support) handles your Google Cloud account, access, and billing. [Anthropic Support](https://support.claude.com/en/articles/9015913-how-to-get-support) handles Claude itself, including models, API errors, and rate limits. To request higher limits, see the [rate limits for Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#rate-limits).
 
 ## Next steps
 

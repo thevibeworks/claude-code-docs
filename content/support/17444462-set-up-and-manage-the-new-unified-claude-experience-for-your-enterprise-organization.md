@@ -26,17 +26,17 @@ The new unified Claude experience is available on Enterprise plans, where it app
 
 The new unified Claude experience requires two capabilities to be on for your organization:
 
-1. Chat, since chat is where every conversation starts.
+1. **Chat**, since chat is where every conversation starts.
 
-2. Cloud code execution and file creation, since agentic work runs remotely.
+2. **Cloud code execution and file creation**, since agentic work runs remotely.
 
 It doesn't require Cowork or Cowork in the cloud to be on. It is meant to replace both over time.
 
-| **Your organization today**                    | **What to do**                                                                                                                                                   |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Chat only                                      | Turn on **Chat and Cowork unified.** You don't need to turn on Cowork or Cowork in the cloud separately. Make sure Cloud code execution and file creation is on. |
-| Cowork only, or Cowork and Cowork in the cloud | Turn on the Chat capability, then turn on **Chat and Cowork unified**. Make sure **Cloud code execution and file creation** is on.                               |
-| Chat and Cowork                                | Make sure **Cloud code execution and file creation** is on, then turn on **Chat and Cowork unified**.                                                            |
+| **Your organization today**                    | **What to do**                                                                                                                                                       |
+| ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Chat only                                      | Turn on **Chat and Cowork unified.** You don't need to turn on Cowork or Cowork in the cloud separately. Make sure **Cloud code execution and file creation** is on. |
+| Cowork only, or Cowork and Cowork in the cloud | Turn on the Chat capability, then turn on **Chat and Cowork unified**. Make sure **Cloud code execution and file creation** is on.                                   |
+| Chat and Cowork                                | Make sure **Cloud code execution and file creation** is on, then turn on **Chat and Cowork unified**.                                                                |
 
 The new unified Claude experience isn't available yet for organizations that use zero data retention (ZDR), the HIPAA-ready configuration, or customer-managed encryption keys (CMEK). See **[Current limitations](#h_8b973139dd)** below.
 
@@ -52,7 +52,9 @@ The new unified Claude experience isn't available yet for organizations that use
 
 3. Turn on **Chat and Cowork unified**.
 
-4. Ask members to refresh the Claude app if they don't see the new experience right away.
+4. If you have eligible custom roles (roles with both Chat and code execution selected), a list opens with every eligible role selected, including roles where you turned it off. Roles without Chat or code execution are grayed out and not selected. Clear any role that shouldn’t have it, then confirm.
+
+5. Ask members to refresh the Claude app if they don't see the new experience right away.
 
 This turns on the new unified Claude experience for members with the User, Admin, Owner or Primary Owner role. Members on a custom role get it only if their role also includes Chat and Cowork unified.
 
@@ -60,13 +62,17 @@ Scheduled tasks and session history will continue working after the change. You 
 
 ### If you haven't changed this setting
 
-In **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**, under Chat and Cowork unified, Owners and Primary Owners see "Will be automatically enabled on November 16, 2026." Select Enable now to turn it on early, or Keep disabled to keep it off. You can still turn it off later. If the setting was already turned on or off, that choice stays.
+On November 16, 2026, **Chat and Cowork unified** turns on by default if no admin has turned it on or off for your organization. Owners and Primary Owners can turn it off at any time in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**. If the setting was already turned on or off, that choice stays.
 
-If Chat or Cloud code execution and file creation is off, there's no notice and nothing turns on. After November 16, the new experience turns on as soon as both are on.
+If **Chat** or **Cloud code execution and file creation** is off, nothing turns on. After November 16, the new experience turns on as soon as both are on.
+
+**Custom roles on December 1, 2026:** If your organization is still on by default, the new unified Claude experience turns on for custom roles that have both Chat and code execution selected, even if an admin turned it off for that role. Admins can turn it off again by role after that. If an admin has turned it on or off for your organization, this change doesn’t apply.
 
 ### For specific members, using roles
 
-The organization setting above must also be on. Once it is, everyone with the User, Admin, Owner or Primary Owner role has access. Before you turn it on, move anyone who shouldn't have it to a custom role with Chat and Cowork unified turned off. New roles start with All capabilities, which includes it.
+The organization setting above must also be on. Once it is, everyone with the User, Admin, Owner or Primary Owner role has access. Before you turn it on, move anyone who shouldn’t have it to a custom role with Chat and Cowork unified turned off. New roles start with All capabilities, which includes it.
+
+When you turn it on for your organization, clear that role in the list that opens, because every eligible role starts selected. If your organization is still on by default instead, it turns on for eligible roles on December 1, 2026, even if you turned it off for them.
 
 If your organization uses custom roles, you can grant the new unified Claude experience to specific roles:
 
@@ -88,7 +94,7 @@ To learn how to create a role, see **[Set up role-based permissions on Enterpris
 
 2. Complete your security review. Most teams review two components they already know: Claude chat and Cowork in the cloud. If a review of Cowork in the cloud is already underway, it carries over.
 
-3. Start in your sandbox organization, if you have one, or with a pilot group through a role.
+3. Start in your sandbox organization, if you have one, or with a pilot group through a role. If you pilot through a role, clear every other role you can in the list when you turn on the organization setting. Built-in roles and roles on "All capabilities" or "All generally available" can’t be cleared, so users with those roles get it too unless you move them first.
 
 4. Review your network egress, connector, sharing, and remote control settings before you turn the experience on.
 
@@ -100,7 +106,7 @@ To learn how to create a role, see **[Set up role-based permissions on Enterpris
 
 | **Setting**                                                         | **Where**                                             | **How it applies to the new unified Claude experience**                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ------------------------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Chat and Cowork unified                                             | Organization settings > Capabilities                  | Turns the new unified Claude experience on for the organization. Off by default. Changes are recorded in the activity feed.                                                                                                                                                                                                                                                                                                                                                                                      |
+| Chat and Cowork unified                                             | Organization settings > Capabilities                  | Turns the new unified Claude experience on for the organization. Changes are recorded in the activity feed.                                                                                                                                                                                                                                                                                                                                                                                                      |
 | Chat and Cowork unified (per role)                                  | Organization settings > Roles > Capabilities          | Grants the new unified Claude experience to members of a role.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | Allow network egress                                                | Organization settings > Capabilities > Code execution | Controls which internet destinations code in the sandbox can reach: off, package managers only, a custom list of domains, or all domains. Off by default for Enterprise.                                                                                                                                                                                                                                                                                                                                         |
 | Connector policies (Blocked, Needs approval, per-role restrictions) | Organization settings                                 | Enforced by Anthropic outside the sandbox, on every connector call.                                                                                                                                                                                                                                                                                                                                                                                                                                              |

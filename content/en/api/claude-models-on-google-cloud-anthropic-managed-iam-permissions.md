@@ -146,11 +146,9 @@ Other session operations need the following permissions:
 
 This permission is separate from `environments.update`. Reading the work queue and its statistics needs only `environments.get`.
 
-Besides `environments.processWork`, a worker needs other permissions to run a session, such as `sessions.get` to read the session and its events, `sessions.update` to send tool results, and `skills.get` to download the agent’s skills.
+Besides `environments.processWork`, a worker needs other permissions to run a session. For example, it needs `sessions.get` to read the session and its events, `sessions.update` to send tool results, and `skills.get` to download the agent’s skills.
 
 ### Vaults
-
-Google Cloud records these routes in Admin Activity audit logs, except the route for `vaults.verify`, whose audit log type is Data Access.
 
 | Permission       | Roles               | Routes authorized                                                                                                                                                                                        |
 | ---------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

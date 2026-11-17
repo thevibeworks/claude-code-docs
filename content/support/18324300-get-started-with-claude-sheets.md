@@ -48,7 +48,7 @@ Say what the sheet is for and what you want to track. If you already have the nu
 
 - **Ask about a range:** Select cells and ask Claude about them, like “Why is this total higher than last month?”
 
-- **Edit directly:** Type in cells, write formulas, and format your data yourself. Claude Sheets includes 144 functions.
+- **Edit directly:** Type in cells, write formulas, and format your data yourself.
 
 - **Comment:** Add comments on cells for your team.
 
@@ -68,11 +68,11 @@ To bring data into a sheet, you can:
 
 - Start from a blank sheet
 
-Pasting from Excel or Google Sheets is also available. To download a sheet, export it as an .xlsx or CSV file. To continue working in another tool, use “Send to” for a variety of partner apps.
+Pasting from Excel or Google Sheets is also available. To download a sheet, export it as an .xlsx or CSV file. To continue working in another tool, use "Send to."
 
 ## Share a sheet
 
-Sheets start private to you. To share one, open it and click “Share.” The people you share it with can work on it alongside you and Claude. Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
+Sheets start private to you. To share one, open it and click "Share." People you share it with who have "Can edit" access can work on it alongside you and Claude. Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
 
 ## Usage
 
@@ -82,22 +82,22 @@ Claude Sheets counts toward your plan’s usage limits, like the rest of your wo
 
 This section is for Owners and Primary Owners on Team and Enterprise plans.
 
-Turn Claude Sheets on or off in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**, in the Artifact templates section. It’s on by default on Team plans and off by default on Enterprise plans. Artifacts must also be on for your organization. Support for custom roles is also available, so admins can turn on Claude Sheets for a sub-set of their organization. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
+Turn Claude Sheets on or off in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**, under **Templates**. It’s on by default on Team plans and off by default on Enterprise plans. Artifacts must also be on for your organization. On Enterprise plans, once Claude Sheets is on, custom roles can limit it to specific groups. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
 
 ## Current limitations
 
-Claude Sheets is in beta and covers common spreadsheet work. We’re adding more over time. At launch:
+Claude Sheets is in beta and covers common spreadsheet work. We’re adding more over time.
 
-- **Size:** A sheet can hold up to 100,000 cells.
+- **Size:** A sheet can hold at least 200,000 filled cells.
 
 - **Charts:** Bar, line, and pie charts are available, as well as a wide range of other chart types Claude can generate.
 
-- **Features not available yet:** Pivot tables, protected ranges, find and replace, multi-column sort, filter views, multi-select dropdowns, and PDF export.
+- **Features not available yet:** Pivot tables, protected ranges, shared filter views, multi-select dropdowns, and PDF export.
 
 - **Excel features not supported:** Macros, VBA, Power Query, DAX, and print layout.
 
 - **Live data:** Sheets can’t pull live data from connected apps, and docs, decks, and dashboards can’t use a sheet as a data source.
 
-- **Platforms:** web and desktop are supported, with basic read-only access on mobile
+- **Platforms:** Web and desktop are supported, with limited access on mobile.
 
-- **Data controls:** Claude Sheets is a beta product, so HIPAA, CMEK, and ZDR are not yet supported.
+- **Data controls:** Claude Sheets is a beta product, so HIPAA and ZDR are not yet supported.

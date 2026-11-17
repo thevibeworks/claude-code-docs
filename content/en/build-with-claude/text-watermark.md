@@ -10,7 +10,7 @@ The watermark doesn’t change the meaning, quality, or readability of the outpu
 
 ## Sampling settings
 
-**This section applies to:** Claude Opus 4.6, Claude Sonnet 4.6, Claude Opus 4.5, Claude Sonnet 4.5 (deprecated), Claude Haiku 4.5, [Claude Opus 3](https://www.anthropic.com/research/deprecation-updates-opus-3) (retired, access on request)
+**This section applies to:** Claude Opus 4.6, Claude Sonnet 4.6, Claude Opus 4.5, Claude Sonnet 4.5, Claude Haiku 4.5, Claude Opus 3 ([model access on request](https://www.anthropic.com/research/deprecation-updates-opus-3))
 
 If you need your output to carry the watermark, omit `temperature`, `top_p`, and `top_k` from your requests. If a request sets any of them to a non-default value, the output might not carry the watermark.
 

@@ -82,11 +82,11 @@ When Claude sends an email, it includes a message header identifying it as agent
 
 **Note:** On Team and Enterprise plans, your admin can set each Teams write tool separately. If your organization added the Microsoft 365 connector before the Teams write tools launched in September 2026, these tools may be blocked by default until your admin turns them on.
 
-In chat and Cowork, Claude asks you to confirm each time before it sends a chat message or posts or replies in a channel, unless your admin has set the Teams tool for that action to **Always allow** on or after November 9, 2026, or your organization added the Microsoft 365 connector for the first time after November 9, 2026. In those cases, Claude asks by default, and you can choose **Always allow** for the tool if your admin allows it. If you chose **Always allow** for the tool in the past, that earlier choice can take effect right away, so Claude can stop asking you.
+On Team and Enterprise plans, in chat and Cowork, Claude asks you to confirm each time before it sends a chat message or posts or replies in a channel, unless your admin has set the Teams tool for that action to **Always allow** on or after November 9, 2026, or your organization added the Microsoft 365 connector for the first time after November 9, 2026. In those cases, Claude asks by default, and you can choose **Always allow** for the tool if your admin allows it. If you chose **Always allow** for the tool in the past, that earlier choice can take effect right away, so Claude can stop asking you.
 
 On or after December 9, 2026, you can choose **Always allow** for any of these tools your admin sets to **Always allow**.
 
-These exceptions don't apply in organizations that have enabled HIPAA. On Free, Pro, Max, and Ultra plans, Claude asks by default, and you can choose **Always allow** for these tools, as for any other tool. "Automatically approve" mode and scheduled tasks are different: if your admin sets one of these tools to **Always allow**, Claude may use it without asking anyone first. This applies in "Automatically approve" mode and in some scheduled tasks, such as a cloud scheduled task set to "Automatically approve" or a Claude Code routine.
+These exceptions don't apply in organizations that have enabled HIPAA. On Free, Pro, Max, and Ultra plans, outside “Automatically approve” mode, Claude asks by default, and you can choose **Always allow** for these tools, as for any other tool. "Automatically approve" mode and scheduled tasks are different: if your admin sets one of these tools to **Always allow**, Claude may use it without asking anyone first. This applies in "Automatically approve" mode and in some scheduled tasks, such as a cloud scheduled task set to "Automatically approve" or a Claude Code routine.
 
 Claude can always search and analyze your data. Your admin decides whether Claude can also take actions like sending email, updating your calendar, creating files, or sending Teams messages. Claude can't change Teams settings or permissions.
 
@@ -140,7 +140,7 @@ Write tools require extra setup on the admin side: a Microsoft Entra administrat
 
 **Why does Claude ask me to confirm before it sends or changes something?**
 
-By default, in chat and Cowork, Claude asks you to confirm each time it sends or forwards an email, sends a Teams message, creates, changes, deletes, or responds to a calendar event, or sets an automatic reply. On Free, Pro, Max, and Ultra plans, you can choose **Always allow** for any of these tools, and Claude will then use it without asking you each time.
+By default, outside “Automatically approve” mode, in chat and Cowork, Claude asks you to confirm each time it sends or forwards an email, sends a Teams message, creates, changes, deletes, or responds to a calendar event, or sets an automatic reply. In **[“Automatically approve” mode](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_c274f6c9b5)**, these actions can run without asking you, unless an automated check flags them as risky or your organization requires approval. The check can miss risky actions. To approve them yourself, use Manual. On Free, Pro, Max, and Ultra plans, you can choose **Always allow** for any of these tools, and Claude will then use it without asking you each time.
 
 On Team and Enterprise plans, Claude asks each time for these tools, unless your admin has set that tool to **Always allow** on or after November 9, 2026, or your organization added the Microsoft 365 connector for the first time after November 9, 2026. In those cases, you can choose **Always allow** for the tool if your admin allows it. If you chose **Always allow** for the tool in the past, that earlier choice can take effect right away, so Claude can stop asking you. These exceptions don't apply in organizations that have enabled HIPAA.
 
@@ -204,7 +204,7 @@ Write tools are included. Claude can always search and analyze your data, and wh
 
 - Create, update, rename, move, and delete files in OneDrive (deleted files go to the recycle bin).
 
-In chat, Claude asks before it sends, creates, changes, moves, or deletes anything. Searching and reading run without asking. You can change each tool under **Tool permissions**.
+In chat, outside “Automatically approve” and “Skip all approvals” modes, Claude asks before it sends, creates, changes, moves, or deletes anything. In **[“Automatically approve” mode](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_c274f6c9b5)**, these actions can run without asking you, unless an automated check flags them as risky or your organization requires approval. The check can miss risky actions. To approve them yourself, use Manual. Searching and reading run without asking. You can change each tool under **Tool permissions**.
 
 Emails Claude sends, forwards, or drafts include a header identifying the emails as agent-initiated. Drafts Claude didn’t create and calendar invitations aren’t tagged. Write tools are subject to per-user limits.
 

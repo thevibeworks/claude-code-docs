@@ -204,7 +204,7 @@ Run `/tasks` to see the artifacts your session is watching. `/tasks` groups the 
 
 You can stop Claude from replying on its own in any of these ways:
 
-* **Press Ctrl+C once at an idle prompt**: Claude pauses replying on every artifact your session is watching. Replies start again after you send your next message.
+* **Press Ctrl+C once at an idle, empty prompt**: Claude pauses replying on every artifact your session is watching. Replies start again after you send your next message.
 * **Stop the task in `/tasks`**: Claude stops replying on that artifact until you ask it to resume replies there. Publishing the artifact again doesn't start replies again, and the stop still applies when you resume the session later.
 * **Press `Ctrl+X Ctrl+K` twice within 3 seconds**: the chord that [stops every running background subagent](https://code.claude.com/docs/en/interactive-mode.md#general-controls) also stops Claude from replying on every artifact for the rest of the session. Asking Claude to resume replies doesn't undo this stop.
 

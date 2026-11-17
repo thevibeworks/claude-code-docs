@@ -12,7 +12,7 @@ Learn how Access Transparency creates a record of human access to your organizat
   * Each human view of your retained data (see [covered content](https://platform.claude.com/docs/en/manage-claude/access-transparency#what-access-transparency-covers)) by an Anthropic employee writes an `anthropic_access` activity to your [Compliance API Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed).
   * Access occurs only for safety review or incident response. See [Reason codes](https://platform.claude.com/docs/en/manage-claude/access-transparency#reason-codes).
 
-  Access Transparency is available to eligible customers on request and is not self-serve. For eligibility, refer to your contract terms or contact your Anthropic account representative.
+  Access Transparency is available to eligible customers on request and is not self-serve. For eligibility, refer to your contract terms or contact your Anthropic account representative. Anthropic also enables Access Transparency when it [approves your whole organization for customer-managed keys](https://platform.claude.com/docs/en/manage-claude/access-transparency#access-transparency-with-customer-managed-keys). You can’t turn Access Transparency off in the Claude Console or through the API.
 </Note>
 
 ## How Access Transparency works
@@ -58,6 +58,29 @@ To enable Access Transparency:
 </Steps>
 
 Access Transparency is enabled at the organization level and covers all workspaces. Per-workspace enrollment is not currently available.
+
+### Access Transparency with customer-managed keys
+
+When Anthropic approves your whole organization for [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek) (CMEK), it also enables Access Transparency for the organization. This happens at approval, before you attach a key, so you don’t need to request Access Transparency separately. Access Transparency still doesn’t cover content in claude.ai. See [What Access Transparency does not cover](https://platform.claude.com/docs/en/manage-claude/access-transparency#what-access-transparency-does-not-cover).
+
+The approval also has these effects:
+
+* **Linked organizations:** If your organization is linked to a [parent organization](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#which-key-do-you-need), Anthropic also enables Access Transparency for the other Claude Console organizations linked to that parent, including organizations linked to it later.
+* **Browser calls:** Organizations with Access Transparency enabled cannot call the Claude API directly from a browser. See [Browser-based applications](https://platform.claude.com/docs/en/manage-claude/authentication#browser-based-applications).
+
+The approval doesn’t change your Compliance API setting. Anthropic records Access Transparency events even while the Compliance API is off, but you can read them only while it’s on. To read them:
+
+1. [Turn on the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api).
+2. Read the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) with a [Compliance Access Key or an Admin API key](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#which-key-do-you-need). Create an Admin API key after you turn on the Compliance API, because a key created earlier can’t read the feed.
+
+On Claude Platform on AWS, ask your Anthropic account representative to turn on the Compliance API. Then read the feed with the [`ListComplianceActivities` IAM action](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#compliance).
+
+Not every organization that uses CMEK has Access Transparency. For example, it might not be enabled in these cases:
+
+* Anthropic approved individual workspaces for CMEK, not your whole organization.
+* Anthropic approved your organization for CMEK before November 2, 2026.
+
+To check, contact your Anthropic account representative.
 
 ## Receiving Access Transparency events
 
@@ -215,7 +238,7 @@ For organizations that also enable CMEK, your cloud KMS audit log (CloudTrail, C
   </Accordion>
 
   <Accordion title="Can a platform that serves Claude to its own end users enable Access Transparency?">
-    Access Transparency is not available for platform deployments. Contact your Anthropic account representative to discuss your use case.
+    Access Transparency is not available on request for platform deployments. Anthropic does enable it when it approves a platform’s whole organization for CMEK. See [Access Transparency with customer-managed keys](https://platform.claude.com/docs/en/manage-claude/access-transparency#access-transparency-with-customer-managed-keys). Contact your Anthropic account representative to discuss your use case.
   </Accordion>
 
   <Accordion title="Will I see events for access that occurred before my organization enrolled, or for its older data?">
@@ -235,7 +258,7 @@ For organizations that also enable CMEK, your cloud KMS audit log (CloudTrail, C
   </Accordion>
 
   <Accordion title="How does Access Transparency relate to CMEK?">
-    They are independent. With CMEK, safety preservation outside your key emits a separate `cmek_preserve` event on the same feed. See [CMEK content preservation](https://platform.claude.com/docs/en/manage-claude/access-transparency#cmek-content-preservation) and [Limited preservation outside your key](https://platform.claude.com/docs/en/manage-claude/cmek-data-retention#limited-preservation-outside-your-key).
+    Access Transparency does not require CMEK. When Anthropic approves your whole organization for CMEK, it also enables Access Transparency. See [Access Transparency with customer-managed keys](https://platform.claude.com/docs/en/manage-claude/access-transparency#access-transparency-with-customer-managed-keys). With CMEK, safety preservation outside your key emits a separate `cmek_preserve` event on the same feed. See [CMEK content preservation](https://platform.claude.com/docs/en/manage-claude/access-transparency#cmek-content-preservation) and [Limited preservation outside your key](https://platform.claude.com/docs/en/manage-claude/cmek-data-retention#limited-preservation-outside-your-key).
   </Accordion>
 
   <Accordion title="How can I tell that my Access Transparency record has not been altered?">

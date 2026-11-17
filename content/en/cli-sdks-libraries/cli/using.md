@@ -140,6 +140,12 @@ tools:
 YAML
 ```
 
+The CLI expands [file references](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/using#file-references), such as `@./notes.txt`, in a stdin document: it reads the files that the document names and sends their contents in the request.
+
+<Warning>
+  A stdin document can name any file that you can read. Use one only if you trust its source as much as your own command line.
+</Warning>
+
 ### File references
 
 Flags that take a file path, such as `--file` on the upload command, accept a bare path:
