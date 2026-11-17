@@ -12,7 +12,7 @@ Claude Cowork is available on paid plans (Pro, Max, Ultra, Team, and Enterprise)
 
 - **Claude in Chrome side panel:** All paid plans. On Enterprise plans, an owner needs to enable Claude in Chrome and Cowork in the cloud. See **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)**.
 
-The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -62,7 +62,7 @@ Tasks you already started on your computer stay there, and you can keep working 
 
 Your folders stay on your computer. Claude reaches only the folders you've connected, through the desktop app, and only while it's open. When a task needs a file in the cloud, Claude fetches a copy of just that file. When you delete a session, the copies Claude fetched are deleted too, per our **[data retention practices](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**. Whether your conversations are used to improve Claude follows the **Help improve our AI models** setting in **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**.
 
-Scheduled tasks that already run on your computer keep running there. New scheduled tasks run in the cloud. See **[Schedule recurring tasks in Claude Cowork](https://support.claude.com/en/articles/13854387)**.
+Scheduled tasks you created on your computer move to the cloud automatically. New scheduled tasks run in the cloud. See **[Schedule recurring tasks in Claude Cowork](https://support.claude.com/en/articles/13854387)**.
 
 ### If you want tasks to run on your computer
 

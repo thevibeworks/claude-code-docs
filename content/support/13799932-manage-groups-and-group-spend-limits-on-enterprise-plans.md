@@ -44,7 +44,7 @@ Click any group in the list to open its edit form. You can change the group name
 
 To change settings for several groups at once, select them with the checkboxes in the groups list, then click the "Edit settings" button that appears.
 
-**Note:** Groups synced from your identity provider via SCIM can't be renamed or deleted in Claude, and their members are managed in your identity provider.
+**Note:** While SCIM directory sync is on, groups synced from your identity provider can't be renamed or deleted in Claude, and their members are managed in your identity provider. Once none of your organizations uses SCIM, you can edit or delete these groups in Claude, unless you use Centralized Management.
 
 ## Delete a group
 
@@ -95,6 +95,8 @@ Turning off **Share resources with this group** blocks new shares. It doesn't re
 3. Save the group.
 
 This revokes existing shares only. It doesn't block future sharing, so turn off **Share resources with this group** as well if you want both.
+
+This option removes the group's access to shared projects, and the number shown counts projects only. The separate skills option removes access to shared skills and plugins. Neither option removes artifacts shared with the group. To remove a group from an artifact, the artifact's owner, or someone who can manage its access, removes the group using the "Share" button on that artifact. Turning off **Share resources with this group** also leaves artifacts already shared with the group in place.
 
 **Note:** Removing a group's access runs in the background. For groups with more than 1000 shared projects, it can take several minutes or longer.
 

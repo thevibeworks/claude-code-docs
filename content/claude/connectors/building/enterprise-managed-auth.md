@@ -261,8 +261,8 @@ After your server meets the [authorization server requirements](#authorization-s
 3. **A consent screen**: name the workspace, say what approval turns on, and let only the workspace's administrators approve.
 4. **Your issuer in the redirect**: include `iss` ([RFC 9207](https://www.rfc-editor.org/rfc/rfc9207)), set to your metadata's `issuer`, in every redirect back to Claude. Set `authorization_response_iss_parameter_supported` to `true` in your metadata, so that Claude can confirm the code came from your authorization server.
 5. **One extra token response field**: return `ema_setup_endpoint`, an `https` URL on the same origin as your issuer, token endpoint, or MCP server. Return no refresh token.
-6. **A setup endpoint**: accept a `PUT` with `ema_issuer`, store it as the trusted issuer of the token's workspace, turn on Enterprise Managed Auth, and return your tenant ID as `aud_tenant` if you use one. Accept both [kinds of issuer URL](#who-issues-the-identity-assertion).
-7. **Checks on every call**: the token carries the scope, the approver administers the workspace, no other customer's workspace has registered the issuer, and the issuer passes the checks you run in your [admin settings](#admin-settings-in-your-product). For an identity provider's issuer, a common check is that it matches the workspace's own single sign-on provider.
+6. **A setup endpoint**: accept a `PUT` with `ema_issuer`, store it as the trusted issuer of the token's workspace, turn on Enterprise Managed Auth, and return your tenant ID as `aud_tenant` if you use one. Support both [kinds of issuer URL](#who-issues-the-identity-assertion).
+7. **Checks on every call**: the token carries the scope, the approver administers the workspace, no other customer's workspace has registered the issuer, and the issuer passes the checks you run in your [admin settings](#admin-settings-in-your-product). Accept Claude issuer URLs, which have the exact host `identity.anthropic.com` and the path `/issuers/<issuer-id>`. If the workspace has single sign-on set up, also accept the issuer URL of the identity provider account that it signs in through. Refuse any other issuer, even when a workspace administrator approved the request.
 
 ### Express admin setup requests
 
@@ -319,6 +319,7 @@ Claude uses the access token once and doesn't store it. For **Claude-issued**, C
 * Another client, or a redirect URI that doesn't match in full, is refused the scope
 * An ordinary sign-in is never granted the scope, and its token is refused at the setup endpoint
 * An issuer registered to another customer's workspace is refused
+* An issuer that is neither a Claude issuer URL nor the workspace's own single sign-on issuer is refused
 * A different issuer replaces the first, and an assertion from the first issuer is then refused
 
 ## Launch checklist

@@ -14,7 +14,7 @@ People may experience one or more of the following when attempting to access you
 
 - **Landing on a free personal account** — If organization creation is not restricted, the person bypasses your organization entirely.
 
-- **"Please confirm your email" mismatch** — The SSO callback shows a different email than the one the person entered at login.
+- **"Check which account you're signed in to" mismatch** — The SSO callback shows a different email than the one the person entered at login.
 
 - **Claude Code authentication failure** — The Claude Code CLI shows an email mismatch error during the authentication flow.
 

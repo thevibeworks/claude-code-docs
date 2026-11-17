@@ -190,6 +190,14 @@ Enterprise search is particularly valuable for:
 
 - Try refreshing your browser or signing out and back in.
 
+### The search project isn't appearing in my sidebar after confirming it is enabled (Primary Owner)
+
+1. Open claude.ai/ask-your-org directly on web or desktop. It opens the project even when it isn't pinned.
+
+2. In the project header, click the star or pin icon (or the three-dot menu, then "Star"). The project returns to the left sidebar.
+
+3. Hard refresh the browser if the sidebar doesn't update right away.
+
 ### I can't connect a recommended connector
 
 - Check that an owner has enabled the connector at the organization level.
