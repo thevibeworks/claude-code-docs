@@ -63,7 +63,7 @@ The Claude API supports HIPAA-ready integrations for organizations that handle p
 
 * **Claude consumer products:** Claude Free, Pro, Max, and Ultra plans.
 * **Claude Console:** Usage through the Claude Console interface (enabling HIPAA readiness from Console settings is supported; processing PHI through the Console is not covered).
-* **Partner-operated platforms:** Amazon Bedrock and Google Cloud’s Agent Platform. Refer to those platforms’ compliance documentation.
+* **Partner-operated platforms:** Claude Models on Google Cloud (Google managed) and Amazon Bedrock. Refer to those platforms’ compliance documentation.
 * **Claude Platform on AWS:** HIPAA readiness is not available on Claude Platform on AWS.
 * **Third-party integrations:** Data processed by external tools or services connected to your application.
 * **Claude Code:** Claude Code is not covered under HIPAA readiness.
@@ -99,8 +99,8 @@ There are two ways to set up HIPAA-ready API access. Most organizations can enab
 #### Enable in the Console (standard BAA)
 
 <Steps>
-  <Step title="Open your organization’s data retention settings">
-    In the Claude Console, go to the [Data retention](https://platform.claude.com/settings/privacy) page (`platform.claude.com/settings/privacy`). Organization admins with the HIPAA management permission see a **HIPAA compliance** card there. If you don’t see the card, select **Organization** from the dropdown menu at the top of the page. If your organization is eligible but you still don’t see the option to enable, ask an organization admin to complete these steps.
+  <Step title="Open your organization’s HIPAA settings">
+    In the Claude Console, go to the [Data privacy](https://platform.claude.com/settings/data-privacy) page (`platform.claude.com/settings/data-privacy`). Organization admins with the HIPAA management permission see a **HIPAA compliance** card there. If the address opens a different page, the card is on that page. If that page has a dropdown menu at the top and you don’t see the card, select **Organization** from it. If your organization is eligible but you can’t open the page or find the option, ask an organization admin to complete these steps.
   </Step>
 
   <Step title="Review and execute the BAA">
@@ -170,7 +170,7 @@ Each eligibility column uses three values:
 
 ### Platform features
 
-This section lists features that relate to both the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview). Some are available in only one of them. This table gives each feature’s eligibility in the Messages API. In Claude Managed Agents, no feature is eligible for ZDR or HIPAA readiness, except for self-hosted Managed Agents under ZDR; see the Claude Managed Agents row under [Managed Agents features](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#managed-agents-features).
+This section lists features that relate to both the [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview). Some are available in only one of them. This table gives each feature’s eligibility in the Messages API. In Claude Managed Agents, no feature is eligible for ZDR or HIPAA readiness, except for self-hosted Managed Agents under ZDR. See the Claude Managed Agents row under [Managed Agents features](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#managed-agents-features).
 
 | Feature                                                                                                                    | Endpoint                                       | ZDR eligible    | HIPAA eligible | Details                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 | :------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------- | :-------------- | :------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -268,7 +268,7 @@ Even with ZDR or HIPAA arrangements in place, Anthropic may retain data where re
   </Accordion>
 
   <Accordion title="How do I request HIPAA-ready API access?">
-    Eligible organizations can enable HIPAA readiness directly on the [Data retention](https://platform.claude.com/settings/privacy) page (`platform.claude.com/settings/privacy`) in the Claude Console by reviewing and executing Anthropic’s standard BAA; see [Getting started with HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#getting-started-with-hipaa-readiness). If your organization requires a negotiated BAA, or self-serve enablement isn’t available for your organization, contact the [Anthropic sales team](https://claude.com/contact-sales).
+    Eligible organizations can enable HIPAA readiness directly in the Claude Console: an organization admin reviews and executes Anthropic’s standard BAA on the [Data privacy](https://platform.claude.com/settings/data-privacy) page (`platform.claude.com/settings/data-privacy`). If you can’t open that page or find the option, ask an organization admin to enable HIPAA readiness for you. For the steps, see [Getting started with HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#getting-started-with-hipaa-readiness). If your organization requires a negotiated BAA, or self-serve enablement isn’t available for your organization, contact the [Anthropic sales team](https://claude.com/contact-sales).
   </Accordion>
 
   <Accordion title="Does this apply to Amazon Bedrock or Google Cloud?">

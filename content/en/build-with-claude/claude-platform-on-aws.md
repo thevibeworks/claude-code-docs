@@ -613,6 +613,7 @@ The following capabilities are not currently available on Claude Platform on AWS
 * **Fast mode:** Not available on Claude Platform on AWS.
 * **OpenAI-compatible API endpoints:** Not available on Claude Platform on AWS.
 * **MCP tunnels:** Only MCP servers exposed over the public internet are supported.
+* **Linked billing (beta):** [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections) is not available on Claude Platform on AWS.
 
 ## Data residency
 

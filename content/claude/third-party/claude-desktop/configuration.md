@@ -1524,7 +1524,7 @@ Beta (The feature that the key configures is in beta.)
 
 Since 5.1231.0
 
-**SSH and WSL file downloads.** Which files users can download from an SSH host or WSL in Code. Unset: documents, images, and small text files.
+**SSH and WSL file downloads.** Files users can download from an SSH host or WSL in Code. Unset: documents, images, small text; with no admin policy, all but blocked types.
 
 One of: `all`, `limited`, `none`
 
@@ -1532,16 +1532,16 @@ One of: `all`, `limited`, `none`
 
 > [accordion] More detail
 >
-> `all` is a new way to take files off a host in bulk where devices block `ssh`, with no app log of the files downloaded.
+> `all` can take files off a host in bulk where devices block `ssh`, with no app log. With no admin policy, unset means `all`, so set `limited` in a script-installed file.
 >
-> `none` is not a security boundary: users can still open the files.
+> `none` is not a security boundary: users can still open files.
 >
 > In an MDM profile:
 >
 > * Update all devices first: older versions can lose settings.
-> * If MDM sets your connection keys, set it beside them. On Windows, machine policy hides per-user policy.
+> * If MDM sets your connection keys, set it beside them. On Windows and macOS, machine policy hides per-user policy.
 > * Alone or beside app-behavior keys, it wins over the console. Otherwise a server or console that omits it wins.
-> * Alone, it marks the device as managed, like any key. Among other things, WSL sessions need a machine-wide `disableWslSessions` of `false`: see its help. Shell commands can lose network until the user lists hosts in Setup. `coworkEgressAllowedHosts` here would replace the user's configuration.
+> * Alone, this key marks the device as managed. WSL sessions need a machine-wide `disableWslSessions` of `false`. Shell commands can lose network until the user lists hosts in Setup. `coworkEgressAllowedHosts` here would replace the user's configuration.
 
 ***
 
@@ -1711,7 +1711,7 @@ stringSince 5.11492.0
 >
 > Actions your provider reviews itself don't use this model. `env.CLAUDE_CODE_AUTO_MODE_MODEL` in a computer's machine-wide Claude Code managed settings replaces it there.
 >
-> Use your provider's ID for an Anthropic model, or this setting counts as unset. If you set `inferenceModels`, also list the ID there and in any group's model list. If your provider lacks the model, the built-in safety check blocks every action it reviews.
+> Use your provider's ID for an Anthropic model. If you set `inferenceModels`, also list the ID there and in any group's model list. If your provider refuses the ID, the built-in safety check blocks every action it reviews.
 >
 > Don't use Claude Opus 5, Sonnet 5.5 or Opus 5.5: they can't do this review. Weaker models may allow what the default would block.
 
@@ -1906,6 +1906,8 @@ booleanSince 1.37937.0
 >
 > * **Off:** where the host is reachable, every fetched hostname is sent to Anthropic. Where it is blocked, every WebFetch in Code sessions fails.
 > * **On:** Code sessions fetch without the lookup and never contact that host for it.
+>
+> Where `disabledBuiltinTools` lists the tool name `WebFetch`, no lookup is made, whatever this key says.
 
 ***
 
@@ -1953,9 +1955,9 @@ booleanDefault: falseSince 1.21459.0
 
 > [accordion] More detail
 >
-> Your gateway or provider must accept what tool search adds, such as `tool-search-tool-2025-10-19` in the `anthropic-beta` header. Otherwise requests fail with HTTP 400. On Foundry or a custom base URL, requests also carry Claude Code's other experimental betas.
+> Your gateway or provider must accept the tool search beta value, or requests fail with HTTP 400. On Foundry and the Claude API, that value is `advanced-tool-use-2025-11-20`. Everywhere else, it is `tool-search-tool-2025-10-19`. It is sent in the `anthropic-beta` header. On Bedrock, but not Bedrock Mantle, it is sent in the request body’s `anthropic_beta` field. On Foundry, and on Vertex AI, Bedrock, or Bedrock Mantle with a custom base URL, requests also carry Claude Code’s other experimental betas. A proxy with an allowlist of beta values must allow those too.
 >
-> On Claude API, Vertex AI, Bedrock and Bedrock Mantle with no custom base URL, tool search is normally on and this key has no effect.
+> On the Claude API, Vertex AI, Bedrock, and Bedrock Mantle with no custom base URL, tool search is normally on. This key has no effect there.
 
 ***
 
@@ -2972,7 +2974,7 @@ integerRange: 60–3,600Since 1.37937.0
 > * **Unset:** Chat and Cowork use 180 seconds, and the app sets no timeout in Code. Calls to user-added local servers are also limited to 60 seconds.
 > * **Set:** the value applies in Code too.
 > * **One server:** `toolTimeoutSec` on its `managedMcpServers` entry replaces this value for that server.
-> * **Cowork's shell tool:** a single command's timeout cannot exceed this value, or 600 seconds if that is lower.
+> * **Shell tool in Chat and Cowork:** a command can run for up to 600 seconds, or this value if it is set and lower.
 
 ***
 
@@ -3293,14 +3295,16 @@ booleanDefault: falseSince 1.2581.0
 
 booleanSince 3.6556.1
 
-**Restart to apply installed updates.** With auto-updates blocked, Claude restarts by itself for a newer version installed while it was open. On Windows it may stay closed.
+**Restart to apply installed updates.** With auto-updates blocked, Claude restarts itself to apply a newer version installed while it was open, and may stay closed.
 
 > [accordion] More detail
 >
-> `installedUpdateEnforcementHours` sets how long the app waits.
+> `installedUpdateEnforcementHours` sets the wait.
 >
-> * **Unset:** off in third-party deployments. Where users sign in with Claude.ai it follows Anthropic's rollout, and `false` keeps it off.
-> * **Windows:** if Windows does not reopen Claude, scheduled tasks and background work stop until a user opens it. The restart may also end the Cowork tasks of other users signed in on that device.
+> * **Unset:** off in third-party deployments. Elsewhere it follows Anthropic's rollout, and `false` keeps it off.
+> * **macOS:** outside third-party deployments, if the keychain is locked and the device is locked or idle, Claude closes instead of restarting.
+> * **Windows:** Claude may not reopen, and other signed-in users' Cowork tasks may end.
+> * If it stays closed, scheduled tasks and background work stop until a user opens it.
 >
 > It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
@@ -3316,10 +3320,10 @@ integerRange: 1–72Since 3.6556.1
 >
 > Applies only while `disableAutoUpdates` is on and the restart is on (see `installedUpdateEnforcementEnabled`).
 >
-> * Only time with the app open and the device awake counts toward the hours.
-> * Idle means 10 minutes without input. Where the system reports no idle time, as some Wayland sessions do, an unset key never restarts: set a number.
+> * Only time with the app open and the device awake counts.
+> * Idle means 10 minutes without input. Where the system reports no idle time (some Wayland sessions), an unset key never restarts: set a number.
 > * The restart waits while Claude is mid-task on the device.
-> * With no number set, on macOS it also waits while the keychain is locked, for up to 72 hours.
+> * On macOS with no number set, it also waits up to 72 hours while the keychain is locked.
 >
 > It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
@@ -3333,12 +3337,12 @@ integerRange: 1–72Since 1.2581.0
 
 > [accordion] More detail
 >
-> * **Unset:** after 72 hours the app restarts once the device has been idle for 10 minutes. On macOS, it also waits while the keychain is locked, for up to 72 hours.
-> * **Any number, even 72:** the app restarts when the time is up, whether or not the user is active.
+> * **Unset:** after 72 hours the app restarts once the device is idle for 10 minutes. On macOS it also waits up to 72 hours while the keychain is locked.
+> * **Any number, even 72:** the app restarts when time is up, even if the user is active.
 >
-> In both cases the restart waits while Claude is mid-task on the device, or while the update server gives no answer.
+> Both wait while Claude is mid-task on the device or the update server doesn't answer. On macOS, outside third-party deployments, if the keychain is still locked and the device is locked or idle, Claude closes instead of restarting.
 >
-> These hours do not delay an update. It usually installs sooner, after 10 minutes with no Claude window in use and no task running.
+> An update usually installs sooner, after 10 minutes with no window in use or task running.
 >
 > It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
@@ -3454,7 +3458,7 @@ integerRange: 1–3,650Since 1.52386.0
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
 > * a Cowork task's live artifacts
-> * Claude Code's prompt history, plans and shell snapshots, which keep its own retention
+> * Claude Code's prompt history, plans and shell snapshots
 >
 > A value that cannot be read as a whole number of days deletes nothing.
 >
@@ -3479,7 +3483,7 @@ integerRange: 1–3,650Since 1.52386.0
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
 > * a Cowork task's live artifacts
-> * Claude Code's prompt history, plans and shell snapshots, which keep its own retention
+> * Claude Code's prompt history, plans and shell snapshots
 >
 > A value that cannot be read as a whole number of days deletes nothing.
 >
@@ -3504,7 +3508,7 @@ integerRange: 1–3,650Since 1.52386.0
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
 > * a Cowork task's live artifacts
-> * Claude Code's prompt history, plans and shell snapshots, which keep its own retention
+> * Claude Code's prompt history, plans and shell snapshots
 >
 > A value that cannot be read as a whole number of days deletes nothing.
 >

@@ -118,6 +118,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
 use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Messages\BetaBillTo;
 use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
 use Anthropic\Messages\Model;
 
@@ -131,6 +132,9 @@ $betaMessageBatch = $client->beta->messages->batches->create(
         'maxTokens' => 1024,
         'messages' => [['content' => 'Hello, world', 'role' => 'user']],
         'model' => Model::CLAUDE_OPUS_5_5,
+        'billingPolicy' => [
+          'type' => 'billing_policy', 'billTo' => BetaBillTo::SELF
+        ],
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'compaction' => [
           'type' => 'summarize', 'instructions' => 'instructions'

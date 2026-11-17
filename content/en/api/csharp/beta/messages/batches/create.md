@@ -4512,6 +4512,7 @@ BatchCreateParams parameters = new()
                     new Messages::BetaUserMessageParam("Hello, world")
                 ],
                 Model = ModelsMessages::Model.ClaudeOpus5_5,
+                BillingPolicy = new() { BillTo = Messages::BetaBillTo.Self },
                 CacheControl = new() { Ttl = Messages::Ttl.Ttl5m },
                 Compaction = new() { Instructions = "instructions" },
                 Container = new Messages::BetaContainerParams()

@@ -973,6 +973,50 @@ var_dump($event);
 
     - `string organizationID`
 
+  - `class BetaWebhookExternalKeyFailedEventData`
+
+    - `"external_key.failed" type`
+
+    - `string id`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `string organizationID`
+
+  - `class BetaWebhookExternalKeyRecoveredEventData`
+
+    - `"external_key.recovered" type`
+
+    - `string id`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `string organizationID`
+
+### Beta Webhook External Key Failed Event Data
+
+- `class BetaWebhookExternalKeyFailedEventData`
+
+  - `"external_key.failed" type`
+
+  - `string id`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `string organizationID`
+
+### Beta Webhook External Key Recovered Event Data
+
+- `class BetaWebhookExternalKeyRecoveredEventData`
+
+  - `"external_key.recovered" type`
+
+  - `string id`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `string organizationID`
+
 ### Beta Webhook Memory Store Archived Event Data
 
 - `class BetaWebhookMemoryStoreArchivedEventData`

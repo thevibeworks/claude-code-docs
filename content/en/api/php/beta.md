@@ -105,6 +105,8 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"user-profiles-billing-2026-10-01"`
+
   - `"message-batches-2024-09-24"`
 
     **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -885,7 +887,7 @@ var_dump($betaModelInfo);
 
 ### Create a Message
 
-`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?BetaThinkingConfigParam thinking, ?BetaMessageThreadParam thread, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
+`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaBillingPolicy billingPolicy, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?BetaThinkingConfigParam thinking, ?BetaMessageThreadParam thread, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessage`
 
 **POST** `/v1/messages`
 
@@ -963,6 +965,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+- `billingPolicy?: optional BetaBillingPolicy`
+
+  Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
 
 - `cacheControl?: optional BetaCacheControlEphemeral`
 
@@ -1507,6 +1513,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
 use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Messages\BetaBillTo;
 use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
 use Anthropic\Messages\Model;
 
@@ -1516,6 +1523,7 @@ $betaMessage = $client->beta->messages->create(
   maxTokens: 1024,
   messages: [['content' => 'Hello, world', 'role' => 'user']],
   model: Model::CLAUDE_OPUS_5_5,
+  billingPolicy: ['type' => 'billing_policy', 'billTo' => BetaBillTo::SELF],
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   container: [
@@ -1701,7 +1709,7 @@ var_dump($betaMessage);
 
 ### Count tokens in a Message
 
-`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessageTokensCount`
+`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaBillingPolicy billingPolicy, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessageTokensCount`
 
 **POST** `/v1/messages/count_tokens`
 
@@ -1769,6 +1777,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+- `billingPolicy?: optional BetaBillingPolicy`
+
+  Declares which organization is billed when this body is sent to `/v1/messages`. Accepted here so that you can count the tokens of the exact body you will send, and otherwise ignored: counting tokens bills nobody, so no user profile is required.
 
 - `cacheControl?: optional BetaCacheControlEphemeral`
 
@@ -1993,6 +2005,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
 use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Messages\BetaBillTo;
 use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
 use Anthropic\Messages\Model;
 
@@ -2001,6 +2014,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaMessageTokensCount = $client->beta->messages->countTokens(
   messages: [['content' => 'Hello, world', 'role' => 'user']],
   model: Model::CLAUDE_OPUS_5_5,
+  billingPolicy: ['type' => 'billing_policy', 'billTo' => BetaBillTo::SELF],
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   contextManagement: [
@@ -2210,6 +2224,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
 use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Messages\BetaBillTo;
 use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
 use Anthropic\Messages\Model;
 
@@ -2223,6 +2238,9 @@ $betaMessageBatch = $client->beta->messages->batches->create(
         'maxTokens' => 1024,
         'messages' => [['content' => 'Hello, world', 'role' => 'user']],
         'model' => Model::CLAUDE_OPUS_5_5,
+        'billingPolicy' => [
+          'type' => 'billing_policy', 'billTo' => BetaBillTo::SELF
+        ],
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'compaction' => [
           'type' => 'summarize', 'instructions' => 'instructions'
@@ -22153,7 +22171,7 @@ Create an external key config owned by the caller's organization.
 
 - `userProfileID?: optional string`
 
-  ID of a user profile to bind the key to. A user profile represents one of your customers: bind a customer's key to that customer's user profile. A key bound to a user profile can only be attached to a Workspace that has the same user profile, and the binding cannot be changed later. Omit this field only for your organization's own key, because a key created without a user profile ID can be attached to any Workspace, including another customer's.
+  ID of a user profile to bind the key to. A user profile represents one of your customers: bind a customer's key to that customer's user profile. A key bound to a user profile can only be attached to a Workspace that has the same user profile, and the binding cannot be changed later. Omit this field only for your organization's own key, never a customer's. A key created without a user profile ID can't be attached to a Workspace that has a user profile, and you can't add one to the key later.
 
 #### Returns
 
@@ -22187,7 +22205,7 @@ Create an external key config owned by the caller's organization.
 
   - `?string userProfileID`
 
-    ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can be attached to a Workspace whatever its user profile.
+    ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can only be attached to a Workspace that has no user profile.
 
 #### Errors
 
@@ -22305,7 +22323,7 @@ Results are ordered by creation time (newest first). Use the
 
   - `?string userProfileID`
 
-    ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can be attached to a Workspace whatever its user profile.
+    ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can only be attached to a Workspace that has no user profile.
 
 #### Example
 
@@ -22397,7 +22415,7 @@ Retrieve a single external key config in the caller's organization by ID.
 
   - `?string userProfileID`
 
-    ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can be attached to a Workspace whatever its user profile.
+    ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can only be attached to a Workspace that has no user profile.
 
 #### Example
 
@@ -22502,7 +22520,7 @@ encrypted data requires the original key identity to decrypt.
 
   - `?string userProfileID`
 
-    ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can be attached to a Workspace whatever its user profile.
+    ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can only be attached to a Workspace that has no user profile.
 
 #### Errors
 
@@ -26915,7 +26933,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `KeyProfileMismatchException` (HTTP status 400, error code `key_profile_mismatch`)
 
-  The External Key is bound to a user profile, and the Workspace does not have that user profile. A Workspace can use only a key bound to its own user profile or a key that isn't bound to one.
+  After this request, the External Key and the Workspace would not have the same user profile. A key and its Workspace must have the same user profile, or both have none.
 
 - `UserProfileNotFoundException` (HTTP status 400, error code `user_profile_not_found`)
 
@@ -26946,7 +26964,7 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaWorkspace = $client->beta->organization->workspaces->create(
-  name: 'x',
+  name: 'Workspace Name',
   dataResidency: [
     'allowedInferenceGeos' => 'unrestricted',
     'defaultInferenceGeo' => 'global',
@@ -27158,7 +27176,7 @@ Update Workspace
 
 - `userProfileID?: optional string`
 
-  ID of a user profile to attach to the Workspace. Every inference request through the Workspace must then name this user profile; the API rejects a request that names none or a different one. Once set, it can't be replaced or removed (sending the same ID again changes nothing); only deleting the user profile clears it. The default Workspace can't have a user profile.
+  ID of a user profile to attach to the Workspace. Every inference request through the Workspace must then name this user profile; the API rejects a request that names none or a different one. Once set, it can't be replaced or removed (sending the same ID again changes nothing); only deleting the user profile clears it. It can't be set on a Workspace whose External Key isn't bound to this user profile. The default Workspace can't have a user profile.
 
 #### Returns
 
@@ -27244,7 +27262,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `KeyProfileMismatchException` (HTTP status 400, error code `key_profile_mismatch`)
 
-  The External Key is bound to a user profile, and the Workspace does not have that user profile. A Workspace can use only a key bound to its own user profile or a key that isn't bound to one.
+  After this request, the External Key and the Workspace would not have the same user profile. A key and its Workspace must have the same user profile, or both have none.
 
 - `UserProfileNotFoundException` (HTTP status 400, error code `user_profile_not_found`)
 
@@ -27280,7 +27298,7 @@ $betaWorkspace = $client->beta->organization->workspaces->update(
   ],
   displayColor: '#6C5BB9',
   externalKeyID: 'ekey_01SDCCSbTxrXDpWc1phhtcfK',
-  name: 'x',
+  name: 'Workspace Name',
   tags: ['env' => 'prod', 'team' => 'platform'],
   userProfileID: 'uprof_01SDCCSbTxrXDpWc1phhtcfK',
 );
@@ -37514,10 +37532,13 @@ $betaNewOrganizationWebhookEndpoint = $client
   ->organization
   ->webhooks
   ->create(
-  enabledEvents: ['user_profile.enforcement_action_opened'],
-  url: 'x',
+  enabledEvents: [
+    'user_profile.enforcement_action_opened',
+    'user_profile.enforcement_action_resolved',
+  ],
+  url: 'https://example.com/anthropic-webhooks',
   description: 'description',
-  name: 'name',
+  name: 'Enforcement actions',
   betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
@@ -37533,7 +37554,7 @@ var_dump($betaNewOrganizationWebhookEndpoint);
   "description": "description",
   "disabled_reason": "disabled_reason",
   "enabled_events": [
-    "user_profile.enforcement_action_opened"
+    "external_key.failed"
   ],
   "name": "name",
   "signing_secret": "signing_secret",
@@ -37654,7 +37675,7 @@ var_dump($page);
       "description": "description",
       "disabled_reason": "disabled_reason",
       "enabled_events": [
-        "user_profile.enforcement_action_opened"
+        "external_key.failed"
       ],
       "name": "name",
       "state": "disabled",
@@ -37760,7 +37781,7 @@ var_dump($betaOrganizationWebhookEndpoint);
   "description": "description",
   "disabled_reason": "disabled_reason",
   "enabled_events": [
-    "user_profile.enforcement_action_opened"
+    "external_key.failed"
   ],
   "name": "name",
   "state": "disabled",
@@ -37868,7 +37889,7 @@ $betaOrganizationWebhookEndpoint = $client
   ->update(
   'webhook_endpoint_id',
   description: 'description',
-  enabledEvents: ['user_profile.enforcement_action_opened'],
+  enabledEvents: ['external_key.failed'],
   name: 'name',
   state: 'disabled',
   url: 'x',
@@ -37887,7 +37908,7 @@ var_dump($betaOrganizationWebhookEndpoint);
   "description": "description",
   "disabled_reason": "disabled_reason",
   "enabled_events": [
-    "user_profile.enforcement_action_opened"
+    "external_key.failed"
   ],
   "name": "name",
   "state": "disabled",
@@ -39326,6 +39347,10 @@ List the organization's Bundles, newest first by `created_at`. A Bundle that Cla
 
     The Bundle's name. Always set. Read-only.
 
+  - `?string instructions`
+
+    Instructions for Claude, added to the instructions of every session that can use the Bundle. Null when it has none.
+
   - `\Datetime updatedAt`
 
     Time of the last change to the Bundle.
@@ -39379,6 +39404,7 @@ var_dump($page);
       "created_at": "2019-12-27T18:11:19.117Z",
       "description": "description",
       "display_name": "display_name",
+      "instructions": "instructions",
       "type": "bundle",
       "updated_at": "2019-12-27T18:11:19.117Z"
     }
@@ -39426,6 +39452,10 @@ Get one Bundle. What the Bundle grants (connectors, repositories and credentials
   - `string displayName`
 
     The Bundle's name. Always set. Read-only.
+
+  - `?string instructions`
+
+    Instructions for Claude, added to the instructions of every session that can use the Bundle. Null when it has none.
 
   - `\Datetime updatedAt`
 
@@ -39484,6 +39514,126 @@ var_dump($betaClaudeTagBundle);
   "created_at": "2019-12-27T18:11:19.117Z",
   "description": "description",
   "display_name": "display_name",
+  "instructions": "instructions",
+  "type": "bundle",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+### Update Bundle
+
+`$client->beta->organization->claudeTag->bundles->update(string bundleID, ?string instructions, ?list<AnthropicBeta> betas): BetaClaudeTagBundle`
+
+**POST** `/v1/organizations/claude_tag/bundles/{bundle_id}`
+
+Change a Bundle's instructions. The update is partial: a field left out is unchanged, and `instructions` sent as null or as an empty string clears them. The later of two updates wins. Sessions that start after the change use the new instructions; sessions already running keep the ones they started with. Some Bundles are managed in claude.ai, and an update of one returns 400.
+
+#### Parameters
+
+- `bundleID: string` (path parameter)
+
+  The Bundle's identifier, starting with `capp_`.
+
+- `instructions?: optional string`
+
+  Instructions for Claude, up to 10,000 bytes (UTF-8), added to the instructions of every session that can use the Bundle. Null or an empty string clears them.
+
+- `betas?: optional list<AnthropicBeta>` (header parameter)
+
+  This endpoint is in beta: requests must send `experimental-claude-tag-2026-10-21` in this header.
+
+#### Returns
+
+- `class BetaClaudeTagBundle`
+
+  - `"bundle" type`
+
+  - `string id`
+
+    The Bundle's identifier. Starts with `capp_`.
+
+  - `\Datetime createdAt`
+
+    Time the Bundle was created.
+
+  - `?string description`
+
+    What the Bundle is for. Null when it has none. Read-only.
+
+  - `string displayName`
+
+    The Bundle's name. Always set. Read-only.
+
+  - `?string instructions`
+
+    Instructions for Claude, added to the instructions of every session that can use the Bundle. Null when it has none.
+
+  - `\Datetime updatedAt`
+
+    Time of the last change to the Bundle.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=php).
+
+- `BundleAttachmentNotSupportedException` (HTTP status 400, error code `bundle_attachment_not_supported`)
+
+  The Bundle has an attachment this API does not support editing, so its instructions can be changed only in claude.ai.
+
+- `BundleOnCallException` (HTTP status 400, error code `bundle_on_call`)
+
+  This Bundle's instructions are managed in claude.ai and can't be changed through the API.
+
+- `APIKeyScopeMissingException` (HTTP status 403, error code `api_key_scope_missing`)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `ClaudeTagWritesNotEnabledException` (HTTP status 403, error code `claude_tag_writes_not_enabled`)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `ComplianceConfigurationRestrictedException` (HTTP status 403, error code `compliance_configuration_restricted`)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `OrganizationLevelScopedAPIKeyRequiredException` (HTTP status 403, error code `organization_level_scoped_api_key_required`)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
+- `SlackChannelSetUpSettingsConflictException` (HTTP status 409, error code `slack_channel_set_up_settings_conflict`)
+
+  The request set the channel up, and something else then changed the channel or removed it. Nothing of `settings` was stored.
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+use Anthropic\Client;
+use Anthropic\Beta\AnthropicBeta;
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$betaClaudeTagBundle = $client->beta->organization->claudeTag->bundles->update(
+  'capp_011CZkZjLP1cWxj5EtMmdgbq',
+  instructions: 'instructions',
+  betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
+);
+
+var_dump($betaClaudeTagBundle);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "id",
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "description": "description",
+  "display_name": "display_name",
+  "instructions": "instructions",
   "type": "bundle",
   "updated_at": "2019-12-27T18:11:19.117Z"
 }

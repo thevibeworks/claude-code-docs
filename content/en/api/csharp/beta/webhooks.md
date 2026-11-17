@@ -859,6 +859,26 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
 
       - `required string OrganizationID`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `JsonElement Type = "external_key.failed"`
+
+      - `required string ID`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `required string OrganizationID`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `JsonElement Type = "external_key.recovered"`
+
+      - `required string ID`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `required string OrganizationID`
+
 ### Beta Webhook Event Data
 
 - `class BetaWebhookEventData: union`
@@ -1456,6 +1476,50 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
       ID of the user profile that triggered the event.
 
     - `required string OrganizationID`
+
+  - `class BetaWebhookExternalKeyFailedEventData`
+
+    - `JsonElement Type = "external_key.failed"`
+
+    - `required string ID`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `required string OrganizationID`
+
+  - `class BetaWebhookExternalKeyRecoveredEventData`
+
+    - `JsonElement Type = "external_key.recovered"`
+
+    - `required string ID`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `required string OrganizationID`
+
+### Beta Webhook External Key Failed Event Data
+
+- `class BetaWebhookExternalKeyFailedEventData`
+
+  - `JsonElement Type = "external_key.failed"`
+
+  - `required string ID`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `required string OrganizationID`
+
+### Beta Webhook External Key Recovered Event Data
+
+- `class BetaWebhookExternalKeyRecoveredEventData`
+
+  - `JsonElement Type = "external_key.recovered"`
+
+  - `required string ID`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `required string OrganizationID`
 
 ### Beta Webhook Memory Store Archived Event Data
 

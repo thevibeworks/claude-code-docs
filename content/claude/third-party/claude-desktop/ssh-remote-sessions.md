@@ -30,7 +30,7 @@ On a host that ends a user's processes at logout, the remote server and the engi
 
 An idle engine stays on the host, with the credential in its environment, until one of these happens:
 
-* The user archives or deletes the session.
+* The user archives or deletes the session while Claude Desktop is connected to the host.
 * The user reopens the session and Claude Desktop ends the engine to start a fresh one.
 * The host restarts.
 * After an update that includes a new remote server, Claude Desktop replaces the host's remote server at a later connection. This ends the engines under the old server. Claude Desktop can put the replacement off while it believes that work is running on that host.
@@ -221,13 +221,29 @@ Each value lets users download these files.
 
 | Value | Files that users can download |
 | - | - |
-| Unset or `limited` | `.pdf`, `.docx`, `.xlsx`, and `.pptx` files up to 25 MiB, images up to 10 MiB, and text files up to 1 MiB |
+| `limited` | `.pdf`, `.docx`, `.xlsx`, and `.pptx` files up to 25 MiB, images up to 10 MiB, and text files up to 1 MiB |
 | `all` | Files of any size, of any type that Claude Desktop doesn't refuse |
 | `none` | No files. Claude Desktop hides its **Download file** options. |
 
+With the key unset, Claude Desktop applies `limited` on a device where it finds one of these signs of an administrator, or can't check for them:
+
+* **A profile or policy for Claude Desktop**: a profile or policy in a [managed location](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#where-claude-desktop-reads-configuration-on-a-device) on the device, whichever keys it holds. A per-user profile or policy counts too.
+* **A bootstrap server or the Enterprise Admin Console**: the device gets its configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) or the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)
+* **Claude Code's managed settings on the device**: a file, profile, or policy on the device in one of [Claude Code's policy locations](https://code.claude.com/docs/en/managed-settings#where-each-mechanism-stores-the-policy). [Server-managed settings](https://code.claude.com/docs/en/server-managed-settings) don't count, and neither do managed settings on the SSH host or in the WSL distribution.
+
+An empty `SOFTWARE\Policies\Claude` or `SOFTWARE\Policies\ClaudeCode` registry key counts too, in `HKLM` or `HKCU`. The directory for Claude Code's `managed-settings.json` file counts too, even when the directory is empty.
+
+On a device without any of these signs, an unset key means `all`. Before Claude Desktop 6.6395.0, an unset key means `limited` on such a device.
+
+> [!WARNING]
+>
+> An unset key means `all` on a device that your organization manages if the device has none of these signs of an administrator. One example is a device where users applied the configuration locally in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#apply-locally-or-export-for-a-fleet). Another is a device to which a script copied the local configuration file. Enrolling a device in MDM isn't a sign by itself.
+>
+> To apply `limited` on such a device, set the key to `limited` in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md). The user can change the value there. To set it where users can't change it, use a machine-scoped profile or policy (see [Deploy remoteFileDownloads through device management](#deploy-remotefiledownloads-through-device-management)).
+
 Under `limited` and `all`, Claude Desktop refuses a fixed list of file types that an operating system can run or act on when opened, such as `.exe`, `.js`, `.ps1`, and `.jar`. Claude Desktop goes by the file's extension. Scripts such as `.py` and `.sh` aren't on the list.
 
-On a [host without SFTP](#hosts-without-sftp), `limited` and `all` both allow text files up to 1 MiB and nothing else.
+Where file downloads are off on a [host without SFTP](#hosts-without-sftp), `limited` and `all` both still allow text files up to 1 MiB, and nothing else.
 
 > [!WARNING]
 >
@@ -239,6 +255,7 @@ Claude Desktop reads and applies the value by these rules:
 
 * **Spelling**: Claude Desktop ignores letter case. It treats a value that isn't `limited`, `all`, `none`, or empty as `none`, so a mistyped `all` turns downloads off. An empty value counts as unset. On Windows, a mistyped value in a machine policy also makes Claude Desktop refuse WSL sessions, even where machine policy sets [`disableWslSessions`](https://claude.com/docs/third-party/claude-desktop/configuration#disablewslsessions) to `false`.
 * **When a change takes effect**: an open app applies a new value from device management, the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), or a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) without a relaunch, once a [re-check](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect) reads it and a second check about 30 seconds later confirms it. A value set in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) applies no later than the relaunch that **Apply Changes** asks for.
+* **An unset key in an open app**: the app goes from `all` to `limited` at the next download after a profile, a policy, or Claude Code's managed settings appear on the device. After you remove every sign of an administrator from the device, the app keeps `limited` until its next launch.
 
 You can set the key in these places:
 
@@ -252,7 +269,7 @@ You can set the key in these places:
 Connection settings are the keys that say where Claude Desktop gets inference or its configuration, such as the inference provider keys or the bootstrap keys. Before you deploy [`remoteFileDownloads`](#file-downloads-from-the-remote-host) through [device management](https://claude.com/docs/third-party/claude-desktop/mdm.md), plan for these cases:
 
 * **Devices on a version before 5.1231.0**: update all devices to Claude Desktop 5.1231.0 or later first. On earlier versions, on Windows and Linux, a profile or policy that holds this key can turn off other settings, connection settings included. On macOS, Claude Desktop doesn't see the key. For each platform's case, see [Keys that an earlier version does not recognize](https://claude.com/docs/third-party/claude-desktop/mdm.md#keys-that-an-earlier-version-does-not-recognize).
-* **A profile or policy that holds your connection settings**: set the key in that same profile or policy, and set the same value in the bootstrap response or the console too. Connection settings are outside the [app-behavior keys and the keys treated like them](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence). Where a profile or policy holds any key outside them, a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) or an [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) that leaves `remoteFileDownloads` out overrides the profile's value, and the key counts as unset.
+* **A profile or policy that holds your connection settings**: set the key in that same profile or policy, and set the same value in the bootstrap response or the console too. Connection settings are outside the [app-behavior keys and the keys treated like them](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence). Where a profile or policy holds any key outside them, a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) or an [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md) that leaves `remoteFileDownloads` out overrides the profile's value. The key then counts as unset, which means `limited` on a device with a profile or policy.
 * **A profile or policy that holds this key and, beside it, nothing but the app-behavior keys and the keys treated like them**: the user's or the console's configuration stays in place. The profile's value takes precedence over the value from the Enterprise Admin Console, a bootstrap server, or the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md).
 * **A machine policy on Windows**: while machine policy (`HKLM`) holds this key, Claude Desktop applies nothing from a per-user policy (`HKCU`). Move what the per-user policy holds, connection settings included, into the machine policy.
 
@@ -277,11 +294,11 @@ The remote engine uses only the credential Claude Desktop passes in its environm
 
 When the configured credential is a refused kind, the session fails at session start, with the card [SSH sessions can't use your model provider settings](#ssh-sessions-can%E2%80%99t-use-your-model-provider-settings).
 
-When the remote engine's credential expires during a turn, Claude Desktop obtains a new one on the device, by re-running a [credential helper](https://claude.com/docs/third-party/claude-desktop/credential-helper.md) or using a sign-in's refresh token, and sends it over the SSH connection. When the user signs out of the inference provider in the app, Claude Desktop ends the remote engine.
+When the remote engine's credential expires during a turn, Claude Desktop obtains a new one on the device, by re-running a [credential helper](https://claude.com/docs/third-party/claude-desktop/credential-helper.md) or using a sign-in's refresh token, and sends it over the SSH connection.
 
 Where the host's [launcher](https://claude.com/docs/third-party/claude-desktop/code.md#start-code-sessions-through-a-corporate-launcher) starts Claude Code, Claude Desktop passes no inference credential and refuses no credential kind. Claude Code uses the credential that the launcher or the SSH account's own environment sets, or, on Google Cloud's Agent Platform, the account's application default credentials.
 
-The host needs its own network route to the inference endpoint and must trust the endpoint's certificate. Claude Desktop passes the endpoint address to the remote engine but not the device's proxy settings, CA certificates, or the user's shell variables such as `AWS_*` or `GOOGLE_*`. A gateway at `localhost` on the device is refused for remote sessions, because the host cannot reach it.
+The host needs its own network route to the inference endpoint and must trust the endpoint's certificate. Claude Desktop passes the endpoint address to the remote engine but not the device's proxy settings, CA certificates, or the `AWS_*` and `GOOGLE_*` variables in the user's shell. A gateway at `localhost` on the device is refused for remote sessions, because the host cannot reach it.
 
 ## Managed configuration on the remote host
 
@@ -457,7 +474,7 @@ To use one client for every host, set [`sshTransport`](https://claude.com/docs/t
 * **`auto`**: the same as leaving the key unset.
 * **Any other value**: the app can't read it, for example a misspelling, and the built-in client makes every connection.
 
-The built-in client also makes the connection in these cases, and on Windows in the cases under [Prepare Windows devices for the OpenSSH client](#prepare-windows-devices-for-the-openssh-client):
+The app also uses the built-in client in these cases, and on Windows in the cases under [Prepare Windows devices for the OpenSSH client](#prepare-windows-devices-for-the-openssh-client):
 
 * **The device can't start the OpenSSH client**: while `sshTransport` is unset or `auto` and `sshClientPath` is unset, the built-in client makes every connection until Claude Desktop restarts. Requires Claude Desktop 2.7032.0 or later.
 * **Claude Desktop is installed from the Microsoft Store**: the built-in client makes the connection unless `sshTransport` is `system-openssh`. With `system-openssh`, the device's OpenSSH client makes the connection, but the app can't show its prompts for a password, a one-time code, or a key passphrase, or its question about a host key that isn't on record. Use a sign-in method that needs no prompt, such as a key held by the SSH agent, and have users connect to each host once from a terminal before adding it in the app, so that the host's key is in the user's `known_hosts` file.
@@ -483,7 +500,7 @@ Each side of a remote session needs its own network access.
 
 A remote session can start on a Linux or macOS host where SFTP is turned off or doesn't work. Claude Desktop then places its own setup files on the host with shell commands instead of SFTP. Before Claude Desktop 3.1623.0, setup fails on such a host.
 
-These features need SFTP, so they are off in that session. Users can keep working without them.
+These features need SFTP, so they are off in that session. Users can keep working without them. With Claude Desktop 4.23118.0 or later, some connections from Windows devices don't use the host's SFTP service for these features. On those connections they can go on working for up to seven days after SFTP is turned off or stops working, or longer on a connection that stays open.
 
 * Image and document previews
 * File attachments
@@ -531,7 +548,7 @@ Choose what your Windows devices do. For the first and the third choice, check w
 * **Keep the built-in client for every host**: set `sshTransport` to `builtin`. It holds for new hosts and new PCs too. If `sshClientPath` starts with `%LOCALAPPDATA%\`, remove it too, or SSH connections fail. See **If you set `sshTransport`** below.
 * **Use the OpenSSH client for every host**: set `sshTransport` to `system-openssh`. To go back, set `builtin`, and if `sshClientPath` starts with `%LOCALAPPDATA%\`, remove it too. See **If you set `sshTransport`** below.
 
-With `sshTransport` unset or `auto`, the built-in client still connects in these cases, and in those under [Host requirements](#host-requirements):
+With `sshTransport` unset or `auto`, the app still uses the built-in client in these cases, and in those under [Host requirements](#host-requirements):
 
 * **Hosts already in use**: a host that the device has reached only with the built-in client stays on it. A host that the device first reaches while `builtin` is set, or while it has no usable OpenSSH client, stays on the built-in client too. The same goes for a host first reached with a `.ppk` file that the built-in client can read, or after Windows denied the sign-in helper's start.
 * **Configuration that hasn't loaded**: on a device that takes its configuration from the Enterprise Admin Console or a bootstrap server, the built-in client makes every connection at each launch until that configuration has loaded. If your bootstrap response sets `system-openssh`, set it in the registry too, so that it holds in this case.
@@ -539,7 +556,7 @@ With `sshTransport` unset or `auto`, the built-in client still connects in these
 * **PuTTY key files**: a host whose identity file in the app is a PuTTY `.ppk` file that the built-in client can read, for example version 2, RSA, with no passphrase.
 * **A blocked sign-in helper**: a host that asks for a password or a one-time code, where Windows denies the app the start of its sign-in helper while a user waits for the connection. Where the helper is missing or gives no answer, or only `ssh.exe` can't start it, the sign-in fails instead.
 * **Another `ssh` program**: `sshClientPath` names an OpenSSH that isn't Microsoft's, or a Microsoft OpenSSH (Win32-OpenSSH) before 9.4. Unless the value starts with `%LOCALAPPDATA%\`, the app still runs the named program to read the user's SSH configuration and to run the session's terminal. With such a value and no `system-openssh`, the app doesn't start the program, and SSH connections fail.
-* **No usable OpenSSH client, and no `sshClientPath`**: the built-in client makes every connection, whatever `sshTransport` says. See **Devices without a usable client** below.
+* **No usable OpenSSH client, and no `sshClientPath`**: the app uses the built-in client for every connection, whatever `sshTransport` says. See **Devices without a usable client** below.
 * **An `sshClientPath` program that gives no answer**: the built-in client tries the connection, whatever `sshTransport` says. See [Use the OpenSSH client of Git for Windows](#use-the-openssh-client-of-git-for-windows).
 
 Four of these cases pass with time. They are configuration that hasn't loaded, a record that can't be read, an `ssh.exe` that Windows wouldn't start, and an `sshClientPath` program that gave no answer. A new host first reached in such a case isn't kept: once the case has passed, its connections use the OpenSSH client.
@@ -556,7 +573,7 @@ Nothing that a user does to a saved connection in Claude Desktop moves its host.
 While hosts stay on the built-in client:
 
 * **Host key checks**: a host on the built-in client keeps that client's [host key check](#ssh-configuration-on-the-device), which reads the user's `known_hosts` file alone, not the system-wide one or a `RevokedHostKeys` file. To move those hosts to `ssh`'s own check, on a device with a usable OpenSSH client, set `sshTransport` to `system-openssh`.
-* **Which client connected**: search `ssh.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) for `master ready for` (the OpenSSH client) or `[SSH2Connection] Connected to` (the built-in client). If both appear for one connection, the later one counts. For the reason, search for `this connection attempt uses`: the line ends with the source of the choice, such as `host_kept` for a host already in use. The app doesn't show which client connected, and two devices can differ at one host.
+* **Which client connected**: search `ssh.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) for `master ready for` (the OpenSSH client) or `[SSH2Connection] Connected to` (the built-in client). If both appear for one connection, the later one counts. For the reason, search for `this connection attempt uses`: the line ends with the source of the choice, such as `host_kept` for a host already in use. Two devices can use different clients for the same host.
 
 With the device's OpenSSH client on a Windows device:
 
@@ -605,7 +622,7 @@ With either client, the connection that carries the session leaves these setting
 * **Kerberos delegation**: `GSSAPIDelegateCredentials`. The host doesn't receive the user's Kerberos ticket over this connection, even where the entry says `GSSAPIDelegateCredentials yes`. A `ProxyJump` host is reached by a separate `ssh`, which applies the jump host's own entry.
 * **Commands**: `RemoteCommand` and `LocalCommand`.
 
-Where the session's terminal can't use that connection, and always with the built-in client, the terminal runs its own `ssh`, which applies the entry's forwarding and Kerberos delegation settings. With `ForwardAgent yes` in the entry, that `ssh` forwards the user's SSH agent to the host.
+Where the session's terminal can't use that connection, and always with the built-in client, the terminal runs its own `ssh`. In Claude Desktop 4.16336.0 or later, that `ssh` leaves all of the settings above off too. Before Claude Desktop 4.16336.0, it applies the entry's forwarding, Kerberos delegation, and `LocalCommand` settings, so with `ForwardAgent yes` in the entry it forwards the user's SSH agent to the host.
 
 ### Use the OpenSSH client of Git for Windows
 
@@ -625,7 +642,7 @@ The client that you name makes the connection only if all of these conditions ho
 Before you deliver `sshClientPath` and `sshTransport`, check for these devices:
 
 * **Devices without the program**: with no file at the path that `sshClientPath` names, every SSH connection fails, whatever the value of `sshTransport`, and Claude Desktop's built-in SSH client doesn't take over. Install the program first, or deliver both settings only to devices that have it. A device that gets neither setting connects as before.
-* **Devices with a bootstrap server**: once loaded, the server's response replaces machine policy's values, even for a setting that the response leaves out. A response that leaves `sshClientPath` out cancels your choice of client, and Microsoft's OpenSSH or the built-in client then connects. Return both settings in the response as well as in machine policy. Return `sshClientPath` only to Windows devices, because SSH connections fail on a macOS or Linux device that gets a Windows path.
+* **Devices with a bootstrap server**: once loaded, the server's response replaces machine policy's values, even for a setting that the response leaves out. A response that leaves `sshClientPath` out cancels your choice of client, and the app then uses Microsoft's OpenSSH or the built-in client. Return both settings in the response as well as in machine policy. Return `sshClientPath` only to Windows devices, because SSH connections fail on a macOS or Linux device that gets a Windows path.
 
 If `sshTransport` is `system-openssh` and any other condition in the list doesn't hold, connections fail with the card "Ask your IT administrator to fix the configured SSH program". Claude Desktop never runs another `ssh` in the program's place.
 
@@ -725,7 +742,7 @@ These cards require Claude Desktop 2.31226.0 or later. Before Claude Desktop 2.3
 
 ### Ask your IT administrator to fix the configured SSH program
 
-The program that `sshClientPath` names is missing, can't be run, is too old, or on Windows doesn't meet the conditions for its kind. Claude Desktop never runs another `ssh` in its place. Select **View details** on the card for the program's path. On a Windows device, to find the condition, see [Use the OpenSSH client of Git for Windows](#use-the-openssh-client-of-git-for-windows) or [Use an OpenSSH client installed per user](#use-an-openssh-client-installed-per-user). With no `sshClientPath`, the card appears on a macOS or Linux device where `sshTransport` is `system-openssh` and the device can't start its own `ssh`. A Windows device in that state connects with the built-in client. Where the built-in client makes the connection, the card also appears if a Windows or Linux device refuses to start the `ssh-keygen` in the folder of the program that `sshClientPath` names, for example under an application control policy. **View details** then shows a line that starts with `ssh-keygen:` and gives the blocked program's path. Allow that program to run, then have the user try again.
+The program that `sshClientPath` names is missing, can't be run, is too old, or on Windows doesn't meet the conditions for its kind. Claude Desktop never runs another `ssh` in its place. Select **View details** on the card for the program's path. On a Windows device, to find the condition, see [Use the OpenSSH client of Git for Windows](#use-the-openssh-client-of-git-for-windows) or [Use an OpenSSH client installed per user](#use-an-openssh-client-installed-per-user). With no `sshClientPath`, the card appears on a macOS or Linux device where `sshTransport` is `system-openssh` and the device can't start its own `ssh`. A Windows device in that state uses the built-in client. Where the built-in client makes the connection, the card also appears if a Windows or Linux device refuses to start the `ssh-keygen` in the folder of the program that `sshClientPath` names, for example under an application control policy. **View details** then shows a line that starts with `ssh-keygen:` and gives the blocked program's path. Allow that program to run, then have the user try again.
 
 ### This computer won't start Claude's SSH sign-in helper
 

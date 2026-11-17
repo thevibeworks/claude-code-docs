@@ -635,6 +635,26 @@ signature is missing or invalid.
 
       - `OrganizationID string`
 
+    - `type BetaWebhookExternalKeyFailedEventData`
+
+      - `Type ExternalKeyFailed`
+
+      - `ID string`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `OrganizationID string`
+
+    - `type BetaWebhookExternalKeyRecoveredEventData`
+
+      - `Type ExternalKeyRecovered`
+
+      - `ID string`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `OrganizationID string`
+
 ## Example
 
 ```go

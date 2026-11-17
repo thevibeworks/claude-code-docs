@@ -2,6 +2,12 @@
 
 ## November 2026
 
+### November 17, 2026
+
+**Choose a release channel in Claude Desktop**
+
+You can now use a release channel to set which version of Claude Desktop you get when the app updates. **Stable** stays the default and gets new versions less often, after more testing. **Latest** gets a new version about once a day, so fixes and new features reach you sooner. For more information, see **[Choose a release channel](https://support.claude.com/en/articles/10065433-install-claude-desktop#h_ac219b3bde)**.
+
 ### November 12, 2026
 
 **Add Claude to your meetings**

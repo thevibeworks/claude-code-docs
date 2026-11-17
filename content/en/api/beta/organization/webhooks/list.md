@@ -210,9 +210,13 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
 
-  - `enabled_events: array of "user_profile.enforcement_action_opened" or "user_profile.enforcement_action_resolved" or "user_profile.program_status_updated"`
+  - `enabled_events: array of "external_key.failed" or "external_key.recovered" or "user_profile.enforcement_action_opened" or 2 more`
 
     The event types delivered to the endpoint.
+
+    - `"external_key.failed"`
+
+    - `"external_key.recovered"`
 
     - `"user_profile.enforcement_action_opened"`
 
@@ -274,7 +278,7 @@ curl https://api.anthropic.com/v1/organizations/webhooks \
       "description": "description",
       "disabled_reason": "disabled_reason",
       "enabled_events": [
-        "user_profile.enforcement_action_opened"
+        "external_key.failed"
       ],
       "name": "name",
       "state": "disabled",

@@ -413,6 +413,23 @@ You can add the environment entry or `allow` rule from the `/permissions` dialog
 
 The text in square brackets names what the classifier matched. If it's a rule built into Claude Code, pass its name without the brackets to [`claude auto-mode defaults --label`](#inspect-the-defaults-and-your-effective-config) to read the full wording.
 
+### Fix `Destructive or Unwanted Actions` and other policy denials
+
+If a denial shows one of these names, the [server-side classifier](https://code.claude.com/docs/en/permission-modes.md#server-side-classifier-review) blocked the call and gave a broad policy as its reason:
+
+* `[Destructive or Unwanted Actions]`
+* `[Unauthorized Access]`
+* `[Undermining Oversight]`
+* `[Unsanctioned Communication]`
+
+The policy name is only a category, and `claude auto-mode defaults` doesn't list its wording. Read the blocked call in the conversation, or run `/permissions` in your terminal session and look under **Recently blocked**. If it's what you meant Claude to do, give the classifier more context:
+
+* **For this call only**: tell Claude to do it, naming the action and its target, such as "overwrite `data/seed.json`"
+* **For a destination you trust, such as a package registry**: add it to [`autoMode.environment`](#define-trusted-infrastructure)
+* **For a routine action you want allowed from now on**: describe it in an [`autoMode.allow`](#override-the-block-and-allow-rules) entry
+
+After you add an entry, ask Claude to retry so the classifier checks the call again.
+
 ### Fix repeated denials
 
 Repeated denials for the same destination usually mean the classifier is missing context. Add that destination to `autoMode.environment`, or [run `/auto-mode-setup`](#generate-environment-entries) to have Claude Code draft the entries, then run `claude auto-mode config` to confirm the change took effect.

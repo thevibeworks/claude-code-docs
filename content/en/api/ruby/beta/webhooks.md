@@ -641,6 +641,26 @@ signature is missing or invalid.
 
       - `organization_id: String`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `type: :"external_key.failed"`
+
+      - `id: String`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `type: :"external_key.recovered"`
+
+      - `id: String`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: String`
+
 ### Example
 
 ```ruby
@@ -1280,6 +1300,26 @@ you have already verified the signature yourself.
       - `id: String`
 
         ID of the user profile that triggered the event.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `type: :"external_key.failed"`
+
+      - `id: String`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `type: :"external_key.recovered"`
+
+      - `id: String`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
 
       - `organization_id: String`
 
@@ -2151,9 +2191,29 @@ puts(event)
 
       - `organization_id: String`
 
+    - `class BetaWebhookExternalKeyFailedEventData`
+
+      - `type: :"external_key.failed"`
+
+      - `id: String`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalKeyRecoveredEventData`
+
+      - `type: :"external_key.recovered"`
+
+      - `id: String`
+
+        ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: String`
+
 ### Beta Webhook Event Data
 
-- `type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 44 more`
+- `type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 46 more`
 
   - `class BetaWebhookSessionCreatedEventData`
 
@@ -2748,6 +2808,50 @@ puts(event)
       ID of the user profile that triggered the event.
 
     - `organization_id: String`
+
+  - `class BetaWebhookExternalKeyFailedEventData`
+
+    - `type: :"external_key.failed"`
+
+    - `id: String`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `organization_id: String`
+
+  - `class BetaWebhookExternalKeyRecoveredEventData`
+
+    - `type: :"external_key.recovered"`
+
+    - `id: String`
+
+      ID (`ekey_...`) of the external key that stopped working or works again.
+
+    - `organization_id: String`
+
+### Beta Webhook External Key Failed Event Data
+
+- `class BetaWebhookExternalKeyFailedEventData`
+
+  - `type: :"external_key.failed"`
+
+  - `id: String`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `organization_id: String`
+
+### Beta Webhook External Key Recovered Event Data
+
+- `class BetaWebhookExternalKeyRecoveredEventData`
+
+  - `type: :"external_key.recovered"`
+
+  - `id: String`
+
+    ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `organization_id: String`
 
 ### Beta Webhook Memory Store Archived Event Data
 

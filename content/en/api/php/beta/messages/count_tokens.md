@@ -5,7 +5,7 @@ url: https://platform.claude.com/docs/en/api/php/beta/messages/count_tokens
 
 # Count tokens in a Message
 
-`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessageTokensCount`
+`$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaBillingPolicy billingPolicy, ?BetaCacheControlEphemeral cacheControl, ?BetaCompactionConfig compaction, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID, ?string workspaceID): BetaMessageTokensCount`
 
 **POST** `/v1/messages/count_tokens`
 
@@ -301,6 +301,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Anthropic\Client;
 use Anthropic\Beta\AnthropicBeta;
+use Anthropic\Beta\Messages\BetaBillTo;
 use Anthropic\Beta\Messages\BetaThinkingPrefixMismatchBehavior;
 use Anthropic\Messages\Model;
 
@@ -309,6 +310,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaMessageTokensCount = $client->beta->messages->countTokens(
   messages: [['content' => 'Hello, world', 'role' => 'user']],
   model: Model::CLAUDE_OPUS_5_5,
+  billingPolicy: ['type' => 'billing_policy', 'billTo' => BetaBillTo::SELF],
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   compaction: ['type' => 'summarize', 'instructions' => 'instructions'],
   contextManagement: [

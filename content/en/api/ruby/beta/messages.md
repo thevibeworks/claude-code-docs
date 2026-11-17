@@ -3467,6 +3467,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+- `billing_policy: optional BetaBillingPolicy | nil`
+
+  Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
+
+  - `type: :billing_policy`
+
+  - `bill_to: optional BetaBillTo`
+
+    Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you.
+
+    - `:self`
+
+    - `:user_profile`
+
 - `cache_control: optional BetaCacheControlEphemeral | nil`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -4272,6 +4286,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
 
@@ -12002,6 +12018,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+- `billing_policy: optional BetaBillingPolicy | nil`
+
+  Declares which organization is billed when this body is sent to `/v1/messages`. Accepted here so that you can count the tokens of the exact body you will send, and otherwise ignored: counting tokens bills nobody, so no user profile is required.
+
+  - `type: :billing_policy`
+
+  - `bill_to: optional BetaBillTo`
+
+    Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you.
+
+    - `:self`
+
+    - `:user_profile`
+
 - `cache_control: optional BetaCacheControlEphemeral | nil`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -12594,6 +12624,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
 
@@ -16219,6 +16251,20 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+- `billing_policy: optional BetaBillingPolicy | nil`
+
+  Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
+
+  - `type: :billing_policy`
+
+  - `bill_to: optional BetaBillTo`
+
+    Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you.
+
+    - `:self`
+
+    - `:user_profile`
+
 - `cache_control: optional BetaCacheControlEphemeral | nil`
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -17025,6 +17071,8 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"user-profiles-billing-2026-10-01"`
+
   - `:"message-batches-2024-09-24"`
 
     **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -17082,6 +17130,126 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
   Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs?sdk_languages=ruby)
 
   A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=ruby).
+
+- `AvailableToolsLimitExceededError` (HTTP status 400, error code `available_tools_limit_exceeded`)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `ClaudeCodeKeyCreatorNotMemberError` (HTTP status 400, error code `claude_code_key_creator_not_member`)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `ClaudeCodeVersionTooOldError` (HTTP status 400, error code `claude_code_version_too_old`)
+
+  The request comes from a Claude Code version older than the minimum that the requested model or the organization requires. Update Claude Code, then retry.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `CMEKKeyNetworkBlockedError` (HTTP status 400, error code `cmek_key_network_blocked`)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `CompactionBlockAmbiguousError` (HTTP status 400, error code `compaction_block_ambiguous`)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `CompactionBlockMisplacedError` (HTTP status 400, error code `compaction_block_misplaced`)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `CompactionContentMismatchError` (HTTP status 400, error code `compaction_content_mismatch`)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `CompactionIncompleteTurnError` (HTTP status 400, error code `compaction_incomplete_turn`)
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+- `CompactionNothingToSummarizeError` (HTTP status 400, error code `compaction_nothing_to_summarize`)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `CompactionSignatureInvalidError` (HTTP status 400, error code `compaction_signature_invalid`)
+
+  The `compaction` block's `signature` does not verify.
+
+- `CompactionTooManyToolReferencesError` (HTTP status 400, error code `compaction_too_many_tool_references`)
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+- `CompactionToolChangesMismatchError` (HTTP status 400, error code `compaction_tool_changes_mismatch`)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `RequestBodyEncodingInvalidError` (HTTP status 400, error code `request_body_encoding_invalid`)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `RequestBodyEncodingUnsupportedError` (HTTP status 400, error code `request_body_encoding_unsupported`)
+
+  The request's `Content-Encoding` is not supported.
+
+- `ThreadAlreadyContinuedError` (HTTP status 400, error code `thread_already_continued`)
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+- `ThreadContinueInFlightError` (HTTP status 400, error code `thread_continue_in_flight`)
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+- `ThreadFingerprintMismatchError` (HTTP status 400, error code `thread_fingerprint_mismatch`)
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+- `ThreadUnsupportedRequestError` (HTTP status 400, error code `thread_unsupported_request`)
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+- `ToolNameConflictError` (HTTP status 400, error code `tool_name_conflict`)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `ToolReferenceUnresolvedError` (HTTP status 400, error code `tool_reference_unresolved`)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `ThreadNotFoundError` (HTTP status 404, error code `thread_not_found`)
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+- `SkillReadBlockedUndecryptableError` (HTTP status 409, error code `skill_read_blocked_undecryptable`)
+
+  A custom skill the request names is stored under an encryption key state the workspace cannot currently decrypt.
+
+- `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `RampLimitExceededError` (HTTP status 429, error code `ramp_limit_exceeded`)
+
+  The request would exceed a ramp limit, which caps how fast usage can grow. Retry after the time in the `retry-after` header.
+
+- `CMEKKeyUnreachableError` (HTTP status 503, error code `cmek_key_unreachable`)
+
+  The workspace's customer-managed encryption key could not be reached. Retry the request; if this continues, check that the key is available in your key management service, or contact Anthropic support.
+
+- `CompactionUnavailableError` (HTTP status 529, error code `compaction_unavailable`)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
 
 ### Example
 
@@ -21176,6 +21344,32 @@ puts(result)
     - `:execution_time_exceeded`
 
     - `:output_file_too_large`
+
+### Beta Bill To
+
+- `type BetaBillTo = :self | :user_profile`
+
+  Who is billed for a request.
+
+  - `:self`
+
+  - `:user_profile`
+
+### Beta Billing Policy
+
+- `class BetaBillingPolicy`
+
+  Declares which organization is billed for the request.
+
+  - `type: :billing_policy`
+
+  - `bill_to: optional BetaBillTo`
+
+    Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you.
+
+    - `:self`
+
+    - `:user_profile`
 
 ### Beta Browser Click Target
 
@@ -97169,6 +97363,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `billing_policy: optional BetaBillingPolicy | nil`
+
+      Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
+
+      - `type: :billing_policy`
+
+      - `bill_to: optional BetaBillTo`
+
+        Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you.
+
+        - `:self`
+
+        - `:user_profile`
+
     - `cache_control: optional BetaCacheControlEphemeral | nil`
 
       Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -97989,6 +98197,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"user-profiles-billing-2026-10-01"`
+
   - `:"message-batches-2024-09-24"`
 
     **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -98313,6 +98523,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"user-profiles-billing-2026-10-01"`
+
   - `:"message-batches-2024-09-24"`
 
     **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -98630,6 +98842,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"user-profiles-billing-2026-10-01"`
+
   - `:"message-batches-2024-09-24"`
 
     **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -98944,6 +99158,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"user-profiles-billing-2026-10-01"`
+
   - `:"message-batches-2024-09-24"`
 
     **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -99251,6 +99467,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"user-profiles-billing-2026-10-01"`
+
   - `:"message-batches-2024-09-24"`
 
     **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -99459,6 +99677,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
 

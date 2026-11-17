@@ -125,6 +125,8 @@ Create Skill
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -430,6 +432,8 @@ List Skills
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -706,6 +710,8 @@ Get Skill
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -974,6 +980,8 @@ Delete Skill
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -1302,6 +1310,8 @@ Create Skill Version
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -1572,6 +1582,8 @@ List Skill Versions
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -1823,6 +1835,8 @@ Download a skill version's content as a zip archive.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -2005,6 +2019,8 @@ Get Skill Version
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -2253,6 +2269,8 @@ Delete Skill Version
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

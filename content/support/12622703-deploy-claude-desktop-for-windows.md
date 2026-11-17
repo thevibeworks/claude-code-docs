@@ -68,7 +68,7 @@ By default, Claude Desktop checks for updates approximately every four hours and
 
 **Option 1: Your MDM manages versions.** Set the `disableAutoUpdates` policy to `1` and push new MSIX builds through your MDM on your own schedule. See **[Enterprise configuration for Claude Desktop](https://support.claude.com/en/articles/12622667-enterprise-configuration-for-claude-desktop)** for the policy location.
 
-**Option 2: Claude Desktop manages versions.** Leave `disableAutoUpdates` unset. Deploy the MSIX once via a Win32-wrapped `Add-AppxProvisionedPackage` install, then use a custom detection script that checks `Get-AppxPackage -Name Claude` for a version greater than or equal to the one you provisioned. This keeps your MDM reporting **Installed** after the app self-updates.
+**Option 2: Claude Desktop manages versions.** Leave `disableAutoUpdates` unset. Deploy the MSIX once via a Win32-wrapped `Add-AppxProvisionedPackage` install, then use a custom detection script that checks `Get-AppxPackage -Name Claude` for a version greater than or equal to the one you provisioned. This keeps your MDM reporting **Installed** after the app self-updates. If no Claude policy is set on the computer, users can also switch to the Latest release channel. Learn more about **[choosing a release channel](https://support.claude.com/en/articles/10065433-install-claude-desktop#h_ac219b3bde)**.
 
 ## Configuration
 

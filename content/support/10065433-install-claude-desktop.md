@@ -91,6 +91,48 @@ Verify the signing key fingerprint before trusting it:
 
 ---
 
+## Choose a release channel
+
+Release channels are available on all plans, in Claude for Mac and Claude for Windows. It isn’t available on Linux, Microsoft Store installs, or on computers where your IT team has set a Claude policy.
+
+A release channel sets which version of Claude Desktop you get when the app updates:
+
+- **Stable:** The default. Gets new versions less often, after more testing, so it's more reliable. Fixes and new features can reach you a few days later than on Latest.
+
+- **Latest:** Gets a new version about once a day, so fixes and new features reach you sooner. It can be less reliable than Stable.
+
+### Change your release channel to Latest
+
+To get new versions sooner, change your release channel to Latest:
+
+1. Navigate to **Settings > Desktop app**.
+
+2. Under **Release channel**, select "Latest."
+
+The change applies to the computer you're using, the next time Claude Desktop checks for updates. To check right away, close Settings, then select **Claude > Check for Updates** on Mac or **Help > Check for Updates** on Windows. While you're on Latest, **About Claude** shows "latest" after the version number.
+
+### Change your release channel to Stable
+
+To change your release channel to Stable:
+
+1. Navigate to **Settings > Desktop app**.
+
+2. Next to **Release channel**, select "Stable."
+
+**Important:** Going back to Stable doesn't replace the version you have. Claude Desktop only moves to newer versions, so you keep your Latest version until a newer Stable version comes out. Until then, you don't receive Stable updates, including urgent fixes, which can contain security fixes. If a Latest update has already downloaded, it still installs when you restart. Don't reinstall Claude Desktop to get back sooner, because reinstalling can put data stored on your computer at risk, especially on Windows.
+
+## If you can't choose a release channel
+
+- **Your computer is managed:** If your IT team has set any Claude policy on your computer, **Release channel** doesn't appear. Claude Desktop follows Stable, even if you chose Latest before.
+
+- **You installed Claude for Windows with an older installer:** **Release channel** is grayed out. To change your release channel, reinstall Claude Desktop from the **[Claude downloads page](https://claude.ai/download)**. Reinstalling can put data stored on your computer at risk, so save anything you need first.
+
+- **Your version is out of date:** Update to Claude Desktop 4.29.0 or later.
+
+- **You use Claude Desktop on a cloud provider:** **Release channel** doesn't appear. Your IT team sets the channel. Learn more about **[the release channel setting](https://claude.com/docs/third-party/claude-desktop/configuration#releasechannel)**.
+
+---
+
 ## Desktop extensions
 
 Desktop extensions transform how you connect Claude to your desktop applications and data. Similar to browser extensions, these secure, installable packages let you:

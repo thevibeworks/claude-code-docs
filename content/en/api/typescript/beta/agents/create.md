@@ -428,7 +428,7 @@ interface BetaManagedAgentsServiceAccountExecutionIdentityParams {
   type: "service_account";
 }
 
-/** A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster. */
+/** Recommendation: use `multiagent_20261001` instead of `coordinator`. A coordinator topology: the session's primary thread orchestrates work by spawning session threads, each running an agent drawn from the `agents` roster. */
 interface BetaManagedAgentsMultiagentCoordinatorParams {
   type: "coordinator";
   /** Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1). */

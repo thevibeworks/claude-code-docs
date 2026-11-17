@@ -3467,6 +3467,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `BetaBillingPolicy? billingPolicy`
+
+    Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
+
   - `BetaCacheControlEphemeral? cacheControl`
 
     Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -3922,6 +3926,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -11679,6 +11685,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `BetaBillingPolicy? billingPolicy`
+
+    Declares which organization is billed when this body is sent to `/v1/messages`. Accepted here so that you can count the tokens of the exact body you will send, and otherwise ignored: counting tokens bills nobody, so no user profile is required.
+
   - `BetaCacheControlEphemeral? cacheControl`
 
     Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -12007,6 +12017,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -16253,6 +16265,32 @@ Console.WriteLine(betaMessageTokensCount);
     - `ExecutionTimeExceeded("execution_time_exceeded")`
 
     - `OutputFileTooLarge("output_file_too_large")`
+
+### Beta Bill To
+
+- `enum BetaBillTo`
+
+  Who is billed for a request.
+
+  - `Self("self")`
+
+  - `UserProfile("user_profile")`
+
+### Beta Billing Policy
+
+- `class BetaBillingPolicy`
+
+  Declares which organization is billed for the request.
+
+  - `JsonElement Type = "billing_policy"`
+
+  - `BetaBillTo BillTo`
+
+    Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you.
+
+    - `Self("self")`
+
+    - `UserProfile("user_profile")`
 
 ### Beta Browser Click Target
 
@@ -91925,6 +91963,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `BetaBillingPolicy? BillingPolicy`
+
+        Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
+
+        - `JsonElement Type = "billing_policy"`
+
+        - `BetaBillTo BillTo`
+
+          Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you.
+
+          - `Self("self")`
+
+          - `UserProfile("user_profile")`
+
       - `BetaCacheControlEphemeral? CacheControl`
 
         Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -92743,6 +92795,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -92936,6 +92990,7 @@ BatchCreateParams parameters = new()
                     new Messages::BetaUserMessageParam("Hello, world")
                 ],
                 Model = ModelsMessages::Model.ClaudeOpus5_5,
+                BillingPolicy = new() { BillTo = Messages::BetaBillTo.Self },
                 CacheControl = new() { Ttl = Messages::Ttl.Ttl5m },
                 Compaction = new() { Instructions = "instructions" },
                 Container = new Messages::BetaContainerParams()
@@ -93242,6 +93297,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -93561,6 +93618,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -93878,6 +93937,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -94186,6 +94247,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -94395,6 +94458,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

@@ -125,6 +125,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -357,6 +359,8 @@ Fetches a tunnel certificate by ID.
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
@@ -601,6 +605,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -836,6 +842,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 
