@@ -3453,6 +3453,10 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `BetaBillingPolicy? billingPolicy`
+
+    Declares which organization is billed when this body is sent to `/v1/messages`. Accepted here so that you can count the tokens of the exact body you will send, and otherwise ignored: counting tokens bills nobody, so no user profile is required.
+
   - `BetaCacheControlEphemeral? cacheControl`
 
     Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -3781,6 +3785,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

@@ -199,7 +199,7 @@ To run the CLI examples, install the CLI:
     <Tabs>
       <Tab title="Gradle">
         ```kotlin
-        implementation("com.anthropic:anthropic-java:3.9.0")
+        implementation("com.anthropic:anthropic-java:3.10.0")
         ```
       </Tab>
 
@@ -208,7 +208,7 @@ To run the CLI examples, install the CLI:
         <dependency>
             <groupId>com.anthropic</groupId>
             <artifactId>anthropic-java</artifactId>
-            <version>3.9.0</version>
+            <version>3.10.0</version>
         </dependency>
         ```
       </Tab>

@@ -3465,6 +3465,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `BetaBillingPolicy? billingPolicy`
+
+    Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
+
   - `BetaCacheControlEphemeral? cacheControl`
 
     Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
@@ -3920,6 +3924,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
 

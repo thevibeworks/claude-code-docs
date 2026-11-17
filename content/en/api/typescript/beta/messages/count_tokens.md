@@ -99,6 +99,8 @@ interface MessageCountTokensParams {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
+  /** Declares which organization is billed when this body is sent to `/v1/messages`. Accepted here so that you can count the tokens of the exact body you will send, and otherwise ignored: counting tokens bills nobody, so no user profile is required. */
+  billing_policy?: BetaBillingPolicy | null;
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
   /** Compaction configuration. When set on `POST /v1/messages`, the request is a compaction request: the conversation in `messages` is summarized and the response holds only the resulting `compaction` block (`stop_reason` `"compaction"`), which later requests send first in `messages` in place of the messages it summarizes. `POST /v1/messages/count_tokens` accepts this parameter and ignores it: the count it returns is for the conversation in `messages` as sent. Cannot be combined with `context_management`. */
@@ -341,6 +343,12 @@ type Model =
    */
   | "claude-sonnet-4-5-20250929"
   | (string & {});
+
+interface BetaBillingPolicy {
+  type: "billing_policy";
+  /** Who is billed. `self`, the default, bills your organization, as if `billing_policy` were omitted. `user_profile` bills the customer behind the user profile the request names; if that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. */
+  bill_to?: BetaBillTo;
+}
 
 interface BetaCacheControlEphemeral {
   type: "ephemeral";
@@ -937,6 +945,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
@@ -1598,6 +1607,8 @@ interface BetaBrowserStateChangeDownloadFailed {
   /** The failure or cancellation detail, when known. */
   error?: string | null; // maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 }
+
+type BetaBillTo = "self" | "user_profile";
 
 interface BetaClearToolUses20250919Edit {
   type: "clear_tool_uses_20250919";

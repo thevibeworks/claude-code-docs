@@ -73,6 +73,8 @@ In your MDM, scope each exported profile to the corresponding device or user gro
 
 > [!NOTE]
 >
+> On macOS, check whether your assignment rules install a profile for the whole computer (a machine profile) or for one user account (a user profile). The app ignores a user profile on a device that has a machine profile for the app; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration between groups on macOS, scope machine profiles to device groups, or serve per-user configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md).
+>
 > On Windows, check which registry hive your assignment rules write to. If your assignment rules deliver a profile in user context, it lands in user policy (`HKCU`), and the app ignores user policy entirely when machine policy is present; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration per user group on Windows, deliver every profile through user policy and keep `HKLM\SOFTWARE\Policies\Claude` empty, or serve per-user configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md).
 >
 > Before you deliver an exported `.reg` file through user policy, make sure the registry path in the file starts with `HKEY_CURRENT_USER`, not `HKEY_LOCAL_MACHINE`.
@@ -95,11 +97,23 @@ Push the exported configuration through your MDM. On macOS and Windows, put all 
 >
 > | Source | Path | Precedence |
 > | - | - | - |
-> | Managed (per-user) | `/Library/Managed Preferences/<user>/com.anthropic.claudefordesktop.plist` | Highest |
-> | Managed (machine) | `/Library/Managed Preferences/com.anthropic.claudefordesktop.plist` | |
+> | Machine profile | `/Library/Managed Preferences/com.anthropic.claudefordesktop.plist` | Highest |
+> | User profile | `/Library/Managed Preferences/<user>/com.anthropic.claudefordesktop.plist` | |
 > | Local (user) | `~/Library/Application Support/Claude-3p/configLibrary/` | Lowest |
 >
-> A `.mobileconfig` profile delivered by MDM lands in the Managed Preferences locations automatically. Both managed paths are read; where a key appears in both, the per-user value wins.
+> A `.mobileconfig` profile delivered by MDM lands in the Managed Preferences locations automatically. A profile that your MDM installs for the whole computer is a machine profile, and a profile that it installs for one user account is a user profile. Some MDMs call these computer level and user level.
+>
+> The two profiles aren't merged. When the device has a machine profile for the app, the app ignores the user profile entirely.
+>
+> * **Deploy one machine profile to each Mac**: put the complete configuration in it. Before you upload an exported `.mobileconfig` file, check that its `PayloadScope` is `System`, and change it if it isn't.
+>
+> * **See what an ignored user profile held**: check the `User profile` line of `managed-config.txt` in the [diagnostic report](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment), or the warning in `main.log`. Both list the keys that the machine profile doesn't set, or sets to a different value. When the app opens on the standard claude.ai sign-in screen, `main.log` is in `~/Library/Logs/Claude/`, not `~/Library/Logs/Claude-3p/`.
+>
+> * **Leave profile installation to your MDM**: set Apple's [`allowUIConfigurationProfileInstallation`](https://developer.apple.com/documentation/devicemanagement/restrictions) restriction to `false`. The restriction applies on macOS 13 and later, and also stops users from installing certificates by hand.
+>
+> > [!NOTE]
+> >
+> > Before Claude Desktop 6.6395.0, settings from both profiles applied. If your Macs have both profiles, move every key that you want to keep into the machine profile before you update.
 
 > [tab] Windows
 >
@@ -145,7 +159,7 @@ A small group of **app-behavior keys** is treated specially, so you can set an u
 
 When a managed source sets only keys from this group (any of them), the device keeps its locally authored configuration and the configuration window stays editable. The group is still enforced as a unit: every key in it is resolved from the managed source alone, so a locally set or bootstrap-served value for any of them is ignored even if the profile sets only one. A profile that sets the update keys but not `relaunchEnforcementHours` or `configRecheckIntervalMinutes` therefore runs their defaults (24 hours and 10 minutes) on those devices, so set them in the same profile when you want other values.
 
-A profile of only these keys leaves what the device connects to in the local configuration, which a user can edit. If that connection runs every session on a server and none on the device, that server answers the device's update checks, so the app installs only the updates that the server offers. Update, restart, and re-check timing then comes from that server or takes its default, and most of these keys stop applying, though `disableAutoUpdates` and the network proxy keys still apply. To prevent this, set the connection in the profile, or set [`deploymentMode`](#restrict-a-device-to-one-deployment-mode) to `1p` on a device that only signs in to claude.ai.
+A profile of only these keys leaves what the device connects to in the local configuration, which a user can edit. If that connection runs every session on a server and none on the device, that server answers the device's update checks, so the app installs only the updates that the server offers. Update, restart, and re-check timing then comes from that server or takes its default, and most of these keys stop applying, the network proxy keys among them, though `disableAutoUpdates` still applies. To prevent this, set the connection in the profile, or set [`deploymentMode`](#restrict-a-device-to-one-deployment-mode) to `1p` on a device that only signs in to claude.ai.
 
 [`organizationAnnouncement`](https://claude.com/docs/third-party/claude-desktop/configuration#organizationannouncement), [`deploymentLogo`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentlogo) (the logo shown beside the announcement), and [`remoteFileDownloads`](https://claude.com/docs/third-party/claude-desktop/configuration#remotefiledownloads) aren't in the group. A profile that sets one or more of them, alone or beside keys from the group, also leaves the locally authored configuration in force. Such a profile still changes how WSL sessions and shell commands work on the device (see [What a profile or policy changes on a device](#what-a-profile-or-policy-changes-on-a-device)). Update devices before you add one of these keys (see [Keys that an earlier version does not recognize](#keys-that-an-earlier-version-does-not-recognize)). For a profile that also sets `bootstrapUrl`, see [Which configuration source applies on a device](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device).
 

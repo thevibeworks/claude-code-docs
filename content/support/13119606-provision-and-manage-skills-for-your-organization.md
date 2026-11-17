@@ -241,7 +241,7 @@ Here's what your users see:
 
 - A skill or plugin with malicious content is blocked and can't be used.
 
-A blocked skill can't be overridden by the user who uploaded it, and can't be approved for the organization at this time. Scanning isn't available for organizations using customer-managed encryption keys (CMEK), zero data retention (ZDR), or HIPAA configurations. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
+A blocked skill can't be overridden by the person who uploaded it, unless they're an Owner, Primary Owner, or have a role with Libraries permission that's set to "Can manage." Scanning isn't available for organizations using customer-managed encryption keys (CMEK), zero data retention (ZDR), or HIPAA configurations. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
 ---
 

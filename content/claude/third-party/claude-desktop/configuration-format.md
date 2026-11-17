@@ -38,7 +38,7 @@ Claude Desktop reads a managed location and a local location on each platform.
 
 | Platform | Managed (MDM) location | Local (user) location |
 | - | - | - |
-| macOS | `/Library/Managed Preferences/<user>/com.anthropic.claudefordesktop.plist` (per user), `/Library/Managed Preferences/com.anthropic.claudefordesktop.plist` (machine) | `~/Library/Application Support/Claude-3p/configLibrary/` |
+| macOS | `/Library/Managed Preferences/com.anthropic.claudefordesktop.plist` (machine), `/Library/Managed Preferences/<user>/com.anthropic.claudefordesktop.plist` (user) | `~/Library/Application Support/Claude-3p/configLibrary/` |
 | Windows | `HKLM\SOFTWARE\Policies\Claude` (machine), `HKCU\SOFTWARE\Policies\Claude` (user) | `%LOCALAPPDATA%\Claude-3p\configLibrary\` |
 | Linux | `/etc/claude-desktop/managed-settings.json` | `~/.config/Claude-3p/configLibrary/` |
 
@@ -49,7 +49,7 @@ The local location is a directory: `_meta.json` records which saved configuratio
 * **A managed source and a local file**: when a managed source sets any key other than the [app-behavior keys and the keys treated like them](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence), the managed configuration takes effect and locally written values are ignored.
 * **A managed source that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence)**: those keys are enforced from the managed source, but the rest of the configuration stays local and user-editable. Any of those keys that the profile leaves out runs its default.
 * **A bootstrap response**: when a response is available, it is the effective configuration, apart from the app-behavior keys where a profile sets only those. A key that the server can set and your response omits is treated as unset, not inherited from the profile. The app ignores the keys labeled **MDM only** in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md) in a response, so set them in the profile or the local file.
-* **Two macOS managed paths**: both are read, and where a key appears in both, the app uses the per-user value.
+* **Two macOS managed profiles**: the profiles aren't merged. When the device has a machine profile for the app, the app ignores the user profile entirely.
 * **Two Windows policy hives**: the hives aren't merged. When machine policy is present under `HKLM\SOFTWARE\Policies\Claude`, the app ignores `HKCU\SOFTWARE\Policies\Claude` entirely.
 
 [Deploy the configuration](https://claude.com/docs/third-party/claude-desktop/mdm.md#4-deploy-the-configuration) has the exact rules for managed sources. For a bootstrap response, see also [Keys that require user consent](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent) and [Origin pinning](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#origin-pinning).
