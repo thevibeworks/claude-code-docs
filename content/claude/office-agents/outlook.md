@@ -21,7 +21,7 @@ consultants tracking multiple client threads.
 
 > [!NOTE]
 >
-> Claude for Outlook is currently in beta and available to Pro, Max, Team,
+> Claude for Outlook is generally available to Pro, Max, Team,
 > and Enterprise plans.
 > It is not available on the Free plan. If you connect through a
 > [third-party platform](#connect-through-a-third-party-platform), you can use
@@ -731,9 +731,9 @@ requests.
 Review every draft and inbox action before accepting it, especially when
 working with email from external or untrusted senders.
 
-## Recommended use during beta
+## Current limitations
 
-As a beta feature, Claude for Outlook is not recommended for:
+Claude for Outlook is not recommended for:
 
 * Unattended sending. The add-in never sends mail or invites; every
   draft lands unsent for your review. After you select "Always allow" for
@@ -746,7 +746,9 @@ As a beta feature, Claude for Outlook is not recommended for:
 * Mailboxes containing privileged or regulated data without appropriate
   organizational controls.
 
-To use Claude for Outlook safely and effectively:
+## Best practices
+
+Follow these guidelines to use Claude for Outlook safely and effectively.
 
 * Review drafted replies and invites before sending, especially recipient
   lists.

@@ -76,13 +76,15 @@ The credits don’t apply to:
 
 - Claude on Amazon Bedrock, Google Cloud Vertex AI, or Microsoft Foundry
 
+- Claude usage in third-party apps that’s billed through **[linked billing](https://support.claude.com/en/articles/18467110)**
+
 ## How the credits work
 
 - **Refreshes each billing cycle.** New credits arrive shortly after your plan payment goes through. On annual plans, credits arrive monthly.
 
 - **Doesn't roll over.** Unused credits expire at the end of each billing cycle.
 
-- **Used first.** Your monthly credits are spent before any credits you've purchased.
+- **Used first.** For usage they cover, your monthly credits are spent before any credits you've purchased.
 
 - **Shared across the organization.** Everyone with an API key in the linked organization draws from the same balance.
 

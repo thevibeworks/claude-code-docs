@@ -16,6 +16,8 @@ To find out whether a managed profile's keys apply on a device that uses the [En
 
 On a device that gets its configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), essential and non-essential telemetry are each off unless the server's response sets the category's key to `false`.
 
+On a deployment that runs every session on a server and none on the device, `disableEssentialTelemetry` and `disableNonessentialTelemetry` don't apply. The app sends Anthropic no crash, error, or performance reports and no product analytics. Where that server sends Anthropic a usage report and accepts them, the app hands it counts of its starts and failures, and the totals go into that report.
+
 ### Essential telemetry
 
 Crash reports, error stack traces, and performance timings. Contains diagnostic metadata (app version, OS, error type, redacted stack frames) but **never prompt or response content**. Attributed to your organization via `deploymentOrganizationUuid` so Anthropic support can find issues you report.

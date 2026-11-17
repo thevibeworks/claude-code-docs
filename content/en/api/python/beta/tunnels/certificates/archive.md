@@ -121,6 +121,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"user-profiles-billing-2026-10-01"`
+
   - `"message-batches-2024-09-24"`
 
     **Deprecated**: This value is no longer needed. Remove it from your requests.

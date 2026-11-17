@@ -1023,7 +1023,7 @@ Logged when a tool permission decision is made (accept/reject).
 * `classifier_category` (when `OTEL_LOG_TOOL_DETAILS=1`): The name of the [built-in rule](https://code.claude.com/docs/en/auto-mode-config.md#inspect-the-defaults-and-your-effective-config) the classifier named when it blocked the call, in lowercase with underscores, such as `"data_exfiltration"` for the Data Exfiltration rule. Requires Claude Code v2.1.301 or later. The attribute is present when both of these hold:
 
   * `classifier_verdict` is `"block"`
-  * The classifier named exactly one rule, and that rule is a built-in one rather than one you wrote
+  * The classifier named exactly one rule, and Claude Code recognizes that name as a built-in rule's
 
   Before v2.1.302, the attribute was also absent on any block that [server-side classifier review](https://code.claude.com/docs/en/permission-modes.md#server-side-classifier-review) decided.
 * `permission_mode`: [Permission mode](https://code.claude.com/docs/en/permission-modes.md) active when this call's permission check began: `"default"`, `"plan"`, `"acceptEdits"`, `"bypassPermissions"`, `"dontAsk"`, or `"auto"`. Manual mode appears as `"default"`. A [subagent](https://code.claude.com/docs/en/sub-agents.md#permission-modes) call reports the subagent's permission mode rather than the session's. Requires Claude Code v2.1.301 or later
@@ -1078,7 +1078,7 @@ The event exports with the other events and has no separate setting. The event's
 * `rule_source`: Settings source of the rule involved, such as `"policySettings"`, `"userSettings"`, `"projectSettings"`, `"localSettings"`, `"flagSettings"`, `"cliArg"`, or `"session"`
 * `grant_scope`: `"once"` or `"session"` for a prompt approved without saving a rule to a settings file
 * `circuit_breaker`: The built-in safety check, such as `"dangerousRemoval"`, `"outsideReadsBlocked"`, or `"claudeSettingsFile"`
-* `classifier_category`: With `OTEL_LOG_TOOL_DETAILS=1`, the [built-in rule](https://code.claude.com/docs/en/auto-mode-config.md#inspect-the-defaults-and-your-effective-config) behind an auto mode block, such as `"data_exfiltration"`
+* `classifier_category`: With `OTEL_LOG_TOOL_DETAILS=1`, the [built-in rule](https://code.claude.com/docs/en/auto-mode-config.md#inspect-the-defaults-and-your-effective-config) behind an auto mode block, such as `"data_exfiltration"`, under the same conditions as on [`tool_decision`](#tool-decision-event)
 * `hook_event`: `"pre_tool_use"` for a `PreToolUse` hook, or `"post_tool_use"`, `"post_tool_use_failure"`, `"stop"`, or `"subagent_stop"` on `"hook_review"` events
 * `tool_class`: `"bash"` for Bash and [Monitor](https://code.claude.com/docs/en/tools-reference.md#monitor-tool), `"powershell"`, `"file"` for Read, Edit, Write, NotebookEdit, Glob, and Grep, `"web"` for WebFetch and WebSearch, `"mcp"`, or `"other"`
 * `tool_name`: The tool's name, such as `"Bash"` for a built-in tool, or `"mcp_tool"`, `"skill_tool"`, `"dynamic_tool"`, or `"other_tool"`

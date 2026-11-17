@@ -160,6 +160,7 @@ In [Code](https://claude.com/docs/third-party/claude-desktop/code.md) sessions, 
 * **Web Fetch controls**: to have the user approve every fetch, set `WebFetch` to `"ask"` in [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy), which also applies in Cowork and Chat. To remove the tool, see [Disabling web tools](#disabling-web-tools).
 * **Shell commands**: commands that run in [Claude Code's sandbox](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy) reach only the hosts you list, and no host while the list is empty. For a key that isn't set, see [Unset allowlist in Code sessions](#unset-allowlist-in-code-sessions). On Windows, and on Linux without Claude Code's sandbox dependencies, shell commands run unsandboxed and can reach any host your network allows. To keep Code off such devices, see [Disabling Code](https://claude.com/docs/third-party/claude-desktop/code.md#disabling-code). For SSH hosts, see [Sandbox status on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#sandbox-status-on-the-remote-host).
 * **Hooks, local MCP servers, and mods**: [hooks that run a command](https://code.claude.com/docs/en/hooks#hook-handler-fields), local (stdio) MCP servers, and [Claude Code mods](https://claude.com/docs/third-party/claude-desktop/code.md#claude-code-mods) run outside Claude Code's sandbox and can reach any host your network allows. To limit which of them run, see the warning under [Applied as managed policy](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy).
+* **Preview pane**: Claude Desktop applies the list itself, also while the [built-in browser](https://claude.com/docs/third-party/claude-desktop/browser.md) is off. A page that a user previews in Code, such as one from a local development server, loads content only from the device and from the hosts you list. To let such pages load scripts, fonts, or data from another host, add it to the list, which also opens that host to the agent's shell. An unset list, or one that contains `*`, limits nothing there.
 
 #### Unset allowlist in Code sessions
 
@@ -206,11 +207,11 @@ Each user can make Web Search or Web Fetch stricter for themselves than your con
 
 A session that's already running can keep its earlier setting until it next starts. When a [scheduled Cowork task](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md) runs on its schedule in **Automatically approve**, Claude Desktop declines a call to a tool that's at **Always ask** by the user's choice alone, and the run continues without that step.
 
-Your configuration sets the minimum for each tool, and the user sees why a choice is missing:
+Your configuration sets the minimum for each tool:
 
 * **`WebSearch` or `WebFetch` set to `"ask"` in [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy)**: the user selects **Always ask** or **Blocked**, next to the line **Restricted by your admin**
-* **`WebSearch` or `WebFetch` listed in [`disabledBuiltinTools`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledbuiltintools)**: the tool's row reads **Blocked by your admin**, and the user can't change it
+* **`WebSearch` or `WebFetch` listed in [`disabledBuiltinTools`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledbuiltintools)**: the tool has no row, so the user has nothing to set
 
-The **Web search** row appears where your provider or gateway runs Web Search, and controls that tool. When you configure the [built-in web search](#built-in-web-search), that server has a row of its own in both places, and users control search from that row.
+The **Web search** row appears where your provider or gateway runs Web Search and `disabledBuiltinTools` doesn't list it, and controls that tool. When you configure the [built-in web search](#built-in-web-search), that server has a row of its own in both places, and users control search from that row.
 
 A user's setting is a preference that the user can change back at any time. **Blocked** removes that tool, and shell commands and browser tools still reach what your configuration allows. To enforce a restriction for everyone, see [Disabling web tools](#disabling-web-tools).

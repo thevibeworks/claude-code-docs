@@ -115,6 +115,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
+
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
 
       **Deprecated**: This value is no longer needed. Remove it from your requests.
@@ -3610,6 +3612,10 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+  - `Optional<BetaBillingPolicy> billingPolicy`
+
+    Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
 
   - `Optional<BetaCacheControlEphemeral> cacheControl`
 

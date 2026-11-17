@@ -290,7 +290,7 @@ Claude Desktop also checks a git marketplace that isn't pinned to a commit, and 
 * **What counts as a change**: for a git marketplace, the branch or tag it follows points to a different commit. For a `url` marketplace, Claude Desktop compares the bytes of `marketplace.json` with the copy it installed, so a new zip at the same URL goes unseen until that file changes. When you replace a zip, update its `sha256` in `marketplace.json`, or the plugin's `version` if the archive lists no `sha256`. Otherwise serve the same bytes, with no timestamp or other value that differs between requests
 * **What your server gets**: each device asks a git server for the latest commit, or requests `marketplace.json`, at most once every 10 seconds per marketplace. After any change, each device clones the repository again, or downloads every archive that `marketplace.json` lists
 * **If the server is slow or an update fails**: a session waits up to 5 seconds for the marketplace's answer and up to 30 seconds in all, then starts with the copy it has. After a check that fails or gets no answer, or a new version that doesn't install, new sessions don't ask that marketplace again for five minutes
-* **With `userGit` or `credentialHelper`**: opening or returning to a new session checks at most once every five minutes, so a new skill can be missing from the `/` list until the user sends the first message
+* **With `userGit` or `credentialHelper`**: opening or returning to a new session, or opening Customize or Settings, checks at most once every five minutes. A new skill can be missing from the `/` list until the user sends the first message
 
 Earlier versions of Claude Desktop sync only at launch and at the periodic re-fetch.
 

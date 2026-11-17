@@ -34,7 +34,7 @@ From November 10, 2026, members whose settings give them Cowork get the [**Stand
 
 | Setting | What it does | Default | Applies to |
 | - | - | - | - |
-| **Session idle timeout** | How long a member can stay inactive before being signed out, from 15 to 5,760 minutes (96 hours). An organization's or group's value longer than the tenant's has no effect. | 1,440 minutes (24 hours) | All products |
+| **Session idle timeout** | How long a member can stay inactive before being signed out, from 15 to 40,320 minutes (28 days). An organization or group can only shorten the tenant's value, or the default when the tenant has none. | 1,440 minutes (24 hours) | All products |
 | **Maximum session length** | The longest a member can stay signed in, even while active, before they have to sign in again, from 60 to 525,600 minutes (365 days). Each level can set or shorten the maximum but not lengthen it past what the level above allows. | No maximum | All products |
 | [**Allowed network hosts**](#allowed-network-hosts) | A list of hostnames that tools may reach, for example to install packages or fetch web pages. | **Claude connection only** | Claude Desktop, Claude Code |
 | **IPv6 in the sandbox** | Lets tools in the sandbox [reach IPv6-only hosts](https://claude.com/docs/third-party/claude-desktop/configuration.md#coworkvmipv6enabled) through the computer's own IPv6 connection. **Allowed network hosts** still applies. | Off | Claude Desktop 1.52386.0 or later on macOS and Windows |

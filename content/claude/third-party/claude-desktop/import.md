@@ -185,7 +185,7 @@ When an imported project has the same name as a project already in Claude Deskto
 
 The Duplicates step, listing imported projects that match ones you already have.
 
-* **Merge into existing** moves the imported chats and sessions into your existing project and removes the duplicate. Folders you attached to the duplicate move with them. If your existing project has no instructions of its own, the imported project's instructions are shown there for you to review and accept. Later imports from the same source go into the existing project as well, except from a folder you added, where the wizard asks again. For a [Claude Desktop export](#move-your-data-to-another-device), the wizard also asks again unless you click **Import as my own** each time.
+* **Merge into existing** moves the imported chats and sessions into your existing project and removes the duplicate. Folders you attached to the duplicate, and its memory, move with them. If your existing project has no instructions of its own, the imported project's instructions are shown there for you to review and accept. Later imports from the same source go into the existing project as well, except from a folder you added, where the wizard asks again. For a [Claude Desktop export](#move-your-data-to-another-device), the wizard also asks again unless you click **Import as my own** each time.
 * **Keep separate** leaves both projects in place. The imported one keeps a numbered name, such as **Northwind (1)**, and Claude Desktop stops offering to merge it.
 
 The **Projects** page offers the same two choices, in a row under the duplicate project's card and at the top of the duplicate project's own page. Decide there if your history was brought over automatically when you signed in, so you never saw the wizard, or if you closed the wizard before choosing.
@@ -237,14 +237,14 @@ For an export, both devices need Claude Desktop 4.23118.0 or later, the same ope
 **Moves:**
 
 * Chats and Cowork tasks
-* Their attached files and output files. If a session has more than 100 MB of either, those files don't move.
+* Their attached files and output files
 * Memory, including project memory. If you paused memory on the old device, it's in the file but isn't imported.
 * Some app preferences, such as keep-awake settings and prompt suggestions
 
 **Moves, but needs a step from you:**
 
 * Projects. Accept each project's instructions on the project's page.
-* The files of each project whose folder is in the default location, `~/Claude/Projects`, if they total under 100 MB and 10,000 items. To use them in Chat, [add the folder to the project again](#make-an-imported-project-folder-readable-in-chat). Hidden files and symbolic links don't move, and some files arrive under another name, such as `CLAUDE.md.txt`.
+* The files of each project whose folder is in the default location, `~/Claude/Projects`, if that folder holds no more than 10,000 files and folders. To use them in Chat, [add the folder to the project again](#make-an-imported-project-folder-readable-in-chat). Hidden files and symbolic links don't move, and some files arrive under another name, such as `CLAUDE.md.txt`.
 * Code sessions and Code scheduled tasks. [Copy and trust their folders](#import-your-data-on-the-new-device) before you import.
 * Skills you saved, plugins you uploaded, and scheduled tasks. [Turn on the ones you want](#turn-on-imported-plugins-skills-and-scheduled-tasks).
 * Local MCP servers that you added, if your organization allows them. [Enter the values of their environment variables again](#set-up-imported-local-mcp-servers).
@@ -272,7 +272,7 @@ For an export, both devices need Claude Desktop 4.23118.0 or later, the same ope
 4. Check the last screen, which lists what the export left out.
 5. Copy the zip file to the new device in a way that your organization allows.
 
-![Export your data dialog with the date ranges Last 30 days, Last 90 days, and Everything, a count of 10 sessions, a list headed Export will include, a paragraph on what is not included, and Cancel and Export buttons.](https://mintcdn.com/claude-ai/5RBVEK3ZkxHd5OHc/images/third-party/import/export-dialog.png?fit=max\&auto=format\&n=5RBVEK3ZkxHd5OHc\&q=85\&s=27457ab6a32130509d3e3289fe6d1f94)
+![Export your data dialog with the date ranges Last 30 days, Last 90 days, and Everything, a count of 7 sessions, a list headed Export will include, a paragraph on what is not included, and Cancel and Export buttons.](https://mintcdn.com/claude-ai/Wrlp3Hl85kfRB3So/images/third-party/import/export-dialog.png?fit=max\&auto=format\&n=Wrlp3Hl85kfRB3So\&q=85\&s=cb9dff94891e47d35022dd5943ff7b9b)
 
 The export dialog, with the date range and what the export includes.
 

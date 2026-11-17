@@ -89,7 +89,7 @@ Claude Desktop starts the status line program with no arguments and no window, a
 * **Input**: one line of JSON on standard input, with the session ID, the model, and the [session cost](#session-cost-in-the-status-line-input). A field with no value is left out, so handle a missing `model` or `cost`. Later versions can add fields, so ignore any that the program doesn't use. Don't build a file path from these values.
 
   ```json theme={null}
-  {"session_id":"local_1f0c2a9e-7b3d-4c58-9a16-5e2d8b40c7f3","model":{"id":"claude-sonnet-4-5","display_name":"Claude Sonnet 4.5"},"cost":{"total_cost_usd":1.24}}
+  {"session_id":"local_1f0c2a9e-7b3d-4c58-9a16-5e2d8b40c7f3","model":{"id":"claude-sonnet-5","display_name":"Claude Sonnet 5"},"cost":{"total_cost_usd":1.24}}
   ```
 
 * **Output**: the first non-empty line of standard output, read as UTF-8, up to 200 characters. Markup and links show as plain text. A line wider than the message box ends in "…" and shows in full on hover.

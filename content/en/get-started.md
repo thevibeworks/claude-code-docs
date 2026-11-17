@@ -505,7 +505,7 @@ description: Make your first API call to Claude and build a simple web search as
             }
 
             dependencies {
-                implementation("com.anthropic:anthropic-java:3.9.0")
+                implementation("com.anthropic:anthropic-java:3.10.0")
             }
 
             application {
@@ -531,7 +531,7 @@ description: Make your first API call to Claude and build a simple web search as
                 <dependency>
                   <groupId>com.anthropic</groupId>
                   <artifactId>anthropic-java</artifactId>
-                  <version>3.9.0</version>
+                  <version>3.10.0</version>
                 </dependency>
               </dependencies>
             </project>

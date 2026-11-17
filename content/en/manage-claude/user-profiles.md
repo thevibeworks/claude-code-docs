@@ -10,7 +10,7 @@ If you operate a platform or gateway, or resell API access, the requests you sen
 
 You register each end customer once with `POST /v1/user_profiles` and store the `uprof_` ID it returns. Then you send that ID in the `anthropic-user-profile-id` header on every request you make on that end customer’s behalf.
 
-On their own, profiles don’t change billing or pricing.
+On their own, profiles don’t change billing or pricing. If you use [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections), a profile is also how you identify the customer to bill.
 
 ## Decide who gets a profile
 
@@ -686,6 +686,8 @@ After a delete, the profile endpoints return a `404` for that ID. For up to abou
 The API reference has each endpoint’s fields, types, and limits: [Create a profile](https://platform.claude.com/docs/en/api/user_profiles/create), [Retrieve a profile](https://platform.claude.com/docs/en/api/user_profiles/retrieve), [Update a profile](https://platform.claude.com/docs/en/api/user_profiles/update), [Delete a profile](https://platform.claude.com/docs/en/api/user_profiles/delete), and [List profiles](https://platform.claude.com/docs/en/api/user_profiles/list).
 
 If an end customer’s program approvals should apply when they use Claude through your platform, see [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal).
+
+To bill a profile’s requests to that customer’s own Claude organization, see [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections).
 
 To get an event when Anthropic restricts or bans one of your end customers, or when the restriction or ban ends, see [Organization webhooks](https://platform.claude.com/docs/en/manage-claude/organization-webhooks).
 

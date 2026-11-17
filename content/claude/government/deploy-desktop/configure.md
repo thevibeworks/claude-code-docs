@@ -128,7 +128,7 @@ Leave these keys unset:
 
 ### macOS
 
-Claude Desktop reads managed preferences in the `com.anthropic.claudefordesktop` domain. Deploy a configuration profile that sets the keys in that domain. Have your management system install the profile for the whole computer, not for one user account, and keep every key in that one profile.
+Claude Desktop reads managed preferences in the `com.anthropic.claudefordesktop` domain. Deploy a configuration profile that sets the keys in that domain. Have your management system install the profile for the whole computer, as a [machine profile](https://claude.com/docs/third-party/claude-desktop/mdm.md#4-deploy-the-configuration), not for one user account, and keep every key in that one profile.
 
 ```xml theme={null}
 <key>bootstrapUrl</key>

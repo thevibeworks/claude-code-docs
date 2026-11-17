@@ -318,6 +318,7 @@ Claude uses the access token once and doesn't store it. For **Claude-issued**, C
 * A user who isn't a workspace administrator can't grant the scope
 * Another client, or a redirect URI that doesn't match in full, is refused the scope
 * An ordinary sign-in is never granted the scope, and its token is refused at the setup endpoint
+* Every redirect back to Claude carries `iss` set to your metadata's `issuer`, and your metadata sets `authorization_response_iss_parameter_supported` to `true`
 * An issuer registered to another customer's workspace is refused
 * An issuer that is neither a Claude issuer URL nor the workspace's own single sign-on issuer is refused
 * A different issuer replaces the first, and an assertion from the first issuer is then refused
