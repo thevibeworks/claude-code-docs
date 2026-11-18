@@ -607,7 +607,7 @@ Setting [`userPluginMarketplacesEnabled`](https://claude.com/docs/third-party/cl
 
 > [!NOTE]
 >
-> Skill scanning is in beta. It's off until an administrator turns it on.
+> Skill scanning is off until an administrator [turns it on](#turn-on-skill-scanning).
 
 Skill scanning checks the [skills](https://claude.com/docs/skills/overview.md) that users create or upload in the app. It looks for signs that a skill is malicious, such as hidden code execution, credential exposure, or data exfiltration. With scanning on, a scan starts each time a user creates, uploads, or edits a skill in the app. The user can't use the skill until the scan finishes, and the app blocks a skill that fails the scan.
 

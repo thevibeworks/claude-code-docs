@@ -38,10 +38,10 @@ The full response is held **in memory only**. If your bootstrap server is unreac
 Each device also keeps a small record from the last response it applied, and applies the settings in that record at the next launch until your server answers. Signing out of Claude Desktop deletes the record. It holds only these values, when the response sets them:
 
 * `deploymentOrganizationUuid` and `deploymentDisplayName`
-* `disableEssentialTelemetry`, `disableNonessentialTelemetry`, `disableDeploymentModeChooser`, `microsoftAuthBroker`, and `modelCatalogUrl`
-* Any restriction the response turns on, such as `isLocalDevMcpEnabled` set to `false`
+* `disableEssentialTelemetry`, `disableNonessentialTelemetry`, `disableDeploymentModeChooser`, `microsoftAuthBroker`, `modelCatalogUrl`, and `quickEntryDefaultShortcut`
+* Some restrictions that the response turns on, such as `isLocalDevMcpEnabled` set to `false`
 
-The record holds no credentials, inference provider settings, MCP servers, or other lists.
+The record holds no credentials, inference provider settings, MCP servers, or other lists, such as the folders the app may use. It also doesn't hold whether Chat, Cowork, and Code are available.
 
 Run the endpoint across multiple replicas or regions behind a load balancer. Do not rely on response caching for availability: responses are per-user and carry credentials (see the `Cache-Control: no-store` guidance under [Server responsibilities](#server-responsibilities)). If your configuration data lives in a database, a read replica of that store improves availability without caching responses.
 

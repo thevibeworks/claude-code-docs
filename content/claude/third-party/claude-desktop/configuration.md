@@ -1173,7 +1173,7 @@ object\[]Since 1.2581.0
 >
 > Each entry is a model ID or an object:
 >
-> ```json theme={null}
+> ```json theme={null} theme={null} theme={null} theme={null}
 > [
 >   {"name": "claude-sonnet-5",
 >    "supports1m": true},
@@ -4190,7 +4190,7 @@ These profiles are examples, not built-in presets. Adjust them for your environm
 Each [`managedMcpServers`](#managedmcpservers) entry can carry a `toolPolicy` that sets the approval state per tool:
 
 * `"allow"`: in Cowork sessions, the tool runs without an approval prompt, except that a built-in server's [irreversible actions](https://claude.com/docs/third-party/claude-desktop/built-in-connectors.md#how-built-in-servers-behave) stay at `"ask"` or stricter. In local Code sessions and Code sessions on an SSH host, `"allow"` doesn't pre-approve the tool, so the user can see an approval prompt for it.
-* `"ask"`: the user approves every call; no session-scoped or standing grants are offered.
+* `"ask"`: every call that Claude makes needs approval; no session-scoped or standing grants are offered. A plugin's [hook](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-hooks) can answer the approval prompt in the user's place. To run only the hooks that your Claude Code managed settings provide, see [Turn off user hooks](https://claude.com/docs/third-party/claude-desktop/extensions.md#turn-off-user-hooks).
 * `"blocked"`: the tool is removed from Claude's session; connector settings show it as blocked by your organization.
 
 In Cowork's [**Automatically approve**](#automodeenabled), a safety classifier still reviews calls to a tool set to `"allow"`, and can block them. See [Run vetted connector tools without classifier review](https://claude.com/docs/third-party/claude-desktop/code.md#run-vetted-connector-tools-without-classifier-review). In a task or scheduled run that Cowork has switched to **Manually approve**, for example because its model doesn't support Auto mode, `"allow"` still applies with no classifier review.

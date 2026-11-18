@@ -16,7 +16,7 @@ Claude in Chrome uses a multi-layered permission system to give you control over
 
 - **Automatically approve (Auto)**. Claude keeps working and reviews each action for safety, automatically blocking anything it determines to be unsafe and pausing to ask you when needed.
 
-- **Skip all approvals (Skip)**, formerly "Act without asking**.”** Claude doesn't pause to ask and nothing checks its actions automatically. Only use this when you completely trust every action, connector, file, app, etc. involved in the task.
+- **Skip all approvals (Skip)**, formerly "Act without asking**.”** Claude doesn't pause to ask and nothing checks its actions automatically. The exception is a connector tool you've set to "Always ask." Claude is built to ask before each use of that tool, even in Skip. A scheduled task may finish without it. Only use Skip when you completely trust every action, connector, file, app, etc. involved in the task.
 
 **Note:** In the Cowork side panel, "Automatically approve" is the default mode.
 
@@ -56,7 +56,9 @@ You'll see fewer prompts than in "Manually approve," but the safety checks still
 
 ## Skip all approvals
 
-When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing checks its actions automatically. Only use this when you completely trust every action, connector, file, app, etc. involved in the task.
+When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing checks its actions automatically. The exception is a connector tool you've set to "Always ask." Claude is built to ask before each use of that tool, even in Skip. A scheduled task may finish without it.
+
+Only use Skip when you completely trust every action, connector, file, app, etc. involved in the task.
 
 ---
 

@@ -140,11 +140,11 @@ Cowork has three modes that control when Claude asks your permission before taki
 
 **Note:** If you have the new Claude experience, the permission setting in the message box offers **Auto** (rolling out as the default on Pro, Max, Ultra, and Team plans) and **Manual** (default on Enterprise plans, except in the Cowork side panel in Chrome). If you last chose Manual in a browser or app, new conversations there keep starting in Manual. If you haven't chosen a mode, new conversations start in the default.
 
-|                   | **Connector tool permission: "Always allow"**                                                             | **Connector tool permission: "Needs approval"**                               | **Connector tool permission: "Blocked"** |
-| ----------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------- |
-| **"Manual" mode** | Approved                                                                                                  | Asks for permission                                                           | Denied                                   |
-| **"Auto" mode**   | Read-only tools are approved. Write/delete tools run unless an automated check flags the action as risky. | Runs without asking you, unless an automated check flags the action as risky. | Denied                                   |
-| **"Skip" mode**   | Approved                                                                                                  | Approved                                                                      | Denied                                   |
+|                   | **Connector tool permission: "Always allow"**                                                             | **Connector tool permission: "Needs approval"**                               | **Connector tool permission: "Always ask"** | **Connector tool permission: "Blocked"** |
+| ----------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------- | ---------------------------------------- |
+| **"Manual" mode** | Approved                                                                                                  | Asks for permission                                                           | Asks for permission                         | Denied                                   |
+| **"Auto" mode**   | Read-only tools are approved. Write/delete tools run unless an automated check flags the action as risky. | Runs without asking you, unless an automated check flags the action as risky. | Asks for permission (**see below**)         | Denied                                   |
+| **"Skip" mode**   | Approved                                                                                                  | Approved                                                                      | Asks for permission (**see below**)         | Denied                                   |
 
 In Auto mode, an automated check reviews these actions before they run. It can miss risky actions. To approve every "Needs approval" action yourself, use Manual. As a reminder, you control which connectors Claude can use via the "+" menu in the chat box or the **[Customize > Connectors](https://claude.ai/customize/connectors)** page.
 
@@ -158,7 +158,27 @@ Before making auto mode the default in Claude Code, we tested it internally and 
 
 Auto mode applies to all of your existing connectors, plugins, the built-in browser, Claude in Chrome, and some Cowork actions like fetching websites.
 
-**Skip all approvals (Skip)**, formerly "Act without asking." Claude doesn't pause to ask and nothing checks its actions automatically. Only use this when you completely trust every action, connector, file, app, etc. involved in the task.
+**Skip all approvals (Skip)**, formerly "Act without asking." Claude doesn't pause to ask and nothing checks its actions automatically. The exception is a connector tool you've set to "Always ask." Claude is built to ask before each use of that tool, even in Skip. A scheduled task may finish without it. Only use "Skip" when you completely trust every action, connector, file, app, etc. involved in the task.
+
+### Have Claude always ask before using a connector tool
+
+"Always ask" is rolling out gradually on Pro, Max, Ultra, Team, and Enterprise plans. On Team and Enterprise plans, your organization's settings come first, so you may not see this option.
+
+To approve a specific connector tool yourself, such as one that sends email, set it to "Always ask." Claude is built to ask before each use of that tool, in chat and Cowork, in every mode. It isn't fully supported in Dispatch or research yet.
+
+1. On the web or in Claude Desktop, navigate to **[Customize > Connectors](https://claude.ai/customize/connectors)**.
+
+2. Select the connector.
+
+3. Select the **Permissions** tab to see **Tool permissions**.
+
+4. On the tool's row, choose "Always ask."
+
+Claude pauses until you choose "Allow once" or decline. Your answer replaces Auto mode's automated check for this tool, so review each request before you allow it. If you choose "Always allow" for the tool or its group, including in a chat or on your phone, it overrides this setting.
+
+"Always ask" applies only to the tool you choose. Claude may be able to get the same information with a different tool, in this connector or another one, without asking you. If other tools can reach that information, set them to "Always ask" too, if they have this option.
+
+Scheduled tasks may wait for your answer or finish without the tool. To let one task use the tool without asking, click "Scheduled" in the left sidebar on the web or in Claude Desktop, then open the task and edit it. Set its approval mode to Manual, and choose "Allow for all scheduled runs" when Claude asks.
 
 ---
 

@@ -78,6 +78,8 @@ A permission setting in the message box controls how independently Claude works:
 
 You can change the setting at any time, and you can stop or redirect Claude while it works. The setting applies to the whole conversation. For work with real consequences, like sending messages or changing important files, stay close and review what Claude does. Learn more in **[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135)**.
 
+You can also set a connector tool to "Always ask." Claude is built to ask before each use of that tool. Learn more in **[Have Claude always ask before using a connector tool](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_b24dec5b5a)**.
+
 ## Pick up where you left off
 
 - **One conversation list:** Your quick questions and longer tasks live together in **[Recents](https://claude.ai/chats)**.

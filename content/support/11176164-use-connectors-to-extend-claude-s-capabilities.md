@@ -168,6 +168,8 @@ To manage your connected services:
 
 3. For each service, you can disconnect it, modify connection settings, or review permissions and access levels.
 
+To have Claude ask before each use of a specific connector tool in chat and Cowork, see **[Have Claude always ask before using a connector tool](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_b24dec5b5a)**.
+
 ---
 
 ## Custom connectors

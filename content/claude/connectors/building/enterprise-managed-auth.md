@@ -188,10 +188,10 @@ Test end to end from a Claude organization on a Team or Enterprise plan, signed 
 
 Pick the organization by the kind of assertion you're testing:
 
-* **Claude-issued**: test this first, because the organization needs no single sign-on (SSO), verified domain, or identity provider, so a Team organization that you create for testing qualifies as it is. Don't use an organization that signs in to Claude through Okta, because **Claude-issued** isn't available in one that does.
+* **Claude-issued**: test this first, because the organization needs no single sign-on (SSO), verified domain, or identity provider, so a Team organization that you create for testing qualifies as it is.
 * **Identity provider-issued**: use an organization that signs in to Claude through Okta. If your company's organization does, test there. Otherwise, you need an Okta org, such as an integrator org from Okta's [Integrator Free Plan](https://developer.okta.com/signup/), and a Team organization that you create. Follow [Set up single sign-on](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso) to verify a domain for the Team organization and connect SSO, choosing Okta as the provider. In the Okta org, give yourself and each test user an address on that domain. Sign in to Claude through SSO before you run the connection test.
 
-To test both kinds of assertion in one organization, test **Claude-issued** first, then connect Okta single sign-on and switch the connector to **IdP-managed**. A connector set up with **Claude-issued** keeps working after you connect Okta, but once you switch it, the setup doesn't offer **Claude-issued** again unless you remove single sign-on from the organization. To test in either order, use two organizations.
+To test both kinds of assertion in one organization, use an organization that signs in to Claude through Okta. When you [set up your connector](#add-your-connector-and-run-the-connection-test) there, **Identity source** starts on **IdP-managed**, and you can change it to **Claude-issued** and back.
 
 ### Add your connector and run the connection test
 
