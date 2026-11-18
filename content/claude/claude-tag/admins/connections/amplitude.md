@@ -41,7 +41,7 @@ Amplitude's own guide for creating the keys is at [amplitude.com](https://amplit
 
 ## Add the connector with an API key
 
-A saved credential works with every HTTP method wherever the connector is on, and the first Amplitude credential added on the **Connectors** tab is on in every workspace and channel as soon as you save it. To restrict the key pair before any channel can use it, add Amplitude to a new bundle, which applies nowhere until you add places to it.
+A saved credential works with every HTTP method wherever the connector is on, and the first Amplitude credential added on the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To restrict the key pair before any channel can use it, add Amplitude to a new bundle, which applies nowhere until you add places to it.
 
 **1. Create a bundle for Amplitude**
 
@@ -89,13 +89,13 @@ This route connects to the MCP server for Amplitude's US data center. If you sig
 
 **1. Open the Amplitude form**
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Amplitude**. Select **Sign in to Amplitude as Claude** and click **Continue to Amplitude**. The connect form opens.
+Go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Amplitude**. Select **Sign in to Amplitude as Claude** and click **Continue to Amplitude**. The connect form opens.
 
 **2. Sign in as the dedicated user**
 
 The **Sign in to Amplitude as Claude** option shows the MCP server the sign-in grants access to, `https://mcp.amplitude.com/mcp`, and the form sets the connector's allowed host to that server for you.
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you sign in.
+The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you sign in.
 
 Click **Sign in with Amplitude** at the bottom of the form. A sign-in window opens. If your browser blocks pop-ups, allow them for claude.ai and click **Sign in with Amplitude** again. Sign in to Amplitude as the dedicated user and approve access. When the sign-in completes and the window closes, the connector is saved and Amplitude's connector page opens, with the new credential marked **New**.
 

@@ -670,7 +670,7 @@ After a session is created, you can list its repository resources and rotate the
   # Rotate the authorization token
   curl -fsS \
     "https://api.anthropic.com/v1/sessions/$session_id/resources/$repo_resource_id" \
-  # ...
+    # ...
     -d @- <<'JSON'
   {
     "authorization_token": "ghp_your_new_github_token"

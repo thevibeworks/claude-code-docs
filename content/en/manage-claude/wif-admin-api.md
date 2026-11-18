@@ -8,7 +8,7 @@ The Admin API lets you create and manage [Workload Identity Federation](https://
 
 ## Prerequisites
 
-Every request on this page authenticates with an OAuth bearer token that carries the `org:admin` scope. Anthropic grants the scope only to organization members with the admin, owner, or primary owner role. The scope grants access to the whole organization, and these endpoints ignore any workspace binding. There are two ways to obtain a token, and they carry different permissions. A token from your own login acts as a user. A federated token acts as a service account and cannot perform every operation on this page.
+Every request on this page authenticates with an OAuth bearer token that carries the `org:admin` scope. Anthropic grants the scope only to users and service accounts with the admin role. The scope grants access to the whole organization, and these endpoints ignore any workspace binding. There are two ways to obtain a token, and they carry different permissions. A token from your own login acts as a user. A federated token acts as a service account and cannot perform every operation on this page.
 
 ### Interactive (your terminal)
 

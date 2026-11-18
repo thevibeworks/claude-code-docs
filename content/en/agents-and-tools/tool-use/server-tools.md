@@ -23,7 +23,7 @@ The API runs the tool internally. You see the call and its result in the respons
 
 ## The server-side loop and pause\_turn
 
-When using server tools such as web search, the API executes tool calls in a server-side agentic loop. On a long-running turn, the API might pause that loop and return a `pause_turn` stop reason.
+When you use server tools such as web search, the API executes tool calls in a server-side agentic loop. On a long-running turn, the API might pause that loop and return a `pause_turn` stop reason.
 
 Here’s how to handle the `pause_turn` stop reason:
 
@@ -262,8 +262,7 @@ Here’s how to handle the `pause_turn` stop reason:
 
       Message response = client.messages().create(params);
 
-      if (response.stopReason().isPresent()
-              && response.stopReason().get().equals(StopReason.PAUSE_TURN)) {
+      if (response.stopReason().map(StopReason.PAUSE_TURN::equals).orElse(false)) {
           MessageCreateParams continuationParams = MessageCreateParams.builder()
               .model(Model.CLAUDE_OPUS_5_5)
               .maxTokens(4096L)
@@ -1031,7 +1030,7 @@ To use a `_20260209` or later server tool with ZDR, disable dynamic filtering by
 
 This restricts the tool to direct calls only, bypassing the internal code execution step.
 
-`allowed_callers` controls how a tool can be called: directly by Claude (`"direct"`), from inside a code execution container (for example, `"code_execution_20260120"`), or both. The `_20260209` versions of the web tools default to the code execution caller only; earlier versions default to `["direct"]`. On models that don’t support programmatic tool calling, these versions require `allowed_callers: ["direct"]`; without it the API returns a validation error that says to set it.
+`allowed_callers` controls how a tool can be called: directly by Claude (`"direct"`), from inside a code execution container (for example, `"code_execution_20260120"`), or both. The `_20260209` versions of the web tools default to the code execution caller only; earlier versions default to `["direct"]`. On [models that don’t support programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling#feature-availability), these versions require `allowed_callers: ["direct"]`; without it the API returns a validation error that says to set it.
 
 <Note>
   Even when web fetch is used in a ZDR-eligible configuration, website publishers might retain any parameters passed to the URL if Claude fetches content from their site.

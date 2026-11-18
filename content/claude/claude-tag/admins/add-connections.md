@@ -74,17 +74,17 @@ For a shared or external channel, put the narrowed credential in its own [bundle
 
 ## Add a connector
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. You can give it narrower reach:
+The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. You can give it narrower reach:
 
 * **One workspace or channel from the start**: [connect it from that place's page](#connect-a-service-for-one-workspace-or-channel) instead.
-* **Some channels**: add it from the **Connectors** tab, then [restrict it on its page](#restrict-a-connector-to-some-channels).
+* **Some channels**: add it from the **Claude's connectors** tab, then [restrict it on its page](#restrict-a-connector-to-some-channels).
 * **Off everywhere until you choose where it applies**: add it to a new [bundle](#create-a-bundle) instead.
 
-If the service, or a custom connector's host, is already on the **Connectors** tab, the new credential starts off everywhere until you choose where it applies.
+If the service, or a custom connector's host, is already on the **Claude's connectors** tab, the new credential starts off everywhere until you choose where it applies.
 
-**1. Open the Connectors tab**
+**1. Open Claude's connectors**
 
-Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and click **Add**.
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Claude's connectors** tab and click **Add**.
 
 **2. Pick the service**
 
@@ -102,7 +102,7 @@ After you click **Connect**, the connector's page opens. The line under the new 
 
 ### Connect a service for one workspace or channel
 
-To connect a service that applies in one workspace or channel only, start from that place's page instead of the **Connectors** tab.
+To connect a service that applies in one workspace or channel only, start from that place's page instead of the **Claude's connectors** tab.
 
 **1. Open the place's page**
 
@@ -145,7 +145,7 @@ After the teammate submits the credential, it waits for your approval. Go to [**
 A link that hasn't been used yet is listed in one of two places:
 
 * **If the service already has a connector page**: the link shows there as a row in **Access from** that reads **Setup link waiting for a teammate**, or **Setup link expired** once it lapses
-* **If no connector covers the service yet**: the link is listed on the **Connectors** tab, under **Setup links waiting for a teammate**
+* **If no connector covers the service yet**: the link is listed on the **Claude's connectors** tab, under **Setup links waiting for a teammate**
 
 In both places, the row's **⋮** menu has **Revoke link**, and **Copy link for another admin** until the link expires.
 
@@ -155,17 +155,17 @@ The **Add a connector** dialog lists services Claude can hold its own credential
 
 ## Change an existing connector
 
-You change where a connector applies, and which credentials it holds, on the connector's page. To open it, go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag), select the **Connectors** tab under **Claude's access**, and select the connector. On that page, **Assign access** lists where Claude can use the connector, and the **Access from** table lists each credential Claude holds for the service.
+You change where a connector applies, and which credentials it holds, on the connector's page. To open it, go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag), select the **Claude's connectors** tab under **Claude's access**, and select the connector. On that page, **Assign access** lists where Claude can use the connector, and the **Access from** table lists each credential Claude holds for the service.
 
 ### Restrict a connector to some channels
 
-For a connector you added from the **Connectors** tab, the **Slack** row under **Assign access** holds its first credential in the **Access** column, so every workspace and channel has it.
+For a connector you added from the **Claude's connectors** tab, the **Slack** row under **Assign access** holds its first credential in the **Access** column, so every workspace and channel has it.
 
 When a bundle holds the connector's credential along with other access, such as other connectors, **Assign access** can't add that credential to a place or take it off one. If **Assign access** refuses a credential with "This credential was added for one place only", that credential stays where it is. To use the service in another place, connect it again there, as [Use a different credential in one workspace or channel](#use-a-different-credential-in-one-workspace-or-channel) describes.
 
 **1. Open the connector's page**
 
-Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab, then select the connector to open its page.
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Claude's connectors** tab, then select the connector to open its page.
 
 **2. Take the credential off the Slack row**
 
@@ -183,7 +183,7 @@ Each row's **Access** picker lists the connector's own credentials first, then e
 
 ### Manage a connector's credentials
 
-A connector's credentials are listed in the **Access from** table on its page, which you open by selecting the connector on the **Connectors** tab.
+A connector's credentials are listed in the **Access from** table on its page, which you open by selecting the connector on the **Claude's connectors** tab.
 
 * **Edit, rotate, or remove a credential**: open the row's **⋮** menu and select **Edit**, **Rotate secret** where the credential type supports it, or **Remove credential**
 * **Add a second credential for the same service**: open the **⋮** menu at the top of the connector's page and select **Add credential**. A second credential is off everywhere until you choose where Claude may use it under **Assign access**.
@@ -236,10 +236,10 @@ Use the bundle's **Instructions** section for guidance that should travel with i
 
 Multiple bundles let you grant access by capability and compose it per channel. For example, with separate `data-readonly`, `github-write`, and `monitoring` bundles, `#platform-eng` gets all three, `#gtm-analytics` gets only `data-readonly`, and `#incidents` gets `monitoring` plus `github-write`. Each credential is defined once, so rotating a Datadog key means editing one bundle without touching the others.
 
-A connector you add under a bundle's **What's in it** gets a new credential that belongs to that bundle. You can't pick a credential you already added on the **Connectors** tab or in another bundle. To use one credential in several places, set it up in one of these ways:
+A connector you add under a bundle's **What's in it** gets a new credential that belongs to that bundle. You can't pick a credential you already added on the **Claude's connectors** tab or in another bundle. To use one credential in several places, set it up in one of these ways:
 
 * **In a bundle of its own**: add the connector to a bundle that holds nothing else, then add each place that needs the service under that bundle's **Where it applies**.
-* **On the Connectors tab**: [add the connector](#add-a-connector) there. A service's first credential is on in every workspace and channel as soon as you save it, so [choose its places under **Assign access**](#restrict-a-connector-to-some-channels) on the connector's page right after you save.
+* **On the Claude's connectors tab**: [add the connector](#add-a-connector) there. A service's first credential is on in every workspace and channel as soon as you save it, so [choose its places under **Assign access**](#restrict-a-connector-to-some-channels) on the connector's page right after you save.
 
 ## Connect a service that isn't in the list
 
@@ -358,7 +358,7 @@ Anthropic's **Security Guidance** [plugin](https://code.claude.com/docs/en/plugi
 
 ## Verify the connector saved
 
-* The connector appears on the **Connectors** tab, under **Services** or **Custom hosts**.
+* The connector appears on the **Claude's connectors** tab, under **Services** or **Custom hosts**.
 * On the connector's page, the **Access from** table lists each credential with the hosts it's sent to, and its **Used at** column shows where it applies.
 * A credential marked **Not enabled** is stored, but no allow rule sends it yet, so Claude can't use it. To let Claude reach its hosts with the credential, click **Enable** beside it and confirm.
 * A credential a teammate submitted through a setup link waits on the **Requests** tab of [**Notifications**](https://claude.ai/admin-settings/notifications) as **Approval needed** until you review and approve it.

@@ -22,16 +22,16 @@ Snowflake's guide for programmatic access tokens is at [docs.snowflake.com](http
 
 ## Add the connector
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Snowflake**. Fill in these fields in the connect form.
+Go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Snowflake**. Fill in these fields in the connect form.
 
 | Field | Value |
 | :- | :- |
 | Claude's programmatic access token | The programmatic access token from Snowflake |
 | Allowed websites | Your account's host, for example `yourorg-youraccount.snowflakecomputing.com` |
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. The **Allowed websites** field shows `*.snowflakecomputing.com` only as a hint, and a wildcard under `snowflakecomputing.com` can't be saved. Enter your account's host there, then click **Connect** to save the connector.
+The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. The **Allowed websites** field shows `*.snowflakecomputing.com` only as a hint, and a wildcard under `snowflakecomputing.com` can't be saved. Enter your account's host there, then click **Connect** to save the connector.
 
-To change the host later, go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Snowflake**, open the menu on the credential's row in the **Access from** table, and click **Edit**. In the **Edit connection** dialog, the **Allowed websites** setting is labeled **Allowed hosts**. Change the host there and click **Save**.
+To change the host later, go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Snowflake**, open the menu on the credential's row in the **Access from** table, and click **Edit**. In the **Edit connection** dialog, the **Allowed websites** setting is labeled **Allowed hosts**. Change the host there and click **Save**.
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 

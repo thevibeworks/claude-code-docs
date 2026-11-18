@@ -1,7 +1,7 @@
 ---
 title: Usage and Cost API
 url: https://platform.claude.com/docs/en/manage-claude/usage-cost-api
-description: The legacy Admin API usage and cost report endpoints for Claude Console organizations. For new integrations, use the Usage and Cost Analytics API.
+description: The legacy Admin API usage and cost report endpoints. For new integrations, use the Usage and Cost Analytics API.
 ---
 
 <Tip>
@@ -12,7 +12,7 @@ description: The legacy Admin API usage and cost report endpoints for Claude Con
   The Usage and Cost API (`/v1/organizations/usage_report/messages` and `/v1/organizations/cost_report`) is a legacy API and remains supported. For new integrations, use the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api), which reports usage and cost with more grouping and filtering dimensions. To move an existing integration, see [Migrate from the Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api#migrate-from-usage-cost-api).
 </Note>
 
-The Usage and Cost Admin API provides programmatic and granular access to historical API usage and cost data for your organization. This data is similar to the information available on the [Usage](https://platform.claude.com/usage) page (`platform.claude.com/usage`) and the [Cost](https://platform.claude.com/cost) page (`platform.claude.com/cost`) in the Claude Console.
+The Usage and Cost API provides programmatic and granular access to historical API usage and cost data for your organization. For Claude Console organizations, this data is similar to what the Claude Console shows on the [Usage](https://platform.claude.com/usage) page (`platform.claude.com/usage`) and the [Cost](https://platform.claude.com/cost) page (`platform.claude.com/cost`).
 
 This API allows you to better monitor, analyze, and optimize your Claude implementations:
 
@@ -23,10 +23,18 @@ This API allows you to better monitor, analyze, and optimize your Claude impleme
 * **Advanced analysis:** Perform deeper data analysis than what’s available in Console
 
 <Check>
-  **Admin API credentials required.** These endpoints are part of the Admin API. You can access them using an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn’t scoped to a workspace; workspace API keys don’t work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
-</Check>
+  **Authentication**
 
-Claude Enterprise organizations use an Analytics API key with a different API instead; see [Which API do you need?](https://platform.claude.com/docs/en/manage-claude/usage-cost-api#which-api-do-you-need).
+  These endpoints are part of the Admin API. Claude Console organizations can access them using any of these credentials:
+
+  * An [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys)
+  * An OAuth token with the `org:admin` scope
+  * A personal or service account key that isn’t scoped to a workspace
+
+  Workspace API keys don’t work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
+
+  Claude Enterprise organizations use an Analytics API key, and the usage endpoint leaves out some of their usage; see [Claude Enterprise organizations](https://platform.claude.com/docs/en/manage-claude/usage-cost-api#claude-enterprise-organizations).
+</Check>
 
 <Note>
   **Claude Platform on AWS:** The Usage and Cost API endpoints are not available. Use the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api).
@@ -38,14 +46,29 @@ Claude Enterprise organizations use an Analytics API key with a different API in
 
 ## Which API do you need?
 
-The API to use depends on which Claude product your organization uses:
+The APIs you can call, and the key each one takes, depend on which Claude product your organization uses:
 
-| Your organization                | API                                                                                                                                                                                                                                                                           | Key type                                                                                                                                           |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Console (Claude Platform) | The [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) (recommended), or the legacy Usage and Cost Admin API described on this page                                                                                   | Admin API key (`sk-ant-admin01-...`) or another [Admin API credential](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) |
-| Claude Enterprise (claude.ai)    | The [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) (recommended), or the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/api/beta/organization/analytics) cost and usage endpoints (legacy) | Analytics API key                                                                                                                                  |
+| API                                                                                                                                      | Claude Console (Claude Platform)                                                                                                                   | Claude Enterprise (claude.ai) |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) (recommended)                 | Admin API key (`sk-ant-admin01-...`) or another [Admin API credential](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) | Analytics API key             |
+| Usage and Cost API (legacy), which this page documents                                                                                   | Admin API key or another Admin API credential                                                                                                      | Analytics API key             |
+| [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/api/beta/organization/analytics) cost and usage endpoints (legacy) | Not available                                                                                                                                      | Analytics API key             |
 
 Claude Enterprise parent organizations do not appear in Claude Console and carry no Admin API keys, so for them the Analytics API key is the only path to this data. See [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api) for how to create each key type and which plans the Claude Enterprise cost data applies to.
+
+### Claude Enterprise organizations
+
+A Claude Enterprise organization uses one [Analytics API key](https://platform.claude.com/docs/en/manage-claude/analytics-api#get-access-to-the-claude-enterprise-analytics-api) for all three APIs in the table. For these APIs, the key reads only the organization it was created in. Send it in the `x-api-key` header, as the examples on this page do with an Admin API key.
+
+For these organizations, the two endpoints don’t cover the same usage, so you can’t reconcile one against the other:
+
+* **[Usage endpoint](https://platform.claude.com/docs/en/manage-claude/usage-cost-api#usage-api):** It leaves out usage from some Claude products, so its totals can be lower than the organization’s usage. For example, it doesn’t count the following:
+
+  * Cowork
+  * Claude Code in the terminal, IDEs, and the desktop app
+  * Text chats in Claude on the web, desktop, and mobile
+
+* **[Cost endpoint](https://platform.claude.com/docs/en/manage-claude/usage-cost-api#cost-api):** With a `starting_at` on or after October 1, 2025, it covers usage-based charges across Claude products, including the three in the previous list. It doesn’t include seat fees or usage that a seat covers.
 
 ## Partner solutions
 

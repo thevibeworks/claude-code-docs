@@ -6,6 +6,30 @@
 
 > Release notes for Claude Desktop
 
+**v6.6395.1**
+
+2026-11-18
+
+Bundled Claude Code version: 2.1.326.
+
+For administrators of SSH hosts: SSH helper version 13047a5194346a68538f5525406bf5f861013d73. SSH host launcher contracts: 1 (sessions), 2 (plugin commands).
+
+**General**
+
+* No user-facing changes.
+
+**Code**
+
+* No user-facing changes.
+
+**Cowork**
+
+* No user-facing changes.
+
+**3P**
+
+* No user-facing changes.
+
 **v6.6395.0**
 
 2026-11-17
@@ -117,6 +141,7 @@ For administrators of SSH hosts: SSH helper version 87375cc7c944eb9d45c8d9267edc
 
 * Changed certificate checks: under a company CA that limits DNS names, a certificate with IP addresses but no DNS name is refused if its common name is an IP address or a domain the CA does not allow. Turns to such a gateway fail until its certificate lists an allowed DNS name.
 * Changed most shell commands in Claude Code's sandbox (default on managed macOS and Linux) to ask first (see Code). To undo, add `"autoAllowBashIfSandboxed": true` to the `sandbox` block of its `managed-settings.json` (SSH: on the host). A new file needs top-level `"parentSettingsBehavior": "merge"`.
+* Changed nothing about shell prompts in a deployment that runs every session on a server (not an SSH host) and none on the device: that server runs its own Claude Code, not the app's. Keep `autoAllowBashIfSandboxed` out of that server's managed settings, or it refuses to start sessions.
 * Fixed sessions failing to start on Windows when the organization's managed settings are very long, for example a long model list or many allowed hosts.
 * Fixed turns failing when a gateway answers with 403 for an expired token from a credential helper, or for a sign-in past its stated expiry. Claude now gets a fresh token and retries.
 

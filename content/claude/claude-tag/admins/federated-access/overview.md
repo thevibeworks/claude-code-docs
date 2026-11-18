@@ -75,7 +75,7 @@ Federated connections work in Slack channels, where Claude acts under your organ
 
 After you connect a system, choose where the connection applies. Each connect dialog puts the connection in the bundle you choose or create there.
 
-The connection then also appears as a connector on the **Connectors** tab under **Claude's access** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), where the tab's search finds it by name or host and its row in the connector's **Access from** table shows its type in the **Credential** column. Manage it from there:
+The connection then also appears as a connector on the **Claude's connectors** tab under **Claude's access** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), where the tab's search finds it by name or host and its row in the connector's **Access from** table shows its type in the **Credential** column. Manage it from there:
 
 * **Choose where it applies**: a bundle you create in the connect dialog applies nowhere until you choose places. The bundle is listed on the **Bundles** tab, where you add places under **Where it applies** and click **Save changes**. To choose places from the connector's page instead, see [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md).
 * **Edit its allowed hosts**: in the connector's **Access from** table, open the connection's **⋮** menu and choose **Edit** to open the **Edit connection** dialog.

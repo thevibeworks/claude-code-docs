@@ -1,7 +1,7 @@
 ---
 title: Vision
 url: https://platform.claude.com/docs/en/build-with-claude/vision
-description: Claude's vision capabilities allow it to process and analyze images, opening up exciting possibilities for multimodal interaction.
+description: Send images to Claude through the API and learn which limits and costs apply.
 featureMetadata:
   status: stable
   supportedModels:
@@ -70,6 +70,10 @@ On the API, provide images to Claude as `image` content blocks using one of thre
 
 <CodeGroup>
   ```bash cURL
+  curl -sSo vision-example.jpg https://platform.claude.com/docs/images/vision-example.jpg
+
+  BASE64_IMAGE_DATA=$(base64 vision-example.jpg | tr -d '\n')
+
   curl https://api.anthropic.com/v1/messages \
     -H "x-api-key: $ANTHROPIC_API_KEY" \
     -H "anthropic-version: 2026-10-21" \
@@ -152,6 +156,9 @@ On the API, provide images to Claude as `image` content blocks using one of thre
   ```typescript TypeScript
   const anthropic = new Anthropic();
 
+  const imageData =
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC";
+
   const message = await anthropic.messages.create({
     model: "claude-opus-5-5",
     max_tokens: 1024,
@@ -163,7 +170,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
             type: "image",
             source: {
               type: "base64",
-              media_type: "image/jpeg",
+              media_type: "image/png",
               data: imageData // base64-encoded image data as string
             }
           },
@@ -180,10 +187,6 @@ On the API, provide images to Claude as `image` content blocks using one of thre
   ```
 
   ```csharp C#
-  using System.Collections.Generic;
-  using Anthropic;
-  using Anthropic.Models.Messages;
-
   AnthropicClient client = new();
 
   string imageData = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC";
@@ -284,7 +287,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
                       'type' => 'image',
                       'source' => [
                           'type' => 'base64',
-                          'media_type' => 'image/png',
+                          'mediaType' => 'image/png',
                           'data' => $imageData,
                       ],
                   ],
@@ -430,10 +433,6 @@ On the API, provide images to Claude as `image` content blocks using one of thre
   ```
 
   ```csharp C#
-  using System.Collections.Generic;
-  using Anthropic;
-  using Anthropic.Models.Messages;
-
   AnthropicClient client = new();
 
   var message = await client.Messages.Create(new MessageCreateParams
@@ -509,7 +508,7 @@ On the API, provide images to Claude as `image` content blocks using one of thre
               .addUserMessageOfContentBlockParams(contentBlockParams)
               .build()
       );
-  System.out.println(message);
+  IO.println(message);
   ```
 
   ```php PHP
@@ -572,6 +571,8 @@ For images you’ll use repeatedly or when you want to avoid encoding overhead, 
 <Tip>
   In multi-turn conversations and agentic workflows, each request resends the full conversation history. If images are base64-encoded, the full image bytes are included in the payload on every turn, which can significantly increase request size and latency as the conversation grows. Uploading images to the Files API and referencing them by `file_id` keeps request payloads small regardless of how many images accumulate in the conversation history.
 </Tip>
+
+To follow the examples with the image that they use, first download the [sample image](https://platform.claude.com/docs/images/vision-example.jpg) to your working directory. Each example uploads that file, `vision-example.jpg`, and then references it by the `file_id` that the upload returns:
 
 <CodeGroup>
   ```bash cURL
@@ -702,8 +703,6 @@ For images you’ll use repeatedly or when you want to avoid encoding overhead, 
   ```
 
   ```csharp C#
-  using System.Collections.Generic;
-  using Anthropic;
   using Anthropic.Core;
   using Anthropic.Models.Files;
   using Anthropic.Models.Messages;
@@ -787,55 +786,65 @@ For images you’ll use repeatedly or when you want to avoid encoding overhead, 
   import com.anthropic.core.MultipartField;
   import com.anthropic.models.files.FileMetadata;
   import com.anthropic.models.files.FileUploadParams;
-  // ...
-          AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+  import com.anthropic.models.messages.*;
+  import java.io.IOException;
+  import java.io.InputStream;
+  import java.nio.file.Files;
+  import java.nio.file.Path;
+  import java.util.List;
 
-          // Upload the image file
-          FileMetadata file = client.files().upload(
-              FileUploadParams.builder()
-                  .file(
-                      MultipartField.<InputStream>builder()
-                          .value(Files.newInputStream(Path.of("vision-example.jpg")))
-                          .filename("vision-example.jpg")
-                          .contentType("image/jpeg")
+  void main() throws IOException {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      // Upload the image file
+      FileMetadata file = client.files().upload(
+          FileUploadParams.builder()
+              .file(
+                  MultipartField.<InputStream>builder()
+                      .value(Files.newInputStream(Path.of("vision-example.jpg")))
+                      .filename("vision-example.jpg")
+                      .contentType("image/jpeg")
+                      .build()
+              )
+              .build()
+      );
+
+      // Use the uploaded file in a message
+      ImageBlockParam imageParam = ImageBlockParam.builder()
+          .fileSource(file.id())
+          .build();
+
+      MessageCreateParams params = MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(1024)
+          .addUserMessageOfContentBlockParams(
+              List.of(
+                  ContentBlockParam.ofImage(imageParam),
+                  ContentBlockParam.ofText(
+                      TextBlockParam.builder()
+                          .text("Describe this image.")
                           .build()
                   )
-                  .build()
-          );
-
-          // Use the uploaded file in a message
-          ImageBlockParam imageParam = ImageBlockParam.builder()
-              .fileSource(file.id())
-              .build();
-
-          MessageCreateParams params = MessageCreateParams.builder()
-              .model(Model.CLAUDE_OPUS_5_5)
-              .maxTokens(1024)
-              .addUserMessageOfContentBlockParams(
-                  List.of(
-                      ContentBlockParam.ofImage(imageParam),
-                      ContentBlockParam.ofText(
-                          TextBlockParam.builder()
-                              .text("Describe this image.")
-                              .build()
-                      )
-                  )
               )
-              .build();
+          )
+          .build();
 
-          Message message = client.messages().create(params);
-          System.out.println(message.content());
+      Message message = client.messages().create(params);
+      IO.println(message.content());
+  }
   ```
 
   ```php PHP
   use Anthropic\Core\FileParam;
-  use Anthropic\Messages\Model;
 
   $client = new Client();
 
   // Upload the image file
+  $image = fopen('vision-example.jpg', 'rb')
+      ?: throw new \RuntimeException('Could not open vision-example.jpg.');
+
   $fileUpload = $client->files->upload(
-      file: FileParam::fromResource(fopen('vision-example.jpg', 'rb'), contentType: 'image/jpeg'),
+      file: FileParam::fromResource($image, contentType: 'image/jpeg'),
   );
 
   // Use the uploaded file in a message
@@ -1197,7 +1206,7 @@ You can include multiple images in a single request, and Claude analyzes them jo
                       'type' => 'image',
                       'source' => [
                           'type' => 'base64',
-                          'media_type' => 'image/png',
+                          'mediaType' => 'image/png',
                           'data' => $image1Data,
                       ],
                   ],
@@ -1206,7 +1215,7 @@ You can include multiple images in a single request, and Claude analyzes them jo
                       'type' => 'image',
                       'source' => [
                           'type' => 'base64',
-                          'media_type' => 'image/png',
+                          'mediaType' => 'image/png',
                           'data' => $image2Data,
                       ],
                   ],

@@ -157,7 +157,7 @@ The following example registers a company that buys API access from you, so the 
       var profile = client.userProfiles().create(params);
 
       IO.println(profile.id());
-  // ...
+      // ...
   }
   ```
 
@@ -399,9 +399,9 @@ On Claude in Amazon Bedrock, put the ID at the top level of the request body:
 
 Link each AWS account that sends requests to Claude in Amazon Bedrock, and each Google Cloud project that sends requests to Claude Models on Google Cloud (Google managed), to the Anthropic organization that creates your profiles:
 
-1. An admin or owner of that organization starts the link in the Verification Portal at `portal.anthropic.com`, under **Linked accounts**.
+1. An admin of that organization starts the link in the Verification Portal at `portal.anthropic.com`, under **Linked accounts**.
 2. Someone who can manage IAM in the AWS account or Google Cloud project runs a command that the portal provides.
-3. The admin or owner completes the verification in the portal.
+3. The admin completes the verification in the portal.
 
 Programs that apply to a profile apply to an account’s requests only after the account is linked and the portal shows it as **Linked**. Those programs include the ones an end customer’s organization is approved for after the end customer [links the profile to that organization](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal) and, for Cyber Verification Program access levels, turns them on for the profile in the portal.
 

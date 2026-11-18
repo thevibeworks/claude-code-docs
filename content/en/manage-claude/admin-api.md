@@ -10,7 +10,13 @@ The [Admin API](https://platform.claude.com/docs/en/api/organization) lets you m
 
 The Admin API is available to Claude Console and Claude Enterprise organizations. It isn’t available to organizations on the claude.ai Team plan or to individual Console accounts. An individual Console account must first set up an organization on the [Organization](https://platform.claude.com/settings/organization) page (`platform.claude.com/settings/organization`) in the Claude Console. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) for where each organization type creates its key.
 
-Claude Enterprise (claude.ai) organizations call the Admin API with a scoped API key created in claude.ai. From this page, only the members and invites endpoints apply to them. They can also call the [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api), which is in beta and takes a key with the `read:analytics` scope. They also get Enterprise-only endpoints: group and custom-role reads, and [spend limits](https://platform.claude.com/docs/en/manage-claude/spend-limits-api). The [Plugins API](https://platform.claude.com/docs/en/manage-claude/plugins-api), also Enterprise-only, is in beta. So is the [Claude Tag API](https://platform.claude.com/docs/en/manage-claude/claude-tag-api). See [User management](https://platform.claude.com/docs/en/manage-claude/user-management).
+Claude Enterprise (claude.ai) organizations call the Admin API with a scoped API key created in claude.ai. From this page, only the members, invites, and [organization info](https://platform.claude.com/docs/en/manage-claude/admin-api#accessing-organization-info) endpoints apply to them. Outside this page, they can also call the following APIs and endpoints:
+
+* The [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api), which is in beta, and the legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api). Both take a key with the `read:analytics` scope.
+* Enterprise-only endpoints: groups, custom-role reads, and the [Spend Limits API](https://platform.claude.com/docs/en/manage-claude/spend-limits-api).
+* The [Plugins API](https://platform.claude.com/docs/en/manage-claude/plugins-api) and the [Claude Tag API](https://platform.claude.com/docs/en/manage-claude/claude-tag-api), which are Enterprise-only and in beta.
+
+For members, invites, groups, and custom roles, see [User management](https://platform.claude.com/docs/en/manage-claude/user-management).
 
 On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), only these Admin API endpoints are available:
 
@@ -26,7 +32,7 @@ Organization members, workspace members, invites, API keys, the legacy [Usage an
 The Admin API accepts any of these three credentials:
 
 * An **Admin API key** (starting with `sk-ant-admin...`) sent in the `x-api-key` header. Only organization members with the admin role can provision one. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys).
-* An **OAuth bearer token** with the `org:admin` scope sent in the `authorization: Bearer` header. Only members with the admin, owner, or primary owner role can obtain one. See [Obtain an OAuth bearer token](https://platform.claude.com/docs/en/manage-claude/admin-api#oauth-bearer-token).
+* An **OAuth bearer token** with the `org:admin` scope sent in the `authorization: Bearer` header. Only users and service accounts with the admin role can obtain one. See [Obtain an OAuth bearer token](https://platform.claude.com/docs/en/manage-claude/admin-api#oauth-bearer-token).
 * A **personal key** or **service account key** that isn’t scoped to a specific workspace, sent in the `x-api-key` header. The key has the same permissions as the linked account. See [Key types](https://platform.claude.com/docs/en/manage-claude/authentication#key-types).
 
 An Admin API key covers most endpoints. The service-account, federation-issuer, and federation-rule endpoints accept only an `org:admin` OAuth token. Send a personal key or service account key in the `x-api-key` header, as you would an Admin API key. The following examples call the [organization info endpoint](https://platform.claude.com/docs/en/manage-claude/admin-api#accessing-organization-info) with an OAuth token and with an Admin API key.
@@ -226,7 +232,7 @@ Common uses include automating onboarding and offboarding, managing workspace ac
 
 ## Organization roles and permissions
 
-There are five organization-level roles. For details, see [API Console roles and permissions](https://support.claude.com/en/articles/10186004-api-console-roles-and-permissions).
+Claude Console organizations have five organization-level roles. For details, see [API Console roles and permissions](https://support.claude.com/en/articles/10186004-api-console-roles-and-permissions).
 
 | Role               | Permissions                                                                    |
 | ------------------ | ------------------------------------------------------------------------------ |
@@ -236,7 +242,7 @@ There are five organization-level roles. For details, see [API Console roles and
 | billing            | Can use playground and manage billing details                                  |
 | admin              | Can do all of the preceding, plus manage users                                 |
 
-Organization owners and primary owners have all admin permissions and can also manage admins. All references to the admin role on this page also apply to owners and primary owners.
+Claude Enterprise organizations have a different set of roles, including owners and a primary owner. See [Organization roles](https://platform.claude.com/docs/en/manage-claude/user-management#organization-roles).
 
 ## Key concepts
 
@@ -1779,7 +1785,7 @@ Register webhook endpoints for events about enforcement actions on your organiza
 
 <AccordionGroup>
   <Accordion title="What permissions are needed to use the Admin API?">
-    The Admin API accepts an Admin API key (starting with `sk-ant-admin`), an OAuth bearer token with the `org:admin` scope, or a personal key or service account key that isn’t scoped to a specific workspace. Only organization members with the admin role can provision Admin API keys, and only members with the admin, owner, or primary owner role can obtain `org:admin` tokens. A personal key or service account key has the same permissions as the linked account. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication).
+    The Admin API accepts an Admin API key (starting with `sk-ant-admin`), an OAuth bearer token with the `org:admin` scope, or a personal key or service account key that isn’t scoped to a specific workspace. Only organization members with the admin role can provision Admin API keys. Only users and service accounts with the admin role can obtain `org:admin` tokens. A personal key or service account key has the same permissions as the linked account. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication).
   </Accordion>
 
   <Accordion title="Can the Admin API create API keys?">

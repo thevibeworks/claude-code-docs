@@ -619,7 +619,7 @@ On Kubernetes, a session keeps one pod for about an hour at most, and the turn c
 
 For workers that you start yourself, put input files in the working directory before you send the message that needs them. Read output files from it afterward.
 
-When you start a container for each session yourself, mount a directory that holds the session’s input files as the container’s working directory. Collect the output files from it after the container exits. See [Stage files for a session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#stage-files-for-a-session).
+When you start a container for each session yourself, mount a directory that holds the session’s input files as the container’s working directory. Collect the output files from it after the container exits. See [Stage files for a session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#stage-files-for-a-session).
 
 ## Find more examples in the hosted guides
 
@@ -699,16 +699,16 @@ Use this worker for nothing else. It holds the environment key and runs every se
 
 ### Run workers in production
 
-For anything but a local experiment, start one container for each session and run `ant beta:worker run` in it, as [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session) shows. Give its image what [Build your own sandbox image](https://platform.claude.com/docs/en/managed-agents/self-hosted/call-the-api#build-your-own-sandbox-image) lists, and change three things in that setup:
+For anything but a local experiment, start one container for each session and run `ant beta:worker run` in it. [Launch sandboxes with a spawn script](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#launch-sandboxes-with-a-spawn-script) shows how. Give the container’s image what [Build your own sandbox image](https://platform.claude.com/docs/en/managed-agents/self-hosted/call-the-api#build-your-own-sandbox-image) lists, and change three things in that setup:
 
 * **Environment key:** Don’t pass `ANTHROPIC_ENVIRONMENT_KEY` into a session’s container. The server accepts that key for every session in the environment, and the container needs access to one session only.
-* **Work item’s secret:** Pass this secret in place of the key, because the server accepts it for that one session only. [Forward the work item’s secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#forward-the-work-items-secret) shows where your code receives it. Where that section sets `ANTHROPIC_WORK_SECRET`, put the secret in a file that only the container’s user can read. For example, pipe the secret to the container’s standard input, and have the container write the file before it starts the worker. Then set `ANTHROPIC_WORK_SECRET_FILE` to the file’s path.
+* **Work item’s secret:** Pass this secret in place of the key, because the server accepts it for that one session only. [Forward the work item’s secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#forward-the-work-items-secret) shows where your code receives it. Where that section sets `ANTHROPIC_WORK_SECRET`, put the secret in a file that only the container’s user can read. For example, pipe the secret to the container’s standard input, and have the container write the file before it starts the worker. Then, set `ANTHROPIC_WORK_SECRET_FILE` to the file’s path.
 * **Server address:** Set `ANTHROPIC_BASE_URL` to an address that the container can reach. `http://127.0.0.1:8400` isn’t one.
 
 For an SDK worker, two more points apply:
 
 * **Version:** Build the worker on the latest version of the SDK, as [SDKs, CLI, and libraries](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) describes. That version’s worker waits for approval before it runs a tool call that needs it, and never runs a call that a policy denies. A worker built on an earlier version runs every tool call as soon as it arrives.
-* **Samples:** The samples in [Run the SDK worker inside the sandbox](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-the-sdk-worker-inside-the-sandbox) read the environment key, so they don’t work here as they are.
+* **Samples:** The samples in [Run the SDK worker inside the sandbox](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#run-the-sdk-worker-inside-the-sandbox) read the environment key, so they don’t work here as they are.
 
 ### Build your own sandbox image
 

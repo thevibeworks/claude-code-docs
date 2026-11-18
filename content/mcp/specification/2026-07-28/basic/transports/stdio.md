@@ -74,7 +74,7 @@ optional client identity live in
 the method name and arguments live where JSON-RPC puts them. There is no
 header layer.
 
-[meta-fields]: https://modelcontextprotocol.io/specification/2026-07-28/basic/index.md#meta
+[meta-fields]: https://modelcontextprotocol.io/specification/2026-07-28/basic/index.md#_meta
 
 ## Cancellation
 

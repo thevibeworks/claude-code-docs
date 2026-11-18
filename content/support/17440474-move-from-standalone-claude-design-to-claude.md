@@ -130,9 +130,9 @@ When you move a project to Claude, it becomes an artifact.
 
 - Organizations with customer-managed encryption keys (CMEK) can move individual projects, lists of projects, design systems, or everything at once. Standalone Claude Design doesn't support CMEK, so its data won't be encrypted under your key until you move. Once a project moves to Claude, it's encrypted under your key.
 
-- Organizations with the HIPAA-ready configuration can't move projects right now.
+- Organizations with the HIPAA-ready configuration can move projects once an owner turns on **Artifacts** and **Design**. Moved projects and design systems aren't covered under your Business Associate Agreement (BAA), so keep protected health information (PHI) out of them. See **[For Team and Enterprise owners](#h_821522af39)**.
 
-- Organizations with zero data retention (ZDR) for Claude Code, but not the HIPAA-ready configuration, can move projects once an owner turns on artifacts. ZDR doesn’t cover artifacts. If artifacts stay off there, download your projects before the standalone version closes.
+- Organizations with zero data retention (ZDR) for Claude Code can move projects once an owner turns on artifacts. ZDR doesn’t cover artifacts. If artifacts stay off there, download your projects before the standalone version closes.
 
 To move a project:
 
@@ -188,7 +188,9 @@ While **Design systems** is off, owners who click "Move team design systems" see
 
 If your organization's default design system moves, it becomes the default in Claude too, unless you've already set one there.
 
-Organizations with zero data retention (ZDR) for Claude Code, but not the HIPAA-ready configuration, can move projects once an owner turns on artifacts, which are off until then. ZDR doesn’t cover artifacts, so moved projects are kept until deleted unless your organization has a retention period that covers artifacts. If you leave artifacts off, people can download their projects before the standalone version closes. See **[Can I download all my projects?](#h_a676b76d76)** If your organization has both ZDR for Claude Code and the HIPAA-ready configuration, people can’t move projects right now but can still download them one at a time.
+Organizations with zero data retention (ZDR) for Claude Code can move projects once an owner turns on artifacts, which are off until then. ZDR doesn’t cover artifacts, so moved projects are kept until deleted unless your organization has a retention period that covers artifacts. If you leave artifacts off, people can download their projects before the standalone version closes. See **[Can I download all my projects?](#h_a676b76d76)**
+
+Organizations with the HIPAA-ready configuration can move projects once an owner turns on **Artifacts** and **Design**. Projects arrive private to their owner, and design systems move only when an owner also turns on **Design systems** and moves everything. For these organizations, this replaces what the rest of this article says about sharing and about who can move design systems. An owner can turn on Claude Docs, Slides, Design, Dashboards, and Motion in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)** after accepting the terms. These artifact types, moved projects and design systems, and standalone Claude Design aren't covered under your BAA, so keep PHI out of them.
 
 ---
 

@@ -4,11 +4,7 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-c
 description: Parse tool_use blocks, format tool_result responses, and handle errors with is_error.
 ---
 
-This page covers the tool-call lifecycle: reading `tool_use` blocks from Claude’s response, formatting `tool_result` blocks in your reply, and signaling errors. For the SDK abstraction that handles this automatically, see [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner).
-
-<Note>
-  **Simpler with Tool Runner:** The manual tool handling described on this page is automatically managed by [Tool Runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner). Use this page when you need custom control over tool execution.
-</Note>
+When Claude’s response contains `tool_use` blocks, your code runs each tool and sends back `tool_result` blocks, including any errors. Write this code yourself when you need custom control over tool execution. Otherwise, use the SDK’s [tool runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner), which runs the tools and sends the results for you.
 
 Claude’s response differs based on whether it uses a [client or server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#how-tool-use-works).
 
@@ -45,17 +41,21 @@ A `tool_use` block for a member of the [computer use](https://platform.claude.co
   ```
 </Accordion>
 
-When you receive a tool use response for a client tool, you should:
+When you receive a tool use response for a client tool, follow these steps:
 
-1. Extract the `name`, `id`, and `input` from the `tool_use` block.
+1. For each `tool_use` block, run the tool that the block names, passing in its `input`.
+2. In a new request, keep the earlier messages and add the response’s `content` unchanged as an `assistant` message.
+3. Add a `user` message with one `tool_result` block for each `tool_use` block in that content, even if the tool failed.
+4. Send the request with the same `tools` as the first request. Claude uses the tool results to continue its response.
+5. If the next response’s `stop_reason` is also `tool_use`, repeat these steps. For other values, see the [stop reason quick reference](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#quick-reference).
 
-2. Run the actual tool in your code base corresponding to that tool name, passing in the tool `input`.
+For these steps as complete programs, see [Tutorial: Build a tool-using agent](https://platform.claude.com/docs/en/agents-and-tools/tool-use/build-a-tool-using-agent).
 
-3. Continue the conversation by sending a new message with the `role` of `user`, and a `content` block containing the `tool_result` type and the following information:
+Each `tool_result` block has `type` set to `tool_result`, plus these fields:
 
-   * `tool_use_id`: The `id` of the tool use request this is a result for.
-   * `content` (optional): The result of the tool, as a string (for example, `"content": "15 degrees"`), a list of nested content blocks (for example, `"content": [{"type": "text", "text": "15 degrees"}]`), or a list of document blocks (for example, `"content": [{"type": "document", "source": {"type": "text", "media_type": "text/plain", "data": "15 degrees"}}]`). These content blocks can use the `text`, `image`, `document`, or [`search_result`](https://platform.claude.com/docs/en/build-with-claude/search-results) types.
-   * `is_error` (optional): Set to `true` if the tool execution resulted in an error.
+* `tool_use_id`: The `id` of the `tool_use` block that this result answers.
+* `content` (optional): The result of the tool as a string or a list of content blocks. These content blocks can use the `text`, `image`, `document`, or [`search_result`](https://platform.claude.com/docs/en/build-with-claude/search-results) types.
+* `is_error` (optional): Set to `true` if the tool failed or the call was invalid.
 
 For example, a successful tool result looks like this:
 
@@ -180,8 +180,6 @@ A `tool_result` that answers a computer use or browser use member block must als
   </Accordion>
 </AccordionGroup>
 
-After receiving the tool result, Claude will use that information to continue generating a response to the original user prompt.
-
 ## Handling results from server tools
 
 Claude runs the tool internally and incorporates the results directly into its response without requiring additional user interaction.
@@ -200,7 +198,7 @@ Claude runs the tool internally and incorporates the results directly into its r
 
 ## Handling errors with is\_error
 
-There are a few different types of errors that can occur when using tools with Claude:
+When a client tool fails or a call is invalid, send a `tool_result` block with `is_error` set to `true`. Claude might then call the tool again with a new `tool_use` block, so limit how many retries your loop allows.
 
 <AccordionGroup>
   <Accordion title="Tool execution error">
@@ -220,17 +218,17 @@ There are a few different types of errors that can occur when using tools with C
     }
     ```
 
-    Claude will then incorporate this error into its response to the user. For example: “I’m sorry, I was unable to retrieve the current weather because the weather service API is not available. Please try again later.”
+    Claude can then call the tool again or tell the user what happened. For example, Claude might say “I’m sorry, I was unable to retrieve the current weather because the weather service API is not available. Please try again later.”
 
     <Tip>
       Write instructive error messages. Instead of generic errors such as `"failed"`, include what went wrong and what Claude should try next (for example, `"Rate limit exceeded. Retry after 60 seconds."`). This gives Claude the context it needs to recover or adapt without guessing.
     </Tip>
   </Accordion>
 
-  <Accordion title="Invalid tool name">
+  <Accordion title="Invalid tool call">
     If Claude’s attempted use of a tool is invalid (for example, missing required parameters), it usually means that there wasn’t enough information for Claude to use the tool correctly. The best approach during development is to try the request again with more-detailed `description` values in your tool definitions.
 
-    However, you can also continue the conversation forward with a `tool_result` that indicates the error, and Claude will attempt to use the tool again with the missing information filled in:
+    However, you can also continue the conversation with a `tool_result` that indicates the error:
 
     ```json JSON
     {
@@ -246,7 +244,7 @@ There are a few different types of errors that can occur when using tools with C
     }
     ```
 
-    If a tool request is invalid or missing parameters, Claude will retry 2–3 times with corrections before apologizing to the user.
+    Claude can then call the tool again with the missing information filled in.
 
     <Tip>
       To eliminate invalid tool calls entirely, use [strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use) with `strict: true` on your tool definitions. This guarantees that tool inputs always match your schema exactly, preventing missing parameters and type mismatches.
@@ -254,15 +252,9 @@ There are a few different types of errors that can occur when using tools with C
   </Accordion>
 
   <Accordion title="Server tool errors">
-    When server tools encounter errors (for example, network issues with web search), Claude will transparently handle these errors and attempt to provide an alternative response or explanation to the user. Unlike client tools, you do not need to handle `is_error` results for server tools.
+    Unlike with client tools, you don’t send `is_error` results for server tools. When a server tool hits an error, such as a network issue during web search, the API returns the error inside the tool’s result block. In most cases, Claude then continues with another approach or an explanation for the user.
 
-    For web search specifically, possible error codes include:
-
-    * `too_many_requests`: Rate limit exceeded
-    * `invalid_input`: Invalid search query parameter
-    * `max_uses_exceeded`: Maximum web search tool uses exceeded
-    * `query_too_long`: Query exceeds maximum length
-    * `unavailable`: An internal error occurred
+    For web search error codes, see [Web search tool errors](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool#errors).
   </Accordion>
 </AccordionGroup>
 

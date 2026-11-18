@@ -39,7 +39,10 @@ The following table compares Claude Models on Google Cloud (Anthropic managed) w
 
 * **Model IDs:** Claude 4.6 and later models use their Claude API IDs on both offerings. See [Model IDs and versioning](https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions).
 
-* **SDKs:** Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support both offerings.
+* **SDKs:** Both offerings use the Anthropic SDK for your language. [Which offering are you using?](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/overview#which-offering-are-you-using) names the client that each offering uses. To install the SDK, see each offering’s own section.
+
+  * [SDK for Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#install-an-sdk)
+  * [SDK for Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#install-an-sdk-for-accessing-vertex-ai)
 
 ## Moving between the two offerings
 

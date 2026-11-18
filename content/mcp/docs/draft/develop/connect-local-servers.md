@@ -202,7 +202,7 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 > ```
 >
 > ```powershell Windows theme={null}
-> type "%APPDATA%\Claude\logs\mcp*.log"
+> type "$env:AppData\Claude\logs\mcp*.log"
 > ```
 
 > [accordion] Tool calls failing silently
@@ -223,12 +223,18 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 >
 > ```json theme={null}
 > {
->   "brave-search": {
->     "command": "npx",
->     "args": ["-y", "@modelcontextprotocol/server-brave-search"],
->     "env": {
->       "APPDATA": "C:\\Users\\user\\AppData\\Roaming\\",
->       "BRAVE_API_KEY": "..."
+>   "mcpServers": {
+>     "filesystem": {
+>       "command": "npx",
+>       "args": [
+>         "-y",
+>         "@modelcontextprotocol/server-filesystem",
+>         "C:\\Users\\username\\Desktop",
+>         "C:\\Users\\username\\Downloads"
+>       ],
+>       "env": {
+>         "APPDATA": "C:\\Users\\username\\AppData\\Roaming"
+>       }
 >     }
 >   }
 > }
@@ -250,10 +256,9 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 
 Now that you've successfully connected Claude Desktop to a local MCP server, explore these options to expand your setup:
 
-> [card] [Explore other servers](https://github.com/modelcontextprotocol/servers)
+> [card] [Explore other servers](https://registry.modelcontextprotocol.io/)
 >
-> Browse our collection of official and community-created MCP servers for
-> additional capabilities
+> Browse the servers published to the MCP Registry
 
 > [card] [Build your own server](https://modelcontextprotocol.io/docs/draft/develop/build-server.md)
 >

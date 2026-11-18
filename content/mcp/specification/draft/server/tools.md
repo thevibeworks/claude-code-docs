@@ -16,7 +16,7 @@ a name and includes metadata describing its schema.
 > `io.modelcontextprotocol/clientInfo`, and
 > `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
 > the required `_meta` fields; see
-> [`_meta`](https://modelcontextprotocol.io/specification/draft/basic/index#meta).
+> [`_meta`](https://modelcontextprotocol.io/specification/draft/basic/index#_meta).
 
 ## User Interaction Model
 
@@ -789,7 +789,7 @@ Clients **SHOULD** provide tool execution errors to language models to enable se
    * Show tool inputs to the user before calling the server, to avoid malicious or
      accidental data exfiltration
    * Validate tool results before passing to LLM
-   * Follow the [`$ref` resolution requirements](https://modelcontextprotocol.io/specification/draft/basic/index#ref-resolution)
+   * Follow the [`$ref` resolution requirements](https://modelcontextprotocol.io/specification/draft/basic/index#\$ref-resolution)
      when validating tool inputs and outputs against `inputSchema` and `outputSchema`
    * Implement timeouts for tool calls
    * Log tool usage for audit purposes

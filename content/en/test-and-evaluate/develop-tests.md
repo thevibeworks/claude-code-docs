@@ -712,7 +712,7 @@ Most use cases need multidimensional evaluation along several success criteria.
       	"log"
       	"math"
 
-      // ...
+      	// ...
       	"github.com/knights-analytics/hugot"
       	"github.com/knights-analytics/hugot/pipelines"
       )

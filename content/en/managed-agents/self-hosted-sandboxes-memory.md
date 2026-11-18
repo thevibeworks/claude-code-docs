@@ -46,7 +46,7 @@ The difference is who materializes the store. On a self-hosted environment your 
 * **A worker that mounts memory stores:** Use `ant` CLI 1.33.0 or later, or `EnvironmentWorker` from the Python, TypeScript, or Go SDK.
 * **A POSIX filesystem:** Windows hosts are not supported, because the worker requires `O_NOFOLLOW` when it opens memory files. Anthropic recommends a case-sensitive filesystem, so that memory paths that differ only in case do not collide. macOS volumes are case-insensitive by default, so such paths collide there.
 * **A writable `/mnt/memory` directory:** See [Prepare the host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-the-host). On macOS, see [Prepare a macOS host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-a-macos-host).
-* **The work item’s secret:** If your own code launches the worker, [forward the work item’s secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#forward-the-work-items-secret) to it.
+* **The work item’s secret:** If your own code launches the worker, [forward the work item’s secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#forward-the-work-items-secret) to it.
 
 <Note>
   Memory stores are not available for sessions on self-hosted environments on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) or [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
@@ -62,15 +62,15 @@ Before you start the worker, create the parent directory and make it writable by
 sudo mkdir -p /mnt/memory && sudo chown "$USER" /mnt/memory
 ```
 
-Do not create the per-store directories yourself. The worker creates each store’s `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) directory (for example, `/mnt/memory/user-preferences`) when a session starts and removes it when the session ends. If something already exists at that path, the worker refuses to start the session’s work.
+Don’t create any store’s directory yourself. The worker creates each store’s `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`) directory, such as `/mnt/memory/user-preferences`, when it claims a session and removes it when it finishes with that session. If anything already exists at that path, even an empty directory, the worker fails the work item.
 
-In the [sandbox-per-session pattern](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session), the sandbox image needs a writable `/mnt/memory`. You don’t need to bind-mount the memory directories to the host, because the worker uploads their contents to the store before the sandbox exits.
+In the [sandbox-per-session pattern](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session), the sandbox image needs a writable `/mnt/memory`. You don’t need to bind-mount the memory directories to the host, because the store holds the lasting copy of every memory.
 
 ### Prepare a macOS host
 
 On macOS, the root volume is read-only, so `mkdir` can’t create `/mnt`. Instead, create `/System/Volumes/Data/mnt/memory` on the data volume, which is writable. Then add a line to `/etc/synthetic.conf`, so that macOS creates `/mnt` as a symbolic link to `/System/Volumes/Data/mnt`. These steps need administrator rights.
 
-Without this setup, the worker can’t create a store’s directory, so it fails the work item. The session then stays idle with no error event. See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
+Without this setup, the worker can’t create a store’s directory, so it fails the work item. The session then stays idle with no error event. See [Memory stores fail to mount or sync](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
 
 <Steps>
   <Step title="Create the directory on the data volume">
@@ -88,10 +88,11 @@ Without this setup, the worker can’t create a store’s directory, so it fails
 
     * If a line reads `mnt^ISystem/Volumes/Data/mnt$`, this step is already done. Go to the next step.
     * If another line starts with `mnt`, stop. Something else on this Mac already defines `/mnt`.
-    * If the last line doesn’t end with `$`, run `echo | sudo tee -a /etc/synthetic.conf` to end it.
-    * If it prints nothing or reports `No such file or directory`, continue. The `printf` command creates the file if it’s missing.
+    * If the last line doesn’t end with `$`, run `echo | sudo tee -a /etc/synthetic.conf` to end it. Then, add the line.
+    * If it prints nothing or reports `No such file or directory`, add the line. The following command creates the file if it’s missing.
+    * Otherwise, add the line.
 
-    Then add the line, unless one of the first two cases applies. Run this command only once, because each run appends another line.
+    To add the line, run this command. Run it only once, because each run appends another line.
 
     ```bash
     printf 'mnt\tSystem/Volumes/Data/mnt\n' | sudo tee -a /etc/synthetic.conf
@@ -123,7 +124,7 @@ Anthropic has tested this setup on macOS 26.7.1 with the `ant` CLI worker.
 
 ### Isolate sessions that share a store
 
-Two sessions cannot mount the same store on one host at the same time, because both need the same path. If your sessions attach the same store, run one session for each filesystem. Giving each session [its own sandbox](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-one-sandbox-per-session) satisfies this rule.
+Two sessions cannot mount the same store on one filesystem at the same time because both need the same path. To run sessions that share a store side by side, give each session its own filesystem. If you use a sandbox for each session, each session gets its own filesystem automatically. See [Run one sandbox per session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session). One host can run many such sandboxes.
 
 ## How the worker handles memory
 
@@ -131,17 +132,19 @@ When the worker claims a work item whose session has memory stores attached, it:
 
 1. **Downloads each store to its `mount_path` (java, php: `mountPath`; csharp, go: `MountPath`).** This is the same directory under `/mnt/memory/` that cloud sessions use, and the session’s system prompt describes it to the agent. For example, a store named “User Preferences” lands at `/mnt/memory/user-preferences/`.
 2. **Opens those directories to the file tools.** The agent works on memories with the same file tools it uses in the working directory.
-3. **Reconciles changes after tool calls,** at most once per sync interval (15 seconds by default). Memories that changed in the store are written to disk, and files the agent changed are uploaded to the store.
-4. **Runs a final sync when the session ends.** It flushes any uploads still pending for up to 30 seconds, then removes the directories it created.
+3. **Syncs after tool calls.** The worker syncs after a tool call if the [sync interval](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#sync-interval) (15 seconds by default) has passed since its last sync. Each sync writes changed memories from the store to disk and uploads files that the agent changed.
+4. **Runs a final sync when the session ends or stays idle for the worker’s idle limit.** The final sync can take up to 60 seconds. Changes not uploaded by then are lost. The worker then removes the directories it created.
 
-The memory store on Anthropic’s side remains the source of truth. [Memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes), redaction, and viewing or editing memories in the Claude Console work as they do for cloud sessions. The agent’s memory reads and writes appear in the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as ordinary tool events.
+The idle limit is 60 seconds by default. [When the worker finishes with a session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-reference#when-the-worker-finishes-with-a-session) says what the limit covers and how to change it.
 
-Because each worker syncs on an interval, a change written in one session becomes visible to another running session only after both have synced. That is typically well under a minute at the default interval. Sessions on cloud sandboxes see each other’s changes almost immediately.
+The agent’s `write` and `edit` tools change only the local copy, and the worker uploads those changes at its next sync. Paths under `/mnt/memory/` outside the store directories are not scratch space. The worker’s file tools refuse to write to them, and anything that a shell command writes there is never synced to a store.
 
-Each store directory contains a marker file named `.anthropic-memory-store` that ties the directory to its store. Leave it in place: the worker does not sync a directory whose marker is missing or altered.
+[Memory versions](https://platform.claude.com/docs/en/managed-agents/memory#audit-memory-changes), redaction, and viewing or editing memories in the Claude Console work as they do for cloud sessions. The agent’s memory reads and writes appear in the [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming) as ordinary tool events.
+
+Each store directory contains a marker file named `.anthropic-memory-store` that ties the directory to its store. Leave it in place. If the marker is missing or altered and the directory still holds files, the worker doesn’t sync the directory. It also doesn’t remove the directory when it finishes with the session.
 
 <Warning>
-  A worker that is killed rather than stopped runs no teardown, so unsynced edits are lost and the store directories stay behind. See [Stop workers gracefully](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#stop-workers-gracefully).
+  If you stop a worker gracefully during a session or [stop the session’s work item](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#stop-a-session-gracefully), the worker still uploads new and changed files. It also removes the store directories. It sends no deletions, so a memory that the agent deleted stays in the store unless an earlier sync already deleted it from the store. A worker that is killed rather than stopped runs no teardown, so unsynced edits are lost and the store directories stay behind. See [Stop workers gracefully](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#stop-workers-gracefully).
 </Warning>
 
 ## Configure sync
@@ -150,7 +153,7 @@ Two `EnvironmentWorker` options control memory behavior. Set them wherever you c
 
 ### Sync interval
 
-`memory_sync_interval` (typescript: `memorySyncIntervalMs`; go: `MemorySyncInterval`) sets how often attached stores reconcile with the server while the session runs.
+`memory_sync_interval` (typescript: `memorySyncIntervalMs`; go: `MemorySyncInterval`) sets the shortest time between two syncs while the session runs.
 
 | Setting                | Value                                               |
 | ---------------------- | --------------------------------------------------- |
@@ -159,11 +162,13 @@ Two `EnvironmentWorker` options control memory behavior. Set them wherever you c
 | Example (10 seconds)   | `10` (typescript: `10_000`; go: `10 * time.Second`) |
 | Disable memory support | `None` (typescript: `null`; go: `-1`)               |
 
+The worker doesn’t sync on a timer. It checks the interval after each call to a tool that runs in your sandbox, such as `bash`, `read`, or a custom tool. The call doesn’t have to touch memory. Without tool calls, nothing syncs until the [final sync](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#how-the-worker-handles-memory). A change in one session reaches another running session only after both have synced, so the wait has no fixed length.
+
 A shorter interval narrows the window in which another session sees stale memories, at the cost of more memory store requests.
 
 Disable memory support only on workers whose sessions attach no memory stores. A disabled worker neither downloads nor syncs stores, so a session with stores attached runs without them even though its system prompt still describes them.
 
-While memory support is enabled, a work item that arrives without a `secret` (csharp, go: `Secret`) for a session with attached stores fails rather than running without memory. See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
+While memory support is enabled, a work item that arrives without a `secret` (csharp, go: `Secret`) for a session with attached stores fails rather than running without memory. See [Memory stores fail to mount or sync](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount).
 
 ### Deletions
 
@@ -175,29 +180,70 @@ While memory support is enabled, a work item that arrives without a `secret` (cs
 | `"log_only"` (go: `environments.MemorySyncDeletionsLogOnly`)          | Runs the same checks but only logs what it would have deleted. Use it to watch what your workers would delete before you trust the enabled mode. |
 | `"disabled"` (go: `environments.MemorySyncDeletionsDisabled`)         | Never deletes from the store.                                                                                                                    |
 
-For example, to sync every 10 seconds and only log the deletes the worker would have made:
+For example, to sync at most once every 10 seconds and only log the deletions the worker would have made, use the following sample. The sample uses `/workspace` as the working directory, which must exist before the worker starts. [Run an always-on worker](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-an-always-on-worker) says how to create the directory and what to use on macOS.
 
 <CodeGroup exclude="shell, csharp, java, php, ruby">
+  <CodeGroupItem language="cURL">
+    A worker is a long-running process, not a single HTTP request. To change the sync settings, use `EnvironmentWorker` in the Python, TypeScript, or Go SDK.
+  </CodeGroupItem>
+
+  <CodeGroupItem language="CLI">
+    The `ant` CLI worker always uses the default sync settings. To change them, use `EnvironmentWorker` in the Python, TypeScript, or Go SDK.
+  </CodeGroupItem>
+
   ```python Python
-  worker = EnvironmentWorker(
-      client,
-      environment_id=environment_id,
-      environment_key=environment_key,
-      workdir="/workspace",
-      memory_sync_interval=10,  # seconds
-      memory_sync_deletions="log_only",
-  )
+  import asyncio
+  import contextlib
+  import os
+  import signal
+  from anthropic import AsyncAnthropic
+  from anthropic.lib.environments import EnvironmentWorker
+
+
+  async def main() -> None:
+      environment_key = os.environ["ANTHROPIC_ENVIRONMENT_KEY"]
+      environment_id = os.environ["ANTHROPIC_ENVIRONMENT_ID"]
+      async with AsyncAnthropic(auth_token=environment_key) as client:
+          worker = EnvironmentWorker(
+              client,
+              environment_id=environment_id,
+              environment_key=environment_key,
+              workdir="/workspace",
+              memory_sync_interval=10,  # seconds
+              memory_sync_deletions="log_only",
+          )
+          task = asyncio.create_task(worker.run())
+          loop = asyncio.get_running_loop()
+          for signum in (signal.SIGINT, signal.SIGTERM):
+              loop.add_signal_handler(signum, task.cancel)
+          with contextlib.suppress(asyncio.CancelledError):
+              await task
+
+
+  asyncio.run(main())
   ```
 
   ```typescript TypeScript
+  import Anthropic from "@anthropic-ai/sdk";
+  import { EnvironmentWorker } from "@anthropic-ai/sdk/helpers/beta/environments";
+
+  const environmentKey = process.env.ANTHROPIC_ENVIRONMENT_KEY!;
+  const environmentId = process.env.ANTHROPIC_ENVIRONMENT_ID!;
+  const client = new Anthropic({ authToken: environmentKey });
+  const controller = new AbortController();
+  process.once("SIGINT", () => controller.abort());
+  process.once("SIGTERM", () => controller.abort());
+
   const worker = new EnvironmentWorker({
     client,
     environmentId,
     environmentKey,
     workdir: "/workspace",
+    signal: controller.signal,
     memorySyncIntervalMs: 10_000,
     memorySyncDeletions: "log_only"
   });
+  await worker.run();
   ```
 
   <CodeGroupItem language="C#">
@@ -205,13 +251,41 @@ For example, to sync every 10 seconds and only log the deletes the worker would 
   </CodeGroupItem>
 
   ```go Go
-  worker := environments.NewEnvironmentWorker(client, environments.EnvironmentWorkerOptions{
-  	EnvironmentID:       environmentID,
-  	EnvironmentKey:      environmentKey,
-  	Workdir:             "/workspace",
-  	MemorySyncInterval:  10 * time.Second,
-  	MemorySyncDeletions: environments.MemorySyncDeletionsLogOnly,
-  })
+  package main
+
+  import (
+  	"context"
+  	"log"
+  	"os"
+  	"os/signal"
+  	"syscall"
+  	"time"
+
+  	"github.com/anthropics/anthropic-sdk-go/v2"
+  	"github.com/anthropics/anthropic-sdk-go/v2/lib/environments"
+  	"github.com/anthropics/anthropic-sdk-go/v2/option"
+  )
+
+  func main() {
+  	environmentKey := os.Getenv("ANTHROPIC_ENVIRONMENT_KEY")
+  	environmentID := os.Getenv("ANTHROPIC_ENVIRONMENT_ID")
+
+  	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+  	defer stop()
+
+  	client := anthropic.NewClient(option.WithAuthToken(environmentKey))
+
+  	worker := environments.NewEnvironmentWorker(client, environments.EnvironmentWorkerOptions{
+  		EnvironmentID:       environmentID,
+  		EnvironmentKey:      environmentKey,
+  		Workdir:             "/workspace",
+  		MemorySyncInterval:  10 * time.Second,
+  		MemorySyncDeletions: environments.MemorySyncDeletionsLogOnly,
+  	})
+  	if err := worker.Run(ctx); err != nil {
+  		log.Fatalf("worker: %v", err)
+  	}
+  }
   ```
 
   <CodeGroupItem language="Java">
@@ -229,15 +303,29 @@ For example, to sync every 10 seconds and only log the deletes the worker would 
 
 ## Read-only stores and conflicts
 
+### Read-only stores
+
 For a store attached with `access: "read_only"`, the `write` and `edit` tools refuse to change files inside its directory. The worker never uploads anything from it.
 
-Changes made through `bash`, or through a custom tool or MCP server you serve from the sandbox, are not blocked locally. They are never synced to the store, and the next remote change to that memory overwrites them. If the local copy itself must stay unchanged during the session:
+Changes made through `bash` or through a custom tool or MCP server you serve from the sandbox are not blocked locally. They never reach the store. A changed file stays changed until one of these things happens:
 
-* Disable the `bash` tool for that agent, and give it no custom tool that writes to the sandbox’s filesystem.
-* Do not mount the store path read-only. The worker itself must create the directory and write the downloaded memories into it.
+* **That memory gets a new version in the store.** The worker’s next sync overwrites the file with that version.
+* **The worker finishes with the session.** It removes the directory.
 
-Conflicts resolve in favor of the store. Suppose the agent changes a memory file that also changed in the store since the session last synced it. At the next sync, the worker keeps the store’s version, overwrites the local file with it, and logs a warning. The `write` and `edit` tools themselves succeed and no error reaches the agent. If the agent’s change still applies, it can re-read the file after the sync and make the change again.
+To keep the local copy unchanged too, disable the `bash` tool for that agent. Also, give it no custom tools or MCP servers that write to the sandbox’s filesystem. Don’t mount a read-only volume at the store’s path. The mount puts a directory at that path, and the worker fails the work item if anything already exists there.
+
+### Conflicts
+
+A conflict is a memory that changed both in the store and in the sandbox since the previous sync. A deletion counts as a change. For a store attached with `access: "read_write"`, the worker resolves the conflict at the next sync:
+
+| In the store | In the sandbox | Result                                                     |
+| ------------ | -------------- | ---------------------------------------------------------- |
+| Changed      | Changed        | The store’s version overwrites the file.                   |
+| Changed      | Deleted        | The worker writes the store’s version back to the sandbox. |
+| Deleted      | Changed        | The worker creates the memory again from the file.         |
+
+In the first two rows, the agent’s change or deletion is lost, even though the tool call succeeded. Nothing tells the agent, and the only sign of the loss is a warning in the worker’s log. In the last row, the deletion in the store is undone.
 
 ## Troubleshooting
 
-See [Memory stores fail to mount](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount) for the worker’s log messages and their fixes.
+See [Memory stores fail to mount or sync](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations#memory-stores-fail-to-mount) for the worker’s log messages and their fixes.

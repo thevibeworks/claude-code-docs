@@ -602,7 +602,37 @@ Context window sizes on Claude Models on Google Cloud (Anthropic managed) are th
 
 ### Rate limits
 
-Anthropic manages rate limits for Claude Models on Google Cloud (Anthropic managed). To request higher limits, contact your Anthropic account representative or [contact sales](https://claude.com/contact-sales). For how rate limits are measured and reported, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
+Anthropic manages rate limits for Claude Models on Google Cloud (Anthropic managed). For how rate limits are measured and reported, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
+
+To see your organization’s rate limits, [open the Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console) and go to [Rate limits in the Claude Console](https://platform.claude.com/usage/limits) (`platform.claude.com/usage/limits`). The badge on that page shows **Custom tier** for every organization on Claude Models on Google Cloud (Anthropic managed), whatever its [usage tier](https://platform.claude.com/docs/en/api/rate-limits#about-rate-limits).
+
+To request higher limits, use the form in the Claude Console:
+
+1. On the **Rate limits** page, click **Request higher limits**.
+
+   <Frame caption="The button is at the top right of the Rate limits page.">
+     ![Header of the Rate limits page in the Claude Console, with a Custom tier badge and the Request higher limits button.](https://platform.claude.com/docs/images/rate-limits/request-higher-limits-button.png)
+   </Frame>
+
+2. In **What do you need, and why?**, include the following:
+
+   * The models you need raised
+   * Peak input tokens per minute and output tokens per minute for each model (not daily totals)
+   * The approximate share of your input that is cached or repeated context
+
+   If you need a higher [monthly spend cap](https://platform.claude.com/docs/en/api/rate-limits#spend-limits), say so and fill in **Expected monthly spend**.
+
+   <Frame caption="The form, with an example request that names the model, the peak tokens per minute, and the cached share of the input.">
+     ![Request higher limits form with fields for what you need and why, expected monthly spend (optional), and contact email.](https://platform.claude.com/docs/images/rate-limits/request-higher-limits-form.png)
+   </Frame>
+
+3. Enter a contact email address and click **Send request**.
+
+Anthropic Support reviews your request and replies to the contact email address. Your organization can send one request every 24 hours.
+
+If your organization has a Zero Data Retention (ZDR) arrangement or has [customer-managed encryption keys (CMEK) turned on](https://platform.claude.com/docs/en/manage-claude/cmek#availability), it can’t use the form. The page shows **Contact sales**, or the form shows an error when you send the request. Contact your Anthropic account representative or [contact sales](https://claude.com/contact-sales) instead.
+
+Any other organization can also contact its account representative or sales.
 
 ### Billing
 

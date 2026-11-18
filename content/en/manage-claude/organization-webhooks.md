@@ -15,8 +15,6 @@ An organization webhook endpoint receives an event when Anthropic restricts or b
   Event delivery isn’t live: Anthropic doesn’t send the two events, so an endpoint you register receives nothing. You can register endpoints and build your handler from the event format on this page.
 </Note>
 
-Any member of your organization can list and view organization webhook endpoints with the API, but only members with the admin, owner, or primary owner role can create, change, or delete them, or replace their signing secret.
-
 ## Before you start
 
 You need the following:
@@ -28,6 +26,11 @@ You need the following:
   * An [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys).
   * An [OAuth bearer token](https://platform.claude.com/docs/en/manage-claude/admin-api#oauth-bearer-token) with the `org:admin` scope.
   * A [personal or service account key](https://platform.claude.com/docs/en/manage-claude/authentication#key-types) that isn’t scoped to a workspace.
+
+With an Admin API key, you can make every request in [Manage endpoints](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#manage-endpoints). With an `org:admin` token, you can make the same requests. If the token is bound to a workspace other than your organization’s [Default Workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#how-workspaces-work), you can’t make any of them. With a personal or service account key, the requests you can make depend on the account’s [organization role](https://platform.claude.com/docs/en/manage-claude/admin-api#organization-roles-and-permissions):
+
+* To list or view webhook endpoints: `claude_code_user`, `developer`, or `admin`
+* To create, change, or delete webhook endpoints, or to replace a signing secret: `admin`
 
 ## Event types
 

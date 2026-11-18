@@ -73,7 +73,7 @@ In your MDM, scope each exported profile to the corresponding device or user gro
 
 > [!NOTE]
 >
-> On macOS, check whether your assignment rules install a profile for the whole computer (a machine profile) or for one user account (a user profile). The app ignores a user profile on a device that has a machine profile for the app; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration between groups on macOS, scope machine profiles to device groups, or serve per-user configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md).
+> On macOS, check whether your assignment rules install a profile for the whole computer (a machine profile) or for one user account (a user profile). Give each Mac one machine profile with every key in it; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration between groups on macOS, scope machine profiles to device groups, or serve per-user configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md).
 >
 > On Windows, check which registry hive your assignment rules write to. If your assignment rules deliver a profile in user context, it lands in user policy (`HKCU`), and the app ignores user policy entirely when machine policy is present; see [Deploy the configuration](#4-deploy-the-configuration). To vary configuration per user group on Windows, deliver every profile through user policy and keep `HKLM\SOFTWARE\Policies\Claude` empty, or serve per-user configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md).
 >
@@ -103,17 +103,8 @@ Push the exported configuration through your MDM. On macOS and Windows, put all 
 >
 > A `.mobileconfig` profile delivered by MDM lands in the Managed Preferences locations automatically. A profile that your MDM installs for the whole computer is a machine profile, and a profile that it installs for one user account is a user profile. Some MDMs call these computer level and user level.
 >
-> The two profiles aren't merged. When the device has a machine profile for the app, the app ignores the user profile entirely.
->
-> * **Deploy one machine profile to each Mac**: put the complete configuration in it. Before you upload an exported `.mobileconfig` file, check that its `PayloadScope` is `System`, and change it if it isn't.
->
-> * **See what an ignored user profile held**: check the `User profile` line of `managed-config.txt` in the [diagnostic report](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment), or the warning in `main.log`. Both list the keys that the machine profile doesn't set, or sets to a different value. When the app opens on the standard claude.ai sign-in screen, `main.log` is in `~/Library/Logs/Claude/`, not `~/Library/Logs/Claude-3p/`.
->
+> * **Deploy one machine profile to each Mac**: put the complete configuration in it. If a Mac also has a user profile for the app, copy the keys that you still need into the machine profile, then remove the user profile. Before you upload an exported `.mobileconfig` file, check that its `PayloadScope` is `System`, and change it if it isn't.
 > * **Leave profile installation to your MDM**: set Apple's [`allowUIConfigurationProfileInstallation`](https://developer.apple.com/documentation/devicemanagement/restrictions) restriction to `false`. The restriction applies on macOS 13 and later, and also stops users from installing certificates by hand.
->
-> > [!NOTE]
-> >
-> > Before Claude Desktop 6.6395.0, settings from both profiles applied. If your Macs have both profiles, move every key that you want to keep into the machine profile before you update.
 
 > [tab] Windows
 >

@@ -302,9 +302,13 @@ Actions follow the AWS `VerbNoun` convention and use verb discipline so that `Ge
 
 A Claude Console session covers the whole organization, not one workspace, and some Claude Console pages bypass IAM action checks. On those pages, a principal with either Claude Console role can see the whole organization’s usage, cost, and rate limits, whatever its IAM policies allow. With the Admin role, it can also see request metadata on the **Logs** page. An Admin session can also change settings outside IAM, such as spend limits for the organization and each workspace. Grant `AssumeConsole` only to principals who may see and act on the whole organization. [Claude Console pages available on Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#available-pages) shows which pages check IAM actions and which bypass them.
 
+On the **Rate limits** page, viewing limits bypasses IAM action checks, but **Request higher limits** does not. `ListAccountRateLimitIncreaseRequests` authorizes seeing the button, and `CreateAccountRateLimitIncreaseRequest` authorizes sending a request. The button also needs the Admin role. Both actions are account-scoped. A statement whose `Resource` is a workspace ARN does not grant them; use `Resource: "*"`. They have no public API route, so the tables in [Route-to-action mapping](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#route-to-action-mapping) don’t list them. See [Rate limits and quotas](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#rate-limits-and-quotas).
+
 ## Route-to-action mapping
 
-The following tables list every route on Claude Platform on AWS and the IAM action required to call it. Each IAM action also authorizes requests that use the `anthropic-beta` header; beta variants of a route do not require a separate IAM action. CloudTrail classifies each action as either a Data event (high-volume, data-plane operations) or a Management event (control-plane operations). Vault and webhook actions are classified as Management events because they hold secrets (vault credentials and webhook signing secrets) and benefit from default-on audit logging. Workspace, external key, telemetry destination, and compliance actions are also classified as Management events because they are organization-scoped control-plane operations. All other actions, including inference, batch, model, file, skill, user profile, usage and cost, and the remaining Claude Managed Agents actions, are classified as Data events.
+The following tables list the public API routes on Claude Platform on AWS and the IAM action required to call each one. Each IAM action also authorizes requests that use the `anthropic-beta` header; beta variants of a route do not require a separate IAM action.
+
+CloudTrail classifies each action as either a Data event (high-volume, data-plane operations) or a Management event (control-plane operations). It classifies vault and webhook actions as Management events because they hold secrets (vault credentials and webhook signing secrets) and benefit from default-on audit logging. It also classifies workspace, external key, telemetry destination, compliance, and rate limit increase request actions as Management events. These actions are organization-scoped control-plane operations. CloudTrail classifies all other actions as Data events. These include inference, batch, model, file, skill, user profile, usage and cost, and the remaining Claude Managed Agents actions.
 
 | Method   | Route                                                                     | IAM action                                  | CloudTrail event type |
 | -------- | ------------------------------------------------------------------------- | ------------------------------------------- | --------------------- |
@@ -435,7 +439,7 @@ The following tables list every route on Claude Platform on AWS and the IAM acti
 | `GET`  | `/v1/organizations/analytics/usage` | `ListAccountUsage` | Data                  |
 | `GET`  | `/v1/organizations/analytics/cost`  | `ListAccountCost`  | Data                  |
 
-Routes not in these tables are not available on Claude Platform on AWS. The gateway denies any route not listed here by default.
+Public API routes not in these tables are not available on Claude Platform on AWS. The gateway denies them.
 
 <Note>
   Workspace, external key, telemetry destination, and Usage and Cost Analytics API routes are the only Admin API routes available on Claude Platform on AWS. You can also create, update, or archive workspaces in the AWS Console or, with the Admin role, in the Claude Console. Encryption keys can also be registered and attached in the Claude Console.

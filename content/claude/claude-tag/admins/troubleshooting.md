@@ -689,7 +689,7 @@ Access is applied per place. The working channel gets the connector from its own
 
 **How to resolve**
 
-Apply the connector to the failing channel. Open the connector's page from the **Connectors** tab under **Claude's access**. Under **Assign access**, pick the credential in the **Access** column of the channel's workspace, or select **Add place** to add the channel, then select **Save changes**. See [Add a connector](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection). If a bundle holds the connector, add the channel to that bundle's **Where it applies** list instead. You can also move the work to a channel the connector already covers. Test in a new thread, or ask Claude to use the service by name in the existing one. If the fix worked, asking `@Claude what can you access from this channel?` in a new thread lists the service.
+Apply the connector to the failing channel. Open the connector's page from the **Claude's connectors** tab under **Claude's access**. Under **Assign access**, pick the credential in the **Access** column of the channel's workspace, or select **Add place** to add the channel, then select **Save changes**. See [Add a connector](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection). If a bundle holds the connector, add the channel to that bundle's **Where it applies** list instead. You can also move the work to a channel the connector already covers. Test in a new thread, or ask Claude to use the service by name in the existing one. If the fix worked, asking `@Claude what can you access from this channel?` in a new thread lists the service.
 
 ### GitHub doesn't work in this channel
 

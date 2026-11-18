@@ -88,7 +88,7 @@ Upload a file to reference in future API calls:
 
   ```typescript TypeScript
   const uploaded = await client.files.upload({
-    file: await toFile(fs.createReadStream("/path/to/document.pdf"), undefined, {
+    file: await toFile(createReadStream("/path/to/document.pdf"), undefined, {
       type: "application/pdf"
     })
   });
@@ -142,12 +142,15 @@ Upload a file to reference in future API calls:
   );
 
   String fileId = file.id();
-  System.out.println(fileId);
+  IO.println(fileId);
   ```
 
   ```php PHP
+  $document = fopen('/path/to/document.pdf', 'rb')
+      ?: throw new \RuntimeException('Could not open /path/to/document.pdf.');
+
   $file = $client->files->upload(
-      file: FileParam::fromResource(fopen('/path/to/document.pdf', 'rb'), contentType: 'application/pdf'),
+      file: FileParam::fromResource($document, contentType: 'application/pdf'),
   );
 
   $fileId = $file->id;
@@ -349,7 +352,7 @@ Once uploaded, reference the file by passing the `id` from the upload response a
       .build();
 
   Message message = client.messages().create(params);
-  System.out.println(message);
+  IO.println(message);
   ```
 
   ```php PHP
@@ -370,7 +373,7 @@ Once uploaded, reference the file by passing the `id` from the upload response a
               ],
           ],
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
   );
 
   echo $response;
@@ -462,9 +465,8 @@ The following examples read a text file and send its contents as plain text:
 
 <CodeGroup>
   ```bash cURL
-  # Read the text file
-  # Note: For files with special characters, consider base64 encoding
-  TEXT_CONTENT=$(cat document.txt)
+  # Encode the file's text as a JSON string so that quotes and line breaks are safe
+  TEXT_JSON=$(jq -Rs . document.txt)
 
   curl https://api.anthropic.com/v1/messages \
     -H "content-type: application/json" \
@@ -478,10 +480,9 @@ The following examples read a text file and send its contents as plain text:
       {
         "role": "user",
         "content": [
-          {
-            "type": "text",
-            "text": "Here's the document content:\n\n${TEXT_CONTENT}\n\nPlease summarize this document."
-          }
+          {"type": "text", "text": "Here's the document content:"},
+          {"type": "text", "text": ${TEXT_JSON}},
+          {"type": "text", "text": "Please summarize this document."}
         ]
       }
     ]
@@ -520,7 +521,11 @@ The following examples read a text file and send its contents as plain text:
               "content": [
                   {
                       "type": "text",
-                      "text": f"Here's the document content:\n\n{text_content}\n\nPlease summarize this document.",
+                      "text": f"""Here's the document content:
+
+  {text_content}
+
+  Please summarize this document.""",
                   }
               ],
           }
@@ -549,7 +554,11 @@ The following examples read a text file and send its contents as plain text:
         content: [
           {
             type: "text",
-            text: `Here's the document content:\n\n${textContent}\n\nPlease summarize this document.`
+            text: `Here's the document content:
+
+  ${textContent}
+
+  Please summarize this document.`
           }
         ]
       }
@@ -572,7 +581,13 @@ The following examples read a text file and send its contents as plain text:
       MaxTokens = 1024,
       Messages = [new UserMessageParam
       {
-          Content = $"Here's the document content:\n\n{textContent}\n\nPlease summarize this document."
+          Content = $"""
+              Here's the document content:
+
+              {textContent}
+
+              Please summarize this document.
+              """
       }]
   };
 
@@ -624,20 +639,28 @@ The following examples read a text file and send its contents as plain text:
   MessageCreateParams params = MessageCreateParams.builder()
       .model(Model.CLAUDE_OPUS_5_5)
       .maxTokens(1024L)
-      .addUserMessage("Here's the document content:\n\n" + textContent + "\n\nPlease summarize this document.")
+      .addUserMessage(
+          """
+          Here's the document content:
+
+          %s
+
+          Please summarize this document.""".formatted(textContent)
+      )
       .build();
 
   Message response = client.messages().create(params);
   response.content().stream()
       .flatMap(block -> block.text().stream())
-      .forEach(textBlock -> System.out.println(textBlock.text()));
+      .forEach(textBlock -> IO.println(textBlock.text()));
   ```
 
   ```php PHP
   $client = new Client();
 
   // Read the text file
-  $textContent = file_get_contents('document.txt');
+  $textContent = file_get_contents('document.txt')
+      ?: throw new \RuntimeException('Could not read document.txt.');
 
   $message = $client->messages->create(
       maxTokens: 1024,
@@ -647,16 +670,22 @@ The following examples read a text file and send its contents as plain text:
               'content' => [
                   [
                       'type' => 'text',
-                      'text' => "Here's the document content:\n\n{$textContent}\n\nPlease summarize this document."
+                      'text' => <<<TEXT
+                          Here's the document content:
+
+                          {$textContent}
+
+                          Please summarize this document.
+                          TEXT
                   ]
               ]
           ]
       ],
-      model: 'claude-opus-5-5',
+      model: Model::CLAUDE_OPUS_5_5,
   );
 
   foreach ($message->content as $block) {
-      if ($block->type === 'text') {
+      if ($block instanceof \Anthropic\Messages\TextBlock) {
           echo $block->text, PHP_EOL;
       }
   }
@@ -677,7 +706,13 @@ The following examples read a text file and send its contents as plain text:
         content: [
           {
             type: "text",
-            text: "Here's the document content:\n\n#{text_content}\n\nPlease summarize this document."
+            text: <<~TEXT.chomp
+              Here's the document content:
+
+              #{text_content}
+
+              Please summarize this document.
+            TEXT
           }
         ]
       }
@@ -685,7 +720,7 @@ The following examples read a text file and send its contents as plain text:
   )
 
   message.content.each do |block|
-    puts block.text if block.type == :text
+    puts block.text if block.is_a?(Anthropic::Models::TextBlock)
   end
   ```
 </CodeGroup>
@@ -743,12 +778,12 @@ Retrieve a list of your uploaded files. The endpoint is paginated: each request 
 
   ```java Java
   import com.anthropic.models.files.FileListPage;
-  // ...
+
   void main() {
       AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
       FileListPage files = client.files().list();
-      System.out.println(files);
+      IO.println(files);
   }
   ```
 
@@ -767,7 +802,11 @@ Retrieve a list of your uploaded files. The endpoint is paginated: each request 
   ```
 </CodeGroup>
 
-To check a known set of files in one request instead of paging, pass up to 100 file IDs as `ids[]` query parameters. An `ids[]` request always returns a single page (`next_page` is `null`), and any ID that does not resolve to a file in your workspace is silently omitted from `data`; compare the returned IDs against the requested IDs to detect misses. `ids[]` cannot be combined with `page` or `limit`.
+To check a known set of files in one request instead of paging, pass up to 100 file IDs as `ids[]` query parameters. An `ids[]` request differs from a paged list in three ways:
+
+* You can’t combine `ids[]` with `page` or `limit`.
+* The response is always a single page (`next_page` is `null`).
+* If an ID doesn’t resolve to a file in your workspace, the API leaves that ID out of `data` without returning an error. To find the IDs that the API left out, compare the returned IDs against the requested IDs.
 
 #### Get file metadata
 
@@ -811,7 +850,7 @@ Retrieve information about a specific file:
   ```java Java
   FileMetadata metadata = client.files().retrieveMetadata(fileId);
 
-  System.out.println(metadata);
+  IO.println(metadata);
   ```
 
   ```php PHP
@@ -874,7 +913,7 @@ Delete a file from your workspace:
 
 ### Downloading a file
 
-Download files that were created by [skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide) or the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool). Files you upload cannot be downloaded. The `file_id` of a generated file appears in the [`bash_code_execution_tool_result` content block](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#retrieve-generated-files) of the Messages response that created it:
+Download files that [skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide) or the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) created. Files you upload cannot be downloaded. The `file_id` of a generated file appears in the [`bash_code_execution_tool_result` content block](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#retrieve-generated-files) of the Messages response that created the file. Use that `file_id` in the download request:
 
 <CodeGroup>
   ```bash cURL
@@ -895,10 +934,9 @@ Download files that were created by [skills](https://platform.claude.com/docs/en
   ```
 
   ```typescript TypeScript
-  const content = await client.files.download(uploaded.id);
+  const content = await client.files.download(fileId);
 
-  const bytes = Buffer.from(await content.arrayBuffer());
-  await fsp.writeFile("downloaded_file.txt", bytes);
+  await writeFile("downloaded_file.txt", content.body!);
   ```
 
   ```csharp C#
@@ -945,7 +983,7 @@ Download files that were created by [skills](https://platform.claude.com/docs/en
   ```ruby Ruby
   file_content = client.files.download(file_id)
 
-  File.binwrite("downloaded_file.txt", file_content.read)
+  IO.copy_stream(file_content, "downloaded_file.txt")
   ```
 </CodeGroup>
 
@@ -1011,7 +1049,28 @@ To migrate:
 
 ### SDK beta namespace
 
-Starting with Python SDK 1.2.0, TypeScript SDK 0.122.0, Go SDK 1.68.0, Java SDK 2.59.0, PHP SDK 0.45.0, Ruby SDK 1.67.0, and C# SDK 12.44.0, `client.beta.files` (csharp, go: `client.Beta.Files`; java: `client.beta().files()`; php: `$client->beta->files`) no longer sends `files-api-2025-04-14` and returns the same shapes as `client.files` (csharp, go: `client.Files`; java: `client.files()`; php: `$client->files`), with `Beta`-prefixed type names (in PHP, classes in the `Anthropic\Beta` namespace). It takes beta names through `betas` (csharp, go: `Betas`; java: `.addBeta()`) for Files features that are in beta, such as `scope_id` filtering under a [Managed Agents](https://platform.claude.com/docs/en/managed-agents/files) beta header. Earlier SDK releases are typed to the beta shapes; if you depend on those types, stay on an earlier release until you migrate.
+The SDK offers the Files API in two namespaces. This page uses the stable namespace, and Files features that are in beta use the beta namespace.
+
+Starting with your SDK’s release in the following table, the beta namespace differs from the one in earlier releases in two ways:
+
+* It no longer sends `files-api-2025-04-14`.
+* It returns the same shapes as the stable namespace but under `Beta`-prefixed type names.
+
+The table also gives each SDK’s namespace names and where the beta namespace takes `anthropic-beta` values:
+
+| SDK        | Stable namespace | Beta namespace                                       | Beta namespace changed in | `anthropic-beta` values go in |
+| ---------- | ---------------- | ---------------------------------------------------- | ------------------------- | ----------------------------- |
+| Python     | `client.files`   | `client.beta.files`                                  | 1.2.0                     | `betas`                       |
+| TypeScript | `client.files`   | `client.beta.files`                                  | 0.122.0                   | `betas`                       |
+| C#         | `client.Files`   | `client.Beta.Files`                                  | 12.44.0                   | `Betas`                       |
+| Go         | `client.Files`   | `client.Beta.Files`                                  | 1.68.0                    | `Betas`                       |
+| Java       | `client.files()` | `client.beta().files()`                              | 2.59.0                    | `.addBeta()`                  |
+| PHP        | `$client->files` | `$client->beta->files` (classes in `Anthropic\Beta`) | 0.45.0                    | `betas`                       |
+| Ruby       | `client.files`   | `client.beta.files`                                  | 1.67.0                    | `betas`                       |
+
+For a Files feature that’s in beta, use the beta namespace and pass the feature’s `anthropic-beta` value as the table shows. For example, under a Managed Agents beta header, `scope_id` limits a file list to the files of one session. To use `scope_id`, see [Listing and downloading session files](https://platform.claude.com/docs/en/managed-agents/files#listing-and-downloading-session-files).
+
+In releases before your SDK’s release in the table, the beta namespace’s types match the shapes that `files-api-2025-04-14` returns. If you depend on those types, stay on such a release until you migrate off them.
 
 Requests that carry `anthropic-beta: managed-agents-2026-04-01` without `files-api-2025-04-14` receive the shapes on this page with one compatibility affordance on `GET /v1/files`: `before_id` and `after_id` are still accepted (not combinable with `page` or `ids[]`), and the list response includes `has_more`, `first_id`, and `last_id` alongside `next_page`. Later Managed Agents beta versions receive the plain shape.
 

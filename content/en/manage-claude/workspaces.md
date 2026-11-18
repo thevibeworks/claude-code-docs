@@ -858,7 +858,7 @@ Some resources are managed differently:
 
   * Tunnels are created in a workspace. The Console **MCP tunnels** list and the MCP server picker for Claude Managed Agents show tunnels in the current workspace only.
   * The cap of 10 active tunnels applies organization-wide.
-  * Managing tunnels requires the Manage tunnels permission, which organization admins and owners have by default. Organization developers can view tunnels but not change them.
+  * In the Claude Console, managing tunnels requires the admin organization role. Organization developers can view tunnels there but not change them.
 
 * **Workspaces** themselves and **organization members** are managed at the organization level through the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), using an Admin API key, an `org:admin` OAuth token, or a personal or service account key that isn’t scoped to a specific workspace.
 

@@ -299,7 +299,9 @@ described in [Value Encoding](#value-encoding).
 
 ```http theme={null}
 POST /mcp HTTP/1.1
+Host: example.com
 Content-Type: application/json
+Accept: application/json, text/event-stream
 MCP-Protocol-Version: 2026-07-28
 Mcp-Method: tools/call
 Mcp-Name: get_weather
@@ -329,7 +331,9 @@ Mcp-Name: get_weather
 
 ```http theme={null}
 POST /mcp HTTP/1.1
+Host: example.com
 Content-Type: application/json
+Accept: application/json, text/event-stream
 MCP-Protocol-Version: 2026-07-28
 Mcp-Method: resources/read
 Mcp-Name: file:///projects/myapp/config.json
@@ -435,7 +439,9 @@ annotations entirely.
 
 ```http theme={null}
 POST /mcp HTTP/1.1
+Host: example.com
 Content-Type: application/json
+Accept: application/json, text/event-stream
 MCP-Protocol-Version: 2026-07-28
 Mcp-Method: tools/call
 Mcp-Name: execute_sql

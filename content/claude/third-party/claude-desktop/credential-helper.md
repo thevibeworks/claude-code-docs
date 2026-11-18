@@ -70,6 +70,10 @@ The legacy variable `CLAUDE_HELPER_MANUAL_RUN=1` is also set when `CLAUDE_HELPER
 
 The helper runs with a `PATH` that includes the user's login-shell `PATH` and standard install locations in addition to the app's launch environment, so a script can invoke tools such as `aws` or `gcloud` by name even when the app was launched from the Dock or Finder rather than a terminal.
 
+> [!NOTE]
+>
+> Use the full path of each file that the helper reads or writes. A relative path resolves against the helper's working directory, which can be a system folder that users can't write to, such as `/` on macOS and Linux or `System32` on Windows.
+
 ## Timeouts and caching
 
 The helper's output is cached for `inferenceCredentialHelperTtlSec` seconds (default 3600). Claude Desktop checks the cached credential's expiry before each turn and, when it has expired or is about to, re-runs the helper transparently before sending the turn, with no sign-in prompt and no app relaunch. With a TTL of 120 seconds or less, Claude Desktop skips the per-turn check; the helper then re-runs at the next session start, or mid-session when the provider rejects the credential (see [Turn off mid-session re-runs](#turn-off-mid-session-re-runs)).

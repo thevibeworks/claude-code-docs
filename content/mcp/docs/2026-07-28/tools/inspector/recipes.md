@@ -259,7 +259,7 @@ The Inspector refuses to bind the **wildcard** all-interfaces addresses (`0.0.0.
 >
 > Each entry must include the scheme; a scheme-less value is dropped with a warning. A blank value does **not** disable the check; it falls back to the default. There is no knob to turn origin validation off.
 
-Two further caveats when going off loopback:
+Three further caveats when going off loopback:
 
 * **MCP Apps need their sandbox port reachable too.** It's a separate listener (`6275` by default, set with `MCP_SANDBOX_PORT`), so expose or forward it alongside the web port.
 * **Behind TLS or a reverse proxy, give MCP Apps their public addresses.** By default the sandbox is advertised as `http://<bind host>:6275`, which an `https://` page blocks as mixed content. Set `MCP_SANDBOX_FULL_ADDRESS` (for example `https://inspector-sandbox.example.com/sandbox`) and, for apps that declare `_meta.ui.domain`, `MCP_APP_ORIGIN_FULL_ADDRESS` (for example `https://inspector-apps.example.com`). Each needs its own hostname or port; an address that shares the Inspector's origin is refused.

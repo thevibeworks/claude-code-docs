@@ -16,7 +16,7 @@ prompts, retrieve their contents, and provide arguments to customize them.
 > `io.modelcontextprotocol/clientInfo`, and
 > `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
 > the required `_meta` fields; see
-> [`_meta`](https://modelcontextprotocol.io/specification/2026-07-28/basic/index#meta).
+> [`_meta`](https://modelcontextprotocol.io/specification/2026-07-28/basic/index#_meta).
 
 ## User Interaction Model
 

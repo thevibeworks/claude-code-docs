@@ -364,7 +364,7 @@ The response `usage` object includes a `speed` field that indicates which speed 
   "id": "msg_01XFDUDYJgAACzvnptvVoYEL",
   "type": "message",
   "role": "assistant",
-// ...
+  // ...
   "usage": {
     "input_tokens": 8,
     "output_tokens": 12,

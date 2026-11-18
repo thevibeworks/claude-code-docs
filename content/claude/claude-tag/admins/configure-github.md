@@ -26,7 +26,7 @@ You link GitHub once for your Claude organization, then choose which repositorie
 
 **1. Open the Git providers page**
 
-Go to **Organization settings > Git providers** at [`claude.ai/admin-settings/source-control`](https://claude.ai/admin-settings/source-control). This page is shared with Claude Code; one connection serves both products. Until the Claude GitHub App is installed, you can also reach this page from Claude Tag admin settings. On the **Connectors** tab under **Claude's access**, click **Add** and select **GitHub**.
+Go to **Organization settings > Git providers** at [`claude.ai/admin-settings/source-control`](https://claude.ai/admin-settings/source-control). This page is shared with Claude Code; one connection serves both products. Until the Claude GitHub App is installed, you can also reach this page from Claude Tag admin settings. On the **Claude's connectors** tab under **Claude's access**, click **Add** and select **GitHub**.
 
 **2. Connect GitHub**
 
@@ -53,7 +53,7 @@ The GitHub page, a bundle's page, and a workspace's or channel's own page each o
 
 **1. Open the GitHub page**
 
-Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and open **GitHub**.
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Claude's connectors** tab and open **GitHub**.
 
 **2. Find the place**
 
@@ -88,7 +88,7 @@ Under **Where it applies**, turn on the switch in the **Slack** row to apply the
 ## Verify GitHub access
 
 * The GitHub organization shows as **Connected** in the **GitHub** section at [`claude.ai/admin-settings/source-control`](https://claude.ai/admin-settings/source-control).
-* On the **Connectors** tab under **Claude's access**, select **GitHub**. Its page shows how many GitHub accounts the Claude GitHub App is installed on. Its **Access from** table lists each repository picked for a place and each repository a bundle holds. The **Set by** column reads **Here** for a repository picked for a place, or names the bundle that holds it, and **Used at** names where each one applies.
+* On the **Claude's connectors** tab under **Claude's access**, select **GitHub**. Its page shows how many GitHub accounts the Claude GitHub App is installed on. Its **Access from** table lists each repository picked for a place and each repository a bundle holds. The **Set by** column reads **Here** for a repository picked for a place, or names the bundle that holds it, and **Used at** names where each one applies.
 * For the end-to-end check, open a draft PR from a test channel; see [Verify the bundle is live](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#verify-the-bundle-is-live).
 
 ### If Claude can't reach a repository

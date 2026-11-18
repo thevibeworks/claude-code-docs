@@ -1381,37 +1381,36 @@ Claude is calling a tool that you need to run.
   ```
 
   ```java Java
-  void main() {
-      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
-      Tool weatherTool = Tool.builder()
-          .name("get_weather")
-          .description("Get the current weather in a given location")
-          .inputSchema(Tool.InputSchema.builder()
-              .properties(JsonValue.from(Map.of(
-                  "location", Map.of("type", "string", "description", "City and state")
-              )))
-              .putAdditionalProperty("required", JsonValue.from(List.of("location")))
-              .build())
-          .build();
+  Tool weatherTool = Tool.builder()
+      .name("get_weather")
+      .description("Get the current weather in a given location")
+      .inputSchema(Tool.InputSchema.builder()
+          .properties(JsonValue.from(Map.of(
+              "location", Map.of("type", "string", "description", "City and state")
+          )))
+          .putAdditionalProperty("required", JsonValue.from(List.of("location")))
+          .build())
+      .build();
 
-      Message response = client.messages().create(
-          MessageCreateParams.builder()
-              .model(Model.CLAUDE_OPUS_5_5)
-              .maxTokens(1024L)
-              .addTool(weatherTool)
-              .addUserMessage("What is the weather in San Francisco?")
-              .build()
-      );
+  Message response = client.messages().create(
+      MessageCreateParams.builder()
+          .model(Model.CLAUDE_OPUS_5_5)
+          .maxTokens(1024L)
+          .addTool(weatherTool)
+          .addUserMessage("What is the weather in San Francisco?")
+          .build()
+  );
 
-      if (response.stopReason().map(StopReason.TOOL_USE::equals).orElse(false)) {
-          // Extract and run the tool
-          for (ContentBlock block : response.content()) {
-              block.toolUse().ifPresent(toolUse -> {
-                  // Run toolUse.name() with toolUse.input() and return the result to Claude
-              });
-          }
+  if (response.stopReason().map(StopReason.TOOL_USE::equals).orElse(false)) {
+      // Extract and run the tool
+      for (ContentBlock block : response.content()) {
+          block.toolUse().ifPresent(toolUse -> {
+              // Run toolUse.name() with toolUse.input() and return the result to Claude
+          });
       }
+  }
   ```
 
   ```php PHP
@@ -1478,11 +1477,17 @@ Claude is calling a tool that you need to run.
   ```
 </CodeGroup>
 
-A `tool_use` response can also contain a `server_tool_use` block whose `id` has no matching result block. That server tool call is not complete, and this response does not carry its result. In the common case, Claude calls a [server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) and one of your client tools in the same group of parallel tool calls: the API returns without running the server tool so that you can run the client tools first. There is no other marker for the state; detect it by checking each `server_tool_use` or `mcp_tool_use` block’s `id` for a matching result block.
+#### When a server tool is still waiting
+
+Claude can call a [server tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) and a client tool (a tool that your code runs) in the same group of [parallel tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use). The API then returns a `tool_use` response without running the server tool so that you can run the client tools first.
+
+The waiting call is a `server_tool_use` or `mcp_tool_use` block with no result block. Nothing else in the response marks it. After a server tool runs, its result block, such as `web_search_tool_result`, holds the call’s `id` in its `tool_use_id` field.
 
 <Note>
   With [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling), the same response shape means something different. The client `tool_use` block comes from code that is running in the `code_execution` tool rather than from Claude directly, and its `caller` field names the `code_execution` block that called it. That code has already started: it is paused waiting for your `tool_result` blocks, and sending them resumes the execution instead of starting a deferred tool. The `code_execution` block’s own result block arrives once the code completes, which can take more than one round of tool results. The follow-up user message itself is the same in both cases; with programmatic tool calling, also pass back the `id` from the response’s `container` field, as that page shows.
 </Note>
+
+This mixed response has a waiting server tool and a client tool call:
 
 ```json A mixed tool_use response
 {
@@ -1504,7 +1509,13 @@ A `tool_use` response can also contain a `server_tool_use` block whose `id` has 
 }
 ```
 
-The continuation is a user message of `tool_result` blocks, one for every `tool_use` block in the response (see [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls)), with two extra rules: that message must contain nothing except the `tool_result` blocks, and the request must keep the same `tools` array. A resume request that no longer defines the waiting server tool fails with a 400 whose message ends ``but no `web_search` tool was provided``. The API attaches your results to the still-open assistant turn, runs the deferred server tool (for paused code execution, resumes it), and continues the turn. For a server tool Claude called directly, the next response’s `content` starts with the result block that answers the previous response’s `server_tool_use` `id`.
+To continue from a mixed response like this one, build a follow-up request:
+
+1. Keep the earlier messages and add the response’s `content` unchanged as an `assistant` message.
+2. Add a user message that holds only `tool_result` blocks, one for each client `tool_use` block. A waiting call gets none.
+3. Send the request with the same `tools` array as before so that the waiting server tool is still defined.
+
+For the fields of a `tool_result` block, see [Handle tool calls](https://platform.claude.com/docs/en/agents-and-tools/tool-use/handle-tool-calls). The user message in the follow-up request looks like this:
 
 ```json The follow-up user message
 {
@@ -1519,19 +1530,39 @@ The continuation is a user message of `tool_result` blocks, one for every `tool_
 }
 ```
 
-Adding anything after the `tool_result` blocks in that user message, such as text, ends the assistant turn; for a server tool Claude called directly, the request then fails with a 400 `invalid_request_error` that names the unresolved server tool:
+The API adds your results to Claude’s unfinished turn, runs the waiting server tool, and continues. For a server tool that Claude called directly, the next response’s `content` starts with that tool’s result block.
 
-```text wrap
-`web_search` tool use with id `srvtoolu_01HxbWnMRmbWyMfUtJKC45rA` was found without a corresponding `web_search_tool_result` block
-```
+A loop that follows the preceding steps for every `tool_use` response doesn’t need to detect a waiting server tool. On later requests, keep three separate messages in `messages`, in this order: the first response, your `tool_result` message, and the next response.
 
-Leaving out a `tool_result`, or putting one after other content, fails earlier with the standard `tool_use ids were found without tool_result blocks immediately after` error instead. To give Claude more input, send it as a separate user message after the turn completes.
+Two cases need one more field in the follow-up request:
+
+* **The response includes a `container`:** Send its ID back (see the code execution tool’s [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse) section).
+* **The waiting block is an [`mcp_tool_use` block](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#mcp-tool-use-block):** Send the same `mcp_servers` as before.
+
+Each of these mistakes in the follow-up request fails with a 400 `invalid_request_error`. The messages shown are for web search. For other server tools, the names in them differ.
+
+| Mistake                                                                                    | The error message includes                                                     |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `tools` no longer defines the waiting server tool                                          | ``but no `web_search` tool was provided``                                      |
+| Text or other content comes after the `tool_result` blocks                                 | ``was found without a corresponding `web_search_tool_result` block``           |
+| With programmatic tool calling, text or other content comes after the `tool_result` blocks | `only tool_result blocks are allowed`                                          |
+| Text or other content comes before the `tool_result` blocks                                | `` `tool_use` ids were found without `tool_result` blocks immediately after `` |
+| A `tool_result` block is missing                                                           | `` `tool_use` ids were found without `tool_result` blocks immediately after `` |
+
+Content after the `tool_result` blocks fails because it ends Claude’s turn while the server tool is still waiting. To give Claude more input, continue until a response’s `stop_reason` is neither `tool_use` nor `pause_turn`. Then, send the input as a new user message in the same `messages` list.
 
 ### pause\_turn
 
 Returned when the server-side sampling loop reaches its iteration limit while running [server tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/server-tools) such as web search. The default limit is 10 iterations for each request.
 
-When this occurs, the response might contain a `server_tool_use` block without a corresponding result block. To let Claude finish processing, continue the conversation by sending the response back as-is. A response that leaves a client `tool_use` block waiting on you never has a `stop_reason` of `pause_turn`: when Claude stops to call your tools, `stop_reason` is [`tool_use`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#tool-use), and you continue it by sending the client `tool_result` blocks instead of the response itself.
+When Claude stops to call a tool that you run, the stop reason is [`tool_use`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#tool-use), never `pause_turn`.
+
+To let Claude complete a paused turn, build a new request:
+
+1. Keep the earlier messages and add the response’s `content` unchanged as an `assistant` message, including any `server_tool_use` block that has no result block.
+2. Send the request with the same `tools` as before and no user message after the `assistant` message.
+
+If the response includes a `container`, also send its ID back so that the turn keeps its files. For details, see the code execution tool’s [Container reuse](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#container-reuse) section. The following examples use web search and send no container ID:
 
 <CodeGroup>
   ```bash cURL
@@ -1745,9 +1776,7 @@ When this occurs, the response might contain a `server_tool_use` block without a
   ```
 </CodeGroup>
 
-<Note>
-  Your application should handle `pause_turn` in any agent loop that uses server tools. Add the assistant’s response to your messages array and make another API request to let Claude continue.
-</Note>
+Your application should handle `pause_turn` in any agent loop that uses server tools. For a loop that handles repeated pauses and sends the container ID back, see [Implement retry logic for pause\_turn](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#implement-retry-logic-for-pause-turn).
 
 ### refusal
 

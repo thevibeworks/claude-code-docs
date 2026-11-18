@@ -24,7 +24,7 @@ Tokens are scoped to your workspace, expire after 1 hour, and authorize only [Me
   App Attest requires a physical device. The Simulator, and hardware without a Secure Enclave, cannot perform App Attest. While developing in the Simulator, authenticate with an [API key](https://platform.claude.com/docs/en/manage-claude/authentication#api-keys) instead.
 </Note>
 
-To set up App Attest, you need your Apple Developer Team ID and the admin, owner, or primary owner role in your Claude Console organization. Configure your Xcode project and register your app in the [Claude Console](https://platform.claude.com/):
+To set up App Attest, you need your Apple Developer Team ID and the admin role in your Claude Console organization. Configure your Xcode project and register your app in the [Claude Console](https://platform.claude.com/):
 
 1. In Xcode, add the **App Attest** capability to your app target under **Signing & Capabilities**.
 2. In the Claude Console, go to the [App integrations](https://platform.claude.com/settings/app-integrations) page (`platform.claude.com/settings/app-integrations`) and click **Create app integration**.

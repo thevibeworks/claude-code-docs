@@ -1595,7 +1595,7 @@ The tool type is `type: "text_editor_20250728"` for Claude 4 and later models.
       func handleEditorTool(input map[string]any) string {
       	command, _ := input["command"].(string)
       	filePath, _ := input["path"].(string)
-      // ...
+      	// ...
 
       	switch command {
       	case "view":
@@ -1739,7 +1739,7 @@ The tool type is `type: "text_editor_20250728"` for Claude 4 and later models.
       		result := handleEditorTool(input)
 
       		toolResult := anthropic.NewToolResultBlock(block.ID, result, false)
-      // ...
+      		// ...
       	}
       }
       ```

@@ -141,8 +141,9 @@ What the credential is depends on how users sign in:
   manifest's Entra scope names. The add-in renews both automatically.
 * A gateway token or API key that you configure yourself is held until you
   change it. A gateway token from a bootstrap endpoint is fetched again each
-  time the add-in loads, shortly before any expiry that the endpoint declares,
-  and after the gateway rejects a request as unauthorized.
+  time the add-in loads, shortly before any expiry that the endpoint declares
+  and then at growing intervals while that fetch fails, and after the gateway
+  rejects a request as unauthorized.
 
 Where Office provides storage for the add-in, the add-in also writes a second
 copy of the sign-in there, and reads it back when the browser copy is missing.

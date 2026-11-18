@@ -14,7 +14,7 @@ This page covers the Console side of an MCP tunnels deployment: creating a tunne
 
 * **One or more MCP servers** running in your private network. The tunnel routes traffic to them; it does not host them. See [Remote MCP servers](https://platform.claude.com/docs/en/agents-and-tools/remote-mcp-servers) for examples you can deploy.
 
-* **A Console role with the Manage tunnels permission**, so you can create and archive tunnels, rotate the token, and manage certificates. Organization admins and owners have it by default; custom roles and per-account grants can also include it. Roles without it have read-only access to the **MCP tunnels** page and tunnel details.
+* **The admin role in your organization**, so you can create and archive tunnels, rotate the token, and manage certificates. With the developer role, you can view the **MCP tunnels** page and tunnel details, but not change them.
 
 * **A way for your stack to authenticate to the Tunnels API.** Choose one:
 
