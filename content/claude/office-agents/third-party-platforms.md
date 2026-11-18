@@ -828,7 +828,9 @@ keeps the token current without user action. It calls the bootstrap
 endpoint again about five minutes before the expiry declared in the
 bootstrap response and applies the returned token to the running session.
 If that call fails, the add-in tries again after about a minute, then at
-growing intervals of up to about ten minutes, until a call succeeds.
+growing intervals of up to 90 minutes, until a call succeeds.
+Meanwhile, it also calls the endpoint before each message that a user
+sends, at most once every 30 seconds.
 If the gateway rejects a request as unauthorized before that expiry, the
 add-in calls the bootstrap endpoint once and retries the request if the
 token changed.

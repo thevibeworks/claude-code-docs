@@ -220,6 +220,11 @@ Export the certificates from the signatures on the Claude Desktop installer and 
 
 For AppLocker, allowlist by publisher rather than path. Publisher rules match the publisher name, and the listed certificates share the name `Anthropic, PBC`.
 
+[SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#prepare-windows-devices-for-the-openssh-client) use three more helper programs, `claude-ssh-askpass.exe`, `claude-ssh-broker.exe`, and `claude-ssh-proxy.exe`, in the installed app's `resources` folder. If your endpoint security software blocks one of them after a Claude Desktop update, have it trust the publisher `Anthropic, PBC`. If it matches certificates instead, export the certificate from the programs' signatures and check its SHA-1 thumbprint against the listed certificates. A rule that matches a path or a file hash stops matching at an update:
+
+* **Path**: the folder's path changes with each update
+* **File hash**: each release, including a hotfix, signs the programs again, so a file's SHA-256 hash changes even when the program itself doesn't
+
 ## Offline installation
 
 Standard installs fetch two large runtime components from `downloads.claude.ai`: the VM workspace bundle that Cowork uses, and the Claude CLI binary. For networks that cannot reach `downloads.claude.ai`, Anthropic publishes an offline installer variant with both components built into the installer package and verified against checksums compiled into the application, so sessions can start without any connection to Anthropic. The offline installers are several gigabytes larger than the standard ones.

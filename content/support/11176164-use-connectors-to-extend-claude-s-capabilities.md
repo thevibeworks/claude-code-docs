@@ -118,15 +118,17 @@ Common use cases:
 
 To configure action restrictions:
 
-1. Navigate to **[Customize > Connectors](https://claude.ai/customize/connectors).**
+1. Navigate to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors).**
 
-2. Select the connector to see **Tool permissions**.
+2. Select the connector, then open its **Tools** tab. If you don't see any tools to set, connect the service to your own account first.
 
 3. The permissions will be categorized by type (for example, read-only tools, write/delete tools).
 
 4. For each permission category or individual permission, select Always allow, Needs approval, or Blocked.
 
 **Note:** Action restrictions work alongside source-system permissions. Even when you allow a write action in Claude, a person still needs the underlying permission in the source system to make that change. Restricting actions in Claude never grants more access than the source system permits—it only narrows it.
+
+**Note:** On Enterprise plans, a member's custom role can also limit connector permissions. Claude applies the stricter of the role's permission and the setting you choose here, so Always allow doesn't raise members above a role set to Needs approval. Role limits apply only to members whose role is set to “Custom,” so an Owner or Admin testing with their own account may not see what those members see. Learn more about **[connector permissions in custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)**.
 
 ---
 

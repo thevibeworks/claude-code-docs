@@ -176,7 +176,7 @@ When your Identity Provider’s X.509 signing certificate (SAML) or client secre
 
 You can toggle **Require SSO for Claude** or **Require SSO for Console** off at any time. This will make SSO optional for all users.
 
-To fully disconnect SSO, click “Manage SSO” then “Reset connection.” This will end all users’ sessions and require them to sign back in via email login link.
+To fully disconnect SSO, first turn off **Require SSO for Claude** and **Require SSO for Console** if they’re on. Otherwise, people can be blocked from signing in until the change takes effect. Then click “Manage SSO,” select “Delete connection” under **Danger zone**, and type DELETE CONNECTION to confirm. This can’t be undone. It signs out everyone with an email address on your verified domains, and they sign back in with an email login link.
 
 ## Locked out of admin access?
 

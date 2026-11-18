@@ -45,7 +45,7 @@ Mid-conversation system messages close that gap. You append a `{"role": "system"
 
   [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes) are in beta on the same models. Two beta headers enable these changes. Where both work on your platform, send `inline-tools-2026-09-15`:
 
-  * `inline-tools-2026-09-15` works on the Claude API, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), and Microsoft Foundry. It also covers [defining a tool inside a `tool_addition` block](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta). [Adding an MCP server that way](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#add-an-mcp-server-mid-conversation-beta) also needs the `mcp-client-2026-09-15` beta header, which is available on the Claude API.
+  * `inline-tools-2026-09-15` works on the Claude API, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), and Microsoft Foundry. It also covers [defining a tool inside a `tool_addition` block](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#define-tools-in-a-message-beta). [Adding an MCP server that way](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#add-an-mcp-server-mid-conversation-beta) also needs the `mcp-client-2026-09-15` beta header. To check whether your platform accepts that header, see [Availability of the MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#feature-availability).
   * `mid-conversation-tool-changes-2026-07-01` works on Claude Models on Google Cloud (Google managed) and Amazon Bedrock, and on the four platforms listed for `inline-tools-2026-09-15`. It doesn’t cover defining a tool inside a `tool_addition` block.
 
   [Turn-scoped system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (`clear_at`) are in beta and require the `mid-conversation-system-clear-at-2026-08-21` beta header, on the [same models and platforms](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#feature-availability) as mid-conversation system messages.
@@ -1642,7 +1642,9 @@ The following request keeps `get_weather` in `tools`, lists the calendar server 
 
 With `mcp-client-2026-09-15`, a response for which the API fetched a server’s tool list starts with an `mcp_tool_listing` block, one for each server it fetched. If your code reads `content[0]`, skip these blocks. Send the assistant message back unchanged, this block included, and keep sending `mcp-client-2026-09-15` on every request that carries it. Later requests then use the recorded list instead of asking the server again. To pin a toolset yourself, copy that list into the `mcp_toolset`’s `tools` field, as described in [Pin an MCP server’s tool list](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#pin-mcp-tool-list).
 
-`mcp-client-2026-09-15` includes everything `mcp-client-2025-11-20` does, so you don’t need to send both. These features are available on the Claude API. Requests that use the MCP connector keep its [data retention](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#data-retention) terms.
+`mcp-client-2026-09-15` also turns on the MCP connector itself, so it’s the only MCP beta header you send. To check whether your platform accepts it, see [Availability of the MCP connector](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#feature-availability).
+
+Requests that use the MCP connector keep its [data retention](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector#data-retention) terms.
 
 ## When to use a mid-conversation system message
 

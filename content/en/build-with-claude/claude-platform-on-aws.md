@@ -884,19 +884,19 @@ To request higher limits or a higher tier, use the form in the Claude Console:
      ![Header of the Rate limits page in the Claude Console, with a Custom tier badge and the Request higher limits button.](https://platform.claude.com/docs/images/rate-limits/request-higher-limits-button.png)
    </Frame>
 
-3. In **What do you need, and why?**, include the following:
+3. Fill in every field. Rough estimates are fine for the numbers:
 
-   * The models you need raised
-   * Peak input tokens per minute and output tokens per minute for each model (not daily totals)
-   * The approximate share of your input that is cached or repeated context (cache reads don’t count toward input-token limits; see [Cache-aware ITPM](https://platform.claude.com/docs/en/api/rate-limits#cache-aware-itpm))
+   * In **Which models?**, choose the models that need higher limits.
+   * Under **Peak tokens per minute**, enter your peak **Input** and **Output** tokens (not daily totals). In **Input**, leave out tokens read from the cache. For most models, they don’t count toward input-token limits (see [Cache-aware ITPM](https://platform.claude.com/docs/en/api/rate-limits#cache-aware-itpm)). The numbers apply to each model you chose. If a model needs different numbers, add them in the next field.
+   * In **What are you building, and why do you need higher limits?**, describe your use case and the reason you need higher limits. If you need a higher tier or spend cap, say so here.
+   * In **Expected monthly spend**, enter a whole number of US dollars.
+   * In **Contact email**, enter one email address for the reply.
 
-   If you need a higher spend cap, say so and fill in **Expected monthly spend**.
-
-   <Frame caption="The form, with an example request that names the model, the peak tokens per minute, and the cached share of the input.">
-     ![Request higher limits form with fields for what you need and why, expected monthly spend (optional), and contact email.](https://platform.claude.com/docs/images/rate-limits/request-higher-limits-form.png)
+   <Frame caption="The form, with an example request.">
+     ![Request higher limits form with fields for models, peak tokens per minute, reason, monthly spend, and contact email.](https://platform.claude.com/docs/images/rate-limits/request-higher-limits-form.png)
    </Frame>
 
-4. Enter a contact email address and click **Send request**.
+4. Click **Send request**.
 
 Anthropic support reviews your request and replies to the contact email address. Your organization can send one request every 24 hours.
 

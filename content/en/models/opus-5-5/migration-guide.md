@@ -302,10 +302,17 @@ Work down the groups and stop after the one that names your current model: every
 ### Claude Opus 4.7 or earlier
 
 * Run a fresh [effort](https://platform.claude.com/docs/en/build-with-claude/effort) sweep on your own evals rather than carrying over a setting tuned for an earlier model.
+
 * Remove any context-window beta header.
+
 * If you rebuild conversation history to update instructions, switch to a mid-conversation system message. After a rebuild, a request can get a 400 error, and prompt cache hits are lost.
+
 * Verify your stop-reason handling reads `stop_details` on refusals.
-* If you want fast mode, which Claude Opus 4.7 rejects, set `speed: "fast"` on your Claude API requests.
+
+* If you want fast mode, which Claude Opus 4.7 rejects, check that [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) lists your platform. Then, turn it on:
+
+  * **Microsoft Foundry:** Send requests to a deployment of the fast mode model.
+  * **Other platforms:** Set `speed: "fast"`.
 
 ### Claude Opus 4.6 or earlier
 
@@ -1210,7 +1217,9 @@ These items add no breaking changes beyond those in the earlier sections. Check 
 
 4. **Refusal stop details:** When the model declines a request, Claude Opus 5.5 returns a `stop_details` object that names the category of refusal, alongside the `refusal` stop reason. You can’t turn it off. Claude Opus 4.7 returns the same object, so there’s nothing to change if your stop-reason handling already reads it. If it doesn’t, see [Stop reasons and fallback](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons). Claude Opus 5.5 declines in more categories; see [Safety classifiers and fallback](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#safety-classifiers-and-fallback).
 
-5. **Fast mode:** Claude Opus 5.5 supports [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) on the Claude API and on [some cloud platforms](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability). Fast mode is not available on Claude Opus 4.7, where requests with `speed: "fast"` return an error. To use it on the Claude API, set `speed: "fast"` on your requests.
+5. **Fast mode:** Claude Opus 5.5 supports [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) on the Claude API and on [some cloud platforms](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability). Fast mode is not available on Claude Opus 4.7, where requests with `speed: "fast"` return an error.
+
+   To use fast mode, set `speed: "fast"` on your requests. On Microsoft Foundry, send requests to a deployment of the fast mode model instead.
 
 6. **Computer use toolset and browser use tool:** Claude Opus 5.5 supports [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) as the `computer_toolset_20260801` toolset and the [browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) for tasks inside webpages. Claude Opus 4.7 supports neither. To move a `computer_20251124` integration to the toolset, see the [computer use breaking change](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#computer-use-toolset).
 

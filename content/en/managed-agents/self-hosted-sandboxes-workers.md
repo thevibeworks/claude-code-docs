@@ -491,7 +491,7 @@ This handler runs every claimed item in one process, and it runs items from sepa
 
 ## Availability
 
-Self-hosted workers are in beta on every model.
+Prebuilt self-hosted workers are in beta on every model.
 
 ### API support
 

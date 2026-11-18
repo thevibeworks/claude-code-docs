@@ -30,12 +30,12 @@ This guide walks you through the process of migrating your Claude or Console org
 
 3. **Delete the SCIM directory** (if applicable): Click "Manage SCIM" > "Delete Directory." When in invite only mode, deleting the directory will not trigger directory sync events, including user deprovisioning.
 
-4. **Reset the SSO connection**: Click "Manage SSO" > "Reset Connection."
+4. **Delete the SSO connection**: Turn off **Require SSO for Claude** and **Require SSO for Console** if they're on. Otherwise, people can be blocked from signing in until the change takes effect. Then click "Manage SSO," select "Delete connection" under **Danger zone**, and type DELETE CONNECTION to confirm.
 
-  1. **Important:** This will sign out all users. They will be able to **[sign in via email link](https://support.claude.com/en/articles/13189465-logging-in-to-your-claude-account#h_869b162f56)** until the new IdP is configured for SSO.
+  1. **Important:** This can't be undone. It will sign out everyone with an email address on your verified domains. They will be able to **[sign in via email link](https://support.claude.com/en/articles/13189465-logging-in-to-your-claude-account#h_869b162f56)** until the new IdP is configured for SSO.
 
-5. **Verify the reset**: Refresh the "Identity and access" page and confirm that the button state has changed from "Manage SSO" to "Setup SSO."
+5. **Verify the deletion**: Refresh the "Identity and access" page and confirm that the button state has changed from "Manage SSO" to "Setup SSO."
 
-6. **Set up your new IdP for SSO and provisioning**: Follow the **[SSO setup steps](https://support.claude.com/en/articles/13132885-setting-up-single-sign-on-sso)** and **[configure JIT or SCIM](https://support.claude.com/en/articles/13133195-setting-up-jit-or-scim-provisioning)** with group mappings enabled (if needed) to ensure all users are assigned in the new IdP with the correct groups for all your connected Claude and/or Console organizations. If applicable, after setup you can click "Manage SCIM" to verify which users have synced to the directory and confirm they're associated with the correct groups.
+6. **Set up your new IdP for SSO and provisioning**: Follow the **[SSO setup steps](https://support.claude.com/en/articles/13132885-setting-up-single-sign-on-sso)** and **[configure JIT or SCIM](https://support.claude.com/en/articles/13133195-setting-up-jit-or-scim-provisioning)** with group mappings enabled (if needed) to ensure all users are assigned in the new IdP with the correct groups for all your connected Claude and/or Console organizations. If applicable, after setup you can click "Manage SCIM" to verify which users have synced to the directory and confirm they're associated with the correct groups. If you required SSO before the switch, turn it back on after you test the new connection. It stays off until you do.
 
 7. **Re-enable provisioning** (if applicable): Select "Approve automatically (JIT)" or "Sync with SCIM" to switch the provisioning mode and click "Save Changes" to apply.

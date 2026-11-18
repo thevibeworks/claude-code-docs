@@ -246,6 +246,8 @@ Everything else is the same as on the Claude API, including the following:
 * Streaming
 * The response
 
+One exception is request size: Messages and Token Counting requests have a lower limit. For that limit, see the API overview’s [Request size limits](https://platform.claude.com/docs/en/api/overview#request-size-limits) section.
+
 Code samples elsewhere in this documentation create the Claude API client and read an API key. To run one with Claude Models on Google Cloud (Anthropic managed), replace its import and client constructor with the ones in the following examples. For a cURL sample, apply the three differences listed earlier.
 
 Before running these examples, complete the steps in [Before making API calls](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#before-making-api-calls).
@@ -404,7 +406,28 @@ To call the API over raw HTTP, send an access token from Application Default Cre
 
 ### API model IDs
 
-Claude Models on Google Cloud (Anthropic managed) uses the same model IDs as the Claude API, for example `claude-opus-5-5`. For the models and their IDs, see [Models overview](https://platform.claude.com/docs/en/models/overview).
+Claude Models on Google Cloud (Anthropic managed) uses the same model IDs as the Claude API. Available models include the following:
+
+| Model                                                                                                 | Model ID                     |
+| :---------------------------------------------------------------------------------------------------- | :--------------------------- |
+| Claude Fable 5.2                                                                                      | `claude-fable-5-2`           |
+| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842))           | `claude-mythos-5-2`          |
+| Claude Fable 5.1                                                                                      | `claude-fable-5-1`           |
+| Claude Fable 5                                                                                        | `claude-fable-5`             |
+| Claude Opus 5.5                                                                                       | `claude-opus-5-5`            |
+| Claude Opus 5                                                                                         | `claude-opus-5`              |
+| Claude Opus 4.8                                                                                       | `claude-opus-4-8`            |
+| Claude Opus 4.7                                                                                       | `claude-opus-4-7`            |
+| Claude Opus 4.6                                                                                       | `claude-opus-4-6`            |
+| Claude Opus 4.5                                                                                       | `claude-opus-4-5-20251101`   |
+| Claude Sonnet 5.5                                                                                     | `claude-sonnet-5-5`          |
+| Claude Sonnet 5                                                                                       | `claude-sonnet-5`            |
+| Claude Sonnet 4.6                                                                                     | `claude-sonnet-4-6`          |
+| Claude Sonnet 4.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | `claude-sonnet-4-5-20250929` |
+| Claude Haiku 5.5                                                                                      | `claude-haiku-5-5`           |
+| Claude Haiku 4.5                                                                                      | `claude-haiku-4-5-20251001`  |
+
+Claude Models on Google Cloud (Anthropic managed) follows the Claude API’s lifecycle schedule. For the dates, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations). To compare models, see [Models overview](https://platform.claude.com/docs/en/models/overview).
 
 In Claude Models on Google Cloud (Anthropic managed), a request for a model that isn’t available to your Anthropic organization returns an error. The error message reads `Model {model} is not available for this organization's inference configuration.`
 
@@ -504,19 +527,36 @@ Like the SDK client, the CLI doesn’t send requests for Claude Models on Google
 
 ## Feature support
 
-This section lists features that work on Claude Models on Google Cloud (Anthropic managed) and features that aren’t supported there. It doesn’t list every Claude API feature, and it doesn’t say whether an unlisted feature works.
+The following sections list features that are available on Claude Models on Google Cloud (Anthropic managed):
 
-The Models API and the following features are available on Claude Models on Google Cloud (Anthropic managed):
+* **[Messages API features](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#messages-api-features):** Model capabilities, tools, context management, files, and skills
+* **[Claude Managed Agents features](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#claude-managed-agents):** Agents, sessions, sandboxes, and scheduled deployments
+* **[Administration and compliance](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#administration-and-compliance):** Workspaces, user profiles, usage and cost reports, the Compliance API setting, encryption keys, and Zero Data Retention
+
+For features that aren’t supported, see the [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported) section. If none of these sections lists a feature that you need, ask your Anthropic account representative whether it’s available.
+
+To check which models support a feature, see the **Availability** section of the feature’s page.
+
+### Messages API features
+
+The [Messages API](https://platform.claude.com/docs/en/api/messages/create), the [Models API](https://platform.claude.com/docs/en/api/models/list), and the following features are available on Claude Models on Google Cloud (Anthropic managed):
 
 * [Advisor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/advisor-tool) (Beta)
 * [Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
   * [Custom Skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide#managing-custom-skills)
   * [Pre-built Agent Skills](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview#pre-built-agent-skills)
+* [Bash tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool)
 * [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
+* [Browser and computer use SDK toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-sdk) (Beta)
+* [Browser use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool)
+* [Citations](https://platform.claude.com/docs/en/build-with-claude/citations)
 * [Classifier refusals](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback)
   * [Client-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) (Beta)
+  * [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) (Beta)
   * [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) (Beta)
 * [Code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool)
+* [Computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool)
+* [Context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing) (Beta)
 * [Custom tools](https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools)
 * [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency)
 * [Effort](https://platform.claude.com/docs/en/build-with-claude/effort)
@@ -528,34 +568,39 @@ The Models API and the following features are available on Claude Models on Goog
 * [Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool)
   * [Memory tool helpers](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool#implement-the-memory-handler) (Beta)
 * [Message streaming](https://platform.claude.com/docs/en/build-with-claude/streaming)
+  * [Fine-grained tool streaming](https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming)
 * [Message threads](https://platform.claude.com/docs/en/build-with-claude/message-threads) (Beta)
 * [Mid-conversation system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages)
   * [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes) (Beta)
   * [Turn-scoped system messages](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#turn-scoped-system-messages) (Beta)
-* [OpenTelemetry](https://platform.claude.com/docs/en/manage-claude/opentelemetry) (Beta)
+* [On-demand compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand) (Beta)
+  * [Tool runner compaction helper](https://platform.claude.com/docs/en/build-with-claude/compaction-on-demand#compact-in-a-loop) (Beta)
+* [Parallel tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/parallel-tool-use)
 * [PDF support](https://platform.claude.com/docs/en/build-with-claude/pdf-support)
+* [Programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling)
 * [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
   * [1-hour duration](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration)
   * [5-minute duration (default)](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#how-prompt-caching-works)
   * [Automatic caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#automatic-caching)
+  * [Cache diagnostics](https://platform.claude.com/docs/en/build-with-claude/cache-diagnostics)
 * [SDK middleware](https://platform.claude.com/docs/en/cli-sdks-libraries/middleware)
+* [Search results](https://platform.claude.com/docs/en/build-with-claude/search-results)
 * [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+  * [Strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use)
   * [Typed structured output helpers](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#usage)
+* [Task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets) (Beta)
+* [Text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool)
 * [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking)
   * [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost)
   * [Extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking)
   * [Preserved thinking](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking)
+* [Threshold compaction](https://platform.claude.com/docs/en/build-with-claude/compaction-threshold) (Beta)
 * [Token counting](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 * [Tool runner](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-runner) (Beta)
+* [Tool search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool)
 * [Vision (images)](https://platform.claude.com/docs/en/build-with-claude/vision)
 * [Web fetch tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool)
 * [Web search tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)
-
-If a beta feature is limited to selected organizations on the Claude API, the Anthropic organization that setup creates needs the same access.
-
-To turn the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) on or off for the Anthropic organization that setup creates, first [open the Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console). Then go to [Compliance in the Claude Console](https://platform.claude.com/settings/security) (`platform.claude.com/settings/security`) and use the **Compliance API** toggle.
-
-Customer-managed encryption keys (CMEK) are available with Google Cloud KMS keys. To activate CMEK for the Anthropic organization that setup creates, see [Who can use CMEK](https://platform.claude.com/docs/en/manage-claude/cmek#availability). To set up a key, follow [Set up CMEK with Google Cloud KMS](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms). Then register, verify, and attach the key in the [Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console), as the setup page’s **Claude Platform** tab describes.
 
 ### Claude Managed Agents
 
@@ -577,20 +622,68 @@ Customer-managed encryption keys (CMEK) are available with Google Cloud KMS keys
 * [Vaults](https://platform.claude.com/docs/en/managed-agents/vaults) (Beta)
 * [Web domain restrictions](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions) (Beta)
 
+Some [Messages API features](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#messages-api-features), such as the Files API and the MCP connector, also work with Claude Managed Agents. For details, see the **Availability** section of the feature’s page.
+
+If you plan to use self-hosted sandboxes, read the entries on memory stores and workers in the [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported) section.
+
+#### When you revoke access
+
 Access is checked when a session or a deployment is created, not while it runs:
 
-* **Running sessions keep running.** If you revoke Google Cloud access from the identity that created a session, the session doesn’t stop. To stop it, send it a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#integrating-events) by itself. After the session is `idle`, you can archive or delete it.
+* **Running sessions keep running.** If you revoke Google Cloud access from the identity that created a session, the session doesn’t stop.
 * **Scheduled deployments keep running.** A deployment doesn’t re-check its creator’s access on each scheduled run. To stop it, pause, update, or archive it.
 
+To stop a running session, follow these steps:
+
+1. Send the session a [`user.interrupt` event](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#interrupt-the-agent). Don’t send a `user.message` event after it.
+2. Wait until the session’s status is `idle`.
+3. If you no longer need the session, archive or delete it.
+
 When you remove a user or rotate a service account, review the sessions and deployments that identity created.
+
+### Administration and compliance
+
+The following are also available on Claude Models on Google Cloud (Anthropic managed):
+
+* [Workspaces](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#workspaces)
+* [User profiles for end-customer attribution](https://platform.claude.com/docs/en/manage-claude/user-profiles)
+* [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) (beta)
+* [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) (legacy), usage endpoint only
+* [Compliance API setting](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#compliance-api) in the Claude Console
+* [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek) (CMEK), with Google Cloud KMS keys
+* [Zero Data Retention](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#data-retention) (ZDR), on request
+
+The usage and cost endpoints use the [base URL without the workspace](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests). Of the three predefined [IAM roles](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles), only `roles/claude.admin` allows these calls.
+
+#### Compliance API
+
+While the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) is off, it doesn’t record activity events. You can’t recover those events later. For what else the setting changes, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+
+To turn the Compliance API on or off for the Anthropic organization that setup creates, follow these steps:
+
+1. [Open the Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console).
+2. Go to [Compliance in the Claude Console](https://platform.claude.com/settings/security) (`platform.claude.com/settings/security`).
+3. Turn the **Compliance API** toggle on or off.
+
+#### Customer-managed encryption keys
+
+To use your own Google Cloud KMS key with the Anthropic organization that setup creates, follow these steps:
+
+1. Contact your Anthropic account representative to turn on CMEK for the organization. For details, see [Who can use CMEK](https://platform.claude.com/docs/en/manage-claude/cmek#availability).
+2. [Open the Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console).
+3. Follow [Set up CMEK with Google Cloud KMS](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms) to create, add, verify, and attach the key. For the steps in the Claude Console, use that page’s **Claude Platform** tab.
+
+### Access to beta features
+
+Some beta features are open only to selected organizations. To use one, the Anthropic organization that setup creates needs its own access.
 
 ### Features not supported
 
 The following aren’t supported on Claude Models on Google Cloud (Anthropic managed):
 
-* **API keys:** Authentication is through Google Cloud credentials only.
+* **API keys, including Admin API keys:** Authenticate with [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication) instead.
 * **MCP tunnels:** [MCP tunnels](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview) aren’t available on Claude Models on Google Cloud (Anthropic managed).
-* **[Memory stores on self-hosted environments](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory):** Memory stores aren’t supported for sessions on self-hosted environments.
+* **[Memory stores in self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory):** On Claude Models on Google Cloud (Anthropic managed), memory stores aren’t supported in self-hosted sandboxes. To use them, run the session in a [cloud environment](https://platform.claude.com/docs/en/managed-agents/environments).
 * **Pre-built self-hosted sandbox workers:** The [self-hosted workers](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers) in the `ant` CLI and in the Python, TypeScript, and Go SDKs don’t support Claude Models on Google Cloud (Anthropic managed). Instead, implement your own worker that calls the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work) directly. For the roles and permissions your worker needs, see [IAM permissions for environments](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions#environments).
 * **Linked billing (beta):** [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections) isn’t available on Claude Models on Google Cloud (Anthropic managed).
 
@@ -614,19 +707,19 @@ To request higher limits, use the form in the Claude Console:
      ![Header of the Rate limits page in the Claude Console, with a Custom tier badge and the Request higher limits button.](https://platform.claude.com/docs/images/rate-limits/request-higher-limits-button.png)
    </Frame>
 
-2. In **What do you need, and why?**, include the following:
+2. Fill in every field. Rough estimates are fine for the numbers:
 
-   * The models you need raised
-   * Peak input tokens per minute and output tokens per minute for each model (not daily totals)
-   * The approximate share of your input that is cached or repeated context
+   * In **Which models?**, choose the models that need higher limits.
+   * Under **Peak tokens per minute**, enter your peak **Input** and **Output** tokens (not daily totals). In **Input**, leave out tokens read from the cache. For most models, they don’t count toward input-token limits (see [Cache-aware ITPM](https://platform.claude.com/docs/en/api/rate-limits#cache-aware-itpm)). The numbers apply to each model you chose. If a model needs different numbers, add them in the next field.
+   * In **What are you building, and why do you need higher limits?**, describe your use case and the reason you need higher limits. If you need a higher [monthly spend cap](https://platform.claude.com/docs/en/api/rate-limits#spend-limits), say so here.
+   * In **Expected monthly spend**, enter a whole number of US dollars.
+   * In **Contact email**, enter one email address for the reply.
 
-   If you need a higher [monthly spend cap](https://platform.claude.com/docs/en/api/rate-limits#spend-limits), say so and fill in **Expected monthly spend**.
-
-   <Frame caption="The form, with an example request that names the model, the peak tokens per minute, and the cached share of the input.">
-     ![Request higher limits form with fields for what you need and why, expected monthly spend (optional), and contact email.](https://platform.claude.com/docs/images/rate-limits/request-higher-limits-form.png)
+   <Frame caption="The form, with an example request.">
+     ![Request higher limits form with fields for models, peak tokens per minute, reason, monthly spend, and contact email.](https://platform.claude.com/docs/images/rate-limits/request-higher-limits-form.png)
    </Frame>
 
-3. Enter a contact email address and click **Send request**.
+3. Click **Send request**.
 
 Anthropic Support reviews your request and replies to the contact email address. Your organization can send one request every 24 hours.
 
@@ -674,7 +767,7 @@ Plan the move as a cutover to a new organization:
 * **Create the new organization first.** Follow [Set up your account](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#set-up-your-account).
 * **Recreate access and configuration.** API keys, workspaces, and Claude Console settings don’t carry over. Grant [IAM roles](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles) on the project instead of creating API keys. To recreate your workspaces, see [Workspaces](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#workspaces). For ZDR arrangements, see [Data retention](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#data-retention).
 * **Plan for stored resources.** Files, skills, batches, and Claude Managed Agents resources stay in the existing organization.
-* **Update your integration.** For what changes and what stays the same, see [Making requests](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests). For features that aren’t supported, see [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported).
+* **Update your integration.** For what changes and what stays the same, see [Making requests](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests). To check the features that your code uses, see the [Feature support](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#feature-support) section.
 * **Cut over on your own schedule.** The two organizations are independent and can serve traffic in parallel. You can move workloads gradually. The existing organization keeps its current billing. Before you shift production traffic, check the [rate limits for Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#rate-limits).
 
 ## Migrating from Claude Models on Google Cloud (Google managed)

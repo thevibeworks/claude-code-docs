@@ -160,7 +160,7 @@ The zip file leaves out data such as:
 * **Access**: sign-ins and their tokens, connectors, and tool permissions such as **Always allow**
 * **Project details**: a project's description, links, and hidden files such as `.env`
 * **Other folders**: folders you added to a project or task, apart from their paths
-* **Artifacts**: the artifacts that Claude made, apart from the output files that Claude built them from
+* **Artifacts**: the artifacts that Claude made, apart from the output files that Claude built them from ([export a design or deck](https://claude.com/docs/government/desktop/design-and-slides.md#export-a-design-or-deck) first to keep it)
 
 For size limits and more detail, see [What a Claude Desktop export moves](https://claude.com/docs/third-party/claude-desktop/import.md#what-a-claude-desktop-export-moves).
 

@@ -1379,7 +1379,7 @@ Always carefully review and verify Claude’s image interpretations, especially 
   </Accordion>
 
   <Accordion title="Is there a limit to the image file size I can upload?">
-    Yes. See [Request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) for per-image and overall request size limits across the Claude API, Amazon Bedrock, Claude Models on Google Cloud (Google managed), and claude.ai.
+    Yes. See [Request limits](https://platform.claude.com/docs/en/build-with-claude/vision#request-limits) for the size limits on each image and on the whole request.
   </Accordion>
 
   <Accordion title="How many images can I include in one request?">

@@ -173,7 +173,7 @@ model = "claude-fable-5-2"  # After
 
    Claude Fable 5.2 also supports fast mode on [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) for deployments hosted on Anthropic. There, fast mode has its own model ID: send requests to a `claude-fable-5-2-fast` deployment and leave out `speed`.
 
-   Claude Mythos 5.2 also supports fast mode in Messages API requests on the Claude API, at Claude Fable 5.2’s fast mode prices. [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) lists every platform where Claude Mythos 5.2 has fast mode.
+   Claude Mythos 5.2 also supports fast mode in Messages API requests. On the Claude API, it costs the same as fast mode for Claude Fable 5.2. [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) lists every platform where Claude Mythos 5.2 has fast mode.
 
    Remove `speed: "fast"` in Claude Managed Agents. Also remove it on any platform or hosting option where [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) doesn’t list the model you move to.
 
@@ -331,7 +331,7 @@ model = "claude-fable-5-2"  # After
 
     Claude Fable 5.2 also supports fast mode on [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) for deployments hosted on Anthropic. There, fast mode has its own model ID: send requests to a `claude-fable-5-2-fast` deployment and leave out `speed`.
 
-    Claude Mythos 5.2 also supports fast mode in Messages API requests on the Claude API, without the header and at Claude Fable 5.2’s fast mode prices. [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) lists every platform where Claude Mythos 5.2 has fast mode.
+    Claude Mythos 5.2 also supports fast mode in Messages API requests without the header. On the Claude API, it costs the same as fast mode for Claude Fable 5.2. [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) lists every platform where Claude Mythos 5.2 has fast mode.
 
     Remove `speed: "fast"` in Claude Managed Agents. Also remove it if [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) doesn’t list the model you move to.
 

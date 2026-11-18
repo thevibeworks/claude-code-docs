@@ -60,8 +60,8 @@ This section covers partner-operated cloud platforms, where the cloud provider i
 
 For official pricing on [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed) and [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), visit:
 
+* [Claude Models on Google Cloud (Google managed) pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models)
 * [Amazon Bedrock pricing](https://aws.amazon.com/bedrock/pricing/)
-* [Google Cloud pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models)
 
 <Note>
   **Regional and multi-region endpoint pricing for Claude 4.5 models and beyond**
@@ -175,7 +175,13 @@ For implementation details, supported models, and code examples, see [Prompt cac
 
 For Claude 4.6 and later models, specifying US-only inference through the `inference_geo` parameter incurs a 1.1x multiplier on all token pricing categories, including input tokens, output tokens, cache writes, and cache reads. On Claude Haiku 5.5, the multiplier also applies to the higher prices for prompts over 100,000 tokens (see [Long context pricing](https://platform.claude.com/docs/en/about-claude/pricing#long-context-pricing)). Global routing (the default) uses standard pricing.
 
-This applies to the Claude API (first-party), Claude Platform on AWS, and Claude Models on Google Cloud (Anthropic managed). On Claude in Microsoft Foundry, the same 1.1x multiplier applies to deployments that use the US Data Zone Standard deployment type (see [Inference geography](https://platform.claude.com/docs/en/about-claude/pricing#foundry-inference-geography)). Partner-operated platforms, Claude Models on Google Cloud (Google managed) and Amazon Bedrock, have independent regional pricing. See [Amazon Bedrock pricing](https://aws.amazon.com/bedrock/pricing/) and [Google Cloud pricing](https://cloud.google.com/vertex-ai/generative-ai/pricing#claude-models) for details. Earlier models do not support the `inference_geo` parameter and always use standard pricing; requests that include the parameter on these models return a 400 error.
+Whether the 1.1x multiplier applies depends on the platform:
+
+* **Claude API (first-party), Claude Platform on AWS, and Claude Models on Google Cloud (Anthropic managed):** The multiplier applies.
+* **Claude in Microsoft Foundry:** The multiplier applies to deployments that use the US Data Zone Standard deployment type (see [Inference geography](https://platform.claude.com/docs/en/about-claude/pricing#foundry-inference-geography)).
+* **Claude Models on Google Cloud (Google managed) and Amazon Bedrock:** These partner-operated platforms have independent regional pricing. For their price lists, see the [Cloud platform pricing](https://platform.claude.com/docs/en/about-claude/pricing#cloud-platform-pricing) section.
+
+Models earlier than Claude 4.6 don’t support the `inference_geo` parameter and always use standard pricing. On these models, a request that includes the parameter returns a 400 error.
 
 For more information, see [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency).
 
@@ -373,7 +379,7 @@ Web search usage is charged in addition to token usage:
 }
 ```
 
-Web search is available on the Claude API for **$10 USD per 1,000 searches**, plus standard token costs for search-generated content. Web search results retrieved throughout a conversation are counted as input tokens, in search iterations run during a single turn and in subsequent conversation turns.
+On the Claude API, web search costs **$10 USD per 1,000 searches**, plus standard token costs for search-generated content. Search results count as input tokens, both while Claude keeps searching within a turn and in later conversation turns.
 
 Each web search counts as one use, regardless of the number of results returned. A web search that fails with an error is not billed.
 
@@ -444,11 +450,17 @@ Browser use follows the standard [tool use pricing in the tool use overview](htt
 
 [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) is billed on two dimensions: tokens and session runtime.
 
+On Claude Platform on AWS, session token and runtime charges convert to Claude Consumption Units at the standard rate (see [Claude Platform on AWS pricing](https://platform.claude.com/docs/en/about-claude/pricing#claude-platform-on-aws-pricing)). [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#billing) also bills usage in Claude Consumption Units.
+
 For pricing of [self-hosted Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/self-hosted), contact your Anthropic account team.
 
 ### Tokens
 
-All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](https://platform.claude.com/docs/en/about-claude/pricing#model-pricing). [Prompt caching multipliers](https://platform.claude.com/docs/en/about-claude/pricing#prompt-caching) apply identically. Web search triggered inside a session incurs the standard $10 USD per 1,000 searches. On Claude Platform on AWS, session token and runtime charges convert to Claude Consumption Units at the standard rate (see [Claude Platform on AWS pricing](https://platform.claude.com/docs/en/about-claude/pricing#claude-platform-on-aws-pricing)). [Fast mode premium pricing](https://platform.claude.com/docs/en/about-claude/pricing#fast-mode-pricing) applies when an agent’s `model.speed` is set to `"fast"`.
+All tokens consumed by a Claude Managed Agents session are billed at the rates shown in [Model pricing](https://platform.claude.com/docs/en/about-claude/pricing#model-pricing). These pricing rules also apply:
+
+* [Prompt caching multipliers](https://platform.claude.com/docs/en/about-claude/pricing#prompt-caching) apply identically.
+* Web search triggered inside a session incurs the standard $10 USD per 1,000 searches.
+* [Fast mode premium pricing](https://platform.claude.com/docs/en/about-claude/pricing#fast-mode-pricing) applies when an agent’s `model.speed` is set to `"fast"`.
 
 The [data residency multiplier](https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing) also applies: when an agent’s `model.inference_geo` is pinned to `"us"`, tokens consumed by sessions running that agent are billed at 1.1x the standard rates, the same multiplier that applies to US-only inference on the Messages API.
 

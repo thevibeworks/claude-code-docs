@@ -172,7 +172,7 @@ Store Skill directories in Git for history tracking, code review through pull re
 
 ### API-based distribution
 
-The Skills API provides workspace-scoped distribution. Skills uploaded through the API are available to all workspace members. See [Using Agent Skills with the API](https://platform.claude.com/docs/en/build-with-claude/skills-guide) for upload, versioning, and management endpoints.
+The Skills API provides workspace-scoped distribution. Skills uploaded through the API are available to all workspace members. Sharing works differently on Claude Models on Google Cloud (Anthropic managed). For details, see the Agent Skills overview’s [Sharing scope](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview#sharing-scope) section. See [Using Agent Skills with the API](https://platform.claude.com/docs/en/build-with-claude/skills-guide) for upload, versioning, and management endpoints.
 
 ### Versioning strategy
 

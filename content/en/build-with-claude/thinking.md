@@ -1024,7 +1024,7 @@ What a progress-update block contains depends on [`display`](https://platform.cl
 
 On Claude Sonnet 5.5, the lowest thinking setting is `thinking: {type: "between_tools"}`. It turns off up-front thinking, and each progress update comes back with its summary text, as it would under `display: "updates"`. `between_tools` is accepted only at [effort](https://platform.claude.com/docs/en/build-with-claude/effort) `high` or below. At `xhigh` or `max`, a request with it returns a 400 error. `between_tools` takes no other field: `display`, `budget_tokens`, or `block_binding` sent with it returns a 400 error. The setting works on every platform that offers Claude Sonnet 5.5. Pass the blocks back unchanged: a progress-update block you send back gives the model the full note it wrote, not the summary.
 
-Use `display: "updates"` for an agent interface that keeps reasoning hidden and shows the user a status line at each step. Under it, any `thinking` block with non-empty text is a progress update, so render those and nothing else. It’s in beta and requires the beta header `thinking-display-updates-2026-08-18` (to send it on Amazon Bedrock, Claude Models on Google Cloud (Google managed), or Microsoft Foundry, see [Beta features on other platforms](https://platform.claude.com/docs/en/api/beta-headers#beta-features-on-other-platforms)). Without it, the value is rejected with the same 400 `invalid_request_error` as an unknown `display` value.
+Use `display: "updates"` for an agent interface that keeps reasoning hidden and shows the user a status line at each step. Under it, any `thinking` block with non-empty text is a progress update, so render those and nothing else. It’s in beta and requires the beta header `thinking-display-updates-2026-08-18`. To send the header on a cloud platform, see [Beta features on other platforms](https://platform.claude.com/docs/en/api/beta-headers#beta-features-on-other-platforms). Without the header, the API rejects the value with the same 400 `invalid_request_error` as an unknown `display` value.
 
 ```json
 {
@@ -1203,7 +1203,8 @@ Keep the following in mind when working with signatures:
 * When [streaming responses](https://platform.claude.com/docs/en/build-with-claude/thinking#streaming-thinking), the signature arrives as a `signature_delta` inside a `content_block_delta` event just before the `content_block_stop` event.
 * `signature` values are significantly longer in Claude 4 and later models than in previous models.
 * The `signature` field is opaque: don’t interpret or parse it.
-* `signature` values are compatible across platforms, including the Claude API, [Amazon Bedrock (`bedrock-mantle`)](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed). Values generated on one platform work on another, except that thinking blocks from Claude Sonnet 5.5, Claude Haiku 5.5, Claude Fable 5.2, and Claude Mythos 5.2 work only in the account that produced them or in an account linked to it. See [Accounts and cloud platforms](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
+* `signature` values are compatible across platforms: a value generated on one platform works on another.
+* Thinking blocks from some models are an exception. They work only in the account that produced them or in an account linked to it. For those models, see [Accounts and cloud platforms](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 
 ## Redacted thinking blocks
 

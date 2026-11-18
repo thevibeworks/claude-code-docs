@@ -23,7 +23,7 @@ Your seat tier (the allowance package an administrator has assigned to you) give
 
 Both windows refill automatically on their own schedules, so you never need to do anything to get your allowance back.
 
-Usage is not counted in messages. Each message to Claude consumes an amount of your allowance proportional to how much work it takes to answer, so a short question uses very little while a long conversation or a request that produces a lot of output uses more.
+Usage is not counted in messages. Each message to Claude consumes an amount of your allowance proportional to how much work it takes to answer. A short question in a new conversation uses very little, while a long conversation or a request that produces a lot of output uses more.
 
 If you cancel or close a response while it is still being written, that message still counts against your allowance. If a request fails because of a problem on the service side before Claude starts responding, the allowance it would have used is given back to you automatically.
 
@@ -44,6 +44,16 @@ The text beneath each window's label shows its state:
 * **Resets on next request** means the window's time has already passed but you have not sent anything since. You are not actually limited in this state even if the bar looks full.
 
 The page does not refresh on its own while you have it open. Select the refresh icon next to **Last updated** to pull the latest figures.
+
+## Make your usage go further
+
+Claude rereads the conversation every time you send a message, so long conversations use up your allowance faster. Here's how to make it last.
+
+* **Finish long work in one sitting.** After a break, your first message in a long conversation can use much more. If you don't need the earlier messages, start a new conversation.
+* **Start a new conversation for unrelated work.** For example, if you reviewed a contract this morning and need a meeting agenda this afternoon, start fresh.
+* **Pick the [model](https://claude.com/docs/government/desktop/models.md) before you start.** For simple work, choose a [smaller model](https://platform.claude.com/docs/en/models/overview#latest-models-comparison) or a lower **Effort** level in Claude Desktop's model picker. Changing either in a long conversation can use extra allowance.
+* **Point Claude to the part you need.** Paste only the paragraphs you need. If you attach a long file, tell Claude which section to read.
+* **Say what you need in the first message.** Tell Claude what you want, who it's for, and how long it should be. That saves you from going back and forth.
 
 ## If you keep hitting limits
 

@@ -152,6 +152,11 @@ Everything else (`--catalog`, `--config`, `--server-url`, `--transport`, `--meth
 >
 > Connect once, then run many commands against a named connection.
 
+> [card] [Load testing](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/load-testing.md)
+>
+> Concurrent and sustained load from the web client, the CLI, or mcpdo, with
+> CI thresholds and baselines.
+
 > [card] [Security](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/security.md)
 >
 > The threat model: the web backend's token, Docker, secret storage, stdio
