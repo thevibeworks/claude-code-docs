@@ -4,7 +4,7 @@ Claude can now use your computer to complete tasks in Claude Cowork and Claude C
 
 ## Availability
 
-Computer use is in beta for Pro, Max, and Ultra plans. It’s available in Cowork and Claude Code in the Claude Desktop application for both macOS and Windows. This capability comes with risks—review **[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-cowork-safely)** before using it.
+Computer use is available for Pro, Max, and Ultra plans in Cowork and Claude Code in the Claude Desktop application for both macOS and Windows. This capability comes with risks—review **[Use Claude Cowork safely](https://support.claude.com/en/articles/13364135-use-cowork-safely)** before using it.
 
 The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
@@ -110,7 +110,7 @@ For detailed safety guidance, see **[Use Cowork safely](https://support.claude.c
 
 ## Current limitations
 
-Computer use is in beta. Keep the following in mind:
+Keep the following in mind:
 
 - Your desktop must be active. Your computer needs to be awake and the Claude Desktop app needs to be open for computer use to work.
 
@@ -136,4 +136,4 @@ To start using computer use:
 
 5. Ask Claude to do something that involves an app on your computer. Claude will ask for permission to access the app before proceeding.
 
-We’re sharing this early because it’s the kind of capability that gets better with real usage. If something doesn’t work as expected, use the in-app feedback button or reach out to <usersafety@anthropic.com>.
+If something doesn’t work as expected, use the in-app feedback button or reach out to <usersafety@anthropic.com>.

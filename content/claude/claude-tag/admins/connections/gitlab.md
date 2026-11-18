@@ -26,9 +26,9 @@ A personal access token from a [dedicated service account](https://claude.com/do
 
 **2. Add the connector**
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, select **GitLab**, and paste the token. For self-managed GitLab, switch to the form's **Advanced** tab and add your instance's hostname under **Allowed websites**. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+Go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, select **GitLab**, and paste the token. For self-managed GitLab, switch to the form's **Advanced** tab and add your instance's hostname under **Allowed websites**. The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
-**You'll see:** GitLab on the **Connectors** tab, and `@Claude what can you access from this channel?` returns it in a new thread in any channel where the connector is on. New threads pick up the connector on their own; in an existing thread, ask Claude to use the service by name.
+**You'll see:** GitLab on the **Claude's connectors** tab, and `@Claude what can you access from this channel?` returns it in a new thread in any channel where the connector is on. New threads pick up the connector on their own; in an existing thread, ask Claude to use the service by name.
 
 | Field | Value |
 | :- | :- |

@@ -97,9 +97,9 @@ Now that you've connected Claude to a remote MCP server, you can explore its cap
 > Create custom remote MCP servers to integrate with proprietary tools and
 > services
 
-> [card] [Explore available servers](https://github.com/modelcontextprotocol/servers)
+> [card] [Explore available servers](https://registry.modelcontextprotocol.io/)
 >
-> Browse our collection of official and community-created MCP servers
+> Browse the servers published to the MCP Registry
 
 > [card] [Connect local servers](https://modelcontextprotocol.io/docs/2026-07-28/develop/connect-local-servers.md)
 >

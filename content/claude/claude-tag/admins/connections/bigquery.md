@@ -29,7 +29,7 @@ Together the two grants let Claude run read-only queries against those datasets.
 
 ## Add the connector
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **BigQuery**. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. In the connect form, paste the whole JSON key file from Google Cloud Console into **Claude's service account key (JSON)**, then click **Connect** to save the connector.
+Go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **BigQuery**. The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. In the connect form, paste the whole JSON key file from Google Cloud Console into **Claude's service account key (JSON)**, then click **Connect** to save the connector.
 
 The access tokens Claude gets from this key carry only Google's `cloud-platform.read-only` scope, so Google refuses BigQuery API calls that create or delete tables or run load jobs. Queries still run with whatever the service account's roles allow, so the [dataset roles](#grant-access-to-specific-datasets) decide what a query can reach.
 

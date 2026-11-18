@@ -799,7 +799,7 @@ Every response includes a `data_refreshed_at` timestamp, and usage after that ti
 
 ## Migrate from the Usage and Cost API
 
-This section is for Claude Console organizations that call the legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) (`/v1/organizations/usage_report/messages` and `/v1/organizations/cost_report`). Your Admin API key, the `anthropic-version` header, `starting_at` and `ending_at`, the bucket width values (`1m`, `1h`, `1d`), bracket notation, the pagination field names, and the token and cost field names carry over. What changes:
+This section is for organizations that call the legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) (`/v1/organizations/usage_report/messages` and `/v1/organizations/cost_report`). Your credential and the `anthropic-version` header carry over. So do the names `starting_at` and `ending_at`, the `[]` suffix on array parameters, the pagination field names, and the token and cost field names. The usage endpoint’s bucket widths (`1m`, `1h`, `1d`) carry over too. The following table lists what changes:
 
 | Usage and Cost API                                                                                                                                      | Usage and Cost Analytics API                                                                                                                                                                                                                                                                                                                                                          |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -817,6 +817,11 @@ This section is for Claude Console organizations that call the legacy [Usage and
 | `inference_geo: "not_available"` and `service_tier: "standard"` on usage with no geo or tier                                                            | `null` for both. `inference_geos[]=not_available` still matches the rows with no inference geo.                                                                                                                                                                                                                                                                                       |
 | Cost `service_tier` is `standard` or `batch`; `amount` such as `"123.45"`                                                                               | The actual tier; `amount` with six decimal places, such as `"123.450000"`, plus `list_amount`.                                                                                                                                                                                                                                                                                        |
 | Code execution not in the usage report; no request counts                                                                                               | Code execution appears as usage rows with `model: null`; adds `requests` on both endpoints and `total_tokens` on usage rows                                                                                                                                                                                                                                                           |
+
+Two things differ for a Claude Enterprise organization:
+
+* **Workspaces and API keys:** The Usage and Cost Analytics API returns `null` for `workspace_id` and `api_key_id` (see [How results are shaped](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api#how-results-are-shaped)), so the table’s row on the default workspace doesn’t apply.
+* **Usage totals:** The Usage and Cost Analytics API counts usage that the legacy usage report leaves out, so its usage totals can be higher. See [Claude Enterprise organizations](https://platform.claude.com/docs/en/manage-claude/usage-cost-api#claude-enterprise-organizations).
 
 To reproduce the legacy daily report, request `time_bucket_width=1d` with the same `group_by[]`, page through with `limit=1000`, then group rows by `starting_at` and fill missing days with zeros. Add `order_by=time&order=asc` to get the days in order. Daily usage by model for 1 week, before:
 
@@ -1290,7 +1295,8 @@ Per-user cost for a month, before:
   )
 
   for row in rows:
-      print(f"{row.actor.user_id}: {row.amount}")
+      if row.actor.type == "user_actor":
+          print(f"{row.actor.user_id}: {row.amount}")
   ```
 
   ```typescript TypeScript
@@ -1303,7 +1309,9 @@ Per-user cost for a month, before:
   });
 
   for await (const row of rows) {
-    console.log(`${row.actor.user_id}: ${row.amount}`);
+    if (row.actor.type === "user_actor") {
+      console.log(`${row.actor.user_id}: ${row.amount}`);
+    }
   }
   ```
 
@@ -1321,7 +1329,10 @@ Per-user cost for a month, before:
 
   await foreach (var row in page.Paginate())
   {
-      Console.WriteLine($"{row.Actor.UserID}: {row.Amount}");
+      if (row.Actor.TryPickBetaAnalyticsUser(out var user))
+      {
+          Console.WriteLine($"{user.UserID}: {row.Amount}");
+      }
   }
   ```
 
@@ -1336,7 +1347,9 @@ Per-user cost for a month, before:
 
   for rows.Next() {
   	row := rows.Current()
-  	fmt.Printf("%s: %s\n", row.Actor.UserID, row.Amount)
+  	if user, ok := row.Actor.AsAny().(anthropic.BetaAnalyticsUserActor); ok {
+  		fmt.Printf("%s: %s\n", user.UserID, row.Amount)
+  	}
   }
   if err := rows.Err(); err != nil {
   	log.Fatal(err)
@@ -1358,7 +1371,9 @@ Per-user cost for a month, before:
       var rows = client.beta().organization().analytics().userCostReport().list(params);
 
       for (var row : rows.autoPager()) {
-          IO.println(row.actor().userId() + ": " + row.amount());
+          row.actor().user().ifPresent(user ->
+              IO.println(user.userId() + ": " + row.amount())
+          );
       }
   }
   ```
@@ -1387,7 +1402,9 @@ Per-user cost for a month, before:
   )
 
   page.auto_paging_each do |row|
-    puts "#{row.actor.user_id}: #{row.amount}"
+    if row.actor.type == :user_actor
+      puts "#{row.actor.user_id}: #{row.amount}"
+    end
   end
   ```
 </CodeGroup>

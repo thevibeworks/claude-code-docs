@@ -184,7 +184,7 @@ Sign in to the tool as Claude and create the credential that tool's [connection 
 
 **4. Add the key as a connector**
 
-Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and click **Add**. Then [add a connector](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) for the tool and paste the key you created. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector.
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Claude's connectors** tab and click **Add**. Then [add a connector](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) for the tool and paste the key you created. The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector.
 
 For the next tool, start again from **Add Claude to the tool as a member**. Claude keeps the one email address for every tool.
 
@@ -230,7 +230,7 @@ For a data warehouse, ask for a row count from one table. For a support tool, as
 
 **Passed when:** the first reply lists the tools you connected, the second comes back with data, and the request appears in that tool's audit log under Claude's account.
 
-**If not:** when a tool is missing from the list, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and open the **Connectors** tab under **Claude's access**. If the tool isn't there, [connect it again](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection). If it is, open its page and check that it applies to the channel you asked in. "I can't reach…" in a thread you started before connecting means Claude wasn't told about the new connector; start a fresh thread. Anything else, see [Access and connections](https://claude.com/docs/claude-tag/admins/troubleshooting.md#access-and-connections).
+**If not:** when a tool is missing from the list, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and open the **Claude's connectors** tab under **Claude's access**. If the tool isn't there, [connect it again](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection). If it is, open its page and check that it applies to the channel you asked in. "I can't reach…" in a thread you started before connecting means Claude wasn't told about the new connector; start a fresh thread. Anything else, see [Access and connections](https://claude.com/docs/claude-tag/admins/troubleshooting.md#access-and-connections).
 
 ### Check GitHub
 
@@ -248,10 +248,11 @@ For more tasks to hand Claude once the checks pass, see the [use case library](h
 
 ## After setup
 
-After launch, you change Claude Tag from [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). Organization-wide settings such as **Enable Claude Tag in Slack**, **Direct messages**, and **Model** sit at the top of the page. Below them, **Claude's access** holds what Claude can reach, in four tabs:
+After launch, you change Claude Tag from [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). Organization-wide settings such as **Enable Claude Tag in Slack**, **Direct messages**, and **Model** sit at the top of the page. Below them, **Claude's access** holds what Claude can reach, in five tabs:
 
 * **Bundles**: named sets of connectors, repositories, domains, plugins, and instructions that you add to more than one place. See [bundle](https://claude.com/docs/claude-tag/concepts/glossary.md#access-bundle) in the glossary.
-* **Connectors**: each service Claude connects to, its credentials, and where Claude may use each one
+* **Claude's connectors**: each service Claude connects to, its credentials, and where Claude may use each one
+* **Personal connectors**: what Claude holds for review when it uses members' own connectors. See [Admin controls for personal connectors](https://claude.com/docs/claude-tag/concepts/personal-connectors.md#admin-controls-for-personal-connectors).
 * **Skills and plugins**: the skills and plugins Claude uses anywhere in Slack
 * **Channels**: **Slack**, whose page holds the settings for every workspace and channel, then each connected workspace with its channel rules and channels
 
@@ -261,12 +262,12 @@ On the **Channels** tab, select **Slack** to change how Claude works everywhere,
 | :- | :- | :- |
 | Change the model Claude replies with | **Model** at the top of the Claude Tag page to change the default everywhere, or **Model** on a workspace's or channel's page. | [Choose the model for a scope](https://claude.com/docs/claude-tag/admins/customize.md#choose-the-model-for-a-scope) |
 | Give Claude standing instructions | **Slack instructions** on the **Slack** page for every channel, or **Channel instructions** on one channel's page for that channel only. | [Customize](https://claude.com/docs/claude-tag/admins/customize.md) |
-| Connect a tool | **Add** on the **Connectors** tab. | [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md) |
+| Connect a tool | **Add** on the **Claude's connectors** tab. | [Give Claude access](https://claude.com/docs/claude-tag/admins/add-connections.md) |
 | Let Claude reach a site or API that has no credential | **Add > Domain** under **What's in it** on a bundle's page. | [Allow a host without a credential](https://claude.com/docs/claude-tag/admins/add-connections.md#allow-a-host-without-a-credential) |
-| Grant more repositories | The **GitHub** page, which you open from the **Connectors** tab. | [Configure GitHub access](https://claude.com/docs/claude-tag/admins/configure-github.md) |
+| Grant more repositories | The **GitHub** page, which you open from the **Claude's connectors** tab. | [Configure GitHub access](https://claude.com/docs/claude-tag/admins/configure-github.md) |
 | Give one channel more than the default | The channel's page, from the **Channels** tab: **Add** under **Claude's access**, then pick what to add, such as **Connector**, **Domain**, or **Bundle**. | [Configure per-channel access](https://claude.com/docs/claude-tag/admins/attach-to-scope.md) |
 | Limit where Claude works or who can use it | | [Restrict where Claude operates](https://claude.com/docs/claude-tag/admins/restrict-access.md) |
-| Require review of personal connector results | On the Enterprise plan, the **Personal connectors** section of the admin page. | [Admin controls for personal connectors](https://claude.com/docs/claude-tag/concepts/personal-connectors.md#admin-controls-for-personal-connectors) |
+| Require review of personal connector results | On the Enterprise plan, the **Personal connectors** tab under **Claude's access**. | [Admin controls for personal connectors](https://claude.com/docs/claude-tag/concepts/personal-connectors.md#admin-controls-for-personal-connectors) |
 | Pair another workspace, or disconnect one | **Connected workspaces** on the **Slack** page. Disconnecting permanently deletes the workspace's Claude data. See [Data lifecycle and deletion](https://claude.com/docs/claude-tag/concepts/data-lifecycle.md). | [Manage workspaces](https://claude.com/docs/claude-tag/admins/workspaces.md) |
 | Change the spend limit | [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag). | [Set a spend limit](https://claude.com/docs/claude-tag/admins/set-spend-limit.md) |
 | Turn Claude Tag off | The **Enable Claude Tag in Slack** switch at the top of the Claude Tag page. It also turns off direct messages. | [Turn Claude Tag on or off](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |

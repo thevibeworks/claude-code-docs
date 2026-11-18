@@ -26,12 +26,13 @@ For the setups described under [Set up the collector](#set-up-the-collector),
 all span attributes are included. They carry user-generated content:
 prompt text, tool inputs and outputs, and document URLs. The allowlist
 filter that strips sensitive attributes on the Anthropic path does not
-run on this path. One normalization still applies: MCP connector tool
+run on this path. Tool names are still normalized: MCP connector tool
 names are recorded as the literal `mcp_tool` rather than the
-connector-specific name. For these setups, assistant response text is
-not included. Your organization owns the collected data; treat the
-endpoint as containing prompt and document content when you scope
-access controls and retention.
+connector-specific name, and any other name that is not one of the
+add-in's own tools is recorded as `unknown_tool`. For these setups,
+assistant response text is not included. Your organization owns the
+collected data; treat the endpoint as containing prompt and document
+content when you scope access controls and retention.
 
 When the collector is instead delivered by an administrator-managed
 settings document, such as the one Claude for Government delivers, the
@@ -263,7 +264,7 @@ This is the primary record of what the model did to the document.
 
 | Attribute | Description |
 | - | - |
-| `tool_name` | Tool identifier, for example `get_cell_ranges` or `execute_office_js`. MCP connector tools are recorded as `mcp_tool` |
+| `tool_name` | Tool identifier, for example `get_cell_ranges` or `execute_office_js`. MCP connector tools are recorded as `mcp_tool`. Any other name that is not one of the add-in's own tools is recorded as `unknown_tool` |
 | `tool.id` | Unique invocation ID |
 | `tool.caller` | `direct` for tools the add-in runs, or `server_tool` for tools the model provider runs |
 | `tool.owner` | `first_party` for built-in tools, or `third_party` for MCP connector tools |

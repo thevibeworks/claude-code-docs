@@ -17,7 +17,7 @@ The migration never changes or deletes the Claude (third-party) data. Nothing mi
 **Migrated automatically:**
 
 * Chats, which appear in Cowork
-* Cowork sessions and projects, with their folders, except a few system or network folders
+* Cowork sessions and projects, with their folders, except a few system or network folders and [folders that `allowedWorkspaceFolders` leaves out](#check-the-allowedworkspacefolders-list)
 * Code sessions in folders Claude Code trusts
 * Scheduled tasks, on or off as before, except Code tasks in untrusted folders
 * Local MCP servers and most desktop extensions, as before
@@ -37,6 +37,7 @@ The migration never changes or deletes the Claude (third-party) data. Nothing mi
 * Skills with plugin components or an unreadable header, or over about 10 MB or 200 files
 * Scheduled Code tasks in folders Claude Code doesn't trust
 * A few system or network folders. The user can attach most of them again.
+* Session and project folders that [`allowedWorkspaceFolders` leaves out](#check-the-allowedworkspacefolders-list)
 * Artifacts. The **Artifacts** page in Claude Enterprise doesn't list them. Their files stay on the computer, by default in [`~/Claude/`](https://claude.com/docs/third-party/claude-desktop/data-storage#data-shared-with-standard-claude-desktop).
 * [Project memory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#project-memory). A migrated project starts without the memory that Claude kept for it in Claude (third-party), and **Notes from Cowork** in **Settings > Import** doesn't include it.
 
@@ -48,6 +49,7 @@ Migrated sessions stay on the computer and don't sync to claude.ai. Continuing o
 2. **Turn on the skills settings.** In [**Organization settings > Plugins & skills > Policy**](https://claude.ai/admin-settings/skills?tab=policy), turn on **User-created skills** and **Skill and plugin security scanning**. For custom roles, also give them the skills permissions in [**Organization settings > Roles**](https://claude.ai/admin-settings/roles). Skills need both settings. Plugins and plugin marketplaces need only **User-created skills**.
 3. **Turn on memory.** For Cowork to use each user's memory, turn on **Memory** and [**Chat and Cowork unified**](https://support.claude.com/en/articles/17444462-set-up-and-manage-the-new-unified-claude-experience-for-your-enterprise-organization) in [**Organization settings > Capabilities**](https://claude.ai/admin-settings/capabilities). Users turn on memory for themselves in the [steps for each user](#steps-for-each-user).
 4. **Replace the controls** listed in [What changes for your security controls](#what-changes-for-your-security-controls).
+5. **Check the folder list.** If you set `allowedWorkspaceFolders`, follow [Check the `allowedWorkspaceFolders` list](#check-the-allowedworkspacefolders-list).
 
 Special cases:
 
@@ -55,6 +57,28 @@ Special cases:
 * If your organization needs HIPAA, make it HIPAA-ready before users first sign in. A HIPAA-ready organization migrates no skills, local MCP servers, extensions, plugins, plugin marketplaces, instructions, or Cowork memory.
 * With the MSIX install on Windows versions before Windows 11 (build 22000), for example on Windows 10, update Claude in place. Uninstalling or resetting it can delete the [Claude (third-party) data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives).
 * On Linux, where Claude Desktop is in [beta](https://code.claude.com/docs/en/desktop-linux), the same steps apply, with the keys as JSON in the root-owned file [`/etc/claude-desktop/managed-settings.json`](https://claude.com/docs/third-party/claude-desktop/configuration-format#the-linux-configuration-file). If that file doesn't meet the ownership and permission rules described there, Claude ignores every key in it. Use an unlocked desktop keyring on each computer, such as GNOME Keyring or KDE Wallet, so that Claude can protect what it saves.
+
+### Check the `allowedWorkspaceFolders` list
+
+Unlike most cloud provider keys, [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) also applies in Claude Enterprise, and it limits which folders the migration brings. This holds for a list in the policy or profile itself. A list that only your bootstrap server sends doesn't reach Claude Enterprise until you copy it into the policy or profile.
+
+Cowork sessions in Claude Enterprise open without folders that are outside the list. The migration handles those folders this way:
+
+* **Sessions** arrive without them
+* **Projects** arrive with a new, empty folder instead, in the `Projects` folder of the [Cowork files folder](https://claude.com/docs/third-party/claude-desktop/data-storage.md#data-shared-with-standard-claude-desktop)
+* **Projects that are already directly inside that `Projects` folder** keep their folder, and projects that had no folder get one there
+* **Scheduled tasks and Code sessions** keep their folders, but can't work in a folder that is outside the list
+
+The files stay where they were. Changing or removing the list later doesn't bring back the folders that the migration left out, so users have to attach them again.
+
+Before the configuration change, make the list cover the folders that hold users' work, but don't list a home folder:
+
+* **Cowork files folder**: by default `~/Claude`, or `~/Documents/Claude` on older installs. **Settings > Cowork** shows it under **Cowork files**. If the list doesn't cover it, sessions open without the project folders inside it.
+* **Environment variables**: if the only entry uses a variable, such as `%OneDriveCommercial%`, that isn't set when Claude starts, Claude allows no folder, and the migration treats every folder as outside the list.
+
+If users' work is in folders that you won't list, or you can't tell, keep the key out of the policy or profile for now. Until you add the key, it limits no folders in Claude Enterprise and doesn't turn on the command sandbox in Code sessions. Add it to a computer after its users have [finished migrating](#check-whether-a-computer-has-finished-migrating). From then on, sessions open without folders that are outside the list, so first have users move that work into a listed folder and attach it.
+
+A list that you set under [**Allow workspace folders**](https://support.claude.com/en/articles/12622667-enterprise-configuration-for-claude-desktop) in [**Organization settings > Capabilities**](https://claude.ai/admin-settings/capabilities) can limit the migration in the same way. If you keep the key out, don't choose **Allow only the folders on the list** or turn the setting off until all users have [finished migrating](#check-whether-a-computer-has-finished-migrating).
 
 ## What changes for your security controls
 
@@ -64,7 +88,9 @@ While a user works in Claude Enterprise, most of your cloud provider settings in
 * Code sessions' telemetry, SSH host limits (any host is allowed until you set a list), and session retention (`cleanupPeriodDays`): Claude Code's managed settings.
 * Remote [managed MCP servers](https://claude.com/docs/third-party/claude-desktop/configuration.md#managedmcpservers): add them as connectors. The Microsoft 365 connector keeps working.
 
-Telemetry opt-outs, the egress list for Code sessions, Cowork's session retention, and locally run managed MCP servers have no replacement. The command sandbox in Code sessions stays on only where [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) is set. Migrated plugins aren't scanned. Migrated skills and plugins arrive on or off as before, with their hooks and tool permissions.
+Telemetry opt-outs, the egress list for Code sessions, Cowork's session retention, and locally run managed MCP servers have no replacement. Migrated plugins aren't scanned. Migrated skills and plugins arrive on or off as before, with their hooks and tool permissions.
+
+The command sandbox in Code sessions stays on only where the policy or profile itself sets [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders). The same list decides which folders Cowork sessions keep, as described under [Check the `allowedWorkspaceFolders` list](#check-the-allowedworkspacefolders-list).
 
 ## Migrate your fleet
 
@@ -77,7 +103,7 @@ Choose one option for the keys that connect Claude to your cloud provider, such 
 * **To move everyone to Claude Enterprise**, remove those keys. Also remove [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser), [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/mdm#restrict-a-device-to-one-deployment-mode), and [`deploymentOrganizationUuid`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid). If your settings come from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), copy the keys you want to keep into the policy or profile itself.
 * **To let each user switch between your cloud provider and Claude Enterprise**, keep those keys and `deploymentOrganizationUuid`. They must be in the same `HKEY_LOCAL_MACHINE` policy or configuration profile as `importThirdPartyHistoryIntoOrgUUID`, because on Windows Claude [reads one policy location](https://claude.com/docs/third-party/claude-desktop/mdm.md#4-deploy-the-configuration). Make sure [`disableDeploymentModeChooser`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledeploymentmodechooser) isn't set in the policy or profile, or by your bootstrap server, and that [`deploymentMode`](https://claude.com/docs/third-party/claude-desktop/mdm#restrict-a-device-to-one-deployment-mode) is unset or `any`. Claude's welcome screen then offers **Or sign in with Claude.ai**. Your cloud provider settings still apply while a user works with your cloud provider. With your cloud provider and with Claude Enterprise, Claude uses some of the same folders on the computer, as described under [Data shared with standard Claude Desktop](https://claude.com/docs/third-party/claude-desktop/data-storage.md#data-shared-with-standard-claude-desktop).
 
-Remove `requireCoworkFullVmSandbox`, unless your organization needs Cowork to run only in its VM sandbox, as described under the special cases in [Before you begin](#before-you-begin). Leave other keys in place. In Claude Enterprise, the desktop extensions feature is on unless [`isDesktopExtensionEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#isdesktopextensionenabled) is set to `false`.
+Remove `requireCoworkFullVmSandbox`, unless your organization needs Cowork to run only in its VM sandbox, as described under the special cases in [Before you begin](#before-you-begin). Before you keep `allowedWorkspaceFolders` or copy it from a bootstrap server, [check the list](#check-the-allowedworkspacefolders-list). Leave other keys in place. In Claude Enterprise, the desktop extensions feature is on unless [`isDesktopExtensionEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#isdesktopextensionenabled) is set to `false`.
 
 **2. Set your organization ID**
 
@@ -114,7 +140,7 @@ On Linux, add these keys at the top level of the existing object in `/etc/claude
 
 **3. Roll out in stages**
 
-Deploy to a few computers on each operating system, then to the rest. Send users the [steps for each user](#steps-for-each-user).
+Deploy to a few computers on each operating system, then to the rest. If the policy or profile sets `allowedWorkspaceFolders`, first open a migrated project and a session in it on those few computers, and check that their files are there. Send users the [steps for each user](#steps-for-each-user).
 
 Afterward, keep `importThirdPartyHistoryIntoOrgUUID` deployed and keep the Claude (third-party) data. **Settings > Import** needs both. Work done in Claude Enterprise stays there and doesn't appear in Claude (third-party).
 
@@ -180,6 +206,7 @@ If you delete the file, Claude writes it again the next time Claude opens signed
 Your chats (now in Cowork), sessions, projects, and scheduled tasks appear. Your Claude (third-party) work doesn't change. Then:
 
 * If a scheduled task asks to use a tool, choose **Allow for all scheduled runs**.
+* If a session or project is missing its folder, your files are still where they were. Attach the folder again. If Claude refuses it, ask your IT team which folders are allowed, and move the files there.
 * Turn on [memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c9b905eb3f) in your settings. **Notes from Cowork** shows only while it's on.
 * In **Settings > Import**, click **Add instructions** for each set of instructions listed, **Add to memory** until **Notes from Cowork** disappears, and **Import…** if a skill is missing from **Customize > Skills**. Claude may leave out notes on how it should respond, so add those to your [instructions](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features).
 * Set up remote connectors and any missing plugin marketplaces again, install the plugins you want in **Customize > Plugins**, and add any keys or sign-ins your plugins and extensions need.

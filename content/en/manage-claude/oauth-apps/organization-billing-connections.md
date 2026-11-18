@@ -41,7 +41,7 @@ When nothing on that organization’s account can pay for a request, the Claude 
 
 ## Setup process
 
-You do these three steps once. They register your app with Anthropic. After them, [Which user profile to link](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#which-user-profile-to-link) explains a rule that you need before you create user profiles.
+You do these three steps once. They register your app with Anthropic. You need the Admin role in your organization for all three. After them, [Which user profile to link](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#which-user-profile-to-link) explains a rule that you need before you create user profiles.
 
 ### Step 1: Create the app
 
@@ -580,7 +580,6 @@ Set `bill_to: "user_profile"` only on requests the customer directs you to make:
     messages: [{ role: "user", content: "Hello, Claude" }],
     betas: ["user-profiles-billing-2026-10-01"],
     user_profile_id: "uprof_01HV9Z",
-    // @ts-expect-error: billing_policy isn't in the SDK's types yet
     billing_policy: { type: "billing_policy", bill_to: "user_profile" }
   });
 
@@ -602,7 +601,6 @@ Set `bill_to: "user_profile"` only on requests the customer directs you to make:
       Betas = ["user-profiles-billing-2026-10-01"],
       UserProfileID = "uprof_01HV9Z",
   };
-  // billing_policy isn't in the SDK's types yet
   var body = new Dictionary<string, JsonElement>(parameters.RawBodyData)
   {
       ["billing_policy"] = JsonSerializer.SerializeToElement(
@@ -893,7 +891,6 @@ or use `bill_to: "self"`:
     messages: [{ role: "user", content: "Hello, Claude" }],
     betas: ["user-profiles-billing-2026-10-01"],
     user_profile_id: "uprof_01HV9Z",
-    // @ts-expect-error: billing_policy isn't in the SDK's types yet
     billing_policy: { type: "billing_policy", bill_to: "self" }
   });
 
@@ -915,7 +912,6 @@ or use `bill_to: "self"`:
       Betas = ["user-profiles-billing-2026-10-01"],
       UserProfileID = "uprof_01HV9Z",
   };
-  // billing_policy isn't in the SDK's types yet
   var body = new Dictionary<string, JsonElement>(parameters.RawBodyData)
   {
       ["billing_policy"] = JsonSerializer.SerializeToElement(
@@ -1761,7 +1757,7 @@ When a request sets `bill_to: "user_profile"`, Anthropic either bills your custo
 
   * **The spend cap for your app:** On the page for your app under [Linked platforms](https://platform.claude.com/linked-platforms), they can set or raise the spend cap. A cap set there replaces any default cap that they set for all linked platforms.
   * **The organization’s Monthly spend limit:** Under [Spend limits](https://platform.claude.com/settings/billing#spend-limits), they can raise it.
-  * **The credit balance:** On their [Billing](https://platform.claude.com/settings/billing) page, they can see their credit balance and buy credits. Some credits can’t pay for these requests: see [Which credits can pay](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#which-credits-can-pay).
+  * **The credit balance:** On their [Billing](https://platform.claude.com/settings/billing) page, they can see their credit balance and buy credits. A purchase can take some time to apply, so a request sent soon after it can still get this 402. If so, try again later. Some credits can’t pay for these requests: see [Which credits can pay](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#which-credits-can-pay).
 
 * `503 overloaded_error`: Anthropic couldn’t confirm right now whether the customer can be billed. Retry with backoff and honor the `retry-after` header. The request wasn’t served or billed.
 
@@ -1781,9 +1777,9 @@ Check these in order:
 
 * **Your request.** The request must authenticate as your OAuth app’s operator service account (Step 3). A [connection’s access token](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#oauth-tokens-for-each-connection) also authenticates as that service account. A request that authenticates any other way is refused. Examples are a different service account and an API key that isn’t bound to that service account. If the `anthropic-user-profile-id` header names one of your profiles that isn’t linked, the request is refused. If the credential or the header is wrong, correct the request. A new connection doesn’t help.
 * **The connection.** The customer hasn’t linked through this app, or the connection has ended: an administrator of their organization or of yours ended it, or your back end did. An ended connection displays as **Unlinked** on your [User profiles](https://platform.claude.com/user-profiles) page. A profile linked only through your test app isn’t linked to your production app. Stop billing that customer until they link. A connection’s access token is limited to that connection, so after the customer links again, use the access token of the new connection. If your app has [turned off operator-only authentication](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#turn-off-operator-only-authentication), you can bill a customer only with their connection’s access token. Then a customer for whom you hold no working token of a `billing:attribution` connection displays as **Linked**, but must approve again, as [Link a customer again](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#connect-a-customer-again) describes.
-* **The customer’s organization.** It must be an [eligible customer](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#eligible-customers-and-endpoints). You can’t see that from your side, so ask your Anthropic account team.
+* **The customer’s organization.** It must be an [eligible customer](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#eligible-customers-and-endpoints). You can’t see the organization’s status from your side. A customer’s new organization can link before it has billing set up. Until then, requests that bill it get this 403, not the out-of-credit 402. Ask the customer to buy credits on their [Billing](https://platform.claude.com/settings/billing) page in the Claude Console, and then send the request again. A purchase can take some time to apply, so if you still get this 403 or that out-of-credit 402 (`linked_organization_spend_limit_reached`), try again later. If that doesn’t help, ask your Anthropic account team.
 
-A new connection usually works at once, but it can take about 10 seconds after the exchange in Step 8. If a request is refused with `user_profile_not_billable` in those 10 seconds, send it again. After that, waiting or retrying doesn’t change the result. Log the whole `error.message` and the `request-id` response header of each refused request. If a customer whose connection displays as **Linked** is still refused and your request is correct, send a refused request’s `request-id` to your Anthropic account team, so that Anthropic can look up why it was refused.
+A new connection usually works at once, but it can take about 10 seconds after the exchange in Step 8. If a request is refused with `user_profile_not_billable` in those 10 seconds, send it again. After that, waiting or retrying doesn’t change the result until the cause is fixed. Log the whole `error.message` and the `request-id` response header of each refused request. If a customer whose connection displays as **Linked** is still refused and your request is correct, send a refused request’s `request-id` to your Anthropic account team, so that Anthropic can look up why it was refused.
 
 ## Your customer’s view
 

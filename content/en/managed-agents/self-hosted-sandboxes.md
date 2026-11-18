@@ -69,7 +69,9 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
 <Note>
   On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), the worker authenticates with AWS IAM (SigV4) or an [API key generated in the AWS Console](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication), not an environment key. Attach the [`AnthropicSelfHostedEnvironmentAccess`](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#managed-policies) managed policy to the IAM principal your worker runs as. Environment keys generated in the Claude Console don’t work with the Claude Platform on AWS endpoint.
 
-  On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), the worker authenticates with [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication), not an environment key. Grant the Google Cloud identity your worker uses `roles/claude.user` or `roles/claude.admin` on the project. Both roles include [`environments.processWork`](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions#environments), which the worker needs to poll for and manage work items. They also include the session and skill permissions that the worker needs to run a session. Environment keys generated in the Claude Console don’t work with the Claude Models on Google Cloud (Anthropic managed) endpoint. Instead of a prebuilt worker, implement your own worker that calls the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work) directly. See [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported).
+  On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), the prebuilt workers in the `ant` CLI and the Python, TypeScript, and Go SDKs are not available. See the [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported) section of that page. Implement your own worker that calls the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work) directly.
+
+  That worker authenticates with [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication), not an environment key. Environment keys generated in the Claude Console don’t work with the Claude Models on Google Cloud (Anthropic managed) endpoint. Grant the Google Cloud identity that your worker uses `roles/claude.user` or `roles/claude.admin` on the project. Both roles include [`environments.processWork`](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions#environments), which the worker needs to poll for and manage work items. They also include the session and skill permissions that the worker needs to run a session.
 </Note>
 
 <Note>
@@ -265,7 +267,7 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
 
     <Tabs>
       <Tab title="Linux">
-        Pass `/workspace` to match the system default.
+        Use `/workspace`, where Anthropic’s cloud sandboxes keep skills and repositories.
 
         ```bash
         sudo mkdir -p /workspace && sudo chown "$USER" /workspace
@@ -589,13 +591,13 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
 
 ## Session resources
 
-Self-hosted sandboxes support `memory_store` resources only. A session on a self-hosted environment that includes a `file` or `github_repository` resource is rejected with a 400 error:
+Self-hosted sandboxes support `memory_store` resources only. If a session on a self-hosted environment includes a `file` or `github_repository` resource, the API rejects it with a 400 error. The message refers to `resources` in general and doesn’t name the type:
 
 ```text wrap
 Environment env_... is a self-hosted environment. `resources` are not supported with self-hosted environments.
 ```
 
-[Deployments](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments) that target a self-hosted environment follow the same rule. To give a session its own input files, see [Stage files for a session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#stage-files-for-a-session).
+[Scheduled deployments](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments) that target a self-hosted environment follow the same rule. To give a session its own input files, see [Stage files for a session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#stage-files-for-a-session).
 
 ## Self-hosted sandboxes and MCP tunnels
 
@@ -608,7 +610,7 @@ Use both when you want execution and tool access to stay inside your boundary. T
 
 ## Platform guides
 
-The self-hosted sandboxes pages describe how to build a worker on any sandboxing platform. These providers also publish guides for their own platforms:
+The self-hosted sandboxes pages describe how to build a worker on any sandboxing platform. For Kubernetes, use the Helm chart in [Run sandboxes on Kubernetes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#run-sandboxes-on-kubernetes). These providers also publish guides for their own platforms:
 
 * [AWS Lambda MicroVMs](https://docs.aws.amazon.com/lambda/latest/dg/microvms-integrations-claude-managed-agents.html)
 * [Blaxel](https://docs.blaxel.ai/Tutorials/Claude-Managed-Agents)
@@ -625,23 +627,27 @@ The self-hosted sandboxes pages describe how to build a worker on any sandboxing
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Deploy workers" icon="play" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers">
-    Run the SDK worker, trigger workers from webhooks, or give each session its own sandbox.
+  <Card title="Deploy self-hosted workers" icon="play" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers">
+    Choose a deployment pattern, run an always-on worker, or trigger workers from webhooks.
+  </Card>
+
+  <Card title="Run one sandbox per session" icon="cube" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session">
+    Launch sandboxes with the Helm chart on Kubernetes, a spawn script, or the SDK poller.
   </Card>
 
   <Card title="Memory stores in self-hosted sandboxes" icon="brain" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory">
     Prepare the host, configure sync, and handle read-only stores and conflicts.
   </Card>
 
-  <Card title="Custom tools and MCP servers" icon="tool" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-custom-tools">
+  <Card title="Custom tools in self-hosted sandboxes" icon="tool" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-custom-tools">
     Serve your own tools from the worker, including tools from an MCP server inside your network.
   </Card>
 
-  <Card title="Monitor and troubleshoot" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations">
+  <Card title="Monitor and troubleshoot self-hosted workers" icon="lightning" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-operations">
     Read queue depth, stop sessions and workers cleanly, and fix common failures.
   </Card>
 
-  <Card title="Worker reference" icon="book" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-reference">
+  <Card title="Self-hosted worker reference" icon="book" href="https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-reference">
     CLI flags, environment variables, filesystem paths, and SDK helper options.
   </Card>
 

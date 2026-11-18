@@ -26,7 +26,7 @@ Assign the integration user a Permission Set scoped to the objects and fields Cl
 
 ## Add the connector
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Salesforce**. Fill in these fields in the connect form.
+Go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Salesforce**. Fill in these fields in the connect form.
 
 | Field | Value |
 | :- | :- |
@@ -36,9 +36,9 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 | Scopes (optional) | On the **Advanced** tab. Leave empty unless your app requires specific scopes |
 | Allowed websites | Your org's host, for example `yourcompany.my.salesforce.com` |
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. The **Allowed websites** field shows an example host that can't resolve. Enter your org's host there, then click **Connect** to save the connector.
+The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. The **Allowed websites** field shows an example host that can't resolve. Enter your org's host there, then click **Connect** to save the connector.
 
-To change the host later, go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Salesforce**, open the menu on the credential's row in the **Access from** table, and click **Edit**. In the **Edit connection** dialog, the **Allowed websites** setting is labeled **Allowed hosts**. Change the host there and click **Save**.
+To change the host later, go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Salesforce**, open the menu on the credential's row in the **Access from** table, and click **Edit**. In the **Edit connection** dialog, the **Allowed websites** setting is labeled **Allowed hosts**. Change the host there and click **Save**.
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 

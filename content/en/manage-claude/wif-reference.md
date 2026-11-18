@@ -84,9 +84,9 @@ The SDK locates the configuration directory in this order:
 
 The active profile name resolves in this order:
 
-1. `$ANTHROPIC_PROFILE`
-2. The contents of `<config_dir>/active_config` (a one-line file written by `ant profile activate <name>`)
-3. The literal name `default`
+1. `$ANTHROPIC_PROFILE`.
+2. The contents of `<config_dir>/active_config`. `ant profile activate <name>` writes this one-line file. So does `ant auth login` when it names a profile or when the file doesn’t exist yet.
+3. The literal name `default`.
 
 Claude Code and the Claude Agent SDK honor this same resolution order, so a federation profile configured here also authenticates those tools without additional setup.
 

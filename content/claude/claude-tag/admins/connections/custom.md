@@ -12,7 +12,7 @@
 
 For a service that isn't in the **Add a connector** list, add a custom connector. This works for any service with an HTTP API. The [BigQuery](https://claude.com/docs/claude-tag/admins/connections/bigquery.md) guide is a worked example.
 
-To open the form, go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab, click **Add**, and select **Custom connector** at the bottom of the list. A connector added there for a host that isn't on the **Connectors** tab yet is on in every workspace and channel once you save it. For a host already listed under **Custom hosts**, the new credential starts off everywhere until you choose where it applies. For narrower reach:
+To open the form, go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Claude's connectors** tab, click **Add**, and select **Custom connector** at the bottom of the list. A connector added there for a host that isn't on the **Claude's connectors** tab yet is on in every workspace and channel once you save it. For a host already listed under **Custom hosts**, the new credential starts off everywhere until you choose where it applies. For narrower reach:
 
 * **Some channels**: [restrict it on its page](https://claude.com/docs/claude-tag/admins/add-connections.md#restrict-a-connector-to-some-channels).
 * **One workspace or channel**: on that place's page, click **Add** under **Claude's access**, select **Connector**, select **Custom connector** under **Connect new** on the **Connectors** tab, and click **Continue**. See [Connect a service for one workspace or channel](https://claude.com/docs/claude-tag/admins/add-connections.md#connect-a-service-for-one-workspace-or-channel).
@@ -136,7 +136,7 @@ In a channel where the connector applies, in a new thread, ask Claude to make a 
 
 Check the service's own audit log to confirm the call landed under your service account. New threads pick up the connector on their own.
 
-If Claude reports that it can't use the credential, open the connector from the **Connectors** tab, where custom connectors are listed under **Custom hosts**. In its **Access from** table, **Not enabled** means no allow rule sends the credential yet; click **Enable** and confirm. A credential a teammate submitted through a setup link waits on the **Requests** tab of [**Notifications**](https://claude.ai/admin-settings/notifications) as **Approval needed**; click **Review**, then **Approve**. See [Verify the connector saved](https://claude.com/docs/claude-tag/admins/add-connections.md#verify-the-connector-saved).
+If Claude reports that it can't use the credential, open the connector from the **Claude's connectors** tab, where custom connectors are listed under **Custom hosts**. In its **Access from** table, **Not enabled** means no allow rule sends the credential yet; click **Enable** and confirm. A credential a teammate submitted through a setup link waits on the **Requests** tab of [**Notifications**](https://claude.ai/admin-settings/notifications) as **Approval needed**; click **Review**, then **Approve**. See [Verify the connector saved](https://claude.com/docs/claude-tag/admins/add-connections.md#verify-the-connector-saved).
 
 ## Related resources
 

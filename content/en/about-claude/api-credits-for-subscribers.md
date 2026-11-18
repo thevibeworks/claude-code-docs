@@ -50,7 +50,7 @@ You need both of the following roles:
 | Where                           | Required role                                                |
 | ------------------------------- | ------------------------------------------------------------ |
 | **Claude plan**                 | Max or Ultra: the subscriber<br />Team: Primary Owner, Owner |
-| **Claude Console organization** | Owner, Admin, or Billing                                     |
+| **Claude Console organization** | Admin or Billing                                             |
 
 If you don’t have a Claude Console organization, create one in the Console at [platform.claude.com](https://platform.claude.com/) first, or create one during the claim flow.
 

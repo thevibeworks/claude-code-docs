@@ -19,7 +19,7 @@ data sets.
 > `io.modelcontextprotocol/clientInfo`, and
 > `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
 > the required `_meta` fields; see
-> [`_meta`](https://modelcontextprotocol.io/specification/draft/basic/index#meta).
+> [`_meta`](https://modelcontextprotocol.io/specification/draft/basic/index#_meta).
 
 ## Pagination Model
 
@@ -61,7 +61,7 @@ including that cursor:
   "id": "124",
   "method": "resources/list",
   "params": {
-    "cursor": "eyJwYWdlIjogMn0="
+    "cursor": "eyJwYWdlIjogM30="
   }
 }
 ```

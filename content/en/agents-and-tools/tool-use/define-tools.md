@@ -577,9 +577,9 @@ Examples are included in the prompt alongside your tool schema, showing Claude c
 
 ### Requirements and limitations
 
-* **Schema validation** - Each example must be valid according to the tool’s `input_schema`. Invalid examples return a 400 error.
-* **Not supported for server-side tools or client toolsets** - Input examples work on user-defined and Anthropic-schema client tools other than the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolsets, but not on server tools such as web search or code execution.
-* **Token cost** - Examples add to prompt tokens: \~20–50 tokens for simple examples, \~100–200 tokens for complex nested objects.
+* **Valid examples:** Validate each example against the tool’s `input_schema` yourself. The API usually returns a 400 error for an invalid example. In some cases, such as a schema with a `pattern`, it skips the check and Claude sees the invalid example.
+* **Supported tools:** Input examples work on user-defined tools and some Anthropic-schema client tools. To check which kinds of tools accept them, see the `input_examples` row of the tool reference’s [Tool definition properties](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#tool-definition-properties) table.
+* **Token cost:** Each example adds input tokens: about 100 for an example with a few flat values and about 200 for one with nested objects.
 
 ## Controlling Claude’s output
 
@@ -880,13 +880,13 @@ When working with the `tool_choice` parameter, there are four possible options:
   When using [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#what-invalidates-the-cache), changes to the `tool_choice` parameter will invalidate cached message blocks. Tool definitions and system prompts remain cached, but message content must be reprocessed.
 </Note>
 
-This diagram illustrates how each option works:
+This diagram shows how the `auto`, `any`, and `tool` options work:
 
 <Frame>
   ![Diagram of three tool\_choice options: auto (a tool or a plain response), any (one of the tools), and tool (the named tool)](https://platform.claude.com/docs/images/tool_choice.svg)
 </Frame>
 
-Note that when you have `tool_choice` as `any` or `tool`, the API prefills the assistant message to force a tool to be used. This means that the models will not emit a natural language response or explanation before `tool_use` content blocks, even if explicitly asked to do so.
+When `tool_choice` is `any` or `tool`, the API makes Claude’s response start with a tool call. As a result, Claude doesn’t emit a natural-language response or explanation before `tool_use` content blocks, even if you ask it to.
 
 Testing has shown that this should not reduce performance. If you would like the model to provide natural language context or explanations while still requesting that the model use a specific tool, you can use `{"type": "auto"}` for `tool_choice` (the default) and add explicit instructions in a `user` message. For example: `What's the weather like in London? Use the get_weather tool in your response.`
 

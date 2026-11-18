@@ -132,6 +132,7 @@ This tutorial will primarily focus on tools.
 >
 > import httpx2
 > from mcp.server import MCPServer
+> from mcp.server.mcpserver.exceptions import ToolError
 >
 > # Initialize MCPServer
 > mcp = MCPServer("weather")
@@ -153,7 +154,7 @@ This tutorial will primarily focus on tools.
 > async def make_nws_request(url: str) -> dict[str, Any] | None:
 >     """Make a request to the NWS API with proper error handling."""
 >     headers = {"User-Agent": USER_AGENT, "Accept": "application/geo+json"}
->     async with httpx2.AsyncClient() as client:
+>     async with httpx2.AsyncClient(follow_redirects=True) as client:
 >         try:
 >             response = await client.get(url, headers=headers, timeout=30.0)
 >             response.raise_for_status()
@@ -186,11 +187,11 @@ This tutorial will primarily focus on tools.
 >     Args:
 >         state: Two-letter US state code (e.g. CA, NY)
 >     """
->     url = f"{NWS_API_BASE}/alerts/active/area/{state}"
+>     url = f"{NWS_API_BASE}/alerts/active/area/{state.upper()}"
 >     data = await make_nws_request(url)
 >
 >     if not data or "features" not in data:
->         return "Unable to fetch alerts or no alerts found."
+>         raise ToolError("Unable to fetch alerts.")
 >
 >     if not data["features"]:
 >         return "No active alerts for this state."
@@ -212,17 +213,20 @@ This tutorial will primarily focus on tools.
 >     points_data = await make_nws_request(points_url)
 >
 >     if not points_data:
->         return "Unable to fetch forecast data for this location."
+>         raise ToolError("Unable to fetch forecast data for this location.")
 >
 >     # Get the forecast URL from the points response
 >     forecast_url = points_data["properties"]["forecast"]
 >     forecast_data = await make_nws_request(forecast_url)
 >
 >     if not forecast_data:
->         return "Unable to fetch detailed forecast."
+>         raise ToolError("Unable to fetch detailed forecast.")
 >
 >     # Format the periods into a readable forecast
 >     periods = forecast_data["properties"]["periods"]
+>     if not periods:
+>         raise ToolError("No forecast periods available.")
+>
 >     forecasts = []
 >     for period in periods[:5]:  # Only show next 5 periods
 >         forecast = f"""
@@ -415,7 +419,7 @@ This tutorial will primarily focus on tools.
 >     "weather": "./build/index.js"
 >   },
 >   "scripts": {
->     "build": "tsc && chmod 755 build/index.js"
+>     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\""
 >   },
 >   "files": ["build"]
 > }
@@ -558,7 +562,7 @@ This tutorial will primarily focus on tools.
 >     },
 >     async ({ state }) => {
 >       const stateCode = state.toUpperCase();
->       const alertsUrl = `${NWS_API_BASE}/alerts?area=${stateCode}`;
+>       const alertsUrl = `${NWS_API_BASE}/alerts/active?area=${stateCode}`;
 >       const alertsData = await makeNWSRequest<AlertsResponse>(alertsUrl);
 >
 >       if (!alertsData) {
@@ -569,6 +573,7 @@ This tutorial will primarily focus on tools.
 >               text: "Failed to retrieve alerts data",
 >             },
 >           ],
+>           isError: true,
 >         };
 >       }
 >
@@ -628,6 +633,7 @@ This tutorial will primarily focus on tools.
 >               text: `Failed to retrieve grid point data for coordinates: ${latitude}, ${longitude}. This location may not be supported by the NWS API (only US locations are supported).`,
 >             },
 >           ],
+>           isError: true,
 >         };
 >       }
 >
@@ -640,6 +646,7 @@ This tutorial will primarily focus on tools.
 >               text: "Failed to get forecast URL from grid point data",
 >             },
 >           ],
+>           isError: true,
 >         };
 >       }
 >
@@ -653,6 +660,7 @@ This tutorial will primarily focus on tools.
 >               text: "Failed to retrieve forecast data",
 >             },
 >           ],
+>           isError: true,
 >         };
 >       }
 >
@@ -665,6 +673,7 @@ This tutorial will primarily focus on tools.
 >               text: "No forecast periods available",
 >             },
 >           ],
+>           isError: true,
 >         };
 >       }
 >
@@ -672,7 +681,7 @@ This tutorial will primarily focus on tools.
 >       const formattedForecast = periods.map((period: ForecastPeriod) =>
 >         [
 >           `${period.name || "Unknown"}:`,
->           `Temperature: ${period.temperature || "Unknown"}°${period.temperatureUnit || "F"}`,
+>           `Temperature: ${period.temperature ?? "Unknown"}°${period.temperatureUnit || "F"}`,
 >           `Wind: ${period.windSpeed || "Unknown"} ${period.windDirection || ""}`,
 >           `${period.shortForecast || "No forecast available"}`,
 >           "---",
@@ -832,8 +841,8 @@ This tutorial will primarily focus on tools.
 >
 > ```groovy Gradle theme={null}
 > dependencies {
->   implementation platform("org.springframework.ai:spring-ai-starter-mcp-server")
->   implementation platform("org.springframework:spring-web")
+>   implementation "org.springframework.ai:spring-ai-starter-mcp-server"
+>   implementation "org.springframework:spring-web"
 > }
 > ```
 >
@@ -926,7 +935,7 @@ This tutorial will primarily focus on tools.
 > }
 > ```
 >
-> Uses the `MethodToolCallbackProvider` utils to convert the `@Tools` into actionable callbacks used by the MCP server.
+> Uses the `MethodToolCallbackProvider` utils to convert the `@Tool` methods into actionable callbacks used by the MCP server.
 >
 > ### Running the server
 >
@@ -989,9 +998,9 @@ This tutorial will primarily focus on tools.
 >     "spring-ai-mcp-weather": {
 >       "command": "java",
 >       "args": [
->         "-Dspring.ai.mcp.server.transport=STDIO",
+>         "-Dspring.ai.mcp.server.stdio=true",
 >         "-jar",
->         "C:\\ABSOLUTE\\PATH\\TO\\PARENT\\FOLDER\\weather\\mcp-weather-stdio-server-0.0.1-SNAPSHOT.jar"
+>         "C:\\ABSOLUTE\\PATH\\TO\\PARENT\\FOLDER\\mcp-weather-stdio-server-0.0.1-SNAPSHOT.jar"
 >       ]
 >     }
 >   }
@@ -1004,8 +1013,8 @@ This tutorial will primarily focus on tools.
 >
 > This tells Claude for Desktop:
 >
-> 1. There's an MCP server named "my-weather-server"
-> 2. To launch it by running `java -jar /ABSOLUTE/PATH/TO/PARENT/FOLDER/mcp-weather-stdio-server-0.0.1-SNAPSHOT.jar`
+> 1. There's an MCP server named "spring-ai-mcp-weather"
+> 2. To launch it by running `java -Dspring.ai.mcp.server.stdio=true -jar /ABSOLUTE/PATH/TO/PARENT/FOLDER/mcp-weather-stdio-server-0.0.1-SNAPSHOT.jar`
 >
 > Save the file, and restart **Claude for Desktop**.
 >
@@ -1017,7 +1026,7 @@ This tutorial will primarily focus on tools.
 >
 > ```java theme={null}
 > var stdioParams = ServerParameters.builder("java")
->   .args("-jar", "/ABSOLUTE/PATH/TO/PARENT/FOLDER/mcp-weather-stdio-server-0.0.1-SNAPSHOT.jar")
+>   .args("-Dspring.ai.mcp.server.stdio=true", "-jar", "/ABSOLUTE/PATH/TO/PARENT/FOLDER/mcp-weather-stdio-server-0.0.1-SNAPSHOT.jar")
 >   .build();
 >
 > var stdioTransport = new StdioClientTransport(stdioParams, McpJsonDefaults.getMapper());
@@ -1030,7 +1039,7 @@ This tutorial will primarily focus on tools.
 >
 > CallToolResult weather = mcpClient.callTool(
 >   new CallToolRequest("getWeatherForecastByLocation",
->       Map.of("latitude", "47.6062", "longitude", "-122.3321")));
+>       Map.of("latitude", 47.6062, "longitude", -122.3321)));
 >
 > CallToolResult alert = mcpClient.callTool(
 >   new CallToolRequest("getAlerts", Map.of("state", "NY")));
@@ -1228,7 +1237,7 @@ This tutorial will primarily focus on tools.
 >
 > // Extension function to fetch weather alerts for a given state
 > suspend fun HttpClient.getAlerts(state: String): List<String> {
->     val alerts = this.get("/alerts/active/area/$state").body<AlertsResponse>()
+>     val alerts = this.get("/alerts/active/area/${state.uppercase()}").body<AlertsResponse>()
 >     return alerts.features.map { feature ->
 >         """
 >             Event: ${feature.properties.event}
@@ -1316,6 +1325,7 @@ This tutorial will primarily focus on tools.
 >     val state = request.arguments?.get("state")?.jsonPrimitive?.content
 >         ?: return@addTool CallToolResult(
 >             content = listOf(TextContent("The 'state' parameter is required.")),
+>             isError = true,
 >         )
 >
 >     val alerts = httpClient.getAlerts(state)
@@ -1344,6 +1354,7 @@ This tutorial will primarily focus on tools.
 >     if (latitude == null || longitude == null) {
 >         return@addTool CallToolResult(
 >             content = listOf(TextContent("The 'latitude' and 'longitude' parameters are required.")),
+>             isError = true,
 >         )
 >     }
 >
@@ -1448,7 +1459,7 @@ This tutorial will primarily focus on tools.
 >
 > * C#
 > * LLMs like Claude
-> * .NET 8 or higher
+> * .NET 10 or higher
 >
 > ### Logging in MCP Servers
 >
@@ -1464,7 +1475,7 @@ This tutorial will primarily focus on tools.
 >
 > ### System requirements
 >
-> * [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0) or higher installed.
+> * [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0) or higher installed.
 >
 > ### Set up your environment
 >
@@ -1499,7 +1510,7 @@ This tutorial will primarily focus on tools.
 >
 > ```bash theme={null}
 > # Add the Model Context Protocol SDK NuGet package
-> dotnet add package ModelContextProtocol --prerelease
+> dotnet add package ModelContextProtocol
 > # Add the .NET Hosting NuGet package
 > dotnet add package Microsoft.Extensions.Hosting
 > ```
@@ -1576,7 +1587,7 @@ This tutorial will primarily focus on tools.
 >         HttpClient client,
 >         [Description("The US state code to get alerts for.")] string state)
 >     {
->         using var jsonDocument = await client.ReadJsonDocumentAsync($"/alerts/active/area/{state}");
+>         using var jsonDocument = await client.ReadJsonDocumentAsync($"/alerts/active/area/{state.ToUpperInvariant()}");
 >         var jsonElement = jsonDocument.RootElement;
 >         var alerts = jsonElement.GetProperty("features").EnumerateArray();
 >
@@ -1684,8 +1695,9 @@ This tutorial will primarily focus on tools.
 > This tells Claude for Desktop:
 >
 > 1. There's an MCP server named "weather"
-> 2. Launch it by running `dotnet run /ABSOLUTE/PATH/TO/PROJECT`
->    Save the file, and restart **Claude for Desktop**.
+> 2. To launch it by running `dotnet run --project /ABSOLUTE/PATH/TO/PROJECT --no-build`
+>
+> Save the file, and restart **Claude for Desktop**.
 
 > [tab] Ruby
 >
@@ -2419,7 +2431,7 @@ This tutorial will primarily focus on tools.
 > }
 > ```
 >
-> `get_info` returns a `ServerConfig`. Setting `server_info` gives the server its own name and version in the `initialize` response.
+> `get_info` returns a `ServerConfig`. Setting `server_info` makes the server report its own name and version instead of those of the `rmcp` crate.
 >
 > ### Running the server
 >
@@ -2742,6 +2754,7 @@ This tutorial will primarily focus on tools.
 > 			Content: []mcp.Content{
 > 				&mcp.TextContent{Text: "Unable to fetch forecast data for this location."},
 > 			},
+> 			IsError: true,
 > 		}, nil, nil
 > 	}
 >
@@ -2752,6 +2765,7 @@ This tutorial will primarily focus on tools.
 > 			Content: []mcp.Content{
 > 				&mcp.TextContent{Text: "Unable to fetch forecast URL."},
 > 			},
+> 			IsError: true,
 > 		}, nil, nil
 > 	}
 >
@@ -2761,6 +2775,7 @@ This tutorial will primarily focus on tools.
 > 			Content: []mcp.Content{
 > 				&mcp.TextContent{Text: "Unable to fetch detailed forecast."},
 > 			},
+> 			IsError: true,
 > 		}, nil, nil
 > 	}
 >
@@ -2771,6 +2786,7 @@ This tutorial will primarily focus on tools.
 > 			Content: []mcp.Content{
 > 				&mcp.TextContent{Text: "No forecast periods available."},
 > 			},
+> 			IsError: true,
 > 		}, nil, nil
 > 	}
 >
@@ -2800,8 +2816,9 @@ This tutorial will primarily focus on tools.
 > 	if err != nil {
 > 		return &mcp.CallToolResult{
 > 			Content: []mcp.Content{
-> 				&mcp.TextContent{Text: "Unable to fetch alerts or no alerts found."},
+> 				&mcp.TextContent{Text: "Unable to fetch alerts."},
 > 			},
+> 			IsError: true,
 > 		}, nil, nil
 > 	}
 >
@@ -2932,7 +2949,7 @@ Let's make sure Claude for Desktop is picking up the two tools we've exposed in 
 
 ![](https://mintcdn.com/mcp/zNouQwo2h8cbxlDS/images/visual-indicator-mcp-tools.png?fit=max\&auto=format\&n=zNouQwo2h8cbxlDS\&q=85\&s=1bf23a2cfc5f6dd3dac1c7574cceebc9)
 
-After clicking on the plus icon, hover over the "Connectors" menu. You should see the `weather` servers listed:
+After clicking on the plus icon, hover over the "Connectors" menu. You should see your weather server listed:
 
 ![](https://mintcdn.com/mcp/zNouQwo2h8cbxlDS/images/available-mcp-tools.png?fit=max\&auto=format\&n=zNouQwo2h8cbxlDS\&q=85\&s=e2ace1ac88895a5fe30ebd8d01456bc3)
 

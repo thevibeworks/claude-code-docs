@@ -22,14 +22,14 @@ Vercel's own guide for creating the credential is at [vercel.com](https://vercel
 
 ## Add the connector
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Vercel**. Fill in these fields in the connect form.
+Go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Vercel**. Fill in these fields in the connect form.
 
 | Field | Value |
 | :- | :- |
 | Claude's access token | The access token from Vercel |
 | Allowed websites | `api.vercel.com` (preset) |
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
 The Agent Proxy injects the credential at the network boundary; the model and the sandbox are not given the key. See [how Agent Proxy works](https://claude.com/docs/claude-tag/concepts/agent-identity.md#agent-proxy).
 

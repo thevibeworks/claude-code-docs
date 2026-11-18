@@ -77,7 +77,7 @@ A channel session can use only the access an admin applied in one of these place
 
 * **The channel itself.** Access added on the channel's page, or a bundle applied to the channel, reaches that channel only.
 * **The channel's workspace.** Access added on the workspace's page, or a bundle applied to the workspace, reaches every channel of that workspace.
-* **All of Slack.** Access added on the **Slack** page, or a bundle applied there, reaches every channel of every paired workspace. The first credential you add for a service on the **Connectors** tab is on here as soon as you save it. See [how scopes inherit](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#how-scopes-inherit).
+* **All of Slack.** Access added on the **Slack** page, or a bundle applied there, reaches every channel of every paired workspace. The first credential you add for a service on the **Claude's connectors** tab is on here as soon as you save it. See [how scopes inherit](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#how-scopes-inherit).
 * **A channel rule.** A bundle an Owner applies to a channel name pattern reaches every matching channel in all of Slack or in one workspace, including channels created or renamed later.
 
 Access applied anywhere else in your organization is invisible to the session, and no request from the session's sandbox can carry a credential that doesn't apply to its channel.
@@ -86,10 +86,10 @@ For example, if a bundle holding finance credentials applies only to one private
 
 To confine a credential to one channel:
 
-1. Apply it to that channel and nowhere broader. The first credential you add for a service on the **Connectors** tab applies in all of Slack as soon as you save it. To keep the credential out of other channels from the start, add it in one of these ways instead:
+1. Apply it to that channel and nowhere broader. The first credential you add for a service on the **Claude's connectors** tab applies in all of Slack as soon as you save it. To keep the credential out of other channels from the start, add it in one of these ways instead:
    * In a bundle whose **Where it applies** list holds only that channel.
    * From the channel's page. Under **Claude's access**, click **Add** and select **Connector**. On the dialog's **Connectors** tab, select the service under **Connect new** and click **Continue**. The credential you enter in the connect form applies in that channel only.
-   * On the page of a connector already on the **Connectors** tab, select **Add credential** from the **⋮** menu at the top of the page. The new credential is off everywhere until you pick it in the channel's row under **Assign access**, selecting **Add place** if the channel isn't listed.
+   * On the page of a connector already on the **Claude's connectors** tab, select **Add credential** from the **⋮** menu at the top of the page. The new credential is off everywhere until you pick it in the channel's row under **Assign access**, selecting **Add place** if the channel isn't listed.
 2. Keep the channel private. Access on a public channel [reaches anyone who joins](https://claude.com/docs/claude-tag/admins/attach-to-scope.md#attach-to-a-channel).
 3. Open the channel from the **Channels** tab under **Claude's access** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and check its **Claude's access** table. It lists the access that reaches the channel, and an item a bundle brings is listed under that bundle's row. The **Inheritance** column shows whether each bundle, and each item outside a bundle, was added on the channel's page or inherited from the workspace or from **Slack**.
 

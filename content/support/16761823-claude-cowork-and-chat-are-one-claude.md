@@ -46,7 +46,7 @@ Apps you've connected to Claude (like Google Drive, Gmail, Microsoft 365, or Sla
 
 - **Browsing:** Claude can open sites, read pages, click, and fill in forms, using the browser built into Claude Desktop or your own Chrome browser through Claude in Chrome. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
 
-- **Computer use:** In beta on Pro, Max, and Ultra plans, Claude can use apps on your computer directly by clicking, typing, and navigating your screen. Learn more in **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542)**.
+- **Computer use:** On Pro, Max, and Ultra plans, Claude can use apps on your computer directly by clicking, typing, and navigating your screen. Learn more in **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542)**.
 
 Claude reaches your local files, the built-in browser, and computer use only while Claude Desktop is open, and by default it asks before permanently deleting any files.
 

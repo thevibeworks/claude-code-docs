@@ -1408,7 +1408,7 @@ Which settings govern a claude.ai connector depends on where your session runs, 
 
 Your organization can set per-tool controls on [claude.ai connectors](https://claude.com/docs/connectors). Claude Code reads these settings at startup and enforces them locally, except in the desktop app's [local and SSH sessions](#how-connectors-reach-claude-code). There, the desktop app withholds `blocked` tools before it delivers a connector, and the `ask` setting doesn't reach Claude Code, so it applies the session's ordinary [permission rules](https://code.claude.com/docs/en/permissions.md) to those tools instead of prompting on every call. In sessions where Claude Code fetches connectors itself, run `/mcp` to see which setting applies to each tool on a connector.
 
-* **Tool set to `ask`**: Claude Code prompts on every call with the reason `Your organization requires approval for this tool`. The prompt appears even in `acceptEdits`, `auto`, and `bypassPermissions` [permission modes](https://code.claude.com/docs/en/permissions.md#permission-modes). In the terminal, the prompt has no option to remember your choice. [Allow rules](https://code.claude.com/docs/en/permissions.md) that match the tool don't skip the prompt either. In `dontAsk` mode, which never prompts, Claude Code denies the call instead.
+* **Tool set to `ask`**: Claude Code prompts on every call Claude makes, with the reason `Your organization requires approval for this tool`. The prompt appears even in `acceptEdits`, `auto`, and `bypassPermissions` [permission modes](https://code.claude.com/docs/en/permissions.md#permission-modes). In the terminal, you can't save your choice. Matching [allow rules](https://code.claude.com/docs/en/permissions.md) don't skip the prompt. In `dontAsk` mode, or a `-p` run with nothing to answer the prompt, Claude Code denies the call instead.
 * **Tool set to `blocked`**: Claude Code filters the tool out before Claude sees it, so it never appears in Claude's tool list. In sessions where Claude Code fetches connectors itself, the `/mcp` tool list still shows the tool, marked `disabled by your organization`.
 
 The desktop app and claude.ai chat apply the same `blocked` setting, so Claude can't use a blocked tool there either, and you can't withhold a tool from the desktop app's sessions while keeping it available in chat. The desktop app skips a connector whose tools are all blocked.
@@ -1611,15 +1611,15 @@ For the message that names the tool and the ways to shorten its full name, see [
 
 ## Require approval for a specific tool
 
-If you're building an MCP server, you can mark a tool as requiring explicit approval on every call by setting `_meta["anthropic/requiresUserInteraction"]` to `true` in the tool's `tools/list` response entry. The value must be the JSON Boolean `true`; any other value is ignored.
+If you're building an MCP server, you can mark a tool as requiring explicit approval by setting `_meta["anthropic/requiresUserInteraction"]` to `true` in the tool's `tools/list` response entry. The value must be the JSON Boolean `true`; any other value is ignored.
 
-Claude Code shows that tool's permission prompt on every call, even in `acceptEdits`, `auto`, and `bypassPermissions` [permission modes](https://code.claude.com/docs/en/permissions.md#permission-modes), and doesn't offer a "don't ask again" option for it. [Allow rules](https://code.claude.com/docs/en/permissions.md#permission-rule-syntax) that match the tool don't skip the prompt either. In `dontAsk` mode, which never prompts, Claude Code denies the call instead.
+Claude Code shows that tool's permission prompt on every call Claude makes, even in `acceptEdits`, `auto`, and `bypassPermissions` [permission modes](https://code.claude.com/docs/en/permissions.md#permission-modes), and doesn't offer a "don't ask again" option for it. [Allow rules](https://code.claude.com/docs/en/permissions.md#permission-rule-syntax) that match the tool don't skip the prompt either. In `dontAsk` mode, or a `-p` run with nothing to answer the prompt, Claude Code denies the call instead.
 
 The prompt has to reach a person. In non-interactive mode with [`--permission-prompt-tool`](https://code.claude.com/docs/en/cli-reference#cli-flags), an `allow` result from the prompt tool for a flagged tool is converted to a deny with the message `MCP tool requires user interaction; not supported via --permission-prompt-tool`. The Agent SDK's [`canUseTool` callback](https://code.claude.com/docs/en/agent-sdk/permissions) does receive these calls and can approve them, because your SDK application is expected to show them to a user.
 
 Use this for tools whose permission prompt is itself the point, such as a consent or access-grant step where auto-approval would mean no human ever agreed. Other tools from the same server keep their normal permission behavior.
 
-The following `tools/list` entry marks one tool as always requiring approval.
+The following `tools/list` entry marks one tool:
 
 ```json theme={null}
 {

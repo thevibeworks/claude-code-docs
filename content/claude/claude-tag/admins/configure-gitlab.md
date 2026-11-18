@@ -50,11 +50,11 @@ Set an expiry that matches your rotation policy, and store the token somewhere y
 
 ## Add the token as a connector
 
-The first GitLab token you add from the **Connectors** tab is on in every workspace and channel as soon as you save it. To add GitLab for only the channels a bundle covers, add it from the bundle's page under **What's in it** instead; see [Create a bundle](https://claude.com/docs/claude-tag/admins/add-connections.md#create-a-bundle). To add it for one workspace or channel, [connect it from that place's page](https://claude.com/docs/claude-tag/admins/add-connections.md#connect-a-service-for-one-workspace-or-channel).
+The first GitLab token you add from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To add GitLab for only the channels a bundle covers, add it from the bundle's page under **What's in it** instead; see [Create a bundle](https://claude.com/docs/claude-tag/admins/add-connections.md#create-a-bundle). To add it for one workspace or channel, [connect it from that place's page](https://claude.com/docs/claude-tag/admins/add-connections.md#connect-a-service-for-one-workspace-or-channel).
 
-**1. Open the Connectors tab**
+**1. Open Claude's connectors**
 
-Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Connectors** tab and click **Add**.
+Go to [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). Under **Claude's access**, select the **Claude's connectors** tab and click **Add**.
 
 **2. Connect GitLab**
 
@@ -76,7 +76,7 @@ Self-managed GitLab instances are supported when reachable from the public inter
 
 ## Verify GitLab access
 
-* GitLab appears on the **Connectors** tab, and its page's **Access from** table lists the token, with where it applies under **Used at**.
+* GitLab appears on the **Claude's connectors** tab, and its page's **Access from** table lists the token, with where it applies under **Used at**.
 * In a channel where GitLab applies, `@Claude what can you access from this channel?` returns GitLab.
 * In that same channel, ask Claude to list the open issues in one of your GitLab projects. Claude returns them without prompting for credentials.
 

@@ -31,13 +31,13 @@ Both routes create a credential and an allowed-websites rule for the Google host
 >
 > Use a dedicated Google account for this connector (for example, `claude@yourcompany.example.com`), not your own. The connector is shared: anyone in a channel where it's on can ask Claude to read whatever this account can see in Drive, Calendar, and Gmail. A dedicated account starts with no access until you share the specific folders and calendars Claude needs, and keeps its activity under a separate identity in Google's audit log.
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Google Drive**, **Google Calendar**, or **Gmail**. The connect form lists the Google hosts the connector can reach; there are no scopes to choose. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you sign in. Click **Sign in with Google Drive** (or **Sign in with Google Calendar**, or **Sign in with Gmail**), approve the Google consent screen, and the credential is saved.
+Go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Google Drive**, **Google Calendar**, or **Gmail**. The connect form lists the Google hosts the connector can reach; there are no scopes to choose. The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you sign in. Click **Sign in with Google Drive** (or **Sign in with Google Calendar**, or **Sign in with Gmail**), approve the Google consent screen, and the credential is saved.
 
 The connector's reach is whatever the signed-in Google account can see. Share the relevant folders and calendars with that account in Google before testing.
 
 ## Add the connector with a service account
 
-Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Custom connector**. Fill in these fields in the connect form.
+Go to [**Organization settings > Claude Tag > Claude's connectors**](https://claude.ai/admin-settings/claude-tag?access=connectors), click **Add**, and select **Custom connector**. Fill in these fields in the connect form.
 
 | Field | Value |
 | :- | :- |
@@ -48,7 +48,7 @@ Go to [**Organization settings > Claude Tag > Connectors**](https://claude.ai/ad
 | Subject (optional) | A user email to impersonate via domain-wide delegation. Set this for Workspace data (Drive, Calendar, Gmail, Docs). |
 | Allowed websites | `*.googleapis.com` |
 
-The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
+The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you save the connector. Click **Connect** to save the connector.
 
 For Google Workspace data (Drive, Calendar, Gmail, Docs), the service account needs domain-wide delegation configured in your Google Admin console. In the service account's domain-wide delegation entry, list every scope you entered in **Scopes**, or `https://www.googleapis.com/auth/cloud-platform` if you left **Scopes** empty. Google's guide is at [developers.google.com/identity/protocols/oauth2/service-account](https://developers.google.com/identity/protocols/oauth2/service-account#delegatingauthority).
 

@@ -108,7 +108,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > load_dotenv()  # load environment variables from .env
 >
-> MODEL = "claude-opus-5"
+> MODEL = "claude-haiku-5-5"
 > # The model thinks adaptively unless told otherwise, and max_tokens caps thinking
 > # plus the reply, so leave room for both.
 > MAX_TOKENS = 10000
@@ -297,7 +297,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > ### 3. Query Processing
 >
-> * Maintains conversation context
+> * Starts a new conversation for each query
 > * Handles Claude's responses and tool calls
 > * Runs every tool call of a turn, then answers them all in one message
 > * Keeps looping while Claude asks for tools, up to `MAX_TOOL_TURNS`
@@ -490,7 +490,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > {
 >   "type": "module",
 >   "scripts": {
->     "build": "tsc && chmod 755 build/index.js"
+>     "build": "tsc && node -e \"require('fs').chmodSync('build/index.js', '755')\""
 >   }
 > }
 > ```
@@ -563,7 +563,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >   throw new Error("ANTHROPIC_API_KEY is not set");
 > }
 >
-> const MODEL = "claude-opus-5";
+> const MODEL = "claude-haiku-5-5";
 > // The model thinks adaptively unless told otherwise, and max_tokens caps
 > // thinking plus the reply, so leave room for both.
 > const MAX_TOKENS = 10000;
@@ -783,7 +783,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > ```typescript theme={null}
 > async function main() {
 >   if (process.argv.length < 3) {
->     console.log("Usage: node index.ts <path_to_server_script>");
+>     console.log("Usage: node build/index.js <path_to_server_script>");
 >     return;
 >   }
 >   const mcpClient = new MCPClient();
@@ -917,19 +917,13 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > * Java 17 or higher
 > * Maven 3.6+
-> * npx package manager
+> * npm
 > * Anthropic API key (Claude)
 > * Brave Search API key
 >
 > ## Setting Up Your Environment
 >
-> 1. Install npx (Node Package eXecute):
->    First, make sure to install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
->    and then run:
->
->    ```bash theme={null}
->    npm install -g npx
->    ```
+> 1. Install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm), which includes `npx`.
 >
 > 2. Clone the repository:
 >
@@ -1192,7 +1186,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > First, let's create the basic client class:
 >
 > ```kotlin theme={null}
-> private const val MODEL = "claude-opus-5"
+> private const val MODEL = "claude-haiku-5-5"
 > // The model thinks adaptively unless told otherwise, and max_tokens caps thinking
 > // plus the reply, so leave room for both.
 > private const val MAX_TOKENS = 10_000L
@@ -1565,7 +1559,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > Before starting, ensure your system meets these requirements:
 >
-> * .NET 8.0 or higher
+> * .NET 10.0 or higher
 > * Anthropic API key (Claude)
 > * Windows, Linux, or macOS
 >
@@ -1581,8 +1575,8 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > Then, add the required dependencies to your project:
 >
 > ```bash theme={null}
-> dotnet add package ModelContextProtocol --prerelease
-> dotnet add package Anthropic.SDK
+> dotnet add package ModelContextProtocol
+> dotnet add package Anthropic
 > dotnet add package Microsoft.Extensions.Hosting
 > dotnet add package Microsoft.Extensions.AI
 > ```
@@ -1603,7 +1597,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > First, let's setup the basic client class in the file `Program.cs`:
 >
 > ```csharp theme={null}
-> using Anthropic.SDK;
+> using Anthropic;
 > using Microsoft.Extensions.AI;
 > using Microsoft.Extensions.Configuration;
 > using Microsoft.Extensions.Hosting;
@@ -1661,8 +1655,8 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > Now let's add the core functionality for processing queries and handling tool calls:
 >
 > ```csharp theme={null}
-> using var anthropicClient = new AnthropicClient(new APIAuthentication(builder.Configuration["ANTHROPIC_API_KEY"]))
->     .Messages
+> using var anthropicClient = new AnthropicClient(new() { ApiKey = builder.Configuration["ANTHROPIC_API_KEY"] })
+>     .AsIChatClient("claude-haiku-5-5")
 >     .AsBuilder()
 >     .UseFunctionInvocation()
 >     .Build();
@@ -1670,7 +1664,6 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > var options = new ChatOptions
 > {
 >     MaxOutputTokens = 10000,
->     ModelId = "claude-opus-5",
 >     Tools = [.. tools]
 > };
 >
@@ -1722,9 +1715,9 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > * Leverages [Microsoft.Extensions.AI](https://learn.microsoft.com/dotnet/ai/ai-extensions) for the chat client.
 > * Configures the `IChatClient` to use automatic tool (function) invocation.
-> * The client reads user input and sends it to the server.
-> * The server processes the query and returns a response.
-> * The response is displayed to the user.
+> * The client reads user input and sends it to Claude.
+> * When Claude asks for a tool, the client calls it on the server and sends the result back to Claude.
+> * The client displays Claude's response to the user.
 >
 > ## Running the Client
 >
@@ -1746,7 +1739,6 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > 2. List available tools
 > 3. Start an interactive chat session where you can:
 >    * Enter queries
->    * See tool executions
 >    * Get responses from Claude
 > 4. Exit the session when done
 >
@@ -1833,7 +1825,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > require "mcp"
 >
 > class MCPClient
->   ANTHROPIC_MODEL = "claude-opus-5"
+>   ANTHROPIC_MODEL = "claude-haiku-5-5"
 >   # The model thinks adaptively unless told otherwise, and max_tokens caps thinking
 >   # plus the reply, so leave room for both.
 >   MAX_TOKENS = 10000
@@ -2280,7 +2272,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > use tokio::io::{self, AsyncBufReadExt, BufReader};
 > use tokio::process::Command;
 >
-> const MODEL_ANTHROPIC: &str = "claude-opus-5";
+> const MODEL_ANTHROPIC: &str = "claude-haiku-5-5";
 > /// The model may think before answering, and max_tokens caps thinking
 > /// plus the reply, so leave room for both.
 > const MAX_TOKENS: u32 = 10000;

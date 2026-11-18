@@ -23,13 +23,17 @@ Anthropic uses the following terms to describe the model lifecycle:
 
 The dates on this page apply to Anthropic-operated platforms: the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). Partner-operated platforms, Claude Models on Google Cloud (Google managed) and Amazon Bedrock, set their own retirement schedules, so a model’s lifecycle status and dates can differ. See the [Amazon Bedrock (`bedrock-mantle`)](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#supported-models), [Amazon Bedrock (`bedrock-runtime`)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#api-model-ids), and [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#api-model-ids) model tables.
 
+[Claude Code](https://code.claude.com/docs/en/overview) uses the Claude API, including when you sign in with a Claude plan, so this page’s dates apply. If Claude Code is set up for another platform or for a gateway, the dates are those of the platform that serves its requests.
+
 ## Migrating to replacements
 
-Once a model is deprecated, migrate all usage to a suitable replacement before the retirement date. Requests to models past the retirement date will fail.
+Once a model is deprecated, migrate all usage to a suitable replacement before the retirement date. Once the model is retired, requests to it fail.
 
 To help measure the performance of replacement models on your tasks, consider thorough testing of your applications with the new models well before the retirement date.
 
 For specific instructions on migrating to the latest Claude models, see [Migration guides](https://platform.claude.com/docs/en/about-claude/models/migration-guide).
+
+If you use Claude Code, update it first, because a newer model can need a newer version of Claude Code. Then, [check which model you’re using](https://code.claude.com/docs/en/model-config#checking-your-current-model), even if you set no model or use a [Claude Code alias](https://code.claude.com/docs/en/model-config#model-aliases) such as `sonnet`. If that model is deprecated or retired, set its [recommended replacement](https://platform.claude.com/docs/en/about-claude/model-deprecations#deprecation-history) as your model. Also, change the old model [everywhere you set a model](https://code.claude.com/docs/en/model-config#setting-your-model), including subagent definitions, and ask your administrator to change any model they set.
 
 ## Notifications
 
@@ -105,6 +109,10 @@ On September 30, 2026, Anthropic notified developers using Claude Sonnet 4.5 of 
 | Retirement date   | Deprecated model             | Recommended replacement |
 | ----------------- | ---------------------------- | ----------------------- |
 | November 30, 2026 | `claude-sonnet-4-5-20250929` | `claude-sonnet-5-5`     |
+
+This retirement includes `claude-sonnet-4-5`, the same model’s ID without a date.
+
+If you use Claude Code, see [Overview](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview) for which dates apply and [Migrating to replacements](https://platform.claude.com/docs/en/about-claude/model-deprecations#migrating-to-replacements) for what to change. Once this model is retired, Claude Code on the Claude API shows an error that begins [`There's an issue with the selected model`](https://code.claude.com/docs/en/errors#theres-an-issue-with-the-selected-model). If you set a [fallback model chain](https://code.claude.com/docs/en/model-config#fallback-model-chains), Claude Code switches to the next model in the chain instead. It tries Claude Sonnet 4.5 again on your next message.
 
 ### 2026-06-05: Claude Opus 4.1 model
 

@@ -44,7 +44,7 @@ Features that are currently Deprecated are listed in the
 
 Every request declares the protocol version it is using via the
 `io.modelcontextprotocol/protocolVersion` key in its
-[`_meta`](https://modelcontextprotocol.io/specification/draft/basic/index#meta) field, and the server accepts or
+[`_meta`](https://modelcontextprotocol.io/specification/draft/basic/index#_meta) field, and the server accepts or
 rejects each request independently. On Streamable HTTP, the same value is also carried
 in the
 [`MCP-Protocol-Version` header](https://modelcontextprotocol.io/specification/draft/basic/transports/streamable-http#protocol-version-header).

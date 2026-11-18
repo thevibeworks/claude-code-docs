@@ -72,7 +72,7 @@ Only an Owner of your Claude organization or a [Claude Tag admin](https://claude
 
 ## Connect only PHI-free tools
 
-In a channel, Claude signs in to tools outside Slack only through Claude Tag connectors. The first credential you add for a service from the **Connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you add a connector.
+In a channel, Claude signs in to tools outside Slack only through Claude Tag connectors. The first credential you add for a service from the **Claude's connectors** tab is on in every workspace and channel as soon as you save it. To give it narrower reach, see [where a new connector applies](https://claude.com/docs/claude-tag/admins/add-connections.md#add-a-connection) before you add a connector.
 
 For a healthcare organization, apply these rules when deciding what to connect:
 
@@ -84,7 +84,7 @@ For a healthcare organization, apply these rules when deciding what to connect:
 Members' own claude.ai connectors, such as their email or calendar, are a separate path to tools outside Slack. In a one-to-one direct message from a member who has connected a Claude account, Claude works on that member's own Claude account and can use those connectors, so keep the **Allow direct messages** toggle off as described in [Limit Claude to PHI-free channels](#limit-claude-to-phi-free-channels). In channels, Claude can [use a member's own connectors for that member's requests](https://claude.com/docs/claude-tag/concepts/personal-connectors.md) after the member allows it, and no organization setting turns off personal connectors in channels entirely. These controls apply:
 
 * **Block a connector for everyone.** A connector you restrict for your organization on the [**Connectors** admin page](https://claude.ai/admin-settings/connectors) stays restricted when Claude uses a member's connectors in a channel.
-* **Require human review.** On the Enterprise plan, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), select **Edit** on the **Personal connectors** row, and turn on **Require human review of every message**, so a member reviews every result before it posts to the channel.
+* **Require human review.** On the Enterprise plan, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), select the **Personal connectors** tab under **Claude's access**, and turn on **Require human review of every message that uses personal connectors**, so a member reviews every result before it posts to the channel.
 * **Treat the rest as PHI-bearing.** Include members' remaining claude.ai connectors in the tools that must stay PHI-free.
 
 ## Train your workspace and monitor approved channels

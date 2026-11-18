@@ -26,7 +26,7 @@ For more information about using remote MCP servers with the Claude API, see [MC
 
 ## Remote MCP server examples
 
-<MCPServersTable platform="mcpConnector" />
+<MCPServersTable />
 
 <Note>
   **Looking for more?** [Find hundreds more MCP servers on GitHub](https://github.com/modelcontextprotocol/servers).

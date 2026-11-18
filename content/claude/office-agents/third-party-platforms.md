@@ -389,15 +389,29 @@ and `cap` is the limit, 20.
 
 The add-in loads the `skills` array when the pane loads and at each
 scheduled bootstrap call before the response expires. It also calls the
-bootstrap endpoint when a user selects New chat or starts to type the first
-message of a chat.
+bootstrap endpoint when a user does one of these:
 
-That extra call happens at most once every 30 seconds in each open pane,
-counted from the last time the pane read the skills. The add-in retries a call
-up to three times if the endpoint can't be reached or answers with a 5xx, 408,
-425, or 429 status. Skill file downloads aren't retried. From the response, the add-in uses only the
-`skills` array. It doesn't apply a token or any other setting, so keep
-tokens from earlier calls valid until they expire.
+* Selects New chat.
+* Starts the first message of a chat, by typing it or by selecting a
+  suggested prompt.
+* Opens a list of skills in any chat: types `/` at the start of a word in the
+  chat input, or selects the + button at the bottom of the chat pane and then
+  selects Skills.
+
+At New chat and at a first message, that extra call happens at most once every
+30 seconds in each open pane, counted from the last time the pane read the
+skills. When a user opens a list of skills, the add-in always calls, unless an
+earlier call still waits for its answer or the skills are still loading. So a
+pane has one of these calls open at a time, and it ends a call that has no
+answer after 10 seconds. Nothing else limits how many of these calls a pane
+makes in a minute. A `/` typed while Claude is replying calls when the reply
+ends.
+
+The add-in retries a call up to three times if the endpoint can't be reached
+or answers with a 5xx, 408, 425, or 429 status. Skill file downloads aren't
+retried. From the response, the add-in uses only the `skills` array. It
+doesn't apply a token or any other setting, so keep tokens from earlier calls
+valid until they expire.
 
 After that call, the add-in loads the array again if an entry might have
 changed.
@@ -414,10 +428,10 @@ again, it downloads the `url` of each skill within the limit of 20, unless
 the entry has inline `content`. It does the same when the pane loads and at
 each scheduled bootstrap call.
 
-To avoid downloads on the call at New chat or the first message when nothing
-changed, give each `url` entry a `sha256`: the SHA-256 of the file, as 64
-hexadecimal characters. Update the `sha256` whenever the file changes: the
-add-in refuses a file that doesn't match it.
+To avoid downloads on that extra call when nothing changed, give each `url`
+entry a `sha256`: the SHA-256 of the file, as 64 hexadecimal characters.
+Update the `sha256` whenever the file changes: the add-in refuses a file that
+doesn't match it.
 
 The load runs in the background and a chat never waits for it:
 
@@ -430,8 +444,7 @@ The load runs in the background and a chat never waits for it:
   reloads while the file still fails, the skill is missing until it loads. The
   add-in sends the warning log record `Bootstrap skill failed to load`
   to your [OpenTelemetry collector](https://claude.com/docs/office-agents/opentelemetry.md).
-* A skill published within 30 seconds of the last read appears in a later
-  chat.
+* A list of skills that is open when the load ends shows the new skill.
 
 To remove every skill, return an empty `skills` array. If a response has
 no `skills` key, the add-in keeps the skills that it has.
@@ -814,6 +827,8 @@ When gateway configuration comes from a bootstrap endpoint, the add-in
 keeps the token current without user action. It calls the bootstrap
 endpoint again about five minutes before the expiry declared in the
 bootstrap response and applies the returned token to the running session.
+If that call fails, the add-in tries again after about a minute, then at
+growing intervals of up to about ten minutes, until a call succeeds.
 If the gateway rejects a request as unauthorized before that expiry, the
 add-in calls the bootstrap endpoint once and retries the request if the
 token changed.

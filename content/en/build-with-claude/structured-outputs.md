@@ -2864,10 +2864,9 @@ Structured outputs support standard JSON Schema with some limitations. Both JSON
 
 <Accordion title="Supported features">
   * All basic types: object, array, string, integer, number, boolean, null
-  * `enum` (strings, numbers, booleans, or nulls only, no complex types). For a capitalization caveat, see [Invalid outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#invalid-outputs).
-  * `const`
-  * `anyOf` and `allOf` (with limitations: `allOf` with `$ref` not supported)
-  * `$ref`, `$def`, and `definitions` (external `$ref` not supported)
+  * `enum` and `const` (strings, numbers, booleans, or nulls only), with a [capitalization caveat](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#invalid-outputs)
+  * `anyOf` and `allOf`, except the uses listed under “Not supported”
+  * `$ref`, `$defs`, and `definitions`
   * `default` property for all supported types
   * `required` and `additionalProperties` (must be set to `false` for objects)
   * String formats: `date-time`, `time`, `date`, `duration`, `email`, `hostname`, `uri`, `ipv4`, `ipv6`, `uuid`
@@ -2876,6 +2875,11 @@ Structured outputs support standard JSON Schema with some limitations. Both JSON
 
 <Accordion title="Not supported">
   * Recursive schemas
+  * `oneOf` (use `anyOf` instead)
+  * `not`
+  * `anyOf` in the same schema object as keywords such as `type` or `properties` (annotations such as `title` and `description` are fine)
+  * `allOf` with schemas that conflict (for example, different `type` values)
+  * `allOf` with two or more schemas when one of them directly contains `$ref`, `anyOf`, or `allOf`
   * Complex types within enums
   * External `$ref` (for example, `'$ref': 'http://...'`)
   * Numerical constraints (such as `minimum`, `maximum`, `multipleOf`)
@@ -2894,7 +2898,7 @@ Structured outputs support standard JSON Schema with some limitations. Both JSON
   * Character classes: `[]`, `.`, `\d`, `\w`, `\s`
   * Groups: `(...)`
 
-  **NOT supported:**
+  **Not supported:**
 
   * Backreferences to groups (for example, `\1`, `\2`)
   * Lookahead/lookbehind assertions (for example, `(?=...)`, `(?!...)`)

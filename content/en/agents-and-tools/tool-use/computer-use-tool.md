@@ -1757,7 +1757,7 @@ If your screen is larger than the limit, resize each screenshot before returning
       // When handling Claude's coordinates, scale them back up
       BiConsumer<Integer, Integer> executeClick =
           (x, y) -> performClick(x / scale, y / scale);
-  // ...
+      // ...
   }
   ```
 

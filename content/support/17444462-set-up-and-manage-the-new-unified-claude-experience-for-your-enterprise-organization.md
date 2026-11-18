@@ -66,13 +66,13 @@ On November 16, 2026, **Chat and Cowork unified** turns on by default if no admi
 
 If **Chat** or **Cloud code execution and file creation** is off, nothing turns on. After November 16, the new experience turns on as soon as both are on.
 
-**Custom roles on December 1, 2026:** If your organization is still on by default, the new unified Claude experience turns on for custom roles that have both Chat and code execution selected, even if an admin turned it off for that role. Admins can turn it off again by role after that. If an admin has turned it on or off for your organization, this change doesn’t apply.
+**Custom roles on December 8, 2026:** If your organization is still on by default, the new unified Claude experience turns on for custom roles that have both Chat and code execution selected, even if an admin turned it off for that role. Admins can turn it off again by role after that. If an admin has turned it on or off for your organization, this change doesn’t apply.
 
 ### For specific members, using roles
 
 The organization setting above must also be on. Once it is, everyone with the User, Admin, Owner or Primary Owner role has access. Before you turn it on, move anyone who shouldn’t have it to a custom role with Chat and Cowork unified turned off. New roles start with All capabilities, which includes it.
 
-When you turn it on for your organization, clear that role in the list that opens, because every eligible role starts selected. If your organization is still on by default instead, it turns on for eligible roles on December 1, 2026, even if you turned it off for them.
+When you turn it on for your organization, clear that role in the list that opens, because every eligible role starts selected. If your organization is still on by default instead, it turns on for eligible roles on December 8, 2026, even if you turned it off for them.
 
 If your organization uses custom roles, you can grant the new unified Claude experience to specific roles:
 

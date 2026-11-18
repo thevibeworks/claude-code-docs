@@ -108,9 +108,10 @@ Anthropic’s [client SDKs](https://platform.claude.com/docs/en/cli-sdks-librari
 
   <Tab title="Ruby">
     ```bash
-    # Gemfile
-    gem "anthropic"
+    bundle add anthropic
     ```
+
+    For Entra ID authentication, you pass the client a token provider. The provider in [Microsoft Entra authentication](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#microsoft-entra-authentication) gets its tokens from the [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli), so install the Azure CLI to use that provider.
   </Tab>
 </Tabs>
 
@@ -358,7 +359,7 @@ The SDK’s Foundry client requires an API key and either a resource name or bas
     messages: [{role: "user", content: "Hello!"}]
   )
 
-  puts message.content.find { it.type == :text }.text
+  message.content.grep(Anthropic::Models::TextBlock).each { |block| puts block.text }
   ```
 </CodeGroup>
 
@@ -603,7 +604,7 @@ Entra ID authentication lets you manage access with Azure RBAC, integrate with y
     messages: [{role: "user", content: "Hello!"}]
   )
 
-  puts message.content.find { it.type == :text }.text
+  message.content.grep(Anthropic::Models::TextBlock).each { |block| puts block.text }
   ```
 </CodeGroup>
 

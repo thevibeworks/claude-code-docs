@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication
 description: Authenticate the ant CLI with interactive login, API keys, named profiles, and Workload Identity Federation.
 ---
 
-The `ant` CLI supports several credential sources. The [Quickstart](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart#authentication) covers the one-command login (`ant auth login`). This page covers every option in full.
+The `ant` CLI supports several credential sources. The [CLI quickstart](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/quickstart#authentication) covers the one-command login (`ant auth login`). This page covers every option in full.
 
 ## Interactive login
 
@@ -19,29 +19,39 @@ ant auth login --no-browser
 # Bind to a specific workspace and skip the browser picker:
 ant auth login --workspace-id wrkspc_01...
 
-# If the named profile you pass with --profile doesn't exist,
-# a new named profile will be created with that name.
+# If the profile that you name with --profile doesn't exist,
+# the login creates it.
 ant auth login --profile work
 ```
 
-During the browser flow, you select an organization and then a [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces). The issued token is [scoped to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping), so the CLI can only see resources that belong to it. Pass `--workspace-id` to bind directly and skip the picker. To work in more than one workspace, see [Switch between workspaces](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#switch-between-workspaces).
+The CLI stores each login under a profile. The first time you log in under a profile, you select a [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) in the browser. If you belong to more than one Claude Console organization, you select the organization first. The issued token is [scoped to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping), so the CLI can only see resources that belong to it. Pass `--workspace-id` to bind directly to a workspace and skip the workspace picker.
+
+The profile keeps that organization and workspace for its later logins. To work in another organization or workspace, log in under a new profile (see [Switch between workspaces](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#switch-between-workspaces)).
 
 Interactive login is intended for local development and scripting on your own machine. For non-interactive workloads such as CI, servers, and containers, use [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) instead.
 
-Login writes credentials to `credentials/<profile>.json`. The first login for a profile also creates `configs/<profile>.json` and sets it as the active profile. To remove stored credentials, run `ant auth logout`, or `ant auth logout --all` to clear every profile.
+Login writes credentials to `credentials/<profile>.json`. The first login for a profile also creates `configs/<profile>.json`.
+
+A login that names a profile, with `--profile` or `ANTHROPIC_PROFILE`, makes that profile the [active profile](https://platform.claude.com/docs/en/manage-claude/wif-reference#active-profile). Any command that doesn’t name a profile, a login included, uses the active profile. Until you make another profile active, that’s `default`.
+
+To remove the active profile’s stored credentials, run `ant auth logout`. The profile keeps its organization and workspace. To clear every profile, those settings included, run `ant auth logout --all`.
 
 ## Admin access
 
-By default, `ant auth login` requests a workspace-scoped token. To manage the resources documented on the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) page, request the `org:admin` scope under a dedicated profile:
+By default, `ant auth login` requests a workspace-scoped token. To manage the resources documented on the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) page, request the `org:admin` scope under a dedicated profile. The login makes that profile active, so the example ends by switching back to your day-to-day profile:
 
 ```bash CLI
 ant auth login --profile admin --scope "org:admin"
 
 # Print a bearer token for Authorization headers:
 ant auth print-credentials --profile admin --access-token
+
+# Switch back to your day-to-day profile, the one that was active
+# before the login, such as default:
+ant profile activate default
 ```
 
-The `org:admin` scope is granted only to organization members with the admin, owner, or primary owner role. The issued token has organization-wide access, and any workspace binding on the profile does not constrain it. Keep the admin profile separate from your day-to-day profile so routine commands never run with elevated access.
+Anthropic grants the `org:admin` scope only to users and service accounts with the admin role. The issued token has organization-wide access, and any workspace binding on the profile does not constrain it. Keep the admin profile separate from your day-to-day profile so routine commands never run with elevated access.
 
 ## API key
 
@@ -116,10 +126,11 @@ An interactive-login token is bound to a single workspace. To use the CLI agains
 #    browser, or pass --workspace-id to skip the picker):
 # ant auth login --profile other-ws
 
-# 2. Make it the default for subsequent commands:
-ant profile activate other-ws
+# 2. The login made other-ws active. Switch back to your day-to-day
+#    profile, such as default:
+ant profile activate default
 
-# 3. Or select it for a single command without changing the default:
+# 3. Use other-ws for one command; later commands still use default:
 ant --profile other-ws models list
 ANTHROPIC_PROFILE=other-ws ant models list
 ```
@@ -142,7 +153,7 @@ ant profile set workspace_id wrkspc_01... --profile other-ws
 
 The writable keys for `ant profile set` are `workspace_id`, `base_url`, `organization_id`, `scope`, `client_id`, and `console_url`. Setting `workspace_id` records the target workspace in the profile config but does not rebind credentials that were already issued; run `ant auth login` again under that profile to mint a token for the new workspace.
 
-For the profile file schema and the federation block, see [Profile configuration file](https://platform.claude.com/docs/en/manage-claude/wif-reference#profile-configuration-file). For Workload Identity Federation, see the [Authentication overview](https://platform.claude.com/docs/en/manage-claude/authentication) and the [WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference).
+For the profile file schema and the federation block, see [Profile configuration file](https://platform.claude.com/docs/en/manage-claude/wif-reference#profile-configuration-file). For Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication) and the [WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference).
 
 ## Next steps
 
