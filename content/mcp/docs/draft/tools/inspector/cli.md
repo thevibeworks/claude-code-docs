@@ -57,7 +57,7 @@ See [Configuration and flags](https://modelcontextprotocol.io/docs/draft/tools/i
 | - | - | - |
 | `initialize` | None | Connect-only probe: `{serverInfo, protocolVersion, capabilities, instructions}`. |
 | `tools/list` | None | `--strict` turns its schema portability check into a gate (see [CI gates](#ci-gates)). |
-| `tools/call` | `--tool-name`, plus optional `--tool-arg` / `--tool-args-json` | |
+| `tools/call` | `--tool-name`, plus optional `--tool-arg` / `--tool-args-json` | `--load` calls it repeatedly (see [Load testing](https://modelcontextprotocol.io/docs/draft/tools/inspector/load-testing.md)). |
 | `resources/list` | None | |
 | `resources/read` | `--uri` | |
 | `resources/templates/list` | None | |
@@ -122,6 +122,18 @@ The CLI can't render an App, so by default it doesn't advertise the MCP Apps ext
 > `--format`; `--format json` reshapes only the single-tool output of
 > `tools/call --app-info`.
 
+## Load testing a tool
+
+`--load` calls one tool, or a weighted mix of tools, resources and prompts, repeatedly and concurrently, and prints a latency and error-rate summary in place of a result. [Load testing](https://modelcontextprotocol.io/docs/draft/tools/inspector/load-testing.md) covers every flag, the summary's fields, thresholds for CI and the other run modes.
+
+```bash theme={null}
+# 20 calls in flight for 30 seconds; fail the job if p99 is above 250 ms
+mcp-inspector --cli <server> --method tools/call --tool-name search \
+  --tool-arg query=mcp --load --load-concurrency 20 --load-duration 30 --load-max-p99 250
+```
+
+A completed run exits `0` whatever its error rate, unless a threshold or baseline is set, which exits `10` on a breach. Ctrl+C prints the summary of what completed and exits `130`.
+
 ## Exit codes and error envelopes
 
 Every non-zero exit maps to a stable failure class, so a caller can branch on *why* without scraping prose:
@@ -138,8 +150,9 @@ Every non-zero exit maps to a stable failure class, so a caller can branch on *w
 | `7` | `--verify` found a skill that violates SEP-2640 (conformance, digest, or size mismatch). |
 | `8` | `--verify` couldn't check every skill within its read bounds. |
 | `9` | `--verify --require-digests` found a skill that advertises no digests. |
-| `10` | A `--load` run breached a `--load-max-error-rate` or `--load-max-p99` threshold. The summary is printed first, and the envelope `code` names the threshold: `load_error_rate_exceeded` or `load_p99_exceeded`. |
+| `10` | A `--load` run breached a [threshold](https://modelcontextprotocol.io/docs/draft/tools/inspector/load-testing.md#thresholds) or its [baseline](https://modelcontextprotocol.io/docs/draft/tools/inspector/load-testing.md#comparing-against-a-baseline) budget. The summary is printed first, and the envelope `code` names the check, such as `load_p99_exceeded` or `load_regression`. |
 | `11` | The server answered HTTP 429 (envelope `code` `rate_limited`). The envelope also carries `method`, plus `retryAfter` (the `Retry-After` header as sent) and `retryAfterMs` when the server sent one that parses. |
+| `130` | A `--load` run was interrupted by Ctrl+C or SIGTERM (envelope `code` `interrupted`). The summary of what completed is printed first. |
 
 On any non-zero exit the CLI also writes a **single JSON line to stderr**:
 
@@ -191,7 +204,7 @@ These flags turn a check into a non-zero exit, each with its own code so a job c
 * `--strict` (with `tools/list`): reports tool-schema portability problems in full on stderr (path, issue, suggested fix) and exits `6` if any is error-severity. Without it, `tools/list` prints only a one-line count. Under `--format json` the findings are folded into the output as `schemaFindings`.
 * `--verify` (with `skills/list` or `skills/get`): runs the SEP-2640 conformance and digest checks, writes one JSON report per skill on stdout, and exits `7` on a violation or `8` when the read bounds stopped it before every skill was checked. `--skill-catalog-max-skills` and `--skill-catalog-max-bytes` set those bounds.
 * `--require-digests` (with `--verify`): exits `9` for a skill that advertises no digests, instead of reporting it as unverifiable and exiting `0`.
-* `--load-max-error-rate <fraction>` and `--load-max-p99 <ms>` (with `--load`): turn a load run into a gate. The run prints its summary, then exits `10` when the share of failed calls is above the fraction (`0` to `1`, so `0` fails on any failed call), when the p99 latency is above the given milliseconds, or when no call completed. `--load` (with `tools/call --tool-name`) calls the tool repeatedly and concurrently and prints a latency and error-rate summary instead of a result, bounded by `--load-duration <sec>` (default `10` when `--load-requests` is not set) and `--load-requests <n>`, with in-flight calls still finishing. `--load-concurrency <n>` (default `10`) caps the calls in flight, `--load-connections <n>` (default `1`, at most `--load-concurrency`, HTTP and SSE servers only) spreads them over independent sessions opened before timing starts, and `--load-rate <n>` (default unlimited) caps the calls started per second.
+* `--load-max-error-rate`, `--load-max-p50`, `--load-max-p95`, `--load-max-p99` and `--load-min-throughput` (with `--load`): print the load run's summary, then exit `10` when the run breaches the limit. `--load-baseline` with `--load-max-regression` does the same for a run worse than a saved one. See [Thresholds](https://modelcontextprotocol.io/docs/draft/tools/inspector/load-testing.md#thresholds) and [Comparing against a baseline](https://modelcontextprotocol.io/docs/draft/tools/inspector/load-testing.md#comparing-against-a-baseline).
 
 ```bash theme={null}
 mcp-inspector --cli <server> --method tools/list --strict > /dev/null

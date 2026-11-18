@@ -66,6 +66,37 @@ The tab bar on a connected server. Which tabs appear depends on the capabilities
 
 The monitoring sidebar pinned beside the Tools screen and dragged to its full width, with the tool call's request and response expanded in the Protocol stream.
 
+## Active sessions
+
+The web backend holds each connection open as a session, and a session can outlive the tab that opened it. When a tab closes or reloads, the backend keeps the session for 60 seconds, so that a reload or an OAuth redirect can pick it back up, and then closes it, ending a stdio server process with it. **Active Sessions** lists every session the backend holds, from every tab, so you can find one that outlived its tab, or one whose server crashed, and end it without restarting the Inspector.
+
+Open it with the **Active sessions** button in the header, between the disconnect button and **Client settings**.
+
+![](https://mintcdn.com/mcp/wLu3KAa2YGoA7yJe/images/inspector/web-active-sessions-button.png?fit=max\&auto=format\&n=wLu3KAa2YGoA7yJe\&q=85\&s=5291d737091f15eccad9ada04689ba75)
+
+The Active sessions button, the network icon in the header between the disconnect and Client settings buttons.
+
+Each row shows the server and its session ID, the transport, the status, when the session was created, when a tab was last attached to it (`now`, or `never`), and how many events are queued for a tab to collect.
+
+| Status | Meaning |
+| - | - |
+| **This tab** | The session this tab is using. It also shows **Attached**. |
+| **Attached** | A tab is connected to the session now. |
+| **Detached** | No tab is attached. Events queue until a tab reattaches or the backend closes it. |
+| **Closed** | The session's transport has died, such as a stdio server process that exited or crashed. |
+
+![](https://mintcdn.com/mcp/wLu3KAa2YGoA7yJe/images/inspector/web-active-sessions.png?fit=max\&auto=format\&n=wLu3KAa2YGoA7yJe\&q=85\&s=8e635a422faaefb526729b731c15fe51)
+
+Sessions from a closed tab, another open tab, a browser that never opened its stream, a crashed server, and this tab.
+
+**Terminate** closes the session's connection, which ends its stdio server process, and drops it from the list. A tab still attached to it is told that the connection was terminated. The refresh button re-reads the list.
+
+![](https://mintcdn.com/mcp/wLu3KAa2YGoA7yJe/images/inspector/web-active-sessions-terminated.png?fit=max\&auto=format\&n=wLu3KAa2YGoA7yJe\&q=85\&s=04363e9b2e14a3fa92e01e5ecc89390b)
+
+The same list after terminating the session the other open tab was using.
+
+The list and the terminate action are backend routes, `GET /api/mcp/sessions` and `DELETE /api/mcp/sessions/<id>`, and like every other `/api` route they require the [session token](#the-session-token).
+
 ## Servers
 
 The Servers screen is the entry point. A server row carries its transport, its connection state, and a control that opens its per-server settings.
@@ -103,9 +134,13 @@ Select a tool to see its description, its input schema rendered as a form, and i
 
 On modern-era servers this screen also shows mirrored `Mcp-Param-*` headers, excluded tools, and distinct `-32602` error panels, all covered in [Protocol eras](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/protocol-eras.md#tools-mirrored-headers-and-excluded-tools).
 
-![](https://mintcdn.com/mcp/gk28X8wi_tbRYzej/images/inspector/web-tools.png?fit=max\&auto=format\&n=gk28X8wi_tbRYzej\&q=85\&s=7ef469a969f398ac0ec70cf019c133da)
+![](https://mintcdn.com/mcp/wLu3KAa2YGoA7yJe/images/inspector/web-tools.png?fit=max\&auto=format\&n=wLu3KAa2YGoA7yJe\&q=85\&s=2a49f6d49cec4fba8d693bd87692ad9b)
 
-A tool call and its rendered result. The argument form collapses into the result panel once the call returns.
+A selected tool's input schema rendered as a form, with its required city and units arguments filled in, ready to execute or load test.
+
+### Load testing
+
+A tool's **Load test** button, beside **Execute Tool**, opens a panel that calls the tool, or a pasted scenario, repeatedly and concurrently over this tab's connection, then shows a latency and error-rate summary. See [Load testing](https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector/load-testing.md#in-the-web-client).
 
 ## Resources
 

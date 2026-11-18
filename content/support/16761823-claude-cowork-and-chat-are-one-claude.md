@@ -92,7 +92,7 @@ You can also set a connector tool to "Always ask." Claude is built to ask before
 
 ## What happened to Claude Cowork?
 
-In the new experience, everything Claude Cowork does is available from any conversation. Your existing Cowork tasks, projects, connectors, skills, artifacts, and files carry over, and those Cowork tasks open as they did before, so you can continue them. The model picker and the “Code” tab are where they were.
+In the new experience, everything Claude Cowork does is available from any conversation. Your existing Cowork tasks, projects, connectors, skills, artifacts, and files carry over, and those Cowork tasks open as they did before, so you can continue them. On Enterprise plans, tasks that ran on your computer need Cowork on for your role and your organization. If your admin turns Cowork off for your role or your organization, those tasks open read-only. The model picker and the “Code” tab are where they were.
 
 ## What's in a new place
 

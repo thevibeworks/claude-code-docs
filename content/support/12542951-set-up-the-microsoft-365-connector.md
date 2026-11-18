@@ -294,6 +294,8 @@ During authentication, the integration requests the following permissions:
 
 - `OnlineMeetingRecording.Read.All`: Read meeting recordings
 
+**Note:** By default, Microsoft doesn't let apps access Teams meeting transcripts, whatever permissions they've been granted. To let Claude read transcripts, have a Teams admin go to **Meetings > Meeting settings** in the Teams admin center and turn on **Microsoft Graph access** under **Transcript API access**. To include speaker attribution, select “Configure” and turn on **Include speaker attribution**, which is also off by default. Learn more in **[Microsoft's guide to transcript API access](https://learn.microsoft.com/en-us/microsoftteams/meeting-transcript-api-access)**.
+
 **Files (OneDrive and SharePoint)**
 
 - `Files.Read`: Read user files

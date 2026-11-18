@@ -83,7 +83,7 @@ Each finding contains the following fields:
 
 **What do I need before I can use Claude Security?**
 
-An active Claude Enterprise plan, a premium seat for each user, and usage credits enabled for consumption billing. An owner enables Claude Security in **[Organization settings > Claude Security](https://claude.ai/admin-settings/claude-security)**. See the **[getting started guide](https://academy.claude.com/tutorials/getting-started-with-claude-security)** for setup steps.
+An active Claude Enterprise plan and **[a seat that includes Claude Code](https://support.claude.com/en/articles/11845131-use-claude-code-with-your-team-or-enterprise-plan)** for each Claude Security user. On seat-based Enterprise plans, usage credits must also be turned on. An owner whose seat includes Claude Code enables Claude Security in **[Organization settings > Claude Security](https://claude.ai/admin-settings/claude-security)**. See the **[getting started guide](https://academy.claude.com/tutorials/getting-started-with-claude-security)** for setup steps.
 
 **How do I give Claude Security access to my repositories?**
 
@@ -101,9 +101,13 @@ Use the **[Outbound IP addresses](https://platform.claude.com/docs/en/api/ip-add
 
 No. Anthropic may retain data where required by law or to address Usage Policy violations.
 
+**Does Claude Security work with customer-managed encryption keys (CMEK)?**
+
+No. Turning on **[customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise)** turns off Claude Security for your organization.
+
 **What happens to my existing projects with the latest update?**
 
-Existing projects keep running as they do today and are still available from the Claude Security home page. New projects use the new experience.
+We're automatically moving existing projects to the new experience, and the earlier version will be retired on November 25, 2026. Your findings are copied to a new project, and the original is archived. If your project arrives paused, its owner can resume it.
 
 **Can I migrate my existing projects?**
 
@@ -145,7 +149,7 @@ Open the project’s Resources tab to edit the threat model and add documents su
 
 **Which models does Claude Security use?**
 
-Claude Security scans are powered by Claude Mythos model. Users receive findings without direct model access. Each project’s chat with Claude uses a model your team picks from the ones your organization allows. Certain subcomponents of Claude Security may use other models when Mythos-class reasoning is not required, for example to enumerate a project directory.
+Claude Security scans are powered by a Claude Mythos model. Users receive findings without direct model access. Each project’s chat with Claude uses a model your team picks from the ones your organization allows. Certain subcomponents of Claude Security may use other models when Mythos-class reasoning is not required, for example to enumerate a project directory.
 
 ### Findings and fixes
 
@@ -191,7 +195,7 @@ Create a webhook under Claude Security settings to push new-finding events into 
 
 **How do admins control who can use Claude Security?**
 
-Admins can decide which RBAC roles can create projects and which can view, triage, or manage all projects by configuring the capabilities in **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
+A member on a custom role needs both the **Claude Security** and the **Claude Code** capabilities. While Claude Security is in beta, the "All generally available" capability setting doesn't include it. Admins can decide which RBAC roles can create projects and which can view, triage, or manage all projects by configuring the capabilities in **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
 **How do I share a project, and what can each role do?**
 
@@ -209,7 +213,7 @@ You can set a separate spend limit for Claude Security. Open Usage in a project�
 
 **Is there a launch offer for the updated Claude Security?**
 
-Yes, eligible Claude Enterprise organizations receive free usage credits up to $25,000 a month, for two months, through December 31, 2026. This appears as a credit in **Organization settings > Usage**. Full **[launch offer terms](#h_07eed9f41c)** below.
+Yes, eligible Claude Enterprise organizations receive free usage credits up to $25,000 a month, for two months, through December 31, 2026. For organizations that already had Claude Enterprise on October 21, 2026, the first month ends on November 21 at 00:00 UTC and the second on December 21 at 00:00 UTC. This appears as a credit in **Organization settings > Usage**. Full **[launch offer terms](#h_07eed9f41c)** below.
 
 **Does the launch offer also apply to the old experience?**
 

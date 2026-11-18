@@ -1,6 +1,6 @@
 # Auto-connect your organization’s apps to Claude
 
-This article explains how Enterprise-managed auth works and how admins can authorize connectors for their organization, either through their identity provider or directly with Claude-issued auth With Enterprise-managed auth, you authorize a connector once for your entire organization, and your team inherits access automatically on first login.
+This article explains how Enterprise-managed auth works and how admins can authorize connectors for their organization, either through their identity provider or directly with Claude-issued auth. With Enterprise-managed auth, you authorize a connector once for your entire organization, and your team inherits access automatically on first login.
 
 Enterprise-managed auth is available for Team and Enterprise plans on Claude. IdP-managed auth is generally available, and Claude-issued auth is in beta.
 

@@ -118,6 +118,8 @@ Chat and Cowork share one list of projects. Projects are not shared between user
 
 Artifacts are available in both Chat and Cowork. An artifact is an interactive page that Claude writes and the Claude Desktop application displays on the user's device, outside the sandbox, so artifacts remain available even when **Advanced file analysis in Chat** is off.
 
+The designs and decks that users make with [Design and Slides](https://claude.com/docs/government/desktop/design-and-slides.md) open on the user's device, outside the sandbox, and Claude Desktop stores them in the [application data directory](#data-storage-and-retention).
+
 In Chat and Cowork, Claude creates files on the user's device in places such as these:
 
 * A folder the user attached to a Cowork task.

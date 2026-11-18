@@ -93,7 +93,7 @@ Compaction on demand and mid-conversation tool changes help you keep the history
 
 [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) is available for Claude Fable 5.2 in Messages API requests on the Claude API, [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), and [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). On Claude in Microsoft Foundry, it’s available for deployments hosted on Anthropic, with its own model ID, `claude-fable-5-2-fast`.
 
-Fast mode is also available for Claude Mythos 5.2 in Messages API requests on the Claude API. [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) lists every platform where Claude Mythos 5.2 has fast mode.
+Fast mode is also available for Claude Mythos 5.2 in Messages API requests. [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability) lists every platform where Claude Mythos 5.2 has fast mode.
 
 ### Thinking blocks stay with the account that produced them
 

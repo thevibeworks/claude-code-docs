@@ -34,7 +34,9 @@ featureMetadata:
   supportedPlatforms:
     Claude API: beta
     Claude Platform on AWS: beta
-    Claude Models on Google Cloud (Anthropic managed): beta
+    Claude Models on Google Cloud (Anthropic managed):
+      availability: beta
+      note: You write your own worker, which calls the Environments Work endpoints.
 ---
 
 The queue statistics and stop calls on this page run from your monitoring or operations tooling, authenticated with your organization API key. The worker helpers handle the claim and keep-alive loop, so you don’t call those endpoints directly.

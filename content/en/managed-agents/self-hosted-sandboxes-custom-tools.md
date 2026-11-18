@@ -34,7 +34,6 @@ featureMetadata:
   supportedPlatforms:
     Claude API: beta
     Claude Platform on AWS: beta
-    Claude Models on Google Cloud (Anthropic managed): beta
 ---
 
 [Custom tools](https://platform.claude.com/docs/en/managed-agents/tools#custom-tools) are tools your own code runs: the agent emits an `agent.custom_tool_use` event and waits for a matching `user.custom_tool_result`. Your worker can be that code. Because it runs inside your sandbox, the tool reaches the internal services, credentials, and network egress you configured for the sandbox, and nothing more.

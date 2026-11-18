@@ -32,7 +32,6 @@ featureMetadata:
     Amazon Bedrock: beta
     Amazon Bedrock (bedrock-runtime): beta
     Claude Platform on AWS: beta
-    Claude Models on Google Cloud (Anthropic managed): beta
     Claude Models on Google Cloud (Google managed): beta
     Microsoft Foundry: beta
 ---

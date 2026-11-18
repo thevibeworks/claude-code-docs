@@ -30,6 +30,10 @@ Each entry is either a plain path string or an object with these fields:
 
 For example, `[{"path": "~/Documents/Claude"}, {"path": "/Volumes/Shared/Reference", "mode": "ro"}]` lets users work in their own folder and consult the shared reference folder without changing it.
 
+> [!WARNING]
+>
+> List the folders that users work in, such as `~/Documents/Claude`, rather than the home folder or a folder that contains it, such as `/Users`. The home folder holds SSH keys and shell startup files, and Claude can read every listed folder, whatever `mode` the entry sets. Setting `mode` to `ro` on a home folder keeps Claude from changing it in Cowork, but not in Code sessions.
+
 The check is enforced against the **resolved** path, so symlinks and `..` traversal can't be used to escape an allowed root.
 
 > [!NOTE]

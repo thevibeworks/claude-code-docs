@@ -107,7 +107,7 @@ Claude Opus 5.5 is built for long-running agentic coding and knowledge work. Typ
   </Card>
 
   <Card title="Fast mode" icon="lightning" href="https://platform.claude.com/docs/en/build-with-claude/fast-mode">
-    Lower-latency Claude Opus 5.5 on the Claude API, priced separately.
+    Faster output from Claude Opus 5.5 at premium pricing.
   </Card>
 </CardGroup>
 

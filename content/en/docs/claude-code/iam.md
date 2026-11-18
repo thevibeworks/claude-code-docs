@@ -27,7 +27,7 @@ You can authenticate with any of these account types:
 * **Claude for Teams or Enterprise**: log in with the claude.ai account your team admin invited you to.
 * **Claude Console**: log in with your Console credentials. Your admin must have [invited you](#claude-console-authentication) first. You can sign in with or without [creating an API key](#sign-in-without-an-api-key).
 * **Cloud providers**: if your organization uses [Amazon Bedrock](https://code.claude.com/docs/en/amazon-bedrock.md), [Google Cloud's Agent Platform](https://code.claude.com/docs/en/google-vertex-ai.md), or [Microsoft Foundry](https://code.claude.com/docs/en/microsoft-foundry.md), set the required environment variables before running `claude`, or select **3rd-party platform** at the login prompt, which launches an interactive setup wizard for Bedrock and Vertex AI. No browser login is needed.
-* **Cloud gateway**: if your organization runs a self-hosted [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway), sign in with corporate SSO through `/login`. The gateway-issued token is the session's only credential.
+* **Cloud gateway**: if your organization runs a self-hosted [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway), sign in with corporate SSO through `/login` or [from VS Code](https://code.claude.com/docs/en/vs-code.md#sign-in-to-a-claude-apps-gateway). The gateway-issued token is the session's only credential.
 
 Admins can direct which login method developers use and require claude.ai logins to belong to a specific organization; see [Restrict login to your organization](#restrict-login-to-your-organization).
 
@@ -272,15 +272,15 @@ Run `unset ANTHROPIC_API_KEY` to fall back to your subscription, and check `/sta
 
 A profile is a named credential configuration file in your [Anthropic configuration directory](https://platform.claude.com/docs/en/manage-claude/wif-reference#configuration-directory), by default `~/.config/anthropic` on macOS and Linux or `%APPDATA%\Anthropic` on Windows. A profile's auth mode is `oidc_federation` when you set it up for [Workload Identity Federation (WIF)](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) or `user_oauth` when [`ant auth login`](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication) wrote it or you [signed in to a Console account without an API key](#sign-in-without-an-api-key).
 
-Claude Code doesn't read profiles or federation variables in [bare mode](https://code.claude.com/docs/en/headless.md#start-faster-with-bare-mode), in Claude Desktop, or in cloud sessions. In those sessions, `/status` shows no `Profile` row.
+Claude Code doesn't read profiles or federation variables in [bare mode](https://code.claude.com/docs/en/headless.md#start-faster-with-bare-mode), in Claude Desktop, or in cloud sessions. In those sessions, `/status` shows no `Profile` row. Where it does read them, Claude Code checks three sources in this order and stops at the first one that is set.
 
-Claude Code checks three sources in this order and stops at the first one that is set. The table shows what sets each source and where it ranks against your `/login` credential.
-
-| Source | Set by | Rank against `/login` |
+| Source | Set by | Against a claude.ai login |
 | :- | :- | :- |
 | Named profile | `ANTHROPIC_PROFILE` | Above, whichever auth mode the profile has |
 | Federation variables | `ANTHROPIC_FEDERATION_RULE_ID` and `ANTHROPIC_ORGANIZATION_ID`, both set | Above |
-| Active profile | The [`active_config` file](https://platform.claude.com/docs/en/manage-claude/wif-reference#active-profile) in your configuration directory, or a profile named `default` | Above when its auth mode is `oidc_federation`; below a working `/login` credential when its auth mode is `user_oauth` |
+| Active profile | The [`active_config` file](https://platform.claude.com/docs/en/manage-claude/wif-reference#active-profile) in your configuration directory, or a profile named `default` | Above when its auth mode is `oidc_federation`; below a claude.ai login that still works when its auth mode is `user_oauth` |
+
+If `/login` saved an API key and `CI` isn't set, Claude Code uses that key instead of any of these sources. To remove it, [run `/logout`](https://code.claude.com/docs/en/troubleshoot-install#not-logged-in-or-token-expired).
 
 For the federation variables, Claude Code also reads the other variables in the [WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference#environment-variables), such as `ANTHROPIC_IDENTITY_TOKEN_FILE`, when it exchanges your identity token. For the profile file format, see the [WIF reference](https://platform.claude.com/docs/en/manage-claude/wif-reference#profile-configuration-file).
 

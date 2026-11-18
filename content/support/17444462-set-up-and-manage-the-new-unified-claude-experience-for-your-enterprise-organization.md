@@ -32,6 +32,10 @@ The new unified Claude experience requires two capabilities to be on for your or
 
 It doesn't require Cowork or Cowork in the cloud to be on. It is meant to replace both over time.
 
+If members have earlier Cowork tasks that ran on their computers, keep **Cowork** on for their roles and your organization while they still need those tasks. These tasks don't need **Cowork in the cloud**. When Cowork is off for a member's role or your organization, those tasks open read-only, and scheduled tasks on that member's computer stop. Before you turn Cowork off, ask members to type /export in each task they want to keep. This saves the task's transcript as a zip file for reference only. It can't be reopened as a task.
+
+Earlier cloud tasks don't need **Cowork** or **Cowork in the cloud**. They keep working with **Chat and Cowork unified** as long as the role has **Chat** and **Code execution and file creation**, plus **Scheduled tasks** for scheduled ones.
+
 | **Your organization today**                    | **What to do**                                                                                                                                                       |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Chat only                                      | Turn on **Chat and Cowork unified.** You don't need to turn on Cowork or Cowork in the cloud separately. Make sure **Cloud code execution and file creation** is on. |
@@ -58,7 +62,7 @@ The new unified Claude experience isn't available yet for organizations that use
 
 This turns on the new unified Claude experience for members with the User, Admin, Owner or Primary Owner role. Members on a custom role get it only if their role also includes Chat and Cowork unified.
 
-Scheduled tasks and session history will continue working after the change. You don’t need to update or recreate anything.
+Scheduled tasks and session history will continue working after the change. You don’t need to update or recreate anything. Turning off **Cowork** for a role or your organization is a separate change that affects tasks on members' computers. See **[Before you begin](#h_9d88aaf702)** above.
 
 ### If you haven't changed this setting
 

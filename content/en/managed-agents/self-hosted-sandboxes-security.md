@@ -34,7 +34,9 @@ featureMetadata:
   supportedPlatforms:
     Claude API: beta
     Claude Platform on AWS: beta
-    Claude Models on Google Cloud (Anthropic managed): beta
+    Claude Models on Google Cloud (Anthropic managed):
+      availability: beta
+      note: You write your own worker, which calls the Environments Work endpoints.
 ---
 
 In every environment, Anthropic secures the parts it runs: session and work queue integrity, multitenant isolation, and agent-context minimization. When you self-host sandboxes, the following responsibilities fall to you.
