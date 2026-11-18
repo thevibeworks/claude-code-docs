@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-18T08:13:29.351658Z",
+    "fetch_date": "2026-11-18T14:40:56.274936Z",
     "section": "all"
   },
   "items": [
@@ -14359,8 +14359,8 @@
       "url": "https://claude.com/docs/government/changelog",
       "status": "success",
       "path": "claude/government/changelog.md",
-      "sha256": "9e096448957f8c41345fb134a42deadf5797a444eb709c6daf6658f266b40ff4",
-      "size": 40866
+      "sha256": "ae73c2146a308fe0d1642f3b8ca7b5b36c6be31a6a79513f3ffd584d9999d24c",
+      "size": 36773
     },
     {
       "url": "https://claude.com/docs/government/config/overview",
@@ -14380,8 +14380,8 @@
       "url": "https://claude.com/docs/government/config/settings",
       "status": "success",
       "path": "claude/government/config/settings.md",
-      "sha256": "28e18075c2384dd3b56db69b6f5c6b08f964ec04ba9680bed1f930408333dd86",
-      "size": 27904
+      "sha256": "3614e2496d2b873b6b4f4e620d68cfec18966ae7078e700fa2e496697c1602d6",
+      "size": 28657
     },
     {
       "url": "https://claude.com/docs/government/connectors/microsoft-365",
@@ -14408,8 +14408,8 @@
       "url": "https://claude.com/docs/government/deploy-desktop/configure",
       "status": "success",
       "path": "claude/government/deploy-desktop/configure.md",
-      "sha256": "093e98c03edd96191e3223336b8ce59e3b3c90400e0aad898ce9c29168b13315",
-      "size": 39027
+      "sha256": "3654d6c0f0d35fb2c4646367e918a9708f3b5ede169003b842c194644af6d120",
+      "size": 39434
     },
     {
       "url": "https://claude.com/docs/government/deploy-desktop/windows-checklist",
