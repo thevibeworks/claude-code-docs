@@ -376,7 +376,7 @@ With only read scopes granted, the connector is read-only. To let Claude take ac
 
 Sending drafts and forwarding mail also require a mail read scope (one of `Mail.Read`, `Mail.ReadWrite`, or `Mail.Read.Shared`) for the pre-send checks; the standard read set already includes one.
 
-Every write tool requires user approval on each call by default. Administrators can change a tool's approval state with [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers), except for the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`, `teams_send_chat_message`, `teams_send_channel_message`, `teams_reply_channel_message`): an `allow` setting for them resolves to `ask`, so they always require approval on each call.
+By default, each call that Claude makes to a write tool needs approval. Administrators can change a tool's approval state with [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers), except for the send tools (`outlook_send_mail`, `outlook_send_draft`, `outlook_forward_mail`, `outlook_create_event`, `outlook_update_event`, `teams_send_chat_message`, `teams_send_channel_message`, `teams_reply_channel_message`): an `allow` setting for them resolves to `ask`, so they always require approval on each call.
 
 ### Block content by sensitivity label
 

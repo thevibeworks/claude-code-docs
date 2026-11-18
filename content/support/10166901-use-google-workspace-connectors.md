@@ -72,7 +72,7 @@ These are separate connectors from Google Drive. Google Drive still handles sear
 
 ## How to use the connectors
 
-Ask Claude a question that requires access to your Gmail, Calendar, or Drive. Claude automatically detects which tools it needs and uses them to respond. By default, outside Auto mode, each action Claude takes on your behalf requires your explicit approval. In **[Auto mode](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_c274f6c9b5)**, these actions can run without asking you, unless an automated check flags them as risky or your organization requires approval. The check can miss risky actions. To approve them yourself, use Manual. On Team and Enterprise plans, owners decide whether members can allow certain actions to run without asking each time.
+Ask Claude a question that requires access to your Gmail, Calendar, or Drive. Claude automatically detects which tools it needs and uses them to respond. By default, outside Auto mode, each action Claude takes on your behalf requires your explicit approval. In **[Auto mode](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_c274f6c9b5)**, these actions can run without asking you, unless an automated check flags them as risky or your organization requires approval. The check can miss risky actions. To approve them yourself, use Manual or set the tool's permission to **["Always ask"](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_c274f6c9b5)** if that option is available. On Team and Enterprise plans, owners decide whether members can allow certain actions to run without asking each time.
 
 Claude's response includes citations indicating which emails, calendar events, or documents were used as sources, with links to the originals when available. You can ask follow-up questions to dig deeper into any source.
 
@@ -248,7 +248,7 @@ The connector lets Claude change your file, and the pane needs its own Google se
 
 ### Can Claude send emails on my behalf?
 
-Yes. Claude can send, reply to, and forward emails from Gmail, and, outside Auto mode, asks for your approval by default before each of these actions. In **[Auto mode](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_c274f6c9b5)**, these actions can run without asking you, unless an automated check flags them as risky or your organization requires approval. The check can miss risky actions. To approve them yourself, use Manual. On Team and Enterprise plans, owners decide whether members can allow these actions to run without asking each time.
+Yes. Claude can send, reply to, and forward emails from Gmail, and, outside Auto mode, asks for your approval by default before each of these actions. In **[Auto mode](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_c274f6c9b5)**, these actions can run without asking you, unless an automated check flags them as risky or your organization requires approval. The check can miss risky actions. To approve them yourself, use Manual or set the tool's permission to **["Always ask"](https://support.claude.com/en/articles/13345190-get-started-with-claude-cowork#h_c274f6c9b5)** if that option is available. On Team and Enterprise plans, owners decide whether members can allow these actions to run without asking each time.
 
 ### Can I opt out of using these connectors?
 

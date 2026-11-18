@@ -186,7 +186,7 @@ Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narra
 
 Editing settings on the **Config** page for an organization or for one directory group, turning on web search, reviewing the session idle timeout, and locking a value for every organization from the tenant. Read more: [How Config works](https://claude.com/docs/government/config/overview.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/KCl5HZFMS3Q5oYkr/images/government/videos/admin-06-config-essentials-v3.mp4?fit=max&auto=format&n=KCl5HZFMS3Q5oYkr&q=85&s=c15d7515383cda2e370c172aadc8160c" aria-label="Video walkthrough: Config essentials" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/S81coeca5-F7xuVX/images/government/videos/admin-06-config-essentials-v4.mp4?fit=max&auto=format&n=S81coeca5-F7xuVX&q=85&s=2f6ce61cb7d50959183f0712ddf67350" aria-label="Video walkthrough: Config essentials" />
 
 Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 

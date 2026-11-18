@@ -105,6 +105,6 @@ Three levers narrow the local connector, from coarsest to finest:
 
 * **`readOnly`** removes every write tool from the server. Claude never sees them.
 * **`toolsets`** selects which github-mcp-server tool groups are registered, so you can expose repositories and pull requests without, for example, the Actions tools.
-* **`toolPolicy`** locks the approval state per tool. Without a policy, write tools ask the user before each call. A few irreversible GitHub actions (merging a pull request, pushing commits, or triggering a workflow, for example) stay at ask or stricter no matter what the policy says.
+* **`toolPolicy`** locks the approval state per tool. Without a policy, each call that Claude makes to a write tool needs approval. A few irreversible GitHub actions (merging a pull request, pushing commits, or triggering a workflow, for example) stay at ask or stricter no matter what the policy says.
 
 The default `repo` OAuth scope grants read and write access to repositories the user can reach, so pair a broad scope with `readOnly` or a restrictive `toolPolicy` rather than relying on the scope alone to keep sessions read-only. A narrower `scope` list, or a GitHub App with minimal permissions, limits what the token itself can do.
