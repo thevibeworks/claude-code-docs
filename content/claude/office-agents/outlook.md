@@ -602,7 +602,8 @@ For setup instructions, see
 
 ## Model availability
 
-When you sign in with a Claude account, you can choose from the models in the
+When you sign in with a Claude account and connect directly to Anthropic, you
+can choose from the models in the
 model menu, which depend on your plan and your organization's settings. When
 you connect through a
 third-party platform such as Amazon Bedrock, Vertex AI, Azure AI Foundry,
@@ -634,10 +635,10 @@ connector, such as "Always allow Microsoft 365 tools", on its approval card.
 Your organization can remove that button. Some actions, such as sending mail
 or Teams messages through the Microsoft 365 connector, still ask every time.
 
-Where mailbox content goes after Claude reads it depends on how you sign
-in.
+Where mailbox content goes after Claude reads it depends on how you
+connect.
 
-### When you sign in with a Claude account
+### When you connect directly to Anthropic
 
 Mailbox content that Claude reads becomes part of the prompt sent to
 `api.anthropic.com`. Standard API retention applies: see
@@ -662,15 +663,17 @@ index of your mailbox.
 
 Chat history is stored locally in your browser using IndexedDB. It is
 not synced across devices or browsers. You can clear all chat history
-from Settings at any time. The local store is also cleared when you
-clear your browser data. Chat history is specific to the combination of
+from Settings at any time, which also deletes what Claude has learned
+about your writing. Signing out of Claude in Outlook deletes both. The
+local store is also cleared when you clear your browser data. Chat history is specific to the combination of
 the add-in surface, your user ID, and your organization ID, so your
 Excel and Outlook histories are separate. Reinstalling the add-in or
 switching between Claude add-ins does not remove it. See
 [Data storage and retention](https://claude.com/docs/office-agents/data-storage.md) for where it
 sits on disk and how long it is kept.
 
-When you sign in with a Claude account, the add-in sends your
+When you sign in with a Claude account and connect directly to
+Anthropic, the add-in sends your
 conversations to Anthropic, including the content Claude reads from your
 mailbox and calendar, and any files you attach. Clearing chat history
 removes only the copy in your browser. It does not delete the messages

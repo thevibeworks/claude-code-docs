@@ -35,6 +35,7 @@ Claude Desktop on 3P is administered from the web-based [admin console](https://
 > * [Cowork](https://claude.com/docs/third-party/claude-desktop/unified-claude.md)
 > * Projects
 > * Artifacts
+> * [Design and Slides](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md)
 > * [Memory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#memory)
 > * [Scheduled tasks](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md)
 > * [Code execution for analysis](https://claude.com/docs/third-party/claude-desktop/chat.md#advanced-file-analysis)

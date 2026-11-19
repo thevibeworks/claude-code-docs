@@ -325,6 +325,7 @@ array to vary it per user.
 | `addin.access` | Kill switch: the add-in refuses to run. |
 | `file.upload` | Blocks attaching files to the conversation. |
 | `web_search` | Removes the built-in web search and web fetch tools, whose queries are served by Anthropic's search provider, along with the user-facing web search toggle. Code execution is unaffected. |
+| `code_execution` | Removes server-side code execution, where Claude runs Python in a sandbox outside the user's device. Attached files stay in the add-in, which reads them there. Web search, and the code Claude runs in the add-in to read and edit the open document, are unaffected. |
 | `permission_mode.accept_all_edits` | Keeps users in "Ask before edits": "Accept all edits" and "Skip all permissions" can't be turned on, and users already in either mode go back to "Ask before edits". Connector "Always allow" choices and Outlook's "Always allow mailbox search" are unaffected. |
 | `permission_mode.dangerously_always_allow` | Removes the "Dangerously always allow" button from approval cards. It switches users to the mode shown as "Skip all permissions"; users already in that mode are moved to "Accept all edits". |
 
@@ -518,6 +519,14 @@ sideload and validate a manifest locally before a tenant-wide upload.
 >
 > Start with a pilot group to confirm functionality, then widen
 > assignment. You can change assignment later without redeploying.
+
+## Manage the add-in from the Enterprise Admin Console
+
+If you manage Claude Desktop from the
+[Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), you
+can manage Claude for Microsoft 365 there too. For the requirements and the
+steps for admins and members, see
+[Manage Claude for Microsoft 365 from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console).
 
 ## Connection instructions for end users
 
@@ -724,7 +733,9 @@ endpoint.
 If your gateway API token expires or your IT team provides a new URL,
 select Logout from the account menu and sign in again with your new
 credentials. This applies to LLM gateway, Bedrock, Vertex AI, and
-Foundry direct connections alike.
+Foundry direct connections alike. Logging out deletes saved Claude for
+Outlook conversations, as described in
+[Data storage and retention](https://claude.com/docs/office-agents/data-storage.md#outlook-data-deleted-when-a-sign-in-ends).
 
 ## Gateway requirements for IT teams
 
@@ -930,7 +941,10 @@ communicates with `pivot.claude.ai` to load its interface and with
 operational telemetry such as which features are used, performance
 timings, and error rates, so Anthropic can maintain and improve the
 add-in experience. They do not transmit your prompts or Claude's
-responses.
+responses. For members of an organization that manages the add-in from
+the Enterprise Admin Console, they also carry account details, as
+[What leaves the device](https://claude.com/docs/office-agents/data-storage.md#what-leaves-the-device)
+describes.
 
 When the add-in uses Amazon Bedrock or Google Cloud Vertex AI, directly
 or through a gateway, Anthropic collects information in accordance with
@@ -1083,7 +1097,6 @@ receives a Microsoft access token in the URL.
 | `https://pivot.claude.ai/auth/callback` | Web | admin consent confirmation page, receives only `admin_consent` and `tenant` from Microsoft. Google sign-in for Vertex AI reuses this URI for its [OAuth authorization-code redirect](#oauth-authorization-code-redirects) |
 | `https://pivot.claude.ai/msal-redirect.html` | Single-page application | MSAL response bridge for Office on the web, where the host cannot broker tokens natively |
 | `brk-multihub://pivot.claude.ai` | Single-page application | Nested App Authentication broker on Office desktop and Mac |
-| `https://pivot.claude.ai/auth/3p` | Web | legacy entry from earlier builds, not used by current builds, scheduled for removal |
 
 ### Verify this in your own environment
 
@@ -1109,12 +1122,16 @@ machine:
 ## Differences from signing in with a Claude account
 
 When you sign in with a Claude account, the add-ins connect directly to
-Anthropic. When you connect through a third-party platform, the add-ins
-send inference requests to your organization's infrastructure instead,
-and your IT team controls how that traffic is routed and logged.
+Anthropic, unless you sign in to an organization that manages them from
+the Enterprise Admin Console. When you connect through a third-party
+platform, the add-ins send inference requests to your organization's
+infrastructure instead, and your IT team controls how that traffic is
+routed and logged.
 
 Some features work differently through third-party platforms, and
-others aren't available.
+others aren't available. The third-party platform column also applies
+to members of an organization that
+[manages the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console).
 
 | Feature | Claude account | Third-party platform |
 | - | - | - |

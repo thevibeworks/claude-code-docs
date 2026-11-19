@@ -74,6 +74,7 @@ Events on the `claude-desktop` stream include:
 
 * **`desktop_ssh_sandbox_check_failed`**: see [Sandbox status on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#sandbox-status-on-the-remote-host)
 * **`desktop_ssh_policy_check_failed`**: see [Policy status on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#policy-status-on-the-remote-host)
+* **`desktop_local_policy_check_failed`**: see [Policy status on the device](https://claude.com/docs/third-party/claude-desktop/code.md#policy-status-on-the-device)
 * **`builtin_m365_call`**: see [Audit local connector tool calls](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#audit-local-connector-tool-calls)
 
 ### Collector endpoint and headers

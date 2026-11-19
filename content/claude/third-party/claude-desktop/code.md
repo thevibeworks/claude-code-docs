@@ -122,6 +122,39 @@ With `"merge"`, two Claude Code policy keys weaken `blockReadsOutsideWorkingDire
 >
 > Without a Claude Code `managed-settings.json` file, OS profile, or server-managed settings, Claude Desktop's policy applies automatically and you don't need to set `parentSettingsBehavior`.
 
+### Policy status on the device
+
+Claude Desktop checks whether Claude Code managed settings replace your policy on the device. Each time it starts Claude Code on the device for a Code, Cowork, or Chat session, it asks Claude Code whether it applies the [managed policy](#applied-as-managed-policy) values that Claude Desktop sent. A session over SSH has [its own check](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#policy-status-on-the-remote-host), and a WSL session has none. Requires Claude Desktop 5.1231.0 or later.
+
+If Claude Code answers no, the session continues. Cowork and Chat sessions show no message. A Code session shows a message that begins with these words:
+
+```text theme={null}
+Your organization's policy isn't fully applied on this computer
+```
+
+Claude Desktop also reports that answer outside the session:
+
+* **On the device**: Claude Desktop writes a warning that names the affected session types and the fix to `main.log` in the [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) and to the [diagnostic report](https://claude.com/docs/third-party/claude-desktop/installation.md#troubleshooting).
+* **On your collector**: if you set [`otlpEndpoint`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpendpoint), you receive a `desktop_local_policy_check_failed` event under the `service.name` value `claude-desktop`, unless you set [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) to `off`.
+
+To have your Claude Desktop policy apply on the device, change what supplies its Claude Code managed settings:
+
+* **A `managed-settings.json` file, a configuration profile, a registry policy, or server-managed settings**: set `parentSettingsBehavior` to `"merge"` in each one that holds your Claude Code policy. Claude Code reads the key only from [the highest-priority one](https://code.claude.com/docs/en/managed-settings#how-claude-code-combines-managed-sources) that the session uses. See [Interaction with Claude Code's own managed settings](#interaction-with-claude-code%E2%80%99s-own-managed-settings).
+* **A [`policyHelper`](https://code.claude.com/docs/en/settings-reference#policyhelper)**: put the limits from your Claude Desktop policy in what the helper returns. Claude Code never merges Claude Desktop's values with a helper's output. It still answers no, and the message, the warning, and the event keep appearing.
+
+To check the fix, have the user start a new session of each type that the warning names, and then generate a [diagnostic report](https://claude.com/docs/third-party/claude-desktop/installation.md#troubleshooting). Once Claude Code answers yes, `managed-config.txt` in the report no longer lists the warning. `main.log` and your collector don't show the recovery.
+
+The event carries these attributes:
+
+* **`tab`**: `code` for a Code session, or `cowork` for a Cowork or Chat session
+* **`session_id`**: Claude Desktop's ID for the session that got the answer
+
+Claude Desktop sends the event when Claude Code first answers no, once for Code sessions and once for Cowork and Chat sessions. It sends the event again if Claude Code answers no after a restart of Claude Desktop, or after it answered yes.
+
+The event doesn't name the device. To find the device, identify the user from the event's [user attribution](https://claude.com/docs/third-party/claude-desktop/telemetry.md#user-attribution) attributes, and ask that user.
+
+Claude Code answers yes when it applies at least one of the sent values, not necessarily all of them. Even with no message and no event, Claude Code can still leave out part of your policy.
+
 ### Start Code sessions through a corporate launcher
 
 If your organization starts Claude Code through a [corporate launcher](https://code.claude.com/docs/en/corporate-launcher), Code sessions in Claude Desktop can go through it too. This takes two settings:

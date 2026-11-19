@@ -24,8 +24,37 @@ Each entry is either a model ID string or an object. In an object, `name` holds 
 On any provider, a Chat conversation, Cowork session, or Code session on an entry without `supports1m` assumes a context window from the model ID:
 
 * **An ID recognized as a model with a native 1M context window**, such as `us.anthropic.claude-opus-5`: you don't need `supports1m` or `prefer1m`. Setting them doesn't change the assumed window. For earlier Claude Desktop versions, see [Context window and compaction](https://claude.com/docs/third-party/claude-desktop/gateway.md#context-window-and-compaction) on the LLM gateway page. To check a model, see [Extended context](https://code.claude.com/docs/en/model-config#extended-context) in the Claude Code documentation, which lists the models that run with the 1M window by default.
-* **An ID for a model without a native 1M context window, or an unrecognized ID whose entry doesn't set `behavesAs`**, such as `us.anthropic.claude-opus-4-6-v1` or a gateway routing alias: the assumed window is 200K tokens. If your deployment accepts 1M-token requests for the model, set `supports1m` on its entry.
+* **An ID for a model without a native 1M context window, or an unrecognized ID whose entry doesn't set `behavesAs`**, such as `us.anthropic.claude-opus-4-6-v1` or a gateway routing alias: the assumed window is 200K tokens. If your deployment accepts 1M-token requests for the model, [set a larger context window for it](#set-a-larger-context-window-for-a-model).
 * **An unrecognized ID whose entry sets [`behavesAs`](#map-an-unrecognized-model-id-to-a-claude-model)**, through an LLM gateway: the assumed window is the window of the model that `behavesAs` names.
+
+### Set a larger context window for a model
+
+A session compacts a long conversation to fit the context window that it assumes for the model, even when your provider accepts more. If your deployment accepts 1M-token requests for a model that sessions assume 200K tokens for, declare that on the model's `inferenceModels` entry:
+
+* **A gateway routing alias for a Claude model with a native 1M context window**, such as Claude Sonnet 5: set [`behavesAs`](#map-an-unrecognized-model-id-to-a-claude-model) to that model's ID. New sessions on the alias assume that model's window.
+* **Any other model that your deployment serves with a 1M context window**: set `supports1m` and `prefer1m`. New Chat conversations, Cowork sessions, and Code sessions on the model request the 1M context window from your provider. With `supports1m` alone, only sessions that a user starts on the **1M context window** entry get the larger window.
+
+The following configuration declares a larger window for two gateway routing aliases:
+
+```json theme={null}
+{
+  "inferenceModels": [
+    {
+      "name": "acme-claude-sonnet",
+      "behavesAs": "claude-sonnet-5"
+    },
+    {
+      "name": "acme-claude-large",
+      "supports1m": true,
+      "prefer1m": true
+    }
+  ]
+}
+```
+
+After users [relaunch Claude Desktop](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#when-a-configuration-change-on-a-device-takes-effect) and start a new session on either alias, the session goes past 200K tokens without compacting. To confirm it in your gateway's logs, see the first requirement under [Context window and compaction](https://claude.com/docs/third-party/claude-desktop/gateway.md#context-window-and-compaction) on the LLM gateway page.
+
+Declare a larger window only for a model that accepts the larger requests. If the model accepts less, requests past its real limit fail at your provider. Through a gateway, the session then compacts only if the gateway forwards the provider's too-long error unchanged.
 
 ## Effort levels
 

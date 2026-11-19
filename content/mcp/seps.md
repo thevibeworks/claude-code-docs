@@ -16,13 +16,14 @@ Each SEP is reachable by number at `/seps/<number>` (for example, [/seps/1850](h
 
 ## Summary
 
+* **Final**: 45
 * **Accepted**: 1
-* **Final**: 44
 
 ## All SEPs
 
 | SEP | Title | Status | Type | Created |
 | - | - | - | - | - |
+| [SEP-3415](https://modelcontextprotocol.io/seps/3415-events-extension.md) | Events Extension | Final | Extensions Track | 2026-10-05 |
 | [SEP-3398](https://modelcontextprotocol.io/seps/3398-release-cycle-updates.md) | Release Cycle Updates | Accepted | Process | 2026-09-17 |
 | [SEP-3392](https://modelcontextprotocol.io/seps/3392-extension-lifecycle.md) | Extension Lifecycle | Final | Process | 2026-09-25 |
 | [SEP-2663](https://modelcontextprotocol.io/seps/2663-tasks-extension.md) | Tasks Extension | Final | Extensions Track | 2026-04-27 |

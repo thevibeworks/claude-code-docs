@@ -67,6 +67,32 @@ On macOS, the broker is provided by Intune Company Portal. Each device needs:
 
 The operating system's broker holds the credential and renews it silently from the device's primary refresh token. The app stores only a reference to the signed-in account, not a refresh token. When the broker can no longer renew silently (for example, the device falls out of compliance or the user's sessions are revoked in Entra), the app prompts the user to sign in again.
 
+Claude Code in the terminal doesn't use the broker. If you let it sign in to your gateway with the browser, it can store a refresh token on the computer. See [Allow browser sign-in where your gateway uses the Entra broker](#allow-browser-sign-in-where-your-gateway-uses-the-entra-broker).
+
+## Allow browser sign-in where your gateway uses the Entra broker
+
+If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md), Claude Code in the terminal can't use the OS identity broker. If your gateway's sign-in flow is `broker`, Claude Code can't use your gateway, and after a developer signs in, it doesn't start unless their computer sets a provider itself. You can turn on a switch so that Claude Code signs in with the browser instead, while Claude Desktop still uses the broker. The switch changes the following:
+
+* **Provider settings**: the next time a signed-in developer starts Claude Code, your gateway replaces their own provider settings and `apiKeyHelper`
+* **Gateway sign-in**: the developer approves the gateway's address and then signs in to the gateway, with `/login` in Claude Code. Until then, Claude Code refuses each prompt.
+* **Stored sign-in**: the browser sign-in stays on the developer's computer, with a refresh token if Entra returns one. On Linux and Windows, the sign-in is in the plain file `.credentials.json`. Some Windows computers use Windows Credential Manager instead.
+
+**1. Add the redirect URI**
+
+In your Entra app registration, add `http://127.0.0.1/gateway-sign-in/callback` under **Mobile and desktop applications**. If your **Redirect host** is `localhost`, add the `localhost` form. If the portal refuses the address, add it in the app manifest as a redirect URI for a public client (mobile and desktop).
+
+**2. Check consent and Conditional Access**
+
+If your tenant requires it, grant consent for `offline_access`. If your Conditional Access policies check the device, set up developers' browsers to identify it, as described in [Why use the broker](#why-use-the-broker). A browser can't meet a policy that requires token protection.
+
+**3. Turn on both switches**
+
+Go to **Organization settings > Products > Claude Code**, and turn on the **Allow sign-in from Claude Code in terminals and IDEs** switch. Then turn on the **Allow Claude Code to sign in with the browser instead of the Entra broker** switch, which appears when the first switch is on, and click **Save changes**. To test with one group first, if your organization has a parent organization, turn on both switches in the **Claude Code** section of that group's policy instead.
+
+To store no refresh token, fill in **Scopes** without `offline_access`. If **Bearer token** is **Access token**, also turn off **Append offline\_access**. Developers then sign in again each time the token expires. **Scopes** also applies to Claude Desktop.
+
+If you turn the browser sign-in switch off, the change applies the next time each developer starts Claude Code. It revokes nothing. The token stays on the computer until the developer runs `claude auth logout` in their terminal. To stop the stored refresh tokens from working, revoke the developers' sessions in Entra. This also ends their other Microsoft sign-ins, and Claude Desktop asks them to sign in again.
+
 ## Troubleshoot
 
 If sign-in fails with error code `AADSTS7000218`, **Allow public client flows** is set to No on the app registration. Set it to **Yes** under **Authentication**.

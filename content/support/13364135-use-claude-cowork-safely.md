@@ -26,7 +26,7 @@ Write tools inherently carry more risk as they can result in undesired actions. 
 
 ### Where your task runs
 
-Cowork tasks run in the cloud: Claude's work runs in an isolated, temporary environment on Anthropic's servers. The environment is created for that one session, can't reach your home or company network, and is removed when the session ends. When a task needs a local file or your browser, Claude reaches your computer through the Claude Desktop app, and only for the folders you've connected. If the desktop app is offline, the session can't reach your computer. Because sessions run on Anthropic's servers, the work Claude does there, including any local files it opens through the desktop app, is processed on Anthropic's servers rather than staying on your computer.
+Cowork tasks run in the cloud: Claude's work runs in an isolated, temporary environment on Anthropic's servers. The environment is created for that one session, can't reach your home or company network, and is removed when the session ends. When a task needs a local file or your browser, Claude reaches your computer through the Claude Desktop app, and only for the folders you've connected. Computer use isn't limited to those folders. If the desktop app is offline, the session can't reach your computer. Because sessions run on Anthropic's servers, the work Claude does there, including any local files it opens through the desktop app, is processed on Anthropic's servers rather than staying on your computer.
 
 Isolation limits where Claude's code runs. It doesn't limit what Claude reads or does. Depending on the access you've granted, Claude in a cloud session can still browse the web, read email and documents through your connected apps, work in folders you've connected, and take actions through those same channels. Each of those is a path for untrusted content to reach Claude, and for Claude's actions to reach the real world. That's why the guidance in this article focuses on what Claude can read and what Claude is allowed to do, not on where the session runs.
 
@@ -104,7 +104,7 @@ Scheduled tasks run on their own even when your computer is off. Review past run
 
 **4. Match your oversight to the stakes**
 
-Cowork can work through the steps of a task without pausing for your approval, which keeps well-defined work moving. In "Automatically approve" mode, Claude still reviews each action for safety before it runs; in "Skip all approvals," nothing checks its actions. Either way, if Claude reads malicious content mid-task (a prompt injection), it could act on those instructions before you notice. Claude always asks before permanently deleting files, in any mode.
+Cowork can work through the steps of a task without pausing for your approval, which keeps well-defined work moving. In "Automatically approve" mode, Claude still reviews each action for safety before it runs; in "Skip all approvals," nothing checks its actions. Either way, if Claude reads malicious content mid-task (a prompt injection), it could act on those instructions before you notice. By default, Claude asks before permanently deleting files, but that protection doesn't cover computer use.
 
 Switch to "Manually approve" when:
 
@@ -118,7 +118,7 @@ In any mode, stay close to tasks with real-world consequences, and stop the task
 
 **5. Be cautious with computer use**
 
-When Claude uses your computer, it interacts directly with your apps, browser, and desktop. Unlike file operations (which go through permission checks) or code execution (which runs in an isolated environment), computer use has no sandbox between Claude and what's on your screen. This is powerful, but carries additional risk. Keep the following in mind:
+When Claude uses your computer, it interacts directly with your apps, browser, and desktop. Unlike file operations (which go through permission checks) or code execution (which runs in an isolated environment), computer use has no sandbox between Claude and what's on your screen. This is powerful, but carries additional risk. Computer use isn't limited to the folders you've connected. Through the apps you approve, Claude can open, change, or delete files outside them. Cowork's deletion protection doesn't cover computer use. Keep the following in mind:
 
 - Start with lower-stakes tasks and build trust gradually, like you would with a new colleague.
 
@@ -154,7 +154,7 @@ When using the Claude for Excel and Claude for PowerPoint add-ins with Cowork, C
 
 **9. Understand what sessions** **in the cloud** **can reach on your computer**
 
-On web and mobile, your tasks run in the cloud and work with the files and connectors saved to your Claude account, not the files on your computer. On Pro, Max, and Ultra plans, new tasks you start on desktop run in the cloud too, and tasks you started on your computer before October 6 keep running there. If some of your work has to stay on your computer, see **[What changed for Pro, Max, and Ultra plans on October 6](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_f951c27c48)**. A session in the cloud reaches your computer only when the Claude Desktop app is open, only for the folders you've connected there, and with the permissions you've already set. Each local file or tool a session uses is checked against those permissions before it runs.
+On web and mobile, your tasks run in the cloud and work with the files and connectors saved to your Claude account, not the files on your computer. On Pro, Max, and Ultra plans, new tasks you start on desktop run in the cloud too, and tasks you started on your computer before October 6 keep running there. If some of your work has to stay on your computer, see **[What changed for Pro, Max, and Ultra plans on October 6](https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile#h_f951c27c48)**. A session in the cloud reaches your computer only when the Claude Desktop app is open, only for the folders you've connected there, and with the permissions you've already set. Computer use isn't limited to those folders. Each local file or tool a session uses is checked against those permissions before it runs.
 
 If your organization manages your computer, note that connecting local folders makes them reachable from a session in the cloud. Review what access you've granted, and consider whether that level of access is appropriate.
 

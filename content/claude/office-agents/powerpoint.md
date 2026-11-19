@@ -274,7 +274,8 @@ offers that conversation instead; select Continue to reopen it. See
 [Data storage and retention](https://claude.com/docs/office-agents/data-storage.md) for where it
 sits on disk and how long it is kept.
 
-When you sign in with a Claude account, the add-in sends your
+When you sign in with a Claude account and connect directly to
+Anthropic, the add-in sends your
 conversations to Anthropic, including the content Claude reads from your
 presentation and any files you attach. Clearing chat history removes
 only the copy in your browser. It does not delete the messages or

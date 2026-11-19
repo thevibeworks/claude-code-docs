@@ -66,6 +66,10 @@ Both run the same safety layers: a blocklist for high-risk sites and safety chec
 
 Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
 
+### Computer use (beta)
+
+On Team and Enterprise plans, computer use doesn't work in tasks started with the "Cowork" option. It works in the new Claude experience once an owner turns it on. This is rolling out to organizations gradually. Learn more in **[Set up computer use for Team and Enterprise plans](https://support.claude.com/en/articles/18483812-set-up-computer-use-for-team-and-enterprise-plans)**.
+
 ### Auto mode availability
 
 Two organization settings in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** control "Automatically approve" mode in Cowork:

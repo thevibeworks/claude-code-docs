@@ -66,7 +66,7 @@ holds and what it is scoped to.
 
 | Store | Contents | Scoped to |
 | - | - | - |
-| `claude-chat-history` | Conversation transcripts with their titles and timestamps, and some files in full. A transcript includes the document, email, and calendar content that Claude read. The add-in keeps images, PDFs, `.pptx` files, and `.potx` files that a user attaches, and every file that a user attaches to the chat in Outlook or in a third-party platform deployment. It also keeps any other file that Claude downloads to the device to work with, the files of skills a conversation used, and files returned by connectors, as well as data that Claude saves while it works. These files and data can include document content and, in Outlook, email and calendar data from Microsoft Graph. Each saved conversation also keeps the name, type, and size of every attached file and, in Excel, Word, and PowerPoint, the document's file path or URL | One user, one organization, one Office app |
+| `claude-chat-history` | Conversation transcripts with their titles and timestamps, and some files in full. A transcript includes the document, email, and calendar content that Claude read. The add-in keeps images, PDFs, `.pptx` files, and `.potx` files that a user attaches, and every file that a user attaches to the chat in Outlook, in a third-party platform deployment, or while code execution is off. It also keeps any other file that Claude downloads to the device to work with, the files of skills a conversation used, and files returned by connectors, as well as data that Claude saves while it works. These files and data can include document content and, in Outlook, email and calendar data from Microsoft Graph. Each saved conversation also keeps the name, type, and size of every attached file and, in Excel, Word, and PowerPoint, the document's file path or URL | One user, one organization, one Office app |
 | `claude-local-skills` | Skills the user uploaded, including any templates bundled with them | The device profile, not the individual user |
 | `claude-mcp-gateways` | Client registrations, and access and refresh tokens, for connectors the user has authorized | The connector's address, not the individual user |
 | `claude-mail-style` | Claude for Outlook only: learned writing style, draft preferences, and scratchpad | One user |
@@ -147,6 +147,9 @@ What the credential is depends on how users sign in:
 
 Where Office provides storage for the add-in, the add-in also writes a second
 copy of the sign-in there, and reads it back when the browser copy is missing.
+An exception is a Claude account sign-in to an organization that manages the
+add-in from the Enterprise Admin Console. The add-in keeps that sign-in only in
+local storage, so members can be asked to log in again in another Office app.
 Signing out deletes both copies of the sign-in, and the connector tokens, from
 the storage that the add-in is using. Other Claude task panes that share that
 storage sign out too. On macOS each Office app has its own storage, and on
@@ -156,7 +159,9 @@ too. Signing out does not delete the tokens that Microsoft's sign-in library
 keeps.
 
 Signing out also asks Anthropic to revoke the Claude account sign-in that the
-task pane holds, so that it cannot be used to get new access tokens. The add-in
+task pane holds, including a sign-in to an organization that
+[manages the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console),
+so that it cannot be used to get new access tokens. The add-in
 sends this request once and does not try again if it fails. A separate Claude
 sign-in in an Office app with its own storage is not revoked. Signing out does
 not revoke any other credential with the service that issued it. That includes
@@ -217,7 +222,8 @@ stored against a user identity, an organization, and the Office app it was
 created in. The list shows only the conversations that match all three for the
 session in use.
 
-When users sign in with a Claude account, that account is the identity. In
+When users sign in with a Claude account, that account is the identity. That
+includes deployments managed from the Enterprise Admin Console. In other
 third-party platform deployments there is no Claude account, so the identity
 comes from the Microsoft Entra ID sign-in already present in Office, as a
 one-way hash of the directory object ID. The history key holds nothing about
@@ -234,14 +240,17 @@ The table below gives the result for each case.
 
 | Situation | Result |
 | - | - |
-| A user signs out of Claude and signs back in | The same conversations. Signing out does not change the identity |
+| A user signs out of Claude and signs back in | In Excel, PowerPoint, and Word, the same conversations. Signing out does not change the identity. Outlook conversations in the same storage are deleted. See [Outlook data deleted when a sign-in ends](#outlook-data-deleted-when-a-sign-in-ends) |
 | A different person signs in to Office on that device | They see their own conversations, not the previous user's. On Office builds that fall back to a per-installation identifier, both people resolve to the same identity and share one list |
 | The same person opens the add-in on a second device | No conversations. Storage is per device and does not sync |
 | A user's organization changes, such as joining or leaving a team plan | Earlier conversations stop appearing. They remain on disk under the previous organization |
-| A deployment moves between a Claude account sign-in and a third-party platform, in either direction | Earlier conversations stop appearing. They remain on disk under the previous identity, and the add-in has no path to reach them |
+| A deployment moves between a Claude account sign-in and a third-party platform, in either direction, other than the move in the next row | Earlier conversations stop appearing. They remain on disk under the previous identity, and the add-in has no path to reach them |
+| A third-party platform deployment moves to the Enterprise Admin Console | After a member connects, conversations made through that same connection move to their Claude account the next time the add-in loads. Conversations made through any other connection stop appearing and remain on disk. Signing out first, as the [member steps](https://claude.com/docs/office-agents/admin-console#sign-in-as-a-member) ask, deletes all Outlook conversations in the same storage |
 
-Changing connection mode is not a data loss event, because nothing is deleted,
-but it is an identity change and the history list follows the identity.
+Changing connection mode is an identity change, and the history list follows
+the identity. It deletes nothing in Excel, PowerPoint, or Word. Outlook
+conversations can be deleted, as described in
+[Outlook data deleted when a sign-in ends](#outlook-data-deleted-when-a-sign-in-ends).
 
 One store derives identity differently from chat history. The Outlook writing
 style guide has no per-installation fallback. Where there is neither a Claude
@@ -264,11 +273,13 @@ the table.
 | `claude-memory` | A note is kept until it is deleted or the browser profile is wiped. Claude can delete a note, for example when the user asks it to forget something. When Claude saves a note, the chat shows a notice with an Undo button, which removes the note or restores its earlier text. There is no setting to view or delete notes, and deleting saved conversations does not delete notes |
 | `claude-office-inflight` | Each record is deleted when its tool call ends, or when the user stops Claude, starts a new chat, or opens a saved conversation. It is also deleted while Claude waits for the user to answer a question or approve an action, and written again afterwards. If Office or the add-in closes or reloads during the call, the record is deleted the next time a Claude for M365 add-in that uses the same store opens, once more than 10 minutes have passed since the call began |
 | `claude-office-snipped-results` | Emptied when the user starts a new chat or deletes all chats. Replaced with a saved conversation's parts when a saved conversation is opened. Content left when the add-in closes stays until Claude next moves content out of its working context or asks for moved content back, a saved conversation is opened, or a new chat starts |
+| Claude for Outlook data | Also deleted at a sign-out or an account switch. See [Outlook data deleted when a sign-in ends](#outlook-data-deleted-when-a-sign-in-ends) |
 | Everything else | Kept until the user deletes it or the browser profile is wiped |
 
 Users clear their own conversations from the add-in's settings. Under "Chat
 history", "Delete all" removes every saved conversation for that user in that
-Office app and starts a new chat.
+Office app and starts a new chat. In Claude for Outlook, "Delete all" also
+deletes what Claude has learned about the user's writing, as described next.
 
 In Claude for Outlook, users can also delete what Claude has learned about their
 writing. Under "Writing style" in the add-in's settings, "Delete what Claude has
@@ -308,6 +319,40 @@ for your organization. If your policy requires a retention limit on this data,
 the practical control is the device profile lifecycle, such as roaming-profile
 cleanup or reimaging, rather than a setting in the add-in.
 
+### Outlook data deleted when a sign-in ends
+
+At a sign-out or an account switch, the add-in deletes Claude for Outlook data
+from the storage that it is using. Deleted data cannot be recovered, because
+no server keeps a copy to restore it from. The add-in deletes the following:
+
+* Saved Outlook conversations and their attachments.
+* The writing style guide, scratchpad, saved edits to drafts, and draft
+  preferences in `claude-mail-style`.
+* The text in the Writing style field, and the text that Claude added to the
+  Outlook Instructions field.
+* Everything in `claude-office-snipped-results`.
+
+Conversations in Excel, PowerPoint, and Word are kept, and so are memory notes.
+The table below shows when the deletion happens.
+
+| Event | When the data is deleted | Whose data is deleted |
+| - | - | - |
+| The user signs out in Outlook, or in an Office app that shares its storage | Immediately, after the user confirms | Every user's |
+| A different Claude account opens Claude for Outlook, and the previous account left conversations or writing style data | When the user selects "Delete and continue". Selecting "Use another account" signs out and deletes nothing | The previous account's |
+
+The Writing style and Instructions fields and `claude-office-snipped-results`
+are shared by all users of the storage, so a deletion can change them for the
+signed-in user too.
+
+A deletion that is interrupted is tried again when a task pane next opens, up
+to five times. An account switch is noticed only if the previous account was
+signed in on a version of the add-in that has this behavior.
+
+If a Claude account sign-in is revoked, expires, or ends on a network failure,
+nothing is deleted until one of the two events in the table happens. On a third-party platform connection, only signing out deletes this data, unless the organization manages the add-in from the Enterprise Admin Console. Both events apply to its members.
+
+In Claude for Government, only signing out deletes this data.
+
 ## What leaves the device
 
 The table below covers each category and its destination, so you can scope a
@@ -316,9 +361,9 @@ review to the paths that carry content off the endpoint.
 | Data | Where it goes |
 | - | - |
 | Conversation text, attachments, and the document content Claude is asked to work with | The model endpoint your deployment is configured for. In third-party platform deployments that is your own Vertex AI, Bedrock, Azure, or gateway endpoint |
-| Files that a user attaches, with a Claude account sign-in | Uploaded to Anthropic with the user's Claude sign-in when the user attaches them, before the message is sent. Each file expires 28 days after the add-in uploads it. If Anthropic does not accept an expiry for the user's organization, the add-in uploads the file with no expiry. The add-in does not delete files itself. Earlier versions of the add-in set no expiry on the files they uploaded. The add-in started setting an expiry on September 15, 2026 |
+| Files that a user attaches, with a Claude account sign-in | Uploaded to Anthropic with the user's Claude sign-in when the user attaches them, before the message is sent. Each file expires 28 days after the add-in uploads it. If Anthropic does not accept an expiry for the user's organization, the add-in uploads the file with no expiry. The add-in does not delete files itself. Earlier versions of the add-in set no expiry on the files they uploaded. The add-in started setting an expiry on September 15, 2026. If the organization's Claude settings turn off "Code execution and file creation", or the add-in can't read those settings, the add-in does not upload files and Claude does not run code on Anthropic's servers. The add-in reads the files on the device and sends what Claude reads from them, and attached images, to the model endpoint |
 | Dictated audio, with a Claude account sign-in | Streamed through Anthropic's server at `pivot.claude.ai` to Anthropic's transcription service while the user dictates. The transcribed text returns the same way. See [Use dictation in Claude for M365](https://claude.com/docs/office-agents/dictation.md) |
-| Chat history, uploaded skills, and connector registrations | Not synced between devices and not backed up on any server. The add-in still sends their contents to the model endpoint when Claude uses them, as the rows above describe. Every chat request includes the name and description of each skill that is turned on. With a Claude account sign-in, it also includes the name and description of each plugin the user has turned on, with the names of its skills and connectors, and the organization's Claude settings can turn skills off, which stops both. When Claude uses a skill, the add-in also sends the skill's instructions and Markdown files. With a Claude account sign-in, files attached in a chat are also uploaded to Anthropic |
+| Chat history, uploaded skills, and connector registrations | Not synced between devices and not backed up on any server. The add-in still sends their contents to the model endpoint when Claude uses them, as the rows above describe. Every chat request includes the name and description of each skill that is turned on. With a Claude account sign-in, it also includes the name and description of each plugin the user has turned on, with the names of its skills and connectors, and the organization's Claude settings can turn skills off, which stops both. When Claude uses a skill, the add-in also sends the skill's instructions and Markdown files. With a Claude account sign-in, files attached in a chat are also uploaded to Anthropic, unless code execution is off |
 | Claude for Outlook writing style guide, draft preferences, and scratchpad | Not synced between devices and not backed up on any server. The add-in reads sent mail to build the style guide only when the user has just agreed to it, once for each agreement, and stores no standing agreement. It asks during setup if Claude can already reach the mailbox. Wherever the add-in has a per-user key to mark the guide with, as described in "What chat history is keyed to", Settings has a "Learn my writing style" button under Writing style. The button first says what Claude will read, and the read runs after the user confirms. Learning the style again takes the same button and the same confirmation. Nothing else starts this read: not loading the add-in, a new chat, a change of user, a timer, or an earlier attempt that failed. To build the guide, the add-in sends recent sent mail, with the first recipient's address of each message, to the model endpoint. Earlier versions built the guide without asking. When the chat pane finds such a guide and can tell that it is this user's, it asks whether to use it or delete it, and reads nothing either way. A guide that it cannot tell is this user's, such as one whose Voice pattern or Notes lines the user has edited, stays in the field and is not sent, and Settings says so. If the user has removed enough of a guide's labelled lines, the add-in treats what is left as the user's own text and sends it with chat requests. Learning draft preferences from the user's edits to drafts is off unless Anthropic turns it on. While it is on, the add-in saves the user's edits to drafts on the device, sends them to the model endpoint to build the draft preferences, and adds a summary of the draft preferences to the Instructions field in Settings. Turning it off does not delete edits to drafts or draft preferences already saved on the device, and does not remove a summary already added to the Instructions field. The user can delete that summary in Settings. When the user says in chat how drafts should sound, Claude can propose a change to one line of the Writing style field, or to one sentence of a long line. A card shows the new text and the text it replaces, and the change is saved only if the user allows it. Proposing or saving a change does not start a read of sent mail. Claude does not propose changes if the user has turned off "Let Claude suggest improvements" under Instructions in Settings. Every Outlook chat request includes the Instructions field and any text the user wrote or allowed in the Writing style field. It includes a guide built from sent mail only for the user who agreed to build it or to use it. Versions of the add-in from April 13 to 17, 2026 wrote a short writing-style note into the Instructions field between two marker lines, and chat requests leave that note out. The add-in puts the draft preferences summary on one line between two marker lines. While learning draft preferences is off, chat requests leave out a summary that is still in that form. If those lines have been edited, the add-in may not recognize the summary, and then sends it with the rest of the Instructions field. Every message the user sends in Outlook includes the scratchpad. The user can delete this data from the device, with the exceptions described in [Data retention](#data-retention) |
 | Sign-in credentials | To the services the sign-in is for, with two exceptions described last. A Bedrock sign-in sends the Entra ID token to AWS, which exchanges it for short-lived credentials. A Claude account token also goes to `claude.ai` with feature-flag requests. While the user dictates, it also goes to Anthropic's server at `pivot.claude.ai`, which uses it to open the connection to Anthropic's transcription service. The exceptions: a credential that you put in the query string of the manifest URL also reaches Anthropic's server at `pivot.claude.ai` each time the add-in loads, and the server's request logs record it. A Vertex AI sign-in also returns Google's one-time authorization code to `pivot.claude.ai` in the query string, where request logs can record it. The code cannot be exchanged for a token without your OAuth client secret, so keep the client secret out of the manifest URL query string too. See [Keep credentials out of the manifest URL query string](https://claude.com/docs/office-agents/third-party-platforms.md#keep-credentials-out-of-the-manifest-url-query-string) |
 | Identifiers on model requests | Each request for a model response carries the name of the add-in, a random identifier for the device, and a session ID. For a chat message, the session ID is the conversation's ID. The add-in also sends helper requests to the same endpoint. In every Office app, they summarize a long conversation, write the status line shown while Claude thinks, and, when memory is on, check an entry before Claude saves it. In Word and PowerPoint, they check how the document or a slide looks after Claude edits it, and in Word they also check Claude's reasoning before it edits legal language. In Outlook, they rewrite a passage the user selects in a draft, learn the user's writing style from recent sent mail each time the user agrees to it, and, while learning draft preferences is on, learn draft preferences from the user's edits to drafts. Each helper request carries a session ID made from the kind of helper request, the device identifier, and the date in UTC, so helper requests of one kind from one device on one day share a session ID. With a Claude account sign-in, requests also carry the user's account ID. In third-party platform deployments, requests carry no account ID and no email address. The short test requests that the add-in sends to check which models and features your endpoint supports, such as web search and code execution, carry none of these values |
@@ -328,7 +373,19 @@ review to the paths that carry content off the endpoint.
 | Error reports sent to Sentry, with a Claude account sign-in | The user's account ID, the type of error, where in the add-in's code it happened, the name of the tool that failed, and other details about what failed, such as IDs and counts. A report also lists the hosts the add-in contacted, which can include a connector's host, and the add-in pages visited before the error. Before sending a report, the add-in removes the error text, a failed tool's input, and the names of files, skills, and connectors from the fields known to carry them. The filter matches field names, so it does not remove such text from a field it does not name. Until November 2026, error reports also included the text of the error and those names, which could include conversation and document content |
 | Error reports sent to Sentry, in third-party platform deployments | Once the add-in has loaded the user's sign-in, each report holds only the type of error, where in the code it happened, the add-in's version, the Office app with its platform and version, the sign-in type, and the name of the built-in tool that failed. Reports sent before that point, such as those from the sign-in page, also include other details about what failed, the hosts the add-in contacted, and the add-in pages visited |
 | Diagnostic traces, logs, and metrics sent to Anthropic | Counts, durations, error types, the model, request IDs, the names of built-in tools, and a session ID. With a Claude account sign-in, traces also carry the organization ID. Before sending traces and logs, the add-in removes every field that is not on an allowlist, so they exclude conversation text, document contents, file names, and the names of your connectors and their tools. Before sending metrics, the add-in removes a list of fields that includes file names and connector names |
-| Telemetry sent to a custom OpenTelemetry collector you configure | A collector set in the claude.ai admin console, in the manifest, in Entra ID claims, or by your bootstrap endpoint receives the full audit trail, including prompt content and tool inputs and outputs. That path skips the allowlist filter by design. A collector named in an administrator-managed settings document receives only the kinds of content that document selects, and no conversation or tool content if it selects none. While a custom collector is set, traces and logs go only to that collector, and metrics still go to Anthropic. See [Audit and observability](https://claude.com/docs/office-agents/enterprise-readiness.md#audit-and-observability) |
+| Telemetry sent to a custom OpenTelemetry collector you configure | A collector set in the claude.ai admin console, in the manifest, in Entra ID claims, or by your bootstrap endpoint receives the full audit trail, including prompt content and tool inputs and outputs. That path skips the allowlist filter by design. A collector named in an administrator-managed settings document, such as the one the Enterprise Admin Console delivers, receives only the kinds of content that document selects, and no conversation or tool content if it selects none. While a custom collector is set, traces and logs go only to that collector, and metrics still go to Anthropic. See [Audit and observability](https://claude.com/docs/office-agents/enterprise-readiness.md#audit-and-observability) |
+
+When you
+[manage the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console),
+members sign in with a Claude account. Feature-flag requests, usage events, and
+the session records that Sentry keeps, which count sessions and crashes, then
+carry the identifiers described for a Claude account sign-in. The identifiers
+on these members' model requests include no account ID and no email address.
+Once a member has connected to your provider, error reports follow the row for
+third-party platform deployments. Before that, they follow the row for a Claude
+account sign-in. Files that these members attach are not uploaded to Anthropic,
+and dictation is not available to them. Your organization's setting that turns
+off third-party analytics does not apply to these members.
 
 Until September 23, 2026, Anthropic's server sent usage events to Segment, a
 third-party analytics service. These included the text of rating comments and
@@ -350,8 +407,9 @@ The setting does not stop the following:
 * The identifiers on model requests.
 * The traces, logs, and metrics sent to Anthropic.
 
-In third-party platform deployments, no add-in setting stops usage events or
-error reports. You can block the Sentry host listed in the
+In third-party platform deployments, including those managed from the
+Enterprise Admin Console, no add-in setting stops usage events or error reports.
+You can block the Sentry host listed in the
 [network allowlist](https://claude.com/docs/office-agents/third-party-platforms.md#network-allowlist).
 
 ## Chat history and skills missing after a Microsoft 365 update on Windows
