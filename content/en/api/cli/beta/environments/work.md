@@ -245,6 +245,20 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work execution stopped
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=cli).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `claude_code_key_creator_not_member` (HTTP status 400)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `organization_on_hold` (HTTP status 400)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```bash
@@ -1023,6 +1037,16 @@ Record a heartbeat for a work item to maintain the lease.
 
     Effective TTL applied to the lease
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=cli).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `heartbeat_precondition_failed` (HTTP status 412)
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
 ### Example
 
 ```bash
@@ -1286,6 +1310,20 @@ Stop a work item, initiating graceful or forced shutdown.
   - `stopped_at: string`
 
     RFC 3339 timestamp when work execution stopped
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=cli).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `claude_code_key_creator_not_member` (HTTP status 400)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `organization_on_hold` (HTTP status 400)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
 ### Example
 
@@ -1847,6 +1885,24 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=cli).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `claude_code_key_creator_not_member` (HTTP status 400)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `invalid_metadata` (HTTP status 400)
+
+  `metadata` has too many keys, a key or value that is too long, or a reserved key. The message names each problem.
+
+- `organization_on_hold` (HTTP status 400)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```bash
@@ -2063,6 +2119,20 @@ Get statistics about the work queue for an environment.
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=cli).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `claude_code_key_creator_not_member` (HTTP status 400)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `organization_on_hold` (HTTP status 400)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
 ### Example
 
 ```bash
@@ -2087,8 +2157,6 @@ ant beta:environments:work stats \
 ### Beta Heartbeat Precondition Failed Error Details
 
 - `beta_heartbeat_precondition_failed_error_details: object`
-
-  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
 
   - `current_state: object`
 
@@ -2416,3 +2484,47 @@ ant beta:environments:work stats \
   - `ttl_seconds: number`
 
     TTL of the lease
+
+## Errors
+
+### heartbeat_precondition_failed
+
+HTTP status 412
+
+- `"heartbeat_precondition_failed"`
+
+  `expected_last_heartbeat` does not match the stored heartbeat, so another worker may hold the lease.
+
+  - `details: object`
+
+    - `current_state: object`
+
+      The lease as the server holds it.
+
+      - `last_heartbeat: string`
+
+        RFC 3339 timestamp of the stored heartbeat, or null if there has been none
+
+      - `lease_extended: boolean`
+
+        Always false: a refused heartbeat does not extend the lease
+
+      - `state: "queued" or "starting" or "active" or 2 more`
+
+        Current state of the work item
+
+        - `"queued"`
+
+        - `"starting"`
+
+        - `"active"`
+
+        - `"stopping"`
+
+        - `"stopped"`
+
+      - `ttl_seconds: number`
+
+        TTL of the lease
+
+    - `error_code: "heartbeat_precondition_failed"`

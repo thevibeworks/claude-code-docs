@@ -10,7 +10,7 @@ Claude Science can run jobs on Modal using a Modal account you own and control. 
 
 ## Connecting Modal
 
-In Settings > Compute > **Cloud providers**, click Connect on the Modal card. If you've signed in with the Modal CLI (`modal token new`), the app reads `~/.modal.toml` automatically; click Check again after the file exists. Alternatively, paste a **Token ID** and **Token secret** in Settings > Credentials, under Modal. Tokens are stored encrypted on your computer and never shown to Claude.
+In Settings > Compute > **Cloud providers**, click Connect on the Modal card. If you've signed in with the Modal CLI (`modal token new`), the app reads `~/.modal.toml` automatically; click Check again after the file exists. Alternatively, paste a **Token ID** and **Token secret** in Settings > Credentials, under Modal. Tokens you paste are stored encrypted on your computer. With your approval, code that Claude writes can receive your Modal token itself.
 
 ### Workspace restrictions set by your organization
 
@@ -20,7 +20,7 @@ If your organization manages the network allowlist, set **Network restrictions**
 
 ## Running cloud jobs
 
-When work needs a GPU or more memory than your machine has, Claude proposes a job and a **Start a Modal job?** card appears. The card shows the Modal profile, exact machine spec (for example, H100, 8 CPUs, 32 GiB), a note that billing is per-second, and the maximum billable time. It links to Modal's pricing page. Approve per job, or for the conversation or project.
+When work needs a GPU or more memory than your machine has, Claude proposes a job and a **Start a Modal job?** card appears. The card shows the Modal profile, exact machine spec (for example, H100, 8 CPUs, 32 GiB), a note that billing is per-second, and the maximum billable time. It links to Modal's pricing page. Approve with **Once**, **This conversation**, **This project**, or **Global** scope. **Global** covers every project.
 
 A separate card asks before Claude opens a Modal setup shell (capped at 30 minutes, no GPU).
 
@@ -30,7 +30,7 @@ Input files are limited to 1 GiB per submit. For larger inputs, Claude can stage
 >
 > Closing the app doesn't cancel a running Modal job; it continues billing until it finishes or times out.
 
-Cost controls: there's no spend ceiling. Each job is approved individually with its machine and time limit visible. **Concurrent jobs** (default 10, set on the Modal page under Settings > Compute) caps simultaneous containers that Claude Science on this machine can run. **Default container timeout** is 12 hours (maximum 23), enforced by Modal. Track spend on Modal's dashboard.
+Cost controls: there's no spend ceiling. With **Once**, a card asks about each job Claude proposes. After you approve a job with a wider scope, later Modal jobs in that scope can start without a card, on any machine and with any time limit. **Concurrent jobs** (default 10, set on the Modal page under Settings > Compute) caps simultaneous containers that Claude Science on this machine can run. **Default container timeout** is 12 hours (maximum 23), enforced by Modal. Track spend on Modal's dashboard.
 
 On the Modal page under Settings > Compute you can set the Modal environment and the default application name used for containers.
 

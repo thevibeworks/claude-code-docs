@@ -39,7 +39,7 @@ By choosing to enable connectors, you represent that you have the necessary righ
 
 ## Using connectors
 
-Name a source in your request, or describe what you need and Claude chooses from available connector tools. Connector queries appear in the conversation as expandable code steps. Featured connectors you've previously enabled run without a permission card. Connectors you add yourself, and connectors that your organization's plugins add, prompt for approval per tool, with Once, This conversation, This project, or Global scope.
+Name a source in your request, or describe what you need and Claude chooses from available connector tools. Connector queries appear in the conversation as expandable code steps. Featured connectors you've previously enabled run without a permission card. Connectors you add yourself, and connectors that your organization's plugins add, prompt for approval per tool, with Once, This conversation, This project, or Global scope. With [auto mode](https://claude.com/docs/claude-science/auto-mode.md) on, Claude Science's own check can allow a call to a remote connector without a card.
 
 The databases behind Featured connectors are on the network allowlist in groups under Settings > Network. Turning off a group disables the connectors that depend on it.
 

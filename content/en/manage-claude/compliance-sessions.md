@@ -28,7 +28,7 @@ The following table maps each product, and where it runs, to the endpoint family
 | Claude for Microsoft 365 (the Claude add-ins for Excel, PowerPoint, Word, and Outlook), running in the Microsoft 365 desktop or web apps                                    | Local session endpoints                                          | `office_agents/excel`, `office_agents/powerpoint`, `office_agents/word`, or `office_agents/outlook` |
 | The Claude add-ins for Google Docs, Google Sheets, and Google Slides, running in those Google apps                                                                          | Local session endpoints                                          | `office_agents/google_docs`, `office_agents/google_sheets`, or `office_agents/google_slides`        |
 | Claude in Chrome (the browser extension’s built-in chat), running on the user’s machine                                                                                     | Local session endpoints                                          | `claude_in_chrome`                                                                                  |
-| Cowork sessions started on claude.ai web or mobile, running in the cloud in Anthropic-managed environments                                                                  | Remote session endpoints (`/v1/compliance/apps/sessions/remote`) | `cowork_remote`                                                                                     |
+| Cowork sessions running in the cloud in Anthropic-managed environments, including sessions started on claude.ai web or mobile and cloud runs of Cowork scheduled tasks      | Remote session endpoints (`/v1/compliance/apps/sessions/remote`) | `cowork_remote`                                                                                     |
 | [Claude Tag](https://claude.com/docs/claude-tag/overview) sessions started in Slack, running in the cloud in Anthropic-managed environments or on a self-hosted runner pool | Remote session endpoints                                         | `claude_tag`                                                                                        |
 
 `office_agents` alone does not say which app the session came from, and it can come from Claude for Microsoft 365 or the Google add-ins. See the `product_surface` description under [Sessions on users’ machines](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions).
@@ -348,12 +348,12 @@ curl --fail-with-body -sS -G \
     {
       "id": "cse_01TkNpRsUvWxYzAbCdEfGhJ4",
       "organization_uuid": "91012d09-e48b-438e-a489-1bebfd8fa6f9",
-      "user": null,
-      "agent_id": "cagt_01MnPqRsTuVwXyZaBcDeFgH8",
-      "started_by_user": {
+      "user": {
         "id": "user_01WxYzAbCdEfGhJkMnPqRsTu",
         "email_address": "user@example.com"
       },
+      "agent_id": null,
+      "started_by_user": null,
       "status": "archived",
       "created_at": "2026-06-28T09:15:22Z",
       "updated_at": "2026-06-28T09:47:10Z",
@@ -367,15 +367,17 @@ curl --fail-with-body -sS -G \
 
 Results are sorted in reverse chronological order (newest first) by `created_at` and capped at `limit` results for each response (default 100, max 500). The endpoint paginates with `page` and `next_page` tokens (see [Paginate results](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed#paginate-results)): pass the response’s `next_page` value back as the `page` query parameter on the next request, and stop when `next_page` is `null`.
 
-A session is owned by either a user or an agent, never both. For user-owned sessions, `user` carries the owner’s ID and email address (`email_address` is `null` when the user is no longer a member of an organization your key can read) and `agent_id` is `null`. For agent-owned sessions (for example, runs of a Cowork scheduled task in the cloud, or a Claude Tag session started by a mention in Slack), `user` is `null`, `agent_id` carries the agent’s ID (prefix `cagt_`), and `started_by_user` identifies the human who initiated the run when one is recorded, so it can be `null` on a Claude Tag session; on user-owned sessions, `started_by_user` is `null`. Each run of a scheduled task is a separate session, and no session field carries the task’s name or schedule.
+A session is owned by either a user or an agent, never both. For user-owned sessions, `user` carries the owner’s ID and email address (`email_address` is `null` when the user is no longer a member of an organization your key can read) and `agent_id` is `null`. For agent-owned sessions (for example, a Claude Tag session started by a Slack mention), `user` is `null` and `agent_id` carries the agent’s ID (prefix `cagt_`). On those sessions, `started_by_user` identifies the human who started the session when one is recorded, so it can be `null` on a Claude Tag session. On user-owned sessions, `started_by_user` is `null`.
+
+Each run of a Cowork scheduled task in the cloud takes place in a session that has the same owner as the task. When a user creates the task in Cowork, those sessions are user-owned: `user` identifies that user, and `agent_id` and `started_by_user` are `null`. A `user_ids[]` filter that names that user matches these sessions. A run can start a new session or continue an existing one. When a run continues an existing session, that session’s `created_at` is when the session began, not when the run took place. No session field marks a session as a scheduled run or carries the task’s name or schedule.
 
 `claude_project_id` is the ID of the claude.ai [project](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-projects-and-attachments) the session belongs to (prefix `claude_proj_`), or `null` when the session is not in a project.
 
 `status` is one of `pending`, `active`, `paused`, `archived`, or `failed`. A session is `pending` while it is being provisioned; a `pending` session has no transcript yet, and the messages endpoint returns 404 for it until provisioning completes. Sessions that have been deleted are never returned.
 
-`product_surface` (string or `null`) identifies the product that created the session. The endpoint currently returns sessions with one of two `product_surface` values: `cowork_remote`, for Cowork sessions started on claude.ai web or mobile, and `claude_tag`, for Claude Tag sessions started in Slack.
+`product_surface` (string or `null`) identifies the product that created the session. The endpoint currently returns sessions with one of two `product_surface` values. `cowork_remote` is for Cowork sessions in the cloud, including sessions started on claude.ai web or mobile and cloud runs of Cowork scheduled tasks. `claude_tag` is for Claude Tag sessions started in Slack.
 
-To retrieve a chat in the unified Claude experience, including the part that ran in the cloud, use the chat endpoints ([Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list)), not the remote session endpoints.
+To retrieve a chat in the unified Claude experience, including the part that ran in the cloud, use the chat endpoints ([Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list)), not the remote session endpoints. The remote session list also returns the sessions that such a chat continues in, as `cowork_remote`, so an export of both chats and remote sessions contains that work twice.
 
 <Note>
   **Build forward-compatible handlers.** Pass through unrecognized `status` and `product_surface` values, and ignore fields your handler does not expect, so your integration keeps working as new statuses and product surfaces ship.

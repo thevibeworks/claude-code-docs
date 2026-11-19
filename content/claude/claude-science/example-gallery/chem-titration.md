@@ -12,7 +12,7 @@ The numbers in your session might differ from this picture and from the summary 
 
 ## Prompt
 
-Copy the prompt and paste it into a new session in [Claude Science](https://claude.com/docs/claude-science/overview.md). By default, Claude asks with a [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
+Copy the prompt and paste it into a new session in [Claude Science](https://claude.com/docs/claude-science/overview.md). Claude asks with a [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages, unless you've already allowed it. With [auto mode](https://claude.com/docs/claude-science/auto-mode.md) on, Claude Science's own check can allow code without a card.
 
 ```text Prompt wrap theme={null}
 I'm titrating 25.0 mL of 0.100 M acetic acid (pKa 4.76) with 0.100 M NaOH. Compute the pH after each addition of base, from 0 to 50 mL, by solving the full equilibrium (mass balance, charge balance, Kw = 1.0 × 10⁻¹⁴) without the usual shortcuts (no Henderson–Hasselbalch, no 'x is small'), using concentrations, at 25 °C. Plot the titration curve and mark the starting point, the half-equivalence point and the equivalence point. Show that the acid alone sets the start, pH = pKa half-way, and acetate acting as a weak base sets the equivalence point.

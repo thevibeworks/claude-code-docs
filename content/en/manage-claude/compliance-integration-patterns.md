@@ -105,7 +105,9 @@ Each `Activity` carries fields you can join against events already in your SIEM 
 
 `actor.user_id` and `actor.email_address` are present when `actor.type` is `user_actor`. `actor.ip_address` and `actor.user_agent` are absent on some actor types, such as `anthropic_actor` and `scim_directory_sync_actor`. Check the discriminator before reading any of these fields. `user_id` is a stable, opaque identifier for the user account: it is consistent across every Compliance API endpoint and activity payload, and it does not change when the user’s email or display name changes. Use `user_id`, not `email_address`, as the primary join key.
 
-Calls to the Compliance API itself emit `compliance_api_accessed` activities. Ingest these alongside other activity types so your SIEM records who queried compliance data, and when. Pass `activity_types[]=compliance_api_accessed` to scope the query, then in your client, read `actor.api_key_id` from each activity whose `actor.type` is `api_actor` to attribute the access to a specific Compliance Access Key or Admin API key.
+Most calls to the Compliance API itself emit `compliance_api_accessed` activities. Ingest these alongside other activity types so your SIEM records who queried compliance data, and when. Pass `activity_types[]=compliance_api_accessed` to scope the query. Then, in your client, read `actor.api_key_id` from each activity whose `actor.type` is `api_actor`. That value attributes the access to a specific Compliance Access Key or Admin API key.
+
+Some calls to the Compliance API leave no activity in the Activity Feed, including calls that succeed. So, a gap in these activities does not show that nobody queried compliance data.
 
 ## Plan content retention
 
@@ -148,7 +150,7 @@ The content endpoints (chats, files, projects, project attachments, and local an
 
 * Prompt text or model responses from Claude Console, or from Claude API workloads authenticated with an API key.
 * On-device activity in local sessions that is never sent to Anthropic, such as local files that Claude did not read.
-* Claude Code usage authenticated with a Claude Console API key, run through a third-party cloud platform (Amazon Bedrock, Google Cloud, or Microsoft Foundry), or run in a [Claude Code cloud session](https://code.claude.com/docs/en/claude-code-on-the-web), which runs on cloud infrastructure instead of the user’s machine.
+* Claude Code usage authenticated with a Claude Console API key, run through any [cloud platform](https://platform.claude.com/docs/en/api/overview#claude-api-vs-cloud-platforms), or run in a [Claude Code cloud session](https://code.claude.com/docs/en/claude-code-on-the-web). A Claude Code cloud session runs on cloud infrastructure instead of the user’s machine.
 * Local sessions from products other than Cowork and Claude Code in organizations with [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled, and local sessions for which [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) is in effect.
 * Thinking blocks, and images or other binary content, inside session transcripts (transcripts carry user prompts, assistant responses, and tool activity only; local session transcripts show a placeholder `text` block where binary content was omitted).
 * The original file for a chat attachment that claude.ai stored as extracted text, such as some Word, PowerPoint, and PDF uploads (the file content endpoint returns the extracted text; see [Retrieve files and artifacts](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-files-and-artifacts)).

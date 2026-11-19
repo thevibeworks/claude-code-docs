@@ -127,6 +127,44 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
     - `"pending"`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `already_member` (HTTP status 400)
+
+  The email address already belongs to a user in the organization. The message names the user.
+
+- `cannot_invite_emails_with_unverified_domains` (HTTP status 400)
+
+  The email address's domain is not one of the verified domains of the organization's parent organization.
+
+- `email_domain_not_allowed` (HTTP status 400)
+
+  The organization restricts invites to an allowed list of email domains, and the list is empty or does not include the email address's domain.
+
+- `invite_already_exists` (HTTP status 400)
+
+  A pending invite already exists for the email address. The message names the invite.
+
+- `org_member_limit_exceeded` (HTTP status 400)
+
+  The organization has reached the member limit that Anthropic set for it. Pending invites count toward the limit.
+
+- `rbac_group_grants_owner_access` (HTTP status 400)
+
+  A role attached to an RBAC Group in the request grants owner access, so this API does not add members to that group (directly or through an invite), remove its members, or delete it. Make the change in the organization's admin settings in Claude.
+
+- `rbac_group_owner_access_unconfirmed` (HTTP status 400)
+
+  The API could not finish checking whether an RBAC Group in the request grants owner access, so it made no change. Retrying the same request will not help. Make the change in the organization's admin settings in Claude.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Example
 
 ```bash
@@ -489,6 +527,16 @@ Delete a pending invite.
 
   ID of the Invite.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Example
 
 ```bash
@@ -513,15 +561,11 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 
 - `AlreadyMemberErrorDetails object`
 
-  The email address already belongs to a user in the organization. The message names the user.
-
   - `error_code: "already_member"`
 
 ### Cannot Invite Emails With Unverified Domains Error Details
 
 - `CannotInviteEmailsWithUnverifiedDomainsErrorDetails object`
-
-  The email address's domain is not one of the verified domains of the organization's parent organization.
 
   - `error_code: "cannot_invite_emails_with_unverified_domains"`
 
@@ -529,15 +573,11 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 
 - `EmailDomainNotAllowedErrorDetails object`
 
-  The organization restricts invites to an allowed list of email domains, and the list is empty or does not include the email address's domain.
-
   - `error_code: "email_domain_not_allowed"`
 
 ### Invite Already Exists Error Details
 
 - `InviteAlreadyExistsErrorDetails object`
-
-  A pending invite already exists for the email address. The message names the invite.
 
   - `error_code: "invite_already_exists"`
 
@@ -632,3 +672,53 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
   - `id: string`
 
     ID of the Invite.
+
+## Errors
+
+### already_member
+
+HTTP status 400
+
+- `"already_member"`
+
+  The email address already belongs to a user in the organization. The message names the user.
+
+  - `details: AlreadyMemberErrorDetails`
+
+    - `error_code: "already_member"`
+
+### cannot_invite_emails_with_unverified_domains
+
+HTTP status 400
+
+- `"cannot_invite_emails_with_unverified_domains"`
+
+  The email address's domain is not one of the verified domains of the organization's parent organization.
+
+  - `details: CannotInviteEmailsWithUnverifiedDomainsErrorDetails`
+
+    - `error_code: "cannot_invite_emails_with_unverified_domains"`
+
+### email_domain_not_allowed
+
+HTTP status 400
+
+- `"email_domain_not_allowed"`
+
+  The organization restricts invites to an allowed list of email domains, and the list is empty or does not include the email address's domain.
+
+  - `details: EmailDomainNotAllowedErrorDetails`
+
+    - `error_code: "email_domain_not_allowed"`
+
+### invite_already_exists
+
+HTTP status 400
+
+- `"invite_already_exists"`
+
+  A pending invite already exists for the email address. The message names the invite.
+
+  - `details: InviteAlreadyExistsErrorDetails`
+
+    - `error_code: "invite_already_exists"`

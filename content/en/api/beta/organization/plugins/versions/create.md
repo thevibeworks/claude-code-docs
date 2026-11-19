@@ -331,6 +331,32 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     As supplied with the upload; null when none were supplied.
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `cmek_key_disabled` (HTTP status 400)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `cmek_key_network_blocked` (HTTP status 400)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `unsupported_charset` (HTTP status 400)
+
+  The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
+
+- `skill_name_taken` (HTTP status 409)
+
+  One of the Plugin's skills has the name of an organization skill. `skill_name` is that name.
+
+- `registration_pending` (HTTP status 503)
+
+  The Plugin version was stored but is not yet usable in claude.ai. `plugin_id` and `plugin_version_id` identify what was stored.
+
 ## Example
 
 ```bash

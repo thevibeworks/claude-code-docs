@@ -324,6 +324,16 @@ Update a member's organization role.
 
     - `"user"`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Example
 
 ```bash
@@ -382,6 +392,24 @@ Remove a member from the organization.
 - `id: string`
 
   ID of the User.
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `cannot_remove_last_member` (HTTP status 400)
+
+  The user is the organization's only member. Add another member before removing this one.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `concurrent_membership_change` (HTTP status 409)
+
+  Another change to the organization's members is in progress. Retry the request once it completes.
 
 ### Example
 
@@ -619,6 +647,44 @@ Every request must include the beta header `anthropic-beta: admin-user-sign-out-
 
     - `"user"`
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `cannot_sign_out_primary_owner` (HTTP status 400)
+
+  The member is the organization's primary owner, whom no API key or token can sign out.
+
+- `cannot_sign_out_self` (HTTP status 400)
+
+  The member is the user the API key or token belongs to.
+
+- `organization_not_enrolled_in_beta` (HTTP status 400)
+
+  The beta that the endpoint requires is not enabled for the organization. The message names the beta value.
+
+- `cannot_sign_out_managed_member` (HTTP status 403)
+
+  The member has the `managed` role, and this API key or token cannot sign them out. The error message says which keys and tokens can.
+
+- `cannot_sign_out_membership_admin` (HTTP status 403)
+
+  The member is a membership admin, and the person the API key or token belongs to is not allowed to sign out membership admins.
+
+- `cannot_sign_out_owner` (HTTP status 403)
+
+  The member is an owner or has owner permissions, and this API key or token cannot sign them out. In a Claude Enterprise organization, an API key with the `write:members` scope can.
+
+- `cannot_sign_out_privileged_member` (HTTP status 403)
+
+  This OAuth token cannot sign out a membership admin or a member whose roles grant owner, user management, or identity and access management.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Example
 
 ```bash
@@ -648,15 +714,11 @@ curl https://api.anthropic.com/v1/organizations/users/$USER_ID/sign_out \
 
 - `BetaCannotSignOutManagedMemberErrorDetails object`
 
-  The member has the `managed` role, and this API key or token cannot sign them out. The error message says which keys and tokens can.
-
   - `error_code: "cannot_sign_out_managed_member"`
 
 ### Beta Cannot Sign Out Membership Admin Error Details
 
 - `BetaCannotSignOutMembershipAdminErrorDetails object`
-
-  The member is a membership admin, and the person the API key or token belongs to is not allowed to sign out membership admins.
 
   - `error_code: "cannot_sign_out_membership_admin"`
 
@@ -664,15 +726,11 @@ curl https://api.anthropic.com/v1/organizations/users/$USER_ID/sign_out \
 
 - `BetaCannotSignOutOwnerErrorDetails object`
 
-  The member is an owner or has owner permissions, and this API key or token cannot sign them out. In a Claude Enterprise organization, an API key with the `write:members` scope can.
-
   - `error_code: "cannot_sign_out_owner"`
 
 ### Beta Cannot Sign Out Primary Owner Error Details
 
 - `BetaCannotSignOutPrimaryOwnerErrorDetails object`
-
-  The member is the organization's primary owner, whom no API key or token can sign out.
 
   - `error_code: "cannot_sign_out_primary_owner"`
 
@@ -680,15 +738,11 @@ curl https://api.anthropic.com/v1/organizations/users/$USER_ID/sign_out \
 
 - `BetaCannotSignOutPrivilegedMemberErrorDetails object`
 
-  This OAuth token cannot sign out a membership admin or a member whose roles grant owner, user management, or identity and access management.
-
   - `error_code: "cannot_sign_out_privileged_member"`
 
 ### Beta Cannot Sign Out Self Error Details
 
 - `BetaCannotSignOutSelfErrorDetails object`
-
-  The member is the user the API key or token belongs to.
 
   - `error_code: "cannot_sign_out_self"`
 
@@ -759,3 +813,77 @@ curl https://api.anthropic.com/v1/organizations/users/$USER_ID/sign_out \
   - `id: string`
 
     ID of the User.
+
+## Errors
+
+### cannot_sign_out_primary_owner
+
+HTTP status 400
+
+- `"cannot_sign_out_primary_owner"`
+
+  The member is the organization's primary owner, whom no API key or token can sign out.
+
+  - `details: BetaCannotSignOutPrimaryOwnerErrorDetails`
+
+    - `error_code: "cannot_sign_out_primary_owner"`
+
+### cannot_sign_out_self
+
+HTTP status 400
+
+- `"cannot_sign_out_self"`
+
+  The member is the user the API key or token belongs to.
+
+  - `details: BetaCannotSignOutSelfErrorDetails`
+
+    - `error_code: "cannot_sign_out_self"`
+
+### cannot_sign_out_managed_member
+
+HTTP status 403
+
+- `"cannot_sign_out_managed_member"`
+
+  The member has the `managed` role, and this API key or token cannot sign them out. The error message says which keys and tokens can.
+
+  - `details: BetaCannotSignOutManagedMemberErrorDetails`
+
+    - `error_code: "cannot_sign_out_managed_member"`
+
+### cannot_sign_out_membership_admin
+
+HTTP status 403
+
+- `"cannot_sign_out_membership_admin"`
+
+  The member is a membership admin, and the person the API key or token belongs to is not allowed to sign out membership admins.
+
+  - `details: BetaCannotSignOutMembershipAdminErrorDetails`
+
+    - `error_code: "cannot_sign_out_membership_admin"`
+
+### cannot_sign_out_owner
+
+HTTP status 403
+
+- `"cannot_sign_out_owner"`
+
+  The member is an owner or has owner permissions, and this API key or token cannot sign them out. In a Claude Enterprise organization, an API key with the `write:members` scope can.
+
+  - `details: BetaCannotSignOutOwnerErrorDetails`
+
+    - `error_code: "cannot_sign_out_owner"`
+
+### cannot_sign_out_privileged_member
+
+HTTP status 403
+
+- `"cannot_sign_out_privileged_member"`
+
+  This OAuth token cannot sign out a membership admin or a member whose roles grant owner, user management, or identity and access management.
+
+  - `details: BetaCannotSignOutPrivilegedMemberErrorDetails`
+
+    - `error_code: "cannot_sign_out_privileged_member"`

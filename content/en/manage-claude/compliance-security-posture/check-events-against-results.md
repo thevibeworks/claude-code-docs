@@ -8,7 +8,7 @@ description: Once a day, compare the attestation activities your SIEM has stored
   To enable the Compliance API, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 </Note>
 
-The Activity Feed can deliver an activity late, and the endpoint keeps no history, so each source can show a change that the other does not. A daily comparison finds what your security information and event management (SIEM) store lacks. The feed does not record [every change](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/events-reference#what-the-feed-does-not-record), so an attestation can be older than the feed’s first activity for its security control, and in rare cases a change has no activity at all. If you only report current results, you do not need the check.
+The Activity Feed can deliver an activity late, and the endpoint keeps no history. So each source can show a change that the other does not. A daily comparison finds what your security information and event management (SIEM) store lacks. The feed does not record every change (see [What the feed does not record](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/events-reference#what-the-feed-does-not-record)). So an attestation can be older than the feed’s first activity for its security control. In rare cases, a change has no activity at all. If you only report current results, you do not need the check.
 
 You need a Compliance Access Key that covers the organization, with `read:compliance_org_data` for the endpoint and `read:compliance_activities` for the Activity Feed, or `read:org_audit` for both.
 
@@ -49,7 +49,7 @@ Before you compare, set these aside.
 
 ## Decide what each mismatch means
 
-Each control that is left fits exactly one row.
+Each control that is left fits exactly one row. In this table, treat a `null` `state` as `in_force`.
 
 | #  | Newest stored activity                                                                                                    | Entry in the response                                                                                                                                                     | Verdict   | What to do                                                                                                                                                                                                                                                       |
 | -- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

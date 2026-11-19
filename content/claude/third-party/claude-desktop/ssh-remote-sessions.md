@@ -599,7 +599,7 @@ With `sshTransport` unset or `auto`, the app still uses the built-in client in t
 
 Four of these cases pass with time. They are configuration that hasn't loaded, a record that can't be read, an `ssh.exe` that Windows wouldn't start, and an `sshClientPath` program that gave no answer. A new host first reached in such a case isn't kept: once the case has passed, its connections use the OpenSSH client.
 
-A host under **Hosts already in use** moves to the OpenSSH client, or counts as new, in these cases. Once the OpenSSH client has connected to it, the host stays there. A connection that fails for another reason moves nothing.
+A host under **Hosts already in use** moves to the OpenSSH client, or counts as new, in cases such as these. Once the OpenSSH client has connected to it, the host stays there.
 
 * **You set `system-openssh`**: once one connection has succeeded under it, the device keeps no host on the built-in client for having used it before, even if you remove the setting later. Cases such as **PuTTY key files** still apply.
 * **A host key that the built-in client can't check**: the user's `known_hosts` file has no plain entry for the host, and `ssh` would check its key against a certificate authority or another `known_hosts` file. The system-wide file is one such file. The host moves at its next connection.
@@ -652,7 +652,7 @@ Claude Desktop applies the host's entry in the user's `~/.ssh/config`. With the 
 * With the built-in client, a host reached through a `ProxyCommand` gets the same host key check as a host reached directly. Before Claude Desktop 2.9939.0, the built-in client skipped host key verification for such a host.
 * With the built-in client, a host connects with its key unchecked when its entry sets `StrictHostKeyChecking no`, sets `UserKnownHostsFile` to `none` or `/dev/null`, and sets no `RevokedHostKeys`. The app shows no password or one-time code prompt for such a host, so it needs a key or SSH agent sign-in.
 * The connection times out after 30 seconds. A larger `ConnectTimeout` in the host entry extends it, and then applies to every try.
-* With the device's OpenSSH client on macOS and Linux, a route through a jump host or a `ProxyCommand` gets more time where no `ConnectTimeout` applies, except to a [host that allows one session per connection](#hosts-that-allow-one-session-per-connection). When a user starts a session and the first try times out, the second try has 90 seconds. The time that a sign-in dialog for a `ProxyJump` host is open doesn't count. A jump host's push approval or security key touch counts, and so does anything that a `ProxyCommand` waits for. If a connection still times out while the user types or approves, set a `ConnectTimeout` that leaves time for it. Reconnects that Claude Desktop starts on its own have 30 seconds a try, so a route that is always slow still needs `ConnectTimeout`. Before Claude Desktop 4.4212.0, the second try has 30 seconds, and the dialog's time counts.
+* With the device's OpenSSH client, a route through a jump host or a `ProxyCommand` gets more time where no `ConnectTimeout` applies. When a user starts a session at the device and the first try times out, the second try has 90 seconds. On macOS and Linux devices, the time that a sign-in dialog for a `ProxyJump` host is open doesn't count, unless the session's host [allows one session per connection](#hosts-that-allow-one-session-per-connection). A jump host's push approval or security key touch counts, and so does anything that a `ProxyCommand` waits for. If a connection still times out while the user types or approves, set a `ConnectTimeout` that leaves time for it. Reconnects that Claude Desktop starts on its own may have only 30 seconds a try, so a route that is always slow still needs `ConnectTimeout`. Before Claude Desktop 4.4212.0, the second try has 30 seconds, and the dialog's time counts. Before Claude Desktop 6.6395.0, every try has 30 seconds from a Windows device, and to a host that allows one session per connection.
 
 With either client, the connection that carries the session leaves these settings off, whatever the entry says:
 
@@ -774,7 +774,7 @@ With the device's OpenSSH client, if `StrictHostKeyChecking yes` applies to the 
 
 ### Ask your IT administrator to set sshTransport to system-openssh
 
-The built-in client made the connection, and the host needs the device's OpenSSH client. Where the app can name a step, the card's title gives it, and the card's text gives the cause, either "Claude's built-in SSH library can't connect through a jump host (ProxyJump)." or "Claude's built-in SSH library can't check host keys against a certificate authority or another known\_hosts file."
+The built-in client made the connection, and the host needs the device's OpenSSH client. Where the app can name a step, the card's title gives it, and the card's text gives the cause, such as "Claude's built-in SSH library can't connect through a jump host (ProxyJump)."
 
 * **"Ask your IT administrator to set sshTransport to system-openssh"**: the built-in client is the device's default, and the device has a usable OpenSSH client. Set [`sshTransport`](https://claude.com/docs/third-party/claude-desktop/configuration#sshtransport) to `system-openssh`. Claude Desktop 4.16336.0 or later doesn't show this title: the OpenSSH client makes the connection instead.
 * **"Ask your IT administrator to change sshTransport from builtin to system-openssh"**: your configuration sets `sshTransport` to `builtin`. Change it to `system-openssh`.
@@ -784,7 +784,7 @@ The built-in client made the connection, and the host needs the device's OpenSSH
 * **"Check your network or VPN and try again, or quit and reopen Claude"**: the device's configuration from the Enterprise Admin Console or a bootstrap server hasn't loaded, so the built-in client made the connection. Requires Claude Desktop 4.16336.0 or later.
 * **"Quit and reopen Claude; if this comes back, ask your IT administrator to let Claude use the system OpenSSH client"**: the device couldn't start the OpenSSH client earlier in this run of the app (see [Host requirements](#host-requirements)).
 
-Where the app can name no step, the card's title gives the cause, either `<host> needs a jump host, which Claude can't use here` or `Claude can't check <host>'s key here`.
+Where the app can name no step, the card's title gives the cause, such as `<host> needs a jump host, which Claude can't use here` or `Claude can't check <host>'s key here`.
 
 These cards require Claude Desktop 2.31226.0 or later. Before Claude Desktop 2.31226.0, the built-in client refused a `ProxyJump` host with a message that suggests `ProxyCommand`.
 

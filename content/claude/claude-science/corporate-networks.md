@@ -11,7 +11,7 @@ Claude Science runs on each member's computer and connects out for sign-in, the 
 Claude Science makes three kinds of outbound connections, each passing through a different part of your network policy:
 
 * The app's own connections (sign-in, the Claude API, Anthropic-hosted connectors, update checks) traverse your outbound proxy and TLS inspection.
-* The analysis sandbox's connections (package hosts and research databases, when Claude runs code) are filtered by the app's own network allowlist; package downloads can be redirected to your internal mirror.
+* The analysis sandbox's connections (package hosts and research databases, when Claude runs code) are filtered by the app's own network allowlist, except conda package downloads on Windows, which run outside the sandbox; package downloads can be redirected to your internal mirror.
 * Interactive previews load display libraries from public content-delivery networks. In a browser tab, that's ordinary browser traffic governed by your endpoint's web policy. When Claude Science opens in its own window, previews load inside that window.
 
 ## Setup at a glance
@@ -130,7 +130,7 @@ Configuring a mirror removes the public package hosts from the sandbox's network
 
 Environment builds connect to the mirror host directly, never through your outbound proxy: the workstation needs a direct route (typically your VPN or internal network), any workstation firewall must allow the mirror host as a direct destination, and a proxy allowlist entry alone does not reach it. A package failure that names the mirror on a proxy-only network therefore means the mirror is unreachable directly, and a SaaS repository such as `yourorg.jfrog.io` works only if the workstation can reach it directly, so on a proxy-only network host the mirror inside your network. On a proxy-configured machine the **Check** button and a real build can take different paths, so treat a test environment build as the authoritative signal (a known limitation).
 
-Mirrors that redirect package files to path-style object-storage URLs (such as `s3.us-west-2.amazonaws.com/<bucket>/...`) fail with `CONNECT tunnel failed, response 403`, because path-style object-storage hosts are on a built-in denylist that cannot be overridden; have the mirror serve the files itself, or redirect to bucket-qualified hostnames such as `<bucket>.s3.us-west-2.amazonaws.com` and add that hostname under **Settings** > **Network** > **Allowed domains**. The check warns at save time when it sees a redirect to a denied host. The package manager that builds environments ships inside the app, so a first build on a locked-down network downloads no tooling from GitHub.
+Mirrors that redirect package files to path-style object-storage URLs (such as `s3.us-west-2.amazonaws.com/<bucket>/...`) fail with `CONNECT tunnel failed, response 403`, because path-style object-storage hosts are on a built-in denylist that cannot be overridden; have the mirror serve the files itself, or redirect to bucket-qualified hostnames such as `<bucket>.s3.us-west-2.amazonaws.com` and add that hostname under **Settings** > **Network** > **Allowed domains**. In pip's output, the same refusal is `Tunnel connection failed: 403`. On Windows, only pip downloads fail this way, because conda package downloads run outside the sandbox. The check of a conda mirror warns at save time when it sees a redirect to a denied host. The package manager that builds environments ships inside the app, so a first build on a locked-down network downloads no tooling from GitHub.
 
 ## Connect through an outbound proxy
 
@@ -149,7 +149,7 @@ HTTP_PROXY=http://username:password@proxy.example.corp:8080
 NO_PROXY=.example.corp
 ```
 
-An `https://` (TLS-to-proxy) address works for the app's own connections only. Sandboxed package downloads tunnel only through `http://` proxies, so with an `https://` address they skip the proxy and connect directly; an `http://` address keeps every connection on the proxy.
+An `https://` (TLS-to-proxy) address works for the app's own connections only. Sandboxed package downloads tunnel only through `http://` proxies, so with an `https://` address they skip the proxy and connect directly; an `http://` address keeps every connection on the proxy. On Windows, conda package downloads run outside the sandbox, and the allowlist doesn't apply to them. With no conda mirror set, they use the proxy address as configured. For those downloads, Claude chooses the packages, not the hosts they come from.
 
 Claude Science always bypasses the proxy for loopback addresses (`localhost`, `127.0.0.1`, and their IPv6 equivalents), whether or not they appear in `NO_PROXY`, so the app and its background service can always talk to each other. Add your internal domains to `NO_PROXY`; entries match a host exactly or as a domain suffix (`.example.corp` and `example.corp` behave the same), and CIDR ranges such as `10.0.0.0/8` are not matched. `NO_PROXY` entries from the environment, the configuration file, and (when the system settings supply the proxy address) the macOS or Windows bypass list are combined.
 

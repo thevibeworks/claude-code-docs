@@ -12,7 +12,7 @@ This endpoint returns an entry for most of an organization’s security controls
 
 ## Request
 
-Send a `GET` request to `/v1/compliance/organizations/{organization_id}/security_posture`. Each call reads one organization, and the response is not paginated.
+Send a `GET` request to `/v1/compliance/organizations/{organization_id}/security_posture`. Each call reads one organization, and the response is not paginated. The endpoint has no subresources, such as one for a single control or for a summary.
 
 ```bash cURL
 curl --fail-with-body -sS \
@@ -137,7 +137,7 @@ To compare values in code, look up `setting_name` in the [effective settings](ht
 
 | Field         | Type                   | Description                                                                                                                                                                                                                                           |
 | ------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `state`       | string                 | Whether the attestation is in effect; see [Attestation states](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#attestation-states).                                                                   |
+| `state`       | string or null         | Whether the attestation is in effect (`null` means it is); see [Attestation states](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#attestation-states).                                              |
 | `attested_at` | string (RFC 3339, UTC) | When the attestation was made.                                                                                                                                                                                                                        |
 | `comment`     | string or null         | The comment saved with the attestation, of at most 2,000 characters; `null` if there is none or if `comments_status` is not `available`.                                                                                                              |
 | `attested_by` | object or null         | The person who attested; `null` when the key holds neither `read:compliance_user_data` nor `read:org_audit`, when that person’s account has been deleted or is being deleted, or when the endpoint does not return who attested for the organization. |
@@ -178,6 +178,7 @@ No field names the kind of control; for `failed`, a `null` `current_value` marks
 | `state`           | Meaning                                                                                                                    |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `in_force`        | The attestation is in effect.                                                                                              |
+| `null`            | The attestation is in effect, the same as `in_force`. This state appears only on a manual control.                         |
 | `review_due`      | The end date has come.                                                                                                     |
 | `setting_changed` | The check fails on a value other than the one whose risk was accepted, or the accepted risk was already recorded as ended. |
 | `check_passing`   | The check passes, so there is no risk to accept.                                                                           |
@@ -188,36 +189,55 @@ When more than one reason applies, the response gives the first of `check_passin
 
 The response shows some attestations and leaves others out, so a `null` `attestation` does not prove that nobody attested.
 
-| Kind of control                             | Attested as                            | `status`                                                             | `rating`               | `attestation`                                       |
-| ------------------------------------------- | -------------------------------------- | -------------------------------------------------------------------- | ---------------------- | --------------------------------------------------- |
-| Manual                                      | No attestation                         | `not_attested`, or `attestation_not_enabled` where nobody can attest | `not_attested`         | `null`                                              |
-| Manual                                      | Completed                              | `attested_completed`                                                 | `passed`               | Shown                                               |
-| Manual                                      | Accepted risk                          | `attested_accepted_risk`                                             | `passed`               | Shown                                               |
-| Manual                                      | Failed (`control_failed`)              | `failed`                                                             | `failed`               | `null`: never shown                                 |
-| Automatic, check failed                     | No attestation                         | `failed` or `review`                                                 | `failed`               | `null`                                              |
-| Automatic, check failed                     | Accepted risk                          | `failed_check_accepted_risk`                                         | `passed`               | Shown                                               |
-| Automatic, check failed                     | Completed                              | `failed`, even where the automatic check gives `review`              | `failed`               | `null`: never shown                                 |
-| Automatic, check failed                     | Failed                                 | The `status` the automatic check gives                               | `failed`               | `null`: never shown                                 |
-| Automatic, check passed                     | No attestation                         | `passed`, `matches_profile`, or `exceeds_baseline`                   | `passed`               | `null`                                              |
-| Automatic, check passed                     | Completed                              | The `status` the automatic check gives                               | `passed`               | `null`: never shown                                 |
-| Automatic, check passed                     | Accepted risk                          | The `status` the automatic check gives                               | `passed`               | `null` while the check passes on the accepted value |
-| Automatic, check passed                     | Failed                                 | `failed`                                                             | `failed`               | `null`: never shown                                 |
-| Information-only                            | Any value                              | `descriptive`                                                        | `descriptive`          | `null`: never shown                                 |
-| Any, while the attestation is not in effect | A value that an earlier row shows      | As with no attestation                                               | As with no attestation | Shown, with a `state` other than `in_force`         |
-| Any, while the attestation is not in effect | A value that an earlier row leaves out | As with no attestation                                               | As with no attestation | `null`                                              |
+| Kind of control                             | Attested as                            | `status`                                                             | `rating`               | `attestation`                                         |
+| ------------------------------------------- | -------------------------------------- | -------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------- |
+| Manual                                      | No attestation                         | `not_attested`, or `attestation_not_enabled` where nobody can attest | `not_attested`         | `null`                                                |
+| Manual                                      | Completed                              | `attested_completed`                                                 | `passed`               | Shown                                                 |
+| Manual                                      | Accepted risk                          | `attested_accepted_risk`                                             | `passed`               | Shown                                                 |
+| Manual                                      | Failed (`control_failed`)              | `failed`                                                             | `failed`               | `null`: never shown                                   |
+| Automatic, check failed                     | No attestation                         | `failed` or `review`                                                 | `failed`               | `null`                                                |
+| Automatic, check failed                     | Accepted risk                          | `failed_check_accepted_risk`                                         | `passed`               | Shown                                                 |
+| Automatic, check failed                     | Completed                              | `failed`, even where the automatic check gives `review`              | `failed`               | `null`: never shown                                   |
+| Automatic, check failed                     | Failed                                 | The `status` the automatic check gives                               | `failed`               | `null`: never shown                                   |
+| Automatic, check passed                     | No attestation                         | `passed`, `matches_profile`, or `exceeds_baseline`                   | `passed`               | `null`                                                |
+| Automatic, check passed                     | Completed                              | The `status` the automatic check gives                               | `passed`               | `null`: never shown                                   |
+| Automatic, check passed                     | Accepted risk                          | The `status` the automatic check gives                               | `passed`               | `null` while the check passes on the accepted value   |
+| Automatic, check passed                     | Failed                                 | `failed`                                                             | `failed`               | `null`: never shown                                   |
+| Information-only                            | Any value                              | `descriptive`                                                        | `descriptive`          | `null`: never shown                                   |
+| Any, while the attestation is not in effect | A value that an earlier row shows      | As with no attestation                                               | As with no attestation | Shown, with a `state` other than `in_force` or `null` |
+| Any, while the attestation is not in effect | A value that an earlier row leaves out | As with no attestation                                               | As with no attestation | `null`                                                |
 
 Each row but the last two holds while the attestation is in effect. On an automatic control, an attestation is not in effect while the value that the check reads differs from the one that it was saved on. Every attestation that the response shows on an automatic control is an accepted risk. The [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) also records attestations of the kinds that the response leaves out.
 
 ## Count results
 
+The response holds no score and no counts, overall or by group. On the Security posture page, the summary line says how many controls passed and how many controls the page counts. To count as the summary line does, count these entries:
+
+| Number               | Entries that it counts                                                                                        |
+| -------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Controls that passed | Entries rated `passed`                                                                                        |
+| Total                | Entries rated `passed`, `failed`, or `not_attested`, except those whose `status` is `attestation_not_enabled` |
+
+The page shows the `attestation_not_enabled` entries as Descriptive and does not count them. Entries rated `descriptive` are in neither number.
+
+Your result can differ from the page’s figure for reasons such as these:
+
+* The response leaves out some controls that the page counts. So, both of your numbers can be lower than the page’s.
+* An automatic control can have a failing check and a Completed attestation in effect. The page shows it as Passed, but the response rates it `failed`. So, your `failed` count can be higher than the page’s, and your `passed` count lower.
+* Each request evaluates every control again, and so does each load of the page. A setting can change between your request and the page load. Or a setting can fail to be read for one and not the other.
+
+Controls that the response leaves out are not named in it. Do not count such a control as Passed. Comparing `id` values with the organization’s earlier responses finds a control that an earlier response listed and this response omits. It cannot find a control that no response has listed.
+
 Check four things when you count controls by `rating`.
 
-| If you count                | Also check                                                                                                                                                                         |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Passed (`passed`)           | It includes every control with an accepted risk in effect, so look for `failed_check_accepted_risk` and `attested_accepted_risk`.                                                  |
-| Failed (`failed`)           | It includes a control attested as Failed (`control_failed`) and a failing automatic check with a Completed attestation in effect, which the Security posture page shows as Passed. |
-| Descriptive (`descriptive`) | It can hide a control that could not be read, so look for `not_evaluated`.                                                                                                         |
-| Every control               | A control missing from the response is not Passed and is not named, so compare `id` values with those that you have seen for the organization.                                     |
+| If you count                  | Also check                                                                                                                                                                         |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Passed (`passed`)             | It includes every control with an accepted risk in effect, so look for `failed_check_accepted_risk` and `attested_accepted_risk`.                                                  |
+| Failed (`failed`)             | It includes a control attested as Failed (`control_failed`) and a failing automatic check with a Completed attestation in effect, which the Security posture page shows as Passed. |
+| Not attested (`not_attested`) | It includes the entries whose `status` is `attestation_not_enabled`, which the Security posture page shows as Descriptive.                                                         |
+| Descriptive (`descriptive`)   | It can hide a control that could not be read, so look for `not_evaluated`.                                                                                                         |
+
+The Security posture page groups controls by product. You cannot rebuild those groups from the response. The only grouping field is `section`, and the page does not make its groups from sections alone. Counting by `section` works, but it gives different rows from the page’s.
 
 ## Who attested, and comments
 

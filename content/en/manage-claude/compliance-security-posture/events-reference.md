@@ -32,13 +32,15 @@ On an information-only control, the value Reviewed is recorded as `completed`.
 
 ### `action` values
 
-| `action`   | Meaning                                                                                                                                |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `attested` | An attestation was recorded for a control that had none.                                                                               |
-| `changed`  | An attestation was saved again with another value or, where `status` equals `previous_status`, with the same value, as with `renewed`. |
-| `renewed`  | An attestation was saved again with the same value.                                                                                    |
-| `cleared`  | A person cleared an attestation.                                                                                                       |
-| `lapsed`   | An attestation ended automatically, not by a person.                                                                                   |
+| `action`   | Meaning                                                  |
+| ---------- | -------------------------------------------------------- |
+| `attested` | An attestation was recorded for a control that had none. |
+| `changed`  | An attestation was saved again with another value.       |
+| `renewed`  | An attestation was saved again with the same value.      |
+| `cleared`  | A person cleared an attestation.                         |
+| `lapsed`   | An attestation ended automatically, not by a person.     |
+
+On or before October 23, 2026 (UTC), a `changed` activity can also record a save with the same value. Such an activity has a `created_at` on or before that day and a `status` that equals `previous_status`.
 
 On `renewed` and `lapsed` activities, `status` equals `previous_status`. A save with the same value after a `lapsed` activity is recorded as `renewed`, not `attested`.
 

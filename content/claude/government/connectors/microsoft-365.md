@@ -137,7 +137,7 @@ These two permissions always require the **Grant admin consent** step in Entra, 
 
 ### Write access
 
-Write permissions let Claude take actions in Microsoft 365 on the member's behalf, such as sending mail, creating calendar events, and editing files. Members approve each write action in Claude Desktop before it runs. The connector is read-only unless you select at least one of these.
+Write permissions let Claude take actions in Microsoft 365 on the member's behalf, such as sending mail, creating calendar events, and editing files. The connector is read-only unless you select at least one of these.
 
 | Permission | What it lets Claude do |
 | - | - |

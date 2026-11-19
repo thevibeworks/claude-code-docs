@@ -13,7 +13,7 @@ claude-science serve starts Claude Science and opens the web app in your browser
 
 | Command | What it does |
 | - | - |
-| `claude-science serve` | Start the background program and open the web app in your browser at a single-use login link. One runs per data directory; Ctrl-C stops it. |
+| `claude-science serve` | Start the background program and open the web app in your browser at a single-use login link. One runs per data directory on a computer; Ctrl-C stops it. Don't start a second copy on the same data directory from another computer, such as a cluster node: by default the two don't detect each other. |
 | `claude-science open` | Mint a fresh login link from the running program and open it in your browser. |
 | `claude-science url` | Print a fresh login link. At a terminal, the link comes inside a short banner. When you pipe or capture the output, standard output carries only the link. |
 | `claude-science status` | Print whether the program is running, the version, and the port, as JSON. |
@@ -24,7 +24,7 @@ claude-science serve starts Claude Science and opens the web app in your browser
 | `claude-science sandbox approve` | Linux only, version 0.1.71 or later. Approve your own copy of bubblewrap or socat for the sandbox. `--bwrap <path>` and `--socat <path>` name the programs, `--yes` skips the confirmation and is required when no terminal is attached, and `--remove` (alone, or with `--bwrap` or `--socat` and no path) removes the approval. Stop Claude Science first. See [Approve your own copy of bubblewrap or socat](https://claude.com/docs/claude-science/run-on-remote-linux-server.md#approve-your-own-copy-of-bubblewrap-or-socat). |
 | `claude-science sandbox status` | On Linux, version 0.1.71 or later, print which bubblewrap and socat the next start would try, the system's first, then yours. |
 | `claude-science install` | Windows only. Install the app for your user account, with a PATH entry, a Start menu shortcut, and an uninstall entry under Windows **Settings > Apps > Installed apps**. Run it again to repair them. |
-| `claude-science uninstall` | Windows only. Remove the app, its shortcuts, and its PATH entry while keeping your data. `--purge` also permanently deletes your whole data directory, even if you moved it, with your projects, your conversation history, and any files of your own in it. It doesn't ask you to confirm. Quit Claude Science first. See [Uninstall Claude Science](https://claude.com/docs/claude-science/get-started.md#uninstall-claude-science). |
+| `claude-science uninstall` | Windows only. Remove the app, its shortcuts, and its PATH entry while keeping your data. `--purge` also permanently deletes your projects, your conversation history, and any files of your own in the directory that holds them. Version 0.1.73 and later delete the default data directory, after you type `yes`, and keep a data directory outside it. From version 0.1.73, `--yes` skips the confirmation. Version 0.1.72 and earlier don't ask, and they delete your whole data directory, even if you moved it. Quit Claude Science first. See [Uninstall Claude Science](https://claude.com/docs/claude-science/get-started.md#uninstall-claude-science) or, for scripts, [Where the app stores data](https://claude.com/docs/claude-science/manage-on-devices.md#where-the-app-stores-data). |
 | `claude-science --version` | Print the version. |
 | `claude-science <command> --help` | Print help for any command. |
 

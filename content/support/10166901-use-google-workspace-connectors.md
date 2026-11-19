@@ -18,7 +18,9 @@ For Team and Enterprise plans, an Owner or Primary Owner must enable these conne
 
 - **Send, reply to, and forward emails** from Gmail. By default, outside Auto mode, Claude asks for your approval before each of these actions. On Team and Enterprise plans, owners decide whether members can allow these actions to run without asking each time.
 
-- **Access email metadata**, including attachment metadata (not attachment content)
+- **Access email metadata**, including attachment metadata
+
+- **Open email attachments** so Claude can read or work with the file, up to about 12 MB each. In chat, this requires code execution and file creation to be on.
 
 - **Manage email organization** with labels and threads
 
@@ -168,7 +170,7 @@ During authentication, Google's OAuth screen mentions email sending permissions.
 
 - Live editing in the pane works on Claude on the web in Chrome and on Claude Desktop with the built-in browser turned on. In other cases, use “Open in Google” on the file card.
 
-- Attachment content is not directly accessible through Gmail (metadata only).
+- Claude can't open a Gmail attachment over about 12 MB. Opening attachments isn't available in every organization, or when an organization sets reading email to need approval or blocks it.
 
 - Some advanced Gmail filters may not be supported.
 

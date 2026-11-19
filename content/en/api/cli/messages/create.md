@@ -4298,6 +4298,130 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `index: number`
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=cli).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+On a streaming call, the errors listed below apply when the API rejects the request before the stream starts. Once the stream has started, the response status is already 200, so a later error comes through the stream, with no status of its own. To identify it, use `error.details.error_code` if the error has one, and `error.type` if not.
+
+- `available_tools_limit_exceeded` (HTTP status 400)
+
+  The tools available after a message exceed a limit on their number or their size.
+
+- `claude_code_key_creator_not_member` (HTTP status 400)
+
+  The API key belongs to the Claude Code workspace, and the user who created it is no longer a member of the organization or of that workspace.
+
+- `claude_code_version_too_old` (HTTP status 400)
+
+  The request comes from a Claude Code version older than the minimum that the requested model or the organization requires. Update Claude Code, then retry.
+
+- `cmek_key_disabled` (HTTP status 400)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `cmek_key_network_blocked` (HTTP status 400)
+
+  The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
+
+- `compaction_block_ambiguous` (HTTP status 400)
+
+  `messages` holds more than one `compaction` block with content. Send only the block the conversation returned last.
+
+- `compaction_block_misplaced` (HTTP status 400)
+
+  The `compaction` block is not the first block of the conversation, or is in a `system` message.
+
+- `compaction_content_mismatch` (HTTP status 400)
+
+  The `compaction` block's `content` differs from the text its `signature` recorded.
+
+- `compaction_incomplete_turn` (HTTP status 400)
+
+  The compaction request ends on an `assistant` turn that is not finished.
+
+- `compaction_nothing_to_summarize` (HTTP status 400)
+
+  `messages` holds no `user` or `assistant` content to summarize or adopt.
+
+- `compaction_signature_invalid` (HTTP status 400)
+
+  The `compaction` block's `signature` does not verify.
+
+- `compaction_too_many_tool_references` (HTTP status 400)
+
+  The conversation references more distinct tools than a `compaction` block can record.
+
+- `compaction_tool_changes_mismatch` (HTTP status 400)
+
+  The `compaction` block's `tool_changes` differs from what was returned with the block.
+
+- `organization_on_hold` (HTTP status 400)
+
+  Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
+
+- `request_body_encoding_invalid` (HTTP status 400)
+
+  The request body is not valid for its `Content-Encoding`.
+
+- `request_body_encoding_unsupported` (HTTP status 400)
+
+  The request's `Content-Encoding` is not supported.
+
+- `thread_already_continued` (HTTP status 400)
+
+  The response that `previous_message_id` names has already been continued, and each response can be continued only once. Continue from the Thread's most recent response `id`.
+
+- `thread_continue_in_flight` (HTTP status 400)
+
+  Another request is still continuing from the same `previous_message_id`. Wait for it to complete and continue from its response `id`, or replay the full conversation with `thread: {"type": "create"}`.
+
+- `thread_fingerprint_mismatch` (HTTP status 400)
+
+  A field that must stay the same across a Thread's turns differs from the value stored with the Thread; the message names each such field. Send the stored values, or replay the full conversation with `thread: {"type": "create"}` to change them.
+
+- `thread_unsupported_request` (HTTP status 400)
+
+  The request combines `thread` with a request field or an organization setting that Threads do not support; `unsupported`, when present, names it. Send the full conversation without `thread`, or change that field.
+
+- `tool_name_conflict` (HTTP status 400)
+
+  A tool made available in `messages` takes a name that an available tool of another kind, or of another MCP server, already holds.
+
+- `tool_reference_unresolved` (HTTP status 400)
+
+  A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
+
+- `thread_not_found` (HTTP status 404)
+
+  No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
+
+- `skill_read_blocked_undecryptable` (HTTP status 409)
+
+  A custom skill the request names is stored under an encryption key state the workspace cannot currently decrypt.
+
+- `request_body_too_large_after_decoding` (HTTP status 413)
+
+  The compressed request body exceeds the request size limit once decoded.
+
+- `enforced_spend_limit_reached` (HTTP status 429)
+
+  The organization has crossed the monthly API usage threshold of its API tier.
+
+- `ramp_limit_exceeded` (HTTP status 429)
+
+  The request would exceed a ramp limit, which caps how fast usage can grow. Retry after the time in the `retry-after` header.
+
+- `cmek_key_unreachable` (HTTP status 503)
+
+  The workspace's customer-managed encryption key could not be reached. Retry the request; if this continues, check that the key is available in your key management service, or contact Anthropic support.
+
+- `compaction_unavailable` (HTTP status 529)
+
+  The compaction could not be completed for a transient server reason. Retry the request.
+
 ## Example
 
 ```bash

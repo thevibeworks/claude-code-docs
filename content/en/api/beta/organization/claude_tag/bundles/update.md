@@ -205,6 +205,40 @@ Change a Bundle's instructions. The update is partial: a field left out is uncha
 
     format: date-time
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `bundle_attachment_not_supported` (HTTP status 400)
+
+  The Bundle has an attachment this API does not support editing, so its instructions can be changed only in claude.ai.
+
+- `bundle_on_call` (HTTP status 400)
+
+  This Bundle's instructions are managed in claude.ai and can't be changed through the API.
+
+- `api_key_scope_missing` (HTTP status 403)
+
+  The API key lacks the scope the request needs: `read:claude_tag` for a read, `write:claude_tag` for a change.
+
+- `claude_tag_writes_not_enabled` (HTTP status 403)
+
+  Changes through the Claude Tag API are not enabled for the organization.
+
+- `compliance_configuration_restricted` (HTTP status 403)
+
+  The organization's compliance configuration does not let Claude Tag store anything new.
+
+- `organization_level_scoped_api_key_required` (HTTP status 403)
+
+  The credential is not a scoped API key that is bound at the organization level.
+
+- `slack_channel_set_up_settings_conflict` (HTTP status 409)
+
+  The request set the channel up, and something else then changed the channel or removed it. Nothing of `settings` was stored.
+
 ## Example
 
 ```bash

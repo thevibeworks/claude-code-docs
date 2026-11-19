@@ -40,7 +40,7 @@ One-sentence definitions for the terms you meet in Claude Science, from artifact
 
 **[Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)**: the isolated environment that Claude's code runs in by default, which limits the files it can read and change and the network hosts it can reach.
 
-**Scope**: how long an approval lasts (Once, This conversation, This project, or Global), with every standing grant listed and revocable under Settings > Permissions.
+**Scope**: how long an approval lasts (Once, This conversation, This project, or Global), with most standing grants listed and revocable under **Settings > Permissions**.
 
 **Session**: one conversation thread inside a project, with its own kernel and workspace.
 

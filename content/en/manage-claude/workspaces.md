@@ -1050,10 +1050,12 @@ Workspace limits can keep a workspace below your organization’s limits, but th
 * **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. To set these, go to [Rate limits in the Claude Console](https://platform.claude.com/usage/limits), select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 <Note>
-  - You cannot set spend limits on the Default Workspace.
+  - On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), you cannot set spend limits on the Default Workspace.
   - If not set, workspace limits match the organization’s limits.
   - Organization-wide limits always apply, even if workspace limits add up to more.
 </Note>
+
+A spend limit on the Default Workspace might not count or stop some usage in that workspace. This includes usage from the Claude Console (such as playground) and from Claude Managed Agents sessions. It also includes Claude Code or Claude Desktop usage when a member signs in with a Claude Console account and uses the Default Workspace. Your organization’s [spend limit](https://platform.claude.com/docs/en/api/rate-limits#setting-your-own-spend-limit) applies to all of this usage.
 
 For detailed information on rate limits and how they work, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits). You can also read your current organization and workspace rate limits and set workspace rate limits programmatically with the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api), which stores a value above the organization’s limit but still enforces the lower of the two.
 

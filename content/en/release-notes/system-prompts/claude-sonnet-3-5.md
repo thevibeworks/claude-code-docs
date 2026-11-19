@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/release-notes/system-prompts/claude-son
 description: See updates to the core system prompt for Claude Sonnet 3.5 on [claude.ai](https://claude.ai), the [Claude iOS app](https://anthropic.com/ios), and the [Claude Android app](https://anthropic.com/android).
 ---
 
-Changes between the following dated versions are marked with `**` around the changed text.
+Only one version, September 9, 2024, uses `**` to mark text that changed from the version before it. Any `**` in other versions is part of the system prompt.
 
 ## November 22, 2024
 

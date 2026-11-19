@@ -12,7 +12,7 @@ Before you start, install Claude Desktop on an admin workstation; see [Installat
 
 ## 1. Build a configuration in the app
 
-Launch Claude Desktop. **Do not sign in or create an Anthropic account**; stay on the login screen. From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md).
+Launch Claude Desktop. **Do not sign in or create an Anthropic account**; stay on the login screen. From the macOS menu bar (or on Windows and Linux, the application menu ☰ in the top-left of the login screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Configure Third-Party Inference…** to open the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md).
 
 The window is organized into sections in the left sidebar. Work through them in order; each maps to a group of [configuration keys](https://claude.com/docs/third-party/claude-desktop/configuration.md), and the window validates values as you enter them.
 
@@ -32,6 +32,7 @@ Once your configuration tests successfully, click **Export** and choose a format
 | `.reg` | Windows | Group Policy (import into a GPO), Intune (via custom ADMX or script), or any MDM that can write registry policy |
 | `.zip` (ADMX template) | Windows | Schema-only template for Intune or Group Policy; you enter values in the management console |
 | `.plist` (Profile Manifest) | macOS | Schema-only template for a profile editor such as iMazing Profile Editor or ProfileCreator; you enter values there to build the profile that your MDM installs |
+| JSON config | Linux (beta) | Any tool that can place the [Linux configuration file](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#the-linux-configuration-file) on your devices |
 
 **Apply Changes** and **Export** do different things:
 
@@ -42,7 +43,7 @@ Once your configuration tests successfully, click **Export** and choose a format
 
 A configuration template lists the settings that your device management tool can set for Claude Desktop, and holds no values. Export one when you enter values in your management console or profile editor and don't build a configuration in the app.
 
-From the macOS menu bar (or on Windows, the application menu ☰ in the top-left of the sign-in screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Export Configuration Template…**. Every checkbox is selected when the window opens. Clear what you don't need, then export and pick where to save the file:
+From the macOS menu bar (or on Windows and Linux, the application menu ☰ in the top-left of the sign-in screen), go to **Help → Troubleshooting → Enable Developer Mode**, then **Developer → Export Configuration Template…**. Every checkbox is selected when the window opens. Clear what you don't need, then export and pick where to save the file:
 
 * **Settings to include**: **Standard Claude Desktop** is for devices that use Anthropic's models through claude.ai, and **Third-party inference** is for devices that use your organization's inference provider. Keep both for a fleet with both kinds of device, so that one template covers them all. A setting's help text says when the setting applies in one mode only, or when setting it opens Claude Desktop in third-party mode.
 * **Format**: **Group Policy template (ADMX)** saves `Claude-ADMX.zip`, which holds `Claude.admx` and `en-US/Claude.adml`. **Profile Manifest (.plist)** saves `com.anthropic.claudefordesktop.plist`. With both selected, you get `Claude-Configuration-Templates.zip`, which holds all three files.
@@ -91,7 +92,7 @@ Open these hosts on your perimeter firewall before rolling out to devices. See [
 
 ## 4. Deploy the configuration
 
-Push the exported configuration through your MDM. On macOS and Windows, put all of a device's managed keys in one location, either machine or user. The app reads from these locations:
+Push the exported configuration through your MDM. On macOS and Windows, put all of a device's managed keys in one location, preferably the machine location. To vary configuration per user group, see [Creating profiles for multiple user groups](#creating-profiles-for-multiple-user-groups). The app reads from these locations:
 
 > [tab] macOS
 >
@@ -119,6 +120,10 @@ Push the exported configuration through your MDM. On macOS and Windows, put all 
 > > [!WARNING]
 > >
 > > Values must sit directly under `HKLM\SOFTWARE\Policies\Claude` or `HKCU\SOFTWARE\Policies\Claude`. The app never reads values nested in a subkey, as some ADMX-based and Policy CSP tooling writes them: they do not apply as configuration and do not count as machine policy being present. Write values as `REG_SZ` (`REG_DWORD` is also accepted for boolean and integer keys and is read as its decimal value). Avoid `REG_EXPAND_SZ`: the app counts it as machine policy being present but cannot read its contents, so a single `REG_EXPAND_SZ` value under `HKLM` disables user policy without supplying any configuration. The app cannot see `REG_QWORD`, `REG_MULTI_SZ`, or `REG_BINARY` values at all.
+
+> [tab] Linux
+>
+> The managed location is `/etc/claude-desktop/managed-settings.json`. Set its ownership and permissions as described under [The Linux configuration file](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#the-linux-configuration-file).
 
 When a managed source sets any key other than the [app-behavior keys and the keys treated like them](#update-keys-and-managed-precedence), the managed configuration takes effect, the in-app configuration window becomes read-only, and locally authored values in `configLibrary/` are ignored.
 
@@ -177,7 +182,7 @@ Deploy the Claude Desktop installer to enrolled devices using your standard soft
 
 ## 6. Deploy organization plugins (optional)
 
-If you're distributing [organization plugins](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin), push the plugin bundles to the org-plugins directory on each device alongside the configuration profile. Plugins are picked up at the next app launch.
+If you're distributing [organization plugins](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin), push the plugin bundles to the org-plugins directory on each macOS or Windows device alongside the configuration profile. Plugins are picked up at the next app launch.
 
 ## Next steps
 

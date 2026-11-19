@@ -8,7 +8,7 @@
 
 ## Projects and sessions
 
-A project groups related sessions and the artifacts they produce. Projects also let you set up custom instructions for Claude to read at the start of every session. Folder permissions you grant persist across sessions within a project.
+A project groups related sessions and the artifacts they produce. Projects also let you set up custom instructions for Claude to read at the start of every session. Folder permissions you grant persist across sessions and apply to all projects.
 
 A session is one conversation thread. Each session has its own workspace folder and multiple running kernels.
 
@@ -24,7 +24,7 @@ The one exception to working in place is **Attach files** in the composer: attac
 
 ## Permission cards
 
-A permission card appears in the conversation each time Claude needs a new kind of access. The card names exactly what's being requested. You can allow or deny each one.
+A permission card appears in the conversation each time Claude needs a new kind of access. The card names exactly what's being requested. You can allow or deny each one. With [auto mode](https://claude.com/docs/claude-science/auto-mode.md) on, Claude Science's own check can allow code, or a call to a remote or directory connector, without a card. If the check blocks a step or can't finish, a card asks you.
 
 | Action | Card title | Scope options |
 | - | - | - |
@@ -36,7 +36,7 @@ A permission card appears in the conversation each time Claude needs a new kind 
 | Use a saved credential | Credentials | Once, This conversation, This project, or Global |
 | Run a remote job | Run this job on `<host>`? / Start a Modal job? | Once, This conversation, This project, or Global |
 
-All standing grants are listed in Settings > Permissions and can be revoked there.
+Most standing grants are listed in **Settings > Permissions** and can be revoked there. Network hosts are listed in **Settings > Network**, where you can revoke them.
 
 On Linux, a uv, conda, mamba, or pixi environment in a folder you've granted **Read & write** can still be read-only to Claude. See [Environments in granted folders](https://claude.com/docs/claude-science/tools-and-environments.md#environments-in-granted-folders).
 
