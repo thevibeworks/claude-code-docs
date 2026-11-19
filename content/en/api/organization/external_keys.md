@@ -195,6 +195,20 @@ Create an external key config owned by the caller's organization.
 
     ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can only be attached to a Workspace that has no user profile.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `user_profile_not_found` (HTTP status 400)
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Example
 
 ```bash
@@ -760,6 +774,20 @@ encrypted data requires the original key identity to decrypt.
 
     ID of the user profile the key is bound to, or null if the key is not bound to one. A key bound to a user profile can only be attached to a Workspace that has the same user profile. A key that isn't bound can only be attached to a Workspace that has no user profile.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `external_key_in_workspace_policy` (HTTP status 400)
+
+  The External Key can't be deleted or reconfigured while the organization's Workspace Policy lists it as an allowed key.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Example
 
 ```bash
@@ -827,6 +855,20 @@ The request is rejected if any workspace still references this config.
 
   ID of the deleted External Key.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `external_key_in_workspace_policy` (HTTP status 400)
+
+  The External Key can't be deleted or reconfigured while the organization's Workspace Policy lists it as an allowed key.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Example
 
 ```bash
@@ -889,6 +931,16 @@ message if it failed or timed out.
   - `"failure"`
 
   - `"success"`
+
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Example
 
@@ -1097,15 +1149,11 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
 
 - `ExternalKeyChangedErrorDetails object`
 
-  The external key changed while the request was validating it. Send the request again.
-
   - `error_code: "external_key_changed"`
 
 ### External Key In Workspace Policy Error Details
 
 - `ExternalKeyInWorkspacePolicyErrorDetails object`
-
-  The External Key can't be deleted or reconfigured while the organization's Workspace Policy lists it as an allowed key.
 
   - `error_code: "external_key_in_workspace_policy"`
 
@@ -1121,15 +1169,11 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
 
 - `ExternalKeyValidationFailedErrorDetails object`
 
-  The External Key failed Anthropic's validation, so the request was refused. The message gives the reason, if there is one.
-
   - `error_code: "external_key_validation_failed"`
 
 ### External Key Validation Timed Out Error Details
 
 - `ExternalKeyValidationTimedOutErrorDetails object`
-
-  Anthropic's validation of the External Key did not finish in time, so the request was refused. Wait a moment, then send the request again.
 
   - `error_code: "external_key_validation_timed_out"`
 
@@ -1179,3 +1223,53 @@ curl https://api.anthropic.com/v1/organizations/external_keys/$EXTERNAL_KEY_ID/v
     - `"failure"`
 
     - `"success"`
+
+## Errors
+
+### external_key_in_workspace_policy
+
+HTTP status 400
+
+- `"external_key_in_workspace_policy"`
+
+  The External Key can't be deleted or reconfigured while the organization's Workspace Policy lists it as an allowed key.
+
+  - `details: ExternalKeyInWorkspacePolicyErrorDetails`
+
+    - `error_code: "external_key_in_workspace_policy"`
+
+### external_key_validation_failed
+
+HTTP status 400
+
+- `"external_key_validation_failed"`
+
+  The External Key failed Anthropic's validation, so the request was refused. The message gives the reason, if there is one.
+
+  - `details: ExternalKeyValidationFailedErrorDetails`
+
+    - `error_code: "external_key_validation_failed"`
+
+### external_key_validation_timed_out
+
+HTTP status 400
+
+- `"external_key_validation_timed_out"`
+
+  Anthropic's validation of the External Key did not finish in time, so the request was refused. Wait a moment, then send the request again.
+
+  - `details: ExternalKeyValidationTimedOutErrorDetails`
+
+    - `error_code: "external_key_validation_timed_out"`
+
+### external_key_changed
+
+HTTP status 409
+
+- `"external_key_changed"`
+
+  The external key changed while the request was validating it. Send the request again.
+
+  - `details: ExternalKeyChangedErrorDetails`
+
+    - `error_code: "external_key_changed"`

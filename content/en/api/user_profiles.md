@@ -2420,8 +2420,6 @@ curl https://api.anthropic.com/v1/user_profiles/$USER_PROFILE_ID \
 
 - `UserProfileNotFoundErrorDetails object`
 
-  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
-
   - `error_code: "user_profile_not_found"`
 
 ### User Profile Program Status
@@ -2511,6 +2509,20 @@ curl https://api.anthropic.com/v1/user_profiles/$USER_PROFILE_ID \
     - `status: UserProfileProgramStatus`
 
       Anthropic's decision on the entity the profile represents: `pending` while it is awaited, `active` once Anthropic has approved the entity for the program, or `rejected` once Anthropic has declined or has removed the entity from the program. `active` does not mean that any one feature is approved: read the feature you need in `features`.
+
+## Errors
+
+### user_profile_not_found
+
+HTTP status 400
+
+- `"user_profile_not_found"`
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+  - `details: UserProfileNotFoundErrorDetails`
+
+    - `error_code: "user_profile_not_found"`
 
 ## User Profiles › Action URLs
 

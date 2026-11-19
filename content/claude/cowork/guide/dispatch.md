@@ -47,6 +47,8 @@ The Dispatch agent routes each child task to the surface that fits it.
 
 When starting a task, you can tell the agent which Code workspace or Cowork project to use. If you don't, it lists what's available and chooses.
 
+A Code task in a folder Cowork can also reach doesn't use that folder's own Claude Code settings, such as its hooks, permission rules, MCP servers, plugins, and CLAUDE.md, because a Cowork task could have changed them. A session you start from the Code tab uses them.
+
 ## Track task status
 
 Each child task shows its current state in the sidebar. Select any task to open its full transcript, the steps Claude took, and any files it produced.

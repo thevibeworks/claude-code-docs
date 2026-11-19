@@ -12,7 +12,7 @@ The numbers in your session might differ from this picture and from the summary 
 
 ## Prompt
 
-Copy the prompt and paste it into a new session in [Claude Science](https://claude.com/docs/claude-science/overview.md). By default, Claude asks with a [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
+Copy the prompt and paste it into a new session in [Claude Science](https://claude.com/docs/claude-science/overview.md). Claude asks with a [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages, unless you've already allowed it. With [auto mode](https://claude.com/docs/claude-science/auto-mode.md) on, Claude Science's own check can allow code without a card.
 
 ```text Prompt wrap theme={null}
 PageRank is the idea that launched Google (Brin & Page, 1998): a page matters if pages that matter link to it. Here is a tiny web of 11 pages, A to K, where B→C means that page B links to page C:

@@ -111,7 +111,7 @@ These hosts are included automatically in the **Egress** section of the in-app c
 
 Each device needs AWS CLI v2 installed and an AWS config file that defines the named profile.
 
-You do not need users to run `aws configure sso` interactively. That command is a wizard that writes a profile stanza to `~/.aws/config` (macOS) or `%USERPROFILE%\.aws\config` (Windows), and you can distribute that file directly through your device-management tooling instead. A profile that uses IAM Identity Center looks like:
+You do not need users to run `aws configure sso` interactively. That command is a wizard that writes a profile stanza to `~/.aws/config` (macOS and Linux) or `%USERPROFILE%\.aws\config` (Windows), and you can distribute that file directly through your device-management tooling instead. A profile that uses IAM Identity Center looks like:
 
 ```ini theme={null}
 [profile claude-cowork]

@@ -369,11 +369,11 @@ Since 1.44121.1
 
 > [accordion] More detail
 >
-> If the PAC file cannot be downloaded, the app connects directly. On macOS and Windows, the Cowork workspace VM gets its own copy at each start. If that download fails, the VM connects directly until it next starts, with no warning. Block direct connections on your network if that is unacceptable.
+> If the PAC file can't be downloaded, the app connects directly. On macOS and Windows, the Cowork VM fetches its own copy at each start. If that fails, it connects directly until its next start, with no warning. Block direct connections on your network if that's unacceptable.
 >
-> Claude Code, which runs Chat, Cowork and Code sessions, uses one proxy: the one the script returns for your inference endpoint. Return an HTTP `PROXY host:port` entry there. With `DIRECT` or only `SOCKS`, it uses no proxy.
+> All sessions use the proxy the script returns for your inference endpoint. Return an HTTP `PROXY host:port` entry there. `DIRECT` or only `SOCKS` means no proxy. Code sessions can skip it per `DIRECT` host: `api.`, `codeload.`, `uploads.`, `gist.github.com`. `github.com` and subdomains need all five.
 >
-> What `egressProxyUrl` lists as not sent through its proxy skips the PAC file too.
+> What `egressProxyUrl` exempts from its proxy skips the PAC file too.
 >
 > It is an app-behavior key. If your MDM profile holds only such keys, a user's or bootstrap server's value for one is ignored: put all you use there.
 
@@ -1173,7 +1173,7 @@ object\[]Since 1.2581.0
 >
 > Each entry is a model ID or an object:
 >
-> ```json theme={null} theme={null} theme={null} theme={null}
+> ```json theme={null}
 > [
 >   {"name": "claude-sonnet-5",
 >    "supports1m": true},

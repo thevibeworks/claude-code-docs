@@ -1491,6 +1491,16 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
     True when marketplace.json is well-formed and no plugin would be skipped; warnings never make it false.
 
+### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `unsupported_charset` (HTTP status 400)
+
+  The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
+
 ### Example
 
 ```bash

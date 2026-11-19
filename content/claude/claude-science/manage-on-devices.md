@@ -12,10 +12,15 @@ Claude Science is a desktop application that stores member content locally. This
 
 The app writes to these locations on each member's computer:
 
-Configuration: config.toml in the app's default data folder (`~/.claude-science/config.toml` on macOS and Linux, `%USERPROFILE%\.claude-science\config.toml` on Windows) holds all app settings. Every key is optional; the app starts with no file present. This is the file to deploy through device management.\
+Configuration: config.toml in the app's default data folder (`~/.claude-science/config.toml` on macOS and Linux, `%USERPROFILE%\.claude-science\config.toml` on Windows) holds the settings that you can deploy through device management. Every key is optional; the app starts with no file present.\
 Data: the app's data directory holds conversations, generated artifacts, delegation configurations, and workspace files in a per-organization subfolder (orgs/`<organization-id>`/), stored as a local database plus files.
 
-Authentication tokens and the shared package environment live under the default data folder (`~/.claude-science/`, or `%USERPROFILE%\.claude-science\` on Windows) regardless of the data directory, so endpoint backup or wipe policies that target the data directory don't affect sign-in state.
+Sign-in tokens and the shared package environment live under the default data folder (`~/.claude-science/`, or `%USERPROFILE%\.claude-science\` on Windows) regardless of the data directory. The data directory is the same folder unless another is set. What a wipe does depends on the folder it targets:
+
+* **A wipe of the default data folder** signs the member out, and deletes their environments and any work stored there, including work from before another data directory was set. On Windows and Linux, it also makes custom connectors' sign-ins and the keys and tokens saved under **Settings > Credentials** unreadable, wherever the data directory is.
+* **A wipe of the data directory** deletes the member's work, their custom connectors and those connectors' sign-ins, and the keys and tokens saved under **Settings > Credentials**. If that's another data directory, the member stays signed in.
+
+After a wipe, the member signs in again if signed out, and sets up again any connectors or keys that the wipe deleted or left unreadable.
 
 On Windows and macOS, the program is in these places:
 
@@ -26,7 +31,9 @@ Your endpoint tooling governs these folders the same way it governs any other lo
 
 > [!WARNING]
 >
-> On Windows, `claude-science uninstall --purge` removes the program and deletes the data directory and `%LOCALAPPDATA%\ClaudeScience`, with everything in them, without asking to confirm. If the data directory was moved, it's deleted where it is now, and the default data folder stays. Leave `--purge` out of removal scripts unless you want to delete the member's work.
+> On Windows, `claude-science uninstall --purge` removes the program and permanently deletes the member's data and `%LOCALAPPDATA%\ClaudeScience`. Version 0.1.73 and later delete the default data folder, with everything in it, and keep a data directory outside it. Version 0.1.72 and earlier delete the data directory wherever it is, without asking to confirm, and keep the default data folder if the data directory is outside it. Leave `--purge` out of removal scripts unless you want to delete the member's work.
+>
+> In version 0.1.73 and later, `claude-science uninstall --purge` asks for a typed `yes` unless you add `--yes` or `--quiet`. With neither flag and no terminal, version 0.1.73 and later exit with code 4 and remove nothing, not even the program. In version 0.1.73 and later, `--quiet` without `--yes` keeps the default data folder if the data directory is outside it. Earlier versions reject `--yes` and then remove nothing.
 
 ## Deploy configuration with device management
 
@@ -35,7 +42,7 @@ To set configuration keys organization-wide, deploy the per-member config.toml (
 | Key | Effect |
 | - | - |
 | `disable_telemetry = true` | Stops the app from sending product-usage telemetry and error reports to Anthropic. |
-| `data_dir = "<path>"` | Moves conversations, artifacts, and workspaces to a managed location (for example, a volume your backup tooling covers). |
+| `data_dir = "<path>"` | Keeps conversations, artifacts, and workspaces in a managed location (for example, a new folder your backup tooling covers). Work already on the computer stays in the old folder, and Claude Science no longer shows it. On macOS, keep the data folder inside the member's home folder. |
 | `auto_update = false` under `[update]` | Turns off the background check for updates; pair with your own distribution channel. On a Mac where Claude Science opens in its own window, the key requires version 0.1.69 or later. A member can still check for and install an update from inside Claude Science. |
 | `enabled = false` under `[sandbox.network]` | Blocks network access from the app's local code-execution sandbox. The similarly named `network_isolated` key under `[sandbox]` doesn't control this. |
 

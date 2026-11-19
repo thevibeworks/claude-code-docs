@@ -6,7 +6,7 @@
 
 > On macOS, Claude Desktop can find a connected folder at its new location and ask whether to keep it connected to your session.
 
-When you connect a folder on your computer to a session that runs in the cloud, Claude reaches the folder by its location. If the folder is renamed or moved, Claude no longer finds it there. On a Mac with Apple silicon, Claude Desktop can find the folder at its new location and ask whether to keep it connected, so you don't have to connect it again. Some versions of Claude Desktop don't have this prompt. If you don't see it, update Claude Desktop to the latest version.
+When you connect a folder on your computer to a session that runs in the cloud, Claude reaches the folder by its location. If the folder is renamed or moved, Claude no longer finds it there. On a Mac with macOS 14 or later, Claude Desktop can find the folder at its new location and ask whether to keep it connected, so you don't have to connect it again. The prompt is available in Claude Desktop 6.6395.0 or later.
 
 ## Answer the prompt
 
@@ -25,8 +25,8 @@ If the Claude Desktop window is minimized or another folder prompt is open, the 
 
 Claude Desktop asks only when it can tell that the folder is the same one and can show both locations in full. In these cases it doesn't ask, and Claude can't reach the folder:
 
-* You use Windows or a Mac with an Intel processor.
-* You connected the folder with a version of Claude Desktop that doesn't have this prompt.
+* You use Windows, Linux, or macOS 13 or earlier.
+* You last connected the folder with a version of Claude Desktop that doesn't have this prompt, even if you've updated since.
 * The folder moved to another drive or volume or to the Trash, or its drive is disconnected.
 * The folder is on a network drive, or on a drive that isn't in a Mac format.
 * You connected the folder through a symbolic link, or moved it into a protected folder or one your organization doesn't allow.

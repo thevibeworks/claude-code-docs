@@ -221,6 +221,44 @@ Every request must include the beta header `anthropic-beta: admin-user-sign-out-
 
     - `"user"`
 
+## Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=http).
+
+Each code below is the value of `error.details.error_code` in the response body.
+
+- `cannot_sign_out_primary_owner` (HTTP status 400)
+
+  The member is the organization's primary owner, whom no API key or token can sign out.
+
+- `cannot_sign_out_self` (HTTP status 400)
+
+  The member is the user the API key or token belongs to.
+
+- `organization_not_enrolled_in_beta` (HTTP status 400)
+
+  The beta that the endpoint requires is not enabled for the organization. The message names the beta value.
+
+- `cannot_sign_out_managed_member` (HTTP status 403)
+
+  The member has the `managed` role, and this API key or token cannot sign them out. The error message says which keys and tokens can.
+
+- `cannot_sign_out_membership_admin` (HTTP status 403)
+
+  The member is a membership admin, and the person the API key or token belongs to is not allowed to sign out membership admins.
+
+- `cannot_sign_out_owner` (HTTP status 403)
+
+  The member is an owner or has owner permissions, and this API key or token cannot sign them out. In a Claude Enterprise organization, an API key with the `write:members` scope can.
+
+- `cannot_sign_out_privileged_member` (HTTP status 403)
+
+  This OAuth token cannot sign out a membership admin or a member whose roles grant owner, user management, or identity and access management.
+
+- `sandbox_egress_restricted` (HTTP status 403)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ## Example
 
 ```bash

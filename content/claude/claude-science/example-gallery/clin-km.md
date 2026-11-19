@@ -12,7 +12,7 @@ The numbers in your session might differ from this picture and from the summary 
 
 ## Prompt
 
-Copy the prompt and paste it into a new session in [Claude Science](https://claude.com/docs/claude-science/overview.md). By default, Claude asks with a [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages.
+Copy the prompt and paste it into a new session in [Claude Science](https://claude.com/docs/claude-science/overview.md). Claude asks with a [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) before it runs code or installs packages, unless you've already allowed it. With [auto mode](https://claude.com/docs/claude-science/auto-mode.md) on, Claude Science's own check can allow code without a card.
 
 ```text Prompt wrap theme={null}
 In 1963 Freireich and colleagues published an early randomized, placebo-controlled trial of a chemotherapy drug: 42 patients under 20 with acute leukemia in remission got either 6-mercaptopurine (6-MP) or a placebo, and were followed until they relapsed or the trial was stopped, which happened early, once 6-MP was clearly ahead. These are the weeks each patient stayed in remission. A + means the patient was still in remission when the trial was stopped.

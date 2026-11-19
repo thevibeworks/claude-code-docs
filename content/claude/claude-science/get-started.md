@@ -48,7 +48,8 @@ Install Claude Science on your computer, sign in with your Claude account, and r
 > * `port 8765 is already in use`: another program, or another copy of Claude Science, has that port. Start with a different one, for example `--port 8080`.
 > * The link stops working: check that Claude Science is still running with `claude-science status`. If it's still running, run `claude-science url` for a fresh link and open it in a Windows browser. Claude Science stops when WSL shuts down, for example after `wsl --shutdown`. Start it again by running `claude-science serve --port 8765 --no-browser` in the Ubuntu terminal.
 > * An SSH host can't be added: under WSL, Claude Science reads the SSH settings in Ubuntu's `~/.ssh`, not the ones in Windows. Copy the host's entry from `C:\Users\<you>\.ssh\config`, and its key file, into Ubuntu's `~/.ssh` folder, then run `chmod 600` on them.
-> * `The database is on /mnt/*`: Claude Science's data folder is on a Windows drive, which it can't use under WSL. Move the folder into your Ubuntu home folder, such as the default `~/.claude-science`, and if you set `data_dir` or `--data-dir`, point it there. If you use a folder other than the default, choose a new, empty one, because Claude Science can delete files in that folder that it didn't create.
+> * `The database is on /mnt/*`: Claude Science's data folder is on a Windows drive, which it can't use under WSL. If that folder has work you need, don't move it or remove the database, even if the message says to. If you use Claude Science in Windows too, quit it from its notification-area icon. Before you start Claude Science again, copy the whole folder somewhere safe, and contact [Claude support](https://support.claude.com/en/articles/9015913-how-to-get-support). To start without that work, change the `data_dir` line of [config.toml](https://claude.com/docs/claude-science/configuration-file-reference.md), or the `--data-dir` you use, to a folder in your Ubuntu home folder, such as the default `~/.claude-science`. The old folder stays as it is. If you use a folder other than the default, choose a new, empty one, because Claude Science can delete files in that folder that it didn't create.
+> * Claude Science opens without your work after you moved its data folder to `~/.claude-science`: the folder went inside `~/.claude-science` and kept its name. Don't move it again, and contact [Claude support](https://support.claude.com/en/articles/9015913-how-to-get-support).
 
 > [tab] Linux
 >
@@ -97,7 +98,7 @@ After sign-in, a setup wizard walks you through enabling connectors and skills, 
 * Open the Example project, or create a new one.
 * Start a conversation. Reference a folder on your computer by typing its path or using the @ picker in the composer.
 * Review the folder-access card when it appears and choose whether to allow it.
-* Review the code-execution card when Claude proposes running code and choose whether to allow it.
+* Review the code-execution card when Claude proposes running code and choose whether to allow it. With [auto mode](https://claude.com/docs/claude-science/auto-mode.md) on, Claude Science's own check can let the code run without a card.
 * Results appear as artifacts in the Files panel.
 
 ## Uninstall Claude Science
@@ -143,9 +144,12 @@ Uninstalling removes the application and keeps your data folder. Your projects, 
 >
 > > [!WARNING]
 > >
-> > `claude-science uninstall --purge` removes the app and permanently deletes your projects, artifacts, and conversation history, along with everything else in the folder that **Data location** shows, including your own files. It doesn't ask you to confirm, and the files don't go to the Recycle Bin. To keep your work, leave out `--purge`.
+> > `claude-science uninstall --purge` removes the app and permanently deletes your projects, artifacts, and conversation history, along with everything else in the same folder, including your own files. The files don't go to the Recycle Bin. To keep your work, leave out `--purge`.
 >
-> When your data location isn't `%USERPROFILE%\.claude-science`, `--purge` leaves `%USERPROFILE%\.claude-science` in place. It still holds your environments and your sign-in, and it can also hold projects from before that location was set. To remove those too, delete `%USERPROFILE%\.claude-science` yourself.
+> Before you use `--purge`, check your version with `claude-science --version` in a terminal:
+>
+> * **Version 0.1.73 and later** list what they delete and ask you to type `yes` first. They delete `%USERPROFILE%\.claude-science`, with your sign-in, your environments, and any projects from before you set another data location, and keep a data location outside that folder.
+> * **Version 0.1.72 and earlier** don't ask. They delete the folder that **Data location** shows. If that's another folder, `%USERPROFILE%\.claude-science` stays.
 
 > [tab] Linux
 >

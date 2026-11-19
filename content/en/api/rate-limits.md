@@ -291,7 +291,8 @@ Example: If your organization’s limit is 40,000 input tokens per minute and 8,
 
 Note:
 
-* You can’t set spend limits on the default workspace.
+* On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), you can’t set spend limits on the default workspace.
+* A spend limit on the default workspace might not count or stop some usage in that workspace. This includes usage from the Claude Console (such as playground) and from Claude Managed Agents sessions. It also includes Claude Code or Claude Desktop usage when a member signs in with a Claude Console account and uses the default workspace. Your organization’s [spend limit](https://platform.claude.com/docs/en/api/rate-limits#setting-your-own-spend-limit) applies to all of this usage.
 * If not set, workspace limits match the organization’s limit.
 * Workspace limits are set for each limiter type (such as requests per minute, input tokens per minute, or output tokens per minute).
 * Organization-wide limits always apply, even if workspace limits add up to more.
