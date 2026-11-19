@@ -205,7 +205,7 @@ Minimize the number of tokens in both your input prompt and the expected output,
 Here are some tips to help you optimize your prompts and outputs:
 
 * **Be clear but concise:** Aim to convey your intent clearly and concisely in the prompt. Avoid unnecessary details or redundant information, while keeping in mind that [Claude lacks context](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#be-clear-and-direct) on your use case and might not make the intended inferences if instructions are unclear.
-* **Ask for shorter responses:** Ask Claude directly to be concise. If Claude is outputting unwanted length, ask Claude to [reduce its verbosity](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#be-clear-and-direct).
+* **Ask for shorter responses:** Ask Claude directly to be concise. If Claude is outputting unwanted length, ask Claude to [reduce its verbosity](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#communication-style-and-verbosity).
   <Tip>
     Because of how LLMs count 
 
@@ -237,11 +237,19 @@ Visit [Streaming messages](https://platform.claude.com/docs/en/build-with-claude
 ## Next steps
 
 <CardGroup cols={2}>
+  <Card title="Claude Cookbook: latency optimization on the Claude API" icon="book" href="https://platform.claude.com/cookbook/latency-optimization-latency-optimization">
+    Follow a runnable notebook that builds a latency eval for a sample agent, applies one technique at a time, and checks that output quality stays above a threshold.
+  </Card>
+
   <Card title="Reduce hallucinations" icon="shield" href="https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations">
     Minimize hallucinations in Claude’s outputs by allowing uncertainty, grounding responses in direct quotes, and verifying claims with citations.
   </Card>
 
   <Card title="Streaming messages" icon="bolt" href="https://platform.claude.com/docs/en/build-with-claude/streaming">
     Stream Messages API responses incrementally with server-sent events, including text, tool use, and extended thinking deltas.
+  </Card>
+
+  <Card title="Claude API skill" icon="terminal" href="https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill">
+    Run `/claude-api latency-optimize` in Claude Code to measure where your application waits for the Claude API, and to test changes that shorten the wait without lowering output quality.
   </Card>
 </CardGroup>

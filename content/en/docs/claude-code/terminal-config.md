@@ -39,6 +39,7 @@ In Zed, `/terminal-setup` updates your `keymap.json` in place:
 
 * If the keymap already has bindings and none of them is a Terminal `shift-enter`, Claude Code first backs it up to a copy in the same directory, such as `keymap.json.1a2b3c4d.bak`, then merges the Shift+Enter binding into your keymap, keeping your other keybindings and comments
 * If Claude Code can't read or parse the keymap, can't back it up, or can't verify the merged result, it [leaves the file unchanged and prints the keybinding block to add yourself](https://code.claude.com/docs/en/errors.md#terminal-setup-left-your-zed-keymap-unchanged)
+* If the keymap is a symlink, [add the keybinding yourself](https://code.claude.com/docs/en/errors.md#terminal-setup-left-your-zed-keymap-unchanged)
 
 If you are running inside tmux, Shift+Enter also requires the [tmux configuration below](#configure-tmux) even when the outer terminal supports it.
 
@@ -336,7 +337,7 @@ If the paste carries [invisible Unicode characters](https://code.claude.com/docs
 
 ### How Claude treats pasted text
 
-When you submit, Claude sees the content behind each `[Pasted text #N]` placeholder marked as text you pasted from somewhere else rather than typed. Claude is told that a paste can contain instructions you didn't write, and to follow instructions inside it only where the message you typed asks it to. In sessions that don't [fetch feature flags](https://code.claude.com/docs/en/env-vars.md#features-that-need-feature-flag-fetching), pastes aren't marked.
+When you submit, Claude sees the content behind each `[Pasted text #N]` placeholder marked as text you pasted from somewhere else rather than typed. Claude is told that a paste can contain instructions you didn't write, and to follow instructions inside it only where the message you typed asks it to. Pastes can reach Claude unmarked, such as in your [first session after an install](https://code.claude.com/docs/en/env-vars.md#first-session-after-an-install-or-upgrade).
 
 ### Delete and restore a collapsed paste
 

@@ -74,7 +74,7 @@ For the accounts you choose to share, Claude can read:
 
 **Account numbers:** Plaid gives Claude only the last few digits of each account number (usually four). If your bank writes a full number into an account’s name or a transaction’s description, Claude may see it there.
 
-**Investments, loans, and cards:** Claude reads balances and credit limits, not holdings, trades, rates, or terms. Plaid’s own screens may also ask for your consent to share investment, credit, and loan data. Today, Claude reads only the kinds of data listed above.
+**Investments, loans, and cards:** Claude can read details of your credit cards and loans (including mortgages and student loans), such as interest rates, statement balances, last and next payments, due dates, whether a payment is overdue, and a loan’s start date, original amount, and scheduled payoff date. For a student loan, Claude can also read its status (such as in school or delinquent) and its type of repayment plan (such as income-based). For investment and retirement accounts, Claude can also read transactions, such as trades, dividends, contributions, withdrawals, fees, and taxes withheld. Additionally, Claude can read what these accounts hold, including each holding’s name, quantity, price, value, and cost. Plaid’s own screens may also ask for your consent to share investment, credit, and loan data.
 
 ## How your data is used
 
@@ -90,7 +90,7 @@ For more information, see the **[Anthropic Privacy Policy](https://www.anthropic
 
 ## How Claude answers questions about your money
 
-- **What Claude reads:** Claude uses Plaid to read your bank account balances and transactions. It uses that data to answer your questions about your money.
+- **What Claude reads:** Claude uses Plaid to read data from your linked accounts, such as balances and transactions (see **What Claude can access** above). It uses that data to answer your questions about your money.
 
 - **Personal Finance can only read your accounts.** It can’t move, manage, or invest your money.
 
@@ -180,9 +180,9 @@ When your paid plan ends, you can’t open Personal Finance, and Claude can’t 
 
 ## Unlink your banks after your plan has ended
 
-1. On the web, click “Customize” in the sidebar (some accounts see “Plugins” instead).
+1. On the web, click "Customize" in the sidebar. If you see "Plugins" instead, go to claude.ai/customize/connectors/yours and skip step 2.
 
-2. Click “Connectors.”
+2. Click "Connectors," then click "Yours."
 
 3. If “Plaid” is listed, open it, click the button that starts with “Unlink,” and confirm.
 

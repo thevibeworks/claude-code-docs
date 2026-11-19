@@ -150,7 +150,15 @@ After the move, the copy in the standalone version is read-only for everyone, an
 
 You can also move all of your own projects at once, or only the ones you choose. On Team and Enterprise plans, your organization's owners can move everyone's projects at once with "Move everything."
 
-"Move everything" is on the Artifacts page in Claude, and it moves templates and design systems too. Only an Owner or the Primary Owner can start it, not an Admin.
+"Move everything" moves templates and design systems too. Only an Owner or the Primary Owner can start it, not an Admin. To start it:
+
+1. Open the **Artifacts** page in Claude. If you belong to more than one claude.ai organization, make sure the right one is selected first.
+
+2. Click "Move" in the "Claude Design lives here now" banner. If you've closed the banner, click the "…" button on the Design tile and choose "Move from standalone."
+
+3. In the window that opens, choose "Move everything." If a move of everything has already run and some items were left behind, the option reads "Move what's left."
+
+If you don't see "Move everything," check that you're an Owner or the Primary Owner, and that **Claude Design** and **Artifacts** are both turned on in **Organization settings**.
 
 Most projects keep their owner, and private projects stay private. If a project's owner has left your organization, it goes to an owner of your organization, usually the Primary Owner, and Claude shows that person a list called "Projects moved to you." Anything that can't move stays in the standalone version, and the results say why. Before December 14, 2026, download anything that can't move. As with any move, the standalone copies of moved projects become read-only for everyone.
 

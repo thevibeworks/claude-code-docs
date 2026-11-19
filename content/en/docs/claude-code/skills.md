@@ -321,7 +321,7 @@ What Claude Code does with a synced skill's body depends on where the session ru
 
 Claude Code watches skill directories for file changes, except in [bare mode](https://code.claude.com/docs/en/headless.md#start-faster-with-bare-mode). When you add, edit, or remove a skill under `~/.claude/skills/`, the project `.claude/skills/`, or a `.claude/skills/` inside an `--add-dir` directory, Claude Code picks up the change within the current session, without a restart.
 
-If you create a top-level skills directory that didn't exist when the session started, run [`/reload-skills`](https://code.claude.com/docs/en/commands#all-commands) to pick up the skills you put there. Claude Code isn't watching that directory yet, so run `/reload-skills` again after each later change there.
+If a new skill doesn't appear, run [`/reload-skills`](https://code.claude.com/docs/en/commands#all-commands).
 
 > [!NOTE]
 >

@@ -423,7 +423,7 @@ To enable or disable artifacts for the whole organization, go to [**Organization
 
 Public sharing is off by default on Team and Enterprise plans. To let members publish artifacts to public links that anyone can view without signing in, go to [**Organization settings > Artifacts**](https://claude.ai/admin-settings/artifacts) and turn on **External sharing** under the **Artifacts** toggle. Turning it back off blocks access through existing public links without changing each artifact's audience; access resumes if you re-enable it.
 
-### Set a retention policy
+### Set a retention policy on Enterprise plans
 
 To set how long artifacts are kept before automatic deletion, go to [**Organization settings > Data and privacy**](https://claude.ai/admin-settings/data-privacy-controls). You can set separate retention periods for artifacts that are still private to their author and artifacts that have been shared.
 

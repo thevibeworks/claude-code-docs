@@ -44,13 +44,15 @@ All paths need:
 * For Outlook: Microsoft Graph admin consent for `Mail.ReadWrite`,
   `Calendars.Read`, `User.Read`, and `offline_access`, granted via
   Anthropic's app or your own Entra app registration.
+* For Outlook: Claude Opus 4.7 or later, or Claude Sonnet 5 or later,
+  available on your connection path.
 
 | Path | Additional requirements |
 | - | - |
 | LLM gateway | Gateway URL and API token from your IT team. |
 | Bedrock direct | AWS account with Claude model access enabled in target region. IAM OIDC identity provider and role configured to trust Microsoft Entra ID tokens. |
 | Vertex AI direct | Google Cloud project with Vertex AI API enabled and Claude model access. Google OAuth client configured with the add-in's redirect URI. |
-| Foundry direct | Azure AI Foundry resource with at least one Claude model deployed. Deployment names must use default model IDs (for example, `claude-opus-4-6`), not custom names. Then one credential path: **keyless**, your own Entra app registration with the Azure Cognitive Services `user_impersonation` delegated permission (admin-consented) and users holding the Cognitive Services User role on the resource (see [Foundry direct without an API key](#foundry-direct-without-an-api-key)); or the resource API key from Azure Portal, your Foundry resource, Keys and Endpoint, KEY 1. |
+| Foundry direct | Azure AI Foundry resource with at least one Claude model deployed. Deployment names must use default model IDs (for example, `claude-opus-4-8`), not custom names. Then one credential path: **keyless**, your own Entra app registration with the Azure Cognitive Services `user_impersonation` delegated permission (admin-consented) and users holding the Cognitive Services User role on the resource (see [Foundry direct without an API key](#foundry-direct-without-an-api-key)); or the resource API key from Azure Portal, your Foundry resource, Keys and Endpoint, KEY 1. |
 
 Your organization's IT team manages these resources. Anthropic cannot
 provide or reset credentials.
@@ -481,7 +483,10 @@ client ID to the setup wizard as `graph_client_id`. See
 >
 > Claude for Outlook on third-party platforms supports Claude Opus 4.7 and
 > later and Claude Sonnet 5 and later. Earlier model generations are not
-> available on the Outlook surface.
+> available on the Outlook surface. If your connection doesn't offer one of
+> these models under an ID that Outlook accepts, messages in Outlook can fail.
+> See
+> [Outlook messages fail or the model menu is missing](#outlook-messages-fail-or-the-model-menu-is-missing).
 
 ### Deploy to Microsoft 365
 
@@ -730,12 +735,39 @@ endpoint.
 
 ### Change or update your gateway connection
 
-If your gateway API token expires or your IT team provides a new URL,
-select Logout from the account menu and sign in again with your new
-credentials. This applies to LLM gateway, Bedrock, Vertex AI, and
-Foundry direct connections alike. Logging out deletes saved Claude for
-Outlook conversations, as described in
-[Data storage and retention](https://claude.com/docs/office-agents/data-storage.md#outlook-data-deleted-when-a-sign-in-ends).
+If your gateway API token expires or your IT team provides a new URL, log
+out and sign in again with your new credentials. This applies to LLM
+gateway, Bedrock, Vertex AI, and Foundry direct connections alike. A bootstrap
+endpoint can change some details with no log-out: the token or URL of an LLM
+gateway connection, and the API key of a Foundry connection to the same
+resource.
+
+Logging out deletes saved Claude for Outlook conversations, your writing
+style, and what Claude has learned about your writing, for every account
+that has used Claude on the device. It does this whether you log out in
+Outlook or in another Office app that shares its storage. The add-in asks
+you to confirm first, and deleted data can't be recovered. See
+[Outlook data deleted when a sign-in ends](https://claude.com/docs/office-agents/data-storage.md#outlook-data-deleted-when-a-sign-in-ends).
+
+Conversations in Excel, PowerPoint, and Word aren't deleted. If you sign in
+with a different gateway URL, Foundry resource, Google Cloud project, or AWS
+account, they stop appearing in chat history until you sign in with the
+earlier details again. The same happens when your IT team adds or removes a
+gateway in front of Foundry or Vertex AI.
+
+When a bootstrap endpoint delivers a new LLM gateway URL, the change deletes
+nothing, but conversations in every app, including Outlook, stop appearing in
+chat history until the URL changes back.
+
+In each of these cases, the conversations that stop appearing still count
+toward the 50 that each app keeps, so the oldest are deleted as new ones are
+saved. See [Data retention](https://claude.com/docs/office-agents/data-storage.md#data-retention).
+
+Logging out also removes the stored token or key and connector sign-ins, and
+it can sign out other Claude panes on the same device. See
+[Sign-in and credentials](https://claude.com/docs/office-agents/data-storage.md#sign-in-and-credentials).
+
+To log out, select More options, then Logout.
 
 ## Gateway requirements for IT teams
 
@@ -813,14 +845,23 @@ The add-in can send your gateway's authorization token in either the
 
 ### Model discovery
 
-For gateways using `gateway_api_format: anthropic`, the add-in attempts
-to discover available Claude models via `GET /v1/models` on login. If
-your gateway doesn't expose a model list at that path, the add-in falls
-back to prompting the user for a model ID manually.
+For gateways using `gateway_api_format: anthropic`, the add-in discovers
+available Claude models via `GET /v1/models` at sign-in and each time the
+pane loads. Outlook offers only the listed models that it supports. See
+[Outlook messages fail or the model menu is missing](#outlook-messages-fail-or-the-model-menu-is-missing)
+for the model IDs that Outlook accepts.
+
+If the response lists no Claude models, or the gateway refuses or doesn't
+answer test requests to the listed models, the add-in usually prompts the
+user for a model ID at sign-in. If a test request fails for a reason that
+applies to the whole account, such as a 401 status, a budget limit, or a
+server error, and no listed model works, sign-in stops with an error. If
+`GET /v1/models` itself fails, sign-in stops with an error and the user
+can't enter a model ID.
 
 For `gateway_api_format: bedrock` and `gateway_api_format: vertex`, the
-add-in uses a built-in model list and probes the gateway to verify each
-model is reachable, rather than calling `GET /v1/models`.
+add-in uses a built-in model list and sends test requests until one model
+responds, rather than calling `GET /v1/models`.
 
 ### Differences from Claude Code gateway setup
 
@@ -832,7 +873,7 @@ below summarizes how the Office add-in setup differs.
 | Credential storage | OS keychain or environment variables | Browser localStorage (sandboxed iframe) |
 | Auth configuration | Environment variables, settings file, helper scripts | Manual entry in add-in UI (gateway), Entra ID (Bedrock, keyless Foundry), Google OAuth (Vertex AI), or Azure API key (Foundry) |
 | Token refresh | Supports helper scripts for rotation | Automatic via a bootstrap endpoint (gateway), Entra ID (Bedrock, keyless Foundry), or Google OAuth (Vertex AI); gateway tokens entered manually in the add-in UI require signing out and back in when they rotate |
-| Custom model names | Configurable via environment variables | Not configurable in v1 |
+| Custom model names | Configurable via environment variables | With `gateway_api_format: anthropic`, taken from your gateway's model list |
 
 When gateway configuration comes from a bootstrap endpoint, the add-in
 keeps the token current without user action. It calls the bootstrap
@@ -847,8 +888,11 @@ add-in calls the bootstrap endpoint once and retries the request if the
 token changed.
 
 Gateway tokens entered manually in the add-in UI do not refresh
-automatically: sign out and sign in again with the new token when it
-rotates.
+automatically. When one rotates, sign out and sign in again with the new
+token, as described in
+[Change or update your gateway connection](#change-or-update-your-gateway-connection).
+Signing out deletes saved Claude for Outlook conversations. A bootstrap
+endpoint keeps the token current, so users don't have to sign out.
 
 ## Example gateway configuration with LiteLLM
 
@@ -1163,7 +1207,18 @@ are no firewall or VPN restrictions blocking the connection. Check the
 [Network allowlist](#network-allowlist) to confirm all required domains
 are allowed.
 
-### 401 Unauthorized or "Invalid token"
+### 400 or "Something went wrong with your request"
+
+The gateway or cloud provider rejected the request. Select Copy error
+details, or the copy icon, next to the error: the text under `Raw error`
+shows the gateway's or provider's own message. Your gateway or provider logs
+have more.
+
+In Outlook, if the model menu is missing or that message doesn't explain the
+error, see
+[Outlook messages fail or the model menu is missing](#outlook-messages-fail-or-the-model-menu-is-missing).
+
+### 401 Unauthorized, "Authentication failed", or "Invalid authentication token"
 
 The auth token is invalid or expired. For gateway connections, confirm
 the token with your IT team. For direct-cloud connections, verify the
@@ -1174,21 +1229,36 @@ Foundry sign-in, confirm the Entra app has the Azure Cognitive Services
 `user_impersonation` permission with admin consent and that
 `entra_scope` is `https://cognitiveservices.azure.com/.default`.
 
+In Outlook, if the model menu is missing or these checks don't explain the
+error, see
+[Outlook messages fail or the model menu is missing](#outlook-messages-fail-or-the-model-menu-is-missing).
+
 ### 403 Forbidden or "Access denied"
 
 The token is valid but lacks the right permissions. For Bedrock, verify
 the IAM role has `bedrock:InvokeModel` permissions. For Vertex, verify
 your Google account has the Vertex AI User role on the project. For
-gateways, check the token's scope with your IT admin. For Foundry, check
+gateways, check the token's scope with your IT admin, including which
+models it may call. For Foundry, check
 the resource's networking rules, or confirm the key belongs to the right
 resource. For keyless Foundry sign-in, confirm the user holds the
 Cognitive Services User role on the resource.
+
+In Outlook, if the model menu is missing or these checks don't explain the
+error, see
+[Outlook messages fail or the model menu is missing](#outlook-messages-fail-or-the-model-menu-is-missing).
 
 ### 404 Not found
 
 The add-in could not reach the expected API path. For gateways, verify
 the URL is the base URL such as `https://litellm.example.com:4000`.
-Don't include `/v1/messages` in the URL field.
+Don't include `/v1/messages` in the URL field. With
+`gateway_api_format: anthropic`, the gateway must also answer
+`GET /v1/models`. If that call fails, sign-in stops with an error.
+
+In Outlook, if the error says that a model isn't available, the model menu
+is missing, or these checks don't explain the error, see
+[Outlook messages fail or the model menu is missing](#outlook-messages-fail-or-the-model-menu-is-missing).
 
 ### 500 or other server errors
 
@@ -1197,19 +1267,200 @@ gateway logs, such as `docker logs litellm` for LiteLLM, for
 upstream provider errors. Try the request again, and contact your IT
 admin if the issue persists.
 
-### "No models available"
+### "Enter model name" screen or "No Claude model" error
 
-The add-in could not find Claude models. For gateways using
-`gateway_api_format: anthropic`, your gateway may not expose a model
-list at `GET /v1/models`; your IT team can configure the gateway to
-serve a model list or give you a specific model ID to enter manually.
-For gateways using `gateway_api_format: bedrock` or `vertex`, none of
-the built-in models responded to the add-in's probe; confirm with your
-IT team that the gateway routes to a region or project with Claude
-models enabled. For Bedrock or Vertex direct, confirm that at least one
-Claude model (Claude Sonnet 4.5 or later) is enabled in your account and
-region. For Foundry, confirm at least one Claude model is deployed in
-the resource Model catalog.
+The add-in could not find Claude models when it connected. On a gateway,
+sign-in usually stops at an "Enter model name" screen. On Bedrock, Vertex
+AI, or Foundry direct, the connection error usually starts with "No Claude
+model" or "Model unavailable". Check the cause for your connection path.
+
+* **Gateway with `gateway_api_format: anthropic`**: the gateway's
+  `GET /v1/models` response lists no Claude models, or test requests to the
+  models that it lists failed. The screen says that it could not retrieve
+  the model list in both cases. If the list has no Claude models, your IT
+  team can correct it or give you a model ID to enter. If it has Claude
+  models, your IT team needs to correct the list or allow your token to call
+  those models. Entering an ID yourself usually doesn't help then, because
+  the add-in replaces an ID that isn't on the list.
+* **Gateway with `gateway_api_format: bedrock` or `vertex`**: none of the
+  built-in models responded to the add-in's test requests. Confirm with your
+  IT team that the gateway routes to a region or project with Claude models
+  enabled.
+* **Bedrock or Vertex AI direct**: confirm that at least one Claude model,
+  Claude Sonnet 4.5 or later, is enabled in your account and region.
+* **Foundry direct**: confirm that at least one Claude model is deployed in
+  the resource Model catalog under its default deployment name, such as
+  `claude-opus-4-8`.
+
+Connecting doesn't show that Outlook will work: a model that Outlook doesn't
+support, such as Claude Sonnet 4.6, is enough to connect. If you use Outlook
+and enter a model ID, enter the ID of a model that Outlook supports. The
+example on that screen might not be one. If the add-in connects and Outlook
+has no model menu or its messages fail, see
+[Outlook messages fail or the model menu is missing](#outlook-messages-fail-or-the-model-menu-is-missing).
+
+### Outlook messages fail or the model menu is missing
+
+In Outlook, messages fail, the model menu at the bottom of the chat pane
+doesn't appear, or both.
+
+Outlook supports fewer models than Excel, PowerPoint, and Word. It needs a
+Claude Opus model at version 4.7 or later, or a Claude Sonnet model at
+version 5 or later. A newer model in another family doesn't meet this
+requirement. A connection that works in the other apps can therefore fail in
+Outlook.
+
+To see what failed, select Copy error details, or the copy icon, next to the
+error, and paste the result into a text editor. The `status` line shows the
+HTTP status, the `model` line shows the model ID that Outlook sent, and the
+text under `Raw error` shows what your gateway or cloud provider said. If
+you don't manage the connection, send this text and a link to this section
+to your IT team.
+
+On Foundry direct, and on an LLM gateway that uses the default
+`gateway_api_format: anthropic`, Outlook shows no model menu when the
+connection offers no model under an ID that Outlook accepts. A supported
+model isn't enough if its ID is a gateway alias that doesn't include its
+Anthropic model ID, or a Foundry deployment name other than the default.
+With no accepted ID to offer, Outlook usually sends each message to
+`claude-opus-4-7`. If your gateway or Foundry resource serves Claude Opus 4.7
+under that ID, messages work without the menu. If it refuses that ID, the
+error in the chat pane depends on the HTTP status it returns.
+
+| Status | Error in the chat pane |
+| - | - |
+| 400 | Starts with "Something went wrong with your request." |
+| 401 | Starts with "Authentication failed." and tells the user to sign out and sign back in. Some gateways return this status when a key or team isn't allowed to call the model. Signing out doesn't help then, and it deletes saved Outlook conversations. |
+| 403 | Starts with "Access denied." On a gateway, the gateway's own message can follow. |
+| 404 | Names the model and says that it "isn't available in your organization's Claude setup." Settings has no model choice, so ask your IT team. |
+
+Other statuses, and some gateway messages, show other errors. If your
+gateway or Foundry resource doesn't serve the ID on the `model` line, or
+doesn't allow the user's token to call it, follow the steps for your
+connection path. They can also bring back the model menu when messages work
+without it.
+
+On Foundry direct and on gateways that use the `anthropic` format, the menu
+can also appear while the selected model fails, with the same errors. Choose
+another model in the menu. On Foundry direct, the menu shows what the add-in
+found when the user signed in, so a deployment removed since then stays in
+it until the user signs in again.
+
+#### Fix a gateway that uses the `anthropic` format
+
+These steps are for your IT team.
+
+**1. Choose a model ID that Outlook accepts**
+
+Serve Claude Opus 4.7 as `claude-opus-4-7`, as in the
+[LiteLLM examples](#example-gateway-configuration-with-litellm), or
+another supported model under its Anthropic model ID, such as
+`claude-opus-5`. If your gateway uses its own alias, the alias must
+include the whole Anthropic model ID of the supported model that it routes
+to, such as `prod-claude-opus-4-8` or `claude-sonnet-5-eu`. Outlook reads
+the model family and version from the ID, so keep both in the alias and
+write the version with hyphens.
+
+**2. Serve and list the model**
+
+Add the model to the gateway under that ID, and list the ID in the
+response to `GET /v1/models` for your users' tokens. Outlook doesn't add a
+model ID to its model menu when the ID appears only in the
+`available_models` key in your manifest or bootstrap response.
+
+If `GET /v1/models` fails, fix that first, because sign-in stops with an
+error. If it succeeds but can't include any Claude models, serve Claude
+Opus 4.7 as `claude-opus-4-7` if you can. For a user who is already signed
+in, Outlook then usually sends messages to that ID, and they work without
+the model menu and without a log-out. A user who signs in later has to
+enter that ID on the "Enter model name" screen, so give it to them.
+
+If you can't serve that ID, serve another supported model under its exact
+Anthropic model ID and give that ID to users who sign in later. For users
+who are already signed in, follow the steps after "Reopen the Claude pane".
+
+**3. Allow your users' tokens to call the model**
+
+If the gateway limits each key or team to a list of models, add the
+model ID to that list.
+
+**4. Reopen the Claude pane**
+
+Check that `GET /v1/models` answers a user's token successfully within
+5 seconds, because the model menu needs that answer. Then ask each Outlook
+user to close the Claude pane, select an email, and select the
+[Claude button](https://claude.com/docs/office-agents/outlook.md#install-for-yourself) again. The
+add-in reads the gateway's model list each time the pane loads, so a
+change to that list doesn't need a log-out. If the gateway now lists the
+model and the menu still doesn't appear, ask the user to restart Outlook,
+or to reload the page in Outlook on the web.
+
+If `GET /v1/models` can't include any Claude models and you can't serve the ID
+on the `model` line of a user's failed message, that user has to enter a model
+ID, which takes a new sign-in. Use these steps only in that case.
+
+**1. Confirm the model ID**
+
+Confirm that the gateway serves a model that Outlook supports under that
+model's exact Anthropic model ID, such as Claude Opus 5 as
+`claude-opus-5`. The add-in doesn't test that ID at sign-in, so a wrong ID
+shows up only when a message fails.
+
+**2. Tell the user what logging out deletes**
+
+Tell the user that logging out deletes their saved Outlook conversations,
+their writing style, and what Claude has learned about their writing, as
+described in
+[Change or update your gateway connection](#change-or-update-your-gateway-connection).
+
+**3. Ask the user to log out and sign in again**
+
+Ask them to log out, sign in again, and enter that ID on the "Enter model
+name" screen.
+
+#### Fix a Foundry direct connection
+
+These steps are for your IT team.
+
+**1. Deploy a supported model under its default name**
+
+In Azure AI Foundry, deploy a supported model and keep its default
+deployment name, which is one of the following:
+
+* `claude-opus-4-7`
+* `claude-opus-4-8`
+* `claude-opus-5`
+* `claude-opus-5-5`
+* `claude-sonnet-5`
+* `claude-sonnet-5-5`
+
+See
+[Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
+for where each model is hosted. Outlook ignores a deployment with any
+other name, even if the `available_models` key in your manifest or
+bootstrap response lists it. A deployment's name can't be changed, so if
+yours has a custom name, create a new deployment.
+
+**2. Sign in again**
+
+The add-in checks which models are deployed only when it connects. Ask
+each Outlook user to send a message first, choosing another model if the
+menu is there. If it works and they don't need the menu, they can skip
+this step. Anyone else needs a new sign-in. Logging out deletes their
+saved Outlook conversations, their writing style, and what Claude has
+learned about their writing, so tell them that first. Then ask them to log
+out and sign in again, as described in
+[Change or update your gateway connection](#change-or-update-your-gateway-connection).
+
+#### Fix Bedrock, Vertex AI, and gateways in those formats
+
+On Bedrock direct, Vertex AI direct, and gateways that use
+`gateway_api_format: bedrock` or `vertex`, the add-in uses a built-in model
+list, so Outlook shows the model menu. If the selected model fails, choose
+another in the menu. If every model fails, confirm that at least one of the
+models in the menu is enabled in the account or project that serves your
+requests and, on a gateway, that the gateway routes that model's ID. Then
+choose that model in the menu.
 
 ### Streaming responses fail or hang
 

@@ -29,7 +29,7 @@ Claude Code can get settings from three places, from lowest to highest priority:
 
 1. **The developer's own settings files.**
 2. **Your console settings.** They arrive when the developer signs in to your organization.
-3. **The computer's managed settings.** These are Claude Code settings that you deploy to the developer's computer: a `managed-settings.json` file, an MDM profile on macOS, or a registry policy on Windows. The configuration profile that you deploy for Claude Desktop doesn't count.
+3. **The computer's managed settings.** These are Claude Code settings that you deploy to the developer's computer: a `managed-settings.json` file, an MDM profile on macOS, or a registry policy on Windows. The configuration profile that you deploy for Claude Desktop doesn't count. Neither does a registry policy under `HKCU`, which a sign-in replaces.
 
 Each developer's computer has either:
 
@@ -144,7 +144,7 @@ Developers set these themselves from now on:
 
 * **Proxy and certificate variables**: ask developers to set `HTTPS_PROXY` or `NODE_EXTRA_CA_CERTS` in their shell or in their own settings file
 * **Cloud credentials in `env`**: each developer needs their own. The **Connection** page can name an AWS profile, a credentials file, or a helper script, but these must already be on the computer.
-* **Allow rules (`permissions.allow`), the default permission mode, added directories, and `statusLine`**: the developer's own settings decide these, even if you keep managed settings
+* **Allow rules (`permissions.allow`), the default permission mode, added directories, `statusLine`, `skillOverrides`, `claudeMdExcludes`, and `autoMemoryEnabled`**: the developer's own settings decide these, even if you keep managed settings
 
 These need managed settings on the computer. If you can't do without one, [keep managed settings beside the console](#keep-managed-settings-beside-the-console):
 
@@ -152,7 +152,8 @@ These need managed settings on the computer. If you can't do without one, [keep 
 * **Hooks, and the plugins and MCP servers that you install for developers**: the console can't install them in the terminal
 * **OpenTelemetry export (`CLAUDE_CODE_ENABLE_TELEMETRY` and the `OTEL_` variables)**: the console can't turn it on in the terminal, so your collector stops getting data from Claude Code. The console's OpenTelemetry fields export from Claude Desktop only.
 * **`requiredMinimumVersion`, `cleanupPeriodDays`, `allowedProviders`, and the managed `CLAUDE.md` text**: the console has no place for these. Claude Code also ignores anything else that isn't on [the JSON's list](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#settings-that-claude-code-applies).
-* **`strictKnownMarketplaces`, `allowManagedPermissionRulesOnly`, and Auto mode's deny rules (`autoMode`)**: Claude Code ignores these in the JSON
+* **A retention period (`cleanupPeriodDays`) that's set only under `HKCU\SOFTWARE\Policies\ClaudeCode` on Windows**: after a developer signs in, Claude Code ignores this period. Claude Code then uses the developer's own setting, or 30 days. The next cleanup permanently deletes session transcripts older than that. Before developers sign in, move the period to `HKLM\SOFTWARE\Policies\ClaudeCode` or to `managed-settings.json`. Then [name your organization in the same place](#keep-managed-settings-beside-the-console). If the computer also runs Claude Desktop on your provider, add `"parentSettingsBehavior": "merge"` there too.
+* **`strictKnownMarketplaces`, `allowManagedPermissionRulesOnly`, `sandbox.filesystem.allowManagedReadPathsOnly`, and Auto mode's deny rules (`autoMode`)**: Claude Code ignores these in the JSON
 * **A private address for your provider, such as a VPC endpoint**: your connection overrides it, even if you keep managed settings, so requests go to the provider's default address. To keep it, also fill in **Bedrock base URL**, or the same field for another cloud provider, on the **Connection** page. Claude Code in the terminal then uses the provider set on each computer, not your connection, so each computer must keep managed settings that set your provider and the private address.
 
 In the Code tab in Claude Desktop, the file's rules stop applying too, unless a field on the **Desktop 3P** pages sets them.

@@ -618,7 +618,7 @@ The following sections cover the order Claude Code evaluates an action in, how t
 >
 > Claude Code can also run `git status` itself before a command that would discard uncommitted work, such as `git reset --hard` or `rm -rf`, and show the classifier whether staged, modified, or untracked work is present. Claude Code reports untracked files in that check even when the repository's git configuration sets `status.showUntrackedFiles=no`.
 >
-> Under [server-side classifier review](#server-side-classifier-review), `git reset --hard` can be blocked on a clean working tree, because Claude Code can skip `git status` unless auto mode recently blocked an action. After the block, the classifier can see the clean status and allow Claude's retry.
+> Under [server-side classifier review](#server-side-classifier-review), `git reset --hard` can be blocked on a clean working tree. After the block, the classifier can see the clean status and allow Claude's retry.
 >
 > In the classifier requests sent by Claude Code itself, the classifier sees user messages, tool calls other than read-only lookups such as file reads and searches, and your CLAUDE.md content. Tool results are stripped from those requests, so hostile content in a file or web page can't manipulate the classifier directly.
 >
@@ -646,18 +646,23 @@ The following sections cover the order Claude Code evaluates an action in, how t
 
 ## Allow only pre-approved tools with dontAsk mode
 
-If you set `dontAsk` mode, Claude Code auto-denies every tool call that would otherwise prompt you, though a [mod](https://code.claude.com/docs/en/plugins/mods/overview.md) you installed can still approve some of those calls. To check which calls a mod can approve, see [Extend permissions with hooks](https://code.claude.com/docs/en/permissions.md#precedence-among-rules-hooks-and-mods).
+If you set `dontAsk` mode, Claude Code auto-denies every tool call that would otherwise prompt you, though a [mod](https://code.claude.com/docs/en/plugins/mods/overview.md) you installed can still approve some of those calls. To check which calls a mod can approve, see [Extend permissions with hooks](https://code.claude.com/docs/en/permissions.md#precedence-among-rules-hooks-and-mods). Don't rely on `dontAsk` to stop a [tool call a mod makes itself](https://code.claude.com/docs/en/plugins/mods/reference.md#mods-api-methods).
 
-Claude still runs actions that need no approval in Manual mode, such as file reads inside your working directories and [read-only Bash commands](https://code.claude.com/docs/en/permissions.md#read-only-commands). Actions matching your `permissions.allow` rules and calls approved by a [PreToolUse hook](https://code.claude.com/docs/en/permissions.md#extend-permissions-with-hooks) run too. Use this mode for CI pipelines or restricted environments where you pre-define what Claude may do; the session never waits for input. The status bar shows `⏵⏵ don't ask on` in this mode.
+Claude still runs actions that need no approval in Manual mode, such as file reads inside your working directories and [read-only Bash commands](https://code.claude.com/docs/en/permissions.md#read-only-commands). Actions matching your `permissions.allow` rules and calls approved by a [PreToolUse hook](https://code.claude.com/docs/en/permissions.md#extend-permissions-with-hooks) run too. Use this mode for CI pipelines or restricted environments where you pre-define what Claude may do. The status bar shows `⏵⏵ don't ask on` in this mode.
 
-Claude Code denies calls matching your explicit [`ask` rules](https://code.claude.com/docs/en/permissions#manage-permissions) rather than prompting. It also denies the built-in `AskUserQuestion` tool even if your allow rules match it, and does the same to connector tools [your organization set to `ask`](https://code.claude.com/docs/en/mcp#organization-controls-on-connector-tools) in sessions where that setting reaches Claude Code. It denies MCP tools marked [`_meta["anthropic/requiresUserInteraction"]`](https://code.claude.com/docs/en/mcp#require-approval-for-a-specific-tool) the same way, because their approval card needs an answer this mode never collects.
+These calls are denied where you'd otherwise see a prompt:
+
+* **Your `ask` rules**: Claude Code denies calls matching your explicit [`ask` rules](https://code.claude.com/docs/en/permissions#manage-permissions).
+* **`AskUserQuestion`**: Claude Code denies this built-in tool even if your allow rules match it.
+* **Connector tools [your organization set to `ask`](https://code.claude.com/docs/en/mcp#organization-controls-on-connector-tools)**: these are denied in sessions where that setting reaches Claude Code.
+* **MCP tools marked [`_meta["anthropic/requiresUserInteraction"]`](https://code.claude.com/docs/en/mcp#require-approval-for-a-specific-tool)**: these are denied because their approval card needs an answer this mode can't collect.
 
 An allow rule or `PreToolUse` hook can't approve these:
 
 * Recognized `rm` and `rmdir` [critical-path removals](#critical-paths), such as `rm -rf /` and `rm -rf ~`
 * Reads from a [network path](https://code.claude.com/docs/en/permissions.md#network-paths)
 
-[Cloud sessions](https://code.claude.com/docs/en/claude-code-on-the-web.md) ignore `defaultMode: "dontAsk"`; see [bypassPermissions](#skip-all-checks-with-bypasspermissions-mode) for details.
+[Cloud sessions](https://code.claude.com/docs/en/claude-code-on-the-web.md) ignore `defaultMode: "dontAsk"`. See [bypassPermissions](#skip-all-checks-with-bypasspermissions-mode) for details.
 
 Set it at startup with the flag:
 

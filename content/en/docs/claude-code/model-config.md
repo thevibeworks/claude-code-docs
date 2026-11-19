@@ -443,7 +443,7 @@ Restrictions apply org-wide or per role:
 * Haiku models are always available and can't be disabled, so every member keeps at least one usable model.
 * An access change takes effect on new requests within about a minute; the `/model` picker reflects it the next time a session starts.
 
-Both restrictions apply together: a model is selectable only when it is permitted by `availableModels` and not restricted by the organization. Organization restrictions reach sessions on the Anthropic API and [LLM gateway](https://code.claude.com/docs/en/llm-gateway) deployments only; on any other provider, use `availableModels` instead.
+Both restrictions apply together: a model is selectable only when it is permitted by `availableModels` and not restricted by the organization. Organization restrictions reach sessions on the Anthropic API and [LLM gateway](https://code.claude.com/docs/en/llm-gateway) deployments only; with a [gateway credential](https://code.claude.com/docs/en/llm-gateway#subscriptions-and-gateways) or on any other provider, use `availableModels` instead.
 
 ## Organization default model
 

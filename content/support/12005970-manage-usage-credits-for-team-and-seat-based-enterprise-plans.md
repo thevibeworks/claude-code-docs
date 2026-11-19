@@ -28,7 +28,7 @@ After an organization Owner or Primary Owner configures your account for usage c
 
 2. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
 
-3. Click "Enable" in **Usage credits** to turn this on for your organization.
+3. Toggle on "Turn on usage credits."
 
 4. You'll be prompted to pay for usage credits.
 
@@ -46,7 +46,7 @@ After an organization Owner or Primary Owner configures your account for usage c
 
 2. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
 
-3. Click "Enable" in **Usage credits** to turn this on for your organization.
+3. Toggle on "Enable extra usage" (labeled "Turn on usage credits" on some plans).
 
 4. You'll be prompted to set monthly spend limits for the organization as a whole, by seat tier, or for individual members.
 
@@ -86,7 +86,7 @@ Select the "By group" tab to see **Standard seats** and **Premium seats** groups
 
 Owners and Primary Owners can also set individual monthly spend limits, where available, for each member by finding **Spend limits by user** and clicking the "..." button next to the user, then "Edit limit."
 
-Enter the amount and click "Set limit." Alternatively, selecting "Set to unlimited" will remove that member's monthly spend limit (they will still be subject to any organization or seat-level spend limits).
+Enter the amount and click "Set limit." Alternatively, selecting "Unlimited" will remove that member's monthly spend limit. Any seat-level or group monthly limits no longer apply to them. Any organization-wide spend limit still applies, as do any pooled group budgets on Enterprise plans.
 
 This allows owners fine control over usage credits, so you can set limits for different members based on their roles or individual needs. Once a user reaches their defined spend limit, this will automatically pause their usage credits until the end of the month. They will need to wait for their usage limits to reset before using Claude again.
 
