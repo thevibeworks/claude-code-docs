@@ -83,3 +83,14 @@ Each run is bounded by `inferenceCredentialHelperTimeoutSec` seconds (default 60
 ## Turn off mid-session re-runs
 
 By default, when a running session's credential is rejected, Claude Desktop re-runs the helper with `CLAUDE_HELPER_CONTEXT=mid-session-refresh` to recover without interrupting the user. If your helper can't run safely outside the `interactive` context, set `inferenceCredentialHelperSilentRefreshEnabled` to `false`. Claude Desktop then keeps the cached credential until the next session start and surfaces an expiry prompt instead of re-running the helper mid-session.
+
+## Install the helper for Claude Code in the terminal
+
+If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md), Claude Code can also run the **Helper script** on your **Connection** page. Claude Code checks the script before it runs it:
+
+* **On macOS and Linux**: the script runs only if the developer's account can't change any of these: the script, the interpreter on its `#!` line, any file that an argument names, and every folder above those files. For example, make them all owned by root with mode `755`. Start the script with the full path of its interpreter, such as `#!/bin/bash`, not `#!/usr/bin/env`. The script doesn't run when Claude Code runs as root.
+* **On Windows**: install the script, and any file that an argument names, under `C:\Program Files`, not `C:\Program Files (x86)`. Give the full path of each file. Claude Code checks only where the files are, so keep that folder's default permissions.
+
+Claude Code doesn't check the programs that your script starts, or code that its interpreter loads from the developer's folders.
+
+Your **Helper script** doesn't run on a managed computer that sets its own credential for your cloud provider, such as `AWS_PROFILE`. When that happens, a cloud provider needs the developer's own credentials, and Claude Code in the terminal doesn't use your gateway. To see why, the developer runs `/status` in Claude Code.

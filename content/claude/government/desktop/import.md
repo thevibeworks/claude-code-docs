@@ -79,7 +79,7 @@ In Claude Desktop, open **Settings**, then the **Import & export** page, and cli
 
 In organizations that also allow [export and import between computers](#move-your-data-to-another-computer), Claude Desktop 6.6395.0 or later opens the dialog on **Choose where to import from**. The web app import is the **From the web** row. The **From another computer** row is for a [zip file](#export-and-import-the-zip-file).
 
-![Claude Desktop settings with Import and export selected and the Import from Claude dialog open on its Source step, headed Choose where to import from. A From the web row has a Sign in to Claude for Government Web button, and a From another computer row has a Choose file button.](https://mintcdn.com/claude-ai/L1k4TL2u-5RSfIQI/images/government/import/import-choose-source.png?fit=max\&auto=format\&n=L1k4TL2u-5RSfIQI\&q=85\&s=5f696440a766e4fb9982eefa8751f27e)
+![Claude Desktop settings with Import and export selected and the Import from Claude dialog open on its Source step, headed Choose where to import from. A From the web row has a Sign in to Claude for Government Web button, and a From another computer row has a Choose file button.](https://mintcdn.com/claude-ai/ArGP1lHk5ekvCwKg/images/government/import/import-choose-source.png?fit=max\&auto=format\&n=ArGP1lHk5ekvCwKg\&q=85\&s=3f94c4a6321bf01c895cd27d0d8c32d9)
 
 The first step of the import dialog, in an organization that has both the web app import and the zip file import.
 

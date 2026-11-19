@@ -107,11 +107,27 @@ No. Turning on **[customer-managed encryption keys](https://platform.claude.com/
 
 **What happens to my existing projects with the latest update?**
 
-We're automatically moving existing projects to the new experience, and the earlier version will be retired on November 25, 2026. Your findings are copied to a new project, and the original is archived. If your project arrives paused, its owner can resume it.
+We're automatically moving existing projects to the new experience, and the earlier version will be retired on November 25, 2026. Your findings are copied to a new project, and the original is archived. You can no longer start scans or add schedules in the earlier version.
+
+When we move a project that has no active scan schedule, it arrives paused. Its owner, or anyone with the Full role on it, can click "Resume scans" if they have access to the repository. Resuming turns on continuous monitoring: Claude reviews all the code in the project and keeps reviewing it, charged at token cost. A project that had a schedule on normally starts continuous monitoring by itself within a day or two after it moves, and is charged the same way. To stop it, the owner or anyone with the Full role can click "Pause scans" in the project's menu. Some arrive paused instead, for example when another project already covers the same code, so check yours.
+
+Once the earlier version is retired, you won't be able to access it. If a project you own hasn't moved yet, click "Move your projects" on the Claude Security home page. If you don't see that button, or a project still hasn't moved, contact your account team or Support.
 
 **Can I migrate my existing projects?**
 
-Yes, if you own the project. Open it and click "Migrate project", or click "Migrate your projects" on the Claude Security home page to migrate every project you own. Claude Security creates a new project, copies the findings to it, and archives the original. Members, excluded directories, scan history, and scheduled scans aren’t copied. Migrate project copies the project’s webhooks where it can and tells you what changes for them. GitHub Enterprise projects can't be migrated.
+Yes, if you own the project and your role lets you create projects. Click "Move your projects" on the Claude Security home page. While the earlier version is still open, you can also open one project there and click "Move project". Claude Security creates a new project, copies the findings to it, and archives the original. A move can't be undone. The new project may start scanning right away, and setup and scans are charged at token cost. Most projects have already been moved automatically. GitHub Enterprise projects move with "Move your projects", or we move them for you.
+
+**What comes with a project when it moves?**
+
+Findings come with their status, and dismissed or fixed findings keep their note. The owner, members, and sharing come too where possible. Scan history, the scan schedule, links to fix pull requests, the date a finding was first found, and who dismissed it aren't copied. In the API, moved projects and findings have new IDs and are dated at the move, so a tool that imports findings may see them as new. A paused project has the status `paused`.
+
+**Why does a moved project have an owner or sharing I didn't expect?**
+
+A move normally keeps both. If the owner has left your organization, the project goes to someone it was shared with, or to an organization owner or admin. To change it, the owner or someone with "Manage all projects" clicks "Share", opens the role menu next to the new owner's name, and clicks "Transfer ownership". Members with "View all projects" can see moved projects that were private before, and their findings, even for repositories they can't access on GitHub.
+
+**What changes for my webhooks?**
+
+A project's webhooks are copied where possible. Slack webhooks need no change. Others get a new signing secret and Standard Webhooks signatures. A receiver that checks signatures refuses messages until you update it, and they're dropped after a few retries. Open Webhooks, click "Rotate signing secret", and copy the secret, which is shown once. Add it to your receiver with a Standard Webhooks check, and keep the old check while projects that haven't moved still send to it. Turn the webhook on if it's off, and click "Send test event". Scan completed events are no longer sent, and finding IDs are now strings. Organization-wide webhooks aren't copied: an organization owner can import them on the Webhooks page.
 
 ### Continuous monitoring
 
@@ -217,7 +233,7 @@ Yes, eligible Claude Enterprise organizations receive free usage credits up to $
 
 **Does the launch offer also apply to the old experience?**
 
-No, the launch offer only applies to projects created with the new experience.
+No. The launch offer applies to usage in the new experience, including projects that were moved to it. Scans in the earlier version are charged as usual.
 
 ### Claude Security plugin for Claude Code
 

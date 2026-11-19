@@ -111,7 +111,7 @@ A few notes on the table:
 
 - Scheduled tasks run in the cloud, so they no longer need your computer to be awake. For more information, see **[Schedule recurring tasks in Claude Cowork](https://support.claude.com/en/articles/13854387)**.
 
-- Computer use is available on Pro, Max, and Ultra plans. For more information, see **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542)**.
+- Computer use is available on Pro, Max, and Ultra plans. On Team and Enterprise plans, computer use is in beta and rolling out to organizations gradually. It doesn't work in tasks started with the "Cowork" option. It works in the new Claude experience once an owner turns it on. For more information, see **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542)**.
 
 ## What requires the desktop app
 

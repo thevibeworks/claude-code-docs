@@ -70,6 +70,7 @@ Each custom role can grant or restrict access to the following capabilities:
 | Meetings with external guests             | Let org members with this role add Claude to meetings with external guests.                                                                                                                                                                                                                                                                                          |
 | Claude in Chrome                          | Access to Claude in Chrome, the browser extension that lets Claude browse and act on web pages on the user's behalf.                                                                                                                                                                                                                                                 |
 | Computer access                           | Ability to access their computer’s files, apps, and browser from scheduled tasks, Claude on the web, or Claude Mobile. This also applies to chats in the new unified Claude experience that connect to a user’s computer. Sessions run from Claude Desktop on that computer aren’t affected. Claude Code remote control is a separate capability and isn’t affected. |
+| Computer use (beta)                       | Access to computer use in Chat and Cowork unified, which lets Claude see the screen and use the apps the user allows, through Claude Desktop. This is rolling out to organizations gradually.                                                                                                                                                                        |
 | Scheduled tasks (Was Routines)            | Ability to create scheduled and webhook-triggered routines that run Claude Code autonomously in the cloud. Turning this off also turns off scheduled tasks for Cowork in the cloud and scheduled routines in the new unified Claude experience.                                                                                                                      |
 
 *Claude Code dynamic workflows are on for your whole organization by default. Because a single run can last for hours and use more tokens than a typical session, decide which roles should have access. For members on custom roles, this capability follows the additive model like any other—a role must grant it for those members to use it. To restrict a specific group, leave this capability off in their role.
@@ -94,7 +95,7 @@ Instead of toggling capabilities individually, you can grant a role every capabi
 
 - **All generally available:** Grants the role every generally available capability.
 
-Roles set to either option pick up new capabilities automatically as they launch. Roles set to “Only selected” only include the capabilities you select.
+Roles set to either option pick up new capabilities automatically as they launch. Roles set to “Only selected” only include the capabilities you select. Roles set to “All capabilities” include computer use. Roles set to “All generally available” don't include it, unless they're left selected when you turn computer use on.
 
 ---
 

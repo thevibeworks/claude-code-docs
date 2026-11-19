@@ -27,6 +27,8 @@ You see the card and the command for each one your administrators turned on.
 
 When Claude asks to create a design or deck, or to save a change to one, click **Create** or **Update**.
 
+To give Claude your brand's colors and type to use, [add a design system on your computer](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md#add-a-design-system-on-one-computer).
+
 ## Find a design or deck again
 
 Click **Artifacts** in the sidebar, then click the design or deck to open it. Designs and decks are kept on your computer, so they are available only there. The zip file that moves your data to another computer [leaves them out](https://claude.com/docs/government/desktop/import.md#what-the-zip-file-leaves-out), so [export](#export-a-design-or-deck) the ones you want to keep first.
@@ -47,8 +49,6 @@ When you delete the conversation where you made a design or deck, the title of t
 * **Delete task**: the designs and decks made in the task stay on the **Artifacts** page.
 
 ## Turn on Design and Slides
-
-If the settings are missing from your **Config** page, Anthropic hasn't enabled them for your tenant, so contact your Anthropic representative.
 
 1. As a tenant administrator or organization owner, go to **Settings > Config** in the admin portal.
 2. Under **Product availability**, expand [**Design in Claude Desktop**](https://claude.com/docs/government/config/settings.md#design-in-claude-desktop) or [**Slides in Claude Desktop**](https://claude.com/docs/government/config/settings.md#slides-in-claude-desktop), turn on its switch, and click **Save changes**.
