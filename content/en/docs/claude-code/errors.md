@@ -46,6 +46,7 @@ Match the message you see to a section below.
 | `Agent terminated early due to an API error` | [Server errors](#agent-terminated-early-due-to-an-api-error) |
 | `You've hit your session limit` / `You've hit your weekly limit` / `You've hit your Opus limit` / `You've hit your Sonnet limit` | [Usage limits](#youve-hit-your-session-limit) |
 | `Usage credits required for 1M context` | [Usage limits](#usage-credits-required-for-1m-context) |
+| `Usage credits ran out before the response was finished.` | [Add usage credits](https://code.claude.com/docs/en/costs.md#add-usage-credits-to-your-subscription) |
 | `the prompt to confirm went unanswered · nothing was sent`, from v2.1.324 | [Usage limits](#the-prompt-to-confirm-went-unanswered) |
 | `Claude stopped here · send a message to be asked again` | [Usage limits](#the-prompt-to-confirm-went-unanswered) |
 | `Server is temporarily limiting requests` | [Usage limits](#server-is-temporarily-limiting-requests) |
@@ -90,6 +91,7 @@ Match the message you see to a section below.
 | `Remote Control was turned off by your organization's policy` | [Troubleshoot Remote Control](https://code.claude.com/docs/en/remote-control.md#remote-control-was-turned-off-by-your-organizations-policy) |
 | `Session failed: working folder not found:` | [Troubleshoot Remote Control](https://code.claude.com/docs/en/remote-control.md#working-folder-not-found) |
 | `The program file this Remote Control started from is gone` | [Troubleshoot Remote Control](https://code.claude.com/docs/en/remote-control.md#program-file-is-gone) |
+| `Session failed: program not found:` | [Troubleshoot Remote Control](https://code.claude.com/docs/en/remote-control.md#program-file-is-gone) |
 | `Session failed: spawn error:` followed by an `ENOENT` message | [Troubleshoot Remote Control](https://code.claude.com/docs/en/remote-control.md#program-file-is-gone) |
 | `Remote Control disconnected:` followed by a reason that mentions a `share link` | [Remote Control](https://code.claude.com/docs/en/remote-control.md#what-connected-devices-see) |
 | `OAuth token revoked` / `OAuth token has expired` | [Authentication](#oauth-token-revoked-or-expired) |
@@ -318,7 +320,7 @@ Match the message you see to a section below.
 | `Claude Code couldn't restart` | [Command-line errors](#claude-code-couldnt-restart) |
 | `Couldn't open Claude Desktop` | [Command-line errors](#couldnt-open-claude-desktop) |
 | `Failed to open Claude Desktop. Please try opening it manually.` | [Command-line errors](#couldnt-open-claude-desktop) |
-| `Couldn't read your Zed keymap` / `Couldn't back up your Zed keymap` / `Couldn't update your Zed keymap` | [Command-line errors](#terminal-setup-left-your-zed-keymap-unchanged) |
+| `Couldn't read your Zed keymap` / `Couldn't back up your Zed keymap` / `Couldn't update your Zed keymap` / `Your Zed keymap is a symbolic link` | [Command-line errors](#terminal-setup-left-your-zed-keymap-unchanged) |
 | `Your Zed keymap isn't a readable list of keybindings` | [Command-line errors](#terminal-setup-left-your-zed-keymap-unchanged) |
 | `Skill usage reports are not available on this connection.` | [Command-line errors](#skill-usage-reports-are-not-available-on-this-connection) |
 | `Custom output styles can't be selected over Remote Control or from a relayed message` | [Command-line errors](#custom-output-styles-cant-be-selected-over-remote-control) |
@@ -391,6 +393,7 @@ Match the message you see to a section below.
 | `cannot be handed to a teammate intact` | [Tool errors](#command-line-deny-rule-cannot-be-handed-to-a-teammate) |
 | `Message too large for cross-session delivery` | [Tool errors](#message-too-large-for-cross-session-delivery) |
 | `Too many messages to this session just now` | [Tool errors](#too-many-messages-to-this-session-just-now) |
+| `Held a message from <sender>` / `Dropped the held message from <sender> without delivering it` | [Control inbound messages](https://code.claude.com/docs/en/cross-session-messaging.md#control-inbound-messages), or [Non-interactive sessions](https://code.claude.com/docs/en/cross-session-messaging.md#non-interactive-sessions) for `claude -p` |
 | `Cross-session message was dropped at the recipient session's inbox` | [Tool errors](#cross-session-message-dropped-at-the-inbox) |
 | `Refusing to send: reply target is a symlink` / `Refusing to send: cannot vet reply target` | [Tool errors](#refusing-to-send-a-cross-session-message) |
 | `Refusing to read <path>: its symlink resolution changed after permission was checked (<reason>)` / `Refusing to search <path>: its symlink resolution changed after permission was checked` | [Tool errors](#refusing-after-a-symlink-changed) |
@@ -410,6 +413,7 @@ Match the message you see to a section below.
 | `File is not valid UTF-8. It may use a legacy encoding such as Windows-1252, Shift-JIS or GBK, or be binary` | [Tool errors](#file-is-not-valid-utf-8) |
 | `git is not installed on this Mac. To install it, run xcode-select --install, then try again.` | [Tool errors](#git-is-not-installed-on-this-mac) |
 | `Refusing to apply edits to <path>: a hook is configured for file edits in this session` | [Tool errors](#a-hook-is-configured-for-file-edits) |
+| `blocking because onFailure is "block"` | [Block the action when a hook fails](https://code.claude.com/docs/en/hooks.md#block-the-action-when-a-hook-fails) |
 | `the source file is not valid UTF-8 text` / `the source file is not valid UTF-16 text` | [Tool errors](#the-source-file-is-not-valid-utf-8-text) |
 | `the source file has the replacement character U+FFFD` | [Tool errors](#the-source-file-is-not-valid-utf-8-text) |
 | `Not published: that file is on a network share` | [Tool errors](#not-published-that-file-is-on-a-network-share) |
@@ -602,7 +606,7 @@ You can tune retry behavior with these environment variables:
 A non-streaming attempt ends at its request timeout or at the body idle timeout, whichever comes first:
 
 * **Request timeout**: `API_TIMEOUT_MS` when you set a positive value, otherwise 300 seconds in a local session.
-* **[Body idle timeout](https://code.claude.com/docs/en/network-config.md#streaming-idle-watchdogs)**: 5 to 6 minutes without a response, however high you set `API_TIMEOUT_MS`, where it runs and you haven't turned it off.
+* **[Body idle timeout](https://code.claude.com/docs/en/network-config.md#streaming-idle-watchdogs) where it runs**: by default, 5 to 6 minutes without a response, however high you set `API_TIMEOUT_MS`.
 
 ## Server errors
 
@@ -663,7 +667,8 @@ The default request timeout is 10 minutes. If you set [`API_TIMEOUT_MS`](https:/
 
 * If every request fails with this message and you set `API_TIMEOUT_MS` to `0`, check `claude --version`. On a version before v2.1.305, update Claude Code or set a positive value.
 * Retry the request
-* If a slow network or proxy is the cause, raise `API_TIMEOUT_MS` as described in [Automatic retries](#automatic-retries)
+* If the message continues past `Request timed out` and names an [environment variable](https://code.claude.com/docs/en/env-vars.md#set-environment-variables), do what the message says. `No data arrived` means the [body idle timeout](https://code.claude.com/docs/en/network-config.md#streaming-idle-watchdogs) ended the request.
+* With a slow network or proxy on a version before v2.1.328, raise [`API_TIMEOUT_MS`](#tune-retry-behavior). If the request still times out, [update to v2.1.328 or later](https://code.claude.com/docs/en/setup.md#update-claude-code) and set any variable the next timeout message names. If you can't update, set [`API_FORCE_IDLE_TIMEOUT`](https://code.claude.com/docs/en/env-vars) to `0`.
 * If timeouts are frequent and your network is otherwise healthy, see [Network and connection errors](#network-and-connection-errors) below
 
 ### No response from API
@@ -2700,11 +2705,10 @@ The first form means the schema isn't valid JSON Schema draft 2020-12. The secon
 
 Claude Code [excludes MCP tools whose input schema would fail this validation](https://code.claude.com/docs/en/mcp.md#tools-with-invalid-input-schemas) when it loads a server's tools, so requests normally never include one.
 
-On a [deployment where flag fetching is off](https://code.claude.com/docs/en/env-vars.md#features-that-need-feature-flag-fetching), or on a machine whose flags have never arrived, Claude Code records in the server's log which tool would be rejected but sends it anyway, so this error can still occur.
+The error can still occur, such as when:
 
-The error can also occur for a tool whose schema declares a JSON Schema dialect other than draft 2020-12 in `$schema`. Claude Code doesn't check those schemas against the JSON Schema meta-schema, though the top-level property-name check still applies.
-
-Before v2.1.216, no deployment ran the exclusion checks.
+* [Feature flag fetching](https://code.claude.com/docs/en/env-vars.md#features-that-need-feature-flag-fetching) is on but the [flags haven't arrived](https://code.claude.com/docs/en/env-vars.md#first-session-after-an-install-or-upgrade). Before v2.1.328, the error could also occur with fetching off.
+* The tool's schema declares a JSON Schema dialect other than draft 2020-12 in `$schema`.
 
 **What to do:**
 
@@ -4321,7 +4325,7 @@ Before v2.1.285, the message ended `Open Claude Desktop and run /desktop again.`
 
 You ran [`/terminal-setup`](https://code.claude.com/docs/en/terminal-config#enter-multiline-prompts) in Zed, and Claude Code couldn't complete the update to your Zed `keymap.json`, so it left the file as it was.
 
-Each message names the path to your keymap and ends with the keybinding block to add yourself:
+Each message names the path to your keymap and includes the keybinding block to add yourself:
 
 ```text theme={null}
 Couldn't update your Zed keymap, so it was left unchanged.
@@ -4333,6 +4337,7 @@ The first line of the message names the cause:
 
 * `Couldn't read your Zed keymap, so it was left unchanged.`: Claude Code couldn't read the file, for example because of file permissions
 * `Your Zed keymap isn't a readable list of keybindings, so it was left unchanged.`: the file read fine but doesn't parse as an array of keybinding blocks, even with `//` comments and trailing commas allowed
+* `Your Zed keymap is a symbolic link, so it was left unchanged.`: `keymap.json` links to another file
 * `Couldn't back up your Zed keymap; not modifying it.`: Claude Code couldn't copy the file to a `.bak` backup beside it, so it changed nothing
 * `Couldn't update your Zed keymap, so it was left unchanged.`: the merged result didn't verify as a valid keymap carrying the binding, so Claude Code discarded it instead of writing. A keybinding block with a duplicated key can cause this
 

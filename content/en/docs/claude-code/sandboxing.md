@@ -234,6 +234,8 @@ These rules and settings change who approves the retry:
 * **An ask rule for the parameter**: add an [ask rule](https://code.claude.com/docs/en/permissions.md#match-by-input-parameter) for `Bash(dangerouslyDisableSandbox:true)` to be prompted on Bash retries. You get the prompt in auto mode and `bypassPermissions` mode too, and the rule takes precedence over a matching allow rule
 * **[`permissions.blockReadsOutsideWorkingDirectories`](https://code.claude.com/docs/en/settings-reference#permissions-blockreadsoutsideworkingdirectories)**: [Actions no mode auto-approves](https://code.claude.com/docs/en/permission-modes.md#actions-no-mode-auto-approves) covers the retries that prompt while it's on
 
+If you use Code Mode, retries in auto mode work differently. See [Limit shell commands with the sandbox](https://code.claude.com/docs/en/code-mode.md#limit-shell-commands-with-the-sandbox).
+
 While commands are refused with a [`Sandbox is required` message](#commands-refused-with-sandbox-is-required), Claude Code ignores the `dangerouslyDisableSandbox` parameter and refuses the retry too.
 
 #### Turn off the retry with strict sandbox mode

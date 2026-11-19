@@ -23,7 +23,7 @@ These keys are passed directly to the Claude Code process as environment variabl
 | `inferenceProvider` and all provider credential keys (`inferenceGateway*`, `inferenceAnthropicApiKey`, `inferenceVertex*`, `inferenceBedrock*`, `inferenceFoundry*`, `inferenceCredentialHelper*`) | Selects the inference backend and supplies credentials. Code sessions use the same provider and endpoint as Cowork sessions, and the same credentials unless [your organization's launcher](#start-code-sessions-through-a-corporate-launcher) starts them. |
 | `inferenceModels` | Populates the model picker. The first entry is the default for new Code sessions. |
 | `autoModeEnabled` | Controls **Auto mode**, which needs a [model that supports it](https://code.claude.com/docs/en/permission-modes#eliminate-prompts-with-auto-mode). When the key isn't set, Code sessions offer **Auto mode** and new sessions start in it unless the user has already chosen another mode or a Claude Code `permissions.defaultMode` applies. Set it to `false` to remove **Auto mode** from Code and Cowork. Set it to `true` to also offer the mode in Cowork, where it appears as **Automatically approve**. In Code sessions, a separately deployed Claude Code [managed-settings file](#interaction-with-claude-code%E2%80%99s-own-managed-settings) that sets `disableAutoMode` to `"disable"` also keeps **Auto mode** hidden, whatever this key is set to. To change what **Auto mode** allows and blocks, see [Tune the Auto mode classifier](#tune-the-auto-mode-classifier). To have the model provider review actions on a gateway deployment, see [Auto mode checks](https://claude.com/docs/third-party/claude-desktop/gateway.md#auto-mode-checks). |
-| `autoModeClassifierModel` | Sets the model for Claude Code's built-in safety check in **Auto mode**. See [Choose the Auto mode classifier model](#choose-the-auto-mode-classifier-model). |
+| `autoModeClassifierModel` | Sets the model for Claude Code's built-in safety check in **Auto mode**. Claude Code managed settings that set `CLAUDE_CODE_AUTO_MODE_MODEL` can take priority. See [Choose the Auto mode classifier model](#choose-the-auto-mode-classifier-model). |
 | `scheduledTasksEnabled` | When `false`, the routines list in Code is hidden and Code sessions start without Claude Code's in-session scheduling tools, so the `/loop` command cannot schedule recurring work. Cowork's scheduled tasks are turned off by the same key. |
 | `disabledBuiltinTools` | Removes the listed tools from Code sessions. A `Read(…)` rule applies to Claude's file tools, and [only in part to shell commands](#file-path-rules-and-shell-commands). Tools your provider doesn't support, such as WebSearch on Amazon Bedrock, are removed automatically in addition to your list. To stop Claude from starting nested sessions (separate sessions for a task), add `mcp__ccd_session__start_session` and `mcp__ccd_session__hand_off_to_session`. Claude then can't start a nested session, even at a user's request or from inside one. In the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#set-up-a-device-without-mdm) or the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#start-from-an-existing-configuration-file), where the tool picker doesn't list these names, import your full configuration as JSON with the names added. Otherwise, add them to your MDM profile or bootstrap server's response. |
 | `builtinToolPolicy` | Tools set to `"ask"` require approval on each call in Code sessions. Argument-scoped rules such as `Bash(curl *)` are [applied as managed policy](#applied-as-managed-policy) instead. |
@@ -210,7 +210,9 @@ On a device that has the Claude Code CLI, run `claude auto-mode config` in a ter
 
 ### Choose the Auto mode classifier model
 
-In [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), which Cowork shows as **Automatically approve**, a safety classifier reviews Claude's actions. Except [on a gateway](https://claude.com/docs/third-party/claude-desktop/gateway.md#auto-mode-checks), sessions [ask your model provider for a review first](https://code.claude.com/docs/en/permission-modes#server-side-classifier-review), and Claude Code's built-in safety check takes over when the provider doesn't review the session. The built-in safety check uses Claude Sonnet 5 by default, and [some sessions use a different model](https://code.claude.com/docs/en/permission-modes#default-classifier-model). The model you choose for it doesn't affect your provider's reviews.
+In [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), which Cowork shows as **Automatically approve**, a safety classifier reviews Claude's actions. Sessions [ask your model provider for a review first](https://code.claude.com/docs/en/permission-modes#server-side-classifier-review), except on a gateway where [server-side Auto mode checks](https://claude.com/docs/third-party/claude-desktop/gateway.md#auto-mode-checks) are off. When the provider doesn't review the session, Claude Code's built-in safety check does.
+
+The built-in safety check uses Claude Sonnet 5 by default, and [some sessions use a different model](https://code.claude.com/docs/en/permission-modes#default-classifier-model). The model you choose for it doesn't affect your provider's reviews.
 
 Requires Claude Desktop 5.11492.0 or later. To choose the model for Cowork and Code sessions, set [`autoModeClassifierModel`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeclassifiermodel) where your devices [get their configuration](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device):
 
@@ -233,19 +235,20 @@ This example sets Claude Sonnet 4.6. Replace the IDs with your provider's:
 * **Don't use Claude Opus 5, Sonnet 5.5, or Opus 5.5.** These models [can't do the review](https://code.claude.com/docs/en/permission-modes#classifier-model-not-reviewing).
 * **A weaker model may allow actions that the default would block**
 
-Set `autoModeClassifierModel` even if your devices already set [`CLAUDE_CODE_AUTO_MODE_MODEL`](https://code.claude.com/docs/en/permission-modes#choose-the-classifier-model), Claude Code's environment variable for this model:
+Check where your devices also set [`CLAUDE_CODE_AUTO_MODE_MODEL`](https://code.claude.com/docs/en/permission-modes#choose-the-classifier-model), Claude Code's environment variable for this model:
 
-* **In [Claude Code managed settings](https://code.claude.com/docs/en/managed-settings) on the device, or in a user's `~/.claude/settings.json`**: Cowork and Code sessions ignore the value
+* **In [Claude Code managed settings](https://code.claude.com/docs/en/managed-settings) on the device**: Cowork sessions and local Code sessions use the value in place of `autoModeClassifierModel`. Use the same ID in both. Otherwise, a device switches to the managed value without warning when it updates to Claude Desktop 5.11492.5 or later. Earlier versions ignore the value. To deploy these settings, see [Tune the Auto mode classifier](#tune-the-auto-mode-classifier).
+* **In a user's `~/.claude/settings.json`**: Cowork and Code sessions ignore the value
 * **In a user's shell profile, the device's environment variables, or [the variables that a user saves in Code](https://code.claude.com/docs/en/desktop#environment-variables-in-local-sessions)**: Cowork and Code sessions ignore the value. Before Claude Desktop 5.11492.0, Code sessions could use it.
 
 Confirm the change on one device:
 
 1. Quit and reopen Claude Desktop
 2. Start a session in **Auto mode** on a model other than the one you set
-3. Have Claude call a connector tool
+3. Have Claude call a connector tool. If Code shows a card with **Stop** and **Continue**, select **Continue**.
 4. Check your provider's or gateway's logs for requests to the model you set
 
-If these requests don't appear, see [When your model doesn't review](https://code.claude.com/docs/en/permission-modes#classifier-model-not-reviewing).
+If these requests don't appear, open `cli-diagnostics-log.txt` in the [diagnostic report](https://claude.com/docs/third-party/claude-desktop/installation.md#verifying-the-deployment). A [`verdict` line](https://claude.com/docs/third-party/claude-desktop/gateway#auto-mode-check-results-in-the-diagnostic-report) from your test means that your provider reviewed the action, which is expected. Without one, see [When your model doesn't review](https://code.claude.com/docs/en/permission-modes#classifier-model-not-reviewing).
 
 ### Run vetted connector tools without classifier review
 

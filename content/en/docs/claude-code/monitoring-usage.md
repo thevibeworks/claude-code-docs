@@ -515,7 +515,7 @@ If the name that you set in `OTEL_RESOURCE_ATTRIBUTES` doesn't arrive, check for
 
 * **You set it on the computer that runs Desktop**: Desktop doesn't pass a value you set there to the SSH session
 * **You exported it in `/etc/profile` or another file that only login shells read**: the name arrives when you run `claude` from a login shell, but not in a Desktop SSH session. Desktop doesn't start Claude Code through a login shell. Set the variable under `env` in the [managed settings file](https://code.claude.com/docs/en/desktop.md#managed-settings) on the remote machine instead.
-* **A value has a space inside it**: Claude Code then copies none of the keys onto events or datapoints. To see which value has the space, run `/status` in a session on the remote machine. [Take the space out of the value](#multi-team-organization-support).
+* **A value has a space inside it**: Claude Code can then leave `host.name` off events and datapoints. To see which value has the space, run `/status` in a session on the remote machine. [Take the space out of the value](#multi-team-organization-support).
 * **Something else already sets the variable**: in a session that the desktop app starts, a variable already set in the launch environment [takes precedence over settings files](https://code.claude.com/docs/en/settings-reference.md#how-env-values-interact-with-your-shell). The [debug log](https://code.claude.com/docs/en/debug-your-config.md) can name an ignored variable. When a third-party Desktop deployment [names an OTLP endpoint](#how-managed-settings-lock-the-otlp-destination) in the environment it provides, that environment carries Desktop's own `OTEL_RESOURCE_ATTRIBUTES`.
 
 ### Example configurations
@@ -1479,7 +1479,7 @@ Logged when a [subagent](https://code.claude.com/docs/en/sub-agents.md) finishes
 * `is_built_in`: Whether the subagent is a built-in agent type
 * `is_async`: Whether the subagent ran in the [background](https://code.claude.com/docs/en/sub-agents.md#run-subagents-in-foreground-or-background)
 * `total_tokens`: The token footprint of the subagent's final API request: that one request's input, cache creation, cache read, and output tokens, roughly the subagent's context size at completion. Not a sum across the run
-* `total_tool_uses`: Number of tool calls the subagent made across the whole run
+* `total_tool_uses`: Number of tool calls the subagent made across the whole run, excluding [`SubagentHandback`](https://code.claude.com/docs/en/tools-reference)
 * `duration_ms`: Run time in milliseconds
 * `model`: The model the subagent was resolved to run
 * `final_model`: The model that produced the subagent's final response, which differs from `model` after a mid-run switch such as a fallback

@@ -138,10 +138,19 @@ Parameter matching follows these rules:
 * A parameter the model omits is never matched, so `Agent(model:*)` doesn't match a call that leaves `model` unset
 * The value is compared against the literal input Claude sends, before any normalization. `Agent(model:opus)` matches the alias `opus` but not a full model ID
 * A `Skill(skill:<name>)` deny rule instead [matches the skill under any of its names](https://code.claude.com/docs/en/skills.md#restrict-claude’s-skill-access), such as its alias or display name
-* Run with [`--verbose`](https://code.claude.com/docs/en/cli-reference) to see the exact parameter names and values in each tool call
 * Whitespace around the colon is ignored
 
 You can't match a tool's primary content field this way: `command` for Bash and PowerShell, `file_path` for Read, Edit, and Write, `path` for Grep and Glob, `notebook_path` for NotebookEdit, and `url` for WebFetch. A rule like `Bash(command:rm *)` would be bypassable by a compound command, so Claude Code ignores it and emits a startup warning. Use `Bash(rm *)`, `Read(./path)`, or `WebFetch(domain:host)` instead.
+
+#### Check the parameters Claude sends
+
+To see the parameter names and values Claude sends to a tool, run `claude -p` in your shell with [`stream-json` output](https://code.claude.com/docs/en/headless#stream-responses) and a prompt that calls for that tool. This example asks for a subagent on Opus, which Claude starts with the Agent tool:
+
+```bash theme={null}
+claude -p "Use a subagent on Opus to list the test files" --output-format stream-json --verbose
+```
+
+In the output, find the `tool_use` block whose `name` is the tool you're checking, `Agent` in this example. Its `input` holds the names and values.
 
 ### Wildcard patterns
 
@@ -657,6 +666,8 @@ In that setup, a call the mod approves can skip the prompt from an ask rule, a `
 
 See [Decide whether to trust a mod](https://code.claude.com/docs/en/plugins/mods/overview.md#decide-whether-to-trust-a-mod), or [Manage mods for your organization](https://code.claude.com/docs/en/plugins/mods/admin.md#know-what-happens-by-default) if you deploy managed settings.
 
+Don't rely on a permission rule to stop a [tool call a mod makes itself](https://code.claude.com/docs/en/plugins/mods/reference.md#mods-api-methods).
+
 For a [tool that requires user interaction](https://code.claude.com/docs/en/permission-modes.md#actions-no-mode-auto-approves), such as `AskUserQuestion` or an MCP tool marked `requiresUserInteraction`, a mod's `tool.check` approval doesn't skip the prompt. Requires Claude Code v2.1.292 or later. MCP tools marked [`requiresUserInteraction`](https://code.claude.com/docs/en/mcp#require-approval-for-a-specific-tool) also still prompt when a hook returns `"allow"`, as do reads from [network paths](#network-paths) and connector tools [your organization set to `ask`](https://code.claude.com/docs/en/mcp#organization-controls-on-connector-tools) in sessions where that setting reaches Claude Code.
 
 A blocking hook also takes precedence over allow rules. A hook that exits with code 2 stops the tool call before permission rules are evaluated, so the block applies even when an allow rule would otherwise let the call proceed. To run all Bash commands without prompts except for a few you want blocked, add `"Bash"` to your allow list and register a PreToolUse hook that rejects those specific commands. See [Block edits to protected files](https://code.claude.com/docs/en/hooks-guide.md#block-edits-to-protected-files) for a hook script you can adapt.
@@ -726,7 +737,7 @@ The following configuration types are loaded from `--add-dir` directories:
 | [Skills](https://code.claude.com/docs/en/skills.md) in `.claude/skills/` | Yes, with live reload |
 | [Command files](https://code.claude.com/docs/en/skills.md#where-skills-live) in `.claude/commands/` | Yes, without live reload. When the added directory and your project both define a command with the same name, Claude Code runs your project's command |
 | [Subagents](https://code.claude.com/docs/en/sub-agents.md) in `.claude/agents/` | Yes, without live reload |
-| [Settings](https://code.claude.com/docs/en/settings.md) in `.claude/settings.json` and `.claude/settings.local.json` | `enabledPlugins` and [`extraKnownMarketplaces`](https://code.claude.com/docs/en/settings-reference#extraknownmarketplaces) keys only |
+| [Settings](https://code.claude.com/docs/en/settings.md) in `.claude/settings.json` and `.claude/settings.local.json` | `enabledPlugins` and [`extraKnownMarketplaces`](https://code.claude.com/docs/en/settings-reference#extraknownmarketplaces) keys only. For when Claude Code skips them, see [Enabled in an `--add-dir` directory but not loaded](https://code.claude.com/docs/en/plugins/loading#enabled-in-an-add-dir-directory-but-not-loaded) |
 | [CLAUDE.md](https://code.claude.com/docs/en/memory.md) files, `.claude/rules/`, and `CLAUDE.local.md` | Only when `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1` is set. `CLAUDE.local.md` additionally requires the `local` setting source, which is enabled by default |
 
 To load the skills, commands, and subagents from a subdirectory of your [primary working directory](#working-directories) mid-session, run `/add-dir` with that subdirectory's path. Claude Code loads them for the rest of the session without adding a working directory. This requires Claude Code v2.1.257 or later.

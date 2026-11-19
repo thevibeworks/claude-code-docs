@@ -136,7 +136,7 @@ Use the code-improver agent to suggest improvements in this project
 
 Claude delegates to your new subagent, which scans the codebase and returns improvement suggestions. In the transcript, the delegation appears as a tool call row showing the subagent's name followed by a short task description, such as `code-improver(Suggest code improvements)`.
 
-If Claude can't find the new subagent, restart Claude Code and try again. This happens only when `~/.claude/agents/` didn't exist before the session started, because a running session doesn't detect a newly created `agents` directory.
+If Claude can't find the new subagent, restart Claude Code and try again.
 
 You now have a subagent you can use in any project on your machine to analyze codebases and suggest improvements.
 
@@ -245,9 +245,8 @@ Subagent files use YAML frontmatter for configuration, followed by the system pr
 >
 > Claude Code watches `~/.claude/agents/` and `.claude/agents/`. When you add or edit a subagent file on disk, or ask Claude to write one for you, Claude Code detects the change within a few seconds and the next delegation uses the updated definition, with no restart needed.
 >
-> Three cases still need a restart:
+> Some cases still need a restart:
 >
-> * The watcher covers only directories that existed when the session started, so after creating a scope's first agent file in a new `agents` directory, restart to load it.
 > * Claude Code doesn't watch `.claude/agents/` inside directories added with `--add-dir` or `/add-dir`, so after adding or editing a subagent there, restart to load the change.
 > * Sessions started with `--disable-slash-commands` don't watch these directories at all.
 
@@ -263,7 +262,7 @@ You are a code reviewer. When invoked, analyze the code and provide
 specific, actionable feedback on quality, security, and best practices.
 ```
 
-The frontmatter defines the subagent's metadata and configuration. The body becomes the system prompt that guides the subagent's behavior. Subagents receive only this system prompt plus basic environment details like the working directory, not the Claude Code system prompt.
+The frontmatter defines the subagent's metadata and configuration. The body becomes the system prompt that guides the subagent's behavior. Subagents receive this system prompt plus basic environment details like the working directory, not the Claude Code system prompt.
 
 In [non-interactive mode](https://code.claude.com/docs/en/headless.md), pass [`--append-subagent-system-prompt`](https://code.claude.com/docs/en/cli-reference#cli-flags) to append your text to the end of every subagent's system prompt, nested subagents included, apart from a [forked subagent](#fork-the-current-conversation), which reuses the conversation's own prompt. Requires Claude Code v2.1.205 or later. If your text is too long to pass on the command line, save it to a file and pass the path with `--append-subagent-system-prompt-file` instead. The file flag requires Claude Code v2.1.261 or later.
 
@@ -1079,7 +1078,7 @@ By default, a subagent can spawn subagents of its own, up to three layers below 
 Nested subagents suit a delegated task that itself splits into parallel subtasks, such as a reviewer subagent that dispatches a verifier per finding. By default the spawning subagent waits for each nested subagent's report:
 
 * **Interactive terminal session**: only the top-level subagent's summary returns to you, because a subagent that launches background subagents waits for their results before it finishes.
-* **`claude -p` and the Agent SDK**: the spawning subagent waits while [fork mode](#turn-fork-mode-on-or-off) is on. If you turn fork mode off, nested subagents start in the [background](#run-subagents-in-foreground-or-background) instead. The spawning subagent doesn't wait for a background nested subagent, which reports to your main conversation if it outlasts the spawning subagent.
+* **`claude -p` and the Agent SDK**: the spawning subagent waits only for a foreground nested subagent. A [background](#run-subagents-in-foreground-or-background) nested subagent reports to your main conversation if it outlasts the spawning subagent.
 
 To change the limit, set [`CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`](https://code.claude.com/docs/en/env-vars) to the number of subagent layers you want below your main conversation. For example, this entry in [`settings.json`](https://code.claude.com/docs/en/settings) caps nesting at two layers:
 

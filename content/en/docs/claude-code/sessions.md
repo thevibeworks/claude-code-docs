@@ -186,22 +186,18 @@ Run `/resume` inside a session, or `claude --resume` with no arguments, to open 
 | Shortcut | Action |
 | :- | :- |
 | `↑` / `↓` or `k` / `j` | Navigate between sessions |
-| `→` / `←` | Expand or collapse grouped sessions |
 | `Enter` | Resume the highlighted session |
-| `1` to `9` | Resume the session at that position in the list |
 | `Space` | Preview the session content. `Ctrl+V` also works on terminals that don't capture it as paste |
 | `Ctrl+R` | Rename the highlighted session |
-| `/` or any printable character other than `Space`, `j`, `k`, or a digit | Enter search mode and filter sessions. Paste a GitHub, GitHub Enterprise, GitLab, or Bitbucket pull or merge request URL to find the session that created it |
+| `/` or any printable character other than `Space`, `j`, or `k` | Enter search mode and filter sessions. Paste a GitHub, GitHub Enterprise, GitLab, or Bitbucket pull or merge request URL to find the session that created it |
 | `Ctrl+A` | Show sessions from all projects on this machine. Press again to return to the current repository |
 | `Ctrl+W` | Show sessions from all worktrees of the current repository. Press again to return to the current worktree. Only shown in multi-worktree repositories |
 | `Ctrl+B` | Filter to sessions from the current git branch. Press again to show all branches |
 | `Esc` | Exit the session picker or search mode |
 
-Each row shows the session name if you set one, otherwise the AI-generated session title, conversation summary, or first prompt, along with time since last activity, git branch, and file size.
+Each session's row is labeled with the first of these that exists: the name you set, the AI-generated session title, a conversation summary, or one of your prompts.
 
-Sessions created with `/branch` or `--fork-session` get their own session IDs and appear as separate rows. When the picker finds more than one entry for the same session, it groups them under a single row. Press `→` to expand a group.
-
-If Claude Code can't load the session you select from the `claude --resume` picker, it prints [`Failed to resume the conversation`](https://code.claude.com/docs/en/errors#failed-to-resume-the-conversation) with a command to retry, then exits with code 1. From the `/resume` picker inside a session, Claude Code reports the failure and your current conversation keeps running.
+Sessions created with `/branch` or `--fork-session` get their own session IDs and appear as separate rows.
 
 ## Branch a session
 

@@ -86,7 +86,7 @@ Every key below links to its entry. Scope lists the [files](https://code.claude.
 | [`disabledMcpjsonServers`](#disabledmcpjsonservers) | Reject specific servers from a project's [`.mcp.json`](https://code.claude.com/docs/en/mcp#project-scope) | MCP | Any file |
 | [`disableMobileSimulatorTools`](#disablemobilesimulatortools) | Block Claude's tools in the [desktop](https://code.claude.com/docs/en/desktop.md) iOS Simulator pane | Tools | Managed |
 | [`disableRemoteControl`](#disableremotecontrol) | Turn off [Remote Control](https://code.claude.com/docs/en/remote-control.md) everywhere it can start | Remote, desktop, and notifications | Any file |
-| [`disableRemotePreviewScripts`](#disableremotepreviewscripts) | Turn off scripts in the [desktop](https://code.claude.com/docs/en/desktop.md#preview-html-files-in-ssh-and-wsl-sessions) app's HTML previews in SSH and WSL sessions | Remote, desktop, and notifications | Managed |
+| [`disableRemotePreviewScripts`](#disableremotepreviewscripts) | Turn off scripts in the Browser pane's HTML previews in the [desktop](https://code.claude.com/docs/en/desktop.md#preview-html-files-in-ssh-and-wsl-sessions) app's SSH and WSL sessions | Remote, desktop, and notifications | Managed |
 | [`disableSideloadFlags`](#disablesideloadflags) | Reject the CLI flags that sideload [plugins](https://code.claude.com/docs/en/plugins/overview.md), [subagents](https://code.claude.com/docs/en/sub-agents.md), and [MCP servers](https://code.claude.com/docs/en/mcp.md) | Enterprise and managed settings | Managed |
 | [`disableSkillShellExecution`](#disableskillshellexecution) | Stop [skills](https://code.claude.com/docs/en/skills.md) and custom commands from running inline shell | Plugins and skills | Any file |
 | [`disableWorkflows`](#disableworkflows) | Turn [dynamic workflows](https://code.claude.com/docs/en/workflows.md) off for everyone; use `enableWorkflows` for yourself | Hooks and automation | Any file |
@@ -3924,7 +3924,7 @@ This example turns channels on and allows only the Telegram plugin from the offi
 }
 ```
 
-An empty array blocks every channel plugin.
+An empty array blocks every channel plugin unless a user loads it with [`--dangerously-load-development-channels`](https://code.claude.com/docs/en/channels#restrict-which-channel-plugins-can-run).
 
 This key takes effect once channels pass the [`channelsEnabled`](#channelsenabled) gate for the account: on Team and Enterprise plans, and on Console accounts with managed settings, that means `channelsEnabled: true`. See [Restrict which channel plugins can run](https://code.claude.com/docs/en/channels.md#restrict-which-channel-plugins-can-run).
 
@@ -4484,9 +4484,9 @@ Built-in servers such as Claude in Chrome, the `ide` server Claude Code connects
 
 Servers your organization delivers are also exempt from the allowlist, and the denylist still applies to them. The exemption covers every [`managedMcpServers`](#managedmcpservers) entry, and any [`managed-mcp.json`](https://code.claude.com/docs/en/managed-mcp#exclusive-control-with-managed-mcp-json) entry whose values use [no `${VAR}` expansion outside `env`](https://code.claude.com/docs/en/managed-mcp#how-allowlists-and-denylists-apply-to-the-managed-set). See [How a server is evaluated](https://code.claude.com/docs/en/managed-mcp.md#how-a-server-is-evaluated) for the full check order. Before v2.1.259, servers from `managed-mcp.json` had to match too.
 
-* **Scope**: [`Any file`](#scopes). Entries from every file merge into one allowlist unless [`allowManagedMcpServersOnly`](#allowmanagedmcpserversonly) is set. Deploy it in managed settings to enforce it.
+* **Scope**: [`Any file`](#scopes). For servers users add, entries from every file merge into one allowlist unless [`allowManagedMcpServersOnly`](#allowmanagedmcpserversonly) is set. To keep users from adding entries, deploy both keys in managed settings.
 * **Type**: array of objects, each with exactly one key. Use `serverName`, a string limited to letters, numbers, hyphens, and underscores; `serverCommand`, an array of the command and its arguments matched exactly; or `serverUrl`, a URL pattern with `*` wildcards
-* **Default**: unset, so every server is allowed; an empty array blocks every server users add
+* **Default**: unset, so every server is allowed; an empty merged list blocks every server users add
 
 This example allows only the stdio server that the listed `npx` command starts:
 
@@ -4583,8 +4583,8 @@ Approve every MCP server defined in project `.mcp.json` files without a prompt. 
 * **Scope**: [`Any file`](#scopes). In a folder whose trust dialog you haven't accepted, Claude Code honors it from user settings, managed settings, and `--settings` and ignores it in the shared project file, both in the session and for `claude mcp list` and `claude mcp get`; [Project server approvals and workspace trust](https://code.claude.com/docs/en/mcp.md#project-server-approvals-and-workspace-trust) says when an untracked `.claude/settings.local.json` counts too.
 * **Type**: Boolean
   * `true`: Claude Code approves every MCP server defined in project `.mcp.json` files without a prompt
-  * `false`: Claude Code asks you to approve each server. In a trusted folder, a `false` in a higher-precedence file overrides a `true` in a lower one; in a folder you haven't trusted, a `true` in any honored file is enough
-* **Default**: unset, so Claude Code asks you to approve each server
+  * `false`: interactive terminal sessions ask you to approve each [pending](https://code.claude.com/docs/en/mcp.md#server-status) server. See [Project scope](https://code.claude.com/docs/en/mcp.md#project-scope) for some sessions that connect it without asking and how to keep it out. In a trusted folder, a `false` in a higher-precedence file overrides a `true` in a lower one; in a folder you haven't trusted, a `true` in any honored file is enough
+* **Default**: unset, so interactive terminal sessions ask the same way
 
 ```json settings.json theme={null}
 {
@@ -4879,7 +4879,7 @@ Allow Claude to send a push notification to your phone when it decides one is wo
 * **Type**: Boolean
   * `true`: Claude can send a push notification to your phone when it decides one is worth sending
   * `false`: Claude doesn't send those notifications
-* **Default**: `false`
+* **Default**: unset, so Claude Code uses the value saved to your account, or `false` if none is saved
 
 ```json settings.json theme={null}
 {
@@ -4992,13 +4992,13 @@ Turn off [Remote Control](https://code.claude.com/docs/en/remote-control.md): Cl
 
 ### `disableRemotePreviewScripts`
 
-Keep scripts from running when people [preview an HTML file](https://code.claude.com/docs/en/desktop.md#preview-html-files-in-ssh-and-wsl-sessions) from an SSH or WSL session in the desktop app. External browsing in the Browser pane is unaffected.
+Keep scripts from running when people [preview an HTML file](https://code.claude.com/docs/en/desktop.md#preview-html-files-in-ssh-and-wsl-sessions) in the desktop app's Browser pane from an SSH or WSL session. External browsing in that pane is unaffected.
 
 The desktop app reads this key; the terminal CLI ignores it. Requires Claude Desktop v5.1231.0 or later. Earlier versions ignore the key: to stop the scripts there, also set [`disableBrowserExternalNavigation`](#disablebrowserexternalnavigation), which turns off external browsing too.
 
 * **Scope**: [`Managed`](#scopes). The desktop app doesn't read the key from the remote machine or the WSL distribution.
 * **Type**: Boolean; only the JSON Boolean `true` takes effect
-  * `true`: HTML previews in SSH and WSL sessions don't run scripts
+  * `true`: in SSH and WSL sessions, HTML previews in the Browser pane don't run scripts
   * `false`: the key doesn't turn scripts off
 * **Default**: unset, so the key has no effect
 
@@ -5038,7 +5038,7 @@ Get a push notification on your phone when a permission prompt or question is wa
 
 * **Scope**: [`Any file`](#scopes). Claude Code also reads a value left in `~/.claude.json` by older versions.
 * **Type**: Boolean
-* **Default**: `false`
+* **Default**: unset, so Claude Code uses the value saved to your account
 
 ```json settings.json theme={null}
 {
@@ -5498,7 +5498,7 @@ Any other value leaves Claude's tools on, and a non-empty string that isn't one 
 
 ### `disableBrowserExternalNavigation`
 
-Turn off external browsing in the desktop app's [Browser pane](https://code.claude.com/docs/en/desktop.md#browse-external-sites) for people and Claude alike. Localhost dev server previews keep working. HTML previews in SSH and WSL sessions still open, but they [don't run scripts](https://code.claude.com/docs/en/desktop.md#turn-off-scripts-in-ssh-and-wsl-previews-for-your-organization). The desktop app reads this key; the terminal CLI ignores it.
+Turn off external browsing in the desktop app's [Browser pane](https://code.claude.com/docs/en/desktop.md#browse-external-sites) for people and Claude alike. Localhost dev server previews keep working. The Browser pane's HTML previews in SSH and WSL sessions still open, but they [don't run scripts](https://code.claude.com/docs/en/desktop.md#turn-off-scripts-in-ssh-and-wsl-previews-for-your-organization). The desktop app reads this key; the terminal CLI ignores it.
 
 * **Scope**: [`Managed`](#scopes)
 * **Type**: Boolean; only the JSON Boolean `true` takes effect
@@ -5728,12 +5728,12 @@ To confirm which sources combined on a machine, run `/status` and [read the `Set
 
 ### `parentSettingsBehavior`
 
-Choose whether Claude Code applies managed settings supplied by an embedding host process, such as the Agent SDK or an IDE extension, when an admin-deployed managed tier is also present. With `"first-wins"`, Claude Code drops the host-supplied settings; with `"merge"`, it applies them under the admin tier through a restrictive-only filter. Set `"merge"` when a host needs to pass its own restrictions to the sessions it launches, for example Claude Desktop delivering a gateway's egress allowlist.
+Choose whether Claude Code applies managed settings supplied by an embedding host process, such as the Agent SDK or an IDE extension, when an admin-deployed managed tier is also present. Set `"merge"` when a host needs to pass its own restrictions to the sessions it launches, for example Claude Desktop delivering a gateway's egress allowlist.
 
 * **Scope**: [`Managed`](#scopes). Claude Code reads it from the highest-priority admin-controlled managed source.
 * **Type**: string, one of:
   * `"first-wins"`: Claude Code drops the host-supplied settings when an admin-deployed managed tier is present
-  * `"merge"`: Claude Code applies the host-supplied settings under the admin tier through a restrictive-only filter
+  * `"merge"`: Claude Code applies the host-supplied settings under the admin tier through a filter that keeps restrictive keys. Unless you [set the `allowManaged*Only` locks](https://code.claude.com/docs/en/claude-apps-gateway#restrict-parent-settings), permission allow rules and sandbox allowlists pass too
 * **Default**: `"first-wins"`
 
 ```json managed-settings.json theme={null}
@@ -5742,7 +5742,7 @@ Choose whether Claude Code applies managed settings supplied by an embedding hos
 }
 ```
 
-This key has no effect when no admin-deployed managed tier exists: the host's settings then apply as the only managed tier, still filtered to restrictive values. For the filter's limits and how the managed sources interact, see [Parent settings from embedding hosts](https://code.claude.com/docs/en/managed-settings.md#parent-settings-from-embedding-hosts) and [Restrict parent settings](https://code.claude.com/docs/en/claude-apps-gateway#restrict-parent-settings).
+This key has no effect when no admin-deployed managed tier exists: the host's settings then apply as the only managed tier, still filtered. For the filter's limits and how the managed sources interact, see [Parent settings from embedding hosts](https://code.claude.com/docs/en/managed-settings.md#parent-settings-from-embedding-hosts) and [Restrict parent settings](https://code.claude.com/docs/en/claude-apps-gateway#restrict-parent-settings).
 
 ### `policyHelper`
 

@@ -609,7 +609,9 @@ you connect through a
 third-party platform such as Amazon Bedrock, Vertex AI, Azure AI Foundry,
 or an LLM gateway, Claude for Outlook supports Claude Opus 4.7 and later
 and Claude Sonnet 5 and later. Earlier model generations are not available
-in Outlook on those platforms.
+in Outlook on those platforms. If messages fail or the model menu is missing,
+see
+[troubleshooting for third-party platforms](https://claude.com/docs/office-agents/third-party-platforms.md#outlook-messages-fail-or-the-model-menu-is-missing).
 
 ## How Claude accesses your mailbox
 
@@ -787,3 +789,9 @@ you have open, check the causes below.
 * **A content blocker**: some content blockers, such as ad blockers, have
   the same effect, even in a current browser. Turn off the content blocker,
   then reload the page or restart Outlook, and try again.
+
+### Messages fail or the model menu is missing on a third-party platform
+
+On a third-party platform, Outlook supports fewer models than Excel,
+PowerPoint, and Word. See
+[Outlook messages fail or the model menu is missing](https://claude.com/docs/office-agents/third-party-platforms.md#outlook-messages-fail-or-the-model-menu-is-missing).

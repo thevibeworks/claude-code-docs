@@ -1,6 +1,6 @@
 # Use incognito chats
 
-**Note:** If you have the new Claude experience, incognito chats open in the previous chat experience, so Claude can't create files or run code in them.
+**Note:** If you have the new Claude experience, Claude can't create files or run code in incognito chats.
 
 ## What are incognito chats?
 
