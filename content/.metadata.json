@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-19T08:25:41.895163Z",
+    "fetch_date": "2026-11-19T14:49:30.889491Z",
     "section": "all"
   },
   "items": [
@@ -8336,13 +8336,6 @@
       "size": 3103
     },
     {
-      "url": "https://modelcontextprotocol.io/docs/2025-03-26/tools/debugging",
-      "status": "success",
-      "path": "mcp/docs/2025-03-26/tools/debugging.md",
-      "sha256": "b84b96cd330fd93d70a080ec02c56a975b477c6fc4d87a62b6475a8a19ff65a9",
-      "size": 10726
-    },
-    {
       "url": "https://modelcontextprotocol.io/docs/2025-03-26/tools/inspector",
       "status": "success",
       "path": "mcp/docs/2025-03-26/tools/inspector.md",
@@ -9363,13 +9356,6 @@
       "path": "mcp/seps/3392-extension-lifecycle.md",
       "sha256": "f560123bdf96641f15e644b3fbef0962ee408e9c5c04c1d484f26df876bb1e50",
       "size": 28534
-    },
-    {
-      "url": "https://modelcontextprotocol.io/seps/3398-release-cycle-updates",
-      "status": "success",
-      "path": "mcp/seps/3398-release-cycle-updates.md",
-      "sha256": "f303515bb63b59c49501f9966e4dc2ba5e6c58ebcfe60e0e7ed8d81a470e1fb2",
-      "size": 27825
     },
     {
       "url": "https://modelcontextprotocol.io/seps/414-request-meta",
@@ -32395,7 +32381,16 @@
       "size": 2548
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "url": "https://modelcontextprotocol.io/docs/2025-03-26/tools/debugging",
+      "error": "HTTP 502"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/seps/3398-release-cycle-updates",
+      "error": "HTTP 502"
+    }
+  ],
   "dead": [
     {
       "url": "https://code.claude.com/docs/en/claude-tag",
@@ -33684,9 +33679,9 @@
   ],
   "summary": {
     "total": 4948,
-    "downloaded": 4627,
+    "downloaded": 4625,
     "skipped": 0,
-    "failed": 0,
+    "failed": 2,
     "dead": 321,
     "success_rate": 100.0
   }
