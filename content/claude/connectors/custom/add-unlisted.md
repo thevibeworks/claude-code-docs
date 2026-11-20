@@ -41,7 +41,7 @@ An Owner adds the connector for the organization. On Enterprise plans, a member 
 
 #### Add the connector for the organization
 
-Adding the connector in organization settings makes it appear under [**Customize > Connectors**](https://claude.ai/customize/connectors) for members, with the **Custom** label. To add it:
+Adding the connector in organization settings makes it appear in [members' lists of connectors](https://claude.ai/customize/connectors/yours), labeled as custom. To add it:
 
 **1. Open organization connectors**
 
@@ -67,13 +67,13 @@ Click **Add**.
 
 Once an Owner has added the connector, each member connects to it with their own account:
 
-**1. Open Customize > Connectors**
+**1. Open your connectors**
 
-Go to **Customize > Connectors**.
+Go to [your connectors](https://claude.ai/customize/connectors/yours).
 
 **2. Find the custom connector**
 
-Find the connector with the **Custom** label.
+Find the connector that's labeled as custom.
 
 **3. Connect**
 
@@ -83,9 +83,9 @@ Click **Connect** to authenticate.
 
 You add custom connectors to your own account. On the Free plan, you can add one custom connector.
 
-**1. Open Customize > Connectors**
+**1. Open the Connectors directory**
 
-Go to **Customize > Connectors**.
+Go to the [Connectors directory](https://claude.ai/customize/connectors).
 
 **2. Add a custom connector**
 
@@ -197,7 +197,7 @@ Most servers that use bearer tokens reject a value without the `Bearer ` scheme.
 
 ### Turn connectors on or off in a chat
 
-You can turn each connector on or off for a single conversation. Click the **+** button in your chat interface and select **Connectors**, then turn each connector on or off for that conversation.
+You can turn each connector on or off for a single conversation. Click the **+** button in your chat interface and find the connector under **Connectors** or **Plugins**, then turn it on or off for that conversation.
 
 ### Edit or remove a connector
 
@@ -205,7 +205,7 @@ You can edit a connector's name or URL, or remove the connector:
 
 **1. Open your connectors**
 
-Go to **Customize > Connectors**. If you're a Team or Enterprise Owner, go to **Organization settings > Connectors** instead.
+Go to [your connectors](https://claude.ai/customize/connectors/yours). If you're a Team or Enterprise Owner, go to **Organization settings > Connectors** instead.
 
 **2. Remove or open the menu**
 
@@ -265,8 +265,8 @@ While you use the connector, take these precautions:
 * Monitor Claude's actions for unintended effects
 * Review tool approval requests carefully
 * Only click **Always allow** for trusted servers
-* Turn off connectors you aren't using with the toggles in the **Connectors** item of the chat **+** menu
-* Block individual tools you don't need under **Customize > Connectors** by selecting the connector and setting the tool's permission to **Blocked**
+* Turn off connectors you aren't using with the toggles in the chat **+** menu
+* Block individual tools you don't need by selecting the connector in [your connectors](https://claude.ai/customize/connectors/yours) and setting the tool's permission to **Blocked**
 
 ### Desktop extensions
 

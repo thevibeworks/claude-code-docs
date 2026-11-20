@@ -26,7 +26,7 @@ Verification means Anthropic has reviewed the connector more closely than a Comm
 
 A third-party developer built a Community connector. Anthropic screens Community connectors before listing them but hasn't reviewed them in depth. Anthropic doesn't control the tools a Community developer makes available and can't guarantee they will work as intended or won't change, so only connect to developers you trust.
 
-Community connectors show a **Community** label in the directory and in [**Customize > Connectors**](https://claude.ai/customize/connectors). Before you connect one, Claude shows a reminder that it hasn't been reviewed in depth.
+Community connectors show a **Community** label in the directory and in [your connectors](https://claude.ai/customize/connectors/yours). On the connector's page, Claude explains what the label means.
 
 ### Custom
 

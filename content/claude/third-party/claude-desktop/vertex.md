@@ -24,69 +24,6 @@ Google Cloud's Agent Platform authenticates with Google Cloud Application Defaul
 >
 > If your Google Workspace or Cloud Identity organization enforces a **Google Cloud session length** of a few hours or less (Admin console → Security → Google Cloud session control), the in-app Google sign-in stores a refresh token that is subject to that policy, and users will be prompted to sign in again each time it expires. For short session policies, either mark your OAuth client as a [trusted app exempt from reauthentication](https://support.google.com/a/answer/9368756), or use a service-account key, Workforce Identity sign-in, or the gateway provider instead.
 
-## How the two sign-in flows compare
-
-The [in-app Google sign-in](#in-app-google-sign-in) and [in-app Workforce Identity sign-in](#in-app-workforce-identity-sign-in) approaches both open the system browser for a one-time consent and then renew in the background (or, for Workforce Identity, re-prompt in the browser when your IdP does not issue a refresh token). They differ in which party issues the refresh token and whether Google's Security Token Service is involved.
-
-### Workforce Identity sign-in
-
-Claude Desktop runs authorization code with PKCE directly against **your** IdP. The IdP's ID token is then exchanged at Google's Security Token Service for a short-lived Google Cloud access token. Google STS is stateless and never issues a refresh token, so every renewal starts at your IdP.
-
-```mermaid theme={null}
-sequenceDiagram
-    autonumber
-    participant App as Claude Desktop
-    participant Browser as System browser
-    participant IdP as Your IdP<br/>(Entra ID, Okta, Ping, ...)
-    participant GCP as Google Cloud<br/>(STS and Vertex AI)
-
-    App->>App: Generate PKCE verifier and challenge,<br/>listen on http://127.0.0.1:PORT/callback
-    App->>Browser: Open IdP /authorize<br/>(client_id, redirect_uri, code_challenge, scope)
-    Browser->>IdP: Authorization request
-    IdP-->>Browser: Sign-in page (password, PIV/CAC, MFA)
-    Browser->>IdP: User authenticates
-    IdP-->>Browser: 302 to http://127.0.0.1:PORT/callback?code=...
-    Browser->>App: Deliver authorization code on loopback
-    App->>IdP: POST /token<br/>(code, code_verifier, client_id, no client secret)
-    rect rgba(235, 219, 188, 0.4)
-        IdP-->>App: id_token (+ refresh_token if the<br/>Refresh Token grant is enabled)
-        Note over App,IdP: IdP-issued tokens.<br/>The refresh_token, when present, belongs to your IdP.
-    end
-    App->>GCP: POST sts.googleapis.com/v1/token<br/>(grant_type=token-exchange,<br/>subject_token=id_token, subject_token_type=...:id_token,<br/>audience=//iam.googleapis.com/.../workforcePools/POOL/providers/PROVIDER)
-    rect rgba(191, 219, 254, 0.4)
-        GCP-->>App: Google Cloud access_token<br/>(the pool's session duration, 1 hour by default,<br/>capped at the id_token's remaining lifetime, no refresh_token)
-        Note over App,GCP: Google-issued token. STS is stateless and never returns a refresh_token.
-    end
-    App->>GCP: Vertex AI request (Authorization: Bearer access_token)
-    GCP-->>App: Model response
-
-    Note over App,GCP: No ADC file is written. The IdP tokens are stored encrypted with the<br/>operating system's secure storage (Keychain on macOS, DPAPI on Windows).
-
-    alt Silent renewal (IdP issued a refresh_token)
-        App->>IdP: POST /token (grant_type=refresh_token)
-        IdP-->>App: Fresh id_token
-        App->>GCP: Repeat STS exchange for a fresh access_token
-    else No IdP refresh_token
-        App->>Browser: Repeat the full browser flow when the id_token expires
-    end
-```
-
-### Google sign-in (OAuth)
-
-Claude Desktop runs authorization code with PKCE against **Google's** OAuth endpoints. Google issues the refresh token, and only the app holds it. The app exchanges it at Google for short-lived access tokens and gives each session an access token. Your corporate IdP may appear inside Google's sign-in page (if Cloud Identity is federated via SAML), but the app never talks to it directly.
-
-### Side by side
-
-| | Workforce Identity sign-in | Google sign-in (OAuth) |
-| - | - | - |
-| OAuth peer the app talks to | Your IdP's OIDC endpoints | Google's OAuth 2.0 endpoints |
-| Where your corporate IdP appears | Directly (the app opens it) | Inside Google's sign-in page, via Cloud Identity SAML federation (optional) |
-| Refresh token issued by | Your IdP (when the Refresh Token grant is enabled on the client) | Google |
-| Google STS (`sts.googleapis.com`) involved | Yes, on every access-token renewal | No |
-| Registered on the Google side | Workforce pool and OIDC provider (IAM & Admin) | Desktop-app OAuth 2.0 client (APIs & Services → Credentials) |
-| Per-user prerequisite | An account at your IdP | A Google Workspace or Cloud Identity account |
-| Client registered at your IdP | Public (native) OAuth client, PKCE required, loopback redirect URI | None (your IdP is federated to Cloud Identity, not to the app) |
-
 ## Set up Google Cloud
 
 These steps are performed once per Google Cloud project, regardless of which authentication approach you chose. You need a project with Owner or Editor access.
@@ -187,7 +124,7 @@ In your IdP, register a native OAuth client for the app. The app does not send a
 
 Register the redirect URI with `127.0.0.1` rather than `localhost`, because the app uses `127.0.0.1` by default and most IdPs do not treat the two as interchangeable. If your IdP accepts only `localhost` in a registered redirect URI, set the `redirectHost` field of [`inferenceVertexWorkforceOidc`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencevertexworkforceoidc) to `localhost` and register `http://localhost/callback` instead, or `http://localhost:<port>/callback` when you set `redirectPort`.
 
-Distribute the workforce-pool provider audience and the IdP OIDC client in the managed configuration; the app shows a **Sign in with Google Cloud** page on first launch, runs an authorization-code-with-PKCE flow against your IdP in the system browser, exchanges the returned ID token for a Google Cloud access token at `sts.googleapis.com`, and stores the IdP refresh token encrypted with the operating system's secure storage. No `gcloud` CLI, helper script, or Google identity is required.
+Distribute the workforce-pool provider audience (`inferenceVertexWorkforceAudience`, in the form `//iam.googleapis.com/locations/global/workforcePools/POOL/providers/PROVIDER`) and the IdP OIDC client (`inferenceVertexWorkforceOidc`) in the managed configuration; the app shows a **Sign in with Google Cloud** page on first launch, runs an authorization-code-with-PKCE flow against your IdP in the system browser, exchanges the returned ID token for a Google Cloud access token at `sts.googleapis.com`, and stores the IdP refresh token encrypted with the operating system's secure storage. No `gcloud` CLI, helper script, or Google identity is required.
 
 The app always requests the `offline_access` scope so that the IdP returns a refresh token for silent renewal. If your IdP rejects `offline_access` on this client (for example, a PingFederate public client without the Refresh Token grant type enabled), set the `omitOfflineAccess` field of `inferenceVertexWorkforceOidc` to `true`. Without a refresh token the app cannot refresh silently, so users will be prompted to sign in again each time the IdP's ID token expires, typically about once an hour.
 
@@ -403,11 +340,6 @@ If none of `inferenceVertexCredentialsFile`, the OAuth client keys, the Workforc
 You must also set `inferenceModels` to a list of publisher model IDs, for example `claude-sonnet-5`. See the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemodels).
 
 ## What users experience
-
-| Approach | First launch | Re-authentication |
-| - | - | - |
-| Credentials file (service-account key) | The app opens directly; no user action. | Never, until you rotate the key file. |
-| In-app Google sign-in | The app shows a **Sign in with Google Cloud** page. Clicking it opens Google's consent flow in the default browser. After approval, the app returns to Cowork. | When the refresh token is revoked, when you deploy a new OAuth client ID, or when your Google Cloud session-control policy expires it. |
 
 For in-app Google sign-in, the browser flow runs on the host (outside the Cowork sandbox), so it can use the user's existing Google session and any security keys or passkeys configured on the device. Users can sign out by revoking the app from their Google Account's [third-party connections page](https://myaccount.google.com/connections); the app detects the revoked token and shows a **Sign in again** prompt.
 

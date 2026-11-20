@@ -18,19 +18,19 @@ To get going, [connect Google Drive](#connect-google-drive) and then [try a firs
 
 You connect Google Drive once from your connector settings, and Claude can then use it in any conversation where you turn the connector on.
 
-**1. Open your connectors**
+**1. Open the Connectors directory**
 
-Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) in claude.ai. **Customize** is the page that holds your connectors, skills, and plugins.
+Go to the [Connectors directory](https://claude.ai/customize/connectors) in claude.ai.
 
 **2. Connect Google Drive**
 
-Find **Google Drive** in the list and select **Connect**.
+Find **Google Drive** and select it to open its page. Then select **Connect**, **Connect to Claude**, or **Add**, whichever the page shows.
 
 **3. Sign in to Google**
 
 Sign in to your Google account and grant the requested permissions.
 
-When the connection succeeds, the **Connect** button on the Google Drive connector changes to **Disconnect**.
+When sign-in finishes and you're back in Claude, Google Drive is in [the list of your connectors](https://claude.ai/customize/connectors/yours), with no **Connect** button.
 
 On Team and Enterprise plans, Google Drive doesn't appear in your connector list until an Owner adds it for your organization. Each member then connects their own Google account. For the full walkthrough, including troubleshooting, see [Get started with connectors](https://claude.com/docs/connectors/getting-started.md).
 
@@ -103,7 +103,7 @@ Google caps exports of Docs, Sheets, and Slides at about 10 MB. For a file over 
 
 ## Try the connector
 
-In a conversation, select **+** at the lower left of the message box, select **Connectors**, and turn on **Google Drive**. Then ask a question that needs your files. For example, ask Claude:
+In a conversation, select **+** at the lower left of the message box, find **Google Drive** under **Connectors** or **Plugins**, and turn it on. Then ask a question that needs your files. For example, ask Claude:
 
 * Find the design brief for the onboarding project in my Drive and summarize the open decisions
 * Read the Q3 budget spreadsheet and tell me which lines are over plan
@@ -113,13 +113,13 @@ Claude can ask for your approval before it uses one of the connector's tools. It
 
 ## Reconnect or remove Google Drive
 
-Everything about the connector after you've added it is on its own page. Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) and select **Google Drive** under **Your connectors**. From that page you can:
+Everything about the connector after you've added it is on its own page. Go to [your connectors](https://claude.ai/customize/connectors/yours) and select **Google Drive**. From that page you can:
 
 * **Reconnect**: if Claude has lost access to your Google account, the connector's row shows **Reconnect**. Select it and sign in again
-* **Disconnect**: select **Disconnect** to sign Claude out of Google. The connector stays in your list and shows **Connect**, so you can sign in again later
+* **Disconnect**: select **Disconnect**, on the page or in its three-dot menu, to sign Claude out of Google. To sign in again later, [connect Google Drive](#connect-google-drive) again
 * **Remove**: open the three-dot menu and select **Remove** to take the connector off your account
 
-If a reconnection error keeps coming back, select **Disconnect**, then **Connect**, and sign in to Google again.
+If a reconnection error keeps coming back, select **Disconnect**, then [connect Google Drive](#connect-google-drive) again.
 
 ## Next steps
 

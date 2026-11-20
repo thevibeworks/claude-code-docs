@@ -305,7 +305,7 @@ To sign in from Claude Code, run `/mcp` in an interactive session as [Authentica
 Claude reaches custom connectors from Anthropic's infrastructure, so `localhost` isn't reachable directly. To add a local server:
 
 1. Expose the server over a public HTTPS tunnel, such as `cloudflared tunnel --url http://localhost:3000` or `ngrok http 3000`. Keep the tunnel up only while you test, because it exposes your local server publicly and the example's `/authorize`, `/token`, and `isTokenValid()` are stubs that treat anyone as signed in.
-2. In Claude, go to [**Customize > Connectors**](https://claude.ai/customize/connectors) and select **Add custom connector**.
+2. In Claude, go to the [Connectors directory](https://claude.ai/customize/connectors) and select **Add**, then **Add custom connector**.
 3. Enter the tunnel's `/mcp` URL.
 
 See [Test a local server](https://claude.com/docs/connectors/building/testing.md#test-a-local-server) for details. If your app comes from the SDK's `createMcpExpressApp()`, that section also shows the `allowedHosts` option you need before requests through the tunnel succeed.

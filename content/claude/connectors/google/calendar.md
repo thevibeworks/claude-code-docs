@@ -18,25 +18,25 @@ By the end of this page you have connected your Google account and asked Claude 
 
 You connect Google Calendar once from your connector settings, and Claude can then read your calendar in any conversation where you turn the connector on.
 
-**1. Open your connectors**
+**1. Open the Connectors directory**
 
-Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) in claude.ai. **Customize** is the page that holds your connectors, skills, and plugins.
+Go to the [Connectors directory](https://claude.ai/customize/connectors) in claude.ai.
 
 **2. Connect Google Calendar**
 
-Find **Google Calendar** in the list and select **Connect**.
+Find **Google Calendar** and select it to open its page. Then select **Connect**, **Connect to Claude**, or **Add**, whichever the page shows.
 
 **3. Sign in to Google**
 
 Sign in to your Google account and grant the requested permissions.
 
-When the connection succeeds, the **Connect** button on the Google Calendar connector changes to **Disconnect**.
+When sign-in finishes and you're back in Claude, Google Calendar is in [the list of your connectors](https://claude.ai/customize/connectors/yours), with no **Connect** button.
 
 On Team and Enterprise plans, Google Calendar doesn't appear in your connector list until an Owner or Primary Owner enables it for your organization. For the full walkthrough, including troubleshooting, see [Get started with connectors](https://claude.com/docs/connectors/getting-started.md).
 
 ## Try the connector
 
-In a conversation, select **+** at the lower left of the message box, select **Connectors**, and turn on **Google Calendar**. Then ask a question about your schedule. Claude detects when calendar data is needed and reads your calendar to answer. For example, ask Claude:
+In a conversation, select **+** at the lower left of the message box, find **Google Calendar** under **Connectors** or **Plugins**, and turn it on. Then ask a question about your schedule. Claude detects when calendar data is needed and reads your calendar to answer. For example, ask Claude:
 
 * What meetings do I have tomorrow?
 * When is my next meeting with the product team?

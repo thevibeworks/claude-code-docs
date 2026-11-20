@@ -2,6 +2,12 @@
 
 ## November 2026
 
+### November 20, 2026
+
+**Computer use (beta) for Team and Enterprise plans**
+
+Computer use lets Claude see a user's screen and work in the desktop apps they allow. It works in the new Claude experience in Claude Desktop, and from Claude on the web and Claude Mobile where **Computer access** is on. It's now available in beta on Team and Enterprise plans, and is rolling out to organizations gradually. For more information, see **[Set up computer use for Team and Enterprise plans](https://support.claude.com/en/articles/18483812-set-up-computer-use-for-team-and-enterprise-plans)**.
+
 ### November 17, 2026
 
 **Choose a release channel in Claude Desktop**

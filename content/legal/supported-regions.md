@@ -5,7 +5,7 @@ archive: https://www.anthropic.com/legal/archive/ec08a1e7-a194-462d-9159-4ee41c5
 version: ec08a1e7-a194-462d-9159-4ee41c553a28
 effective: 2026-11-12T20:20:00.000Z
 latest: true
-previous: 8d358a42-e4d9-48ff-bd20-d44c89939c98
+previous: d392c743-1299-4406-982c-a8b9c727684f
 pdf: https://assets.claude.com/0afd254f607bb70d9c013c98f556cb7de9f275f8.pdf
 ---
 
@@ -400,4 +400,5 @@ Countries and regions where we currently offer access to our products and servic
 From the page's own version list.
 
 - 2026-11-12 (this version): [supported-regions/2026-11-12.md](supported-regions/2026-11-12.md)
-- 2026-05-12: [supported-regions/2026-05-12.md](supported-regions/2026-05-12.md)
+- 2025-09-04: [supported-regions/2025-09-04.md](supported-regions/2025-09-04.md)
+- 2023-05-12: [supported-regions/2023-05-12.md](supported-regions/2023-05-12.md)

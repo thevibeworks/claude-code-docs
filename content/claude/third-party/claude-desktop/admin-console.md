@@ -26,8 +26,6 @@ Users are provisioned a Claude account only to sign in and receive their setting
 
 ## Where your data goes
 
-Anthropic stores your organization's user accounts and the configuration you save, and delivers that configuration to users' apps. If you turn on usage analytics, Anthropic also stores the token and session counts that users' apps report. As with MDM or bootstrap delivery, prompts and model responses go to your inference provider and conversations stay on the device.
-
 | Data | Does Anthropic store it? |
 | - | - |
 | Prompts, model responses, and tool inputs and outputs | **No.** They go to your inference provider, and tool calls go to the connectors you configure. Data handling at the provider depends on the provider, as described under [Data handling by provider](https://claude.com/docs/third-party/claude-desktop/overview.md#data-handling-by-provider). |
@@ -170,7 +168,7 @@ A localhost address in these fields requires Claude Desktop 1.52386.0 or later o
 
 The **Permission policies** page, under **People** in the left navigation, applies different settings to users in specific groups. You can add policies after you save the organization-wide settings on the **Connection** page, and each group can have one policy. Click **Add permission policy**, pick a group, and set only the settings that should differ. Every other setting comes from the organization-wide settings.
 
-A policy can, for example, turn Code on or off, narrow the model list and the managed MCP servers to a subset by name, and change built-in tool settings, network allowlists, telemetry, token limits, the banner, and **Claude.ai data import**. The inference connection (the provider, its endpoint, and how users authenticate to it) is organization-wide, and a policy can't add models or managed MCP servers that the organization-wide settings don't define.
+A policy can, for example, turn Code on or off, narrow the model list and the managed MCP servers to a subset by name, and change built-in tool settings, network allowlists, telemetry, token limits, the banner, and **Claude.ai data import**. The inference connection (the provider, its endpoint, and how users authenticate to it) is organization-wide, and a policy can't add models or managed MCP servers that the organization-wide settings don't define. A policy's list of plugin marketplaces replaces the organization-wide list, so add to the policy each marketplace that the group needs.
 
 Policies are ranked in the order shown on the page, and you drag them to change the ranking. When a user belongs to several listed groups, each kind of setting follows its own rule:
 
@@ -451,25 +449,9 @@ To let users import their claude.ai conversations, and any local sessions that t
 
 ### Devices that migrated on an earlier release
 
-On a device that migrated before Claude Desktop 5.1231.0, users set up these items themselves:
+A device that migrated on a release before Claude Desktop 5.11492.0 brought over less than [What is migrated](#what-is-migrated) lists. Send its user to [If the automatic copy ran on an earlier version](https://claude.com/docs/third-party/claude-desktop/import.md#if-the-automatic-copy-ran-on-an-earlier-version), which lists, for each release, the items to set up again and the items that an update brings while the **Automatically import earlier third-party sessions** switch is still on.
 
-* **Project descriptions**: enter them again on each project's page
-* **Project folders outside the default location**: the project has a new, empty folder. The user [adds the original folder again](https://claude.com/docs/third-party/claude-desktop/import.md#add-the-original-folder-to-a-copied-project).
-* **Connected folders in Cowork sessions**: connect the folders again
-
-The first time such a device starts 5.1231.0 or later, it gets these items:
-
-* **Sidebar pins of projects and custom groups of sessions**
-* **Earlier versions of artifacts**, if the **Automatically import earlier third-party sessions** switch is still on
-* **The work of a user who had no earlier sessions**, if that switch is still on. Releases before 5.1231.0 migrate nothing for a user who had projects, scheduled tasks, or instructions but no sessions. Projects and scheduled tasks that the user made again in your organization appear twice. A migrated task that was on runs beside the user's new one, and the migrated task can arrive on [**Automatically approve**](#what-is-not-migrated) unless [`autoModeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeenabled) is `false` when the device updates.
-
-Releases from 5.1231.0 migrate most kinds of items in [What is migrated](#what-is-migrated). On a device that migrated on a release before Claude Desktop 5.11492.0, what already arrived differs from that list in these items, and an update doesn't change it:
-
-* **History of scheduled tasks**: a task's earlier runs are listed only as ordinary sessions
-* **Approval mode of scheduled tasks**: every task waits for approvals until the user sets the mode again
-* **Files that users attached to sessions**: attach them again
-* **First message in a migrated session**: the app [asks the user to confirm](https://claude.com/docs/third-party/claude-desktop/import.md#continue-an-imported-conversation) once in each session
-* **Data that users imported from a Claude Desktop export or a folder**: the migration left it out. After an update to 5.11492.0 or later, the device gets the projects and scheduled tasks of an export that the user imported with **Import as my own**, if the **Automatically import earlier third-party sessions** switch is still on. The tasks arrive turned off, and the projects of an export that the user imported again in your organization appear twice. Users can then import sessions that are still missing with the [import wizard](https://claude.com/docs/third-party/claude-desktop/import.md#open-the-import-wizard).
+Releases before 5.1231.0 migrate nothing for a user who had projects, scheduled tasks, or instructions but no sessions. The first time a device that migrated before 5.1231.0 starts 5.1231.0 or later, it gets that user's work, if that switch is still on. Projects and scheduled tasks that the user made again in your organization appear twice. A migrated task that was on runs beside the user's new one, and the migrated task can arrive on [**Automatically approve**](#what-is-not-migrated) unless [`autoModeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeenabled) is `false` when the device updates.
 
 ## Devices with a managed profile
 
@@ -510,7 +492,7 @@ The app doesn't fall back to the profile's provider or server when it can't reac
 On Claude Desktop 2.37337.0 or later, a user who belongs to any organization that uses the admin console can move a device to that organization's configuration by signing in. The organization doesn't have to be yours. To prevent the move, or to allow it only for your organization, set one of these keys in the device's [managed profile](#devices-with-a-managed-profile):
 
 * **Prevent the move:** set `deploymentMode` to `3p` in a profile that says what the app connects to, or to `1p` in a profile that leaves the device on standard Claude Desktop. The app ignores the admin console, and a device that already moved leaves the console's configuration at its next launch. Devices on versions before 4.16336.0 also need `disableDeploymentModeChooser`, as described under [Restrict a device to one deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode).
-* **Allow only your organization:** set [`forceLoginOrgUUID`](https://claude.com/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does) to your Claude organization's ID. This ID isn't [`deploymentOrganizationUuid`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid), which is a UUID you generate. Devices already on your organization's admin console configuration stay on it. The app ignores the admin console configuration of any other organization and limits standard Claude Desktop sign-in on the device to your organization.
+* **Allow only your organization:** set [`forceLoginOrgUUID`](https://claude.com/docs/cowork/hipaa-setup#what-each-claude-desktop-key-does) to your Claude organization's ID. This ID isn't [`deploymentOrganizationUuid`](https://claude.com/docs/third-party/claude-desktop/configuration#deploymentorganizationuuid), which is a UUID you generate. Devices already on your organization's admin console configuration stay on it. The app ignores the admin console configuration of any other organization and limits standard Claude Desktop sign-in on the device to your organization. You can set the key in the same profile as an inference provider. The device runs on that provider unless a user signs in with a claude.ai account.
 
 You can use `forceLoginOrgUUID` to help prevent shadow IT, which here means people using personal Claude accounts or other organizations' accounts in Claude Desktop on work computers. A user who signs in to standard Claude Desktop with an account that isn't in your organization sees a page that reads "This account is not approved by your enterprise admin" and can only log out.
 

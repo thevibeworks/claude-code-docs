@@ -28,7 +28,7 @@ Directory connectors and custom connectors run on the same infrastructure. See [
 
 Access the Connectors Directory through:
 
-* **[Customize > Connectors](https://claude.ai/customize/connectors)** in claude.ai
+* **[claude.ai/customize/connectors](https://claude.ai/customize/connectors)** for your own account
 * **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)** for Team and Enterprise Owners
 
 On Team and Enterprise plans, an Owner adds a connector for the organization, and members then connect with their own account. On Enterprise plans, a member whose custom role includes managing the organization's libraries can add one too.
@@ -49,7 +49,7 @@ From either location you can enable the connector for your organization or dismi
 Occasionally a provider updates the endpoint URL behind its directory listing, for example moving a server from `https://mcp.example.com/sse` to `https://mcp.example.com/mcp`. This is a routine change on the provider's side. Here is what you may notice in Claude:
 
 * **Your existing connection keeps working.** Connectors you added before the change keep using the endpoint they were installed with, and your authentication is unaffected
-* **It appears as a custom connector.** Because your connector no longer matches the updated directory listing, it shows under **Custom** in **[Customize > Connectors](https://claude.ai/customize/connectors)** instead of as a named directory connector
+* **It appears as a custom connector.** Because your connector no longer matches the updated directory listing, it's labeled as custom instead of showing as a named directory connector
 * **The directory listing shows as not installed.** Adding the connector from the directory again without removing the original gives you two connections: your original one and a new one on the updated endpoint
 
 To move to the new endpoint, remove the connector and re-add it from the directory. Claude prompts you to authenticate with the service again.

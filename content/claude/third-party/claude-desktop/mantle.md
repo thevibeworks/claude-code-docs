@@ -179,7 +179,7 @@ As with the standard Amazon Bedrock provider, server-side Web Search is not supp
 
 ## What users experience
 
-The app opens directly on first launch with no user action. Users are never prompted to sign in; re-authentication happens only when you rotate the bearer token in the managed profile.
+On first launch, the app shows a welcome screen, and the user clicks its button to continue. Users are never prompted to sign in; re-authentication happens only when you rotate the bearer token in the managed profile.
 
 ## Troubleshoot
 

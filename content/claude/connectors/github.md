@@ -22,9 +22,8 @@ You can add repository content to a single conversation, or to a [project](https
 >
 > In a chat, the **Add from GitHub** option appears only after your GitHub account is connected to Claude. To connect your GitHub account, follow these steps:
 >
-> 1. Go to [**Customize > Connectors**](https://claude.ai/customize/connectors).
-> 2. Select **GitHub Integration**.
-> 3. Select **Connect**.
+> 1. Go to the [GitHub integration's page](https://claude.ai/customize/connectors/integration-github) in Claude.
+> 2. Select **Connect** or **Add**, whichever the page shows for GitHub.
 >
 > After your GitHub account is connected, add a repository to a chat:
 >
@@ -134,13 +133,13 @@ These habits help when you add repository content to a project:
 
 ## Troubleshooting
 
-The GitHub integration is built into Claude and managed from [**Customize > Connectors**](https://claude.ai/customize/connectors), where it's listed as **GitHub Integration** under **Your connectors** whether or not you've connected it.
+The GitHub integration is built into Claude and managed from [its own page](https://claude.ai/customize/connectors/integration-github), whether or not you've connected it.
 
 ### Add from GitHub doesn't appear in a chat
 
-The **+** menu in a chat shows **Add from GitHub** only after your GitHub account is connected to Claude. Go to [**Customize > Connectors**](https://claude.ai/customize/connectors), select **GitHub Integration** under **Your connectors**, and select the **Connect** button. Then open the **+** menu in the chat again.
+The **+** menu in a chat shows **Add from GitHub** only after your GitHub account is connected to Claude. Go to the [GitHub integration's page](https://claude.ai/customize/connectors/integration-github) in Claude and select **Connect** or **Add**, whichever the page shows for GitHub. Then open the **+** menu in the chat again.
 
-On Team and Enterprise plans, **GitHub Integration** appears in **Customize > Connectors** only while GitHub is turned on for your organization. If it isn't listed there, ask someone who manages your organization's settings to turn it on in [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors).
+On Team and Enterprise plans, you can connect your GitHub account only while GitHub is turned on for your organization. If the GitHub integration's page doesn't open, or doesn't let you connect, ask someone who manages your organization's settings to turn it on in [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors).
 
 ### Claude cannot access that resource
 

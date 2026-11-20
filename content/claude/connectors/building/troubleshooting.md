@@ -6,7 +6,7 @@
 
 > Diagnose and resolve common connection, authorization, and tool-call failures for custom and directory MCP connectors
 
-These errors appear in Claude, on claude.ai or in the desktop app, when someone uses your MCP server as a connector: either when they select **Connect** and sign in, or later when Claude calls one of your tools in a conversation. You usually meet them first yourself while [testing your server as a custom connector](https://claude.com/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector) before you submit it, and the same messages are what your users see after it's listed. Each message covers several causes on your side.
+These errors appear in Claude, on claude.ai or in the desktop app, when someone uses your MCP server as a connector: either when they connect it and sign in, or later when Claude calls one of your tools in a conversation. You usually meet them first yourself while [testing your server as a custom connector](https://claude.com/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector) before you submit it, and the same messages are what your users see after it's listed. Each message covers several causes on your side.
 
 This page is for the developer of the MCP server. Start with the section for the message Claude showed:
 

@@ -174,15 +174,6 @@ When you deliver configuration through the Enterprise Admin Console, a bootstrap
 >
 > To turn the sandbox on with no host allowed, set `coworkEgressAllowedHosts` to `[]` in the file. The device's user can edit the file, so to hold the setting, deliver the configuration from a managed source.
 
-If you set up the device yourself in the in-app configuration window ([single-machine setup](https://claude.com/docs/third-party/claude-desktop/installation.md#single-machine-setup)) and left **Allowed egress hosts** at **Not set**, go to **Settings > Claude Code** and check the **Local sandbox** toggle:
-
-* **The toggle is unlocked**: Code sessions follow your own Claude Code settings. While the toggle is off, shell commands run unsandboxed, and the session's permission mode and permission rules decide whether Claude Code asks you before it runs one. In Auto mode, the default for new Code sessions where the model supports it, a safety classifier decides instead of asking you. To run a local session's commands in the sandbox, turn on the toggle.
-* **The toggle is on and locked**: something else keeps the sandbox on, for example:
-  * **A [managed source](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#where-claude-desktop-reads-configuration-on-a-device) on the device**: shell commands reach no host
-  * **Block reads outside working directories** turned on: shell commands reach no host
-  * **Allowed workspace folders** set, with neither of the other two: Claude Desktop doesn't limit the hosts, and [Claude Code's sandbox](https://code.claude.com/docs/en/sandboxing) decides which ones shell commands reach
-* **The toggle is missing, or is off and can't be changed**: the sandbox doesn't run on the device, so shell commands in local sessions run unsandboxed
-
 For what a list of hosts does, see [How the egress allowlist applies in Code sessions](#how-the-egress-allowlist-applies-in-code-sessions). To change the list, open the in-app configuration window, go to **Capabilities**, edit **Allowed egress hosts**, click **Apply Changes**, and then click **Save & Restart**. Removing the last host leaves **Allow none** selected, which allows no host. To unset the key again, select **Not set** once the list is empty.
 
 ## Disabling web tools

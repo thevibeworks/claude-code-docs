@@ -17,7 +17,7 @@ Amazon Bedrock supports several ways to authenticate, and the right one depends 
 | Proof of concept, single team | [Bearer token](#bearer-token) (`inferenceBedrockBearerToken`) | None | No (shared key) | A long-lived secret distributed in the managed profile. Simplest to start; not recommended for broad rollout. |
 | Broad rollout to users without AWS tooling | [In-app AWS sign-in](#in-app-aws-sign-in) (`inferenceBedrockSso*`) | None | Yes | Users sign in through IAM Identity Center inside the app. No AWS CLI required. |
 | Developers who already use the AWS CLI | [Named profile](#named-profile) (`inferenceBedrockProfile`) | AWS CLI v2 and a pushed `~/.aws/config` | Yes | IT can distribute the AWS config file directly; the app runs `aws sso login` for the user when the session expires. |
-| You run an authenticating proxy in front of Amazon Bedrock | [Identity provider sign-in](#sign-in-with-your-identity-provider) (`inferenceIdpOidc`) | None | At your proxy | Users sign in with your identity provider; the proxy calls Amazon Bedrock with its own AWS credentials. Requires app version 2.7032.0 or later. |
+| You run an authenticating proxy in front of Amazon Bedrock | [Identity provider sign-in](#sign-in-with-your-identity-provider) (`inferenceIdpOidc`) | None | At your proxy | Users sign in with your identity provider; the proxy calls Amazon Bedrock with its own AWS credentials. |
 | You already operate an LLM gateway (Anthropic Messages API) | [Gateway provider](https://claude.com/docs/third-party/claude-desktop/gateway.md) instead of Amazon Bedrock | None | At your gateway | The gateway holds the AWS credentials; the app authenticates only to the gateway. |
 
 Where a long-lived key in the managed profile isn't acceptable, you can also set [`inferenceCredentialHelper`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencecredentialhelper) to an executable that prints an Amazon Bedrock bearer token to stdout at runtime.
@@ -87,7 +87,7 @@ When all four `inferenceBedrockSso*` keys are set, the app shows a **Sign in wit
 
 On success, the app stores the IAM Identity Center access token and refresh token encrypted with the operating system's secure storage (Keychain on macOS, DPAPI on Windows), dismisses the sign-in page, and shows Cowork.
 
-At the start of each Cowork or Code session, the app exchanges the stored token with IAM Identity Center for short-lived AWS credentials scoped to the configured account and permission set, and writes them to the session's AWS credentials files, described under [Transient credential files](https://claude.com/docs/third-party/claude-desktop/data-storage.md#transient-credential-files). The session reads them through `AWS_SHARED_CREDENTIALS_FILE` and `AWS_PROFILE`, so the secret values are never passed as environment variables. This is the same credential shape that `aws sso login` produces, obtained without the AWS CLI.
+At the start of each Cowork or Code session, the app exchanges the stored token with IAM Identity Center for short-lived AWS credentials scoped to the configured account and permission set, and writes them to the session's AWS credentials files, described under [Transient credential files](https://claude.com/docs/third-party/claude-desktop/data-storage.md#transient-credential-files). The session reads them through `AWS_SHARED_CREDENTIALS_FILE` and `AWS_PROFILE`, so the secret values are never passed as environment variables.
 
 If the stored token expires or is revoked, the app shows a **Sign in again** prompt; clicking it reopens the AWS access portal in the browser. If you deploy a different `inferenceBedrockSsoStartUrl`, the app finds no stored token for the new URL and shows the sign-in page on next launch.
 
@@ -319,9 +319,9 @@ Set `inferenceModels` to a list of Amazon Bedrock inference-profile IDs, for exa
 
 | Approach | First launch | Re-authentication |
 | - | - | - |
-| Bearer token | The app opens directly; no user action. | Never, until you rotate the key in the managed profile. |
+| Bearer token | The app shows a welcome screen, and the user clicks its button to continue. | Never, until you rotate the key in the managed profile. |
 | In-app AWS sign-in | The app shows a **Sign in with AWS** page; the user approves in the browser, and the app returns to Cowork. | When the IAM Identity Center access portal session expires (defaults to 8 hours; configurable up to 90 days). The app prompts in-app; no terminal needed. |
-| Named profile | The app opens directly if the AWS SSO cache is fresh; otherwise it prompts in-app and runs `aws sso login` for you, which opens the browser. | When the IAM Identity Center session expires, the app prompts in-app and re-runs `aws sso login`. |
+| Named profile | The same welcome screen if the AWS SSO cache is fresh; otherwise the app prompts in-app and runs `aws sso login` for you, which opens the browser. | When the IAM Identity Center session expires, the app prompts in-app and re-runs `aws sso login`. |
 | Identity provider sign-in | The app shows a sign-in page; the user signs in at your identity provider. | When the token expires, the app renews it silently; it prompts again only if the renewal fails or [`inferenceSessionLifetimeSec`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencesessionlifetimesec) elapses. |
 
 For in-app AWS sign-in, the browser flow runs on the host (outside the Cowork sandbox), so it uses the user's existing identity-provider session and any security keys or passkeys configured on the device. The **AWS access portal session duration** setting (IAM Identity Center → **Settings** → **Authentication**) controls how long users stay signed in across app restarts. To force a user to sign in again sooner, delete their active session from the IAM Identity Center console.

@@ -6,7 +6,7 @@
 
 > Configure Claude Desktop on 3P to send inference directly to Anthropic's Claude API instead of a cloud-provider-hosted Claude deployment
 
-To use Anthropic's Claude API directly as the inference provider, set [`inferenceProvider`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceprovider) to `anthropic` and choose how users authenticate, as described in [Choose an authentication approach](#choose-an-authentication-approach). This is the first-party path: inference goes straight to Anthropic rather than to a Claude deployment on Google Cloud's Agent Platform, Amazon Bedrock, or Microsoft Foundry.
+To use Anthropic's Claude API directly as the inference provider, set [`inferenceProvider`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceprovider) to `anthropic` and choose how users authenticate, as described in [Choose an authentication approach](#choose-an-authentication-approach).
 
 > [!NOTE]
 >

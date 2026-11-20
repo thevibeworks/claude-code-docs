@@ -41,16 +41,17 @@ The other two keys work only while `artifactsEnabled` is `true`. `artifactsEnabl
 
 ## Use Design and Slides
 
-Design and Slides work in [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md), which is on by default. All of a user's designs and decks are listed under **Artifacts** in the sidebar.
+Design and Slides work in [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md), which is on by default. All of a user's designs and decks are listed under **Artifacts** in the sidebar. You don't need to allow any hosts for Design and Slides, other than your plugin marketplace if you provide design systems, and they work with [`disableNonessentialServices`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialservices) on.
 
-Claude can't make or change designs and decks in Code sessions or in runs of [scheduled tasks](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md).
+Claude's design and deck tools aren't available in Code sessions or in runs of [scheduled tasks](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md).
 
 These restrictions apply to Design and Slides in Claude Desktop on 3P:
 
 * **Sharing with other users**: not available.
 * **Comments**: not available. Users can ask Claude for a change or make the edit themselves.
-* **Export**: designs export to HTML, PDF, and PNG. Decks export to PowerPoint, PDF, and HTML. Users can't export a design to PowerPoint, or send designs and decks to Google Slides, other tools, or Claude Code.
+* **Export**: designs export to HTML, PDF, and PNG. Decks export to PowerPoint, PDF, and HTML. In Claude Desktop 6.28899.2 or later, users can also export a slide as PNG. Users can't export a design to PowerPoint, or send designs and decks to Google Slides, other tools, or Claude Code.
 * **Connectors**: designs and decks can't use connectors.
+* **Web content**: designs and decks don't load images, fonts, or scripts from the web in Claude Desktop. Their exported HTML files can, when someone opens them in a browser.
 
 ## Design systems
 
@@ -76,7 +77,7 @@ A design system has these files. To change them later, edit them yourself or ask
 
 | File or folder | What it holds |
 | - | - |
-| `README.md` | Your brand in words: voice, look, and the rules that always apply. Claude reads all of it every time, so keep it short. Claude finds your other files through it, so name each one by its path. You can also use this file to point Claude at skills that you want Claude to follow. |
+| `README.md` | Your brand in words: voice, look, and the rules that always apply. Claude reads all of it every time, so keep it short. Claude finds your other files through it, so name each one by its path. You can also use this file to point Claude at skills that you want Claude to follow, but Claude may not always use them, so write the rules that matter most here. |
 | `tokens.json` | Your exact colors, text styles, spacing, and corner radius. Give each a name and a note on when to use it. |
 | `tokens.css` | The same values as a stylesheet, which also loads your fonts in designs. If you edit `tokens.json`, make the same change here. |
 | `fonts/` | Font files: `.woff2`, `.woff`, `.ttf`, or `.otf`. Include only fonts whose license lets you share them. |

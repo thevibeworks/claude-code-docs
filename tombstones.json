@@ -1658,6 +1658,10 @@
     "https://support.claude.com/en/articles/9927533-disable-public-projects-for-your-organization": {
       "since": "2026-09-22",
       "reason": "moved -> https://support.claude.com/en/articles/9927533-control-project-sharing-for-your-organization"
+    },
+    "https://www.anthropic.com/legal/archive/8d358a42-e4d9-48ff-bd20-d44c89939c98": {
+      "since": "2026-11-20",
+      "reason": "dropped from versionHistory"
     }
   }
 }

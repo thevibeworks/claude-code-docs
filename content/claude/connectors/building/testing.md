@@ -14,11 +14,11 @@ This page is for developers with a running server, whether it's deployed or stil
 
 ## Test in Claude as a custom connector
 
-To test your server the way users reach it, add it to Claude as a custom connector by its URL. On Team and Enterprise plans, an Owner adds the connector for the organization. If you can't add one yourself, ask an Owner. Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) to start. For the steps on each plan, see [Add a connector that isn't in the directory](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url).
+To test your server the way users reach it, add it to Claude as a custom connector by its URL. On Team and Enterprise plans, an Owner adds the connector for the organization. If you can't add one yourself, ask an Owner. Go to the [Connectors directory](https://claude.ai/customize/connectors) to start. For the steps on each plan, see [Add a connector that isn't in the directory](https://claude.com/docs/connectors/custom/add-unlisted.md#add-a-connector-by-url).
 
 Once the connector is added, check these:
 
-* **The connection**: the connector shows **Connected** under **Your connectors**. If it shows **Connect** or **Reconnect** instead, sign-in didn't finish, and [Debug connection failures](#debug-connection-failures) covers the usual causes
+* **The connection**: the connector is in the list of [your connectors](https://claude.ai/customize/connectors/yours). If it shows **Connect** or **Reconnect**, sign-in didn't finish, and [Debug connection failures](#debug-connection-failures) covers the usual causes
 * **Your tools**: open the connector's page and look under **Tool permissions**. Every tool your server advertises should be listed with the name and description you gave it, because those are what Claude reads when it decides to call a tool
 * **A real call**: in a chat, turn the connector on from **+ > Connectors**, ask for something that needs one of your tools, and approve the call when Claude asks. Confirm on your server that the request arrived with the arguments you expected, and in Claude that the result reads well. [Use the connector in a conversation](https://claude.com/docs/connectors/getting-started.md#use-the-connector-in-a-conversation) shows what the user sees at each point
 * **An MCP App**: while your app is open, Claude can mark the connector **Unverified**, in the conversation, in the side panel, and in full screen. The mark means that Anthropic hasn't verified the connector, not that your server has a fault. People who install your connector from a directory listing don't see it

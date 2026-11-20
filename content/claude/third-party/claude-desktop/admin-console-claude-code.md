@@ -98,7 +98,7 @@ Go to **Organization settings > Products > Claude Code**, enter the settings as 
 
 Unlike `managed-settings.json`, the JSON takes only [a fixed list of settings](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#settings-that-claude-code-applies), and Claude Code ignores the rest. No setting in the JSON can grant a permission, run a command, sign in, or choose a provider or a model. The console doesn't check the JSON against that list. You see what Claude Code ignored when you [check that your settings apply](#check-that-your-settings-apply).
 
-The JSON doesn't apply to the Code tab in Claude Desktop. The Code tab follows the fields on the **Desktop 3P** pages.
+The JSON doesn't apply to Code sessions in Claude Desktop. Those sessions follow the fields on the **Desktop 3P** pages.
 
 ## Prepare your gateway
 
@@ -156,7 +156,7 @@ These need managed settings on the computer. If you can't do without one, [keep 
 * **`strictKnownMarketplaces`, `allowManagedPermissionRulesOnly`, `sandbox.filesystem.allowManagedReadPathsOnly`, and Auto mode's deny rules (`autoMode`)**: Claude Code ignores these in the JSON
 * **A private address for your provider, such as a VPC endpoint**: your connection overrides it, even if you keep managed settings, so requests go to the provider's default address. To keep it, also fill in **Bedrock base URL**, or the same field for another cloud provider, on the **Connection** page. Claude Code in the terminal then uses the provider set on each computer, not your connection, so each computer must keep managed settings that set your provider and the private address.
 
-In the Code tab in Claude Desktop, the file's rules stop applying too, unless a field on the **Desktop 3P** pages sets them.
+In Code sessions in Claude Desktop, the file's rules stop applying too, unless a field on the **Desktop 3P** pages sets them.
 
 ## Turn on sign-in from Claude Code
 
@@ -283,10 +283,10 @@ The console alone can't require the sign-in. The console settings that Claude Co
 >
 > Don't set `enforceAnthropicSignIn` or `requiredMinimumVersion` on a computer that also runs Claude Desktop on your provider.
 >
-> * **`enforceAnthropicSignIn`**: Claude Code also refuses the sessions that Claude Desktop starts, even when the developer is signed in. This stops the Code tab, Cowork, Chat, and scheduled tasks.
+> * **`enforceAnthropicSignIn`**: Claude Code also refuses the sessions that Claude Desktop starts, even when the developer is signed in. This stops Code sessions, Cowork, Chat, and scheduled tasks.
 > * **`requiredMinimumVersion`**: Claude Desktop runs its own copy of Claude Code, which updates only with Claude Desktop. While that copy is older than the minimum, none of Claude Desktop's sessions start.
 >
-> On those computers, deploy `forceLoginOrgUUID` without those keys, and put `"parentSettingsBehavior": "merge"` next to it. That refuses other organizations, but it doesn't require the sign-in. Without `parentSettingsBehavior`, Claude Code ignores the settings that Claude Desktop passes to its sessions, including the Code tab's sandbox.
+> On those computers, deploy `forceLoginOrgUUID` without those keys, and put `"parentSettingsBehavior": "merge"` next to it. That refuses other organizations, but it doesn't require the sign-in. Without `parentSettingsBehavior`, Claude Code ignores the settings that Claude Desktop passes to its sessions, including the sandbox for Code sessions.
 
 To require the sign-in, first turn on sign-in from Claude Code. If you removed your managed settings, you then deploy one small file, the only one that you still deploy. If you kept them, you add the keys to them. These are the keys:
 

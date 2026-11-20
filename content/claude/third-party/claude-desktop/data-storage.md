@@ -46,7 +46,7 @@ Within the application-data directory:
 | `claude-code-sessions/` | Code session records holding each session's working folder, settings, title, and sometimes a short summary. The conversation transcripts themselves are in Claude Code's own store at `~/.claude/projects/`, outside this directory. |
 | `claude-code/`, `claude-code-vm/` | Claude Code binary and VM workspace data for Code sessions. |
 | `vm_bundles/` | Cached copy of the VM workspace bundle that Cowork uses, plus the data disk the app creates to hold Cowork sessions' home directories inside the VM. |
-| `cowork_plugins/` | User-installed and [org-provisioned](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin) plugins. Created on first plugin install. |
+| `local-agent-mode-sessions/.../cowork_plugins/` | User-installed and [org-provisioned](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin) plugins. Created on first plugin install. |
 | `plugin-mcp-auth/`, `connectors/*/plugin-mcp/` | On Windows and Linux, the `.credentials.json` file that holds the user's sign-ins to plugin servers, made outside **Code**. See [Credentials](#credentials). |
 | `IndexedDB/`, `Local Storage/`, `Session Storage/` | Renderer-side UI state (window layout, recent folders, preferences). |
 
@@ -200,6 +200,7 @@ The app deletes whole sessions in the background:
 * **[Designs and slide decks](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md)**: when the app or the user deletes a chat, the app also deletes the designs and decks made in the chat, if `artifactsEnabled` is `true` at that time. It deletes them even if the user edited them after the chat's last activity. The designs and decks made in a Cowork task, or in a home-screen conversation that is a Cowork session, stay on the device.
 * **Code sessions**: the app deletes a session and its conversation. It also removes the session's [Git worktree](https://code.claude.com/docs/en/worktrees), except in some cases, such as when the worktree has uncommitted changes or the session is pinned. Other files in the session's working folder stay, and Code sessions on an SSH host or in WSL aren't affected.
 * **Task folders with no session record**: if both `chatSessionRetentionDays` and `coworkSessionRetentionDays` are set, the app also deletes the folder of a new task that stopped before the app saved it, once nothing in the folder has changed for the longer period.
+* **Code sessions from the terminal**: a session that the user resumes in **Code** from Claude Code in the terminal, or imports with **Help > Troubleshooting > Import Claude Code CLI Sessions…**, uses the terminal's own transcript in `~/.claude/projects/`, not a copy. When the app deletes the session, it deletes that transcript too, except in some cases, such as when Claude Code is running the conversation or wrote to the transcript in the last `codeSessionRetentionDays` days.
 
 Projects and memory stay. A session that is running or open on screen is skipped until a later pass. On a device that gets its configuration from a server, the app stops deleting idle sessions shortly after it loses contact with that server.
 

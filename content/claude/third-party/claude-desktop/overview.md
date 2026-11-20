@@ -6,7 +6,7 @@
 
 > Run Claude Desktop against your own cloud inference provider
 
-Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly. The app runs from a bundled local web application. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md).
+Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly. The app runs from a bundled local web application.
 
 You get the full Claude Desktop experience (Chat, Cowork, and Code, including file creation, multi-step research, and sub-agent coordination) with inference and billing handled by the provider you choose. [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) combines Chat and Cowork into one experience.
 
@@ -28,8 +28,6 @@ If your organization can use Anthropic's first-party products directly, standard
 | Conversation storage | Anthropic backend | Local disk on the user's machine, and the remote host for [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md) |
 | Code execution sandbox | Local VM | Local VM (identical) |
 | Configuration | Admin console at claude.ai | OS-native configuration (MDM-managed or per-user), a bootstrap server, or the claude.ai admin console |
-
-The desktop app detects 3P mode at launch from the configured inference provider.
 
 ### Security posture
 
@@ -65,7 +63,7 @@ For the Anthropic API, Anthropic processes conversation data under your Anthropi
 
 For multi-region organizations, deploy distinct MDM configuration profiles per geography so each user population points at an in-region endpoint. Google Cloud's Agent Platform and Amazon Bedrock each offer Claude models in the EU, UK, and Asia/Pacific regions; consult your provider's model-availability documentation for the current list.
 
-**Microsoft Foundry:** Residency is set by the [hosting option and deployment type](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) you select when you deploy the model in Microsoft Foundry. Deployments hosted on Azure offer two deployment types: Global Standard, which may run inference in any available region, and US Data Zone Standard, which keeps inference within the United States. Deployments hosted on Anthropic offer Global Standard only. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md). See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
+**Microsoft Foundry:** Residency is set by the [hosting option and deployment type](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) you select when you deploy the model in Microsoft Foundry. Deployments hosted on Azure offer two deployment types: Global Standard, which may run inference in any available region, and US Data Zone Standard, which keeps inference within the United States. Deployments hosted on Anthropic offer Global Standard only. Conversation history is stored on the user's device, and on the remote host for [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md).
 
 ## Public sector and highly regulated environments
 

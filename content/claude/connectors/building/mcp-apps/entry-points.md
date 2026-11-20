@@ -86,7 +86,7 @@ After you add or edit an entry point, the change can take up to about two hours 
 
 To see the change immediately, refresh the tools list:
 
-1. Go to [**Customize > Connectors**](https://claude.ai/customize/connectors) and select your connector
+1. Go to [your connectors](https://claude.ai/customize/connectors/yours) and select your connector
 2. Open the three-dot menu and click **Refresh tools list**
 
 You refresh the list for your own account. Other people can still wait for the change.
