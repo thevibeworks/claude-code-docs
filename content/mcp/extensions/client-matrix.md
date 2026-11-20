@@ -20,28 +20,33 @@ This matrix shows which MCP clients support each [official extension](https://mo
 | [OAuth Client Credentials](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials.md) | `io.modelcontextprotocol/oauth-client-credentials` | Machine-to-machine auth without interactive user login |
 | [Enterprise-Managed Authorization](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) | `io.modelcontextprotocol/enterprise-managed-authorization` | Centralized access control via enterprise IdP |
 | [Skills over MCP](https://modelcontextprotocol.io/extensions/skills/overview.md) | `io.modelcontextprotocol/skills` | Discover skills and read their instructions and supporting files |
+| [Events](https://modelcontextprotocol.io/extensions/events/overview.md) | `io.modelcontextprotocol/events` | Subscribe to upstream events and receive them by poll, push or webhook |
 
 ## Support matrix
 
-| Client | [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md) | [OAuth Client Credentials](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials.md) | [Enterprise Auth](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) | [Skills](https://modelcontextprotocol.io/extensions/skills/overview.md) | [Tasks](https://modelcontextprotocol.io/extensions/tasks/overview.md) |
-| - | :-: | :-: | :-: | :-: | :-: |
-| [Claude (web)](https://claude.ai) | | | | | |
-| [Claude Desktop](https://claude.ai/download) | | | | | |
-| [Claude Code](https://claude.com/claude-code) | | | | | |
-| [VS Code GitHub Copilot](https://code.visualstudio.com/) | | | | | |
-| [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot) | | | | | |
-| [Goose](https://block.github.io/goose/) | | | | | |
-| [Postman](https://postman.com) | | | | | |
-| [MCPJam](https://www.mcpjam.com/) | | | | | |
-| [ChatGPT](https://chatgpt.com/) | | | | [Partial](https://developers.openai.com/plugins/build/mcp-server#import-skills-from-the-mcp-server) | |
-| [Cursor](https://cursor.com/) | | | | | |
-| [Archestra.AI](https://www.archestra.ai/) | | | | | |
-| [PostHog Code](https://posthog.com/code/) | | | | | |
-| [Kiro Crew](https://kiro.dev/crew/) | | | | | |
-| [fast-agent](https://github.com/evalstate/fast-agent) | | | | [Partial](https://github.com/evalstate/fast-agent/blob/main/docs/docs/mcp/skills-over-mcp.md) | |
-| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/docs/mcp-app-review.md) | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) | |
-| [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | | |
-| [Glean](https://www.glean.com/) | | | | | |
+| Client | [MCP Apps](https://modelcontextprotocol.io/extensions/apps/overview.md) | [OAuth Client Credentials](https://modelcontextprotocol.io/extensions/auth/oauth-client-credentials.md) | [Enterprise Auth](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md) | [Skills](https://modelcontextprotocol.io/extensions/skills/overview.md) | [Tasks](https://modelcontextprotocol.io/extensions/tasks/overview.md) | [Events](https://modelcontextprotocol.io/extensions/events/overview.md) |
+| - | :-: | :-: | :-: | :-: | :-: | :-: |
+| [Claude (web)](https://claude.ai) | | | | | | |
+| [Claude Desktop](https://claude.ai/download) | | | | | | |
+| [Claude Code](https://claude.com/claude-code) | | | | | | |
+| [VS Code GitHub Copilot](https://code.visualstudio.com/) | | | | | | |
+| [Microsoft 365 Copilot](https://www.microsoft.com/microsoft-365-copilot) | | | | | | |
+| [Goose](https://block.github.io/goose/) | | | | | | |
+| [Postman](https://postman.com) | | | | | | |
+| [MCPJam](https://www.mcpjam.com/) | | | | | | |
+| [ChatGPT](https://chatgpt.com/) | | | | [Partial](https://developers.openai.com/plugins/build/mcp-server#import-skills-from-the-mcp-server) | | [Partial](https://developers.openai.com/plugins/build/mcp-events) |
+| [Cursor](https://cursor.com/) | | | | | | |
+| [Archestra.AI](https://www.archestra.ai/) | | | | | | |
+| [PostHog Code](https://posthog.com/code/) | | | | | | |
+| [Kiro Crew](https://kiro.dev/crew/) | | | | | | |
+| [fast-agent](https://github.com/evalstate/fast-agent) | | | | [Partial](https://github.com/evalstate/fast-agent/blob/main/docs/docs/mcp/skills-over-mcp.md) | | |
+| [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/docs/mcp-app-review.md) | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) | | |
+| [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | | | |
+| [Glean](https://www.glean.com/) | | | | | | |
+
+> [!NOTE]
+>
+> Events support marked **Partial** means webhook delivery only. Clients marked with a check support poll, push and webhook delivery. Most of these implementations predate SEP-3415 reaching Final and track the draft specification.
 
 > [!NOTE]
 >

@@ -93,6 +93,16 @@ See the [Skills overview](https://modelcontextprotocol.io/extensions/skills/over
 | - | - | - |
 | [Server Cards](https://modelcontextprotocol.io/seps/2127-mcp-server-cards.md) | Beta, destination not yet stated | Lets clients discover a server's metadata before connecting to it. |
 
+### MCP Events
+
+> [card] [modelcontextprotocol/ext-events](https://github.com/modelcontextprotocol/ext-events)
+>
+> Subscriptions to events in upstream systems.
+
+| Extension | Stage | Description |
+| - | - | - |
+| [Events](https://modelcontextprotocol.io/extensions/events/overview.md) | Beta, destination not yet stated | Subscribe to upstream events and receive them by polling, push or webhook. |
+
 ## Experimental Extensions
 
 Experimental extensions provide an incubation pathway for [Working Groups and Interest Groups](https://modelcontextprotocol.io/community/working-interest-groups.md) to prototype ideas and collaborate on extension concepts before or alongside a SEP.

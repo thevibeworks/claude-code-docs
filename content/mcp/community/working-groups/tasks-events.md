@@ -87,6 +87,10 @@ Meetings are published at
   [modelcontextprotocol/ext-tasks](https://github.com/modelcontextprotocol/ext-tasks)
 * Tasks specification:
   [SEP-2663: Tasks Extension](https://modelcontextprotocol.io/seps/2663-tasks-extension.md)
+* Events extension repository:
+  [modelcontextprotocol/ext-events](https://github.com/modelcontextprotocol/ext-events)
+* Events specification:
+  [SEP-3415: Events Extension](https://modelcontextprotocol.io/seps/3415-events-extension.md)
 
 ## Deliverables & Success Metrics
 
@@ -95,7 +99,7 @@ Meetings are published at
 | Item | Status | Target Date | Champion |
 | - | - | - | - |
 | Tasks stabilization and core protocol promotion | In Progress | | [@LucaButBoring](https://github.com/LucaButBoring) |
-| SEP: Events in MCP v1 RFC | Ideating | End April | TBD |
+| [SEP-3415: Events Extension](https://modelcontextprotocol.io/seps/3415-events-extension.md) | Final | | [@poita](https://github.com/poita) |
 | Reference implementation in Tier-1 SDKs | — | End April | TBD |
 
 ### Success Criteria
