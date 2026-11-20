@@ -216,7 +216,7 @@ Claude works in channels it has been added to, but workspace search can still fi
 
 ### What survives between replies
 
-A thread is durable, but the sandbox behind it is not. Durable means the thread stays in Slack, and everything Claude read and said in it is kept in the session's transcript on Anthropic's side, so the session can pick up where it left off whenever someone replies. Deleting messages or the thread in Slack doesn't remove them from that transcript. The sandbox is the computer where Claude runs commands and keeps working files for a task. A few minutes after a session finishes its turn, its sandbox is released, and the same session resumes in a fresh one when the next message arrives. A thread's session keeps resuming this way for as long as people use the thread. Claude replaces it with a new session in two cases.
+A thread is durable, but the sandbox behind it is not. Durable means the thread stays in Slack, and everything Claude read and said in it is kept in the session's transcript on Anthropic's side, so the session can pick up where it left off whenever someone replies, for [as long as the session is kept](https://claude.com/docs/claude-tag/concepts/data-lifecycle.md#how-long-data-is-kept). Deleting messages or the thread in Slack doesn't remove them from that transcript. The sandbox is the computer where Claude runs commands and keeps working files for a task. A few minutes after a session finishes its turn, its sandbox is released, and the same session resumes in a fresh one when the next message arrives. A thread's session keeps resuming this way for as long as people use the thread. Claude replaces it with a new session in two cases.
 
 | When | What Claude does |
 | :- | :- |

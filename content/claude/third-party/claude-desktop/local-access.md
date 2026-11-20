@@ -18,7 +18,7 @@ Set [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-deskt
 | `["~/Documents/Claude", "/Volumes/Shared/Projects"]` | Users may attach only folders **inside** one of the listed roots. |
 | `[]` | No folders may be attached. The agent can still create files in its own sandbox scratch space, but cannot read or write the user's filesystem. |
 
-A leading `~` expands to the user's home directory, so a single profile can express per-user roots like `~/Documents/Claude` across the fleet. A path may also reference one of a fixed set of environment-variable tokens, such as `%OneDrive%` or `%USERNAME%`, listed in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#allowedworkspacefolders). An entry that references any other `%VAR%`, or one that is unset on the device, is ignored.
+A leading `~` expands to the user's home directory, so a single profile can express per-user roots like `~/Documents/Claude` across the fleet. A path may also reference one of a fixed set of environment-variable tokens, such as `%OneDrive%` or `%USERNAME%`, listed in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#allowedworkspacefolders). An entry that references any other `%VAR%`, or one that is unset on the device, adds no folder.
 
 Each entry is either a plain path string or an object with these fields:
 

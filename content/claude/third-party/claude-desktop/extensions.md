@@ -59,6 +59,10 @@ In the in-app configuration window, each server you add under **Connectors** has
 
 Give each remote server's final address in `url`. Claude Desktop doesn't follow HTTP redirects from a managed MCP server, or from its OAuth authorization server when it fetches that server's metadata or requests and refreshes tokens. If one of these requests is answered with a redirect, for example to the same address with a trailing slash, the server doesn't connect, and **Test this connection** reports that redirects are not followed. Remote servers that [organization plugins](#organization-plugins-admin) declare in `.mcp.json` follow the same redirect rule.
 
+> [!NOTE]
+>
+> If a user adds a local MCP server under **Settings → Developer** with the same or a similar name as one of your servers, Claude Desktop uses your server and doesn't start the user's server in Chat, Cowork, or Code. **Settings → Developer** shows the user's server as **Replaced by organization’s server**. To use both, the user renames their server in the file that **Edit config** opens.
+
 ### OAuth sign-in
 
 For a remote server entry with `oauth` set, Claude Desktop signs each user in through the system browser and receives the authorization code on a fixed loopback address. Register this redirect URI on the OAuth client, or allow it on your authorization server if clients register themselves:
@@ -75,7 +79,7 @@ An `http` or `sse` entry with no `oauth`, no `headersHelper`, and no `Authorizat
 
 #### How OAuth sign-in works
 
-Claude Desktop starts sign-in only when the MCP server answers an unauthenticated request with HTTP `401`. A redirect to a web sign-in page does not start sign-in, so a gateway in front of the server must answer an unauthenticated MCP request with `401` rather than `302`.
+Claude Desktop starts sign-in when the MCP server answers an unauthenticated request with HTTP `401`. A redirect to a web sign-in page does not start sign-in, so a gateway in front of the server must answer an unauthenticated MCP request with `401` rather than `302`.
 
 At launch, Claude Desktop connects to every managed server without user interaction. A server with a stored token connects silently, and Claude Desktop refreshes the token first when it is near expiry. A server with no usable token appears under **Customize → Connectors** with a button that starts sign-in, and no browser window opens until the user selects it.
 
@@ -380,7 +384,7 @@ org-plugins/
 
 > [!NOTE]
 >
-> Each entry in `org-plugins/` must carry a valid manifest: a `.claude-plugin/plugin.json`, or a top-level `SKILL.md` whose frontmatter declares `agents` or `mcpServers` (a skill folder that also acts as a plugin). A plain skill folder does not qualify on its own. To distribute a single skill, place it under `skills/<name>/SKILL.md` in a plugin that has a `plugin.json`. A directory with no valid manifest is not loaded and never appears in the user's plugin browser. The diagnostic report's plugin section shows the rejected entry and why. To distribute an MCP connector, declare it in a plugin's `.mcp.json` or use [`managedMcpServers`](#managed-mcp-servers-admin). Claude Desktop doesn't start a desktop extension (`.mcpb`) that a plugin in `org-plugins/` names in its manifest.
+> Each entry in `org-plugins/` must carry a valid manifest: a `.claude-plugin/plugin.json`, or a top-level `SKILL.md` whose frontmatter declares `agents` or `mcpServers` (a skill folder that also acts as a plugin). A plain skill folder does not qualify on its own. To distribute a single skill, place it under `skills/<name>/SKILL.md` in a plugin that has a `plugin.json`. A directory with no valid manifest is not loaded and never appears in the user's plugin browser. The diagnostic report's **MCP servers** section shows the rejected entry and why. To distribute an MCP connector, declare it in a plugin's `.mcp.json` or use [`managedMcpServers`](#managed-mcp-servers-admin). Claude Desktop doesn't start a desktop extension (`.mcpb`) that a plugin in `org-plugins/` names in its manifest.
 
 See the [plugins reference](https://code.claude.com/docs/en/plugins) for the full file format of each component, including the hooks schema.
 
@@ -427,7 +431,7 @@ To withdraw a plugin, remove its folder from `org-plugins/`. On Claude Desktop 1
 
 A plugin can declare remote MCP servers in its `.mcp.json` file, and Claude Desktop shows each one as a connector. For a plugin from one of your [marketplaces](#plugin-marketplaces-admin), or a plugin that a user added, Claude can use these servers in the Cowork sessions, Chat conversations, and Code sessions that load the plugin. If a server requires OAuth sign-in, Claude can use it in Cowork sessions, Chat conversations, and local Code sessions after the user [signs in](#sign-in-to-a-plugin-server). The user signs in once for **Code** and once for the rest of Claude Desktop.
 
-In a marketplace plugin or a user-added plugin, a remote server's entry in `.mcp.json` needs no `oauth` field, even if the server requires OAuth sign-in. If you set `oauth`, make it an object, as [MCP in Claude Code](https://code.claude.com/docs/en/mcp#authenticate-with-remote-mcp-servers) shows, and not `true` as in the `org-plugins/` directory. Claude Code skips a server whose entry says `"oauth": true`. If users sign in outside **Code**, leave `clientId` out of the object, as described under [Requirements for plugin server sign-in outside Code](#requirements-for-plugin-server-sign-in-outside-code).
+In a marketplace plugin or a user-added plugin, a remote server's entry in `.mcp.json` needs no `oauth` field, even if the server requires OAuth sign-in. If you set `oauth`, make it an object, as [MCP in Claude Code](https://code.claude.com/docs/en/mcp#authenticate-with-remote-mcp-servers) shows, and not `true` as in the `org-plugins/` directory. Claude Code skips a server whose entry says `"oauth": true`. If users sign in outside **Code**, leave `clientId` out of the object, as described under [Requirements for plugin server sign-in outside Code](#requirements-for-plugin-server-sign-in-outside-code). If a server takes its token from a script, set `headersHelper` on a [`managedMcpServers` entry that replaces the plugin server](#replace-a-plugin-server-with-a-managed-mcp-server), not in the plugin's `.mcp.json` file.
 
 Claude Code reads this `.mcp.json` file and skips a server whose entry it can't read. Claude Desktop still shows a skipped server as a connector, but Claude can't use it. To check a plugin's entries before you publish it, run [`claude plugin validate <plugin-folder>`](https://code.claude.com/docs/en/plugins/cli-reference#plugin-validate) in your terminal, on the plugin's own folder and not the marketplace's folder. The command checks the entries against the version of Claude Code that runs it, so it can pass an entry that the version in your users' Claude Desktop skips.
 
@@ -502,7 +506,7 @@ A change that Claude Desktop downloads from the [Enterprise Admin Console](https
 
 ### Replace a plugin server with a managed MCP server
 
-If a [`managedMcpServers`](#managed-mcp-servers-admin) entry has the same `url` or the same name as a plugin's remote server, Claude Desktop uses your entry in place of the plugin server. Give the entry a `transport`, the plugin server's `url`, and `oauth`, as described under [OAuth sign-in](#oauth-sign-in). Each user clicks **Connect** next to your entry's name under **Customize > Connectors** and signs in once for Cowork sessions, Chat conversations, and Code sessions.
+If a [`managedMcpServers`](#managed-mcp-servers-admin) entry has the same `url` or the same name as a plugin's remote server, Claude Desktop uses your entry in place of the plugin server. Give the entry a `transport`, the plugin server's `url`, and `oauth`, as described under [OAuth sign-in](#oauth-sign-in). If the server takes a token from a script instead of an OAuth sign-in, give the entry `headersHelper` in place of `oauth`, as described under [Short-lived credentials with a headers helper](#short-lived-credentials-with-a-headers-helper). With `oauth`, each user clicks **Connect** next to your entry's name under **Customize > Connectors** and signs in once for Cowork sessions, Chat conversations, and Code sessions.
 
 ### Limit plugin servers and end sign-ins
 
@@ -644,7 +648,10 @@ Skill scanning checks the [skills](https://claude.com/docs/skills/overview.md) t
 
 Claude Desktop doesn't scan plugins, or the skills inside them. To stop users from adding their own plugins, see [Controlling user extensions](#controlling-user-extensions).
 
-When a skill passes a scan or gets a caution, Claude Desktop changes some characters in the skill's files, and a skill that depends on those characters can stop working. Before you turn on scanning, see [Changes to skill files after a scan](#changes-to-skill-files-after-a-scan).
+Before you turn on scanning, check how it affects skills:
+
+* **Refused skills**: Claude Desktop doesn't save a skill that is too large for a scan or that contains files a scan can't read. See [Size and file type limits for skills](#size-and-file-type-limits-for-skills).
+* **Changed files**: when a skill passes a scan or gets a caution, Claude Desktop changes some characters in its files, and a skill that depends on those characters can stop working. See [Changes to skill files after a scan](#changes-to-skill-files-after-a-scan).
 
 ### Turn on skill scanning
 
@@ -684,6 +691,22 @@ Neither a user nor an administrator can approve a blocked skill. Turning scannin
 
 The Enterprise Admin Console doesn't show scan results. To collect them, set [`otlpEndpoint`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpendpoint). Claude Desktop then sends scan records to your own [OpenTelemetry collector](https://claude.com/docs/third-party/claude-desktop/telemetry.md#sending-telemetry-to-your-own-collector) as log records whose body is `custom3p_skill_scan_completed`. It sends no scan records while [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `off`. A scan record identifies the user and includes the skill's name, the result, and the model's summary of the skill when there is one. The summary can quote the skill, and Claude Desktop sends it even when [content capture](https://claude.com/docs/third-party/claude-desktop/telemetry.md#content-capture) is off. To keep the summary out of your backend, drop the `scan_summary` attribute in the collector.
 
+### Size and file type limits for skills
+
+While skill scanning is on, Claude Desktop doesn't save a skill that contains any of these:
+
+* A text file larger than 100 KB (100,000 bytes)
+* More than 400 KB (400,000 bytes) of text in total. Each file also uses a small part of this limit.
+* A file that isn't UTF-8 text, such as a Word, Excel, or PowerPoint file
+* A compiled program or an archive, such as an `.exe`, `.jar`, or `.tar` file
+* A version-control, build, or dependency folder, such as `.git`, `dist`, `node_modules`, or `.venv`
+
+A scan [skips some files](#what-skill-scanning-doesn%E2%80%99t-cover), such as PNG and JPEG images and PDFs, so these limits don't apply to them.
+
+The app tells the user why it didn't save the skill. Claude Desktop doesn't start a scan, so the attempt uses no scan tokens and produces no [scan record](#how-a-scan-works).
+
+You can't change these limits. To stay within them, a user can split a large file, split one skill into two, or leave out files that the skill doesn't need when it runs, such as tests.
+
 ### Changes to skill files after a scan
 
 When a skill gets a **Pass** or **Caution** result, Claude Desktop changes some characters in the skill's text files. The app doesn't tell the user or the administrator about the changes, and it doesn't keep a copy of the original files. Turning on scanning doesn't change the skills that users already saved. Claude Desktop scans such a skill the next time the user saves it, and its files can change then.
@@ -703,7 +726,7 @@ Claude Desktop makes these changes, and a few similar ones, to a text file:
 
 In PowerShell files, such as `.ps1` files, curly quotes become straight quotes and a carriage return on its own becomes a line feed. A PowerShell file that contains non-ASCII characters can also gain a byte-order mark and a line break at its start.
 
-Claude Desktop doesn't change file names. It also leaves PNG and JPEG images, PDFs, and dependency lock files such as `package-lock.json` as they are.
+Claude Desktop doesn't change file names, and it doesn't change the [files that a scan skips](#what-skill-scanning-doesn%E2%80%99t-cover).
 
 A skill that depends on the original characters can stop working after the scan, as in these examples:
 

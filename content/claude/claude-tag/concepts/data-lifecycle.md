@@ -31,11 +31,22 @@ Deleting or editing a message or file in Slack doesn't remove it from a transcri
 
 ## How long data is kept
 
-During the beta there is no automatic retention period for Claude Tag data. Session transcripts, memory, routines, scopes, and account links are kept until one of the actions on this page deletes them. Your organization's custom data retention setting doesn't apply to Claude Tag transcripts or memory. It does apply to artifacts a session published, which follow the same retention rules as your organization's other shared artifacts.
+Routines that haven't ended, memory, scopes, and account links are kept until one of the actions on this page deletes them. Session transcripts are kept the same way, unless a retention period deletes them.
 
-Sessions Claude stops using are archived, not deleted. That includes a thread's session after someone sends [`@Claude !restart`](https://claude.com/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session), a session that closed because the thread's first message was deleted, and the channel-level sessions Claude replaces after about an hour of quiet or about a day of age. An archived session keeps its full transcript until the channel's or workspace's data is deleted.
+Claude Tag has its own retention setting, **Retention policy**, in [**Organization settings > Claude Tag**](https://claude.ai/admin-settings/claude-tag). The setting is in beta and available to a limited set of organizations. It's separate from the retention periods under **Data and privacy**, and it applies only to Claude Tag sessions and the sessions they start.
 
-Letting a plan lapse, turning Claude Tag off, or no longer using it doesn't delete anything on its own. To delete a workspace's data when you stop using Claude Tag, [disconnect the workspace](https://claude.com/docs/claude-tag/admins/workspaces.md#revoke-a-pairing) or uninstall the app.
+After an Owner sets a period of 30 days or more, the setting can delete sessions that have been inactive for longer than that period, with their transcripts. Some sessions are kept longer.
+
+* **Included**: archived sessions, sessions that use a member's [personal connectors](https://claude.com/docs/claude-tag/concepts/personal-connectors.md), and ones that the actions on this page leave in place
+* **Not deleted by this setting**: chats, projects, other sessions, memory, and the artifacts a session published
+
+If a deleted session was still [following another channel](https://claude.com/docs/claude-tag/concepts/how-it-works.md#what-claude-can-do-in-other-channels), [subscribed to a pull request](https://claude.com/docs/claude-tag/users/proactivity.md#follow-a-pull-request), or [watching a published page](https://claude.com/docs/claude-tag/users/use-cases/create-artifacts.md#comment-on-the-page-to-ask-for-changes), that can stop without notice.
+
+Your organization's custom data retention setting for chats, projects, and artifacts doesn't apply to Claude Tag transcripts or memory. It does apply to artifacts a Claude Tag session published, which follow the same retention rules as your organization's other shared artifacts. If your organization has another retention period that covers cloud sessions, that period can also delete Claude Tag sessions.
+
+Sessions Claude stops using are archived, not deleted. That includes a thread's session after someone sends [`@Claude !restart`](https://claude.com/docs/claude-tag/users/commands#restart-a-stuck-or-wrong-context-session), a session that closed because the thread's first message was deleted, and the channel-level sessions Claude replaces after about an hour of quiet or about a day of age. An archived session keeps its full transcript until the channel's or workspace's data is deleted, or until a retention period for sessions deletes the session.
+
+Apart from a retention period for sessions, letting a plan lapse, turning Claude Tag off, or no longer using it doesn't delete anything on its own. To delete a workspace's data when you stop using Claude Tag, [disconnect the workspace](https://claude.com/docs/claude-tag/admins/workspaces.md#revoke-a-pairing) or uninstall the app.
 
 When an action below deletes data, deletion starts right away and completes in the background. Copies can remain in routine backups for a limited period after that before they age out.
 

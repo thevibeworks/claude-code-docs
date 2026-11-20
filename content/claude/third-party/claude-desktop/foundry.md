@@ -79,10 +79,6 @@ If the app can no longer renew the credential silently, it shows a **Sign in aga
 
 `inferenceFoundryTenantId`, `inferenceFoundryClientId`, and `inferenceFoundryAuthFlow` can be set through the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#choose-how-users-authenticate-to-your-provider), an MDM profile, or a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md). When a bootstrap server delivers `inferenceFoundryResource`, `inferenceFoundryTenantId`, or `inferenceFoundryClientId`, the values are among the [keys that require user consent](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent), so users may see a one-time approval dialog depending on how `bootstrapUrl` reached the device.
 
-> [!NOTE]
->
-> A [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) supplies per-user configuration values when the app starts. In-app sign-in supplies each user's inference credential, the Entra ID token that authorizes model calls. A deployment with a bootstrap server still needs each user to sign in, and signing in doesn't deliver configuration.
-
 #### Allow network egress
 
 The sign-in flow reaches `login.microsoftonline.com` in addition to your Microsoft Foundry endpoint. Both hosts are included automatically in the **Egress** section of the in-app configuration window when these keys are set. When you [route requests through a gateway](#route-requests-through-a-gateway), the gateway's host replaces the resource host there.
@@ -199,15 +195,6 @@ One of: `device-code`, `browser`, `broker`
 ***
 
 You must also set `inferenceModels` to a list of Microsoft Foundry deployment names. See the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemodels).
-
-## What users experience
-
-| Approach | First launch | Re-authentication |
-| - | - | - |
-| API key | The app opens directly; no user action. | Never, until you rotate the key in the managed profile. |
-| In-app Entra ID sign-in, device-code flow | The app shows a **Sign in with Microsoft** page; the user approves a device code in the browser, and the app returns to Cowork. | When the stored refresh token expires or is revoked under your tenant's policy. The app prompts in-app. |
-| In-app Entra ID sign-in, browser flow | The app shows a **Sign in with Microsoft** page; the user signs in through the system browser, with no code to enter, and the app returns to Cowork. | When the app can no longer renew the stored token. The app prompts in-app. |
-| In-app Entra ID sign-in, broker flow | The app shows a **Sign in with Microsoft** page; the user picks or signs in to a work account in the operating system's native account picker, and the app returns to Cowork. | When the broker can no longer renew the token silently. The app prompts in-app. |
 
 ## Troubleshoot
 

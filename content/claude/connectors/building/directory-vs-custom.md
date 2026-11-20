@@ -42,7 +42,7 @@ After publication, your connector has a permanent listing URL based on its slug:
 https://claude.ai/directory/connectors/SLUG
 ```
 
-For example, `https://claude.ai/directory/connectors/dovetail` opens the Dovetail listing with its description, screenshots, and a **Connect** button. You receive your slug when your submission is approved, and it [can't change afterward](https://claude.com/docs/connectors/building/after-publishing.md#directory-listing-urls-are-permanent).
+For example, `https://claude.ai/directory/connectors/dovetail` opens the Dovetail listing with its description and screenshots. You receive your slug when your submission is approved, and it [can't change afterward](https://claude.com/docs/connectors/building/after-publishing.md#directory-listing-urls-are-permanent).
 
 ### Custom connector install link
 

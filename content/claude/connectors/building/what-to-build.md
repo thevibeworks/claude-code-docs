@@ -58,7 +58,7 @@ The diagram shows what the server and the plugin each give people. The server gi
 
 In a plugin, you reference a remote MCP server by URL. If a user has both your directory connector and your plugin installed, Claude sees one set of tools, because the plugin and the connector point at the same server.
 
-If your plugin references an MCP URL that isn't in the directory, the user first adds it as a custom connector from the plugin's **Connectors** tab, and it then has the **Custom** label. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
+If your plugin references an MCP URL that isn't in the directory, the user first adds it as a custom connector from the plugin's page, and it's then labeled as custom. On Team and Enterprise plans, an Owner adds the connector for the organization, and members then connect with their own account.
 
 ## Next steps
 

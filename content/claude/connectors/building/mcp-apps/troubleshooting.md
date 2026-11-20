@@ -139,7 +139,7 @@ node -e 'const yourServerUrl = "https://example.com/mcp"; console.log(require("c
 
 A mismatch usually has one of these causes:
 
-* **The URL you hashed differs from the URL Claude connects to**: the hash covers the full URL string including scheme, path, and any trailing slash, so `https://example.com/mcp` and `https://example.com/mcp/` produce different values. Hash the exact URL configured in **Customize > Connectors**
+* **The URL you hashed differs from the URL Claude connects to**: the hash covers the full URL string including scheme, path, and any trailing slash, so `https://example.com/mcp` and `https://example.com/mcp/` produce different values. Hash the exact URL configured for the connector in Claude
 * **The connector is a local stdio server**: local connectors have no URL to hash, so `ui.domain` isn't available for them. Remove the field, or deploy the server as a remote connector to use a stable origin
 
 [Set `ui.domain` for Claude](https://claude.com/docs/connectors/building/mcp-apps/getting-started#set-ui-domain-for-claude) explains how the origin is used across platforms.
