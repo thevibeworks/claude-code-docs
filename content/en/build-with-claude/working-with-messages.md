@@ -39,10 +39,10 @@ featureMetadata:
 
 Anthropic offers two ways to build with Claude, each suited to different use cases:
 
-|                | Messages API                                | Claude Managed Agents                                                     |
-| -------------- | ------------------------------------------- | ------------------------------------------------------------------------- |
-| **What it is** | Direct model prompting access               | Pre-built, configurable agent harness that runs in managed infrastructure |
-| **Best for**   | Custom agent loops and fine-grained control | Long-running tasks and asynchronous work                                  |
+|  | Messages API | Claude Managed Agents |
+| ----- | ----- | ----- |
+| **What it is** | Direct model prompting access | Pre-built, configurable agent harness that runs in managed infrastructure |
+| **Best for** | Custom agent loops and fine-grained control | Long-running tasks and asynchronous work |
 
 This guide covers common patterns for working with the Messages API, including basic requests, multi-turn conversations, prefill techniques, and vision capabilities. For complete API specifications, see the [Messages API reference](https://platform.claude.com/docs/en/api/messages/create). For the managed agent harness instead, see the [Claude Managed Agents overview](https://platform.claude.com/docs/en/managed-agents/overview).
 
@@ -1099,10 +1099,10 @@ Available
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                       | HIPAA    |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| Status  | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible |
-| Details | Standard API calls for generating Claude responses.                                                                                                       | —        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible |
+| Details | Standard API calls for generating Claude responses. | — |
 
 Applicable endpoints:
 

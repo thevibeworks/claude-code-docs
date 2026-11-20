@@ -101,11 +101,11 @@ The Install steps that follow note where to add the corresponding route.
       <Step title="Set up Workload Identity Federation for the cluster">
         Follow [Use WIF with Kubernetes](https://platform.claude.com/docs/en/manage-claude/wif-providers/kubernetes) to register your cluster’s OIDC issuer and create a federation rule. The setup component runs under its own ServiceAccount in the release namespace; the exact name follows Helm’s `fullname` convention, so for any release name other than `mcp-tunnel`, run `helm template <release> ... | grep -A2 'kind: ServiceAccount'` to confirm it before creating the rule. The rest of this guide assumes release name `mcp-tunnel` in namespace `mcp-tunnel`, where the ServiceAccount is `mcp-tunnel-setup`.
 
-        | Field    | Value                                                |
-        | -------- | ---------------------------------------------------- |
-        | Subject  | `system:serviceaccount:mcp-tunnel:mcp-tunnel-setup`  |
+        | Field | Value |
+        | ----- | ----- |
+        | Subject | `system:serviceaccount:mcp-tunnel:mcp-tunnel-setup` |
         | Audience | `api.anthropic.com` (the chart’s default; no scheme) |
-        | Scope    | `workspace:manage_tunnels`                           |
+        | Scope | `workspace:manage_tunnels` |
 
         <Note>
           The chart’s default audience is `api.anthropic.com` with no scheme, but the Console’s federation-rule form suggests `https://api.anthropic.com`. The two must match byte-for-byte or authentication fails. Either set the rule’s audience to `api.anthropic.com`, or set `api.wif.audience` in `values.yaml` to `https://api.anthropic.com`.

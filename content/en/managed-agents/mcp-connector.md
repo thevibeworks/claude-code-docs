@@ -245,11 +245,11 @@ Each declared server also needs a matching `mcp_toolset` entry in the `tools` (c
 
 Each entry in the `mcp_servers` (java, php: `mcpServers`; csharp: `McpServers`; go: `MCPServers`) array defines one connection.
 
-| Field                            | Description                                                                                                                                                                                                                                                                                                                                                              |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `type` (csharp, go: `Type`)      | Required. Must be `"url"`.                                                                                                                                                                                                                                                                                                                                               |
-| `name` (csharp, go: `Name`)      | Required. A unique name for this server within the agent (1–255 characters). Used as the `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) in the `tools` (csharp, go: `Tools`) array and surfaced on MCP tool events in the [session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming). |
-| `url` (csharp: `Url`; go: `URL`) | Required. The endpoint of the remote MCP server (up to 2,048 characters). See [Supported MCP server types](https://platform.claude.com/docs/en/managed-agents/reference#supported-mcp-server-types) for transport requirements.                                                                                                                                          |
+| Field | Description |
+| ----- | ----- |
+| `type` (csharp, go: `Type`) | Required. Must be `"url"`. |
+| `name` (csharp, go: `Name`) | Required. A unique name for this server within the agent (1–255 characters). Used as the `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) in the `tools` (csharp, go: `Tools`) array and surfaced on MCP tool events in the [session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming). |
+| `url` (csharp: `Url`; go: `URL`) | Required. The endpoint of the remote MCP server (up to 2,048 characters). See [Supported MCP server types](https://platform.claude.com/docs/en/managed-agents/reference#supported-mcp-server-types) for transport requirements. |
 
 Constraints:
 
@@ -389,9 +389,9 @@ Credentials are matched by URL, so the vault must contain a credential whose `mc
 
 Session creation does not validate MCP connectivity or credentials. It does check each declared server’s host against the environment’s networking. With `limited` networking, session creation fails with a 400 error when a host is not allowed, as described under [Provide authentication at session creation](https://platform.claude.com/docs/en/managed-agents/mcp-connector#provide-authentication-at-session-creation). If an MCP server is unreachable or rejects the supplied credential, the session still starts, and you can still interact with it. The session emits a [`session.error`](https://platform.claude.com/docs/en/managed-agents/reference#event-types) event with the `mcp_server_name` (java, php: `mcpServerName`; csharp: `McpServerName`; go: `MCPServerName`) of the affected server and a `retry_status` (java, php: `retryStatus`; csharp, go: `RetryStatus`):
 
-| Error type                        | Meaning                                                                                                                                                                                                                 |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mcp_connection_failed_error`     | The MCP server could not be reached (network error, timeout, or non-authentication HTTP failure).                                                                                                                       |
+| Error type | Meaning |
+| ----- | ----- |
+| `mcp_connection_failed_error` | The MCP server could not be reached (network error, timeout, or non-authentication HTTP failure). |
 | `mcp_authentication_failed_error` | Authentication with the MCP server failed: the server rejected the credential from the attached vault, the server required authentication when no matching credential was configured, or an OAuth token refresh failed. |
 
 You can decide whether to block further interaction on this error, trigger a credential rotation, or let the session continue without the affected server’s tools. The connection is retried on the next `session.status_idle` to `session.status_running` transition.

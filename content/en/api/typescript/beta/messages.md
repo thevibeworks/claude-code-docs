@@ -183,7 +183,7 @@ interface MessageCreateParams {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
-  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. */
+  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual. */
   billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
@@ -440,6 +440,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `ImageDimensionsTooLargeError` (HTTP status 400, error code `image_dimensions_too_large`)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -476,6 +480,26 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `UserProfileRequiredError` (HTTP status 400, error code `user_profile_required`)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `LinkedOrganizationBillingUnavailableError` (HTTP status 402, error code `linked_organization_billing_unavailable`)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `LinkedOrganizationSpendLimitReachedError` (HTTP status 402, error code `linked_organization_spend_limit_reached`)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `UserProfileBillingNotAuthorizedError` (HTTP status 403, error code `user_profile_billing_not_authorized`)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `UserProfileNotBillableError` (HTTP status 403, error code `user_profile_not_billable`)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `ThreadNotFoundError` (HTTP status 404, error code `thread_not_found`)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -487,6 +511,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 - `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `ContractSpendLimitReachedError` (HTTP status 429, error code `contract_spend_limit_reached`)
+
+  The organization has reached the spend limit of its contract.
 
 - `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
@@ -743,6 +771,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -1274,7 +1303,7 @@ interface BetaServerToolCaller20260120 {
   tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
-type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
+type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestErrorObject;
 
 interface BetaWebSearchResultBlockParam {
   type: "web_search_result";
@@ -1284,7 +1313,7 @@ interface BetaWebSearchResultBlockParam {
   page_age?: string | null;
 }
 
-interface BetaWebSearchToolRequestError {
+interface BetaWebSearchToolRequestErrorObject {
   type: "web_search_tool_result_error";
   error_code: BetaWebSearchToolResultErrorCode;
 }
@@ -1841,7 +1870,7 @@ interface BetaWebFetchToolResultBlock {
 
 interface BetaAdvisorToolResultBlock {
   type: "advisor_tool_result";
-  content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock;
+  content: BetaAdvisorToolResultErrorObject | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
@@ -1853,19 +1882,19 @@ interface BetaCodeExecutionToolResultBlock {
 
 interface BetaBashCodeExecutionToolResultBlock {
   type: "bash_code_execution_tool_result";
-  content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock;
+  content: BetaBashCodeExecutionToolResultErrorObject | BetaBashCodeExecutionResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface BetaTextEditorCodeExecutionToolResultBlock {
   type: "text_editor_code_execution_tool_result";
-  content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock;
+  content: BetaTextEditorCodeExecutionToolResultErrorObject | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface BetaToolSearchToolResultBlock {
   type: "tool_search_tool_result";
-  content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock;
+  content: BetaToolSearchToolResultErrorObject | BetaToolSearchToolSearchResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
@@ -1923,9 +1952,9 @@ interface BetaMCPToolListingBlock {
   tools: Array<BetaMCPTool>;
 }
 
-type BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultError | Array<BetaWebSearchResultBlock>;
+type BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultErrorObject | Array<BetaWebSearchResultBlock>;
 
-interface BetaWebSearchToolResultError {
+interface BetaWebSearchToolResultErrorObject {
   type: "web_search_tool_result_error";
   error_code: BetaWebSearchToolResultErrorCode;
 }
@@ -1965,7 +1994,7 @@ interface BetaCitationConfig {
   enabled: boolean; // default: false
 }
 
-interface BetaAdvisorToolResultError {
+interface BetaAdvisorToolResultErrorObject {
   type: "advisor_tool_result_error";
   error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
 }
@@ -1985,9 +2014,9 @@ interface BetaAdvisorRedactedResultBlock {
   stop_reason: string | null;
 }
 
-type BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultError | BetaCodeExecutionResultBlock | BetaEncryptedCodeExecutionResultBlock;
+type BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultErrorObject | BetaCodeExecutionResultBlock | BetaEncryptedCodeExecutionResultBlock;
 
-interface BetaCodeExecutionToolResultError {
+interface BetaCodeExecutionToolResultErrorObject {
   type: "code_execution_tool_result_error";
   error_code: BetaCodeExecutionToolResultErrorCode;
 }
@@ -2014,7 +2043,7 @@ interface BetaCodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface BetaBashCodeExecutionToolResultError {
+interface BetaBashCodeExecutionToolResultErrorObject {
   type: "bash_code_execution_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
 }
@@ -2032,7 +2061,7 @@ interface BetaBashCodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface BetaTextEditorCodeExecutionToolResultError {
+interface BetaTextEditorCodeExecutionToolResultErrorObject {
   type: "text_editor_code_execution_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
   error_message: string | null;
@@ -2061,7 +2090,7 @@ interface BetaTextEditorCodeExecutionStrReplaceResultBlock {
   old_start: number | null;
 }
 
-interface BetaToolSearchToolResultError {
+interface BetaToolSearchToolResultErrorObject {
   type: "tool_search_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
   error_message: string | null;
@@ -4074,7 +4103,7 @@ interface Params {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
-  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. */
+  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual. */
   billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
@@ -4581,69 +4610,69 @@ interface BetaMessageBatchExpiredResult {
 
 interface BetaErrorResponse {
   type: "error";
-  error: BetaError;
+  error: BetaErrorObject;
   request_id: string | null;
 }
 
-type BetaError = BetaInvalidRequestError | BetaAuthenticationError | BetaBillingError | BetaPermissionError | BetaNotFoundError | BetaRateLimitError | BetaGatewayTimeoutError | BetaAPIError | BetaOverloadedError;
+type BetaErrorObject = BetaInvalidRequestErrorObject | BetaAuthenticationErrorObject | BetaBillingErrorObject | BetaPermissionErrorObject | BetaNotFoundErrorObject | BetaRateLimitErrorObject | BetaGatewayTimeoutErrorObject | BetaAPIErrorObject | BetaOverloadedErrorObject;
 
-interface BetaInvalidRequestError {
+interface BetaInvalidRequestErrorObject {
   /** The broad category of the error. */
   type: "invalid_request_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Invalid request
 }
 
-interface BetaAuthenticationError {
+interface BetaAuthenticationErrorObject {
   /** The broad category of the error. */
   type: "authentication_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Authentication error
 }
 
-interface BetaBillingError {
+interface BetaBillingErrorObject {
   /** The broad category of the error. */
   type: "billing_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Billing error
 }
 
-interface BetaPermissionError {
+interface BetaPermissionErrorObject {
   /** The broad category of the error. */
   type: "permission_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Permission denied
 }
 
-interface BetaNotFoundError {
+interface BetaNotFoundErrorObject {
   /** The broad category of the error. */
   type: "not_found_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Not found
 }
 
-interface BetaRateLimitError {
+interface BetaRateLimitErrorObject {
   /** The broad category of the error. */
   type: "rate_limit_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Rate limited
 }
 
-interface BetaGatewayTimeoutError {
+interface BetaGatewayTimeoutErrorObject {
   /** The broad category of the error. */
   type: "timeout_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Request timeout
 }
 
-interface BetaAPIError {
+interface BetaAPIErrorObject {
   /** The broad category of the error. */
   type: "api_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Internal server error
 }
 
-interface BetaOverloadedError {
+interface BetaOverloadedErrorObject {
   /** The broad category of the error. */
   type: "overloaded_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */

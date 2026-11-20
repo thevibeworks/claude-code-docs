@@ -139,6 +139,8 @@ List Session Threads
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -1240,6 +1242,8 @@ Get Session Thread
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -2335,6 +2339,8 @@ Archive Session Thread
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -5632,7 +5638,7 @@ print(beta_managed_agents_session_thread.id)
 
     - `error: Error`
 
-      - `class BetaManagedAgentsUnknownError`
+      - `class BetaManagedAgentsUnknownErrorObject`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
 
@@ -5664,7 +5670,7 @@ print(beta_managed_agents_session_thread.id)
 
             - `type: Literal["terminal"]`
 
-      - `class BetaManagedAgentsModelOverloadedError`
+      - `class BetaManagedAgentsModelOverloadedErrorObject`
 
         The model is currently overloaded. Emitted after automatic retries are exhausted.
 
@@ -5690,7 +5696,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsModelRateLimitedError`
+      - `class BetaManagedAgentsModelRateLimitedErrorObject`
 
         The model request was rate-limited.
 
@@ -5716,7 +5722,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsModelRequestFailedError`
+      - `class BetaManagedAgentsModelRequestFailedErrorObject`
 
         A model request failed for a reason other than overload or rate-limiting.
 
@@ -5742,7 +5748,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsMCPConnectionFailedError`
+      - `class BetaManagedAgentsMCPConnectionFailedErrorObject`
 
         Failed to connect to an MCP server.
 
@@ -5772,7 +5778,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsMCPAuthenticationFailedError`
+      - `class BetaManagedAgentsMCPAuthenticationFailedErrorObject`
 
         Authentication to an MCP server failed.
 
@@ -5802,7 +5808,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsBillingError`
+      - `class BetaManagedAgentsBillingErrorObject`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
 
@@ -5828,7 +5834,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsCredentialHostUnreachableError`
+      - `class BetaManagedAgentsCredentialHostUnreachableErrorObject`
 
         An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit.
 
@@ -5862,7 +5868,7 @@ print(beta_managed_agents_session_thread.id)
 
           ID of the vault containing the affected credential.
 
-      - `class BetaManagedAgentsToolUseLimitReachedError`
+      - `class BetaManagedAgentsToolUseLimitReachedErrorObject`
 
         The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
 
@@ -5888,7 +5894,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsCompactionLimitReachedError`
+      - `class BetaManagedAgentsCompactionLimitReachedErrorObject`
 
         The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
 
@@ -5914,7 +5920,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryAuthenticationError`
+      - `class BetaManagedAgentsRepositoryAuthenticationErrorObject`
 
         The repository host rejected the credentials, or required credentials and received none.
 
@@ -5944,7 +5950,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryForbiddenError`
+      - `class BetaManagedAgentsRepositoryForbiddenErrorObject`
 
         The repository host refused access to the repository.
 
@@ -5974,7 +5980,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryNotFoundError`
+      - `class BetaManagedAgentsRepositoryNotFoundErrorObject`
 
         The repository host reported the repository as not found.
 
@@ -6004,7 +6010,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryCheckoutError`
+      - `class BetaManagedAgentsRepositoryCheckoutErrorObject`
 
         The requested branch or commit does not exist in the repository.
 
@@ -6034,7 +6040,7 @@ print(beta_managed_agents_session_thread.id)
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryCloneError`
+      - `class BetaManagedAgentsRepositoryCloneErrorObject`
 
         The repository could not be cloned.
 
@@ -7760,17 +7766,17 @@ print(beta_managed_agents_session_thread.id)
 
         - `type: Literal["completed"]`
 
-      - `class BetaManagedAgentsWorkflowRunResultError`
+      - `class BetaManagedAgentsWorkflowRunResultErrorObject`
 
         The run failed or reached its time limit.
 
         - `type: Literal["error"]`
 
-        - `error: BetaManagedAgentsWorkflowRunError`
+        - `error: BetaManagedAgentsWorkflowRunErrorObject`
 
           Why the run did not finish.
 
-          - `class BetaManagedAgentsTimeoutWorkflowRunError`
+          - `class BetaManagedAgentsTimeoutWorkflowRunErrorObject`
 
             The run reached its time limit.
 
@@ -7780,7 +7786,7 @@ print(beta_managed_agents_session_thread.id)
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsProgramWorkflowRunError`
+          - `class BetaManagedAgentsProgramWorkflowRunErrorObject`
 
             The plan, a program that the agent wrote, failed, or the server refused it.
 
@@ -7790,7 +7796,7 @@ print(beta_managed_agents_session_thread.id)
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsUnknownWorkflowRunError`
+          - `class BetaManagedAgentsUnknownWorkflowRunErrorObject`
 
             A failure that has no type of its own.
 
@@ -7800,7 +7806,7 @@ print(beta_managed_agents_session_thread.id)
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsThreadLimitWorkflowRunError`
+          - `class BetaManagedAgentsThreadLimitWorkflowRunErrorObject`
 
             The run exceeded the limit on the number of threads that a run can create.
 
@@ -7810,7 +7816,7 @@ print(beta_managed_agents_session_thread.id)
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunError`
+          - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject`
 
             No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
 
@@ -7932,7 +7938,7 @@ print(beta_managed_agents_session_thread.id)
 
       Unique identifier for this event.
 
-    - `error: BetaManagedAgentsWorkflowRunError`
+    - `error: BetaManagedAgentsWorkflowRunErrorObject`
 
       Why the run did not finish, or was not created.
 
@@ -8065,6 +8071,8 @@ List Session Thread Events
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -8836,7 +8844,7 @@ List Session Thread Events
 
     - `error: Error`
 
-      - `class BetaManagedAgentsUnknownError`
+      - `class BetaManagedAgentsUnknownErrorObject`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
 
@@ -8868,7 +8876,7 @@ List Session Thread Events
 
             - `type: Literal["terminal"]`
 
-      - `class BetaManagedAgentsModelOverloadedError`
+      - `class BetaManagedAgentsModelOverloadedErrorObject`
 
         The model is currently overloaded. Emitted after automatic retries are exhausted.
 
@@ -8894,7 +8902,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsModelRateLimitedError`
+      - `class BetaManagedAgentsModelRateLimitedErrorObject`
 
         The model request was rate-limited.
 
@@ -8920,7 +8928,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsModelRequestFailedError`
+      - `class BetaManagedAgentsModelRequestFailedErrorObject`
 
         A model request failed for a reason other than overload or rate-limiting.
 
@@ -8946,7 +8954,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsMCPConnectionFailedError`
+      - `class BetaManagedAgentsMCPConnectionFailedErrorObject`
 
         Failed to connect to an MCP server.
 
@@ -8976,7 +8984,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsMCPAuthenticationFailedError`
+      - `class BetaManagedAgentsMCPAuthenticationFailedErrorObject`
 
         Authentication to an MCP server failed.
 
@@ -9006,7 +9014,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsBillingError`
+      - `class BetaManagedAgentsBillingErrorObject`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
 
@@ -9032,7 +9040,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsCredentialHostUnreachableError`
+      - `class BetaManagedAgentsCredentialHostUnreachableErrorObject`
 
         An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit.
 
@@ -9066,7 +9074,7 @@ List Session Thread Events
 
           ID of the vault containing the affected credential.
 
-      - `class BetaManagedAgentsToolUseLimitReachedError`
+      - `class BetaManagedAgentsToolUseLimitReachedErrorObject`
 
         The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
 
@@ -9092,7 +9100,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsCompactionLimitReachedError`
+      - `class BetaManagedAgentsCompactionLimitReachedErrorObject`
 
         The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
 
@@ -9118,7 +9126,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryAuthenticationError`
+      - `class BetaManagedAgentsRepositoryAuthenticationErrorObject`
 
         The repository host rejected the credentials, or required credentials and received none.
 
@@ -9148,7 +9156,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryForbiddenError`
+      - `class BetaManagedAgentsRepositoryForbiddenErrorObject`
 
         The repository host refused access to the repository.
 
@@ -9178,7 +9186,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryNotFoundError`
+      - `class BetaManagedAgentsRepositoryNotFoundErrorObject`
 
         The repository host reported the repository as not found.
 
@@ -9208,7 +9216,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryCheckoutError`
+      - `class BetaManagedAgentsRepositoryCheckoutErrorObject`
 
         The requested branch or commit does not exist in the repository.
 
@@ -9238,7 +9246,7 @@ List Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryCloneError`
+      - `class BetaManagedAgentsRepositoryCloneErrorObject`
 
         The repository could not be cloned.
 
@@ -10914,17 +10922,17 @@ List Session Thread Events
 
         - `type: Literal["completed"]`
 
-      - `class BetaManagedAgentsWorkflowRunResultError`
+      - `class BetaManagedAgentsWorkflowRunResultErrorObject`
 
         The run failed or reached its time limit.
 
         - `type: Literal["error"]`
 
-        - `error: BetaManagedAgentsWorkflowRunError`
+        - `error: BetaManagedAgentsWorkflowRunErrorObject`
 
           Why the run did not finish.
 
-          - `class BetaManagedAgentsTimeoutWorkflowRunError`
+          - `class BetaManagedAgentsTimeoutWorkflowRunErrorObject`
 
             The run reached its time limit.
 
@@ -10934,7 +10942,7 @@ List Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsProgramWorkflowRunError`
+          - `class BetaManagedAgentsProgramWorkflowRunErrorObject`
 
             The plan, a program that the agent wrote, failed, or the server refused it.
 
@@ -10944,7 +10952,7 @@ List Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsUnknownWorkflowRunError`
+          - `class BetaManagedAgentsUnknownWorkflowRunErrorObject`
 
             A failure that has no type of its own.
 
@@ -10954,7 +10962,7 @@ List Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsThreadLimitWorkflowRunError`
+          - `class BetaManagedAgentsThreadLimitWorkflowRunErrorObject`
 
             The run exceeded the limit on the number of threads that a run can create.
 
@@ -10964,7 +10972,7 @@ List Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunError`
+          - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject`
 
             No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
 
@@ -11086,7 +11094,7 @@ List Session Thread Events
 
       Unique identifier for this event.
 
-    - `error: BetaManagedAgentsWorkflowRunError`
+    - `error: BetaManagedAgentsWorkflowRunErrorObject`
 
       Why the run did not finish, or was not created.
 
@@ -11270,6 +11278,8 @@ Stream Session Thread Events
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -12041,7 +12051,7 @@ Stream Session Thread Events
 
     - `error: Error`
 
-      - `class BetaManagedAgentsUnknownError`
+      - `class BetaManagedAgentsUnknownErrorObject`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
 
@@ -12073,7 +12083,7 @@ Stream Session Thread Events
 
             - `type: Literal["terminal"]`
 
-      - `class BetaManagedAgentsModelOverloadedError`
+      - `class BetaManagedAgentsModelOverloadedErrorObject`
 
         The model is currently overloaded. Emitted after automatic retries are exhausted.
 
@@ -12099,7 +12109,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsModelRateLimitedError`
+      - `class BetaManagedAgentsModelRateLimitedErrorObject`
 
         The model request was rate-limited.
 
@@ -12125,7 +12135,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsModelRequestFailedError`
+      - `class BetaManagedAgentsModelRequestFailedErrorObject`
 
         A model request failed for a reason other than overload or rate-limiting.
 
@@ -12151,7 +12161,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsMCPConnectionFailedError`
+      - `class BetaManagedAgentsMCPConnectionFailedErrorObject`
 
         Failed to connect to an MCP server.
 
@@ -12181,7 +12191,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsMCPAuthenticationFailedError`
+      - `class BetaManagedAgentsMCPAuthenticationFailedErrorObject`
 
         Authentication to an MCP server failed.
 
@@ -12211,7 +12221,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsBillingError`
+      - `class BetaManagedAgentsBillingErrorObject`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
 
@@ -12237,7 +12247,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsCredentialHostUnreachableError`
+      - `class BetaManagedAgentsCredentialHostUnreachableErrorObject`
 
         An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit.
 
@@ -12271,7 +12281,7 @@ Stream Session Thread Events
 
           ID of the vault containing the affected credential.
 
-      - `class BetaManagedAgentsToolUseLimitReachedError`
+      - `class BetaManagedAgentsToolUseLimitReachedErrorObject`
 
         The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
 
@@ -12297,7 +12307,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsCompactionLimitReachedError`
+      - `class BetaManagedAgentsCompactionLimitReachedErrorObject`
 
         The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
 
@@ -12323,7 +12333,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryAuthenticationError`
+      - `class BetaManagedAgentsRepositoryAuthenticationErrorObject`
 
         The repository host rejected the credentials, or required credentials and received none.
 
@@ -12353,7 +12363,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryForbiddenError`
+      - `class BetaManagedAgentsRepositoryForbiddenErrorObject`
 
         The repository host refused access to the repository.
 
@@ -12383,7 +12393,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryNotFoundError`
+      - `class BetaManagedAgentsRepositoryNotFoundErrorObject`
 
         The repository host reported the repository as not found.
 
@@ -12413,7 +12423,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryCheckoutError`
+      - `class BetaManagedAgentsRepositoryCheckoutErrorObject`
 
         The requested branch or commit does not exist in the repository.
 
@@ -12443,7 +12453,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `class BetaManagedAgentsRepositoryCloneError`
+      - `class BetaManagedAgentsRepositoryCloneErrorObject`
 
         The repository could not be cloned.
 
@@ -14169,17 +14179,17 @@ Stream Session Thread Events
 
         - `type: Literal["completed"]`
 
-      - `class BetaManagedAgentsWorkflowRunResultError`
+      - `class BetaManagedAgentsWorkflowRunResultErrorObject`
 
         The run failed or reached its time limit.
 
         - `type: Literal["error"]`
 
-        - `error: BetaManagedAgentsWorkflowRunError`
+        - `error: BetaManagedAgentsWorkflowRunErrorObject`
 
           Why the run did not finish.
 
-          - `class BetaManagedAgentsTimeoutWorkflowRunError`
+          - `class BetaManagedAgentsTimeoutWorkflowRunErrorObject`
 
             The run reached its time limit.
 
@@ -14189,7 +14199,7 @@ Stream Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsProgramWorkflowRunError`
+          - `class BetaManagedAgentsProgramWorkflowRunErrorObject`
 
             The plan, a program that the agent wrote, failed, or the server refused it.
 
@@ -14199,7 +14209,7 @@ Stream Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsUnknownWorkflowRunError`
+          - `class BetaManagedAgentsUnknownWorkflowRunErrorObject`
 
             A failure that has no type of its own.
 
@@ -14209,7 +14219,7 @@ Stream Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsThreadLimitWorkflowRunError`
+          - `class BetaManagedAgentsThreadLimitWorkflowRunErrorObject`
 
             The run exceeded the limit on the number of threads that a run can create.
 
@@ -14219,7 +14229,7 @@ Stream Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunError`
+          - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject`
 
             No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
 
@@ -14341,7 +14351,7 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `error: BetaManagedAgentsWorkflowRunError`
+    - `error: BetaManagedAgentsWorkflowRunErrorObject`
 
       Why the run did not finish, or was not created.
 

@@ -131,6 +131,8 @@ Stream Session Thread Events
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -899,9 +901,9 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `error: BetaManagedAgentsUnknownError or BetaManagedAgentsModelOverloadedError or BetaManagedAgentsModelRateLimitedError or 12 more`
+    - `error: BetaManagedAgentsUnknownErrorObject or BetaManagedAgentsModelOverloadedErrorObject or BetaManagedAgentsModelRateLimitedErrorObject or 12 more`
 
-      - `BetaManagedAgentsUnknownError object`
+      - `BetaManagedAgentsUnknownErrorObject object`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
 
@@ -933,7 +935,7 @@ Stream Session Thread Events
 
             - `type: "terminal"`
 
-      - `BetaManagedAgentsModelOverloadedError object`
+      - `BetaManagedAgentsModelOverloadedErrorObject object`
 
         The model is currently overloaded. Emitted after automatic retries are exhausted.
 
@@ -959,7 +961,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsModelRateLimitedError object`
+      - `BetaManagedAgentsModelRateLimitedErrorObject object`
 
         The model request was rate-limited.
 
@@ -985,7 +987,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsModelRequestFailedError object`
+      - `BetaManagedAgentsModelRequestFailedErrorObject object`
 
         A model request failed for a reason other than overload or rate-limiting.
 
@@ -1011,7 +1013,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsMCPConnectionFailedError object`
+      - `BetaManagedAgentsMCPConnectionFailedErrorObject object`
 
         Failed to connect to an MCP server.
 
@@ -1041,7 +1043,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsMCPAuthenticationFailedError object`
+      - `BetaManagedAgentsMCPAuthenticationFailedErrorObject object`
 
         Authentication to an MCP server failed.
 
@@ -1071,7 +1073,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsBillingError object`
+      - `BetaManagedAgentsBillingErrorObject object`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
 
@@ -1097,7 +1099,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsCredentialHostUnreachableError object`
+      - `BetaManagedAgentsCredentialHostUnreachableErrorObject object`
 
         An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit.
 
@@ -1131,7 +1133,7 @@ Stream Session Thread Events
 
           ID of the vault containing the affected credential.
 
-      - `BetaManagedAgentsToolUseLimitReachedError object`
+      - `BetaManagedAgentsToolUseLimitReachedErrorObject object`
 
         The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
 
@@ -1157,7 +1159,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsCompactionLimitReachedError object`
+      - `BetaManagedAgentsCompactionLimitReachedErrorObject object`
 
         The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn.
 
@@ -1183,7 +1185,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsRepositoryAuthenticationError object`
+      - `BetaManagedAgentsRepositoryAuthenticationErrorObject object`
 
         The repository host rejected the credentials, or required credentials and received none.
 
@@ -1213,7 +1215,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsRepositoryForbiddenError object`
+      - `BetaManagedAgentsRepositoryForbiddenErrorObject object`
 
         The repository host refused access to the repository.
 
@@ -1243,7 +1245,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsRepositoryNotFoundError object`
+      - `BetaManagedAgentsRepositoryNotFoundErrorObject object`
 
         The repository host reported the repository as not found.
 
@@ -1273,7 +1275,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsRepositoryCheckoutError object`
+      - `BetaManagedAgentsRepositoryCheckoutErrorObject object`
 
         The requested branch or commit does not exist in the repository.
 
@@ -1303,7 +1305,7 @@ Stream Session Thread Events
 
             The session encountered a terminal error and will transition to `terminated` state.
 
-      - `BetaManagedAgentsRepositoryCloneError object`
+      - `BetaManagedAgentsRepositoryCloneErrorObject object`
 
         The repository could not be cloned.
 
@@ -3029,17 +3031,17 @@ Stream Session Thread Events
 
         - `type: "completed"`
 
-      - `BetaManagedAgentsWorkflowRunResultError object`
+      - `BetaManagedAgentsWorkflowRunResultErrorObject object`
 
         The run failed or reached its time limit.
 
         - `type: "error"`
 
-        - `error: BetaManagedAgentsWorkflowRunError`
+        - `error: BetaManagedAgentsWorkflowRunErrorObject`
 
           Why the run did not finish.
 
-          - `BetaManagedAgentsTimeoutWorkflowRunError object`
+          - `BetaManagedAgentsTimeoutWorkflowRunErrorObject object`
 
             The run reached its time limit.
 
@@ -3049,7 +3051,7 @@ Stream Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `BetaManagedAgentsProgramWorkflowRunError object`
+          - `BetaManagedAgentsProgramWorkflowRunErrorObject object`
 
             The plan, a program that the agent wrote, failed, or the server refused it.
 
@@ -3059,7 +3061,7 @@ Stream Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `BetaManagedAgentsUnknownWorkflowRunError object`
+          - `BetaManagedAgentsUnknownWorkflowRunErrorObject object`
 
             A failure that has no type of its own.
 
@@ -3069,7 +3071,7 @@ Stream Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `BetaManagedAgentsThreadLimitWorkflowRunError object`
+          - `BetaManagedAgentsThreadLimitWorkflowRunErrorObject object`
 
             The run exceeded the limit on the number of threads that a run can create.
 
@@ -3079,7 +3081,7 @@ Stream Session Thread Events
 
               Short explanation written by the server. It never contains content from the run or its agents.
 
-          - `BetaManagedAgentsMaxWorkflowRunsWorkflowRunError object`
+          - `BetaManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject object`
 
             No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
 
@@ -3201,7 +3203,7 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `error: BetaManagedAgentsWorkflowRunError`
+    - `error: BetaManagedAgentsWorkflowRunErrorObject`
 
       Why the run did not finish, or was not created.
 

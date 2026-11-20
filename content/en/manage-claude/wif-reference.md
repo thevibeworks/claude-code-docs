@@ -10,39 +10,39 @@ This page collects the configuration surfaces, validation constraints, and error
 
 `POST /v1/oauth/token` accepts a JSON body using the [RFC 7523](https://www.rfc-editor.org/rfc/rfc7523) `jwt-bearer` grant. The SDK builds this request for you from the [environment variables](https://platform.claude.com/docs/en/manage-claude/wif-reference#environment-variables).
 
-| Field                | Required    | Description                                                                                                                                                                                                                                                                                                                                               |
-| -------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `grant_type`         | Yes         | Always `urn:ietf:params:oauth:grant-type:jwt-bearer`.                                                                                                                                                                                                                                                                                                     |
-| `assertion`          | Yes         | The OIDC JWT issued by your identity provider.                                                                                                                                                                                                                                                                                                            |
-| `federation_rule_id` | Yes         | Tagged ID (`fdrl_...`) of the federation rule to evaluate.                                                                                                                                                                                                                                                                                                |
-| `organization_id`    | Yes         | UUID of your Anthropic organization.                                                                                                                                                                                                                                                                                                                      |
-| `service_account_id` | No          | Tagged ID (`svac_...`) of the rule’s target service account. The rule, not this field, determines which account the token acts as. If you send the field, it must be that account’s ID.                                                                                                                                                                   |
-| `workspace_id`       | Conditional | Tagged ID (`wrkspc_...`) of the workspace to scope the minted token to. Required when the rule is enabled for all workspaces or for more than one. When omitted, the server selects the rule’s sole enabled workspace. The literal `default` also works for the organization’s Default Workspace but is deprecated. Use that workspace’s `wrkspc_...` ID. |
+| Field | Required | Description |
+| ----- | ----- | ----- |
+| `grant_type` | Yes | Always `urn:ietf:params:oauth:grant-type:jwt-bearer`. |
+| `assertion` | Yes | The OIDC JWT issued by your identity provider. |
+| `federation_rule_id` | Yes | Tagged ID (`fdrl_...`) of the federation rule to evaluate. |
+| `organization_id` | Yes | UUID of your Anthropic organization. |
+| `service_account_id` | No | Tagged ID (`svac_...`) of the rule’s target service account. The rule, not this field, determines which account the token acts as. If you send the field, it must be that account’s ID. |
+| `workspace_id` | Conditional | Tagged ID (`wrkspc_...`) of the workspace to scope the minted token to. Required when the rule is enabled for all workspaces or for more than one. When omitted, the server selects the rule’s sole enabled workspace. The literal `default` also works for the organization’s Default Workspace but is deprecated. Use that workspace’s `wrkspc_...` ID. |
 
 ## Token exchange response
 
 `POST /v1/oauth/token` returns a standard OAuth 2.0 token response ([RFC 6749 §5.1](https://www.rfc-editor.org/rfc/rfc6749#section-5.1)):
 
-| Field          | Type    | Description                                                                                               |
-| -------------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| `access_token` | string  | The short-lived Anthropic token, prefixed `sk-ant-oat01-...`. Pass it as `Authorization: Bearer <token>`. |
-| `token_type`   | string  | Always `Bearer`.                                                                                          |
-| `expires_in`   | integer | Seconds until the token expires.                                                                          |
-| `scope`        | string  | The OAuth scope granted by the matched rule.                                                              |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `access_token` | string | The short-lived Anthropic token, prefixed `sk-ant-oat01-...`. Pass it as `Authorization: Bearer <token>`. |
+| `token_type` | string | Always `Bearer`. |
+| `expires_in` | integer | Seconds until the token expires. |
+| `scope` | string | The OAuth scope granted by the matched rule. |
 
 ## Environment variables
 
 The SDK reads these variables to perform a federated token exchange with no constructor arguments.
 
-| Variable                        | Required                         | Description                                                                                                                                                                                                                                       |
-| ------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ANTHROPIC_FEDERATION_RULE_ID`  | Yes                              | Tagged ID (`fdrl_...`) of the federation rule to evaluate.                                                                                                                                                                                        |
-| `ANTHROPIC_ORGANIZATION_ID`     | Yes                              | UUID of your Anthropic organization. Find it on the [Organization](https://platform.claude.com/settings/organization) page in the Claude Console.                                                                                                 |
-| `ANTHROPIC_IDENTITY_TOKEN_FILE` | One of `_TOKEN_FILE` or `_TOKEN` | Filesystem path to the JWT issued by your identity provider (IdP). The SDK rereads this file on every exchange so that projected tokens that rotate on disk are always current. `/var/run/secrets/anthropic.com/token` is an example.             |
-| `ANTHROPIC_IDENTITY_TOKEN`      | One of `_TOKEN_FILE` or `_TOKEN` | The literal JWT as a string. Use when your platform injects the token as an environment variable rather than a file. `eyJhbGciOiJSUzI1NiIs...` is an example.                                                                                     |
-| `ANTHROPIC_SERVICE_ACCOUNT_ID`  | No                               | Tagged ID (`svac_...`) of the rule’s target service account. The rule, not this variable, determines which account the token acts as. If you set the variable, it must be that account’s ID.                                                      |
-| `ANTHROPIC_WORKSPACE_ID`        | Conditional                      | Tagged ID (`wrkspc_...`) of the workspace to scope the minted token to. Required when the federation rule is enabled for all workspaces or for more than one. Optional when the rule is bound to a single workspace.                              |
-| `ANTHROPIC_PROFILE`             | No                               | Name of a [configuration profile](https://platform.claude.com/docs/en/manage-claude/wif-reference#profile-configuration-file) to load. Takes precedence over the federation environment variables in this table. `staging-profile` is an example. |
+| Variable | Required | Description |
+| ----- | ----- | ----- |
+| `ANTHROPIC_FEDERATION_RULE_ID` | Yes | Tagged ID (`fdrl_...`) of the federation rule to evaluate. |
+| `ANTHROPIC_ORGANIZATION_ID` | Yes | UUID of your Anthropic organization. Find it on the [Organization](https://platform.claude.com/settings/organization) page in the Claude Console. |
+| `ANTHROPIC_IDENTITY_TOKEN_FILE` | One of `_TOKEN_FILE` or `_TOKEN` | Filesystem path to the JWT issued by your identity provider (IdP). The SDK rereads this file on every exchange so that projected tokens that rotate on disk are always current. `/var/run/secrets/anthropic.com/token` is an example. |
+| `ANTHROPIC_IDENTITY_TOKEN` | One of `_TOKEN_FILE` or `_TOKEN` | The literal JWT as a string. Use when your platform injects the token as an environment variable rather than a file. `eyJhbGciOiJSUzI1NiIs...` is an example. |
+| `ANTHROPIC_SERVICE_ACCOUNT_ID` | No | Tagged ID (`svac_...`) of the rule’s target service account. The rule, not this variable, determines which account the token acts as. If you set the variable, it must be that account’s ID. |
+| `ANTHROPIC_WORKSPACE_ID` | Conditional | Tagged ID (`wrkspc_...`) of the workspace to scope the minted token to. Required when the federation rule is enabled for all workspaces or for more than one. Optional when the rule is bound to a single workspace. |
+| `ANTHROPIC_PROFILE` | No | Name of a [configuration profile](https://platform.claude.com/docs/en/manage-claude/wif-reference#profile-configuration-file) to load. Takes precedence over the federation environment variables in this table. `staging-profile` is an example. |
 
 The direct environment-variable federation path activates only when `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_ORGANIZATION_ID`, and one of `ANTHROPIC_IDENTITY_TOKEN_FILE` or `ANTHROPIC_IDENTITY_TOKEN` are all set. The SDK also reads `ANTHROPIC_WORKSPACE_ID`, but this path activates with or without it.
 
@@ -56,13 +56,13 @@ The exchange scopes the minted token to the workspace that `ANTHROPIC_WORKSPACE_
 
 The SDK resolves credentials in this order. The first source that yields a credential wins.
 
-| Order | Source                                                     | Notes                                                                                                                                  |
-| ----- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| 1     | Constructor argument (API key, auth token, or credentials) | Always overrides everything else.                                                                                                      |
-| 2     | `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN`              | Overrides federation entirely. Unset these when migrating from API keys.                                                               |
-| 3     | `ANTHROPIC_PROFILE`                                        | Loads `<config_dir>/configs/<name>.json`. If the named profile is missing, the SDK reports an error instead of trying the next source. |
-| 4     | Federation environment variables                           | `ANTHROPIC_FEDERATION_RULE_ID` + `ANTHROPIC_ORGANIZATION_ID` + `ANTHROPIC_IDENTITY_TOKEN[_FILE]`.                                      |
-| 5     | Active profile                                             | Resolved from `<config_dir>/active_config`, falling back to a profile named `default`.                                                 |
+| Order | Source | Notes |
+| ----- | ----- | ----- |
+| 1 | Constructor argument (API key, auth token, or credentials) | Always overrides everything else. |
+| 2 | `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` | Overrides federation entirely. Unset these when migrating from API keys. |
+| 3 | `ANTHROPIC_PROFILE` | Loads `<config_dir>/configs/<name>.json`. If the named profile is missing, the SDK reports an error instead of trying the next source. |
+| 4 | Federation environment variables | `ANTHROPIC_FEDERATION_RULE_ID` + `ANTHROPIC_ORGANIZATION_ID` + `ANTHROPIC_IDENTITY_TOKEN[_FILE]`. |
+| 5 | Active profile | Resolved from `<config_dir>/active_config`, falling back to a profile named `default`. |
 
 In the `ant` CLI, the settings for [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication) rank after the federation environment variables and before the active profile. The settings are the project, the workspace ID, and the location. You set them with the `--google-cloud-*` flags or the `ANTHROPIC_GOOGLE_CLOUD_*` variables. The CLI uses these settings when any one of them is set. With these settings, the CLI gets its credential from Google Application Default Credentials.
 
@@ -92,9 +92,9 @@ Claude Code and the Claude Agent SDK honor this same resolution order, so a fede
 
 ### File layout
 
-| Path                                      | Contents                                                                                         | Sensitivity                                        |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
-| `<config_dir>/configs/<profile>.json`     | `version`, the `authentication` block, `organization_id`, `workspace_id`, and `base_url`.        | Non-secret. Safe to commit or build into an image. |
+| Path | Contents | Sensitivity |
+| ----- | ----- | ----- |
+| `<config_dir>/configs/<profile>.json` | `version`, the `authentication` block, `organization_id`, `workspace_id`, and `base_url`. | Non-secret. Safe to commit or build into an image. |
 | `<config_dir>/credentials/<profile>.json` | `version`, the cached `access_token`, `expires_at`, and (for interactive login) `refresh_token`. | Secret. The SDK writes this file with mode `0600`. |
 
 Both the config file and the credentials file carry a top-level string `version` field in `major.minor` format, such as `"1.0"`. The SDK writes this field automatically. If you omit it when authoring a config by hand, the SDK treats the file as the current version.
@@ -125,12 +125,12 @@ If you omit `authentication.identity_token`, the SDK falls back to `ANTHROPIC_ID
 
 The `oauth_scope` you set on a federation rule determines which Claude API endpoints the minted access token can call.
 
-| Scope                      | Grants access to                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `workspace:developer`      | All non-administrative Claude API endpoints in the rule’s workspace: [Messages](https://platform.claude.com/docs/en/api/messages) (including streaming and token counting), [Models](https://platform.claude.com/docs/en/api/models/list), [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) and their sessions, [Files](https://platform.claude.com/docs/en/build-with-claude/files), and [Skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide). This matches the access a workspace API key in the same workspace has. |
-| `workspace:inference`      | The inference endpoints in the rule’s workspace: [Messages](https://platform.claude.com/docs/en/api/messages) (including streaming and token counting), [Models](https://platform.claude.com/docs/en/api/models/list), and the [OpenAI-compatible chat endpoint](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk). Use this for workloads that only need to call Claude and never need to manage Files, Skills, or other resources.                                                                                                             |
-| `workspace:manage_tunnels` | The [MCP tunnels API](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/reference#tunnels-api): create, list, and get tunnels, register and archive CA certificates, reveal and rotate the tunnel token, and archive tunnels. The Console’s create-tunnel modal window locks this scope when you create a rule from it.                                                                                                                                                                                                                                      |
-| `org:admin`                | Full access to the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) (organization members, invites, workspaces, API keys, and the rest). An OAuth `org:admin` token can only create or modify rules scoped to `workspace:developer` or `workspace:inference`. It cannot update an issuer that backs a rule with any other scope. See [Permissions and constraints](https://platform.claude.com/docs/en/manage-claude/wif-admin-api#permissions-and-constraints).                                                                                    |
+| Scope | Grants access to |
+| ----- | ----- |
+| `workspace:developer` | All non-administrative Claude API endpoints in the rule’s workspace: [Messages](https://platform.claude.com/docs/en/api/messages) (including streaming and token counting), [Models](https://platform.claude.com/docs/en/api/models/list), [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) and their sessions, [Files](https://platform.claude.com/docs/en/build-with-claude/files), and [Skills](https://platform.claude.com/docs/en/build-with-claude/skills-guide). This matches the access a workspace API key in the same workspace has. |
+| `workspace:inference` | The inference endpoints in the rule’s workspace: [Messages](https://platform.claude.com/docs/en/api/messages) (including streaming and token counting), [Models](https://platform.claude.com/docs/en/api/models/list), and the [OpenAI-compatible chat endpoint](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk). Use this for workloads that only need to call Claude and never need to manage Files, Skills, or other resources. |
+| `workspace:manage_tunnels` | The [MCP tunnels API](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/reference#tunnels-api): create, list, and get tunnels, register and archive CA certificates, reveal and rotate the tunnel token, and archive tunnels. The Console’s create-tunnel modal window locks this scope when you create a rule from it. |
+| `org:admin` | Full access to the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) (organization members, invites, workspaces, API keys, and the rest). An OAuth `org:admin` token can only create or modify rules scoped to `workspace:developer` or `workspace:inference`. It cannot update an issuer that backs a rule with any other scope. See [Permissions and constraints](https://platform.claude.com/docs/en/manage-claude/wif-admin-api#permissions-and-constraints). |
 
 A request to an endpoint outside the token’s scope returns HTTP 403. Finer-grained scopes (by resource, or read versus write) are not available.
 
@@ -138,10 +138,10 @@ A request to an endpoint outside the token’s scope returns HTTP 403. Finer-gra
 
 A federation rule’s `oauth_scope` is a ceiling: the minted token can never exceed it. The target service account’s `organization_role` (`developer` or `admin`) determines which scopes a rule can grant. A rule that grants `org:admin` must target a service account with `organization_role=admin`. Effective permissions are the intersection of the rule’s scope and the service account’s role.
 
-| Rule `oauth_scope`    | Service account `organization_role` | Effective permissions                                                                                                                                                                                                                                         |
-| --------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `workspace:developer` | `admin`                             | Claude API access in the rule’s workspace only. The scope caps the token below the role.                                                                                                                                                                      |
-| `org:admin`           | `admin`                             | Full Admin API access (organization members, invites, workspaces, API keys, and the rest), minus the OAuth-caller exceptions. See [Permissions and constraints](https://platform.claude.com/docs/en/manage-claude/wif-admin-api#permissions-and-constraints). |
+| Rule `oauth_scope` | Service account `organization_role` | Effective permissions |
+| ----- | ----- | ----- |
+| `workspace:developer` | `admin` | Claude API access in the rule’s workspace only. The scope caps the token below the role. |
+| `org:admin` | `admin` | Full Admin API access (organization members, invites, workspaces, API keys, and the rest), minus the OAuth-caller exceptions. See [Permissions and constraints](https://platform.claude.com/docs/en/manage-claude/wif-admin-api#permissions-and-constraints). |
 
 ## Validation rules
 
@@ -151,22 +151,22 @@ For complete parameter details and response schemas, see the [Service accounts A
 
 ### Resource fields
 
-| Field                                    | Constraint                                                                                                                                                                                                                                                                                 |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Issuer, rule, and service account `name` | Must match `^[a-z0-9-]+$`, length 1 to 255 characters.                                                                                                                                                                                                                                     |
-| `workspace_id`                           | Required on create unless `applies_to_all_workspaces` is true. The workspace (`wrkspc_...`) whose quota, billing, and rate limits apply to tokens minted under this rule. Must be a workspace in the same organization, and the target service account must be a member of that workspace. |
-| `applies_to_all_workspaces`              | Boolean. Set `true` to enable the rule in every workspace in the organization instead of naming one. Either this or `workspace_id` is required on create.                                                                                                                                  |
-| `token_lifetime_seconds`                 | Integer between `60` and `86400` (1 minute to 24 hours). Default `3600`. Anthropic rejects values outside this range at request time. See [Token lifetime and refresh](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#token-lifetime-and-refresh).         |
+| Field | Constraint |
+| ----- | ----- |
+| Issuer, rule, and service account `name` | Must match `^[a-z0-9-]+$`, length 1 to 255 characters. |
+| `workspace_id` | Required on create unless `applies_to_all_workspaces` is true. The workspace (`wrkspc_...`) whose quota, billing, and rate limits apply to tokens minted under this rule. Must be a workspace in the same organization, and the target service account must be a member of that workspace. |
+| `applies_to_all_workspaces` | Boolean. Set `true` to enable the rule in every workspace in the organization instead of naming one. Either this or `workspace_id` is required on create. |
+| `token_lifetime_seconds` | Integer between `60` and `86400` (1 minute to 24 hours). Default `3600`. Anthropic rejects values outside this range at request time. See [Token lifetime and refresh](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#token-lifetime-and-refresh). |
 
 ### URL fields
 
 Anthropic validates the `issuer_url`, `jwks.discovery_base`, and `jwks.url` fields:
 
-| Constraint | Detail                                                                                                                            |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Scheme     | Must be `https`.                                                                                                                  |
-| Port       | Must be `443` (explicit or default).                                                                                              |
-| Host       | Must be a public DNS hostname for your OIDC provider. Must resolve to public IP addresses. Anthropic does not accept IP literals. |
+| Constraint | Detail |
+| ----- | ----- |
+| Scheme | Must be `https`. |
+| Port | Must be `443` (explicit or default). |
+| Host | Must be a public DNS hostname for your OIDC provider. Must resolve to public IP addresses. Anthropic does not accept IP literals. |
 
 URL validation failures return `400 invalid_request_error` with the field name as a prefix on the error message (for example, `issuer_url: url must use https scheme`).
 
@@ -176,34 +176,34 @@ URL validation failures return `400 invalid_request_error` with the field name a
 
 ### JWT verification
 
-| Constraint        | Detail                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Maximum size      | The `assertion` JWT must be at most 16 KiB.                                                                                                                                                                                                                                                                                                                                                                    |
-| Signing algorithm | Anthropic accepts only asymmetric algorithms (RSA and ECDSA families: ES256, ES384, ES512, RS256, RS384, RS512, PS256, PS384, PS512). It rejects HMAC (`HS256`, `HS384`, `HS512`) and `none`.                                                                                                                                                                                                                  |
-| Key ID            | The JWT header must carry a `kid` that matches a key in the issuer’s JWKS. Anthropic rejects tokens without `kid`.                                                                                                                                                                                                                                                                                             |
-| Required claims   | `sub` must be present. `iat` must be present and not in the future. `exp` must be present and in the future.                                                                                                                                                                                                                                                                                                   |
-| Single use        | An assertion that carries a `jti` claim can be exchanged only once for each issuer. Anthropic rejects a repeat exchange with the same `jti` as a replay. The issuer’s `check_jti` field (enabled by default) controls this check. Assertions without a `jti` claim are not subject to it. See the [Federation issuers API reference](https://platform.claude.com/docs/en/api/organization/federation/issuers). |
-| Maximum lifetime  | The token’s lifetime (`exp` minus `iat`) must not exceed the issuer’s configured maximum (1 hour by default, configurable for each issuer in the Claude Console).                                                                                                                                                                                                                                              |
-| Clock skew        | Anthropic applies a 30-second leeway to `exp`, `nbf`, and `iat`.                                                                                                                                                                                                                                                                                                                                               |
+| Constraint | Detail |
+| ----- | ----- |
+| Maximum size | The `assertion` JWT must be at most 16 KiB. |
+| Signing algorithm | Anthropic accepts only asymmetric algorithms (RSA and ECDSA families: ES256, ES384, ES512, RS256, RS384, RS512, PS256, PS384, PS512). It rejects HMAC (`HS256`, `HS384`, `HS512`) and `none`. |
+| Key ID | The JWT header must carry a `kid` that matches a key in the issuer’s JWKS. Anthropic rejects tokens without `kid`. |
+| Required claims | `sub` must be present. `iat` must be present and not in the future. `exp` must be present and in the future. |
+| Single use | An assertion that carries a `jti` claim can be exchanged only once for each issuer. Anthropic rejects a repeat exchange with the same `jti` as a replay. The issuer’s `check_jti` field (enabled by default) controls this check. Assertions without a `jti` claim are not subject to it. See the [Federation issuers API reference](https://platform.claude.com/docs/en/api/organization/federation/issuers). |
+| Maximum lifetime | The token’s lifetime (`exp` minus `iat`) must not exceed the issuer’s configured maximum (1 hour by default, configurable for each issuer in the Claude Console). |
+| Clock skew | Anthropic applies a 30-second leeway to `exp`, `nbf`, and `iat`. |
 
 ## Rule matching semantics
 
 A federation rule’s `match` block determines whether Anthropic accepts an incoming JWT. The JWT must satisfy every populated matcher. Set at least one of `subject_prefix`, `claims`, or `condition`. Anthropic rejects a `match` block that contains only `audience` or no matchers at all. This guards against rules that would accept every token from an issuer.
 
-| Matcher          | Type                 | Semantics                                                                                                                                                                                                                                 |
-| ---------------- | -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `subject_prefix` | string               | Exact match against the JWT `sub` claim. A trailing `*` makes it a prefix match (the `sub` value must start with the characters before the `*`). Case-sensitive.                                                                          |
-| `audience`       | string               | The JWT `aud` claim must contain this exact string. When `aud` is an array, any element matching exactly satisfies the check.                                                                                                             |
-| `claims`         | map\<string, string> | Each key is a top-level claim name and each value is the required exact string value. For nested, numeric, boolean, or complex claims such as lists and maps, use `condition` with a Common Expression Language (CEL) expression instead. |
-| `condition`      | string (CEL)         | A [CEL](https://cel.dev/) expression that must evaluate to `true`.                                                                                                                                                                        |
+| Matcher | Type | Semantics |
+| ----- | ----- | ----- |
+| `subject_prefix` | string | Exact match against the JWT `sub` claim. A trailing `*` makes it a prefix match (the `sub` value must start with the characters before the `*`). Case-sensitive. |
+| `audience` | string | The JWT `aud` claim must contain this exact string. When `aud` is an array, any element matching exactly satisfies the check. |
+| `claims` | map\<string, string> | Each key is a top-level claim name and each value is the required exact string value. For nested, numeric, boolean, or complex claims such as lists and maps, use `condition` with a Common Expression Language (CEL) expression instead. |
+| `condition` | string (CEL) | A [CEL](https://cel.dev/) expression that must evaluate to `true`. |
 
 ### CEL evaluation environment
 
 The `condition` expression has access to a single variable:
 
-| Variable | Type | Contents                                                                      |
-| -------- | ---- | ----------------------------------------------------------------------------- |
-| `claims` | map  | The full decoded JWT claim set. Nested objects are accessible as nested maps. |
+| Variable | Type | Contents |
+| ----- | ----- | ----- |
+| `claims` | map | The full decoded JWT claim set. Nested objects are accessible as nested maps. |
 
 Example:
 
@@ -221,28 +221,28 @@ claims.sub.startsWith("repo:acme-corp/") && claims.ref in ["refs/heads/main", "r
 
 `POST /v1/oauth/token` returns errors in the standard [API error shape](https://platform.claude.com/docs/en/api/errors). The SDK reports an exchange failure as `WorkloadIdentityError` (ruby: `Anthropic::Credentials::WorkloadIdentityError`; go: `error`; java: `UnexpectedStatusCodeException`; csharp: `WorkloadIdentityException`; php: `OAuthException`), which gives the HTTP status and the error details from the response body. Except in C# and PHP, the SDK also gives the request ID: on the error, in the exception’s response headers, or in the error’s message.
 
-| Status | Error                   | Cause                                                                                                                                                                                    | Resolution                                                                                                                                                                                                                                                                                                                                                          |
-| ------ | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 400    | `invalid_request_error` | `federation_rule_id` is malformed or a required request field is missing.                                                                                                                | Check the `fdrl_` ID and that the request body includes all required fields.                                                                                                                                                                                                                                                                                        |
-| 400    | `invalid_request_error` | `workspace_id` is present but is not a well-formed `wrkspc_...` ID or the literal `default`.                                                                                             | Fix the `workspace_id` value. The response message names the expected format.                                                                                                                                                                                                                                                                                       |
-| 401    | `authentication_error`  | The JWT `iss` claim does not equal the registered `issuer_url` exactly.                                                                                                                  | Compare byte-for-byte, including trailing slashes and scheme: `jq -rR 'split(".")[1] \| gsub("-";"+") \| gsub("_";"/") \| @base64d \| fromjson \| .iss' <<< "$JWT"`.                                                                                                                                                                                                |
-| 401    | `authentication_error`  | JWKS fetch failed, JWKS is stale, or the JWT was signed with a key not in the JWKS.                                                                                                      | For `inline` mode, update the issuer with the rotated keys. For `discovery` and `explicit_url`, confirm the JWKS endpoint is reachable on port 443. If the issuer recently rotated its signing key, see [Key rotation and caching](https://platform.claude.com/docs/en/manage-claude/wif-reference#key-rotation-and-caching).                                       |
-| 401    | `authentication_error`  | The JWT `exp` claim is in the past (beyond the 30-second skew window).                                                                                                                   | Confirm your identity provider is projecting a fresh token and the SDK is rereading the token file.                                                                                                                                                                                                                                                                 |
-| 401    | `authentication_error`  | The JWT was verified but its claims do not satisfy the rule’s `match` block.                                                                                                             | Decode the JWT and compare each claim against the rule. `subject_prefix` is case-sensitive. `audience` requires an exact element match.                                                                                                                                                                                                                             |
-| 401    | `authentication_error`  | The `federation_rule_id` does not exist or is archived, or the JWT is not authorized for it (one error covers these cases to prevent enumeration).                                       | Confirm the rule ID in the Claude Console and that the rule has not been archived.                                                                                                                                                                                                                                                                                  |
-| 401    | `authentication_error`  | The federation rule is enabled for all workspaces or for more than one, and the request omits `workspace_id`. The authentication history entry shows the reason `workspace_id_required`. | Set `ANTHROPIC_WORKSPACE_ID` (or the `workspace_id` body field on a raw request) to the `wrkspc_...` ID you want the token scoped to. With the `ant` CLI, set `workspace_id` in a federation profile and set `ANTHROPIC_PROFILE` to its name. See [Token exchange request](https://platform.claude.com/docs/en/manage-claude/wif-reference#token-exchange-request). |
+| Status | Error | Cause | Resolution |
+| ----- | ----- | ----- | ----- |
+| 400 | `invalid_request_error` | `federation_rule_id` is malformed or a required request field is missing. | Check the `fdrl_` ID and that the request body includes all required fields. |
+| 400 | `invalid_request_error` | `workspace_id` is present but is not a well-formed `wrkspc_...` ID or the literal `default`. | Fix the `workspace_id` value. The response message names the expected format. |
+| 401 | `authentication_error` | The JWT `iss` claim does not equal the registered `issuer_url` exactly. | Compare byte-for-byte, including trailing slashes and scheme: `jq -rR 'split(".")[1] \| gsub("-";"+") \| gsub("_";"/") \| @base64d \| fromjson \| .iss' <<< "$JWT"`. |
+| 401 | `authentication_error` | JWKS fetch failed, JWKS is stale, or the JWT was signed with a key not in the JWKS. | For `inline` mode, update the issuer with the rotated keys. For `discovery` and `explicit_url`, confirm the JWKS endpoint is reachable on port 443. If the issuer recently rotated its signing key, see [Key rotation and caching](https://platform.claude.com/docs/en/manage-claude/wif-reference#key-rotation-and-caching). |
+| 401 | `authentication_error` | The JWT `exp` claim is in the past (beyond the 30-second skew window). | Confirm your identity provider is projecting a fresh token and the SDK is rereading the token file. |
+| 401 | `authentication_error` | The JWT was verified but its claims do not satisfy the rule’s `match` block. | Decode the JWT and compare each claim against the rule. `subject_prefix` is case-sensitive. `audience` requires an exact element match. |
+| 401 | `authentication_error` | The `federation_rule_id` does not exist or is archived, or the JWT is not authorized for it (one error covers these cases to prevent enumeration). | Confirm the rule ID in the Claude Console and that the rule has not been archived. |
+| 401 | `authentication_error` | The federation rule is enabled for all workspaces or for more than one, and the request omits `workspace_id`. The authentication history entry shows the reason `workspace_id_required`. | Set `ANTHROPIC_WORKSPACE_ID` (or the `workspace_id` body field on a raw request) to the `wrkspc_...` ID you want the token scoped to. With the `ant` CLI, set `workspace_id` in a federation profile and set `ANTHROPIC_PROFILE` to its name. See [Token exchange request](https://platform.claude.com/docs/en/manage-claude/wif-reference#token-exchange-request). |
 
 Every assertion denial returns the same opaque `401` `authentication_error` with the fixed message `Authentication failed`, regardless of which check failed. A distinguishable error would let a caller probe rule configuration. The [authentication history](https://platform.claude.com/settings/workload-identity-federation?tab=history) in the Claude Console records the deny reason on the attempt’s entry. For example, it shows `match_subject_prefix` when the `sub` claim fails the rule’s `subject_prefix`, or `workspace_id_required` when the rule spans multiple workspaces and the request names none. Requests rejected before the rule’s organization is confirmed (the `400 invalid_request_error` family in the previous table) leave no history entry. Their response messages name the problem directly. A `401` with no matching history entry usually means that Anthropic did not recognize the `federation_rule_id`.
 
 ### Common SDK-side failures
 
-| Symptom                                                      | Cause                                                                                                                                       | Resolution                                                                                                                           |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| SDK reports missing credentials instead of exchanging        | One of `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_ORGANIZATION_ID`, or `ANTHROPIC_IDENTITY_TOKEN[_FILE]` is unset and no profile is active. | Set all three variables, or configure a profile.                                                                                     |
-| SDK authenticates with an API key instead of federating      | `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` is set and wins precedence.                                                                   | Unset the key or token variable.                                                                                                     |
-| File-not-found error on first request                        | The path in `ANTHROPIC_IDENTITY_TOKEN_FILE` does not exist. The SDK opens the file lazily at exchange time.                                 | Confirm the projected-token volume is mounted and the path matches.                                                                  |
-| Token exchange succeeds but a Claude API request returns 403 | The minted token’s scope does not grant access to that endpoint.                                                                            | Check the rule’s `oauth_scope` against [OAuth scopes](https://platform.claude.com/docs/en/manage-claude/wif-reference#oauth-scopes). |
-| Authentication fails with empty credential                   | A credential environment variable is exported but set to an empty string. Empty values can win their precedence slot.                       | Unset the variable with `unset VAR` rather than `VAR=""`.                                                                            |
+| Symptom | Cause | Resolution |
+| ----- | ----- | ----- |
+| SDK reports missing credentials instead of exchanging | One of `ANTHROPIC_FEDERATION_RULE_ID`, `ANTHROPIC_ORGANIZATION_ID`, or `ANTHROPIC_IDENTITY_TOKEN[_FILE]` is unset and no profile is active. | Set all three variables, or configure a profile. |
+| SDK authenticates with an API key instead of federating | `ANTHROPIC_API_KEY` or `ANTHROPIC_AUTH_TOKEN` is set and wins precedence. | Unset the key or token variable. |
+| File-not-found error on first request | The path in `ANTHROPIC_IDENTITY_TOKEN_FILE` does not exist. The SDK opens the file lazily at exchange time. | Confirm the projected-token volume is mounted and the path matches. |
+| Token exchange succeeds but a Claude API request returns 403 | The minted token’s scope does not grant access to that endpoint. | Check the rule’s `oauth_scope` against [OAuth scopes](https://platform.claude.com/docs/en/manage-claude/wif-reference#oauth-scopes). |
+| Authentication fails with empty credential | A credential environment variable is exported but set to an empty string. Empty values can win their precedence slot. | Unset the variable with `unset VAR` rather than `VAR=""`. |
 
 ## Troubleshoot a failed exchange
 
@@ -292,11 +292,11 @@ If you need to debug from the JWT itself, work through these checks in order:
 
 When you register a federation issuer, the `jwks` field controls how Anthropic obtains the public keys used to verify JWT signatures from that issuer. Its `type` field selects the source mode:
 
-| `jwks.type`           | `jwks` shape                                                                                                                                    | Behavior                                                                                                                                                                                                      | Use when                                                                                                                                                        |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `discovery` (default) | `{ "type": "discovery", "discovery_base": "https://..." }` (set the optional `discovery_base` when the discovery URL differs from `issuer_url`) | Anthropic fetches `<discovery_base or issuer_url>/.well-known/openid-configuration`, reads `jwks_uri` from the discovery document, and fetches the JWKS from there.                                           | Your IdP serves a standard OIDC discovery document on the public internet. Most managed providers (EKS, GKE, Cloud Run, GitHub Actions, Entra ID) support this. |
-| `explicit_url`        | `{ "type": "explicit_url", "url": "https://..." }`                                                                                              | Anthropic fetches the JWKS directly from `url`. Anthropic uses the `issuer_url` only for string comparison against the JWT `iss` claim and never connects to it.                                              | Your IdP does not serve a discovery document, or discovery is internal-only but the JWKS is publicly reachable.                                                 |
-| `inline`              | `{ "type": "inline", "keys": [...] }`                                                                                                           | You supply the array of JWK objects inline (the `keys` array from the JWKS document, not the wrapper object). Anthropic makes no outbound request. Anthropic uses the `issuer_url` only for `iss` comparison. | Air-gapped environments, self-managed Kubernetes clusters with cluster-internal issuer URLs, or when you want explicit control over key rotation.               |
+| `jwks.type` | `jwks` shape | Behavior | Use when |
+| ----- | ----- | ----- | ----- |
+| `discovery` (default) | `{ "type": "discovery", "discovery_base": "https://..." }` (set the optional `discovery_base` when the discovery URL differs from `issuer_url`) | Anthropic fetches `<discovery_base or issuer_url>/.well-known/openid-configuration`, reads `jwks_uri` from the discovery document, and fetches the JWKS from there. | Your IdP serves a standard OIDC discovery document on the public internet. Most managed providers (EKS, GKE, Cloud Run, GitHub Actions, Entra ID) support this. |
+| `explicit_url` | `{ "type": "explicit_url", "url": "https://..." }` | Anthropic fetches the JWKS directly from `url`. Anthropic uses the `issuer_url` only for string comparison against the JWT `iss` claim and never connects to it. | Your IdP does not serve a discovery document, or discovery is internal-only but the JWKS is publicly reachable. |
+| `inline` | `{ "type": "inline", "keys": [...] }` | You supply the array of JWK objects inline (the `keys` array from the JWKS document, not the wrapper object). Anthropic makes no outbound request. Anthropic uses the `issuer_url` only for `iss` comparison. | Air-gapped environments, self-managed Kubernetes clusters with cluster-internal issuer URLs, or when you want explicit control over key rotation. |
 
 Each `type` takes its own companion fields, so those fields are mutually exclusive. Both `discovery` and `explicit_url` also accept an optional `ca_cert_pem` string for issuers that serve TLS from a private CA.
 

@@ -403,14 +403,14 @@ Archiving succeeds only if the thread is `idle`. A thread that waits on `require
 
 These events surface multiagent activity on the primary thread at `/v1/sessions/{session_id}/events/stream`. Message-direction events are named relative to the thread whose stream they appear on: `agent.thread_message_received` means a message arrived on this thread from another thread, and `agent.thread_message_sent` means this thread sent one. The task that the primary thread’s agent delegates, for example, arrives on the child’s own stream as an `agent.thread_message_received` event.
 
-| Type                               | Description                                                                                                                                                                                                                                                                                                                                 |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `session.thread_created`           | A thread was created. Includes `session_thread_id` (java: `sessionThreadId`; php: `sessionThreadID`; csharp, go: `SessionThreadID`) and `agent_name` (java, php: `agentName`; csharp, go: `AgentName`).                                                                                                                                     |
-| `session.thread_status_running`    | A thread started activity.                                                                                                                                                                                                                                                                                                                  |
-| `session.thread_status_idle`       | The agent associated with the thread is awaiting input. Includes a `stop_reason` (java, php: `stopReason`; csharp, go: `StopReason`) indicating why the agent stopped.                                                                                                                                                                      |
-| `session.thread_status_terminated` | A thread terminated and accepts no further input, for example, because it was archived or encountered an unrecoverable error. An advisor thread also terminates when its consultation ends.                                                                                                                                                 |
-| `agent.thread_message_received`    | On the primary thread, a subagent sent the primary thread’s agent a report or question. Includes `from_session_thread_id` (java: `fromSessionThreadId`; php: `fromSessionThreadID`; csharp, go: `FromSessionThreadID`), `from_agent_name` (java, php: `fromAgentName`; csharp, go: `FromAgentName`), and `content` (csharp, go: `Content`). |
-| `agent.thread_message_sent`        | On the primary thread, the primary thread’s agent sent a subagent a task or follow-up message. Includes `to_session_thread_id` (java: `toSessionThreadId`; php: `toSessionThreadID`; csharp, go: `ToSessionThreadID`), `to_agent_name` (java, php: `toAgentName`; csharp, go: `ToAgentName`), and `content` (csharp, go: `Content`).        |
+| Type | Description |
+| ----- | ----- |
+| `session.thread_created` | A thread was created. Includes `session_thread_id` (java: `sessionThreadId`; php: `sessionThreadID`; csharp, go: `SessionThreadID`) and `agent_name` (java, php: `agentName`; csharp, go: `AgentName`). |
+| `session.thread_status_running` | A thread started activity. |
+| `session.thread_status_idle` | The agent associated with the thread is awaiting input. Includes a `stop_reason` (java, php: `stopReason`; csharp, go: `StopReason`) indicating why the agent stopped. |
+| `session.thread_status_terminated` | A thread terminated and accepts no further input, for example, because it was archived or encountered an unrecoverable error. An advisor thread also terminates when its consultation ends. |
+| `agent.thread_message_received` | On the primary thread, a subagent sent the primary thread’s agent a report or question. Includes `from_session_thread_id` (java: `fromSessionThreadId`; php: `fromSessionThreadID`; csharp, go: `FromSessionThreadID`), `from_agent_name` (java, php: `fromAgentName`; csharp, go: `FromAgentName`), and `content` (csharp, go: `Content`). |
+| `agent.thread_message_sent` | On the primary thread, the primary thread’s agent sent a subagent a task or follow-up message. Includes `to_session_thread_id` (java: `toSessionThreadId`; php: `toSessionThreadID`; csharp, go: `ToSessionThreadID`), `to_agent_name` (java, php: `toAgentName`; csharp, go: `ToAgentName`), and `content` (csharp, go: `Content`). |
 
 Advisor consultations emit these same thread events under the reserved name `anthropic.advisor`. The name appears as `agent_name` (java, php: `agentName`; csharp, go: `AgentName`) on the thread lifecycle events and as `from_agent_name` (java, php: `fromAgentName`; csharp, go: `FromAgentName`) on the advice delivery. See [Give the session an advisor](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor) for the sequence.
 
@@ -815,9 +815,9 @@ Session threads are in beta on every model.
 
 * Availability: Always on
 
-| Status | Cloud platforms         |
-| ------ | ----------------------- |
-| Beta   | All supported platforms |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Beta | All supported platforms |
 
 ### Required beta headers
 
@@ -831,9 +831,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

@@ -3066,7 +3066,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish, or was not created.
 
@@ -4141,7 +4141,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish, or was not created.
 
@@ -6208,7 +6208,7 @@ List Session Thread Events
 
       Unique identifier for this event.
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish, or was not created.
 
@@ -7198,7 +7198,7 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish, or was not created.
 

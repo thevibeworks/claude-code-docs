@@ -728,7 +728,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `PageAge string Optional`
 
-                  - `type WebSearchToolRequestErrorParam`
+                  - `type WebSearchToolRequestErrorObjectParam`
 
                     - `Type WebSearchToolResultError`
 
@@ -4424,7 +4424,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content WebSearchToolResultBlockContentUnion`
 
-              - `type WebSearchToolResultError`
+              - `type WebSearchToolResultErrorObject`
 
                 - `Type WebSearchToolResultError`
 
@@ -4576,7 +4576,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content CodeExecutionToolResultBlockContentUnion`
 
-              - `type CodeExecutionToolResultError`
+              - `type CodeExecutionToolResultErrorObject`
 
                 - `Type CodeExecutionToolResultError`
 
@@ -4650,7 +4650,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content BashCodeExecutionToolResultBlockContentUnion`
 
-              - `type BashCodeExecutionToolResultError`
+              - `type BashCodeExecutionToolResultErrorObject`
 
                 - `Type BashCodeExecutionToolResultError`
 
@@ -4700,7 +4700,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content TextEditorCodeExecutionToolResultBlockContentUnion`
 
-              - `type TextEditorCodeExecutionToolResultError`
+              - `type TextEditorCodeExecutionToolResultErrorObject`
 
                 - `Type TextEditorCodeExecutionToolResultError`
 
@@ -4778,7 +4778,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content ToolSearchToolResultBlockContentUnion`
 
-              - `type ToolSearchToolResultError`
+              - `type ToolSearchToolResultErrorObject`
 
                 - `Type ToolSearchToolResultError`
 
@@ -5221,7 +5221,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `Error ErrorObjectUnion`
 
-          - `type InvalidRequestError`
+          - `type InvalidRequestErrorObject`
 
             - `Type InvalidRequestError`
 
@@ -5235,7 +5235,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Invalid request
 
-          - `type AuthenticationError`
+          - `type AuthenticationErrorObject`
 
             - `Type AuthenticationError`
 
@@ -5249,7 +5249,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Authentication error
 
-          - `type BillingError`
+          - `type BillingErrorObject`
 
             - `Type BillingError`
 
@@ -5263,7 +5263,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Billing error
 
-          - `type PermissionError`
+          - `type PermissionErrorObject`
 
             - `Type PermissionError`
 
@@ -5277,7 +5277,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Permission denied
 
-          - `type NotFoundError`
+          - `type NotFoundErrorObject`
 
             - `Type NotFoundError`
 
@@ -5291,7 +5291,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Not found
 
-          - `type RateLimitError`
+          - `type RateLimitErrorObject`
 
             - `Type RateLimitError`
 
@@ -5305,7 +5305,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Rate limited
 
-          - `type GatewayTimeoutError`
+          - `type GatewayTimeoutErrorObject`
 
             - `Type TimeoutError`
 
@@ -5333,7 +5333,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Internal server error
 
-          - `type OverloadedError`
+          - `type OverloadedErrorObject`
 
             - `Type OverloadedError`
 
@@ -5561,7 +5561,7 @@ func main() {
 
     - `Error ErrorObjectUnion`
 
-      - `type InvalidRequestError`
+      - `type InvalidRequestErrorObject`
 
         - `Type InvalidRequestError`
 
@@ -5575,7 +5575,7 @@ func main() {
 
           default: Invalid request
 
-      - `type AuthenticationError`
+      - `type AuthenticationErrorObject`
 
         - `Type AuthenticationError`
 
@@ -5589,7 +5589,7 @@ func main() {
 
           default: Authentication error
 
-      - `type BillingError`
+      - `type BillingErrorObject`
 
         - `Type BillingError`
 
@@ -5603,7 +5603,7 @@ func main() {
 
           default: Billing error
 
-      - `type PermissionError`
+      - `type PermissionErrorObject`
 
         - `Type PermissionError`
 
@@ -5617,7 +5617,7 @@ func main() {
 
           default: Permission denied
 
-      - `type NotFoundError`
+      - `type NotFoundErrorObject`
 
         - `Type NotFoundError`
 
@@ -5631,7 +5631,7 @@ func main() {
 
           default: Not found
 
-      - `type RateLimitError`
+      - `type RateLimitErrorObject`
 
         - `Type RateLimitError`
 
@@ -5645,7 +5645,7 @@ func main() {
 
           default: Rate limited
 
-      - `type GatewayTimeoutError`
+      - `type GatewayTimeoutErrorObject`
 
         - `Type TimeoutError`
 
@@ -5673,7 +5673,7 @@ func main() {
 
           default: Internal server error
 
-      - `type OverloadedError`
+      - `type OverloadedErrorObject`
 
         - `Type OverloadedError`
 
@@ -6094,7 +6094,7 @@ func main() {
 
             - `Content WebSearchToolResultBlockContentUnion`
 
-              - `type WebSearchToolResultError`
+              - `type WebSearchToolResultErrorObject`
 
                 - `Type WebSearchToolResultError`
 
@@ -6246,7 +6246,7 @@ func main() {
 
             - `Content CodeExecutionToolResultBlockContentUnion`
 
-              - `type CodeExecutionToolResultError`
+              - `type CodeExecutionToolResultErrorObject`
 
                 - `Type CodeExecutionToolResultError`
 
@@ -6320,7 +6320,7 @@ func main() {
 
             - `Content BashCodeExecutionToolResultBlockContentUnion`
 
-              - `type BashCodeExecutionToolResultError`
+              - `type BashCodeExecutionToolResultErrorObject`
 
                 - `Type BashCodeExecutionToolResultError`
 
@@ -6370,7 +6370,7 @@ func main() {
 
             - `Content TextEditorCodeExecutionToolResultBlockContentUnion`
 
-              - `type TextEditorCodeExecutionToolResultError`
+              - `type TextEditorCodeExecutionToolResultErrorObject`
 
                 - `Type TextEditorCodeExecutionToolResultError`
 
@@ -6448,7 +6448,7 @@ func main() {
 
             - `Content ToolSearchToolResultBlockContentUnion`
 
-              - `type ToolSearchToolResultError`
+              - `type ToolSearchToolResultErrorObject`
 
                 - `Type ToolSearchToolResultError`
 
@@ -6891,7 +6891,7 @@ func main() {
 
         - `Error ErrorObjectUnion`
 
-          - `type InvalidRequestError`
+          - `type InvalidRequestErrorObject`
 
             - `Type InvalidRequestError`
 
@@ -6905,7 +6905,7 @@ func main() {
 
               default: Invalid request
 
-          - `type AuthenticationError`
+          - `type AuthenticationErrorObject`
 
             - `Type AuthenticationError`
 
@@ -6919,7 +6919,7 @@ func main() {
 
               default: Authentication error
 
-          - `type BillingError`
+          - `type BillingErrorObject`
 
             - `Type BillingError`
 
@@ -6933,7 +6933,7 @@ func main() {
 
               default: Billing error
 
-          - `type PermissionError`
+          - `type PermissionErrorObject`
 
             - `Type PermissionError`
 
@@ -6947,7 +6947,7 @@ func main() {
 
               default: Permission denied
 
-          - `type NotFoundError`
+          - `type NotFoundErrorObject`
 
             - `Type NotFoundError`
 
@@ -6961,7 +6961,7 @@ func main() {
 
               default: Not found
 
-          - `type RateLimitError`
+          - `type RateLimitErrorObject`
 
             - `Type RateLimitError`
 
@@ -6975,7 +6975,7 @@ func main() {
 
               default: Rate limited
 
-          - `type GatewayTimeoutError`
+          - `type GatewayTimeoutErrorObject`
 
             - `Type TimeoutError`
 
@@ -7003,7 +7003,7 @@ func main() {
 
               default: Internal server error
 
-          - `type OverloadedError`
+          - `type OverloadedErrorObject`
 
             - `Type OverloadedError`
 
@@ -7460,7 +7460,7 @@ func main() {
 
           - `Content WebSearchToolResultBlockContentUnion`
 
-            - `type WebSearchToolResultError`
+            - `type WebSearchToolResultErrorObject`
 
               - `Type WebSearchToolResultError`
 
@@ -7612,7 +7612,7 @@ func main() {
 
           - `Content CodeExecutionToolResultBlockContentUnion`
 
-            - `type CodeExecutionToolResultError`
+            - `type CodeExecutionToolResultErrorObject`
 
               - `Type CodeExecutionToolResultError`
 
@@ -7686,7 +7686,7 @@ func main() {
 
           - `Content BashCodeExecutionToolResultBlockContentUnion`
 
-            - `type BashCodeExecutionToolResultError`
+            - `type BashCodeExecutionToolResultErrorObject`
 
               - `Type BashCodeExecutionToolResultError`
 
@@ -7736,7 +7736,7 @@ func main() {
 
           - `Content TextEditorCodeExecutionToolResultBlockContentUnion`
 
-            - `type TextEditorCodeExecutionToolResultError`
+            - `type TextEditorCodeExecutionToolResultErrorObject`
 
               - `Type TextEditorCodeExecutionToolResultError`
 
@@ -7814,7 +7814,7 @@ func main() {
 
           - `Content ToolSearchToolResultBlockContentUnion`
 
-            - `type ToolSearchToolResultError`
+            - `type ToolSearchToolResultErrorObject`
 
               - `Type ToolSearchToolResultError`
 
@@ -8257,7 +8257,7 @@ func main() {
 
       - `Error ErrorObjectUnion`
 
-        - `type InvalidRequestError`
+        - `type InvalidRequestErrorObject`
 
           - `Type InvalidRequestError`
 
@@ -8271,7 +8271,7 @@ func main() {
 
             default: Invalid request
 
-        - `type AuthenticationError`
+        - `type AuthenticationErrorObject`
 
           - `Type AuthenticationError`
 
@@ -8285,7 +8285,7 @@ func main() {
 
             default: Authentication error
 
-        - `type BillingError`
+        - `type BillingErrorObject`
 
           - `Type BillingError`
 
@@ -8299,7 +8299,7 @@ func main() {
 
             default: Billing error
 
-        - `type PermissionError`
+        - `type PermissionErrorObject`
 
           - `Type PermissionError`
 
@@ -8313,7 +8313,7 @@ func main() {
 
             default: Permission denied
 
-        - `type NotFoundError`
+        - `type NotFoundErrorObject`
 
           - `Type NotFoundError`
 
@@ -8327,7 +8327,7 @@ func main() {
 
             default: Not found
 
-        - `type RateLimitError`
+        - `type RateLimitErrorObject`
 
           - `Type RateLimitError`
 
@@ -8341,7 +8341,7 @@ func main() {
 
             default: Rate limited
 
-        - `type GatewayTimeoutError`
+        - `type GatewayTimeoutErrorObject`
 
           - `Type TimeoutError`
 
@@ -8369,7 +8369,7 @@ func main() {
 
             default: Internal server error
 
-        - `type OverloadedError`
+        - `type OverloadedErrorObject`
 
           - `Type OverloadedError`
 
@@ -8778,7 +8778,7 @@ func main() {
 
         - `Content WebSearchToolResultBlockContentUnion`
 
-          - `type WebSearchToolResultError`
+          - `type WebSearchToolResultErrorObject`
 
             - `Type WebSearchToolResultError`
 
@@ -8930,7 +8930,7 @@ func main() {
 
         - `Content CodeExecutionToolResultBlockContentUnion`
 
-          - `type CodeExecutionToolResultError`
+          - `type CodeExecutionToolResultErrorObject`
 
             - `Type CodeExecutionToolResultError`
 
@@ -9004,7 +9004,7 @@ func main() {
 
         - `Content BashCodeExecutionToolResultBlockContentUnion`
 
-          - `type BashCodeExecutionToolResultError`
+          - `type BashCodeExecutionToolResultErrorObject`
 
             - `Type BashCodeExecutionToolResultError`
 
@@ -9054,7 +9054,7 @@ func main() {
 
         - `Content TextEditorCodeExecutionToolResultBlockContentUnion`
 
-          - `type TextEditorCodeExecutionToolResultError`
+          - `type TextEditorCodeExecutionToolResultErrorObject`
 
             - `Type TextEditorCodeExecutionToolResultError`
 
@@ -9132,7 +9132,7 @@ func main() {
 
         - `Content ToolSearchToolResultBlockContentUnion`
 
-          - `type ToolSearchToolResultError`
+          - `type ToolSearchToolResultErrorObject`
 
             - `Type ToolSearchToolResultError`
 

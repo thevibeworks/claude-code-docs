@@ -10,15 +10,15 @@ For the full response schema, see the [Messages API reference](https://platform.
 
 ## Quick reference
 
-| Value                                                                                                                                        | When it occurs                                  | What to do                                                                                                                                              |
-| -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`end_turn`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#end-turn)                                           | Claude completed its response naturally.        | Use the response.                                                                                                                                       |
-| [`max_tokens`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#max-tokens)                                       | The response reached your `max_tokens` limit.   | Raise `max_tokens` or [continue the response](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#ensuring-complete-responses). |
-| [`stop_sequence`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#stop-sequence)                                 | Claude emitted one of your `stop_sequences`.    | Read `stop_sequence` to see which one fired.                                                                                                            |
-| [`tool_use`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#tool-use)                                           | Claude is calling a tool.                       | Run the tool and return the result. A server tool call still missing its result block completes in a later response.                                    |
-| [`pause_turn`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#pause-turn)                                       | A server-tool loop reached its iteration limit. | Send the assistant content back to continue.                                                                                                            |
-| [`refusal`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#refusal)                                             | Claude declined to respond.                     | Read `stop_details` and [retry on a fallback model](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).                       |
-| [`model_context_window_exceeded`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#model-context-window-exceeded) | The response filled the model’s context window. | Treat the response as truncated.                                                                                                                        |
+| Value | When it occurs | What to do |
+| ----- | ----- | ----- |
+| [`end_turn`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#end-turn) | Claude completed its response naturally. | Use the response. |
+| [`max_tokens`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#max-tokens) | The response reached your `max_tokens` limit. | Raise `max_tokens` or [continue the response](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#ensuring-complete-responses). |
+| [`stop_sequence`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#stop-sequence) | Claude emitted one of your `stop_sequences`. | Read `stop_sequence` to see which one fired. |
+| [`tool_use`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#tool-use) | Claude is calling a tool. | Run the tool and return the result. A server tool call still missing its result block completes in a later response. |
+| [`pause_turn`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#pause-turn) | A server-tool loop reached its iteration limit. | Send the assistant content back to continue. |
+| [`refusal`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#refusal) | Claude declined to respond. | Read `stop_details` and [retry on a fallback model](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback). |
+| [`model_context_window_exceeded`](https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons#model-context-window-exceeded) | The response filled the model’s context window. | Treat the response as truncated. |
 
 ## The stop\_reason field
 
@@ -1541,13 +1541,13 @@ Two cases need one more field in the follow-up request:
 
 Each of these mistakes in the follow-up request fails with a 400 `invalid_request_error`. The messages shown are for web search. For other server tools, the names in them differ.
 
-| Mistake                                                                                    | The error message includes                                                     |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| `tools` no longer defines the waiting server tool                                          | ``but no `web_search` tool was provided``                                      |
-| Text or other content comes after the `tool_result` blocks                                 | ``was found without a corresponding `web_search_tool_result` block``           |
-| With programmatic tool calling, text or other content comes after the `tool_result` blocks | `only tool_result blocks are allowed`                                          |
-| Text or other content comes before the `tool_result` blocks                                | `` `tool_use` ids were found without `tool_result` blocks immediately after `` |
-| A `tool_result` block is missing                                                           | `` `tool_use` ids were found without `tool_result` blocks immediately after `` |
+| Mistake | The error message includes |
+| ----- | ----- |
+| `tools` no longer defines the waiting server tool | ``but no `web_search` tool was provided`` |
+| Text or other content comes after the `tool_result` blocks | ``was found without a corresponding `web_search_tool_result` block`` |
+| With programmatic tool calling, text or other content comes after the `tool_result` blocks | `only tool_result blocks are allowed` |
+| Text or other content comes before the `tool_result` blocks | `` `tool_use` ids were found without `tool_result` blocks immediately after `` |
+| A `tool_result` block is missing | `` `tool_use` ids were found without `tool_result` blocks immediately after `` |
 
 Content after the `tool_result` blocks fails because it ends Claude’s turn while the server tool is still waiting. To give Claude more input, continue until a response’s `stop_reason` is neither `tool_use` nor `pause_turn`. Then, send the input as a new user message in the same `messages` list.
 
@@ -1929,6 +1929,8 @@ Claude declined to generate a response. Safety classifiers return this stop reas
 On a refusal, the [`stop_details`](https://platform.claude.com/docs/en/api/messages/create#message.stop_details) object identifies the policy category that triggered it. The categories and the full refusal response shape are covered in [What a refusal looks like](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response). `stop_details` is `null` for all stop reasons other than `refusal`.
 
 You can usually get a response to a refused request by retrying it on another Claude model. This works for Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, and Claude Haiku 5.5. [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback) shows how to set up that retry, server-side or in your client. Claude Haiku 5.5 has no server-side fallback, so set up its retry with [client-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback). If you build the retry yourself from any of these models except Claude Haiku 5.5, [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) covers how to avoid paying the prompt-cache cost twice.
+
+A `reasoning_extraction` refusal is an exception: change the prompt instead of retrying on another model, as [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks) says.
 
 ### model\_context\_window\_exceeded
 

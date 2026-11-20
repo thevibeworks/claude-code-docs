@@ -98,51 +98,51 @@ interface ErrorResponse {
   request_id: string | null;
 }
 
-type ErrorObject = InvalidRequestError | AuthenticationError | BillingError | PermissionError | NotFoundError | RateLimitError | GatewayTimeoutError | APIErrorObject | OverloadedError;
+type ErrorObject = InvalidRequestErrorObject | AuthenticationErrorObject | BillingErrorObject | PermissionErrorObject | NotFoundErrorObject | RateLimitErrorObject | GatewayTimeoutErrorObject | APIErrorObject | OverloadedErrorObject;
 
-interface InvalidRequestError {
+interface InvalidRequestErrorObject {
   /** The broad category of the error. */
   type: "invalid_request_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Invalid request
 }
 
-interface AuthenticationError {
+interface AuthenticationErrorObject {
   /** The broad category of the error. */
   type: "authentication_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Authentication error
 }
 
-interface BillingError {
+interface BillingErrorObject {
   /** The broad category of the error. */
   type: "billing_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Billing error
 }
 
-interface PermissionError {
+interface PermissionErrorObject {
   /** The broad category of the error. */
   type: "permission_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Permission denied
 }
 
-interface NotFoundError {
+interface NotFoundErrorObject {
   /** The broad category of the error. */
   type: "not_found_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Not found
 }
 
-interface RateLimitError {
+interface RateLimitErrorObject {
   /** The broad category of the error. */
   type: "rate_limit_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Rate limited
 }
 
-interface GatewayTimeoutError {
+interface GatewayTimeoutErrorObject {
   /** The broad category of the error. */
   type: "timeout_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
@@ -156,7 +156,7 @@ interface APIErrorObject {
   message: string; // default: Internal server error
 }
 
-interface OverloadedError {
+interface OverloadedErrorObject {
   /** The broad category of the error. */
   type: "overloaded_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
@@ -468,19 +468,19 @@ interface CodeExecutionToolResultBlock {
 
 interface BashCodeExecutionToolResultBlock {
   type: "bash_code_execution_tool_result";
-  content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock;
+  content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface TextEditorCodeExecutionToolResultBlock {
   type: "text_editor_code_execution_tool_result";
-  content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock;
+  content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface ToolSearchToolResultBlock {
   type: "tool_search_tool_result";
-  content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock;
+  content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
@@ -506,9 +506,9 @@ interface ServerToolCaller20260120 {
   tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
-type WebSearchToolResultBlockContent = WebSearchToolResultError | Array<WebSearchResultBlock>;
+type WebSearchToolResultBlockContent = WebSearchToolResultErrorObject | Array<WebSearchResultBlock>;
 
-interface WebSearchToolResultError {
+interface WebSearchToolResultErrorObject {
   type: "web_search_tool_result_error";
   error_code: WebSearchToolResultErrorCode;
 }
@@ -564,9 +564,9 @@ interface PlainTextSource {
   media_type: "text/plain";
 }
 
-type CodeExecutionToolResultBlockContent = CodeExecutionToolResultError | CodeExecutionResultBlock | EncryptedCodeExecutionResultBlock;
+type CodeExecutionToolResultBlockContent = CodeExecutionToolResultErrorObject | CodeExecutionResultBlock | EncryptedCodeExecutionResultBlock;
 
-interface CodeExecutionToolResultError {
+interface CodeExecutionToolResultErrorObject {
   type: "code_execution_tool_result_error";
   error_code: CodeExecutionToolResultErrorCode;
 }
@@ -595,7 +595,7 @@ interface CodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface BashCodeExecutionToolResultError {
+interface BashCodeExecutionToolResultErrorObject {
   type: "bash_code_execution_tool_result_error";
   error_code: BashCodeExecutionToolResultErrorCode;
 }
@@ -615,7 +615,7 @@ interface BashCodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface TextEditorCodeExecutionToolResultError {
+interface TextEditorCodeExecutionToolResultErrorObject {
   type: "text_editor_code_execution_tool_result_error";
   error_code: TextEditorCodeExecutionToolResultErrorCode;
   error_message: string | null;
@@ -646,7 +646,7 @@ interface TextEditorCodeExecutionStrReplaceResultBlock {
 
 type TextEditorCodeExecutionToolResultErrorCode = "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
 
-interface ToolSearchToolResultError {
+interface ToolSearchToolResultErrorObject {
   type: "tool_search_tool_result_error";
   error_code: ToolSearchToolResultErrorCode;
   error_message: string | null;

@@ -64,17 +64,25 @@ People you invite see the chat as it was when you shared it. If you keep chattin
 
 ## Sharing on Team and Enterprise plans
 
-On Team and Enterprise plans, sharing stays inside your organization:
+On Team and Enterprise plans, sharing stays inside your organization unless an admin turns on external sharing:
 
-- You can invite people with an email address on your organization's domain. Emails outside your organization can't be invited.
+- You can invite members of your organization. You can invite people outside it only if an admin has turned on **Share chats externally**.
 
-- Under **General access**, you can choose "Anyone at [your organization]" so any signed-in member with the link can view the chat.
+- Under **General access**, you can choose "Anyone at [your organization]" so any signed-in member with the link can view the chat, unless an admin has turned this option off.
 
 - Public links aren't available.
 
-- If you invite a coworker who doesn't have a Claude seat yet, they'll be asked to sign in. Depending on how your organization is set up, they'll either get access automatically or see a message to ask their admin.
+- A coworker who isn't a member of your organization yet counts as outside it, so you can invite them only if an admin has turned on **Share chats externally**.
 
-- Admins can turn off chat sharing for the organization, see and revoke shared chats, and view sharing activity in the audit log.
+- On Enterprise plans, admins can export audit logs that include sharing activity.
+
+Admins control chat sharing in **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**, in the **Sharing** section:
+
+- **Share chats:** Turns chat sharing on or off for your organization. The two settings below apply only while this is on. Turning it off also turns off **Share chats externally**, and people outside your organization don't get access back.
+
+- **Share chats with everyone in your organization:** On by default. When it's off, members can share only with specific people and groups. Chats already shared with everyone open only for the people and groups they were shared with, until you turn this back on.
+
+- **Share chats externally:** Off by default. When it's on, members can invite anyone outside your organization by email. Each person signs in with the invited email address and sees a view-only snapshot of that chat. If you turn it off, people outside your organization lose access to shared chats, and turning it back on doesn't restore their access. This setting isn't available for HIPAA-ready organizations or organizations that use customer-managed encryption keys. If you don't see this setting, it isn't available for your organization.
 
 ## Open a chat someone shared with you
 

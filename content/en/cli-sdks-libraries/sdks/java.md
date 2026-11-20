@@ -133,11 +133,11 @@ For authentication options including Workload Identity Federation, see [Authenti
 
 ### Configuration options
 
-| Setter      | System property       | Environment variable   | Required | Default value                 |
-| ----------- | --------------------- | ---------------------- | -------- | ----------------------------- |
-| `apiKey`    | `anthropic.apiKey`    | `ANTHROPIC_API_KEY`    | false    | -                             |
-| `authToken` | `anthropic.authToken` | `ANTHROPIC_AUTH_TOKEN` | false    | -                             |
-| `baseUrl`   | `anthropic.baseUrl`   | `ANTHROPIC_BASE_URL`   | true     | `"https://api.anthropic.com"` |
+| Setter | System property | Environment variable | Required | Default value |
+| ----- | ----- | ----- | ----- | ----- |
+| `apiKey` | `anthropic.apiKey` | `ANTHROPIC_API_KEY` | false | - |
+| `authToken` | `anthropic.authToken` | `ANTHROPIC_AUTH_TOKEN` | false | - |
+| `baseUrl` | `anthropic.baseUrl` | `ANTHROPIC_BASE_URL` | true | `"https://api.anthropic.com"` |
 
 System properties take precedence over environment variables.
 
@@ -606,15 +606,15 @@ The SDK throws custom unchecked exception types:
 
 ### Status code mapping
 
-| Status | Exception                       |
-| ------ | ------------------------------- |
-| 400    | `BadRequestException`           |
-| 401    | `UnauthorizedException`         |
-| 403    | `PermissionDeniedException`     |
-| 404    | `NotFoundException`             |
-| 422    | `UnprocessableEntityException`  |
-| 429    | `RateLimitException`            |
-| 5xx    | `InternalServerException`       |
+| Status | Exception |
+| ----- | ----- |
+| 400 | `BadRequestException` |
+| 401 | `UnauthorizedException` |
+| 403 | `PermissionDeniedException` |
+| 404 | `NotFoundException` |
+| 422 | `UnprocessableEntityException` |
+| 429 | `RateLimitException` |
+| 5xx | `InternalServerException` |
 | others | `UnexpectedStatusCodeException` |
 
 `SseException` is thrown for errors encountered during SSE streaming after a successful initial HTTP response.

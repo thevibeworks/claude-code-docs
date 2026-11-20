@@ -288,11 +288,11 @@ The package surfaces the Messages API capabilities that the Foundation Models pr
 
 ## Additional resources
 
-| Reference                                                                                           | Covers                                                                                            |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| Reference | Covers |
+| ----- | ----- |
 | [Apple Foundation Models documentation](https://developer.apple.com/documentation/foundationmodels) | `LanguageModelSession`, `@Generable`, `Transcript`, `Tool`, and the rest of the framework surface |
-| [`ClaudeForFoundationModels` on GitHub](https://github.com/anthropics/ClaudeForFoundationModels)    | Source, the runnable example, and the issue tracker                                               |
-| [Claude API reference](https://platform.claude.com/docs/en/api/overview)                            | The underlying Messages API                                                                       |
+| [`ClaudeForFoundationModels` on GitHub](https://github.com/anthropics/ClaudeForFoundationModels) | Source, the runnable example, and the issue tracker |
+| [Claude API reference](https://platform.claude.com/docs/en/api/overview) | The underlying Messages API |
 
 The package is licensed under Apache 2.0. Bug reports are welcome through GitHub issues. External pull requests are not being accepted during the beta period.
 
@@ -307,5 +307,5 @@ Apple Foundation Models are in beta on every model.
 * Availability: Available
 
 | Status | Cloud platforms |
-| ------ | --------------- |
-| Beta   | Claude API      |
+| ----- | ----- |
+| Beta | Claude API |

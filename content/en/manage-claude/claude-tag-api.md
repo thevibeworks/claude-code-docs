@@ -24,12 +24,12 @@ Claude Tag is a claude.ai product. This API manages it for a Claude Enterprise o
 
 The API exposes 14 endpoints across four resources:
 
-| Resource                                                                                                                                      | Endpoints                                                                                                                                                                                                                                                                                              |
-| --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Slack channels:** set a channel up, list the channels of a workspace or find one by its Slack IDs, read one, change its settings, remove it | `POST /v1/organizations/claude_tag/slack_channels`<br />`GET /v1/organizations/claude_tag/slack_channels`<br />`GET /v1/organizations/claude_tag/slack_channels/{id}`<br />`POST /v1/organizations/claude_tag/slack_channels/{id}`<br />`DELETE /v1/organizations/claude_tag/slack_channels/{id}`      |
-| **Slack workspaces:** list your workspaces or find one by its Slack ID, read one, change its settings                                         | `GET /v1/organizations/claude_tag/slack_workspaces`<br />`GET /v1/organizations/claude_tag/slack_workspaces/{id}`<br />`POST /v1/organizations/claude_tag/slack_workspaces/{id}`                                                                                                                       |
-| **Bundles:** list your organization’s Access bundles, read one (read-only)                                                                    | `GET /v1/organizations/claude_tag/bundles`<br />`GET /v1/organizations/claude_tag/bundles/{bundle_id}`                                                                                                                                                                                                 |
-| **Bundle targets:** list where a Bundle is attached, attach it to a channel or workspace, read one attachment, detach it                      | `GET /v1/organizations/claude_tag/bundles/{bundle_id}/targets`<br />`POST /v1/organizations/claude_tag/bundles/{bundle_id}/targets`<br />`GET /v1/organizations/claude_tag/bundles/{bundle_id}/targets/{target_id}`<br />`DELETE /v1/organizations/claude_tag/bundles/{bundle_id}/targets/{target_id}` |
+| Resource | Endpoints |
+| ----- | ----- |
+| **Slack channels:** set a channel up, list the channels of a workspace or find one by its Slack IDs, read one, change its settings, remove it | `POST /v1/organizations/claude_tag/slack_channels`<br />`GET /v1/organizations/claude_tag/slack_channels`<br />`GET /v1/organizations/claude_tag/slack_channels/{id}`<br />`POST /v1/organizations/claude_tag/slack_channels/{id}`<br />`DELETE /v1/organizations/claude_tag/slack_channels/{id}` |
+| **Slack workspaces:** list your workspaces or find one by its Slack ID, read one, change its settings | `GET /v1/organizations/claude_tag/slack_workspaces`<br />`GET /v1/organizations/claude_tag/slack_workspaces/{id}`<br />`POST /v1/organizations/claude_tag/slack_workspaces/{id}` |
+| **Bundles:** list your organization’s Access bundles, read one (read-only) | `GET /v1/organizations/claude_tag/bundles`<br />`GET /v1/organizations/claude_tag/bundles/{bundle_id}` |
+| **Bundle targets:** list where a Bundle is attached, attach it to a channel or workspace, read one attachment, detach it | `GET /v1/organizations/claude_tag/bundles/{bundle_id}/targets`<br />`POST /v1/organizations/claude_tag/bundles/{bundle_id}/targets`<br />`GET /v1/organizations/claude_tag/bundles/{bundle_id}/targets/{target_id}`<br />`DELETE /v1/organizations/claude_tag/bundles/{bundle_id}/targets/{target_id}` |
 
 This release covers Slack. Connecting and disconnecting a Slack workspace or Enterprise Grid, your organization’s Slack defaults, creating and editing Access bundles, spend limits, and every Claude Tag setting other than the five in [Settings](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#settings) stay in claude.ai.
 
@@ -179,9 +179,9 @@ A setting that is `null` in `settings` is not set on this workspace, so the work
 
 ## Scopes
 
-| Scope              | Grants                                                                                                                                  |
-| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `read:claude_tag`  | Every `GET` endpoint on this page.                                                                                                      |
+| Scope | Grants |
+| ----- | ----- |
+| `read:claude_tag` | Every `GET` endpoint on this page. |
 | `write:claude_tag` | Every `POST` and `DELETE` endpoint on this page. It does not grant reads, although the response to a change holds the changed resource. |
 
 A key can carry both scopes. An integration that looks a channel up and then changes it needs both. No other scope grants access to these endpoints, and a key created in the Claude Console does not work here.
@@ -192,17 +192,17 @@ The key must belong to the organization as a whole. The organization is always t
 
 ### Names on this page and in claude.ai
 
-| This API         | claude.ai and Slack                                                                                                                                                                                |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Slack workspace  | A Slack workspace. Slack’s own API calls it a team, so Slack’s own workspace ID on this page is the team ID there. It is unrelated to a Claude Platform workspace, whose IDs start with `wrkspc_`. |
-| Slack defaults   | **Default Slack access**: the settings that apply to every workspace and channel. An organization owner changes them in claude.ai; this API shows where a channel or workspace inherits from them. |
-| Settings level   | A [scope](https://claude.com/docs/claude-tag/admins/customize): a channel, a workspace, or the Slack defaults                                                                                      |
-| Bundle           | An Access bundle ([Claude Tag glossary](https://claude.com/docs/claude-tag/concepts/glossary#access-bundle))                                                                                       |
-| `enabled`        | The **Enable Claude Tag in Slack** toggle                                                                                                                                                          |
-| `instructions`   | **Custom instructions**                                                                                                                                                                            |
-| `model`          | **Model**                                                                                                                                                                                          |
-| `environment_id` | **Environment**                                                                                                                                                                                    |
-| `guest_policy`   | **How should Claude work in channels with guests**: `restrict` is **Restrict**, `channel_only` is **Channel only**, and `allow` is **Full access**                                                 |
+| This API | claude.ai and Slack |
+| ----- | ----- |
+| Slack workspace | A Slack workspace. Slack’s own API calls it a team, so Slack’s own workspace ID on this page is the team ID there. It is unrelated to a Claude Platform workspace, whose IDs start with `wrkspc_`. |
+| Slack defaults | **Default Slack access**: the settings that apply to every workspace and channel. An organization owner changes them in claude.ai; this API shows where a channel or workspace inherits from them. |
+| Settings level | A [scope](https://claude.com/docs/claude-tag/admins/customize): a channel, a workspace, or the Slack defaults |
+| Bundle | An Access bundle ([Claude Tag glossary](https://claude.com/docs/claude-tag/concepts/glossary#access-bundle)) |
+| `enabled` | The **Enable Claude Tag in Slack** toggle |
+| `instructions` | **Custom instructions** |
+| `model` | **Model** |
+| `environment_id` | **Environment** |
+| `guest_policy` | **How should Claude work in channels with guests**: `restrict` is **Restrict**, `channel_only` is **Channel only**, and `allow` is **Full access** |
 
 ### Set-up channels and workspaces
 
@@ -221,14 +221,14 @@ A channel that is shared with a whole Grid can be stored under the Grid’s own 
 
 You know a channel by the IDs Slack shows you. Look its `id` up once with [Find a channel by its Slack IDs](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#find-a-channel-by-its-slack-ids), then store and use the `id`.
 
-| ID                       | Prefix                                                                                                                                                                  | Where it appears                                                          |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| Slack channel resource   | `slch_`                                                                                                                                                                 | `id` on a channel; `slack_channel_id` in request bodies and responses     |
-| Slack workspace resource | `slws_`                                                                                                                                                                 | `id` on a workspace; `slack_workspace_id` in request bodies and responses |
-| Bundle                   | `capp_`                                                                                                                                                                 | `id` on a Bundle; `{bundle_id}` in paths                                  |
-| Bundle target            | `btgt_`                                                                                                                                                                 | `id` on a Bundle target; `{target_id}` in paths                           |
-| Slack’s own workspace ID | `T`, or `E` for a Grid’s own ID (see [Set-up channels and workspaces](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-channels-and-workspaces)) | `slack.workspace_id`; the `slack_workspace_id` query parameter            |
-| Slack’s own channel ID   | `C` or `G`                                                                                                                                                              | `slack.channel_id`; the `slack_channel_id` query parameter                |
+| ID | Prefix | Where it appears |
+| ----- | ----- | ----- |
+| Slack channel resource | `slch_` | `id` on a channel; `slack_channel_id` in request bodies and responses |
+| Slack workspace resource | `slws_` | `id` on a workspace; `slack_workspace_id` in request bodies and responses |
+| Bundle | `capp_` | `id` on a Bundle; `{bundle_id}` in paths |
+| Bundle target | `btgt_` | `id` on a Bundle target; `{target_id}` in paths |
+| Slack’s own workspace ID | `T`, or `E` for a Grid’s own ID (see [Set-up channels and workspaces](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-channels-and-workspaces)) | `slack.workspace_id`; the `slack_workspace_id` query parameter |
+| Slack’s own channel ID | `C` or `G` | `slack.channel_id`; the `slack_channel_id` query parameter |
 
 <Warning>
   `slack_channel_id` and `slack_workspace_id` each mean two things. In a **query parameter** each is Slack’s own ID (`C05HJKL6MNP`, `T01ABCD2EFG`). In a **request body or a response** each is the `id` this API issues (`slch_...`, `slws_...`). Slack’s own IDs in a body or a response are always under `slack`.
@@ -242,13 +242,13 @@ An `id` does not change while the channel or workspace is set up, whatever you c
 
 Each settings level stores the same five settings, all optional:
 
-| Setting          | Type    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ---------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`        | boolean | Whether Claude is on.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `instructions`   | string  | Standing guidance Claude reads in every session. At most 8,192 characters after leading and trailing white space is trimmed. Blank text clears the setting.                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| `model`          | string  | The model new sessions start on: a [model ID](https://platform.claude.com/docs/en/models/overview) your organization can use with Claude Tag. At most 128 characters.                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `environment_id` | string  | The environment sessions run in: an active environment of your organization, prefixed `env_`, or a self-hosted runner pool of your organization that every member may use, prefixed `ccpool_`.                                                                                                                                                                                                                                                                                                                                                                                                |
-| `guest_policy`   | object  | What Claude does in a channel while a Slack guest is in it, for everyone in the channel: `{"type": "allow"}` (Claude answers), `{"type": "restrict"}` (Claude does not answer), or `{"type": "channel_only"}` (Claude answers with only the Bundles attached to the channel itself; if `channel_only` is not available to your organization, a request that sets it returns `400`). See [Restrict guest channels](https://claude.com/docs/claude-tag/admins/restrict-access#restrict-guest-channels) for what it means in channels shared through Slack Connect or across an Enterprise Grid. |
+| Setting | Type | Description |
+| ----- | ----- | ----- |
+| `enabled` | boolean | Whether Claude is on. |
+| `instructions` | string | Standing guidance Claude reads in every session. At most 8,192 characters after leading and trailing white space is trimmed. Blank text clears the setting. |
+| `model` | string | The model new sessions start on: a [model ID](https://platform.claude.com/docs/en/models/overview) your organization can use with Claude Tag. At most 128 characters. |
+| `environment_id` | string | The environment sessions run in: an active environment of your organization, prefixed `env_`, or a self-hosted runner pool of your organization that every member may use, prefixed `ccpool_`. |
+| `guest_policy` | object | What Claude does in a channel while a Slack guest is in it, for everyone in the channel: `{"type": "allow"}` (Claude answers), `{"type": "restrict"}` (Claude does not answer), or `{"type": "channel_only"}` (Claude answers with only the Bundles attached to the channel itself; if `channel_only` is not available to your organization, a request that sets it returns `400`). See [Restrict guest channels](https://claude.com/docs/claude-tag/admins/restrict-access#restrict-guest-channels) for what it means in channels shared through Slack Connect or across an Enterprise Grid. |
 
 `model` and `environment_id` are checked when you write them and not again: if the model or environment later changes, responses keep returning the stored value.
 
@@ -265,13 +265,13 @@ In both cases `sources` names, for each setting, the level that the value in `se
 
 Each setting is resolved on its own:
 
-| Setting          | Rule                                                                                                                                      | When no level sets it                           |
-| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| `enabled`        | The nearest level that sets it determines the value, so `true` on a channel turns Claude on there even when its workspace stores `false`. | `true`                                          |
-| `instructions`   | Additive. The text of every level that sets it is joined, broadest first, with a blank line between.                                      | `null`                                          |
-| `model`          | The nearest level that sets it determines the value.                                                                                      | `null`: Claude uses the product’s default model |
-| `environment_id` | The nearest level that sets it determines the value.                                                                                      | `null`                                          |
-| `guest_policy`   | The nearest level that sets it determines the value.                                                                                      | `restrict`                                      |
+| Setting | Rule | When no level sets it |
+| ----- | ----- | ----- |
+| `enabled` | The nearest level that sets it determines the value, so `true` on a channel turns Claude on there even when its workspace stores `false`. | `true` |
+| `instructions` | Additive. The text of every level that sets it is joined, broadest first, with a blank line between. | `null` |
+| `model` | The nearest level that sets it determines the value. | `null`: Claude uses the product’s default model |
+| `environment_id` | The nearest level that sets it determines the value. | `null` |
+| `guest_policy` | The nearest level that sets it determines the value. | `restrict` |
 
 For example, an organization stores instructions on its Slack defaults, turns Claude off on a workspace, and sets a model on one channel of that workspace. Read with `include_inherited=true`, the channel shows the three values and where each comes from:
 
@@ -312,14 +312,14 @@ Read without the parameter, the same channel has its `model` and four `null` set
 
 A source is one of:
 
-| `type`                 | Meaning                                                                                                                                                                                                                                                                                               |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `slack_channel`        | The channel, named in `slack_channel_id`.                                                                                                                                                                                                                                                             |
-| `slack_workspace`      | The workspace, named in `slack_workspace_id`.                                                                                                                                                                                                                                                         |
-| `slack_parent_channel` | The parent of a code channel, named in `slack_channel_id`. A code channel is one that was started from another channel. While the parent is a public channel in the same workspace, it sits between the channel and the workspace and contributes `instructions` and `environment_id` only.           |
-| `slack_grid_channel`   | The same Slack channel as set up under another workspace of its Slack Enterprise Grid, named by Slack’s own IDs under `slack`. It contributes `enabled` only: when neither the channel nor its workspace sets `enabled`, a `true` stored for the channel under another workspace of the Grid applies. |
-| `slack_default`        | Your organization’s Slack defaults, which have no ID.                                                                                                                                                                                                                                                 |
-| `default`              | No level sets a value, so the built-in default applies.                                                                                                                                                                                                                                               |
+| `type` | Meaning |
+| ----- | ----- |
+| `slack_channel` | The channel, named in `slack_channel_id`. |
+| `slack_workspace` | The workspace, named in `slack_workspace_id`. |
+| `slack_parent_channel` | The parent of a code channel, named in `slack_channel_id`. A code channel is one that was started from another channel. While the parent is a public channel in the same workspace, it sits between the channel and the workspace and contributes `instructions` and `environment_id` only. |
+| `slack_grid_channel` | The same Slack channel as set up under another workspace of its Slack Enterprise Grid, named by Slack’s own IDs under `slack`. It contributes `enabled` only: when neither the channel nor its workspace sets `enabled`, a `true` stored for the channel under another workspace of the Grid applies. |
+| `slack_default` | Your organization’s Slack defaults, which have no ID. |
+| `default` | No level sets a value, so the built-in default applies. |
 
 `sources.instructions` lists every level that contributes text, broadest first, which is the order of their text in `settings.instructions`, and is empty when none does. It says whose text comes first, not where one level’s text ends: to get one level’s own text, read that channel or workspace without `include_inherited`, or, for the Slack defaults, look in claude.ai. A source that names a channel or workspace always carries its ID, which is never `null`: an `id` of this API in `slack_channel_id` or `slack_workspace_id`, or, on `slack_grid_channel`, Slack’s own IDs under `slack` as on a channel object.
 
@@ -384,15 +384,15 @@ Any member can invite Claude to a public channel. To keep Claude on only where y
 
 The channel object describes one Slack channel:
 
-| Field        | Description                                                                                                                                                                                                                                                                                                                                                                 |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`       | `slack_channel`.                                                                                                                                                                                                                                                                                                                                                            |
-| `id`         | Prefixed `slch_`. See [IDs](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#ids).                                                                                                                                                                                                                                                                          |
-| `slack`      | Slack’s own IDs: `workspace_id` for the workspace the channel is in, and `channel_id` for the channel.                                                                                                                                                                                                                                                                      |
-| `settings`   | What the channel itself stores, or, with `include_inherited=true`, what applies in it. Always present, with all five [settings](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#settings); one that is not set is `null`. See [Stored and inherited values](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#stored-and-inherited-values). |
-| `sources`    | For each setting, the level that the value in `settings` comes from. Always present.                                                                                                                                                                                                                                                                                        |
-| `created_at` | When the channel was set up.                                                                                                                                                                                                                                                                                                                                                |
-| `updated_at` | When Claude Tag’s record of the channel last changed. It moves on every change to a setting, here, in claude.ai, or in Slack, and can also move for a change that no response here shows. Treat a later value as a reason to read the channel again, not as proof that a setting changed. Attaching or detaching a Bundle does not by itself move it.                       |
+| Field | Description |
+| ----- | ----- |
+| `type` | `slack_channel`. |
+| `id` | Prefixed `slch_`. See [IDs](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#ids). |
+| `slack` | Slack’s own IDs: `workspace_id` for the workspace the channel is in, and `channel_id` for the channel. |
+| `settings` | What the channel itself stores, or, with `include_inherited=true`, what applies in it. Always present, with all five [settings](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#settings); one that is not set is `null`. See [Stored and inherited values](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#stored-and-inherited-values). |
+| `sources` | For each setting, the level that the value in `settings` comes from. Always present. |
+| `created_at` | When the channel was set up. |
+| `updated_at` | When Claude Tag’s record of the channel last changed. It moves on every change to a setting, here, in claude.ai, or in Slack, and can also move for a change that no response here shows. Treat a later value as a reason to read the channel again, not as proof that a setting changed. Attaching or detaching a Bundle does not by itself move it. |
 
 An `id` that is not a valid `slch_` identifier returns `400`. A valid one that names no channel of your organization returns `404`.
 
@@ -1569,13 +1569,13 @@ An `id` that is not a valid `slws_` identifier returns `400`. A valid one that n
 
 A Bundle is what claude.ai calls an [Access bundle](https://claude.com/docs/claude-tag/admins/add-connections): a named set of access, such as connectors, repositories, and credentials, that Claude can use in a channel or workspace. Organization owners create, edit, and delete Bundles in claude.ai. This API lists them and attaches them. It returns a Bundle’s name and description and never what the Bundle grants.
 
-| Field                      | Description                                      |
-| -------------------------- | ------------------------------------------------ |
-| `type`                     | `bundle`.                                        |
-| `id`                       | Prefixed `capp_`.                                |
-| `display_name`             | The Bundle’s name.                               |
-| `description`              | What the Bundle is for. `null` when it has none. |
-| `created_at`, `updated_at` | When the Bundle was created and last changed.    |
+| Field | Description |
+| ----- | ----- |
+| `type` | `bundle`. |
+| `id` | Prefixed `capp_`. |
+| `display_name` | The Bundle’s name. |
+| `description` | What the Bundle is for. `null` when it has none. |
+| `created_at`, `updated_at` | When the Bundle was created and last changed. |
 
 A `bundle_id` that is not a valid `capp_` identifier returns `400`. A valid one that does not exist or belongs to another organization returns `404`, whatever else the request holds. Bundles that Claude Tag manages for itself are not listed and return `404`.
 
@@ -1786,13 +1786,13 @@ A `bundle_id` that is not a valid `capp_` identifier returns `400`. A valid one 
 
 A Bundle target is the record of one Bundle attached to one channel or one workspace. A Bundle attached to a workspace can be used in the workspace and in every channel in it. A Bundle attached to a channel can be used in that channel only.
 
-| Field                | Description                                                                                             |
-| -------------------- | ------------------------------------------------------------------------------------------------------- |
-| `type`               | `slack_channel` or `slack_workspace`.                                                                   |
-| `id`                 | Prefixed `btgt_`. It is the `{target_id}` in paths, and is never the channel’s or workspace’s own `id`. |
-| `slack_channel_id`   | On a `slack_channel` target: the channel’s `id`, prefixed `slch_`.                                      |
-| `slack_workspace_id` | On a `slack_workspace` target: the workspace’s `id`, prefixed `slws_`.                                  |
-| `created_at`         | When the Bundle was attached.                                                                           |
+| Field | Description |
+| ----- | ----- |
+| `type` | `slack_channel` or `slack_workspace`. |
+| `id` | Prefixed `btgt_`. It is the `{target_id}` in paths, and is never the channel’s or workspace’s own `id`. |
+| `slack_channel_id` | On a `slack_channel` target: the channel’s `id`, prefixed `slch_`. |
+| `slack_workspace_id` | On a `slack_workspace` target: the workspace’s `id`, prefixed `slws_`. |
+| `created_at` | When the Bundle was attached. |
 
 A Bundle is attached to a channel or workspace at most once, and the same pair always has the same `id`, also after a detach and a new attach. The `id` is opaque: get it from the response to an attach or from the list. A Bundle target does not hold its Bundle’s `id`, which its paths also need, so keep the two together.
 
@@ -2442,10 +2442,10 @@ An attachment to a channel has conditions under which it applies, such as only w
 
 Requests are limited for each organization, in two budgets that all of your organization’s keys share and that are separate from your organization’s other Admin API limits. Each budget allows a burst and then refills at a steady rate:
 
-| Budget  | Requests                  | Burst | Refill       |
-| ------- | ------------------------- | ----- | ------------ |
-| Reads   | Every `GET`               | 120   | 2 per second |
-| Changes | Every `POST` and `DELETE` | 60    | 1 per second |
+| Budget | Requests | Burst | Refill |
+| ----- | ----- | ----- | ----- |
+| Reads | Every `GET` | 120 | 2 per second |
+| Changes | Every `POST` and `DELETE` | 60 | 1 per second |
 
 Requests over a budget return **429 Too Many Requests** with a `retry-after` header: wait that many seconds, then send the request again. A request that got as far as its budget, whatever its outcome, gets the `anthropic-ratelimit-requests-limit`, `anthropic-ratelimit-requests-remaining`, and `anthropic-ratelimit-requests-reset` headers for that budget; a request refused before that, such as for its key, scope, or headers, or because the API, changes, or new storage are not enabled for your organization, gets none.
 
@@ -2459,16 +2459,16 @@ List endpoints use an **opaque cursor**. The first request returns up to `limit`
 
 Error responses follow the standard shape documented in [Claude API errors](https://platform.claude.com/docs/en/api/errors). Quote the `request_id` from the response body when contacting support.
 
-| Status | Meaning                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 400    | Invalid input, or the operation does not apply to this channel, workspace, or Bundle (see each endpoint’s section).                                                                                                                                                                                                                                                                                       |
-| 401    | Missing `x-api-key` header, or the key is not recognized.                                                                                                                                                                                                                                                                                                                                                 |
-| 403    | The key is not an organization-level scoped key, is missing the required scope, or your organization cannot make this change.                                                                                                                                                                                                                                                                             |
-| 404    | Resource not found, or not your organization’s. Also returned when the request omits the `anthropic-beta` value, or the API is not enabled for your organization, so that the endpoints read as nonexistent.                                                                                                                                                                                              |
-| 409    | Something else changed or removed the resource while the request ran. Nothing the request asked for was done: no setting stored, nothing attached, detached, or removed. The one exception is a setup request, which can have set the channel up before its `settings` met the conflict (`slack_channel_set_up_settings_conflict`). Read the resource again and resend the request if it is still needed. |
-| 429    | Rate limit exceeded. See [Rate limiting](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#rate-limiting).                                                                                                                                                                                                                                                                                 |
-| 500    | Internal error.                                                                                                                                                                                                                                                                                                                                                                                           |
-| 503    | Temporary. On a change, it does not say whether the change was stored. Every change is safe to repeat, so send the request again unchanged. If a resent `DELETE` then returns `404`, the channel or Bundle target is already gone.                                                                                                                                                                        |
+| Status | Meaning |
+| ----- | ----- |
+| 400 | Invalid input, or the operation does not apply to this channel, workspace, or Bundle (see each endpoint’s section). |
+| 401 | Missing `x-api-key` header, or the key is not recognized. |
+| 403 | The key is not an organization-level scoped key, is missing the required scope, or your organization cannot make this change. |
+| 404 | Resource not found, or not your organization’s. Also returned when the request omits the `anthropic-beta` value, or the API is not enabled for your organization, so that the endpoints read as nonexistent. |
+| 409 | Something else changed or removed the resource while the request ran. Nothing the request asked for was done: no setting stored, nothing attached, detached, or removed. The one exception is a setup request, which can have set the channel up before its `settings` met the conflict (`slack_channel_set_up_settings_conflict`). Read the resource again and resend the request if it is still needed. |
+| 429 | Rate limit exceeded. See [Rate limiting](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#rate-limiting). |
+| 500 | Internal error. |
+| 503 | Temporary. On a change, it does not say whether the change was stored. Every change is safe to repeat, so send the request again unchanged. If a resent `DELETE` then returns `404`, the channel or Bundle target is already gone. |
 
 When one status has several causes that you would handle differently, the error also carries `error.details.error_code`:
 
@@ -2487,19 +2487,19 @@ When one status has several causes that you would handle differently, the error 
 }
 ```
 
-| `error_code`                                 | Status | Meaning and what to do                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| -------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organization_level_scoped_api_key_required` | 403    | The credential is not a scoped Admin API key that belongs to the organization as a whole. Ask your primary owner for one.                                                                                                                                                                                                                                                                                                                       |
-| `api_key_scope_missing`                      | 403    | The key lacks `read:claude_tag` or `write:claude_tag`, whichever the endpoint requires.                                                                                                                                                                                                                                                                                                                                                         |
-| `claude_tag_writes_not_enabled`              | 403    | Your organization can read through this API but is not enabled for changes.                                                                                                                                                                                                                                                                                                                                                                     |
-| `compliance_configuration_restricted`        | 403    | Your organization has a compliance configuration under which Claude Tag stores nothing new, such as zero data retention. Setting a channel up, updating settings (even to clear them), and attaching a Bundle are refused. Detaching a Bundle and removing a channel are not, and such an organization can [remove](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#remove-a-channel) a channel even while Claude is on in it. |
-| `environment_not_found`                      | 404    | `environment_id` names no environment or runner pool your organization can use here. The `id` in the path is fine.                                                                                                                                                                                                                                                                                                                              |
-| `environment_archived`                       | 400    | `environment_id` names an archived environment.                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `runner_pool_restricted`                     | 400    | The request would put a settings level on a restricted runner pool, or changes or clears `environment_id` on a settings level that stores one. An organization owner makes that change in claude.ai. See [Settings](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#settings).                                                                                                                                                 |
-| `slack_channel_set_up_settings_refused`      | 400    | The request set the channel up, then `settings` was refused. `details.slack_channel_id` is the channel. See [Set up a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-a-channel).                                                                                                                                                                                                                              |
-| `slack_channel_set_up_environment_not_found` | 404    | The request set the channel up, then `environment_id` was not found. `details.slack_channel_id` is the channel. See [Set up a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-a-channel).                                                                                                                                                                                                                      |
-| `slack_channel_set_up_settings_conflict`     | 409    | The request set the channel up, then another change overlapped `settings`. Nothing of `settings` was stored. `details.slack_channel_id` is the channel. See [Set up a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-a-channel).                                                                                                                                                                              |
-| `slack_channel_enabled`                      | 400    | Claude is on in the channel (`enabled` resolves to `true`), so it cannot be removed. Set `enabled` to `false` first. See [Remove a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#remove-a-channel).                                                                                                                                                                                                                 |
+| `error_code` | Status | Meaning and what to do |
+| ----- | ----- | ----- |
+| `organization_level_scoped_api_key_required` | 403 | The credential is not a scoped Admin API key that belongs to the organization as a whole. Ask your primary owner for one. |
+| `api_key_scope_missing` | 403 | The key lacks `read:claude_tag` or `write:claude_tag`, whichever the endpoint requires. |
+| `claude_tag_writes_not_enabled` | 403 | Your organization can read through this API but is not enabled for changes. |
+| `compliance_configuration_restricted` | 403 | Your organization has a compliance configuration under which Claude Tag stores nothing new, such as zero data retention. Setting a channel up, updating settings (even to clear them), and attaching a Bundle are refused. Detaching a Bundle and removing a channel are not, and such an organization can [remove](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#remove-a-channel) a channel even while Claude is on in it. |
+| `environment_not_found` | 404 | `environment_id` names no environment or runner pool your organization can use here. The `id` in the path is fine. |
+| `environment_archived` | 400 | `environment_id` names an archived environment. |
+| `runner_pool_restricted` | 400 | The request would put a settings level on a restricted runner pool, or changes or clears `environment_id` on a settings level that stores one. An organization owner makes that change in claude.ai. See [Settings](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#settings). |
+| `slack_channel_set_up_settings_refused` | 400 | The request set the channel up, then `settings` was refused. `details.slack_channel_id` is the channel. See [Set up a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-a-channel). |
+| `slack_channel_set_up_environment_not_found` | 404 | The request set the channel up, then `environment_id` was not found. `details.slack_channel_id` is the channel. See [Set up a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-a-channel). |
+| `slack_channel_set_up_settings_conflict` | 409 | The request set the channel up, then another change overlapped `settings`. Nothing of `settings` was stored. `details.slack_channel_id` is the channel. See [Set up a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-a-channel). |
+| `slack_channel_enabled` | 400 | Claude is on in the channel (`enabled` resolves to `true`), so it cannot be removed. Set `enabled` to `false` first. See [Remove a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#remove-a-channel). |
 
 New codes may be added. Treat a code you do not recognize the way you treat its status. A `404` with no `error_code` has one of two causes. Either something the request names was not found (an `id` in the path, or a Slack channel or workspace in the body or the query), or every endpoint reads as nonexistent because the request omits the `anthropic-beta` value or the API is not enabled for your organization. To tell them apart, [list your workspaces](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#list-workspaces) with the same key and headers: that request names nothing, so it returns `404` only in the second case.
 
@@ -2507,25 +2507,25 @@ New codes may be added. Treat a code you do not recognize the way you treat its 
 
 Every change through this API is recorded on your organization’s [Compliance API Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed), attributed to the API key as an `api_actor` carrying its `apikey_` ID. The events are the ones the feed records when the same change is made in claude.ai, so one query finds a change whichever way it was made.
 
-| Event                             | Emitted when                                                                        |
-| --------------------------------- | ----------------------------------------------------------------------------------- |
-| `ccr_agent_created`               | A channel is set up.                                                                |
-| `ccr_agent_updated`               | A setting changes on a channel or a workspace.                                      |
-| `ccr_agent_deleted`               | A channel is removed. Its Bundle targets go with it and emit no event of their own. |
-| `ccr_agent_proxy_profile_bound`   | A Bundle is attached.                                                               |
-| `ccr_agent_proxy_profile_unbound` | A Bundle is detached.                                                               |
+| Event | Emitted when |
+| ----- | ----- |
+| `ccr_agent_created` | A channel is set up. |
+| `ccr_agent_updated` | A setting changes on a channel or a workspace. |
+| `ccr_agent_deleted` | A channel is removed. Its Bundle targets go with it and emit no event of their own. |
+| `ccr_agent_proxy_profile_bound` | A Bundle is attached. |
+| `ccr_agent_proxy_profile_unbound` | A Bundle is detached. |
 
 The events name a channel or workspace by an identifier of the feed’s own, `agent_id` (prefixed `cagt_`), which no response of this API holds, so you cannot yet match an event to a channel’s or workspace’s `id`. The two Bundle events name the Bundle in `profile_id` and the channel or workspace, by the same `agent_id`, in `scope_id`.
 
 A `ccr_agent_updated` event lists what changed in `updated_fields`, under the feed’s own names:
 
-| Setting          | Name in `updated_fields` |
-| ---------------- | ------------------------ |
-| `enabled`        | `slackbot_version`       |
-| `instructions`   | `system_prompt_addendum` |
-| `model`          | `default_model`          |
+| Setting | Name in `updated_fields` |
+| ----- | ----- |
+| `enabled` | `slackbot_version` |
+| `instructions` | `system_prompt_addendum` |
+| `model` | `default_model` |
 | `environment_id` | `default_environment_id` |
-| `guest_policy`   | `guest_policy`           |
+| `guest_policy` | `guest_policy` |
 
 `updated_fields` can also hold `is_virtual`, which names no setting. It appears beside the names of the changed settings in the event for a change through this API that is the first thing anyone stores on the channel or workspace: a channel that Claude’s first use set up, or that this API set up with no `settings`, or a workspace in which Claude was never used, and on which nobody has yet stored a setting or attached a Bundle, here or in claude.ai. The `model` a code channel starts with does not count as stored. Attaching a Bundle records only `ccr_agent_proxy_profile_bound`.
 

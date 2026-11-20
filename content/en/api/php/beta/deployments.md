@@ -1470,9 +1470,9 @@ var_dump($betaManagedAgentsDeployment);
 
 ## Domain types
 
-### Beta Managed Agents Agent Archived Deployment Paused Reason Error
+### Beta Managed Agents Agent Archived Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+- `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
   - `"agent_archived_error" type`
 
@@ -1666,67 +1666,67 @@ var_dump($betaManagedAgentsDeployment);
 
     - `"error" type`
 
-    - `BetaManagedAgentsDeploymentPausedReasonError error`
+    - `BetaManagedAgentsDeploymentPausedReasonErrorObject error`
 
       The failed run's error.
 
-### Beta Managed Agents Deployment Paused Reason Error
+### Beta Managed Agents Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsDeploymentPausedReasonError`
+- `class BetaManagedAgentsDeploymentPausedReasonErrorObject`
 
-  - `class BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+  - `class BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
     - `"environment_archived_error" type`
 
-  - `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+  - `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
     - `"agent_archived_error" type`
 
-  - `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+  - `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
     - `"environment_not_found_error" type`
 
-  - `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+  - `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
     - `"vault_not_found_error" type`
 
-  - `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+  - `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
     - `"file_not_found_error" type`
 
-  - `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+  - `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
     - `"session_resource_not_found_error" type`
 
-  - `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+  - `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
     - `"workspace_archived_error" type`
 
-  - `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+  - `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
     - `"organization_disabled_error" type`
 
-  - `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+  - `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
     - `"memory_store_archived_error" type`
 
-  - `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+  - `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
     - `"skill_not_found_error" type`
 
-  - `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+  - `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
     - `"vault_archived_error" type`
 
-  - `class BetaManagedAgentsUnknownDeploymentPausedReasonError`
+  - `class BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
     - `"unknown_error" type`
 
-  - `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+  - `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
     - `"self_hosted_resources_unsupported_error" type`
 
-  - `class BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+  - `class BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
     - `"mcp_egress_blocked_error" type`
 
@@ -1780,15 +1780,15 @@ var_dump($betaManagedAgentsDeployment);
 
     Array of content blocks for the user message.
 
-### Beta Managed Agents Environment Archived Deployment Paused Reason Error
+### Beta Managed Agents Environment Archived Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+- `class BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
   - `"environment_archived_error" type`
 
-### Beta Managed Agents Environment Not Found Deployment Paused Reason Error
+### Beta Managed Agents Environment Not Found Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+- `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
   - `"environment_not_found_error" type`
 
@@ -1798,13 +1798,13 @@ var_dump($betaManagedAgentsDeployment);
 
   - `"error" type`
 
-  - `BetaManagedAgentsDeploymentPausedReasonError error`
+  - `BetaManagedAgentsDeploymentPausedReasonErrorObject error`
 
     The failed run's error.
 
-### Beta Managed Agents File Not Found Deployment Paused Reason Error
+### Beta Managed Agents File Not Found Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+- `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
   - `"file_not_found_error" type`
 
@@ -1846,15 +1846,15 @@ var_dump($betaManagedAgentsDeployment);
 
   - `"manual" type`
 
-### Beta Managed Agents MCP Egress Blocked Deployment Paused Reason Error
+### Beta Managed Agents MCP Egress Blocked Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+- `class BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
   - `"mcp_egress_blocked_error" type`
 
-### Beta Managed Agents Memory Store Archived Deployment Paused Reason Error
+### Beta Managed Agents Memory Store Archived Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+- `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
   - `"memory_store_archived_error" type`
 
@@ -1876,9 +1876,9 @@ var_dump($betaManagedAgentsDeployment);
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-### Beta Managed Agents Organization Disabled Deployment Paused Reason Error
+### Beta Managed Agents Organization Disabled Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+- `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
   - `"organization_disabled_error" type`
 
@@ -1918,9 +1918,9 @@ var_dump($betaManagedAgentsDeployment);
 
     Required. IANA timezone identifier (e.g., "America/Los_Angeles", "UTC"). Validated against the IANA timezone database.
 
-### Beta Managed Agents Self Hosted Resources Unsupported Deployment Paused Reason Error
+### Beta Managed Agents Self Hosted Resources Unsupported Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+- `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
   - `"self_hosted_resources_unsupported_error" type`
 
@@ -1972,38 +1972,38 @@ var_dump($betaManagedAgentsDeployment);
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-### Beta Managed Agents Session Resource Not Found Deployment Paused Reason Error
+### Beta Managed Agents Session Resource Not Found Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+- `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
   - `"session_resource_not_found_error" type`
 
-### Beta Managed Agents Skill Not Found Deployment Paused Reason Error
+### Beta Managed Agents Skill Not Found Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+- `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
   - `"skill_not_found_error" type`
 
-### Beta Managed Agents Unknown Deployment Paused Reason Error
+### Beta Managed Agents Unknown Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsUnknownDeploymentPausedReasonError`
+- `class BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
   - `"unknown_error" type`
 
-### Beta Managed Agents Vault Archived Deployment Paused Reason Error
+### Beta Managed Agents Vault Archived Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+- `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
   - `"vault_archived_error" type`
 
-### Beta Managed Agents Vault Not Found Deployment Paused Reason Error
+### Beta Managed Agents Vault Not Found Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+- `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
   - `"vault_not_found_error" type`
 
-### Beta Managed Agents Workspace Archived Deployment Paused Reason Error
+### Beta Managed Agents Workspace Archived Deployment Paused Reason Error Object
 
-- `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+- `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
   - `"workspace_archived_error" type`

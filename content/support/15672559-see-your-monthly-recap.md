@@ -52,13 +52,13 @@ Each card pairs an observation with a concrete next step you can take, like crea
 
 ## What’s included in your recap
 
-Claude builds your recap from your recent chats. Because the recap relies on the same chat history that powers memory, it only appears when memory is on. If you turn memory off, the recap is hidden.
+Claude builds your recap from your recent chats. Because the recap relies on the same chat history that powers memory, it only appears when memory is on. If you turn memory off, the recap is hidden. For some accounts, your recap also uses your Claude Code sessions and Claude Cowork tasks in the cloud. A line on the recap page says what your recap is based on.
 
 Your activity on Claude Mobile is included in your recap even though that page isn’t available on mobile yet.
 
 ### Content from connected services
 
-When Claude pulls content from a connected service like Gmail or Google Drive, your recap doesn't incorporate the raw email or file. It may incorporate anything Claude wrote in the chat about it. For example, if you ask Claude to summarize your inbox, the emails themselves aren't pulled into your recap, but the summary Claude wrote is.
+When Claude pulls content from a connected service like Gmail or Google Drive into a chat, your recap doesn't incorporate the raw email or file. It may incorporate anything Claude wrote in the chat about it. For example, if you ask Claude to summarize your inbox, the emails themselves aren't pulled into your recap, but the summary Claude wrote is.
 
 ### Conversations that are skipped entirely
 
@@ -70,7 +70,7 @@ Some conversations are left out of your recap completely:
 
 - Conversations that used your linked accounts in Personal Finance, including their titles
 
-- Activity in Claude Cowork and Claude Code
+- Claude Code sessions and Cowork tasks that run only on your computer, and those in the cloud unless the line on the recap page says that your recap is based on them
 
 Learn more about **[memory](https://support.claude.com/en/articles/11817273)**, **[incognito chats](https://support.claude.com/en/articles/12260368)**, and health features on **[iOS](https://support.claude.com/en/articles/11869619-use-claude-with-ios-apps#h_21f4b10d6d)** and **[Android](https://support.claude.com/en/articles/11869629-use-claude-with-android-apps#h_62b72ef926)**.
 

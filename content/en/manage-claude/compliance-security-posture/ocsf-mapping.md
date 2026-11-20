@@ -18,62 +18,62 @@ This mapping uses OCSF 1.6.0. If you validate against another version, check the
 
 Map these fields on every event.
 
-| Activity field      | OCSF attribute                 | Note                                                                                                                                                                                                                                                         |
-| ------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`                | `metadata.uid`                 | Copy unchanged.                                                                                                                                                                                                                                              |
-| `type`              | `metadata.event_code`          | Copy unchanged.                                                                                                                                                                                                                                              |
-| `created_at`        | `time`                         | Convert the RFC 3339 string to milliseconds since the Unix epoch and truncate to a whole number.                                                                                                                                                             |
-| `created_at`        | `metadata.original_time`       | Copy the string unchanged.                                                                                                                                                                                                                                   |
-| None                | `metadata.logged_time`         | The time at which you stored the activity (`stored_at` on [Detect changes in Security posture](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/detect-changes#before-you-write-a-rule)), in milliseconds since the Unix epoch. |
-| `organization_uuid` | `metadata.tenant_uid`          | Copy unchanged.                                                                                                                                                                                                                                              |
-| `organization_id`   | `unmapped.organization_id`     | Copy unchanged.                                                                                                                                                                                                                                              |
-| None                | `metadata.version`             | Constant: `1.6.0`.                                                                                                                                                                                                                                           |
-| None                | `metadata.product.vendor_name` | Constant: `Anthropic`.                                                                                                                                                                                                                                       |
-| None                | `metadata.product.name`        | Constant: `Compliance API`.                                                                                                                                                                                                                                  |
-| None                | `type_uid`                     | `class_uid * 100 + activity_id`.                                                                                                                                                                                                                             |
-| None                | `severity_id`                  | Set to `1` (Informational) on every event and set an alert’s priority in the [detection rule](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/detect-changes) that raises it.                                                  |
+| Activity field | OCSF attribute | Note |
+| ----- | ----- | ----- |
+| `id` | `metadata.uid` | Copy unchanged. |
+| `type` | `metadata.event_code` | Copy unchanged. |
+| `created_at` | `time` | Convert the RFC 3339 string to milliseconds since the Unix epoch and truncate to a whole number. |
+| `created_at` | `metadata.original_time` | Copy the string unchanged. |
+| None | `metadata.logged_time` | The time at which you stored the activity (`stored_at` on [Detect changes in Security posture](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/detect-changes#before-you-write-a-rule)), in milliseconds since the Unix epoch. |
+| `organization_uuid` | `metadata.tenant_uid` | Copy unchanged. |
+| `organization_id` | `unmapped.organization_id` | Copy unchanged. |
+| None | `metadata.version` | Constant: `1.6.0`. |
+| None | `metadata.product.vendor_name` | Constant: `Anthropic`. |
+| None | `metadata.product.name` | Constant: `Compliance API`. |
+| None | `type_uid` | `class_uid * 100 + activity_id`. |
+| None | `severity_id` | Set to `1` (Informational) on every event and set an alert’s priority in the [detection rule](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/detect-changes) that raises it. |
 
 Put every field that has no OCSF attribute in the `unmapped` object under its Activity Feed name, including fields that your handler does not recognize. Where a field is absent or `null`, leave out the OCSF attribute.
 
 Map the `actor` object:
 
-| Activity field        | OCSF attribute            | Note                                                                           |
-| --------------------- | ------------------------- | ------------------------------------------------------------------------------ |
-| None                  | `metadata.profiles`       | Add `host`, the OCSF profile (an optional attribute set) that carries `actor`. |
-| `actor.type`          | `unmapped.actor.type`     | Copy unchanged.                                                                |
-| `actor.user_id`       | `actor.user.uid`          | `user_actor` only.                                                             |
-| `actor.email_address` | `actor.user.email_addr`   | `user_actor` only.                                                             |
-| `actor.ip_address`    | `src_endpoint.ip`         | `user_actor` only.                                                             |
-| `actor.user_agent`    | `http_request.user_agent` | `user_actor` only.                                                             |
-| `actor.service`       | `actor.app_name`          | `system_actor` only.                                                           |
+| Activity field | OCSF attribute | Note |
+| ----- | ----- | ----- |
+| None | `metadata.profiles` | Add `host`, the OCSF profile (an optional attribute set) that carries `actor`. |
+| `actor.type` | `unmapped.actor.type` | Copy unchanged. |
+| `actor.user_id` | `actor.user.uid` | `user_actor` only. |
+| `actor.email_address` | `actor.user.email_addr` | `user_actor` only. |
+| `actor.ip_address` | `src_endpoint.ip` | `user_actor` only. |
+| `actor.user_agent` | `http_request.user_agent` | `user_actor` only. |
+| `actor.service` | `actor.app_name` | `system_actor` only. |
 
 ## Attestation activities: Entity Management
 
 Map an [`org_security_control_attestation_updated`](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/events-reference#attestation-activity) activity to the OCSF Entity Management class (3004). Entity Management events report an operation on a managed entity, here the organization’s attestation for a security control.
 
-| Activity field    | OCSF attribute             | Note                                                                 |
-| ----------------- | -------------------------- | -------------------------------------------------------------------- |
-| None              | `class_uid`                | Constant: `3004` (Entity Management).                                |
-| None              | `category_uid`             | Constant: `3` (Identity & Access Management).                        |
-| `action`          | `activity_id`              | From the table of `action` values that follows.                      |
-| `action`          | `unmapped.action`          | Copy unchanged, because two `action` values share one `activity_id`. |
-| None              | `entity.type_id`           | Constant: `99` (Other).                                              |
-| None              | `entity.type`              | Constant: `Security control attestation`.                            |
-| `control`         | `entity.uid`               | Copy unchanged.                                                      |
-| `status`          | `entity.data.status`       | Copy unchanged: the attestation’s value.                             |
-| `review_date`     | `entity.data.review_date`  | Copy unchanged: the attestation’s end date.                          |
-| `previous_status` | `unmapped.previous_status` | Copy unchanged: the attestation’s value before the change.           |
+| Activity field | OCSF attribute | Note |
+| ----- | ----- | ----- |
+| None | `class_uid` | Constant: `3004` (Entity Management). |
+| None | `category_uid` | Constant: `3` (Identity & Access Management). |
+| `action` | `activity_id` | From the table of `action` values that follows. |
+| `action` | `unmapped.action` | Copy unchanged, because two `action` values share one `activity_id`. |
+| None | `entity.type_id` | Constant: `99` (Other). |
+| None | `entity.type` | Constant: `Security control attestation`. |
+| `control` | `entity.uid` | Copy unchanged. |
+| `status` | `entity.data.status` | Copy unchanged: the attestation’s value. |
+| `review_date` | `entity.data.review_date` | Copy unchanged: the attestation’s end date. |
+| `previous_status` | `unmapped.previous_status` | Copy unchanged: the attestation’s value before the change. |
 
 Do not map `status` to `status_id` or to any pass or fail value: an attestation is a person’s statement about a control, not the result of a check.
 
-| `action`        | `activity_id`     | `type_uid` |
-| --------------- | ----------------- | ---------- |
-| `attested`      | `1` (Create)      | `300401`   |
-| `changed`       | `3` (Update)      | `300403`   |
-| `renewed`       | `3` (Update)      | `300403`   |
-| `cleared`       | `4` (Delete)      | `300404`   |
-| `lapsed`        | `11` (Deactivate) | `300411`   |
-| Any other value | `99` (Other)      | `300499`   |
+| `action` | `activity_id` | `type_uid` |
+| ----- | ----- | ----- |
+| `attested` | `1` (Create) | `300401` |
+| `changed` | `3` (Update) | `300403` |
+| `renewed` | `3` (Update) | `300403` |
+| `cleared` | `4` (Delete) | `300404` |
+| `lapsed` | `11` (Deactivate) | `300411` |
+| Any other value | `99` (Other) | `300499` |
 
 For `99` (Other), set `activity_name` to the `action` value.
 

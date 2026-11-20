@@ -119,6 +119,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
@@ -367,6 +369,8 @@ Fetches a tunnel certificate by ID.
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -621,6 +625,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
@@ -864,6 +870,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 

@@ -404,12 +404,12 @@ In the Claude Console, set allowed or blocked domains from the `web_search` and 
 
 In addition to `enabled` (csharp, go: `Enabled`) and `permission_policy` (java, php: `permissionPolicy`; csharp, go: `PermissionPolicy`), the web tool entries accept the following settings:
 
-| Setting                                                                              | Applies to                | Description                                                                                                                                                                                                     |
-| ------------------------------------------------------------------------------------ | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`)        | `web_search`, `web_fetch` | The only hosts the tool can reach. See [Domain list rules](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#domain-list-rules).                                                        |
-| `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`)        | `web_search`, `web_fetch` | Hosts the tool cannot reach. See [Domain list rules](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#domain-list-rules).                                                              |
-| `max_content_tokens` (java, php: `maxContentTokens`; csharp, go: `MaxContentTokens`) | `web_fetch`               | Caps the amount of fetched page content included in the context. Must be a positive integer. See [content limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool#content-limits). |
-| `user_location` (java, php: `userLocation`; csharp, go: `UserLocation`)              | `web_search`              | Localizes search results. An object with the same fields as the Messages API [`user_location`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool#localization) parameter.           |
+| Setting | Applies to | Description |
+| ----- | ----- | ----- |
+| `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) | `web_search`, `web_fetch` | The only hosts the tool can reach. See [Domain list rules](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#domain-list-rules). |
+| `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`) | `web_search`, `web_fetch` | Hosts the tool cannot reach. See [Domain list rules](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#domain-list-rules). |
+| `max_content_tokens` (java, php: `maxContentTokens`; csharp, go: `MaxContentTokens`) | `web_fetch` | Caps the amount of fetched page content included in the context. Must be a positive integer. See [content limits](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool#content-limits). |
+| `user_location` (java, php: `userLocation`; csharp, go: `UserLocation`) | `web_search` | Localizes search results. An object with the same fields as the Messages API [`user_location`](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool#localization) parameter. |
 
 For the types the SDK uses for these entries, see [Config entry types in the SDKs](https://platform.claude.com/docs/en/managed-agents/tools#config-entry-types-in-the-sdks).
 
@@ -438,16 +438,16 @@ Hostnames are compared without regard to case.
 
 Each domain is a registrable domain name, or a subdomain of one, written as a plain hostname. It can contain ASCII letters, digits, hyphens, underscores, and dots. A single trailing `/` is ignored. A `web_search` domain can also carry a path, as [Path suffixes on web search domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions#path-suffixes-on-web-search-domains) describes.
 
-| Not accepted                                                                   | Example                  | Use instead                           |
-| ------------------------------------------------------------------------------ | ------------------------ | ------------------------------------- |
-| A scheme                                                                       | `https://example.com`    | `example.com`                         |
-| A port                                                                         | `example.com:443`        | `example.com`                         |
-| A wildcard                                                                     | `*.example.com`          | `example.com`                         |
-| A path on a `web_fetch` domain                                                 | `example.com/*`          | `example.com`                         |
-| An IP address in any form, whether IPv4, IPv6, bracketed, or numeric shorthand | `127.1`                  | The site’s domain name                |
-| A bare top-level domain or registry suffix                                     | `com`, `co.uk`, `gov.uk` | A full domain such as `example.co.uk` |
-| A single-label name                                                            | `intranet`               | A full domain such as `example.co.uk` |
-| Non-ASCII characters, as in an internationalized domain name                   |                          | The `xn--` (Punycode) form            |
+| Not accepted | Example | Use instead |
+| ----- | ----- | ----- |
+| A scheme | `https://example.com` | `example.com` |
+| A port | `example.com:443` | `example.com` |
+| A wildcard | `*.example.com` | `example.com` |
+| A path on a `web_fetch` domain | `example.com/*` | `example.com` |
+| An IP address in any form, whether IPv4, IPv6, bracketed, or numeric shorthand | `127.1` | The site’s domain name |
+| A bare top-level domain or registry suffix | `com`, `co.uk`, `gov.uk` | A full domain such as `example.co.uk` |
+| A single-label name | `intranet` | A full domain such as `example.co.uk` |
+| Non-ASCII characters, as in an internationalized domain name |  | The `xn--` (Punycode) form |
 
 The API also rejects a domain that contains credentials or whitespace, or that has a label starting or ending with a hyphen. It rejects `localhost` and hosts ending in `.localhost`, `.local`, `.internal`, `.localdomain`, or `.invalid` too.
 
@@ -463,10 +463,10 @@ The API validates these settings when you [create an agent](https://platform.cla
 
 The API rejects format and limit violations with a 400 `invalid_request_error`:
 
-| Violation                      | Error message                                                                                                                                           |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| An entry sets both lists.      | Includes `Only one of allowed_domains or blocked_domains may be set.`                                                                                   |
-| A list is empty.               | Includes `allowed_domains: Empty list of domains is ambiguous. Provide at least one domain or null.`                                                    |
+| Violation | Error message |
+| ----- | ----- |
+| An entry sets both lists. | Includes `Only one of allowed_domains or blocked_domains may be set.` |
+| A list is empty. | Includes `allowed_domains: Empty list of domains is ambiguous. Provide at least one domain or null.` |
 | A domain breaks a format rule. | Names the domain’s list and zero-based position, as in `allowed_domains.0: IP addresses are not supported; provide a plain hostname like "example.com"` |
 
 On the same requests, the API also rejects three settings that depend on the search and fetch providers:
@@ -497,10 +497,10 @@ In a [multiagent session](https://platform.claude.com/docs/en/managed-agents/mul
 
 The settings combine as follows:
 
-| Setting                               | How it combines                                                                                                                                                                                          |
-| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `allowed_domains`                     | The tool can reach a host only if every list covers it.                                                                                                                                                  |
-| `blocked_domains`                     | The lists add together.                                                                                                                                                                                  |
+| Setting | How it combines |
+| ----- | ----- |
+| `allowed_domains` | The tool can reach a host only if every list covers it. |
+| `blocked_domains` | The lists add together. |
 | `max_content_tokens`, `user_location` | Not combined. A thread uses the value from its own tool configuration if set. Otherwise it uses the value from the agent that called it, and otherwise the current configuration of the session’s agent. |
 
 A listed agent can therefore narrow what a tool reaches but never widen it:
@@ -560,8 +560,8 @@ Web domain restrictions are available or in beta, depending on the API.
 * Availability: Available
 * Usage: Set `allowed_domains` or `blocked_domains` on the `web_search` or `web_fetch` tool in the request.
 
-| Status    | Cloud platforms                                                                                                                                                        |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | Claude API, [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
@@ -569,9 +569,9 @@ Web domain restrictions are available or in beta, depending on the API.
 * Availability: Available
 * Usage: Set the same fields on the `web_search` and `web_fetch` entries of the agent toolset. Unlike the Messages API, each list holds at most 64 ASCII domains, and `web_fetch` domains cannot include a path.
 
-| Status | Cloud platforms         | Models                                                            |
-| ------ | ----------------------- | ----------------------------------------------------------------- |
-| Beta   | All supported platforms | [All models](https://platform.claude.com/docs/en/models/overview) |
+| Status | Cloud platforms | Models |
+| ----- | ----- | ----- |
+| Beta | All supported platforms | [All models](https://platform.claude.com/docs/en/models/overview) |
 
 ### Required beta headers
 
@@ -579,6 +579,6 @@ Web domain restrictions are available or in beta, depending on the API.
 
 Beta headers allow you to access experimental features and new model capabilities before they become part of the standard API.
 
-| Header                      | APIs                                                                          |
-| --------------------------- | ----------------------------------------------------------------------------- |
+| Header | APIs |
+| ----- | ----- |
 | `managed-agents-2026-04-01` | [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) |

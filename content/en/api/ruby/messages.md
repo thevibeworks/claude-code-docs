@@ -710,7 +710,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `page_age: optional String | nil`
 
-            - `class WebSearchToolRequestError`
+            - `class WebSearchToolRequestErrorObject`
 
               - `type: :web_search_tool_result_error`
 
@@ -3430,7 +3430,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: WebSearchToolResultBlockContent`
 
-        - `class WebSearchToolResultError`
+        - `class WebSearchToolResultErrorObject`
 
           - `type: :web_search_tool_result_error`
 
@@ -3564,7 +3564,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: CodeExecutionToolResultBlockContent`
 
-        - `class CodeExecutionToolResultError`
+        - `class CodeExecutionToolResultErrorObject`
 
           - `type: :code_execution_tool_result_error`
 
@@ -3624,9 +3624,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: :bash_code_execution_tool_result`
 
-      - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
+      - `content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock`
 
-        - `class BashCodeExecutionToolResultError`
+        - `class BashCodeExecutionToolResultErrorObject`
 
           - `type: :bash_code_execution_tool_result_error`
 
@@ -3666,9 +3666,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: :text_editor_code_execution_tool_result`
 
-      - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
+      - `content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `class TextEditorCodeExecutionToolResultError`
+        - `class TextEditorCodeExecutionToolResultErrorObject`
 
           - `type: :text_editor_code_execution_tool_result_error`
 
@@ -3734,9 +3734,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: :tool_search_tool_result`
 
-      - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
+      - `content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock`
 
-        - `class ToolSearchToolResultError`
+        - `class ToolSearchToolResultErrorObject`
 
           - `type: :tool_search_tool_result_error`
 
@@ -4374,6 +4374,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `ImageDimensionsTooLargeError` (HTTP status 400, error code `image_dimensions_too_large`)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -4410,6 +4414,26 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `UserProfileRequiredError` (HTTP status 400, error code `user_profile_required`)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `LinkedOrganizationBillingUnavailableError` (HTTP status 402, error code `linked_organization_billing_unavailable`)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `LinkedOrganizationSpendLimitReachedError` (HTTP status 402, error code `linked_organization_spend_limit_reached`)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `UserProfileBillingNotAuthorizedError` (HTTP status 403, error code `user_profile_billing_not_authorized`)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `UserProfileNotBillableError` (HTTP status 403, error code `user_profile_not_billable`)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `ThreadNotFoundError` (HTTP status 404, error code `thread_not_found`)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -4421,6 +4445,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 - `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `ContractSpendLimitReachedError` (HTTP status 429, error code `contract_spend_limit_reached`)
+
+  The organization has reached the spend limit of its contract.
 
 - `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
@@ -5200,7 +5228,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `page_age: optional String | nil`
 
-            - `class WebSearchToolRequestError`
+            - `class WebSearchToolRequestErrorObject`
 
               - `type: :web_search_tool_result_error`
 
@@ -8289,7 +8317,7 @@ Streams a message like `stream_raw` and returns a MessageStream, which accumulat
 
               - `page_age: optional String | nil`
 
-            - `class WebSearchToolRequestError`
+            - `class WebSearchToolRequestErrorObject`
 
               - `type: :web_search_tool_result_error`
 
@@ -10720,6 +10748,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `ImageDimensionsTooLargeError` (HTTP status 400, error code `image_dimensions_too_large`)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -10756,6 +10788,26 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `UserProfileRequiredError` (HTTP status 400, error code `user_profile_required`)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `LinkedOrganizationBillingUnavailableError` (HTTP status 402, error code `linked_organization_billing_unavailable`)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `LinkedOrganizationSpendLimitReachedError` (HTTP status 402, error code `linked_organization_spend_limit_reached`)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `UserProfileBillingNotAuthorizedError` (HTTP status 403, error code `user_profile_billing_not_authorized`)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `UserProfileNotBillableError` (HTTP status 403, error code `user_profile_not_billable`)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `ThreadNotFoundError` (HTTP status 404, error code `thread_not_found`)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -10767,6 +10819,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `ContractSpendLimitReachedError` (HTTP status 429, error code `contract_spend_limit_reached`)
+
+  The organization has reached the spend limit of its contract.
 
 - `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
@@ -11432,7 +11488,7 @@ puts(result)
 
             - `page_age: optional String | nil`
 
-          - `class WebSearchToolRequestError`
+          - `class WebSearchToolRequestErrorObject`
 
             - `type: :web_search_tool_result_error`
 
@@ -11873,9 +11929,9 @@ puts(result)
 
   - `type: :bash_code_execution_tool_result`
 
-  - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
+  - `content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock`
 
-    - `class BashCodeExecutionToolResultError`
+    - `class BashCodeExecutionToolResultErrorObject`
 
       - `type: :bash_code_execution_tool_result_error`
 
@@ -11976,9 +12032,23 @@ puts(result)
 
       - `:"1h"`
 
-### Bash Code Execution Tool Result Error
+### Bash Code Execution Tool Result Error Code
 
-- `class BashCodeExecutionToolResultError`
+- `type BashCodeExecutionToolResultErrorCode = :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
+
+  - `:invalid_tool_input`
+
+  - `:unavailable`
+
+  - `:too_many_requests`
+
+  - `:execution_time_exceeded`
+
+  - `:output_file_too_large`
+
+### Bash Code Execution Tool Result Error Object
+
+- `class BashCodeExecutionToolResultErrorObject`
 
   - `type: :bash_code_execution_tool_result_error`
 
@@ -11993,20 +12063,6 @@ puts(result)
     - `:execution_time_exceeded`
 
     - `:output_file_too_large`
-
-### Bash Code Execution Tool Result Error Code
-
-- `type BashCodeExecutionToolResultErrorCode = :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
-
-  - `:invalid_tool_input`
-
-  - `:unavailable`
-
-  - `:too_many_requests`
-
-  - `:execution_time_exceeded`
-
-  - `:output_file_too_large`
 
 ### Bash Code Execution Tool Result Error Param
 
@@ -18446,7 +18502,7 @@ puts(result)
 
   - `content: CodeExecutionToolResultBlockContent`
 
-    - `class CodeExecutionToolResultError`
+    - `class CodeExecutionToolResultErrorObject`
 
       - `type: :code_execution_tool_result_error`
 
@@ -18504,9 +18560,9 @@ puts(result)
 
 ### Code Execution Tool Result Block Content
 
-- `type CodeExecutionToolResultBlockContent = CodeExecutionToolResultError | CodeExecutionResultBlock | EncryptedCodeExecutionResultBlock`
+- `type CodeExecutionToolResultBlockContent = CodeExecutionToolResultErrorObject | CodeExecutionResultBlock | EncryptedCodeExecutionResultBlock`
 
-  - `class CodeExecutionToolResultError`
+  - `class CodeExecutionToolResultErrorObject`
 
     - `type: :code_execution_tool_result_error`
 
@@ -18691,9 +18747,21 @@ puts(result)
 
     - `stderr: String`
 
-### Code Execution Tool Result Error
+### Code Execution Tool Result Error Code
 
-- `class CodeExecutionToolResultError`
+- `type CodeExecutionToolResultErrorCode = :invalid_tool_input | :unavailable | :too_many_requests | :execution_time_exceeded`
+
+  - `:invalid_tool_input`
+
+  - `:unavailable`
+
+  - `:too_many_requests`
+
+  - `:execution_time_exceeded`
+
+### Code Execution Tool Result Error Object
+
+- `class CodeExecutionToolResultErrorObject`
 
   - `type: :code_execution_tool_result_error`
 
@@ -18706,18 +18774,6 @@ puts(result)
     - `:too_many_requests`
 
     - `:execution_time_exceeded`
-
-### Code Execution Tool Result Error Code
-
-- `type CodeExecutionToolResultErrorCode = :invalid_tool_input | :unavailable | :too_many_requests | :execution_time_exceeded`
-
-  - `:invalid_tool_input`
-
-  - `:unavailable`
-
-  - `:too_many_requests`
-
-  - `:execution_time_exceeded`
 
 ### Code Execution Tool Result Error Param
 
@@ -21596,7 +21652,7 @@ puts(result)
 
     - `content: WebSearchToolResultBlockContent`
 
-      - `class WebSearchToolResultError`
+      - `class WebSearchToolResultErrorObject`
 
         - `type: :web_search_tool_result_error`
 
@@ -21730,7 +21786,7 @@ puts(result)
 
     - `content: CodeExecutionToolResultBlockContent`
 
-      - `class CodeExecutionToolResultError`
+      - `class CodeExecutionToolResultErrorObject`
 
         - `type: :code_execution_tool_result_error`
 
@@ -21790,9 +21846,9 @@ puts(result)
 
     - `type: :bash_code_execution_tool_result`
 
-    - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
+    - `content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock`
 
-      - `class BashCodeExecutionToolResultError`
+      - `class BashCodeExecutionToolResultErrorObject`
 
         - `type: :bash_code_execution_tool_result_error`
 
@@ -21832,9 +21888,9 @@ puts(result)
 
     - `type: :text_editor_code_execution_tool_result`
 
-    - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
+    - `content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
-      - `class TextEditorCodeExecutionToolResultError`
+      - `class TextEditorCodeExecutionToolResultErrorObject`
 
         - `type: :text_editor_code_execution_tool_result_error`
 
@@ -21900,9 +21956,9 @@ puts(result)
 
     - `type: :tool_search_tool_result`
 
-    - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
+    - `content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock`
 
-      - `class ToolSearchToolResultError`
+      - `class ToolSearchToolResultErrorObject`
 
         - `type: :tool_search_tool_result_error`
 
@@ -22566,7 +22622,7 @@ puts(result)
 
         - `page_age: optional String | nil`
 
-      - `class WebSearchToolRequestError`
+      - `class WebSearchToolRequestErrorObject`
 
         - `type: :web_search_tool_result_error`
 
@@ -23865,6 +23921,20 @@ puts(result)
 
       - `:error`
 
+### Image Dimensions Too Large Error Details
+
+- `class ImageDimensionsTooLargeErrorDetails`
+
+  - `error_code: :image_dimensions_too_large`
+
+  - `max_side_length_pixels: Integer`
+
+    The limit the images exceeded: the largest width or height, in pixels, that an image on this request may have.
+
+  - `paths: Array[String]`
+
+    The position of every image over the limit, in the order you sent them, nested blocks included, such as `messages.0.content.1`, or `messages.0.content.1.content.0` for an image in a `tool_result` block.
+
 ### Image Transformations Param
 
 - `class ImageTransformationsParam`
@@ -24295,7 +24365,7 @@ puts(result)
 
       - `content: WebSearchToolResultBlockContent`
 
-        - `class WebSearchToolResultError`
+        - `class WebSearchToolResultErrorObject`
 
           - `type: :web_search_tool_result_error`
 
@@ -24429,7 +24499,7 @@ puts(result)
 
       - `content: CodeExecutionToolResultBlockContent`
 
-        - `class CodeExecutionToolResultError`
+        - `class CodeExecutionToolResultErrorObject`
 
           - `type: :code_execution_tool_result_error`
 
@@ -24489,9 +24559,9 @@ puts(result)
 
       - `type: :bash_code_execution_tool_result`
 
-      - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
+      - `content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock`
 
-        - `class BashCodeExecutionToolResultError`
+        - `class BashCodeExecutionToolResultErrorObject`
 
           - `type: :bash_code_execution_tool_result_error`
 
@@ -24531,9 +24601,9 @@ puts(result)
 
       - `type: :text_editor_code_execution_tool_result`
 
-      - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
+      - `content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `class TextEditorCodeExecutionToolResultError`
+        - `class TextEditorCodeExecutionToolResultErrorObject`
 
           - `type: :text_editor_code_execution_tool_result_error`
 
@@ -24599,9 +24669,9 @@ puts(result)
 
       - `type: :tool_search_tool_result`
 
-      - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
+      - `content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock`
 
-        - `class ToolSearchToolResultError`
+        - `class ToolSearchToolResultErrorObject`
 
           - `type: :tool_search_tool_result_error`
 
@@ -25636,7 +25706,7 @@ puts(result)
 
           - `page_age: optional String | nil`
 
-        - `class WebSearchToolRequestError`
+        - `class WebSearchToolRequestErrorObject`
 
           - `type: :web_search_tool_result_error`
 
@@ -28319,7 +28389,7 @@ puts(result)
 
               - `page_age: optional String | nil`
 
-            - `class WebSearchToolRequestError`
+            - `class WebSearchToolRequestErrorObject`
 
               - `type: :web_search_tool_result_error`
 
@@ -29454,7 +29524,7 @@ puts(result)
 
       - `content: WebSearchToolResultBlockContent`
 
-        - `class WebSearchToolResultError`
+        - `class WebSearchToolResultErrorObject`
 
           - `type: :web_search_tool_result_error`
 
@@ -29588,7 +29658,7 @@ puts(result)
 
       - `content: CodeExecutionToolResultBlockContent`
 
-        - `class CodeExecutionToolResultError`
+        - `class CodeExecutionToolResultErrorObject`
 
           - `type: :code_execution_tool_result_error`
 
@@ -29648,9 +29718,9 @@ puts(result)
 
       - `type: :bash_code_execution_tool_result`
 
-      - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
+      - `content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock`
 
-        - `class BashCodeExecutionToolResultError`
+        - `class BashCodeExecutionToolResultErrorObject`
 
           - `type: :bash_code_execution_tool_result_error`
 
@@ -29690,9 +29760,9 @@ puts(result)
 
       - `type: :text_editor_code_execution_tool_result`
 
-      - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
+      - `content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `class TextEditorCodeExecutionToolResultError`
+        - `class TextEditorCodeExecutionToolResultErrorObject`
 
           - `type: :text_editor_code_execution_tool_result_error`
 
@@ -29758,9 +29828,9 @@ puts(result)
 
       - `type: :tool_search_tool_result`
 
-      - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
+      - `content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock`
 
-        - `class ToolSearchToolResultError`
+        - `class ToolSearchToolResultErrorObject`
 
           - `type: :tool_search_tool_result_error`
 
@@ -30336,7 +30406,7 @@ puts(result)
 
         - `content: WebSearchToolResultBlockContent`
 
-          - `class WebSearchToolResultError`
+          - `class WebSearchToolResultErrorObject`
 
             - `type: :web_search_tool_result_error`
 
@@ -30470,7 +30540,7 @@ puts(result)
 
         - `content: CodeExecutionToolResultBlockContent`
 
-          - `class CodeExecutionToolResultError`
+          - `class CodeExecutionToolResultErrorObject`
 
             - `type: :code_execution_tool_result_error`
 
@@ -30530,9 +30600,9 @@ puts(result)
 
         - `type: :bash_code_execution_tool_result`
 
-        - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
+        - `content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock`
 
-          - `class BashCodeExecutionToolResultError`
+          - `class BashCodeExecutionToolResultErrorObject`
 
             - `type: :bash_code_execution_tool_result_error`
 
@@ -30572,9 +30642,9 @@ puts(result)
 
         - `type: :text_editor_code_execution_tool_result`
 
-        - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
+        - `content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
-          - `class TextEditorCodeExecutionToolResultError`
+          - `class TextEditorCodeExecutionToolResultErrorObject`
 
             - `type: :text_editor_code_execution_tool_result_error`
 
@@ -30640,9 +30710,9 @@ puts(result)
 
         - `type: :tool_search_tool_result`
 
-        - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
+        - `content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock`
 
-          - `class ToolSearchToolResultError`
+          - `class ToolSearchToolResultErrorObject`
 
             - `type: :tool_search_tool_result_error`
 
@@ -31406,7 +31476,7 @@ puts(result)
 
           - `content: WebSearchToolResultBlockContent`
 
-            - `class WebSearchToolResultError`
+            - `class WebSearchToolResultErrorObject`
 
               - `type: :web_search_tool_result_error`
 
@@ -31540,7 +31610,7 @@ puts(result)
 
           - `content: CodeExecutionToolResultBlockContent`
 
-            - `class CodeExecutionToolResultError`
+            - `class CodeExecutionToolResultErrorObject`
 
               - `type: :code_execution_tool_result_error`
 
@@ -31600,9 +31670,9 @@ puts(result)
 
           - `type: :bash_code_execution_tool_result`
 
-          - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
+          - `content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock`
 
-            - `class BashCodeExecutionToolResultError`
+            - `class BashCodeExecutionToolResultErrorObject`
 
               - `type: :bash_code_execution_tool_result_error`
 
@@ -31642,9 +31712,9 @@ puts(result)
 
           - `type: :text_editor_code_execution_tool_result`
 
-          - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
+          - `content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
-            - `class TextEditorCodeExecutionToolResultError`
+            - `class TextEditorCodeExecutionToolResultErrorObject`
 
               - `type: :text_editor_code_execution_tool_result_error`
 
@@ -31710,9 +31780,9 @@ puts(result)
 
           - `type: :tool_search_tool_result`
 
-          - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
+          - `content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock`
 
-            - `class ToolSearchToolResultError`
+            - `class ToolSearchToolResultErrorObject`
 
               - `type: :tool_search_tool_result_error`
 
@@ -33492,9 +33562,9 @@ puts(result)
 
   - `type: :text_editor_code_execution_tool_result`
 
-  - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
+  - `content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
-    - `class TextEditorCodeExecutionToolResultError`
+    - `class TextEditorCodeExecutionToolResultErrorObject`
 
       - `type: :text_editor_code_execution_tool_result_error`
 
@@ -33647,9 +33717,23 @@ puts(result)
 
       - `:"1h"`
 
-### Text Editor Code Execution Tool Result Error
+### Text Editor Code Execution Tool Result Error Code
 
-- `class TextEditorCodeExecutionToolResultError`
+- `type TextEditorCodeExecutionToolResultErrorCode = :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
+
+  - `:invalid_tool_input`
+
+  - `:unavailable`
+
+  - `:too_many_requests`
+
+  - `:execution_time_exceeded`
+
+  - `:file_not_found`
+
+### Text Editor Code Execution Tool Result Error Object
+
+- `class TextEditorCodeExecutionToolResultErrorObject`
 
   - `type: :text_editor_code_execution_tool_result_error`
 
@@ -33666,20 +33750,6 @@ puts(result)
     - `:file_not_found`
 
   - `error_message: String | nil`
-
-### Text Editor Code Execution Tool Result Error Code
-
-- `type TextEditorCodeExecutionToolResultErrorCode = :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
-
-  - `:invalid_tool_input`
-
-  - `:unavailable`
-
-  - `:too_many_requests`
-
-  - `:execution_time_exceeded`
-
-  - `:file_not_found`
 
 ### Text Editor Code Execution Tool Result Error Param
 
@@ -34842,9 +34912,9 @@ puts(result)
 
   - `type: :tool_search_tool_result`
 
-  - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
+  - `content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock`
 
-    - `class ToolSearchToolResultError`
+    - `class ToolSearchToolResultErrorObject`
 
       - `type: :tool_search_tool_result_error`
 
@@ -34941,9 +35011,21 @@ puts(result)
 
     Create a cache control breakpoint at this content block.
 
-### Tool Search Tool Result Error
+### Tool Search Tool Result Error Code
 
-- `class ToolSearchToolResultError`
+- `type ToolSearchToolResultErrorCode = :invalid_tool_input | :unavailable | :too_many_requests | :execution_time_exceeded`
+
+  - `:invalid_tool_input`
+
+  - `:unavailable`
+
+  - `:too_many_requests`
+
+  - `:execution_time_exceeded`
+
+### Tool Search Tool Result Error Object
+
+- `class ToolSearchToolResultErrorObject`
 
   - `type: :tool_search_tool_result_error`
 
@@ -34958,18 +35040,6 @@ puts(result)
     - `:execution_time_exceeded`
 
   - `error_message: String | nil`
-
-### Tool Search Tool Result Error Code
-
-- `type ToolSearchToolResultErrorCode = :invalid_tool_input | :unavailable | :too_many_requests | :execution_time_exceeded`
-
-  - `:invalid_tool_input`
-
-  - `:unavailable`
-
-  - `:too_many_requests`
-
-  - `:execution_time_exceeded`
 
 ### Tool Search Tool Result Error Param
 
@@ -39267,7 +39337,7 @@ puts(result)
 
             - `page_age: optional String | nil`
 
-          - `class WebSearchToolRequestError`
+          - `class WebSearchToolRequestErrorObject`
 
             - `type: :web_search_tool_result_error`
 
@@ -41617,9 +41687,9 @@ puts(result)
 
       minLength: 1, maxLength: 255
 
-### Web Search Tool Request Error
+### Web Search Tool Request Error Object
 
-- `class WebSearchToolRequestError`
+- `class WebSearchToolRequestErrorObject`
 
   - `type: :web_search_tool_result_error`
 
@@ -41671,7 +41741,7 @@ puts(result)
 
   - `content: WebSearchToolResultBlockContent`
 
-    - `class WebSearchToolResultError`
+    - `class WebSearchToolResultErrorObject`
 
       - `type: :web_search_tool_result_error`
 
@@ -41707,9 +41777,9 @@ puts(result)
 
 ### Web Search Tool Result Block Content
 
-- `type WebSearchToolResultBlockContent = WebSearchToolResultError | Array[WebSearchResultBlock]`
+- `type WebSearchToolResultBlockContent = WebSearchToolResultErrorObject | Array[WebSearchResultBlock]`
 
-  - `class WebSearchToolResultError`
+  - `class WebSearchToolResultErrorObject`
 
     - `type: :web_search_tool_result_error`
 
@@ -41759,7 +41829,7 @@ puts(result)
 
       - `page_age: optional String | nil`
 
-    - `class WebSearchToolRequestError`
+    - `class WebSearchToolRequestErrorObject`
 
       - `type: :web_search_tool_result_error`
 
@@ -41830,7 +41900,7 @@ puts(result)
 
 ### Web Search Tool Result Block Param Content
 
-- `type WebSearchToolResultBlockParamContent = Array[WebSearchResultBlockParam] | WebSearchToolRequestError`
+- `type WebSearchToolResultBlockParamContent = Array[WebSearchResultBlockParam] | WebSearchToolRequestErrorObject`
 
   - `WebSearchToolResultBlockItem = Array[WebSearchResultBlockParam]`
 
@@ -41844,7 +41914,7 @@ puts(result)
 
     - `page_age: optional String | nil`
 
-  - `class WebSearchToolRequestError`
+  - `class WebSearchToolRequestErrorObject`
 
     - `type: :web_search_tool_result_error`
 
@@ -41862,9 +41932,25 @@ puts(result)
 
       - `:request_too_large`
 
-### Web Search Tool Result Error
+### Web Search Tool Result Error Code
 
-- `class WebSearchToolResultError`
+- `type WebSearchToolResultErrorCode = :invalid_tool_input | :unavailable | :max_uses_exceeded | 3 more`
+
+  - `:invalid_tool_input`
+
+  - `:unavailable`
+
+  - `:max_uses_exceeded`
+
+  - `:too_many_requests`
+
+  - `:query_too_long`
+
+  - `:request_too_large`
+
+### Web Search Tool Result Error Object
+
+- `class WebSearchToolResultErrorObject`
 
   - `type: :web_search_tool_result_error`
 
@@ -41881,22 +41967,6 @@ puts(result)
     - `:query_too_long`
 
     - `:request_too_large`
-
-### Web Search Tool Result Error Code
-
-- `type WebSearchToolResultErrorCode = :invalid_tool_input | :unavailable | :max_uses_exceeded | 3 more`
-
-  - `:invalid_tool_input`
-
-  - `:unavailable`
-
-  - `:max_uses_exceeded`
-
-  - `:too_many_requests`
-
-  - `:query_too_long`
-
-  - `:request_too_large`
 
 ## Errors
 
@@ -42025,6 +42095,28 @@ HTTP status 400, error code `compaction_tool_changes_mismatch`
   - `details: CompactionToolChangesMismatchErrorDetails`
 
     - `error_code: :compaction_tool_changes_mismatch`
+
+### ImageDimensionsTooLargeError
+
+HTTP status 400, error code `image_dimensions_too_large`
+
+- `class ImageDimensionsTooLargeError < Anthropic::Errors::BadRequestError`
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
+  - `error_code: :image_dimensions_too_large`
+
+  - `details: ImageDimensionsTooLargeErrorDetails`
+
+    - `error_code: :image_dimensions_too_large`
+
+    - `max_side_length_pixels: Integer`
+
+      The limit the images exceeded: the largest width or height, in pixels, that an image on this request may have.
+
+    - `paths: Array[String]`
+
+      The position of every image over the limit, in the order you sent them, nested blocks included, such as `messages.0.content.1`, or `messages.0.content.1.content.0` for an image in a `tool_result` block.
 
 ### ThreadAlreadyContinuedError
 
@@ -42881,7 +42973,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `page_age: optional String | nil`
 
-                - `class WebSearchToolRequestError`
+                - `class WebSearchToolRequestErrorObject`
 
                   - `type: :web_search_tool_result_error`
 
@@ -46404,7 +46496,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: WebSearchToolResultBlockContent`
 
-              - `class WebSearchToolResultError`
+              - `class WebSearchToolResultErrorObject`
 
                 - `type: :web_search_tool_result_error`
 
@@ -46538,7 +46630,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: CodeExecutionToolResultBlockContent`
 
-              - `class CodeExecutionToolResultError`
+              - `class CodeExecutionToolResultErrorObject`
 
                 - `type: :code_execution_tool_result_error`
 
@@ -46598,9 +46690,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :bash_code_execution_tool_result`
 
-            - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
+            - `content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock`
 
-              - `class BashCodeExecutionToolResultError`
+              - `class BashCodeExecutionToolResultErrorObject`
 
                 - `type: :bash_code_execution_tool_result_error`
 
@@ -46640,9 +46732,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :text_editor_code_execution_tool_result`
 
-            - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
+            - `content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
 
-              - `class TextEditorCodeExecutionToolResultError`
+              - `class TextEditorCodeExecutionToolResultErrorObject`
 
                 - `type: :text_editor_code_execution_tool_result_error`
 
@@ -46708,9 +46800,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :tool_search_tool_result`
 
-            - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
+            - `content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock`
 
-              - `class ToolSearchToolResultError`
+              - `class ToolSearchToolResultErrorObject`
 
                 - `type: :tool_search_tool_result_error`
 
@@ -47127,7 +47219,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `error: ErrorObject`
 
-          - `class InvalidRequestError`
+          - `class InvalidRequestErrorObject`
 
             - `type: :invalid_request_error`
 
@@ -47137,7 +47229,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class AuthenticationError`
+          - `class AuthenticationErrorObject`
 
             - `type: :authentication_error`
 
@@ -47147,7 +47239,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BillingError`
+          - `class BillingErrorObject`
 
             - `type: :billing_error`
 
@@ -47157,7 +47249,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class PermissionError`
+          - `class PermissionErrorObject`
 
             - `type: :permission_error`
 
@@ -47167,7 +47259,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class NotFoundError`
+          - `class NotFoundErrorObject`
 
             - `type: :not_found_error`
 
@@ -47177,7 +47269,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class RateLimitError`
+          - `class RateLimitErrorObject`
 
             - `type: :rate_limit_error`
 
@@ -47187,7 +47279,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class GatewayTimeoutError`
+          - `class GatewayTimeoutErrorObject`
 
             - `type: :timeout_error`
 
@@ -47207,7 +47299,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class OverloadedError`
+          - `class OverloadedErrorObject`
 
             - `type: :overloaded_error`
 

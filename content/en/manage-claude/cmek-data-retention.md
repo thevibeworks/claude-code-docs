@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/manage-claude/cmek-data-retention
 description: Why a workspace with a key retains data, what that means for ZDR, and what Anthropic can preserve outside your key.
 ---
 
-On Claude Platform, customer-managed encryption keys (CMEK) and [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention) can’t share a workspace. On Claude Enterprise, an organization can use CMEK and ZDR together, but it then [can’t turn on artifacts](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#turned-off-or-changed).
+On Claude Platform, customer-managed encryption keys (CMEK) and [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention) can’t share a workspace. On Claude Enterprise, an organization can use CMEK and Claude Code ZDR together, but it then [can’t turn on Claude Docs or Claude Sheets](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#turned-off-or-changed).
 
 ## A key needs a workspace that retains data
 

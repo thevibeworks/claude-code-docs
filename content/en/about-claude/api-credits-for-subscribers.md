@@ -12,24 +12,24 @@ Claude Max, Ultra, and Team plans include monthly credits for the Claude API. To
 
 ## Summary
 
-| Topic                                  | Details                                                                   |
-| -------------------------------------- | ------------------------------------------------------------------------- |
-| **Eligible plans**                     | Max, Ultra, and Team, including discounted Team plans                     |
-| **Monthly amount**                     | $100 USD (Max), $200 USD (Ultra), up to $500 USD (Team, pooled\*)         |
-| **Covers**                             | Claude API, Claude Managed Agents, the Claude Agent SDK, and playground   |
-| **Doesn’t cover**                      | Claude Code, extra usage in the Claude apps                               |
-| **Refresh**                            | Each billing cycle (or monthly for annual plans)                          |
-| **Expiry**                             | End of each billing cycle (or monthly for annual plans), with no rollover |
-| **Payment method for Claude Platform** | Not required                                                              |
+| Topic | Details |
+| ----- | ----- |
+| **Eligible plans** | Max, Ultra, and Team, including discounted Team plans |
+| **Monthly amount** | $100 USD (Max), $200 USD (Ultra), up to $500 USD (Team, pooled\*) |
+| **Covers** | Claude API, Claude Managed Agents, the Claude Agent SDK, and playground |
+| **Doesn’t cover** | Claude Code, extra usage in the Claude apps |
+| **Refresh** | Each billing cycle (or monthly for annual plans) |
+| **Expiry** | End of each billing cycle (or monthly for annual plans), with no rollover |
+| **Payment method for Claude Platform** | Not required |
 
 ## API credit amounts
 
-| Plan                                          | Monthly credit                                                       |
-| --------------------------------------------- | -------------------------------------------------------------------- |
-| Max                                           | $100 USD                                                             |
-| Ultra                                         | $200 USD                                                             |
-| Team, Standard seat                           | $20 USD per seat\*                                                   |
-| Team, Premium seat                            | $100 USD per seat\*                                                  |
+| Plan | Monthly credit |
+| ----- | ----- |
+| Max | $100 USD |
+| Ultra | $200 USD |
+| Team, Standard seat | $20 USD per seat\* |
+| Team, Premium seat | $100 USD per seat\* |
 | Discounted Team plans (Nonprofit, Scientists) | Same as Team: $20 USD per Standard seat, $100 USD per Premium seat\* |
 
 \*On Team plans, credits for all seats are pooled into one monthly balance, capped at $500 USD. Each monthly credit, including the first, is based on the seats on your plan at the start of that billing month. For example, a team with three Standard seats and two Premium seats receives $260 USD a month. Adding another Premium seat raises the next month’s credit to $360 USD.
@@ -47,10 +47,10 @@ Claude Max, Ultra, and Team plans include monthly credits for the Claude API. To
 
 You need both of the following roles:
 
-| Where                           | Required role                                                |
-| ------------------------------- | ------------------------------------------------------------ |
-| **Claude plan**                 | Max or Ultra: the subscriber<br />Team: Primary Owner, Owner |
-| **Claude Console organization** | Admin or Billing                                             |
+| Where | Required role |
+| ----- | ----- |
+| **Claude plan** | Max or Ultra: the subscriber<br />Team: Primary Owner, Owner |
+| **Claude Console organization** | Admin or Billing |
 
 If you don’t have a Claude Console organization, create one in the Console at [platform.claude.com](https://platform.claude.com/) first, or create one during the claim flow.
 
@@ -80,15 +80,15 @@ Subscribers who aren’t eligible don’t see API credits in their settings page
 
 These API credits can only be used on the Claude Platform. The following table shows which products are covered:
 
-| Product                                                                                    | Covered |
-| ------------------------------------------------------------------------------------------ | ------- |
-| [Claude API](https://platform.claude.com/docs/en/api/overview)                             | Yes     |
-| [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)       | Yes     |
-| [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview)                     | Yes     |
-| [Playground](https://platform.claude.com/playground) in the Claude Console                 | Yes     |
-| Claude Code                                                                                | No      |
-| Extra usage in the Claude apps                                                             | No      |
-| Any [cloud platform](https://platform.claude.com/docs/en/api/overview#cloud-platform-apis) | No      |
+| Product | Covered |
+| ----- | ----- |
+| [Claude API](https://platform.claude.com/docs/en/api/overview) | Yes |
+| [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) | Yes |
+| [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview) | Yes |
+| [Playground](https://platform.claude.com/playground) in the Claude Console | Yes |
+| Claude Code | No |
+| Extra usage in the Claude apps | No |
+| Any [cloud platform](https://platform.claude.com/docs/en/api/overview#cloud-platform-apis) | No |
 
 ## How credits are applied
 
@@ -127,12 +127,12 @@ Credit balance too low · Add funds: https://platform.claude.com/settings/billin
 
 ## If your plan changes
 
-| Change                                             | What happens                                                                                                                                                                                         |
-| -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cancel, downgrade to an ineligible plan, or refund | New credits stop when your plan ends. Credits you already have stay usable until they expire.                                                                                                        |
-| Upgrade from Max to Ultra                          | You receive prorated API credits right away, then $200 USD each billing cycle. If you subscribe through Google Play, the $200 USD credit arrives later, by your next renewal at the latest.          |
-| Upgrade from Max or Ultra to Team                  | The link to your Max or Ultra plan ends. A Team owner can claim the team’s credits after the Team plan has been active for 7 days.                                                                   |
-| Add or remove Team seats                           | Seats added to your plan count from the next billing month’s credit. Seats you remove stay on your plan until it renews, so the credit might be lower after that. The pool stays capped at $500 USD. |
+| Change | What happens |
+| ----- | ----- |
+| Cancel, downgrade to an ineligible plan, or refund | New credits stop when your plan ends. Credits you already have stay usable until they expire. |
+| Upgrade from Max to Ultra | You receive prorated API credits right away, then $200 USD each billing cycle. If you subscribe through Google Play, the $200 USD credit arrives later, by your next renewal at the latest. |
+| Upgrade from Max or Ultra to Team | The link to your Max or Ultra plan ends. A Team owner can claim the team’s credits after the Team plan has been active for 7 days. |
+| Add or remove Team seats | Seats added to your plan count from the next billing month’s credit. Seats you remove stay on your plan until it renews, so the credit might be lower after that. The pool stays capped at $500 USD. |
 
 ## Use your credits efficiently
 

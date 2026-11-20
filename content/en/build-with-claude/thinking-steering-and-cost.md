@@ -47,13 +47,13 @@ For broader prompting guidance with thinking, see [leverage thinking and interle
 
 Effort is the primary steering lever for thinking. Each level sets a different default for how often Claude thinks and how deeply:
 
-| Effort level                                               | Thinking behavior                                                                                |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `max`                                                      | Claude thinks the most readily and at the greatest depth, with no constraint on thinking length. |
-| `xhigh`                                                    | Claude thinks more readily and at greater depth than at `high`, suited to extended exploration.  |
-| `high` (default on most models)                            | Claude thinks on most requests that benefit from it. Provides deep reasoning on complex tasks.   |
-| `medium` (default on Claude Opus 5.5 and Claude Haiku 5.5) | Claude uses moderate thinking. Might skip thinking for simple queries.                           |
-| `low`                                                      | Claude minimizes thinking. Skips thinking for simple tasks where speed matters most.             |
+| Effort level | Thinking behavior |
+| ----- | ----- |
+| `max` | Claude thinks the most readily and at the greatest depth, with no constraint on thinking length. |
+| `xhigh` | Claude thinks more readily and at greater depth than at `high`, suited to extended exploration. |
+| `high` (default on most models) | Claude thinks on most requests that benefit from it. Provides deep reasoning on complex tasks. |
+| `medium` (default on Claude Opus 5.5 and Claude Haiku 5.5) | Claude uses moderate thinking. Might skip thinking for simple queries. |
+| `low` | Claude minimizes thinking. Skips thinking for simple tasks where speed matters most. |
 
 At every level, Claude determines for each request whether to think. In a tool-use loop, the first request after new user input typically carries most of the reasoning, and follow-up requests that only process tool results can skip thinking, including at `xhigh` and `max`. Thinking per request also tends to decrease as a conversation grows longer. No level guarantees a thinking block on every request.
 
@@ -876,12 +876,12 @@ Thinking incurs charges for:
 
 What you’re billed for is the same regardless of the `display` setting; only what you see changes:
 
-|                             | `display: "summarized"`                              | `display: "omitted"`                                 |
-| --------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| **Input tokens**            | Tokens in your original request                      | Same as summarized                                   |
-| **Output tokens (billed)**  | The full thinking tokens Claude generated internally | Same as summarized                                   |
-| **Output tokens (visible)** | The summarized thinking text                         | Zero thinking tokens (the `thinking` field is empty) |
-| **Summary generation**      | No charge                                            | Not applicable                                       |
+|  | `display: "summarized"` | `display: "omitted"` |
+| ----- | ----- | ----- |
+| **Input tokens** | Tokens in your original request | Same as summarized |
+| **Output tokens (billed)** | The full thinking tokens Claude generated internally | Same as summarized |
+| **Output tokens (visible)** | The summarized thinking text | Zero thinking tokens (the `thinking` field is empty) |
+| **Summary generation** | No charge | Not applicable |
 
 <Warning>
   The billed output token count does **not** match the visible token count in the response. You are billed for the full thinking process, not the thinking content visible in the response.

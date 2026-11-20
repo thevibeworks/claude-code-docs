@@ -889,12 +889,12 @@ The read loop exits on [`session.thread_status_idle`](https://platform.claude.co
 
 ## Troubleshoot previews
 
-| You see                                                             | What it means                                                                                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| A stream with buffered events but no `event_start` or `event_delta` | The connection you’re reading didn’t opt in, or the turn never touched the thread you’re streaming. `event_deltas[]` applies per connection, not per session. To find which thread ran, list the session’s threads (`GET /v1/sessions/{session_id}/threads`).                                                                                                |
-| A stream that drops during a preview                                | Deltas are not replayed. Follow the [reconnect procedure](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#reconnect-without-missing-events): reopen the stream and list the event history. The history includes any buffered events emitted while you were disconnected, including the `agent.message` your preview was waiting for. |
-| A 404 on the stream URL                                             | The path or an ID is wrong, or the request carries no managed-agents beta header at all. The thread endpoints are beta-gated, so without the header they don’t exist.                                                                                                                                                                                        |
-| A 400 naming `event_deltas`                                         | Only `agent.message` and `agent.thinking` are accepted.                                                                                                                                                                                                                                                                                                      |
+| You see | What it means |
+| ----- | ----- |
+| A stream with buffered events but no `event_start` or `event_delta` | The connection you’re reading didn’t opt in, or the turn never touched the thread you’re streaming. `event_deltas[]` applies per connection, not per session. To find which thread ran, list the session’s threads (`GET /v1/sessions/{session_id}/threads`). |
+| A stream that drops during a preview | Deltas are not replayed. Follow the [reconnect procedure](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#reconnect-without-missing-events): reopen the stream and list the event history. The history includes any buffered events emitted while you were disconnected, including the `agent.message` your preview was waiting for. |
+| A 404 on the stream URL | The path or an ID is wrong, or the request carries no managed-agents beta header at all. The thread endpoints are beta-gated, so without the header they don’t exist. |
+| A 400 naming `event_deltas` | Only `agent.message` and `agent.thinking` are accepted. |
 
 ## Next steps
 
@@ -918,9 +918,9 @@ Event deltas are in beta on every model.
 
 * Availability: Available
 
-| Status | Cloud platforms         | Models                                                            |
-| ------ | ----------------------- | ----------------------------------------------------------------- |
-| Beta   | All supported platforms | [All models](https://platform.claude.com/docs/en/models/overview) |
+| Status | Cloud platforms | Models |
+| ----- | ----- | ----- |
+| Beta | All supported platforms | [All models](https://platform.claude.com/docs/en/models/overview) |
 
 ### Required beta headers
 
@@ -934,9 +934,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

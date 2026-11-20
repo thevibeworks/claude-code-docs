@@ -73,12 +73,12 @@ Activities are returned newest first, with ties in `created_at` broken by activi
 
 The Compliance API uses two pagination schemes depending on the endpoint family:
 
-| Endpoint family                                                                                     | Sort order                                              | Scheme     | Parameters                                                  |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------------- | ---------- | ----------------------------------------------------------- |
-| Activities                                                                                          | Newest first                                            | Cursor     | `after_id`, `before_id` (returned as `first_id`, `last_id`) |
-| Chats and chat messages                                                                             | Oldest first                                            | Cursor     | `after_id`, `before_id` (returned as `first_id`, `last_id`) |
-| Organizations, projects, project attachments, users, roles, role permissions, groups, group members | Endpoint-specific                                       | Page token | `page` (returned as `next_page`)                            |
-| Local and remote sessions and session messages                                                      | Sessions newest first; messages oldest first by default | Page token | `page` (returned as `next_page`)                            |
+| Endpoint family | Sort order | Scheme | Parameters |
+| ----- | ----- | ----- | ----- |
+| Activities | Newest first | Cursor | `after_id`, `before_id` (returned as `first_id`, `last_id`) |
+| Chats and chat messages | Oldest first | Cursor | `after_id`, `before_id` (returned as `first_id`, `last_id`) |
+| Organizations, projects, project attachments, users, roles, role permissions, groups, group members | Endpoint-specific | Page token | `page` (returned as `next_page`) |
+| Local and remote sessions and session messages | Sessions newest first; messages oldest first by default | Page token | `page` (returned as `next_page`) |
 
 Files do not paginate: they are retrieved individually by ID.
 
@@ -138,27 +138,27 @@ persist(cursor)
 
 Every entry in `data` is an Activity with this top-level shape:
 
-| Field               | Type            | Description                                                                                                                                                                                                                                                   |
-| ------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                | string          | Unique identifier for the activity.                                                                                                                                                                                                                           |
-| `created_at`        | RFC 3339 string | When the activity occurred.                                                                                                                                                                                                                                   |
-| `organization_id`   | string or null  | Organization where the activity occurred, or `null` for events not tied to an organization.                                                                                                                                                                   |
-| `organization_uuid` | string or null  | Same scoping as `organization_id`, expressed as a UUID.                                                                                                                                                                                                       |
-| `actor`             | Actor union     | Who or what performed the activity. See the following actor table.                                                                                                                                                                                            |
-| `type`              | string          | The activity type, for example `claude_chat_created`.                                                                                                                                                                                                         |
-| *additional fields* | varies          | Type-specific fields, for example `claude_chat_id` on chat events or `claude_file_id` on file events. See [Query compliance activities](https://platform.claude.com/docs/en/api/compliance/activities/list) in the API reference for the per-type field list. |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `id` | string | Unique identifier for the activity. |
+| `created_at` | RFC 3339 string | When the activity occurred. |
+| `organization_id` | string or null | Organization where the activity occurred, or `null` for events not tied to an organization. |
+| `organization_uuid` | string or null | Same scoping as `organization_id`, expressed as a UUID. |
+| `actor` | Actor union | Who or what performed the activity. See the following actor table. |
+| `type` | string | The activity type, for example `claude_chat_created`. |
+| *additional fields* | varies | Type-specific fields, for example `claude_chat_id` on chat events or `claude_file_id` on file events. See [Query compliance activities](https://platform.claude.com/docs/en/api/compliance/activities/list) in the API reference for the per-type field list. |
 
 The `actor` field is a discriminated union. The `type` discriminator tells you which other fields are present:
 
-| `actor.type`                 | When it appears                                                                                                                                                                        | Key fields                                                                                                                                            |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `user_actor`                 | A signed-in claude.ai or Claude Console user took the action. Processes Anthropic runs on the user’s behalf can also appear as this type; see the paragraph after this table.          | `email_address`, `user_id`, `ip_address`, `user_agent`                                                                                                |
-| `api_actor`                  | A request called the Claude API or the Compliance API with a customer-issued API key. Compliance API calls produce this actor type for both Compliance Access Keys and Admin API keys. | `api_key_id`, `ip_address`, `user_agent`                                                                                                              |
-| `admin_api_key_actor`        | An organization admin used an Admin API key to manage users, invites, workspaces, or API keys.                                                                                         | `admin_api_key_id`, `ip_address`, `user_agent`                                                                                                        |
-| `unauthenticated_user_actor` | An action occurred before sign-in completed, for example `sso_login_initiated`.                                                                                                        | `unauthenticated_email_address`, `ip_address`, `user_agent`                                                                                           |
-| `anthropic_actor`            | Anthropic acted on the organization, for example through internal tooling.                                                                                                             | `email_address` (always `null`; present for shape consistency with `user_actor`, because Anthropic operators are not represented by individual email) |
-| `system_actor`               | Automated background processing performed by Anthropic systems, acting without a user or customer credential.                                                                          | `service` (nullable; the name of the automated process that performed the action, when known)                                                         |
-| `scim_directory_sync_actor`  | An identity provider (such as Okta, Microsoft Entra ID, or JumpCloud) pushed a change through SCIM directory sync.                                                                     | `workos_event_id`, `directory_id`, `idp_connection_type` (nullable; for example `OktaSCIMV2`, `AzureSCIMV2`)                                          |
+| `actor.type` | When it appears | Key fields |
+| ----- | ----- | ----- |
+| `user_actor` | A signed-in claude.ai or Claude Console user took the action. Processes Anthropic runs on the user’s behalf can also appear as this type; see the paragraph after this table. | `email_address`, `user_id`, `ip_address`, `user_agent` |
+| `api_actor` | A request called the Claude API or the Compliance API with a customer-issued API key. Compliance API calls produce this actor type for both Compliance Access Keys and Admin API keys. | `api_key_id`, `ip_address`, `user_agent` |
+| `admin_api_key_actor` | An organization admin used an Admin API key to manage users, invites, workspaces, or API keys. | `admin_api_key_id`, `ip_address`, `user_agent` |
+| `unauthenticated_user_actor` | An action occurred before sign-in completed, for example `sso_login_initiated`. | `unauthenticated_email_address`, `ip_address`, `user_agent` |
+| `anthropic_actor` | Anthropic acted on the organization, for example through internal tooling. | `email_address` (always `null`; present for shape consistency with `user_actor`, because Anthropic operators are not represented by individual email) |
+| `system_actor` | Automated background processing performed by Anthropic systems, acting without a user or customer credential. | `service` (nullable; the name of the automated process that performed the action, when known) |
+| `scim_directory_sync_actor` | An identity provider (such as Okta, Microsoft Entra ID, or JumpCloud) pushed a change through SCIM directory sync. | `workos_event_id`, `directory_id`, `idp_connection_type` (nullable; for example `OktaSCIMV2`, `AzureSCIMV2`) |
 
 A `user_actor` activity does not always mean the user took the action. Processes that Anthropic runs on a user’s behalf can currently appear as `user_actor` for the affected user rather than as `system_actor`, and this attribution may change. For example, memory activities from a migration, such as `platform_memory_store_created`, `platform_memory_created`, and `platform_memory_deleted`, are attributed this way. The memory activities `platform_memory_store_created`, `platform_memory_created`, `platform_memory_updated`, and `platform_memory_deleted` currently show an `ip_address` of `0.0.0.0` whoever performed them. As a result, this value does not on its own identify a process that Anthropic runs on the user’s behalf.
 

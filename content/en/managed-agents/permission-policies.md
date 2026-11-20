@@ -41,11 +41,11 @@ Permission policies apply to server-executed tools: the prebuilt agent toolset a
 
 ## Permission policy types
 
-| Policy         | Behavior                                                                                                                                                                                                                                                     |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `always_allow` | The tool executes automatically with no confirmation.                                                                                                                                                                                                        |
-| `always_ask`   | The session pauses and waits for your approval before executing. See [Respond to confirmation requests](https://platform.claude.com/docs/en/managed-agents/permission-policies#respond-to-confirmation-requests) for the event flow.                         |
-| `auto`         | The server evaluates each call and runs it, denies it, or pauses for your approval. See [Let the server evaluate each call with `auto`](https://platform.claude.com/docs/en/managed-agents/permission-policies#let-the-server-evaluate-each-call-with-auto). |
+| Policy | Behavior |
+| ----- | ----- |
+| `always_allow` | The tool executes automatically with no confirmation. |
+| `always_ask` | The session pauses and waits for your approval before executing. See [Respond to confirmation requests](https://platform.claude.com/docs/en/managed-agents/permission-policies#respond-to-confirmation-requests) for the event flow. |
+| `auto` | The server evaluates each call and runs it, denies it, or pauses for your approval. See [Let the server evaluate each call with `auto`](https://platform.claude.com/docs/en/managed-agents/permission-policies#let-the-server-evaluate-each-call-with-auto). |
 
 Each toolset kind has its own default: the agent toolset defaults to `always_allow`, and MCP toolsets default to `always_ask`.
 
@@ -1019,13 +1019,13 @@ For example, when `bash` is under `auto` and the server evaluates a call as high
 
 The `evaluation` object takes one of the forms in the following table.
 
-| `evaluation`                                                                                | Top-level `evaluated_permission` | Meaning                                                                                  |
-| ------------------------------------------------------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------- |
-| `{"type": "always_allow"}`                                                                  | `"allow"`                        | The resolved policy is `always_allow`, so the call ran.                                  |
-| `{"type": "always_ask"}`                                                                    | `"ask"`                          | The resolved policy is `always_ask`, so the call paused for your approval.               |
-| `{"type": "auto", "evaluated_permission": {"type": "allow"}}`                               | `"allow"`                        | Under `auto`, the server determined that the call was safe, and it ran.                  |
-| `{"type": "auto", "evaluated_permission": {"type": "ask", "reason_code": "indeterminate"}}` | `"ask"`                          | Under `auto`, the server reached no determination, so the call paused for your approval. |
-| `{"type": "auto", "evaluated_permission": {"type": "deny", "reason_code": "high_risk"}}`    | `"deny"`                         | Under `auto`, the server evaluated the call as high-risk and denied it.                  |
+| `evaluation` | Top-level `evaluated_permission` | Meaning |
+| ----- | ----- | ----- |
+| `{"type": "always_allow"}` | `"allow"` | The resolved policy is `always_allow`, so the call ran. |
+| `{"type": "always_ask"}` | `"ask"` | The resolved policy is `always_ask`, so the call paused for your approval. |
+| `{"type": "auto", "evaluated_permission": {"type": "allow"}}` | `"allow"` | Under `auto`, the server determined that the call was safe, and it ran. |
+| `{"type": "auto", "evaluated_permission": {"type": "ask", "reason_code": "indeterminate"}}` | `"ask"` | Under `auto`, the server reached no determination, so the call paused for your approval. |
+| `{"type": "auto", "evaluated_permission": {"type": "deny", "reason_code": "high_risk"}}` | `"deny"` | Under `auto`, the server evaluated the call as high-risk and denied it. |
 
 When `evaluation.type` is `"auto"`, its nested `evaluated_permission.type` repeats the event’s top-level `evaluated_permission`, so you can read the outcome from either field. A `reason_code` is a value for your client to branch on and keep in audit records, not text to display to end users.
 
@@ -1339,9 +1339,9 @@ Permission policies are in beta on every model.
 
 * Availability: Always on
 
-| Status | Cloud platforms         |
-| ------ | ----------------------- |
-| Beta   | All supported platforms |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Beta | All supported platforms |
 
 ### Required beta headers
 
@@ -1355,9 +1355,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

@@ -149,12 +149,12 @@ Two `EnvironmentWorker` options control memory behavior. Set them wherever you c
 
 `memory_sync_interval` (typescript: `memorySyncIntervalMs`; go: `MemorySyncInterval`) sets the shortest time between two syncs while the session runs.
 
-| Setting                | Value                                               |
-| ---------------------- | --------------------------------------------------- |
-| Default                | 15 seconds                                          |
-| Minimum                | 5 seconds                                           |
-| Example (10 seconds)   | `10` (typescript: `10_000`; go: `10 * time.Second`) |
-| Disable memory support | `None` (typescript: `null`; go: `-1`)               |
+| Setting | Value |
+| ----- | ----- |
+| Default | 15 seconds |
+| Minimum | 5 seconds |
+| Example (10 seconds) | `10` (typescript: `10_000`; go: `10 * time.Second`) |
+| Disable memory support | `None` (typescript: `null`; go: `-1`) |
 
 The worker doesn’t sync on a timer. It checks the interval after each call to a tool that runs in your sandbox, such as `bash`, `read`, or a custom tool. The call doesn’t have to touch memory. Without tool calls, nothing syncs until the [final sync](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#how-the-worker-handles-memory). A change in one session reaches another running session only after both have synced, so the wait has no fixed length.
 
@@ -168,11 +168,11 @@ While memory support is enabled, a work item that arrives without a `secret` (cs
 
 `memory_sync_deletions` (typescript: `memorySyncDeletions`; go: `MemorySyncDeletions`) sets whether a file the agent deletes locally is also deleted from the store. Uploads and downloads are unaffected.
 
-| Value                                                                 | Behavior                                                                                                                                         |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `"enabled"` (go: `environments.MemorySyncDeletionsEnabled`) (default) | Deletes the memory from the store once a later sync confirms the file is still gone.                                                             |
-| `"log_only"` (go: `environments.MemorySyncDeletionsLogOnly`)          | Runs the same checks but only logs what it would have deleted. Use it to watch what your workers would delete before you trust the enabled mode. |
-| `"disabled"` (go: `environments.MemorySyncDeletionsDisabled`)         | Never deletes from the store.                                                                                                                    |
+| Value | Behavior |
+| ----- | ----- |
+| `"enabled"` (go: `environments.MemorySyncDeletionsEnabled`) (default) | Deletes the memory from the store once a later sync confirms the file is still gone. |
+| `"log_only"` (go: `environments.MemorySyncDeletionsLogOnly`) | Runs the same checks but only logs what it would have deleted. Use it to watch what your workers would delete before you trust the enabled mode. |
+| `"disabled"` (go: `environments.MemorySyncDeletionsDisabled`) | Never deletes from the store. |
 
 For example, to sync at most once every 10 seconds and only log the deletions the worker would have made, use the following sample. The sample uses `/workspace` as the working directory, which must exist before the worker starts. [Run an always-on worker](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers#run-an-always-on-worker) says how to create the directory and what to use on macOS.
 
@@ -312,11 +312,11 @@ To keep the local copy unchanged too, disable the `bash` tool for that agent. Al
 
 A conflict is a memory that changed both in the store and in the sandbox since the previous sync. A deletion counts as a change. For a store attached with `access: "read_write"`, the worker resolves the conflict at the next sync:
 
-| In the store | In the sandbox | Result                                                     |
-| ------------ | -------------- | ---------------------------------------------------------- |
-| Changed      | Changed        | The store’s version overwrites the file.                   |
-| Changed      | Deleted        | The worker writes the store’s version back to the sandbox. |
-| Deleted      | Changed        | The worker creates the memory again from the file.         |
+| In the store | In the sandbox | Result |
+| ----- | ----- | ----- |
+| Changed | Changed | The store’s version overwrites the file. |
+| Changed | Deleted | The worker writes the store’s version back to the sandbox. |
+| Deleted | Changed | The worker creates the memory again from the file. |
 
 In the first two rows, the agent’s change or deletion is lost, even though the tool call succeeded. Nothing tells the agent, and the only sign of the loss is a warning in the worker’s log. In the last row, the deletion in the store is undone.
 
@@ -335,8 +335,8 @@ Memory stores in self-hosted sandboxes are in beta on every model.
 * Availability: Available
 
 | Status | Cloud platforms |
-| ------ | --------------- |
-| Beta   | Claude API      |
+| ----- | ----- |
+| Beta | Claude API |
 
 ### Required beta headers
 
@@ -350,9 +350,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

@@ -34,11 +34,11 @@ Security posture evaluates a list of controls and gives each one a result.
 
 A control is one recommended setting or practice, such as single sign-on. Each control has a display name and an identifier. The identifier is the same for every organization. A control can also have a current value (`current_value`) and a recommended value (`desired_state`). Controls come in three kinds:
 
-| Kind                     | What decides its result                                                                                     | Example                    |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------- | -------------------------- |
-| Automatic control        | An automatic check of the current value against the recommended value, unless an attestation is in effect.  | `sso_enabled`              |
-| Manual control           | A person, because Anthropic cannot read the setting, for example when it lives in another vendor’s console. | `oauth_conditional_access` |
-| Information-only control | Nothing: there is no recommended value, so the control is reported and not rated.                           | `allowed_invite_domains`   |
+| Kind | What decides its result | Example |
+| ----- | ----- | ----- |
+| Automatic control | An automatic check of the current value against the recommended value, unless an attestation is in effect. | `sso_enabled` |
+| Manual control | A person, because Anthropic cannot read the setting, for example when it lives in another vendor’s console. | `oauth_conditional_access` |
+| Information-only control | Nothing: there is no recommended value, so the control is reported and not rated. | `allowed_invite_domains` |
 
 ### Attestations
 
@@ -56,12 +56,12 @@ When someone saves an attestation, Security posture gives the attestation an end
 
 Each control has one of four results.
 
-| Result                        | Meaning                                                                                                                 |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Passed (`passed`)             | Meets the recommended value, or an attestation of Completed or Accepted risk is in effect.                              |
-| Failed (`failed`)             | Does not meet the recommended value or is attested as Failed (`control_failed`).                                        |
-| Not attested (`not_attested`) | A manual control with no attestation in effect.                                                                         |
-| Descriptive (`descriptive`)   | Not rated, even when attested; it covers information-only controls and controls that do not apply or could not be read. |
+| Result | Meaning |
+| ----- | ----- |
+| Passed (`passed`) | Meets the recommended value, or an attestation of Completed or Accepted risk is in effect. |
+| Failed (`failed`) | Does not meet the recommended value or is attested as Failed (`control_failed`). |
+| Not attested (`not_attested`) | A manual control with no attestation in effect. |
+| Descriptive (`descriptive`) | Not rated, even when attested; it covers information-only controls and controls that do not apply or could not be read. |
 
 An accepted risk in effect counts as Passed on an automatic or manual control, though the control is not in place. In the response, an automatic control [attested as Completed while its check fails](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#how-an-attestation-shows-in-the-response) is `failed`.
 

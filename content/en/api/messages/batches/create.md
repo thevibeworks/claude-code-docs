@@ -744,7 +744,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `page_age: optional string or null`
 
-                - `WebSearchToolRequestError object`
+                - `WebSearchToolRequestErrorObject object`
 
                   - `type: "web_search_tool_result_error"`
 

@@ -739,10 +739,10 @@ Web search tool is available on every model and eligible for zero data retention
 * Availability: Available
 * Usage: Add a `web_search` tool to the request’s `tools`. Settings such as `max_uses`, domain lists and `user_location` go on that tool.
 
-| Status                | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                                              |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Available             | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
-| Available<sup>1</sup> | [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), [Microsoft Foundry (hosted on Azure)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)                                                                                                                               |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+| Available<sup>1</sup> | [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), [Microsoft Foundry (hosted on Azure)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
 1. Only the basic web search tool (`web_search_20250305`), without dynamic filtering.
 
@@ -751,18 +751,18 @@ Web search tool is available on every model and eligible for zero data retention
 * Availability: Available
 * Usage: Part of the agent toolset, and on by default once the toolset is added. Domain lists and `user_location` go on the toolset’s `web_search` entry; `max_uses`, `citations` and `cache_control` are not available.
 
-| Status    | Cloud platforms                                                                                                                                                                                                                                                                |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) |
 
 ### Data handling
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                       | HIPAA                                                              |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| Status  | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible                                                           |
-| Details | Real-time web search results returned in the API response. Dynamic filtering for web search is not eligible for ZDR or HIPAA.                             | Dynamic filtering for web search is not eligible for ZDR or HIPAA. |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible |
+| Details | Real-time web search results returned in the API response. Dynamic filtering for web search is not eligible for ZDR or HIPAA. | Dynamic filtering for web search is not eligible for ZDR or HIPAA. |
 
 Applicable endpoints:
 

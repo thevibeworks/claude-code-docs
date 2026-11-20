@@ -32,6 +32,7 @@ Work down the groups and stop after the one that names your current model. If yo
 8. If you replay stored conversations through a different account, replay each one through the account that produced it. See [Replay thinking blocks through the account that produced them](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#replay-thinking-blocks-through-the-producing-account).
 9. If your code changes `system`, `tools`, or earlier `messages` between requests in a conversation and sends thinking blocks back, keep the conversation append-only. See [Keep earlier turns unchanged](https://platform.claude.com/docs/en/models/haiku-5-5/migration-guide#keep-earlier-turns-unchanged).
 10. Handle `stop_reason: "refusal"`. Claude Haiku 5.5 runs safety classifiers that can decline a request, and it has no server-side fallback. See [Safeguard refusals](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#safeguard-refusals).
+11. If your prompts ask the model to write its reasoning in the response, such as in `<thinking>` or `<reasoning>` tags, remove those instructions. Claude Haiku 5.5 might decline a request that includes them and return the `reasoning_extraction` category. See [Safeguard refusals](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#safeguard-refusals).
 
 If your organization has a [Priority Tier](https://platform.claude.com/docs/en/api/service-tiers#supported-models) commitment on Claude Haiku 4.5, plan capacity separately: Priority Tier is not supported on Claude Haiku 5.5.
 
@@ -48,14 +49,14 @@ If your organization has a [Priority Tier](https://platform.claude.com/docs/en/a
 
 Replace the Claude Haiku 4.5 model ID with the Claude Haiku 5.5 ID for your platform.
 
-| Platform                                          | Claude Haiku 4.5                                  | Claude Haiku 5.5             |
-| ------------------------------------------------- | ------------------------------------------------- | ---------------------------- |
-| Claude API                                        | `claude-haiku-4-5-20251001` or `claude-haiku-4-5` | `claude-haiku-5-5`           |
-| Amazon Bedrock                                    | `anthropic.claude-haiku-4-5`                      | `anthropic.claude-haiku-5-5` |
-| Claude Platform on AWS                            | `claude-haiku-4-5`                                | `claude-haiku-5-5`           |
-| Claude Models on Google Cloud (Anthropic managed) | `claude-haiku-4-5-20251001`                       | `claude-haiku-5-5`           |
-| Claude Models on Google Cloud (Google managed)    | `claude-haiku-4-5@20251001`                       | `claude-haiku-5-5`           |
-| Microsoft Foundry                                 | `claude-haiku-4-5`                                | `claude-haiku-5-5`           |
+| Platform | Claude Haiku 4.5 | Claude Haiku 5.5 |
+| ----- | ----- | ----- |
+| Claude API | `claude-haiku-4-5-20251001` or `claude-haiku-4-5` | `claude-haiku-5-5` |
+| Amazon Bedrock | `anthropic.claude-haiku-4-5` | `anthropic.claude-haiku-5-5` |
+| Claude Platform on AWS | `claude-haiku-4-5` | `claude-haiku-5-5` |
+| Claude Models on Google Cloud (Anthropic managed) | `claude-haiku-4-5-20251001` | `claude-haiku-5-5` |
+| Claude Models on Google Cloud (Google managed) | `claude-haiku-4-5@20251001` | `claude-haiku-5-5` |
+| Microsoft Foundry | `claude-haiku-4-5` | `claude-haiku-5-5` |
 
 `claude-haiku-5-5` is a fixed model ID with no date suffix and no separate alias.
 
@@ -111,12 +112,12 @@ Claude Haiku 5.5 accepts a forced `tool_choice` (`any` or a named tool), but the
 
 A conversation that you switch from Claude Haiku 4.5 onto Claude Haiku 5.5 keeps its reasoning. For other switches, it depends on the two models:
 
-| Switch                                                                                                           | Keeps its reasoning                                                            |
-| ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| To Claude Haiku 5.5, from Claude Haiku 4.5 or earlier, Claude Sonnet 5 or earlier, or Claude Opus 4.8 or earlier | Yes                                                                            |
-| To Claude Haiku 5.5, from any other model                                                                        | No. The API drops that model’s thinking blocks without an error.               |
-| From Claude Haiku 5.5, to Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.2, or Claude Mythos 5.2             | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
-| From Claude Haiku 5.5, to any other model                                                                        | No                                                                             |
+| Switch | Keeps its reasoning |
+| ----- | ----- |
+| To Claude Haiku 5.5, from Claude Haiku 4.5 or earlier, Claude Sonnet 5 or earlier, or Claude Opus 4.8 or earlier | Yes |
+| To Claude Haiku 5.5, from any other model | No. The API drops that model’s thinking blocks without an error. |
+| From Claude Haiku 5.5, to Claude Opus 5.5, Claude Sonnet 5.5, Claude Fable 5.2, or Claude Mythos 5.2 | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
+| From Claude Haiku 5.5, to any other model | No |
 
 See [Switch models and back](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models). For switches that don’t involve Claude Haiku 5.5, see [Which model switches keep the reasoning on the Claude API](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#which-model-switches-keep-reasoning).
 

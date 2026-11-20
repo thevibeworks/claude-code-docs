@@ -181,16 +181,16 @@ Files and artifacts are downloaded by ID. They aren’t listed independently, ex
 
 Pick the endpoint that matches your ID’s prefix and the data you need. The same file content endpoint serves chat files, project files, and the `generated_files` entries whose IDs start with `claude_file_`. The file endpoints and the generated-file endpoints each reject the other’s IDs with a 400 error; see [Invalid file ID](https://platform.claude.com/docs/en/manage-claude/compliance-errors#invalid-file-id).
 
-| You have                       | You want                                | Use this endpoint                                                                                                          |
-| ------------------------------ | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `claude_file_*` ID             | The file’s content                      | [Download file content](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/download)                      |
-| `claude_file_*` ID             | The file’s metadata only                | [Get file metadata](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/retrieve)                          |
-| `claude_gen_file_*` ID         | A tool-generated file’s binary content  | [Download a Claude-generated file](https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/download) |
-| `claude_gen_file_*` ID         | A tool-generated file’s metadata only   | [Get generated-file metadata](https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/retrieve)      |
-| `claude_artifact_version_*` ID | One artifact version’s text             | [Download artifact content](https://platform.claude.com/docs/en/api/compliance/apps/artifacts/download)                    |
-| `claude_artifact_version_*` ID | The artifact version’s metadata only    | [Get artifact metadata](https://platform.claude.com/docs/en/api/compliance/apps/artifacts/retrieve)                        |
-| `claude_proj_doc_*` ID         | A project document’s plain-text content | [Get project document content](https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/retrieve)        |
-| `claude_proj_doc_*` ID         | A project document’s metadata only      | [Get project document metadata](https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/metadata)       |
+| You have | You want | Use this endpoint |
+| ----- | ----- | ----- |
+| `claude_file_*` ID | The file’s content | [Download file content](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/download) |
+| `claude_file_*` ID | The file’s metadata only | [Get file metadata](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/retrieve) |
+| `claude_gen_file_*` ID | A tool-generated file’s binary content | [Download a Claude-generated file](https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/download) |
+| `claude_gen_file_*` ID | A tool-generated file’s metadata only | [Get generated-file metadata](https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/retrieve) |
+| `claude_artifact_version_*` ID | One artifact version’s text | [Download artifact content](https://platform.claude.com/docs/en/api/compliance/apps/artifacts/download) |
+| `claude_artifact_version_*` ID | The artifact version’s metadata only | [Get artifact metadata](https://platform.claude.com/docs/en/api/compliance/apps/artifacts/retrieve) |
+| `claude_proj_doc_*` ID | A project document’s plain-text content | [Get project document content](https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/retrieve) |
+| `claude_proj_doc_*` ID | A project document’s metadata only | [Get project document metadata](https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/metadata) |
 
 The file content endpoint streams the content that claude.ai stored for the file as a chunked binary response. That content is not always identical to the file the user uploaded. Images can be served as a processed copy rather than the uploaded bytes. Some documents attached to chats (for example, Word files, PowerPoint files, and some PDFs) are stored as the text claude.ai extracted from them. For these documents, the endpoint returns the extracted text under the original file name, and the original document is not available through the Compliance API. The `size_bytes` and `md5` fields describe the stored content rather than the uploaded file. The file name and `mime_type` can still name the uploaded document’s format. Identify a file’s format from the returned bytes, not from its name or declared type.
 

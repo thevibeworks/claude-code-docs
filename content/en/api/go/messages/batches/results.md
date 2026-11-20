@@ -426,7 +426,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content WebSearchToolResultBlockContentUnion`
 
-              - `type WebSearchToolResultError`
+              - `type WebSearchToolResultErrorObject`
 
                 - `Type WebSearchToolResultError`
 
@@ -578,7 +578,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content CodeExecutionToolResultBlockContentUnion`
 
-              - `type CodeExecutionToolResultError`
+              - `type CodeExecutionToolResultErrorObject`
 
                 - `Type CodeExecutionToolResultError`
 
@@ -652,7 +652,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content BashCodeExecutionToolResultBlockContentUnion`
 
-              - `type BashCodeExecutionToolResultError`
+              - `type BashCodeExecutionToolResultErrorObject`
 
                 - `Type BashCodeExecutionToolResultError`
 
@@ -702,7 +702,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content TextEditorCodeExecutionToolResultBlockContentUnion`
 
-              - `type TextEditorCodeExecutionToolResultError`
+              - `type TextEditorCodeExecutionToolResultErrorObject`
 
                 - `Type TextEditorCodeExecutionToolResultError`
 
@@ -780,7 +780,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content ToolSearchToolResultBlockContentUnion`
 
-              - `type ToolSearchToolResultError`
+              - `type ToolSearchToolResultErrorObject`
 
                 - `Type ToolSearchToolResultError`
 
@@ -1223,7 +1223,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `Error ErrorObjectUnion`
 
-          - `type InvalidRequestError`
+          - `type InvalidRequestErrorObject`
 
             - `Type InvalidRequestError`
 
@@ -1237,7 +1237,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Invalid request
 
-          - `type AuthenticationError`
+          - `type AuthenticationErrorObject`
 
             - `Type AuthenticationError`
 
@@ -1251,7 +1251,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Authentication error
 
-          - `type BillingError`
+          - `type BillingErrorObject`
 
             - `Type BillingError`
 
@@ -1265,7 +1265,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Billing error
 
-          - `type PermissionError`
+          - `type PermissionErrorObject`
 
             - `Type PermissionError`
 
@@ -1279,7 +1279,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Permission denied
 
-          - `type NotFoundError`
+          - `type NotFoundErrorObject`
 
             - `Type NotFoundError`
 
@@ -1293,7 +1293,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Not found
 
-          - `type RateLimitError`
+          - `type RateLimitErrorObject`
 
             - `Type RateLimitError`
 
@@ -1307,7 +1307,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Rate limited
 
-          - `type GatewayTimeoutError`
+          - `type GatewayTimeoutErrorObject`
 
             - `Type TimeoutError`
 
@@ -1335,7 +1335,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Internal server error
 
-          - `type OverloadedError`
+          - `type OverloadedErrorObject`
 
             - `Type OverloadedError`
 

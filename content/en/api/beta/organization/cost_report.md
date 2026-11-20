@@ -158,6 +158,8 @@ This endpoint is part of the legacy Usage and Cost API. For new integrations, us
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`

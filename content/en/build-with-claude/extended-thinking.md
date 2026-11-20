@@ -427,10 +427,10 @@ Extended thinking is available or deprecated on select models.
 
 * Availability: Available
 
-| Status     | Models                                                                                                                                                                                                                                                                         |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Available  | Claude Mythos Preview, [Claude Haiku 4.5](https://platform.claude.com/docs/en/models/haiku-4-5/overview), [Claude Opus 4.5](https://platform.claude.com/docs/en/models/opus-4-5/overview), [Claude Sonnet 4.5](https://platform.claude.com/docs/en/models/sonnet-4-5/overview) |
-| Deprecated | [Claude Opus 4.6](https://platform.claude.com/docs/en/models/opus-4-6/overview), [Claude Sonnet 4.6](https://platform.claude.com/docs/en/models/sonnet-4-6/overview)                                                                                                           |
+| Status | Models |
+| ----- | ----- |
+| Available | Claude Mythos Preview, [Claude Haiku 4.5](https://platform.claude.com/docs/en/models/haiku-4-5/overview), [Claude Opus 4.5](https://platform.claude.com/docs/en/models/opus-4-5/overview), [Claude Sonnet 4.5](https://platform.claude.com/docs/en/models/sonnet-4-5/overview) |
+| Deprecated | [Claude Opus 4.6](https://platform.claude.com/docs/en/models/opus-4-6/overview), [Claude Sonnet 4.6](https://platform.claude.com/docs/en/models/sonnet-4-6/overview) |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 

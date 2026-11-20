@@ -117,6 +117,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
@@ -3618,6 +3620,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `Optional<BetaBillingPolicy> billingPolicy`
 
     Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
+
+    Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual.
 
   - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -8061,6 +8065,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `ImageDimensionsTooLargeException` (HTTP status 400, error code `image_dimensions_too_large`)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `OrganizationOnHoldException` (HTTP status 400, error code `organization_on_hold`)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -8097,6 +8105,26 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `UserProfileRequiredException` (HTTP status 400, error code `user_profile_required`)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `LinkedOrganizationBillingUnavailableException` (HTTP status 402, error code `linked_organization_billing_unavailable`)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `LinkedOrganizationSpendLimitReachedException` (HTTP status 402, error code `linked_organization_spend_limit_reached`)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `UserProfileBillingNotAuthorizedException` (HTTP status 403, error code `user_profile_billing_not_authorized`)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `UserProfileNotBillableException` (HTTP status 403, error code `user_profile_not_billable`)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `ThreadNotFoundException` (HTTP status 404, error code `thread_not_found`)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -8108,6 +8136,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 - `RequestBodyTooLargeAfterDecodingException` (HTTP status 413, error code `request_body_too_large_after_decoding`)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `ContractSpendLimitReachedException` (HTTP status 429, error code `contract_spend_limit_reached`)
+
+  The organization has reached the spend limit of its contract.
 
 - `EnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
@@ -8351,6 +8383,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -12688,7 +12722,7 @@ public final class Main {
 
       - `TTL_1H("1h")`
 
-### Beta Advisor Tool Result Error
+### Beta Advisor Tool Result Error Object
 
 - `class BetaAdvisorToolResultError`
 
@@ -16240,7 +16274,7 @@ public final class Main {
 
       - `TTL_1H("1h")`
 
-### Beta Bash Code Execution Tool Result Error
+### Beta Bash Code Execution Tool Result Error Object
 
 - `class BetaBashCodeExecutionToolResultError`
 
@@ -23089,7 +23123,19 @@ public final class Main {
 
     - `String stderr`
 
-### Beta Code Execution Tool Result Error
+### Beta Code Execution Tool Result Error Code
+
+- `enum BetaCodeExecutionToolResultErrorCode`
+
+  - `INVALID_TOOL_INPUT("invalid_tool_input")`
+
+  - `UNAVAILABLE("unavailable")`
+
+  - `TOO_MANY_REQUESTS("too_many_requests")`
+
+  - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
+
+### Beta Code Execution Tool Result Error Object
 
 - `class BetaCodeExecutionToolResultError`
 
@@ -23104,18 +23150,6 @@ public final class Main {
     - `TOO_MANY_REQUESTS("too_many_requests")`
 
     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
-
-### Beta Code Execution Tool Result Error Code
-
-- `enum BetaCodeExecutionToolResultErrorCode`
-
-  - `INVALID_TOOL_INPUT("invalid_tool_input")`
-
-  - `UNAVAILABLE("unavailable")`
-
-  - `TOO_MANY_REQUESTS("too_many_requests")`
-
-  - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
 ### Beta Code Execution Tool Result Error Param
 
@@ -72578,7 +72612,7 @@ public final class Main {
 
       - `TTL_1H("1h")`
 
-### Beta Text Editor Code Execution Tool Result Error
+### Beta Text Editor Code Execution Tool Result Error Object
 
 - `class BetaTextEditorCodeExecutionToolResultError`
 
@@ -78370,7 +78404,7 @@ public final class Main {
 
     Create a cache control breakpoint at this content block.
 
-### Beta Tool Search Tool Result Error
+### Beta Tool Search Tool Result Error Object
 
 - `class BetaToolSearchToolResultError`
 
@@ -88208,7 +88242,7 @@ public final class Main {
 
       minLength: 1, maxLength: 255
 
-### Beta Web Search Tool Request Error
+### Beta Web Search Tool Request Error Object
 
 - `class BetaWebSearchToolRequestError`
 
@@ -88453,7 +88487,23 @@ public final class Main {
 
       - `REQUEST_TOO_LARGE("request_too_large")`
 
-### Beta Web Search Tool Result Error
+### Beta Web Search Tool Result Error Code
+
+- `enum BetaWebSearchToolResultErrorCode`
+
+  - `INVALID_TOOL_INPUT("invalid_tool_input")`
+
+  - `UNAVAILABLE("unavailable")`
+
+  - `MAX_USES_EXCEEDED("max_uses_exceeded")`
+
+  - `TOO_MANY_REQUESTS("too_many_requests")`
+
+  - `QUERY_TOO_LONG("query_too_long")`
+
+  - `REQUEST_TOO_LARGE("request_too_large")`
+
+### Beta Web Search Tool Result Error Object
 
 - `class BetaWebSearchToolResultError`
 
@@ -88472,22 +88522,6 @@ public final class Main {
     - `QUERY_TOO_LONG("query_too_long")`
 
     - `REQUEST_TOO_LARGE("request_too_large")`
-
-### Beta Web Search Tool Result Error Code
-
-- `enum BetaWebSearchToolResultErrorCode`
-
-  - `INVALID_TOOL_INPUT("invalid_tool_input")`
-
-  - `UNAVAILABLE("unavailable")`
-
-  - `MAX_USES_EXCEEDED("max_uses_exceeded")`
-
-  - `TOO_MANY_REQUESTS("too_many_requests")`
-
-  - `QUERY_TOO_LONG("query_too_long")`
-
-  - `REQUEST_TOO_LARGE("request_too_large")`
 
 ## Messages › Batches
 
@@ -88602,6 +88636,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -92125,6 +92161,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
 
+        Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual.
+
         - `JsonValue type = "billing_policy"`
 
         - `Optional<BetaBillTo> billTo`
@@ -93144,6 +93182,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
@@ -93472,6 +93512,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
@@ -93797,6 +93839,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
@@ -94115,6 +94159,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MESSAGE_BATCHES_2024_09_24("message-batches-2024-09-24")`
@@ -94334,6 +94380,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `ANALYTICS_USAGE_COST_2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `EXPERIMENTAL_CLAUDE_TAG_2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CE_CLAUDE_CODE_MANAGED_SETTINGS_2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `USER_PROFILES_BILLING_2026_10_01("user-profiles-billing-2026-10-01")`
 

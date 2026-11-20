@@ -48,13 +48,13 @@ The session viewer shows:
 * **Transcript:** The conversation grouped by model request, including thinking, tool calls with their inputs and results, and message text as it streams. You can filter the events and copy or download them as JSON.
 * **Inspector:** A resizable side panel with details about the session, in five tabs.
 
-| Inspector tab | What it shows                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Session**   | The session’s details and metadata, its cumulative cost over time, and spend against the session’s [budget](https://platform.claude.com/docs/en/managed-agents/budgets) when one is set.                                                                                                                                                                                                                                                                                                                                |
-| **Events**    | Every raw event on the current thread, in the order the server sent it. Select an event to see its JSON. A message that streamed while the page was open also has a **Deltas** view of its [event deltas](https://platform.claude.com/docs/en/managed-agents/event-deltas).                                                                                                                                                                                                                                             |
-| **Tools**     | The tools the session’s agents are configured with, along with call counts, failures, and median duration. Select a tool to see its calls and jump to one in the transcript.                                                                                                                                                                                                                                                                                                                                            |
+| Inspector tab | What it shows |
+| ----- | ----- |
+| **Session** | The session’s details and metadata, its cumulative cost over time, and spend against the session’s [budget](https://platform.claude.com/docs/en/managed-agents/budgets) when one is set. |
+| **Events** | Every raw event on the current thread, in the order the server sent it. Select an event to see its JSON. A message that streamed while the page was open also has a **Deltas** view of its [event deltas](https://platform.claude.com/docs/en/managed-agents/event-deltas). |
+| **Tools** | The tools the session’s agents are configured with, along with call counts, failures, and median duration. Select a tool to see its calls and jump to one in the transcript. |
 | **Resources** | Mounted [files](https://platform.claude.com/docs/en/managed-agents/files), [repositories](https://platform.claude.com/docs/en/managed-agents/github), and [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) at their container paths, including the memories in each store and the changes this session made to them. Also lists files the agent wrote to `/mnt/session/outputs` and the [skills](https://platform.claude.com/docs/en/managed-agents/skills) attached to the session’s agents. |
-| **Threads**   | Every thread with its status, context size, and cost. Select a thread to view its details, such as the agent, model, context usage, and cost.                                                                                                                                                                                                                                                                                                                                                                           |
+| **Threads** | Every thread with its status, context size, and cost. Select a thread to view its details, such as the agent, model, context usage, and cost. |
 
 Append `?event={event_id}` to a session URL to open the session at a specific event.
 
@@ -89,15 +89,15 @@ The session object includes a `usage` field with the session’s cumulative usag
 }
 ```
 
-| Field                     | Description                                                                                                                                                                                                            |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `input_tokens`            | Uncached input tokens across all model calls in the session.                                                                                                                                                           |
-| `output_tokens`           | Total output tokens across all model calls in the session.                                                                                                                                                             |
-| `cache_read_input_tokens` | Tokens read from the prompt cache.                                                                                                                                                                                     |
-| `cache_creation`          | Cache-creation tokens, broken down by cache lifetime (`ephemeral_5m_input_tokens` and `ephemeral_1h_input_tokens`).                                                                                                    |
-| `list_cost`               | The session’s cumulative consumption priced at public list rates, as a whole number of cents in a string, with a currency code.                                                                                        |
-| `active_seconds`          | The cumulative time during which the session had at least one thread running. Overlapping activity from concurrent threads is counted once. The session’s runtime cost is priced on this duration.                     |
-| `server_tool_use`         | Counts of server-executed tool requests, for pricing. Web search requests are priced into list cost per request. Web fetch requests carry no per-request charge and aren’t metered, so `web_fetch_requests` reads `0`. |
+| Field | Description |
+| ----- | ----- |
+| `input_tokens` | Uncached input tokens across all model calls in the session. |
+| `output_tokens` | Total output tokens across all model calls in the session. |
+| `cache_read_input_tokens` | Tokens read from the prompt cache. |
+| `cache_creation` | Cache-creation tokens, broken down by cache lifetime (`ephemeral_5m_input_tokens` and `ephemeral_1h_input_tokens`). |
+| `list_cost` | The session’s cumulative consumption priced at public list rates, as a whole number of cents in a string, with a currency code. |
+| `active_seconds` | The cumulative time during which the session had at least one thread running. Overlapping activity from concurrent threads is counted once. The session’s runtime cost is priced on this duration. |
+| `server_tool_use` | Counts of server-executed tool requests, for pricing. Web search requests are priced into list cost per request. Web fetch requests carry no per-request charge and aren’t metered, so `web_fetch_requests` reads `0`. |
 
 Cache entries use a 5-minute TTL by default, so back-to-back turns within that window benefit from cache reads, which reduce per-token cost.
 
@@ -162,9 +162,9 @@ Session viewer is in beta on every model.
 
 * Availability: Always on
 
-| Status | Cloud platforms                                                                                                    |
-| ------ | ------------------------------------------------------------------------------------------------------------------ |
-| Beta   | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Beta | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |
 
 ### Required beta headers
 
@@ -178,9 +178,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

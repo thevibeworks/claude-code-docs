@@ -21,12 +21,12 @@ curl --fail-with-body -sS \
   -H "anthropic-version: 2026-10-21"
 ```
 
-| Item                | Rule                                                                                                                                                                                                                                                                                   |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `organization_id`   | The `uuid` of a [linked organization](https://platform.claude.com/docs/en/manage-claude/compliance-api#how-the-compliance-api-works) from [List organizations](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organizations); any other value returns 404. |
-| Key                 | A [key for the parent organization](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) can name any linked organization, and a key for a single organization can name only that organization.                                          |
-| `anthropic-version` | Required; a request without it returns 400.                                                                                                                                                                                                                                            |
-| Query parameters    | None; a request with any query parameter returns 400.                                                                                                                                                                                                                                  |
+| Item | Rule |
+| ----- | ----- |
+| `organization_id` | The `uuid` of a [linked organization](https://platform.claude.com/docs/en/manage-claude/compliance-api#how-the-compliance-api-works) from [List organizations](https://platform.claude.com/docs/en/manage-claude/compliance-org-data#list-organizations); any other value returns 404. |
+| Key | A [key for the parent organization](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) can name any linked organization, and a key for a single organization can name only that organization. |
+| `anthropic-version` | Required; a request without it returns 400. |
+| Query parameters | None; a request with any query parameter returns 400. |
 
 ## Response
 
@@ -107,27 +107,27 @@ Every field is always present, and a field with no value is `null`, never left o
 
 ### Top-level fields
 
-| Field             | Type                   | Description                                                                                                                                                                                          |
-| ----------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | string                 | Always `security_posture`.                                                                                                                                                                           |
-| `organization_id` | string                 | The organization’s UUID.                                                                                                                                                                             |
-| `evaluated_at`    | string (RFC 3339, UTC) | The time at which every control was evaluated.                                                                                                                                                       |
-| `comments_status` | string                 | Whether attestation comments were read; see [Who attested, and comments](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#who-attested-and-comments). |
-| `controls`        | array of objects       | The organization’s controls, never empty.                                                                                                                                                            |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `type` | string | Always `security_posture`. |
+| `organization_id` | string | The organization’s UUID. |
+| `evaluated_at` | string (RFC 3339, UTC) | The time at which every control was evaluated. |
+| `comments_status` | string | Whether attestation comments were read; see [Who attested, and comments](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#who-attested-and-comments). |
+| `controls` | array of objects | The organization’s controls, never empty. |
 
 ### `controls[]` fields
 
-| Field           | Type           | Description                                                                                                                                                                                                                                                                                                                                                         |
-| --------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`            | string         | The control’s identifier, which is the same for every organization and never changes.                                                                                                                                                                                                                                                                               |
-| `display_name`  | string         | The control’s display name, as English display text whose wording can change.                                                                                                                                                                                                                                                                                       |
-| `section`       | string         | The section that the control belongs to, one of the 10 listed after this table; more values can be added, so treat an unknown one as a section of its own.                                                                                                                                                                                                          |
-| `setting_name`  | string or null | The `name` of the entry in the organization’s effective settings that this control reads; `null` when it reads no such entry.                                                                                                                                                                                                                                       |
-| `status`        | string         | The reason for the control’s result; see [Status values](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#status-values).                                                                                                                                                                                            |
-| `rating`        | string         | The control’s result, which follows from `status`; see [Status values](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#status-values).                                                                                                                                                                              |
-| `current_value` | string or null | The current value, as English display text whose wording can change; `null` on a manual control or when no value was read.                                                                                                                                                                                                                                          |
-| `desired_state` | string or null | The recommended value, as English display text whose wording can change; `null` when there is none for this organization.                                                                                                                                                                                                                                           |
-| `attestation`   | object or null | The attestation that the response shows, also while it is not in effect; `null` while `status` is `descriptive`, `not_applicable`, or `not_evaluated`, and in the cases under [How an attestation shows in the response](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#how-an-attestation-shows-in-the-response). |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `id` | string | The control’s identifier, which is the same for every organization and never changes. |
+| `display_name` | string | The control’s display name, as English display text whose wording can change. |
+| `section` | string | The section that the control belongs to, one of the 10 listed after this table; more values can be added, so treat an unknown one as a section of its own. |
+| `setting_name` | string or null | The `name` of the entry in the organization’s effective settings that this control reads; `null` when it reads no such entry. |
+| `status` | string | The reason for the control’s result; see [Status values](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#status-values). |
+| `rating` | string | The control’s result, which follows from `status`; see [Status values](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#status-values). |
+| `current_value` | string or null | The current value, as English display text whose wording can change; `null` on a manual control or when no value was read. |
+| `desired_state` | string or null | The recommended value, as English display text whose wording can change; `null` when there is none for this organization. |
+| `attestation` | object or null | The attestation that the response shows, also while it is not in effect; `null` while `status` is `descriptive`, `not_applicable`, or `not_evaluated`, and in the cases under [How an attestation shows in the response](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#how-an-attestation-shows-in-the-response). |
 
 `section` is one of `identity_access`, `data_privacy`, `capabilities`, `connectors_integrations`, `chats_desktop_mdm`, `cowork_admin_console`, `cowork_desktop_mdm`, `claude_code_admin_console`, `claude_code_managed_settings`, and `healthy_adoption`.
 
@@ -135,39 +135,39 @@ To compare values in code, look up `setting_name` in the [effective settings](ht
 
 ### `attestation` fields
 
-| Field         | Type                   | Description                                                                                                                                                                                                                                           |
-| ------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `state`       | string or null         | Whether the attestation is in effect (`null` means it is); see [Attestation states](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#attestation-states).                                              |
-| `attested_at` | string (RFC 3339, UTC) | When the attestation was made.                                                                                                                                                                                                                        |
-| `comment`     | string or null         | The comment saved with the attestation, of at most 2,000 characters; `null` if there is none or if `comments_status` is not `available`.                                                                                                              |
-| `attested_by` | object or null         | The person who attested; `null` when the key holds neither `read:compliance_user_data` nor `read:org_audit`, when that person’s account has been deleted or is being deleted, or when the endpoint does not return who attested for the organization. |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `state` | string or null | Whether the attestation is in effect (`null` means it is); see [Attestation states](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/results-reference#attestation-states). |
+| `attested_at` | string (RFC 3339, UTC) | When the attestation was made. |
+| `comment` | string or null | The comment saved with the attestation, of at most 2,000 characters; `null` if there is none or if `comments_status` is not `available`. |
+| `attested_by` | object or null | The person who attested; `null` when the key holds neither `read:compliance_user_data` nor `read:org_audit`, when that person’s account has been deleted or is being deleted, or when the endpoint does not return who attested for the organization. |
 
 ### `attested_by` fields
 
-| Field     | Type   | Description                               |
-| --------- | ------ | ----------------------------------------- |
-| `type`    | string | Always `user_actor`.                      |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `type` | string | Always `user_actor`. |
 | `user_id` | string | The user’s ID, which starts with `user_`. |
 
 ## Status values
 
 `status` gives the reason for a control’s result, and each status has one `rating`.
 
-| `status`                     | Kind of control     | Meaning                                                                                                                  | `rating`       | On the page                                              |
-| ---------------------------- | ------------------- | ------------------------------------------------------------------------------------------------------------------------ | -------------- | -------------------------------------------------------- |
-| `passed`                     | automatic           | The current value meets the recommended value.                                                                           | `passed`       | Passed                                                   |
-| `matches_profile`            | automatic           | The current value equals the recommended value.                                                                          | `passed`       | Passed                                                   |
-| `exceeds_baseline`           | automatic           | The current value is stricter than the recommended value.                                                                | `passed`       | Passed                                                   |
-| `failed_check_accepted_risk` | automatic           | The automatic check fails, and an accepted risk is in effect.                                                            | `passed`       | Passed                                                   |
-| `failed`                     | automatic or manual | The current value does not meet the recommended value, or an attestation that the response leaves out gives this result. | `failed`       | Failed, or Passed with a Completed attestation in effect |
-| `review`                     | automatic           | The current value is looser than the recommended value.                                                                  | `failed`       | Failed                                                   |
-| `attested_completed`         | manual              | An attestation with the value Completed (`completed`) is in effect.                                                      | `passed`       | Passed                                                   |
-| `attested_accepted_risk`     | manual              | An attestation with the value Accepted risk (`accepted_risk`) is in effect.                                              | `passed`       | Passed                                                   |
-| `not_attested`               | manual              | No attestation is in effect.                                                                                             | `not_attested` | Not attested                                             |
-| `attestation_not_enabled`    | manual              | Nobody can attest to the control.                                                                                        | `not_attested` | Descriptive                                              |
-| `descriptive`                | information-only    | The control is reported, not rated.                                                                                      | `descriptive`  | Descriptive                                              |
-| `not_applicable`             | any                 | The control does not apply to the organization.                                                                          | `descriptive`  | Descriptive                                              |
-| `not_evaluated`              | any                 | The setting, or another setting that decides whether the control applies, could not be read.                             | `descriptive`  | Descriptive                                              |
+| `status` | Kind of control | Meaning | `rating` | On the page |
+| ----- | ----- | ----- | ----- | ----- |
+| `passed` | automatic | The current value meets the recommended value. | `passed` | Passed |
+| `matches_profile` | automatic | The current value equals the recommended value. | `passed` | Passed |
+| `exceeds_baseline` | automatic | The current value is stricter than the recommended value. | `passed` | Passed |
+| `failed_check_accepted_risk` | automatic | The automatic check fails, and an accepted risk is in effect. | `passed` | Passed |
+| `failed` | automatic or manual | The current value does not meet the recommended value, or an attestation that the response leaves out gives this result. | `failed` | Failed, or Passed with a Completed attestation in effect |
+| `review` | automatic | The current value is looser than the recommended value. | `failed` | Failed |
+| `attested_completed` | manual | An attestation with the value Completed (`completed`) is in effect. | `passed` | Passed |
+| `attested_accepted_risk` | manual | An attestation with the value Accepted risk (`accepted_risk`) is in effect. | `passed` | Passed |
+| `not_attested` | manual | No attestation is in effect. | `not_attested` | Not attested |
+| `attestation_not_enabled` | manual | Nobody can attest to the control. | `not_attested` | Descriptive |
+| `descriptive` | information-only | The control is reported, not rated. | `descriptive` | Descriptive |
+| `not_applicable` | any | The control does not apply to the organization. | `descriptive` | Descriptive |
+| `not_evaluated` | any | The setting, or another setting that decides whether the control applies, could not be read. | `descriptive` | Descriptive |
 
 No field names the kind of control; for `failed`, a `null` `current_value` marks a manual control. More values can be added, so count a control with an unknown `status` by its `rating` and read an unknown `rating` as not Passed. The status `review` and the attestation state `review_due` are not related.
 
@@ -175,13 +175,13 @@ No field names the kind of control; for `failed`, a `null` `current_value` marks
 
 `state` says whether the attestation that the response shows is in effect.
 
-| `state`           | Meaning                                                                                                                    |
-| ----------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| `in_force`        | The attestation is in effect.                                                                                              |
-| `null`            | The attestation is in effect, the same as `in_force`. This state appears only on a manual control.                         |
-| `review_due`      | The end date has come.                                                                                                     |
+| `state` | Meaning |
+| ----- | ----- |
+| `in_force` | The attestation is in effect. |
+| `null` | The attestation is in effect, the same as `in_force`. This state appears only on a manual control. |
+| `review_due` | The end date has come. |
 | `setting_changed` | The check fails on a value other than the one whose risk was accepted, or the accepted risk was already recorded as ended. |
-| `check_passing`   | The check passes, so there is no risk to accept.                                                                           |
+| `check_passing` | The check passes, so there is no risk to accept. |
 
 When more than one reason applies, the response gives the first of `check_passing`, `setting_changed`, and `review_due`. From 00:00 UTC on its end date, an attestation is not in effect. The response has no end date, so `state` decides; an end date that was saved is the attestation activity’s [`review_date`](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/events-reference#attestation-activity). Read an unknown `state` as not in effect.
 
@@ -189,23 +189,23 @@ When more than one reason applies, the response gives the first of `check_passin
 
 The response shows some attestations and leaves others out, so a `null` `attestation` does not prove that nobody attested.
 
-| Kind of control                             | Attested as                            | `status`                                                             | `rating`               | `attestation`                                         |
-| ------------------------------------------- | -------------------------------------- | -------------------------------------------------------------------- | ---------------------- | ----------------------------------------------------- |
-| Manual                                      | No attestation                         | `not_attested`, or `attestation_not_enabled` where nobody can attest | `not_attested`         | `null`                                                |
-| Manual                                      | Completed                              | `attested_completed`                                                 | `passed`               | Shown                                                 |
-| Manual                                      | Accepted risk                          | `attested_accepted_risk`                                             | `passed`               | Shown                                                 |
-| Manual                                      | Failed (`control_failed`)              | `failed`                                                             | `failed`               | `null`: never shown                                   |
-| Automatic, check failed                     | No attestation                         | `failed` or `review`                                                 | `failed`               | `null`                                                |
-| Automatic, check failed                     | Accepted risk                          | `failed_check_accepted_risk`                                         | `passed`               | Shown                                                 |
-| Automatic, check failed                     | Completed                              | `failed`, even where the automatic check gives `review`              | `failed`               | `null`: never shown                                   |
-| Automatic, check failed                     | Failed                                 | The `status` the automatic check gives                               | `failed`               | `null`: never shown                                   |
-| Automatic, check passed                     | No attestation                         | `passed`, `matches_profile`, or `exceeds_baseline`                   | `passed`               | `null`                                                |
-| Automatic, check passed                     | Completed                              | The `status` the automatic check gives                               | `passed`               | `null`: never shown                                   |
-| Automatic, check passed                     | Accepted risk                          | The `status` the automatic check gives                               | `passed`               | `null` while the check passes on the accepted value   |
-| Automatic, check passed                     | Failed                                 | `failed`                                                             | `failed`               | `null`: never shown                                   |
-| Information-only                            | Any value                              | `descriptive`                                                        | `descriptive`          | `null`: never shown                                   |
-| Any, while the attestation is not in effect | A value that an earlier row shows      | As with no attestation                                               | As with no attestation | Shown, with a `state` other than `in_force` or `null` |
-| Any, while the attestation is not in effect | A value that an earlier row leaves out | As with no attestation                                               | As with no attestation | `null`                                                |
+| Kind of control | Attested as | `status` | `rating` | `attestation` |
+| ----- | ----- | ----- | ----- | ----- |
+| Manual | No attestation | `not_attested`, or `attestation_not_enabled` where nobody can attest | `not_attested` | `null` |
+| Manual | Completed | `attested_completed` | `passed` | Shown |
+| Manual | Accepted risk | `attested_accepted_risk` | `passed` | Shown |
+| Manual | Failed (`control_failed`) | `failed` | `failed` | `null`: never shown |
+| Automatic, check failed | No attestation | `failed` or `review` | `failed` | `null` |
+| Automatic, check failed | Accepted risk | `failed_check_accepted_risk` | `passed` | Shown |
+| Automatic, check failed | Completed | `failed`, even where the automatic check gives `review` | `failed` | `null`: never shown |
+| Automatic, check failed | Failed | The `status` the automatic check gives | `failed` | `null`: never shown |
+| Automatic, check passed | No attestation | `passed`, `matches_profile`, or `exceeds_baseline` | `passed` | `null` |
+| Automatic, check passed | Completed | The `status` the automatic check gives | `passed` | `null`: never shown |
+| Automatic, check passed | Accepted risk | The `status` the automatic check gives | `passed` | `null` while the check passes on the accepted value |
+| Automatic, check passed | Failed | `failed` | `failed` | `null`: never shown |
+| Information-only | Any value | `descriptive` | `descriptive` | `null`: never shown |
+| Any, while the attestation is not in effect | A value that an earlier row shows | As with no attestation | As with no attestation | Shown, with a `state` other than `in_force` or `null` |
+| Any, while the attestation is not in effect | A value that an earlier row leaves out | As with no attestation | As with no attestation | `null` |
 
 Each row but the last two holds while the attestation is in effect. On an automatic control, an attestation is not in effect while the value that the check reads differs from the one that it was saved on. Every attestation that the response shows on an automatic control is an accepted risk. The [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) also records attestations of the kinds that the response leaves out.
 
@@ -213,10 +213,10 @@ Each row but the last two holds while the attestation is in effect. On an automa
 
 The response holds no score and no counts, overall or by group. On the Security posture page, the summary line says how many controls passed and how many controls the page counts. To count as the summary line does, count these entries:
 
-| Number               | Entries that it counts                                                                                        |
-| -------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Controls that passed | Entries rated `passed`                                                                                        |
-| Total                | Entries rated `passed`, `failed`, or `not_attested`, except those whose `status` is `attestation_not_enabled` |
+| Number | Entries that it counts |
+| ----- | ----- |
+| Controls that passed | Entries rated `passed` |
+| Total | Entries rated `passed`, `failed`, or `not_attested`, except those whose `status` is `attestation_not_enabled` |
 
 The page shows the `attestation_not_enabled` entries as Descriptive and does not count them. Entries rated `descriptive` are in neither number.
 
@@ -230,12 +230,12 @@ Controls that the response leaves out are not named in it. Do not count such a c
 
 Check four things when you count controls by `rating`.
 
-| If you count                  | Also check                                                                                                                                                                         |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Passed (`passed`)             | It includes every control with an accepted risk in effect, so look for `failed_check_accepted_risk` and `attested_accepted_risk`.                                                  |
-| Failed (`failed`)             | It includes a control attested as Failed (`control_failed`) and a failing automatic check with a Completed attestation in effect, which the Security posture page shows as Passed. |
-| Not attested (`not_attested`) | It includes the entries whose `status` is `attestation_not_enabled`, which the Security posture page shows as Descriptive.                                                         |
-| Descriptive (`descriptive`)   | It can hide a control that could not be read, so look for `not_evaluated`.                                                                                                         |
+| If you count | Also check |
+| ----- | ----- |
+| Passed (`passed`) | It includes every control with an accepted risk in effect, so look for `failed_check_accepted_risk` and `attested_accepted_risk`. |
+| Failed (`failed`) | It includes a control attested as Failed (`control_failed`) and a failing automatic check with a Completed attestation in effect, which the Security posture page shows as Passed. |
+| Not attested (`not_attested`) | It includes the entries whose `status` is `attestation_not_enabled`, which the Security posture page shows as Descriptive. |
+| Descriptive (`descriptive`) | It can hide a control that could not be read, so look for `not_evaluated`. |
 
 The Security posture page groups controls by product. You cannot rebuild those groups from the response. The only grouping field is `section`, and the page does not make its groups from sections alone. Counting by `section` works, but it gives different rows from the page’s.
 
@@ -245,13 +245,13 @@ The Security posture page groups controls by product. You cannot rebuild those g
 
 The endpoint returns no comments, even when the Security posture page shows one: every `comment` is `null`, and `comments_status` is `not_enabled` or `not_permitted`. So `not_enabled` and a `null` comment do not mean the attestation has no comment. `comments_status` says how to read a `null` comment, and the schema defines these values.
 
-| `comments_status`           | Meaning                                                                                                                                           |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `not_permitted`             | The API key holds neither `read:compliance_user_data` nor `read:org_audit`, so every `comment` and every `attested_by` is `null`.                 |
+| `comments_status` | Meaning |
+| ----- | ----- |
+| `not_permitted` | The API key holds neither `read:compliance_user_data` nor `read:org_audit`, so every `comment` and every `attested_by` is `null`. |
 | `requires_organization_key` | The API key was not created in the organization, as with a key for the parent organization, so every `comment` is `null`. Retrying does not help. |
-| `available`                 | Comments were read, so a `null` comment means that there is none or that it was saved moments ago.                                                |
-| `not_enabled`               | This endpoint does not return comments for the organization, so every `comment` is `null`.                                                        |
-| `unavailable`               | Comments could not be read for this response; a later request might succeed, but some causes last until the customer acts.                        |
+| `available` | Comments were read, so a `null` comment means that there is none or that it was saved moments ago. |
+| `not_enabled` | This endpoint does not return comments for the organization, so every `comment` is `null`. |
+| `unavailable` | Comments could not be read for this response; a later request might succeed, but some causes last until the customer acts. |
 
 More values can be added; read an unknown one as `unavailable`.
 
@@ -259,15 +259,15 @@ More values can be added; read an unknown one as `unavailable`.
 
 Errors use the same body as the rest of the Compliance API. [Handle Compliance API errors](https://platform.claude.com/docs/en/manage-claude/compliance-errors) describes that body. This table lists the errors that this endpoint returns in its own way.
 
-| Status and `error.type`                                                                | When                                                                                                                                     | What to do                                                                                                                                      |
-| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| 400 `invalid_request_error`                                                            | `anthropic-version` is missing or invalid, the Compliance API is not enabled for the parent organization, or there is a query parameter. | Fix what `error.message` names.                                                                                                                 |
-| 401 `authentication_error`                                                             | The key is missing, not recognized, or not a Compliance Access Key or Admin API key.                                                     | Send a valid Compliance Access Key in `x-api-key`.                                                                                              |
-| 403 `permission_error`                                                                 | The key may not call this endpoint, usually because it lacks both `read:compliance_org_data` and `read:org_audit`.                       | Use a key with either scope.                                                                                                                    |
-| 404 `not_found_error`                                                                  | See the causes listed after this table.                                                                                                  | Do not retry at once. A 404 does not mean that the organization has no failed controls.                                                         |
-| 429 `rate_limit_error`                                                                 | The shared Compliance API rate limit, or this endpoint’s lower limit, is used up; `error.message` says which.                            | Wait for `retry-after`; see [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests). |
-| 503 `overloaded_error`, with `error.details.error_code` of `posture_evaluation_failed` | The result could not be produced.                                                                                                        | Wait for `retry-after`, then retry; if it recurs for one organization on later runs, contact Anthropic support once.                            |
-| 503 with no `error_code`, or 504 `timeout_error`                                       | A temporary failure.                                                                                                                     | Retry with exponential backoff.                                                                                                                 |
+| Status and `error.type` | When | What to do |
+| ----- | ----- | ----- |
+| 400 `invalid_request_error` | `anthropic-version` is missing or invalid, the Compliance API is not enabled for the parent organization, or there is a query parameter. | Fix what `error.message` names. |
+| 401 `authentication_error` | The key is missing, not recognized, or not a Compliance Access Key or Admin API key. | Send a valid Compliance Access Key in `x-api-key`. |
+| 403 `permission_error` | The key may not call this endpoint, usually because it lacks both `read:compliance_org_data` and `read:org_audit`. | Use a key with either scope. |
+| 404 `not_found_error` | See the causes listed after this table. | Do not retry at once. A 404 does not mean that the organization has no failed controls. |
+| 429 `rate_limit_error` | The shared Compliance API rate limit, or this endpoint’s lower limit, is used up; `error.message` says which. | Wait for `retry-after`; see [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests). |
+| 503 `overloaded_error`, with `error.details.error_code` of `posture_evaluation_failed` | The result could not be produced. | Wait for `retry-after`, then retry; if it recurs for one organization on later runs, contact Anthropic support once. |
+| 503 with no `error_code`, or 504 `timeout_error` | A temporary failure. | Retry with exponential backoff. |
 
 Causes of a 404:
 

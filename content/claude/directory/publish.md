@@ -90,6 +90,8 @@ There's no separate application for the **Verified** label or for where in the d
 
 Review time isn't fixed. Your submission's current state shows in the portal, and [Track your directory submission](https://claude.com/docs/directory/submission-status.md) explains what each status in the portal means and who acts next.
 
+You can ask for Verified status for your organization, which is separate from the label on a connector listing. Select **Help and appeals** on the **Submissions** page of the [developer portal](https://claude.ai/directory/manage), then select **Request verified**. A request needs a paid plan and a proven domain, and a person at Anthropic decides it.
+
 ## Move an earlier submission to the developer portal
 
 A listing you submitted before the developer portal existed stays as it is. Move it to the portal to get what the portal adds:

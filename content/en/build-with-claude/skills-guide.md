@@ -43,13 +43,13 @@ Skills integrate identically in the Messages API regardless of source. You speci
 
 You can use Skills from two sources:
 
-| Aspect             | Anthropic Skills                           | Custom Skills                                                                                     |
-| ------------------ | ------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| **Type value**     | `anthropic`                                | `custom`                                                                                          |
-| **Skill IDs**      | Short names: `pptx`, `xlsx`, `docx`, `pdf` | Generated: `skill_01AbCdEfGhIjKlMnOpQrStUv`                                                       |
-| **Version format** | Date-based: `20251013` or `latest`         | Version ID: `skver_01AbCdEfGhIjKlMnOpQrStUv` or `latest`                                          |
-| **Management**     | Pre-built and maintained by Anthropic      | Upload and manage through the [Skills API](https://platform.claude.com/docs/en/api/skills/create) |
-| **Availability**   | Available to all users                     | Private to your workspace                                                                         |
+| Aspect | Anthropic Skills | Custom Skills |
+| ----- | ----- | ----- |
+| **Type value** | `anthropic` | `custom` |
+| **Skill IDs** | Short names: `pptx`, `xlsx`, `docx`, `pdf` | Generated: `skill_01AbCdEfGhIjKlMnOpQrStUv` |
+| **Version format** | Date-based: `20251013` or `latest` | Version ID: `skver_01AbCdEfGhIjKlMnOpQrStUv` or `latest` |
+| **Management** | Pre-built and maintained by Anthropic | Upload and manage through the [Skills API](https://platform.claude.com/docs/en/api/skills/create) |
+| **Availability** | Available to all users | Private to your workspace |
 
 Both skill sources are returned by the [List Skills endpoint](https://platform.claude.com/docs/en/api/skills/list) (use the `source` parameter to filter). The integration shape and execution environment are identical. The only difference is where the Skills come from and how they’re managed.
 
@@ -4503,19 +4503,19 @@ Handle Skill-related errors gracefully:
 
 The Skills API is out of beta and needs no beta header. Migrating off `skills-2025-10-02` is optional: requests that send it keep working and keep returning the beta response shapes, so an existing integration keeps working until you change it. Removing the header switches those requests to the shapes documented on this page:
 
-|                                 | With `skills-2025-10-02`                                                        | Without the header                                                                                                                                |
-| ------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Skill label                     | `display_title` (up to 64 characters, unique per workspace)                     | `display_name` (up to 255 characters, not unique); derived from the `SKILL.md` `name` when omitted                                                |
-| Newest version pointer          | `latest_version`, an epoch-microsecond string such as `"1759178010641129"`      | `latest_version_id`, a version ID such as `"skver_01AbCdEfGhIjKlMnOpQrStUv"`; `GET /v1/skills/{skill_id}/versions/latest` resolves it in one call |
-| Version identifier in URLs      | Epoch-microsecond string                                                        | Version ID (`skver_...`). IDs captured under the beta with the `skill_version_` prefix are accepted as input.                                     |
-| Version object                  | Includes `directory` (always equal to the Skill `name`)                         | No `directory` field                                                                                                                              |
-| `source`                        | A string, `"custom"` or `"anthropic"`                                           | An object, for example `{"type": "custom"}`; the example catalog value is `"anthropic_example"`                                                   |
-| List responses                  | `{ data, has_more, next_page }`                                                 | `{ data, next_page }`; `limit` from 1 to 1,000 (default 20)                                                                                       |
-| Versions list order             | Oldest first                                                                    | Newest first, default `limit` 20. Page cursors from one shape are not valid on the other.                                                         |
-| Deleting a Skill                | Returns a 400 error while any version exists                                    | Deletes the Skill and all of its versions                                                                                                         |
-| Deleting a Skill’s only version | Allowed, leaving a Skill with no versions                                       | Returns a 400 error; upload a replacement version first, or delete the Skill                                                                      |
-| Upload layout                   | Files must sit inside a top-level directory whose name matches the Skill `name` | `SKILL.md` may sit at the root of the upload; stored paths are the same either way                                                                |
-| Response types                  | `CreateSkillResponse`, `GetSkillResponse`, and one type per operation           | `Skill`, `SkillVersion`, `DeletedSkill`, `DeletedSkillVersion`                                                                                    |
+|  | With `skills-2025-10-02` | Without the header |
+| ----- | ----- | ----- |
+| Skill label | `display_title` (up to 64 characters, unique per workspace) | `display_name` (up to 255 characters, not unique); derived from the `SKILL.md` `name` when omitted |
+| Newest version pointer | `latest_version`, an epoch-microsecond string such as `"1759178010641129"` | `latest_version_id`, a version ID such as `"skver_01AbCdEfGhIjKlMnOpQrStUv"`; `GET /v1/skills/{skill_id}/versions/latest` resolves it in one call |
+| Version identifier in URLs | Epoch-microsecond string | Version ID (`skver_...`). IDs captured under the beta with the `skill_version_` prefix are accepted as input. |
+| Version object | Includes `directory` (always equal to the Skill `name`) | No `directory` field |
+| `source` | A string, `"custom"` or `"anthropic"` | An object, for example `{"type": "custom"}`; the example catalog value is `"anthropic_example"` |
+| List responses | `{ data, has_more, next_page }` | `{ data, next_page }`; `limit` from 1 to 1,000 (default 20) |
+| Versions list order | Oldest first | Newest first, default `limit` 20. Page cursors from one shape are not valid on the other. |
+| Deleting a Skill | Returns a 400 error while any version exists | Deletes the Skill and all of its versions |
+| Deleting a Skill’s only version | Allowed, leaving a Skill with no versions | Returns a 400 error; upload a replacement version first, or delete the Skill |
+| Upload layout | Files must sit inside a top-level directory whose name matches the Skill `name` | `SKILL.md` may sit at the root of the upload; stored paths are the same either way |
+| Response types | `CreateSkillResponse`, `GetSkillResponse`, and one type per operation | `Skill`, `SkillVersion`, `DeletedSkill`, `DeletedSkillVersion` |
 
 To migrate:
 

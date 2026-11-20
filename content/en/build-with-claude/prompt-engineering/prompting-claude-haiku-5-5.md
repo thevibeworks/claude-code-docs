@@ -6,7 +6,7 @@ description: "Prompting patterns specific to Claude Haiku 5.5: effort, search, J
 
 This guide covers the prompting patterns specific to Claude Haiku 5.5. For the model’s API changes, see [What’s new in Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/whats-new-haiku-5-5). For techniques that apply across all current Claude models, see [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).
 
-Existing Claude Haiku 4.5 prompts should perform well without changes. Start with the section that matches what you observe:
+Existing Claude Haiku 4.5 prompts should perform well without changes, unless they ask the model to write its reasoning in the response (see [Safeguard refusals](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#safeguard-refusals)). Start with the section that matches what you observe:
 
 * Unsure which effort level to run, or your Claude Haiku 4.5 requests set a thinking budget: [Use effort to control thinking](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#use-effort-to-control-thinking)
 * The model searches the web, document sets, or knowledge bases, or skips a search that would find newer facts: [Accurate search results](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-haiku-5-5#accurate-search-results)
@@ -130,8 +130,13 @@ Claude Haiku 5.5 runs safety classifiers that can decline a request. A declined 
 * `cyber`: the request could enable cyber harm, such as malware or exploit development. Finding vulnerabilities in source code is allowed. High-risk dual-use cybersecurity work isn’t allowed. Benign cybersecurity work can also trigger this category. If the `cyber` classifier blocks your organization’s legitimate security work, you can apply to the [Cyber Verification Program](https://support.claude.com/en/articles/14604842).
 * `frontier_llm`: the request could help with the development of competing AI models.
 * `bio`: the request could enable biological harm, such as dangerous lab methods. Everyday health and educational questions aren’t affected. If the `bio` classifier blocks your organization’s life sciences work, you can apply to the [Life Sciences Verification Program](https://www.anthropic.com/news/life-sciences-verification-program).
-* `general_harms`: the request falls under a usage-policy area other than the previous three. Benign work can also trigger this category.
+* `reasoning_extraction`: the request asks the model to reproduce its internal reasoning in the response text.
+* `general_harms`: the request falls under another usage-policy area. Benign work can also trigger this category.
 
-Claude Haiku 4.5 doesn’t return these refusals.
+Code written for Claude Haiku 4.5 might not handle these refusals.
+
+With or without streaming, a refusal might arrive before any output or after partial output. For what each case returns and whether it’s billed, see [What a refusal looks like](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response) and [How refusals are billed](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed).
 
 Claude Haiku 5.5 has no [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback). If a request is declined, handle `stop_reason: "refusal"` in your client. Sending the same request to Claude Haiku 5.5 again usually returns another refusal.
+
+Prompts, skills, and tool descriptions that ask Claude Haiku 5.5 to write its thinking or reasoning in the response might be declined with the `reasoning_extraction` category. Change the prompt rather than retry the request: remove those instructions, and see [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks) for what to ask for instead. Claude Haiku 5.5 returns empty `thinking` blocks by default, so to read a summary of its reasoning, set `thinking: {"type": "adaptive", "display": "summarized"}`.

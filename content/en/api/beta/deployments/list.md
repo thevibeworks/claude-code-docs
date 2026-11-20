@@ -159,6 +159,8 @@ List Deployments
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -493,89 +495,89 @@ List Deployments
 
       - `type: "error"`
 
-      - `error: BetaManagedAgentsDeploymentPausedReasonError`
+      - `error: BetaManagedAgentsDeploymentPausedReasonErrorObject`
 
         The failed run's error.
 
-        - `BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError object`
+        - `BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject object`
 
           The deployment's environment was archived.
 
           - `type: "environment_archived_error"`
 
-        - `BetaManagedAgentsAgentArchivedDeploymentPausedReasonError object`
+        - `BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject object`
 
           The deployment's agent was archived.
 
           - `type: "agent_archived_error"`
 
-        - `BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError object`
+        - `BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject object`
 
           The deployment's environment no longer exists.
 
           - `type: "environment_not_found_error"`
 
-        - `BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError object`
+        - `BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject object`
 
           A vault referenced by the deployment no longer exists.
 
           - `type: "vault_not_found_error"`
 
-        - `BetaManagedAgentsFileNotFoundDeploymentPausedReasonError object`
+        - `BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject object`
 
           A file resource referenced by the deployment no longer exists.
 
           - `type: "file_not_found_error"`
 
-        - `BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError object`
+        - `BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject object`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `type: "session_resource_not_found_error"`
 
-        - `BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError object`
+        - `BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject object`
 
           The deployment's workspace was archived.
 
           - `type: "workspace_archived_error"`
 
-        - `BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError object`
+        - `BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject object`
 
           The deployment's organization is disabled.
 
           - `type: "organization_disabled_error"`
 
-        - `BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError object`
+        - `BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject object`
 
           A memory store referenced by the deployment is archived.
 
           - `type: "memory_store_archived_error"`
 
-        - `BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError object`
+        - `BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject object`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `type: "skill_not_found_error"`
 
-        - `BetaManagedAgentsVaultArchivedDeploymentPausedReasonError object`
+        - `BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject object`
 
           A vault referenced by the deployment is archived.
 
           - `type: "vault_archived_error"`
 
-        - `BetaManagedAgentsUnknownDeploymentPausedReasonError object`
+        - `BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject object`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `type: "unknown_error"`
 
-        - `BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError object`
+        - `BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject object`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `type: "self_hosted_resources_unsupported_error"`
 
-        - `BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError object`
+        - `BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject object`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 

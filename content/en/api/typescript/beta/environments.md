@@ -210,6 +210,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -860,9 +861,9 @@ HTTP status 404, error code `environment_not_found`
 - Signature: `client.beta.environments.work.retrieve(workID: string, params: WorkRetrieveParams, options?: RequestOptions): BetaSelfHostedWork`
 - Endpoint: `GET /v1/environments/{environment_id}/work/{work_id}`
 
-Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
-
 Retrieve detailed information about a specific work item.
+
+This endpoint accepts a Claude API key. It rejects the environment key and the work item's `secret`. On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws?sdk_languages=typescript) or [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed?sdk_languages=typescript), use that platform's credentials instead.
 
 #### Example request
 
@@ -1190,8 +1191,6 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - Signature: `client.beta.environments.work.stop(workID: string, params: WorkStopParams, options?: RequestOptions): BetaSelfHostedWork`
 - Endpoint: `POST /v1/environments/{environment_id}/work/{work_id}/stop`
 
-Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
-
 Stop a work item, initiating graceful or forced shutdown.
 
 #### Example request
@@ -1268,9 +1267,9 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - Signature: `client.beta.environments.work.list(environmentID: string, params?: WorkListParams, options?: RequestOptions): PageCursor<BetaSelfHostedWork>`
 - Endpoint: `GET /v1/environments/{environment_id}/work`
 
-Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
-
 List work items in an environment.
+
+This endpoint accepts the environment key as a bearer token. It rejects a Claude API key. On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws?sdk_languages=typescript) or [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed?sdk_languages=typescript), use that platform's credentials instead.
 
 #### Example request
 
@@ -1339,9 +1338,9 @@ interface WorkListParams {
 - Signature: `client.beta.environments.work.update(workID: string, params: WorkUpdateParams, options?: RequestOptions): BetaSelfHostedWork`
 - Endpoint: `POST /v1/environments/{environment_id}/work/{work_id}`
 
-Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
-
 Update work item metadata with merge semantics.
+
+This endpoint accepts a Claude API key. It rejects the environment key and the work item's `secret`. On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws?sdk_languages=typescript) or [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed?sdk_languages=typescript), use that platform's credentials instead.
 
 #### Example request
 

@@ -56,10 +56,10 @@ This page covers the Console side of an MCP tunnels deployment: creating a tunne
 
     What else you need depends on the [credential-provisioning mode](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/concepts#credential-provisioning):
 
-    | With programmatic access                                                                                                                                                                                                                                                                                                                                    | Without programmatic access                                                                                                                                                                                                                         |
-    | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | With programmatic access | Without programmatic access |
+    | ----- | ----- |
     | The **federation rule ID** (`fdrl_...`) of the rule you selected. The rule is org-level, not stored on the tunnel; find it on the **Rules** tab of the [Workload identity](https://platform.claude.com/settings/workload-identity-federation?tab=rules) page (`platform.claude.com/settings/workload-identity-federation?tab=rules`) in the Claude Console. | The **tunnel token**, revealed with the eye icon next to **Token** on the detail page. Treat it as a secret. See [Get the connection details](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#get-the-connection-details). |
-    | The **organization ID** (a UUID), shown on the [Organization](https://platform.claude.com/settings/organization) page (`platform.claude.com/settings/organization`) in the Claude Console.                                                                                                                                                                  | A **CA certificate** that you generate and [register on the tunnel](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#add-a-ca-certificate).                                                                                 |
+    | The **organization ID** (a UUID), shown on the [Organization](https://platform.claude.com/settings/organization) page (`platform.claude.com/settings/organization`) in the Claude Console. | A **CA certificate** that you generate and [register on the tunnel](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/console#add-a-ca-certificate). |
 
     With programmatic access, your stack fetches the tunnel token through the Tunnels API, generates the CA and server certificate locally (the private key never leaves your environment), and registers only the CA’s public certificate with Anthropic. You’re still responsible for securing the private keys and renewing the server certificate before it expires.
   </Step>
@@ -71,10 +71,10 @@ Your organization can have up to 10 active tunnels. Creating a tunnel does not e
 
 Open the tunnel. The detail page shows a **Connection** section with the domain and token and a **Certificates** section.
 
-| Field      | Description                                                                                                                                                                                                         |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Domain** | Copy the assigned `abcd1234.tunnel.anthropic.com` value. Your proxy’s routes are subdomains of this domain.                                                                                                         |
-| **Token**  | Click the eye icon (**Show token**) to fetch the tunnel token, then use the copy icon to copy it into your tunnel stack’s secret store. Click **Rotate token** to invalidate the current token and issue a new one. |
+| Field | Description |
+| ----- | ----- |
+| **Domain** | Copy the assigned `abcd1234.tunnel.anthropic.com` value. Your proxy’s routes are subdomains of this domain. |
+| **Token** | Click the eye icon (**Show token**) to fetch the tunnel token, then use the copy icon to copy it into your tunnel stack’s secret store. Click **Rotate token** to invalidate the current token and issue a new one. |
 
 <Note>
   Every reveal and rotation is recorded in your organization’s [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) activity log. Rotation does not sever cloudflared connections that are already established, so you can rotate, redeploy with the new value, and let the old connections drain.

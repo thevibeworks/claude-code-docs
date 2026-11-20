@@ -56,15 +56,15 @@ You can start a conversation with a small set of always-loaded tools (cached), l
 
 The cache follows a prefix hierarchy (`tools` → `system` → `messages`), so a change at one level invalidates that level and everything after it:
 
-| Change                               | Invalidates                                                                                                                                                                                                                                                             |
-| ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Modifying tool definitions           | Entire cache (tools, system, messages)                                                                                                                                                                                                                                  |
-| Toggling web search or citations     | System and messages caches                                                                                                                                                                                                                                              |
-| Changing `tool_choice`               | Messages cache                                                                                                                                                                                                                                                          |
-| Changing `disable_parallel_tool_use` | Messages cache                                                                                                                                                                                                                                                          |
-| Toggling images present/absent       | Messages cache                                                                                                                                                                                                                                                          |
-| Changing thinking parameters         | Messages cache always; tool and system caches too on models that render the thinking configuration ahead of them (see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching))                        |
-| Changing `output_config.effort`      | Can invalidate the messages cache, and on some models the tool and system caches too (see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching)); sending the default explicitly equals omitting it |
+| Change | Invalidates |
+| ----- | ----- |
+| Modifying tool definitions | Entire cache (tools, system, messages) |
+| Toggling web search or citations | System and messages caches |
+| Changing `tool_choice` | Messages cache |
+| Changing `disable_parallel_tool_use` | Messages cache |
+| Toggling images present/absent | Messages cache |
+| Changing thinking parameters | Messages cache always; tool and system caches too on models that render the thinking configuration ahead of them (see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching)) |
+| Changing `output_config.effort` | Can invalidate the messages cache, and on some models the tool and system caches too (see [Thinking and prompt caching](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-prompt-caching)); sending the default explicitly equals omitting it |
 
 <Note>
   If you need to vary `tool_choice` mid-conversation, consider placing cache breakpoints before the variation point.
@@ -80,17 +80,17 @@ This behavior only applies when your request already has at least one `cache_con
 
 ## Per-tool interaction table
 
-| Tool                                                                                                | Caching considerations                                                                                                                                                                                                                                         |
-| --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool)         | Enabling or disabling invalidates the system and messages caches                                                                                                                                                                                               |
-| [Web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool)           | Enabling or disabling invalidates the system and messages caches                                                                                                                                                                                               |
-| [Code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) | Container state is independent of prompt cache                                                                                                                                                                                                                 |
-| [Tool search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool)       | Discovered tools load as `tool_reference` blocks, preserving prefix cache                                                                                                                                                                                      |
-| [Computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool)     | Screenshot presence affects messages cache; `cache_control` goes on the toolset entry (see [cache\_control on tool definitions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching#cache-control-on-tool-definitions)) |
-| [Browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool)       | Screenshot presence affects messages cache; `cache_control` goes on the toolset entry (see [cache\_control on tool definitions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching#cache-control-on-tool-definitions)) |
-| [Text editor](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool)       | Standard client tool, no special caching interaction                                                                                                                                                                                                           |
-| [Bash](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool)                     | Standard client tool, no special caching interaction                                                                                                                                                                                                           |
-| [Memory](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool)                 | Standard client tool, no special caching interaction                                                                                                                                                                                                           |
+| Tool | Caching considerations |
+| ----- | ----- |
+| [Web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) | Enabling or disabling invalidates the system and messages caches |
+| [Web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool) | Enabling or disabling invalidates the system and messages caches |
+| [Code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) | Container state is independent of prompt cache |
+| [Tool search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool) | Discovered tools load as `tool_reference` blocks, preserving prefix cache |
+| [Computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) | Screenshot presence affects messages cache; `cache_control` goes on the toolset entry (see [cache\_control on tool definitions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching#cache-control-on-tool-definitions)) |
+| [Browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) | Screenshot presence affects messages cache; `cache_control` goes on the toolset entry (see [cache\_control on tool definitions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-use-with-prompt-caching#cache-control-on-tool-definitions)) |
+| [Text editor](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool) | Standard client tool, no special caching interaction |
+| [Bash](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool) | Standard client tool, no special caching interaction |
+| [Memory](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool) | Standard client tool, no special caching interaction |
 
 ## Next steps
 

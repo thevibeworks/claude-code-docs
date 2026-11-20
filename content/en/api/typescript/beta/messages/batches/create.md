@@ -182,6 +182,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -273,7 +274,7 @@ interface Params {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
-  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. */
+  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual. */
   billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
@@ -922,7 +923,7 @@ interface BetaServerToolCaller20260120 {
   tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
-type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
+type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestErrorObject;
 
 interface BetaWebSearchResultBlockParam {
   type: "web_search_result";
@@ -932,7 +933,7 @@ interface BetaWebSearchResultBlockParam {
   page_age?: string | null;
 }
 
-interface BetaWebSearchToolRequestError {
+interface BetaWebSearchToolRequestErrorObject {
   type: "web_search_tool_result_error";
   error_code: BetaWebSearchToolResultErrorCode;
 }

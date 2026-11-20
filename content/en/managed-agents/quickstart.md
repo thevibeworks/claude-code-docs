@@ -47,12 +47,12 @@ Let Claude Code set up your agent for you
 
 ## Core concepts
 
-| Concept         | Description                                                                                                                   |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| **Agent**       | The model, system prompt, tools, MCP servers, and skills                                                                      |
+| Concept | Description |
+| ----- | ----- |
+| **Agent** | The model, system prompt, tools, MCP servers, and skills |
 | **Environment** | Configuration for where sessions run: an Anthropic-managed cloud sandbox, or a self-hosted sandbox on your own infrastructure |
-| **Session**     | A running agent instance within an environment, performing a specific task and generating outputs                             |
-| **Events**      | Messages exchanged between your application and the agent (user turns, tool results, status updates)                          |
+| **Session** | A running agent instance within an environment, performing a specific task and generating outputs |
+| **Events** | Messages exchanged between your application and the agent (user turns, tool results, status updates) |
 
 ## Before you begin
 

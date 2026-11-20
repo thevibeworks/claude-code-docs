@@ -17,13 +17,13 @@ By default, your server sends model calls to the Claude API. This page shows how
 
 The `inference.provider` setting takes these values:
 
-| `inference.provider`  | Model calls go to                              | The server authenticates with            |
-| --------------------- | ---------------------------------------------- | ---------------------------------------- |
-| `anthropic` (default) | The Claude API                                 | `ANTHROPIC_API_KEY`                      |
-| `bedrock`             | Amazon Bedrock                                 | Your AWS credential                      |
-| `vertex`              | Claude Models on Google Cloud (Google managed) | Google Application Default Credentials   |
-| `foundry`             | Microsoft Foundry                              | A Foundry API key, or Microsoft Entra ID |
-| `gateway`             | A model gateway that you run                   | A key or token that your gateway accepts |
+| `inference.provider` | Model calls go to | The server authenticates with |
+| ----- | ----- | ----- |
+| `anthropic` (default) | The Claude API | `ANTHROPIC_API_KEY` |
+| `bedrock` | Amazon Bedrock | Your AWS credential |
+| `vertex` | Claude Models on Google Cloud (Google managed) | Google Application Default Credentials |
+| `foundry` | Microsoft Foundry | A Foundry API key, or Microsoft Entra ID |
+| `gateway` | A model gateway that you run | A key or token that your gateway accepts |
 
 Under every value except `anthropic`, the server needs no Claude API key. It ignores `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, and `ANTHROPIC_BASE_URL`. The one exception is a [model gateway](https://platform.claude.com/docs/en/managed-agents/self-hosted/inference-provider#model-gateway) whose key you tell the server to read from one of those variables.
 

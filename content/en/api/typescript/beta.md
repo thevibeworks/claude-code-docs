@@ -21,6 +21,20 @@ HTTP status 400, error code `organization_not_enrolled_in_beta`
 
     - `error_code: "organization_not_enrolled_in_beta"`
 
+### BetaRequestBodyTimeoutError
+
+HTTP status 400, error code `request_body_timeout`
+
+- `class BetaRequestBodyTimeoutError extends BadRequestError`
+
+  The request body did not finish arriving in time, so nothing was done. Send a smaller body, or send it over a faster connection.
+
+  - `errorCode: "request_body_timeout"`
+
+  - `details: BetaRequestBodyTimeoutErrorDetails`
+
+    - `error_code: "request_body_timeout"`
+
 ### BetaUnsupportedCharsetError
 
 HTTP status 400, error code `unsupported_charset`
@@ -293,6 +307,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -737,7 +752,7 @@ interface MessageCreateParams {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
-  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. */
+  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual. */
   billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
@@ -994,6 +1009,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `ImageDimensionsTooLargeError` (HTTP status 400, error code `image_dimensions_too_large`)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -1030,6 +1049,26 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `UserProfileRequiredError` (HTTP status 400, error code `user_profile_required`)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `LinkedOrganizationBillingUnavailableError` (HTTP status 402, error code `linked_organization_billing_unavailable`)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `LinkedOrganizationSpendLimitReachedError` (HTTP status 402, error code `linked_organization_spend_limit_reached`)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `UserProfileBillingNotAuthorizedError` (HTTP status 403, error code `user_profile_billing_not_authorized`)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `UserProfileNotBillableError` (HTTP status 403, error code `user_profile_not_billable`)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `ThreadNotFoundError` (HTTP status 404, error code `thread_not_found`)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -1041,6 +1080,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 - `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `ContractSpendLimitReachedError` (HTTP status 429, error code `contract_spend_limit_reached`)
+
+  The organization has reached the spend limit of its contract.
 
 - `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
@@ -1745,7 +1788,7 @@ interface BetaServerToolCaller20260120 {
   tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
-type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
+type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestErrorObject;
 
 interface BetaWebSearchResultBlockParam {
   type: "web_search_result";
@@ -1755,7 +1798,7 @@ interface BetaWebSearchResultBlockParam {
   page_age?: string | null;
 }
 
-interface BetaWebSearchToolRequestError {
+interface BetaWebSearchToolRequestErrorObject {
   type: "web_search_tool_result_error";
   error_code: BetaWebSearchToolResultErrorCode;
 }
@@ -2303,7 +2346,7 @@ interface BetaWebFetchToolResultBlock {
 
 interface BetaAdvisorToolResultBlock {
   type: "advisor_tool_result";
-  content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock;
+  content: BetaAdvisorToolResultErrorObject | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
@@ -2315,19 +2358,19 @@ interface BetaCodeExecutionToolResultBlock {
 
 interface BetaBashCodeExecutionToolResultBlock {
   type: "bash_code_execution_tool_result";
-  content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock;
+  content: BetaBashCodeExecutionToolResultErrorObject | BetaBashCodeExecutionResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface BetaTextEditorCodeExecutionToolResultBlock {
   type: "text_editor_code_execution_tool_result";
-  content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock;
+  content: BetaTextEditorCodeExecutionToolResultErrorObject | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface BetaToolSearchToolResultBlock {
   type: "tool_search_tool_result";
-  content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock;
+  content: BetaToolSearchToolResultErrorObject | BetaToolSearchToolSearchResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
@@ -2385,9 +2428,9 @@ interface BetaMCPToolListingBlock {
   tools: Array<BetaMCPTool>;
 }
 
-type BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultError | Array<BetaWebSearchResultBlock>;
+type BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultErrorObject | Array<BetaWebSearchResultBlock>;
 
-interface BetaWebSearchToolResultError {
+interface BetaWebSearchToolResultErrorObject {
   type: "web_search_tool_result_error";
   error_code: BetaWebSearchToolResultErrorCode;
 }
@@ -2427,7 +2470,7 @@ interface BetaCitationConfig {
   enabled: boolean; // default: false
 }
 
-interface BetaAdvisorToolResultError {
+interface BetaAdvisorToolResultErrorObject {
   type: "advisor_tool_result_error";
   error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
 }
@@ -2447,9 +2490,9 @@ interface BetaAdvisorRedactedResultBlock {
   stop_reason: string | null;
 }
 
-type BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultError | BetaCodeExecutionResultBlock | BetaEncryptedCodeExecutionResultBlock;
+type BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultErrorObject | BetaCodeExecutionResultBlock | BetaEncryptedCodeExecutionResultBlock;
 
-interface BetaCodeExecutionToolResultError {
+interface BetaCodeExecutionToolResultErrorObject {
   type: "code_execution_tool_result_error";
   error_code: BetaCodeExecutionToolResultErrorCode;
 }
@@ -2476,7 +2519,7 @@ interface BetaCodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface BetaBashCodeExecutionToolResultError {
+interface BetaBashCodeExecutionToolResultErrorObject {
   type: "bash_code_execution_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
 }
@@ -2494,7 +2537,7 @@ interface BetaBashCodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface BetaTextEditorCodeExecutionToolResultError {
+interface BetaTextEditorCodeExecutionToolResultErrorObject {
   type: "text_editor_code_execution_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
   error_message: string | null;
@@ -2523,7 +2566,7 @@ interface BetaTextEditorCodeExecutionStrReplaceResultBlock {
   old_start: number | null;
 }
 
-interface BetaToolSearchToolResultError {
+interface BetaToolSearchToolResultErrorObject {
   type: "tool_search_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
   error_message: string | null;
@@ -4471,7 +4514,7 @@ interface Params {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
-  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. */
+  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual. */
   billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
@@ -4978,69 +5021,69 @@ interface BetaMessageBatchExpiredResult {
 
 interface BetaErrorResponse {
   type: "error";
-  error: BetaError;
+  error: BetaErrorObject;
   request_id: string | null;
 }
 
-type BetaError = BetaInvalidRequestError | BetaAuthenticationError | BetaBillingError | BetaPermissionError | BetaNotFoundError | BetaRateLimitError | BetaGatewayTimeoutError | BetaAPIError | BetaOverloadedError;
+type BetaErrorObject = BetaInvalidRequestErrorObject | BetaAuthenticationErrorObject | BetaBillingErrorObject | BetaPermissionErrorObject | BetaNotFoundErrorObject | BetaRateLimitErrorObject | BetaGatewayTimeoutErrorObject | BetaAPIErrorObject | BetaOverloadedErrorObject;
 
-interface BetaInvalidRequestError {
+interface BetaInvalidRequestErrorObject {
   /** The broad category of the error. */
   type: "invalid_request_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Invalid request
 }
 
-interface BetaAuthenticationError {
+interface BetaAuthenticationErrorObject {
   /** The broad category of the error. */
   type: "authentication_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Authentication error
 }
 
-interface BetaBillingError {
+interface BetaBillingErrorObject {
   /** The broad category of the error. */
   type: "billing_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Billing error
 }
 
-interface BetaPermissionError {
+interface BetaPermissionErrorObject {
   /** The broad category of the error. */
   type: "permission_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Permission denied
 }
 
-interface BetaNotFoundError {
+interface BetaNotFoundErrorObject {
   /** The broad category of the error. */
   type: "not_found_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Not found
 }
 
-interface BetaRateLimitError {
+interface BetaRateLimitErrorObject {
   /** The broad category of the error. */
   type: "rate_limit_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Rate limited
 }
 
-interface BetaGatewayTimeoutError {
+interface BetaGatewayTimeoutErrorObject {
   /** The broad category of the error. */
   type: "timeout_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Request timeout
 }
 
-interface BetaAPIError {
+interface BetaAPIErrorObject {
   /** The broad category of the error. */
   type: "api_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Internal server error
 }
 
-interface BetaOverloadedError {
+interface BetaOverloadedErrorObject {
   /** The broad category of the error. */
   type: "overloaded_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
@@ -7189,9 +7232,9 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - Signature: `client.beta.environments.work.retrieve(workID: string, params: WorkRetrieveParams, options?: RequestOptions): BetaSelfHostedWork`
 - Endpoint: `GET /v1/environments/{environment_id}/work/{work_id}`
 
-Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
-
 Retrieve detailed information about a specific work item.
+
+This endpoint accepts a Claude API key. It rejects the environment key and the work item's `secret`. On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws?sdk_languages=typescript) or [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed?sdk_languages=typescript), use that platform's credentials instead.
 
 #### Example request
 
@@ -7519,8 +7562,6 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - Signature: `client.beta.environments.work.stop(workID: string, params: WorkStopParams, options?: RequestOptions): BetaSelfHostedWork`
 - Endpoint: `POST /v1/environments/{environment_id}/work/{work_id}/stop`
 
-Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
-
 Stop a work item, initiating graceful or forced shutdown.
 
 #### Example request
@@ -7597,9 +7638,9 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - Signature: `client.beta.environments.work.list(environmentID: string, params?: WorkListParams, options?: RequestOptions): PageCursor<BetaSelfHostedWork>`
 - Endpoint: `GET /v1/environments/{environment_id}/work`
 
-Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
-
 List work items in an environment.
+
+This endpoint accepts the environment key as a bearer token. It rejects a Claude API key. On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws?sdk_languages=typescript) or [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed?sdk_languages=typescript), use that platform's credentials instead.
 
 #### Example request
 
@@ -7668,9 +7709,9 @@ interface WorkListParams {
 - Signature: `client.beta.environments.work.update(workID: string, params: WorkUpdateParams, options?: RequestOptions): BetaSelfHostedWork`
 - Endpoint: `POST /v1/environments/{environment_id}/work/{work_id}`
 
-Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
-
 Update work item metadata with merge semantics.
+
+This endpoint accepts a Claude API key. It rejects the environment key and the work item's `secret`. On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws?sdk_languages=typescript) or [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed?sdk_languages=typescript), use that platform's credentials instead.
 
 #### Example request
 
@@ -9482,7 +9523,7 @@ interface BetaManagedAgentsSessionErrorEvent {
   type: "session.error";
   /** Unique identifier for this event. */
   id: string;
-  error: BetaManagedAgentsUnknownError | BetaManagedAgentsModelOverloadedError | BetaManagedAgentsModelRateLimitedError | BetaManagedAgentsModelRequestFailedError | BetaManagedAgentsMCPConnectionFailedError | BetaManagedAgentsMCPAuthenticationFailedError | BetaManagedAgentsBillingError | BetaManagedAgentsCredentialHostUnreachableError | BetaManagedAgentsToolUseLimitReachedError | BetaManagedAgentsCompactionLimitReachedError | BetaManagedAgentsRepositoryAuthenticationError | BetaManagedAgentsRepositoryForbiddenError | BetaManagedAgentsRepositoryNotFoundError | BetaManagedAgentsRepositoryCheckoutError | BetaManagedAgentsRepositoryCloneError;
+  error: BetaManagedAgentsUnknownErrorObject | BetaManagedAgentsModelOverloadedErrorObject | BetaManagedAgentsModelRateLimitedErrorObject | BetaManagedAgentsModelRequestFailedErrorObject | BetaManagedAgentsMCPConnectionFailedErrorObject | BetaManagedAgentsMCPAuthenticationFailedErrorObject | BetaManagedAgentsBillingErrorObject | BetaManagedAgentsCredentialHostUnreachableErrorObject | BetaManagedAgentsToolUseLimitReachedErrorObject | BetaManagedAgentsCompactionLimitReachedErrorObject | BetaManagedAgentsRepositoryAuthenticationErrorObject | BetaManagedAgentsRepositoryForbiddenErrorObject | BetaManagedAgentsRepositoryNotFoundErrorObject | BetaManagedAgentsRepositoryCheckoutErrorObject | BetaManagedAgentsRepositoryCloneErrorObject;
   /** Timestamp when the error occurred. */
   processed_at: string; // format: date-time
 }
@@ -9837,7 +9878,7 @@ interface BetaManagedAgentsWorkflowRunErrorEvent {
   /** Unique identifier for this event. */
   id: string;
   /** Why the run did not finish, or was not created. */
-  error: BetaManagedAgentsWorkflowRunError;
+  error: BetaManagedAgentsWorkflowRunErrorObject;
   /** Timestamp when this event was processed. */
   processed_at: string; // format: date-time
   /** Identifier of the run that met the error, or `null` when the error kept a run from being created. */
@@ -10004,7 +10045,7 @@ interface BetaManagedAgentsWorkflowRunPhase {
   name: string;
 }
 
-type BetaManagedAgentsWorkflowRunResult = BetaManagedAgentsWorkflowRunResultCompleted | BetaManagedAgentsWorkflowRunResultError | BetaManagedAgentsWorkflowRunResultStopped;
+type BetaManagedAgentsWorkflowRunResult = BetaManagedAgentsWorkflowRunResultCompleted | BetaManagedAgentsWorkflowRunResultErrorObject | BetaManagedAgentsWorkflowRunResultStopped;
 
 /** The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded. */
 interface BetaManagedAgentsWorkflowRunResultCompleted {
@@ -10012,10 +10053,10 @@ interface BetaManagedAgentsWorkflowRunResultCompleted {
 }
 
 /** The run failed or reached its time limit. */
-interface BetaManagedAgentsWorkflowRunResultError {
+interface BetaManagedAgentsWorkflowRunResultErrorObject {
   type: "error";
   /** Why the run did not finish. */
-  error: BetaManagedAgentsWorkflowRunError;
+  error: BetaManagedAgentsWorkflowRunErrorObject;
 }
 
 /** The agent stopped the run. */
@@ -10023,45 +10064,45 @@ interface BetaManagedAgentsWorkflowRunResultStopped {
   type: "stopped";
 }
 
-type BetaManagedAgentsWorkflowRunError = BetaManagedAgentsTimeoutWorkflowRunError | BetaManagedAgentsProgramWorkflowRunError | BetaManagedAgentsUnknownWorkflowRunError | BetaManagedAgentsThreadLimitWorkflowRunError | BetaManagedAgentsMaxWorkflowRunsWorkflowRunError;
+type BetaManagedAgentsWorkflowRunErrorObject = BetaManagedAgentsTimeoutWorkflowRunErrorObject | BetaManagedAgentsProgramWorkflowRunErrorObject | BetaManagedAgentsUnknownWorkflowRunErrorObject | BetaManagedAgentsThreadLimitWorkflowRunErrorObject | BetaManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject;
 
 /** The run reached its time limit. */
-interface BetaManagedAgentsTimeoutWorkflowRunError {
+interface BetaManagedAgentsTimeoutWorkflowRunErrorObject {
   type: "timeout_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** The plan, a program that the agent wrote, failed, or the server refused it. */
-interface BetaManagedAgentsProgramWorkflowRunError {
+interface BetaManagedAgentsProgramWorkflowRunErrorObject {
   type: "program_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** A failure that has no type of its own. */
-interface BetaManagedAgentsUnknownWorkflowRunError {
+interface BetaManagedAgentsUnknownWorkflowRunErrorObject {
   type: "unknown_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** The run exceeded the limit on the number of threads that a run can create. */
-interface BetaManagedAgentsThreadLimitWorkflowRunError {
+interface BetaManagedAgentsThreadLimitWorkflowRunErrorObject {
   type: "thread_limit_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type. */
-interface BetaManagedAgentsMaxWorkflowRunsWorkflowRunError {
+interface BetaManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject {
   type: "max_workflow_runs_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone. */
-interface BetaManagedAgentsUnknownError {
+interface BetaManagedAgentsUnknownErrorObject {
   type: "unknown_error";
   /** Human-readable error description. */
   message: string;
@@ -10070,7 +10111,7 @@ interface BetaManagedAgentsUnknownError {
 }
 
 /** The model is currently overloaded. Emitted after automatic retries are exhausted. */
-interface BetaManagedAgentsModelOverloadedError {
+interface BetaManagedAgentsModelOverloadedErrorObject {
   type: "model_overloaded_error";
   /** Human-readable error description. */
   message: string;
@@ -10079,7 +10120,7 @@ interface BetaManagedAgentsModelOverloadedError {
 }
 
 /** The model request was rate-limited. */
-interface BetaManagedAgentsModelRateLimitedError {
+interface BetaManagedAgentsModelRateLimitedErrorObject {
   type: "model_rate_limited_error";
   /** Human-readable error description. */
   message: string;
@@ -10088,7 +10129,7 @@ interface BetaManagedAgentsModelRateLimitedError {
 }
 
 /** A model request failed for a reason other than overload or rate-limiting. */
-interface BetaManagedAgentsModelRequestFailedError {
+interface BetaManagedAgentsModelRequestFailedErrorObject {
   type: "model_request_failed_error";
   /** Human-readable error description. */
   message: string;
@@ -10097,7 +10138,7 @@ interface BetaManagedAgentsModelRequestFailedError {
 }
 
 /** Failed to connect to an MCP server. */
-interface BetaManagedAgentsMCPConnectionFailedError {
+interface BetaManagedAgentsMCPConnectionFailedErrorObject {
   type: "mcp_connection_failed_error";
   /** Name of the MCP server that failed to connect. */
   mcp_server_name: string;
@@ -10108,7 +10149,7 @@ interface BetaManagedAgentsMCPConnectionFailedError {
 }
 
 /** Authentication to an MCP server failed. */
-interface BetaManagedAgentsMCPAuthenticationFailedError {
+interface BetaManagedAgentsMCPAuthenticationFailedErrorObject {
   type: "mcp_authentication_failed_error";
   /** Name of the MCP server that failed authentication. */
   mcp_server_name: string;
@@ -10119,7 +10160,7 @@ interface BetaManagedAgentsMCPAuthenticationFailedError {
 }
 
 /** The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state. */
-interface BetaManagedAgentsBillingError {
+interface BetaManagedAgentsBillingErrorObject {
   type: "billing_error";
   /** Human-readable error description. */
   message: string;
@@ -10128,7 +10169,7 @@ interface BetaManagedAgentsBillingError {
 }
 
 /** An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit. */
-interface BetaManagedAgentsCredentialHostUnreachableError {
+interface BetaManagedAgentsCredentialHostUnreachableErrorObject {
   type: "credential_host_unreachable_error";
   /** ID of the affected credential. */
   credential_id: string;
@@ -10141,7 +10182,7 @@ interface BetaManagedAgentsCredentialHostUnreachableError {
 }
 
 /** The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn. */
-interface BetaManagedAgentsToolUseLimitReachedError {
+interface BetaManagedAgentsToolUseLimitReachedErrorObject {
   type: "tool_use_limit_reached_error";
   /** Human-readable error description. */
   message: string;
@@ -10150,7 +10191,7 @@ interface BetaManagedAgentsToolUseLimitReachedError {
 }
 
 /** The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn. */
-interface BetaManagedAgentsCompactionLimitReachedError {
+interface BetaManagedAgentsCompactionLimitReachedErrorObject {
   type: "compaction_limit_reached_error";
   /** Human-readable error description. */
   message: string;
@@ -10159,7 +10200,7 @@ interface BetaManagedAgentsCompactionLimitReachedError {
 }
 
 /** The repository host rejected the credentials, or required credentials and received none. */
-interface BetaManagedAgentsRepositoryAuthenticationError {
+interface BetaManagedAgentsRepositoryAuthenticationErrorObject {
   type: "repository_authentication_error";
   /** Human-readable error description. */
   message: string;
@@ -10170,7 +10211,7 @@ interface BetaManagedAgentsRepositoryAuthenticationError {
 }
 
 /** The repository host refused access to the repository. */
-interface BetaManagedAgentsRepositoryForbiddenError {
+interface BetaManagedAgentsRepositoryForbiddenErrorObject {
   type: "repository_forbidden_error";
   /** Human-readable error description. */
   message: string;
@@ -10181,7 +10222,7 @@ interface BetaManagedAgentsRepositoryForbiddenError {
 }
 
 /** The repository host reported the repository as not found. */
-interface BetaManagedAgentsRepositoryNotFoundError {
+interface BetaManagedAgentsRepositoryNotFoundErrorObject {
   type: "repository_not_found_error";
   /** Human-readable error description. */
   message: string;
@@ -10192,7 +10233,7 @@ interface BetaManagedAgentsRepositoryNotFoundError {
 }
 
 /** The requested branch or commit does not exist in the repository. */
-interface BetaManagedAgentsRepositoryCheckoutError {
+interface BetaManagedAgentsRepositoryCheckoutErrorObject {
   type: "repository_checkout_error";
   /** Human-readable error description. */
   message: string;
@@ -10203,7 +10244,7 @@ interface BetaManagedAgentsRepositoryCheckoutError {
 }
 
 /** The repository could not be cloned. */
-interface BetaManagedAgentsRepositoryCloneError {
+interface BetaManagedAgentsRepositoryCloneErrorObject {
   type: "repository_clone_error";
   /** Human-readable error description. */
   message: string;
@@ -11576,78 +11617,78 @@ interface BetaManagedAgentsManualDeploymentPausedReason {
 interface BetaManagedAgentsErrorDeploymentPausedReason {
   type: "error";
   /** The failed run's error. */
-  error: BetaManagedAgentsDeploymentPausedReasonError;
+  error: BetaManagedAgentsDeploymentPausedReasonErrorObject;
 }
 
-type BetaManagedAgentsDeploymentPausedReasonError = BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError | BetaManagedAgentsAgentArchivedDeploymentPausedReasonError | BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError | BetaManagedAgentsFileNotFoundDeploymentPausedReasonError | BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError | BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError | BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError | BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError | BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultArchivedDeploymentPausedReasonError | BetaManagedAgentsUnknownDeploymentPausedReasonError | BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError | BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError;
+type BetaManagedAgentsDeploymentPausedReasonErrorObject = BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject | BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject | BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject | BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject;
 
 /** The deployment's environment was archived. */
-interface BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject {
   type: "environment_archived_error";
 }
 
 /** The deployment's agent was archived. */
-interface BetaManagedAgentsAgentArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject {
   type: "agent_archived_error";
 }
 
 /** The deployment's environment no longer exists. */
-interface BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject {
   type: "environment_not_found_error";
 }
 
 /** A vault referenced by the deployment no longer exists. */
-interface BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject {
   type: "vault_not_found_error";
 }
 
 /** A file resource referenced by the deployment no longer exists. */
-interface BetaManagedAgentsFileNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject {
   type: "file_not_found_error";
 }
 
 /** A referenced resource no longer exists and its kind was not reported. */
-interface BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject {
   type: "session_resource_not_found_error";
 }
 
 /** The deployment's workspace was archived. */
-interface BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject {
   type: "workspace_archived_error";
 }
 
 /** The deployment's organization is disabled. */
-interface BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError {
+interface BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject {
   type: "organization_disabled_error";
 }
 
 /** A memory store referenced by the deployment is archived. */
-interface BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject {
   type: "memory_store_archived_error";
 }
 
 /** A skill referenced by the deployment's agent no longer exists. */
-interface BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject {
   type: "skill_not_found_error";
 }
 
 /** A vault referenced by the deployment is archived. */
-interface BetaManagedAgentsVaultArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject {
   type: "vault_archived_error";
 }
 
 /** An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`. */
-interface BetaManagedAgentsUnknownDeploymentPausedReasonError {
+interface BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject {
   type: "unknown_error";
 }
 
 /** The deployment configures resources, but its environment is self-hosted and cannot mount them. */
-interface BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError {
+interface BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject {
   type: "self_hosted_resources_unsupported_error";
 }
 
 /** An MCP server host used by the deployment's agent is blocked by the environment's network policy. */
-interface BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError {
+interface BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject {
   type: "mcp_egress_blocked_error";
 }
 ```
@@ -12128,7 +12169,7 @@ interface BetaManagedAgentsDeploymentRun {
   /** ID of the deployment that produced this run. */
   deployment_id: string;
   /** Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null. */
-  error: BetaManagedAgentsEnvironmentArchivedRunError | BetaManagedAgentsAgentArchivedRunError | BetaManagedAgentsEnvironmentNotFoundRunError | BetaManagedAgentsVaultNotFoundRunError | BetaManagedAgentsVaultArchivedRunError | BetaManagedAgentsFileNotFoundRunError | BetaManagedAgentsMemoryStoreArchivedRunError | BetaManagedAgentsSkillNotFoundRunError | BetaManagedAgentsSessionResourceNotFoundRunError | BetaManagedAgentsWorkspaceArchivedRunError | BetaManagedAgentsOrganizationDisabledRunError | BetaManagedAgentsSessionRateLimitedRunError | BetaManagedAgentsSessionCreationRejectedRunError | BetaManagedAgentsUnknownRunError | BetaManagedAgentsSelfHostedResourcesUnsupportedRunError | BetaManagedAgentsMCPEgressBlockedRunError | null;
+  error: BetaManagedAgentsEnvironmentArchivedRunErrorObject | BetaManagedAgentsAgentArchivedRunErrorObject | BetaManagedAgentsEnvironmentNotFoundRunErrorObject | BetaManagedAgentsVaultNotFoundRunErrorObject | BetaManagedAgentsVaultArchivedRunErrorObject | BetaManagedAgentsFileNotFoundRunErrorObject | BetaManagedAgentsMemoryStoreArchivedRunErrorObject | BetaManagedAgentsSkillNotFoundRunErrorObject | BetaManagedAgentsSessionResourceNotFoundRunErrorObject | BetaManagedAgentsWorkspaceArchivedRunErrorObject | BetaManagedAgentsOrganizationDisabledRunErrorObject | BetaManagedAgentsSessionRateLimitedRunErrorObject | BetaManagedAgentsSessionCreationRejectedRunErrorObject | BetaManagedAgentsUnknownRunErrorObject | BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject | BetaManagedAgentsMCPEgressBlockedRunErrorObject | null;
   /** Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null. */
   session_id: string | null;
   /** What triggered this run and trigger-specific metadata. */
@@ -12140,112 +12181,112 @@ interface BetaManagedAgentsDeploymentRun {
 
 ```ts
 /** The deployment's environment was archived. */
-interface BetaManagedAgentsEnvironmentArchivedRunError {
+interface BetaManagedAgentsEnvironmentArchivedRunErrorObject {
   type: "environment_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment's agent was archived. */
-interface BetaManagedAgentsAgentArchivedRunError {
+interface BetaManagedAgentsAgentArchivedRunErrorObject {
   type: "agent_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment's environment no longer exists. */
-interface BetaManagedAgentsEnvironmentNotFoundRunError {
+interface BetaManagedAgentsEnvironmentNotFoundRunErrorObject {
   type: "environment_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A vault referenced by the deployment no longer exists. */
-interface BetaManagedAgentsVaultNotFoundRunError {
+interface BetaManagedAgentsVaultNotFoundRunErrorObject {
   type: "vault_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A vault referenced by the deployment is archived. */
-interface BetaManagedAgentsVaultArchivedRunError {
+interface BetaManagedAgentsVaultArchivedRunErrorObject {
   type: "vault_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A file resource referenced by the deployment no longer exists. */
-interface BetaManagedAgentsFileNotFoundRunError {
+interface BetaManagedAgentsFileNotFoundRunErrorObject {
   type: "file_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A memory store referenced by the deployment is archived. */
-interface BetaManagedAgentsMemoryStoreArchivedRunError {
+interface BetaManagedAgentsMemoryStoreArchivedRunErrorObject {
   type: "memory_store_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A skill referenced by the deployment's agent no longer exists. */
-interface BetaManagedAgentsSkillNotFoundRunError {
+interface BetaManagedAgentsSkillNotFoundRunErrorObject {
   type: "skill_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A referenced resource no longer exists and its kind was not reported. */
-interface BetaManagedAgentsSessionResourceNotFoundRunError {
+interface BetaManagedAgentsSessionResourceNotFoundRunErrorObject {
   type: "session_resource_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment's workspace was archived. */
-interface BetaManagedAgentsWorkspaceArchivedRunError {
+interface BetaManagedAgentsWorkspaceArchivedRunErrorObject {
   type: "workspace_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment's organization is disabled. */
-interface BetaManagedAgentsOrganizationDisabledRunError {
+interface BetaManagedAgentsOrganizationDisabledRunErrorObject {
   type: "organization_disabled_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed. */
-interface BetaManagedAgentsSessionRateLimitedRunError {
+interface BetaManagedAgentsSessionRateLimitedRunErrorObject {
   type: "session_rate_limited_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The session create request was rejected with a non-retryable validation error. */
-interface BetaManagedAgentsSessionCreationRejectedRunError {
+interface BetaManagedAgentsSessionCreationRejectedRunErrorObject {
   type: "session_creation_rejected_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone. */
-interface BetaManagedAgentsUnknownRunError {
+interface BetaManagedAgentsUnknownRunErrorObject {
   type: "unknown_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment configures resources, but its environment is self-hosted and cannot mount them. */
-interface BetaManagedAgentsSelfHostedResourcesUnsupportedRunError {
+interface BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject {
   type: "self_hosted_resources_unsupported_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** An MCP server host used by the deployment's agent is blocked by the environment's network policy. */
-interface BetaManagedAgentsMCPEgressBlockedRunError {
+interface BetaManagedAgentsMCPEgressBlockedRunErrorObject {
   type: "mcp_egress_blocked_error";
   /** Human-readable error description. */
   message: string;
@@ -17016,7 +17057,7 @@ interface BetaDream {
   /** When the dream reached `completed`, `failed`, or `canceled`, in RFC 3339, or `null` if it is still `pending` or `running`. */
   ended_at: string | null; // format: date-time
   /** Why the dream failed, or `null` if `status` isn't `failed`. */
-  error: BetaDreamError | null;
+  error: BetaDreamErrorObject | null;
   /** The sources that the dream reads, from the request that created it. */
   inputs: Array<BetaDreamInput>;
   /** The guidance given when the dream was created, or `null` if none was given. */
@@ -17051,7 +17092,7 @@ interface BetaDreamModelConfigParam {
 
 type BetaOutputBehavior = BetaOutputBehaviorCreateNew | BetaOutputBehaviorUpdateExisting;
 
-interface BetaDreamError {
+interface BetaDreamErrorObject {
   /** A code for why the dream failed, such as `timeout` or `internal_error`. The [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams?sdk_languages=typescript#errors) lists common error codes and when they occur. */
   type: string;
   /** A human-readable explanation of why the dream failed. */
@@ -18384,7 +18425,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › External Keys
 
@@ -18485,14 +18526,14 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
 ```ts
 interface BetaAWSExternalKeyConfig {
   type: "aws";
-  /** Full ARN of the AWS KMS key. On Claude Platform on AWS, alias ARNs are rejected, and your organization's own key must be a single-Region key in your organization's AWS account. */
+  /** Full ARN of the AWS KMS key. On Claude Platform on AWS, alias ARNs are rejected, and your organization's own key must be a single-Region key. */
   kms_arn: string; // maxLength: 2048
   /** AWS region. Derived from `kms_arn` if omitted. */
   region?: string | null;
@@ -18668,8 +18709,8 @@ externalKeyID: string; // path parameter, maxLength: 2048
 Partially update an external key config. Omitted fields are left unchanged.
 
 `display_name` is always editable. `geo` and `provider_config` cannot
-be changed once any workspace references this config, because previously
-encrypted data requires the original key identity to decrypt.
+be changed once any workspace references this config, and a Google Cloud
+key's provider and `key_name` cannot be changed at all.
 
 #### Example request
 
@@ -18737,7 +18778,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Delete External Key
 
@@ -18798,7 +18839,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Validate External Key
 
@@ -18862,7 +18903,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Federation › Issuers
 
@@ -18994,7 +19035,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -19270,7 +19311,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Archive Federation Issuer
 
@@ -19350,7 +19391,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Federation › Rules
 
@@ -19521,7 +19562,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -19836,7 +19877,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Archive Federation Rule
 
@@ -19931,7 +19972,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Federation › Rules › Workspaces
 
@@ -20021,7 +20062,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### List Federation Rule Workspaces
 
@@ -20162,7 +20203,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Invites
 
@@ -20282,7 +20323,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -20456,7 +20497,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Service Accounts
 
@@ -20561,7 +20602,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### List Service Accounts
 
@@ -20755,7 +20796,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Archive Service Account
 
@@ -20823,7 +20864,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Service Accounts › Workspaces
 
@@ -20914,7 +20955,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -21074,7 +21115,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Users
 
@@ -21251,7 +21292,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Remove User
 
@@ -21311,7 +21352,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 - `ConcurrentMembershipChangeError` (HTTP status 409, error code `concurrent_membership_change`)
 
@@ -21404,7 +21445,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Workspaces
 
@@ -21497,7 +21538,7 @@ interface BetaWorkspace {
   data_residency: BetaDataResidency;
   /** Hex color code representing the Workspace in the Anthropic Console. */
   display_color: string;
-  /** ID of the customer-managed encryption key (CMEK) configuration to use for this Workspace. Setting this field requires CMEK to be enabled for your organization. When set, data stored for this Workspace is encrypted with the referenced key. Create key configurations with the External Keys API. On Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your organization's own key must be a single-Region key in the same AWS account and Region as the Workspace. On that platform the key is validated against this Workspace when it is attached, so a key-policy problem is reported as an error on this request. This field is write-once: once a key is attached to a Workspace it cannot be detached or replaced. To rotate key material, rotate the underlying key on your cloud KMS; the `external_key_id` stays the same. */
+  /** ID of the customer-managed encryption key (CMEK) configuration to use for this Workspace. Setting this field requires CMEK to be enabled for your organization. When set, data stored for this Workspace is encrypted with the referenced key. Create key configurations with the External Keys API. On Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your organization's own key must be a single-Region key in the same Region as the Workspace. If that key is outside the Workspace's AWS account, it can be attached only by updating an active Workspace. On that platform the key is validated against this Workspace when it is attached, so a key-policy problem is reported as an error on this request. This field is write-once: once a key is attached to a Workspace it cannot be detached or replaced. To rotate key material, rotate the underlying key on your cloud KMS; the `external_key_id` stays the same. */
   external_key_id: string | null;
   /** Name of the Workspace. */
   name: string;
@@ -21579,7 +21620,7 @@ interface WorkspaceCreateParams {
   data_residency?: BetaDataResidencyCreateConfig | null;
   /** Hex color code representing the Workspace in the Anthropic Console. */
   display_color?: string | null; // maxLength: 7, pattern: ^#[0-9A-Fa-f]{6}$
-  /** ID of the customer-managed encryption key (CMEK) configuration to use for this Workspace. Setting this field requires CMEK to be enabled for your organization. When set, data stored for this Workspace is encrypted with the referenced key. Create key configurations with the External Keys API. On Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your organization's own key must be a single-Region key in the same AWS account and Region as the Workspace. On that platform the key is validated against this Workspace when it is attached, so a key-policy problem is reported as an error on this request. This field is write-once: once a key is attached to a Workspace it cannot be detached or replaced. To rotate key material, rotate the underlying key on your cloud KMS; the `external_key_id` stays the same. */
+  /** ID of the customer-managed encryption key (CMEK) configuration to use for this Workspace. Setting this field requires CMEK to be enabled for your organization. When set, data stored for this Workspace is encrypted with the referenced key. Create key configurations with the External Keys API. On Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your organization's own key must be a single-Region key in the same Region as the Workspace. If that key is outside the Workspace's AWS account, it can be attached only by updating an active Workspace. On that platform the key is validated against this Workspace when it is attached, so a key-policy problem is reported as an error on this request. This field is write-once: once a key is attached to a Workspace it cannot be detached or replaced. To rotate key material, rotate the underlying key on your cloud KMS; the `external_key_id` stays the same. */
   external_key_id?: string | null;
   /** User-defined tags as string key-value pairs. Keys may not begin with `anthropic`. */
   tags?: Record<string, string> | null;
@@ -21616,7 +21657,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 - `ExternalKeyChangedError` (HTTP status 409, error code `external_key_changed`)
 
@@ -21740,7 +21781,7 @@ interface WorkspaceUpdateParams {
   data_residency?: BetaDataResidencyUpdateConfig | null;
   /** Hex color code representing the Workspace in the Anthropic Console. */
   display_color?: string; // maxLength: 7, pattern: ^#[0-9A-Fa-f]{6}$
-  /** ID of the customer-managed encryption key (CMEK) configuration to use for this Workspace. Setting this field requires CMEK to be enabled for your organization. When set, data stored for this Workspace is encrypted with the referenced key. Create key configurations with the External Keys API. On Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your organization's own key must be a single-Region key in the same AWS account and Region as the Workspace. On that platform the key is validated against this Workspace when it is attached, so a key-policy problem is reported as an error on this request. This field is write-once: once a key is attached to a Workspace it cannot be detached or replaced. To rotate key material, rotate the underlying key on your cloud KMS; the `external_key_id` stays the same. */
+  /** ID of the customer-managed encryption key (CMEK) configuration to use for this Workspace. Setting this field requires CMEK to be enabled for your organization. When set, data stored for this Workspace is encrypted with the referenced key. Create key configurations with the External Keys API. On Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your organization's own key must be a single-Region key in the same Region as the Workspace. If that key is outside the Workspace's AWS account, it can be attached only by updating an active Workspace. On that platform the key is validated against this Workspace when it is attached, so a key-policy problem is reported as an error on this request. This field is write-once: once a key is attached to a Workspace it cannot be detached or replaced. To rotate key material, rotate the underlying key on your cloud KMS; the `external_key_id` stays the same. */
   external_key_id?: string;
   /** Name of the Workspace. */
   name?: string; // minLength: 1, maxLength: 255
@@ -21777,7 +21818,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 - `ExternalKeyChangedError` (HTTP status 409, error code `external_key_changed`)
 
@@ -21850,7 +21891,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Workspaces › Rate Limits
 
@@ -22006,7 +22047,7 @@ interface BetaOrganizationRateLimitWebSearchGroup {
 }
 
 interface BetaWorkspaceRateLimitValue {
-  /** The limiter type (for example, `requests_per_minute` or `input_tokens_per_minute`). */
+  /** The limiter type (for example, `requests_per_minute` or `input_tokens_per_minute_cache_aware`). */
   type: string;
   /** The organization-level value for the same limiter type, for reference. `null` when the organization has no limit configured for this limiter type. */
   org_limit: number | null;
@@ -22109,13 +22150,13 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
 ```ts
 interface BetaWorkspaceRateLimitUpdateValue {
-  /** Rate limiter type. */
+  /** Rate limiter type. `input_tokens_per_minute` counts every input token, cache reads included. `input_tokens_per_minute_cache_aware` does not count cache reads, and on current models the organization's input-token limit usually has this type. A workspace limit of either type applies alongside the organization's limit, not in place of it. Because cache reads count toward an `input_tokens_per_minute` limit, it can reject requests that read mostly from the cache while the organization's limit still has room. */
   type: BetaWorkspaceRateLimitType;
   /** New limit value. Set to null to clear the workspace override and fall back to the organization limit. */
   value: number | null; // minimum: 0, maximum: 9007199254740991
@@ -22254,7 +22295,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Get Workspace Member
 
@@ -22358,7 +22399,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Delete Workspace Member
 
@@ -22422,7 +22463,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Workspaces › Service Accounts
 
@@ -22564,7 +22605,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Get Service Account Workspace Member
 
@@ -22695,7 +22736,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Delete Service Account Workspace Member
 
@@ -22771,7 +22812,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Rate Limits
 
@@ -22869,7 +22910,7 @@ interface BetaOrganizationRateLimit {
 
 ```ts
 interface BetaOrganizationRateLimitValue {
-  /** The limiter type (for example, `requests_per_minute` or `input_tokens_per_minute`). */
+  /** The limiter type (for example, `requests_per_minute` or `input_tokens_per_minute_cache_aware`). */
   type: string;
   /** The configured limit value for this limiter type. */
   value: number;
@@ -23004,7 +23045,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 #### Types
 
@@ -24720,7 +24761,7 @@ interface BetaAnalyticsUsageGroup {
   model: string | null;
   /** UUID of the child organization the usage belongs to, on a parent organization's report across its children. Null unless `organization_id` is in `group_by[]`. */
   organization_id: string | null; // beta header: analytics-usage-cost-2026-08-24
-  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude_tag`, and `chat_cowork_unified`. `claude_tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other". */
+  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude_tag`, and `chat_cowork_unified`. `claude_tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. `cc_security_autopatch` is work that Claude Security runs for the organization. Some unattributed usage is reported as "other". */
   product: string | null;
   /** RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`. */
   rbac_group_id: string | null;
@@ -25040,7 +25081,7 @@ interface BetaAnalyticsCostGroup {
   model: string | null;
   /** UUID of the child organization the usage belongs to, on a parent organization's report across its children. Null unless `organization_id` is in `group_by[]`. */
   organization_id: string | null; // beta header: analytics-usage-cost-2026-08-24
-  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude_tag`, and `chat_cowork_unified`. `claude_tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other". */
+  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude_tag`, and `chat_cowork_unified`. `claude_tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. `cc_security_autopatch` is work that Claude Security runs for the organization. Some unattributed usage is reported as "other". */
   product: string | null;
   /** RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`. */
   rbac_group_id: string | null;
@@ -25210,7 +25251,7 @@ interface BetaAnalyticsUsageBucketedResult {
   model: string | null;
   /** The number of output tokens generated. */
   output_tokens: number;
-  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other". */
+  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. `cc_security_autopatch` is work that Claude Security runs for the organization. Some unattributed usage is reported as "other". */
   product: string | null;
   /** RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`. */
   rbac_group_id: string | null;
@@ -25236,7 +25277,7 @@ interface BetaAnalyticsUsageBucketedResult {
 
 [Legacy] Get per-user token usage across a date range.
 
-Returns usage per user, ranked by the chosen token metric; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users consume the most tokens. Only usage attributed to a user account is included, so usage with no user account, such as Code Review usage and Claude Tag usage in Slack channels, is left out. Claude Tag one-to-one direct messages are included, with product `claude-tag`, only for members who have connected a Claude account. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
+Returns usage per user, ranked by the chosen token metric; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users consume the most tokens. Only usage attributed to a user account is included, so usage with no user account, such as Code Review usage and Claude Tag usage in Slack channels, is left out. Claude Tag one-to-one direct messages are included, with product `claude-tag`, only for members who have connected a Claude account. To see all usage by product, call `GET /v1/organizations/analytics/usage_report` with `group_by[]=product`. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
 
 This endpoint is one of the legacy Claude Enterprise usage and cost reports. For new integrations, use [`GET /v1/organizations/analytics/usage`](https://platform.claude.com/docs/en/api/beta/organization/analytics/usage/list?sdk_languages=typescript) in the Usage and Cost Analytics API instead. To move an existing integration, see [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api?sdk_languages=typescript#migrate-from-enterprise-analytics-reports).
 
@@ -25371,7 +25412,7 @@ interface BetaAnalyticsUsageUsersItem {
   model: string | null;
   /** The number of output tokens generated. */
   output_tokens: number;
-  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other". */
+  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. `cc_security_autopatch` is work that Claude Security runs for the organization. Some unattributed usage is reported as "other". */
   product: string | null;
   /** RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`. */
   rbac_group_id: string | null;
@@ -25549,7 +25590,7 @@ interface BetaAnalyticsCostBucketedResult {
   list_amount: string;
   /** Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution. */
   model: string | null;
-  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other". */
+  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. `cc_security_autopatch` is work that Claude Security runs for the organization. Some unattributed usage is reported as "other". */
   product: string | null;
   /** RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`. */
   rbac_group_id: string | null;
@@ -25575,7 +25616,7 @@ type BetaAnalyticsCostType = "code_execution" | "tokens" | "web_search";
 
 [Legacy] Get per-user cost in USD across a date range.
 
-Returns cost per user, ranked by spend; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users account for the most cost. Only cost attributed to a user account is included, so cost with no user account, such as Code Review usage and Claude Tag usage in Slack channels, is left out. Claude Tag one-to-one direct messages are included, with product `claude-tag`, only for members who have connected a Claude account. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
+Returns cost per user, ranked by spend; `group_by[]` or `bucket_width` splits a user across several rows. Use this to see which users account for the most cost. Only cost attributed to a user account is included, so cost with no user account, such as Code Review usage and Claude Tag usage in Slack channels, is left out. Claude Tag one-to-one direct messages are included, with product `claude-tag`, only for members who have connected a Claude account. To see all cost by product, call `GET /v1/organizations/analytics/cost_report` with `group_by[]=product`. Available to organizations on a Claude Enterprise plan. Requires an API key with the `read:analytics` scope.
 
 This endpoint is one of the legacy Claude Enterprise usage and cost reports. For new integrations, use [`GET /v1/organizations/analytics/cost`](https://platform.claude.com/docs/en/api/beta/organization/analytics/cost/list?sdk_languages=typescript) in the Usage and Cost Analytics API instead. To move an existing integration, see [Migrate from the Claude Enterprise usage and cost reports](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api?sdk_languages=typescript#migrate-from-enterprise-analytics-reports).
 
@@ -25706,7 +25747,7 @@ interface BetaAnalyticsCostUsersItem {
   list_amount: string;
   /** Model that produced the usage or cost, as a model name in the form the `models[]` filter accepts (for example, `claude-opus-5-5`). Null unless `model` is in `group_by[]`; it can also be null on grouped rows whose usage or cost is not attributed to a specific model, such as code execution. */
   model: string | null;
-  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. Some unattributed usage is reported as "other". */
+  /** Product surface that produced the usage or cost. Null unless product is in `group_by[]`; it can also be null on grouped rows whose usage cannot be attributed to a known surface. Values include `chat`, `claude_code`, `cowork`, `office_agent`, `claude_in_chrome`, `claude_design`, `claude-tag`, and `chat_cowork_unified`. `claude-tag` is Claude Tag, the Claude product in Slack. `chat_cowork_unified` is Chat and Cowork unified, Cowork's features inside claude.ai chat: chat and Cowork usage by a member who has it turned on is reported under this value instead of `chat` or `cowork`. It is accepted as a filter only where Chat and Cowork unified is available. `cc_security_autopatch` is work that Claude Security runs for the organization. Some unattributed usage is reported as "other". */
   product: string | null;
   /** RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`. */
   rbac_group_id: string | null;
@@ -25822,7 +25863,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 - `BetaSpendLimitsAdminAPIWritesNotEnabledError` (HTTP status 403, error code `spend_limits_admin_api_writes_not_enabled`)
 
@@ -25989,7 +26030,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 - `BetaSpendLimitsAdminAPIWritesNotEnabledError` (HTTP status 403, error code `spend_limits_admin_api_writes_not_enabled`)
 
@@ -26543,7 +26584,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Deny Spend Limit Increase Request
 
@@ -26639,7 +26680,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › RBAC Groups
 
@@ -26720,7 +26761,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### List RBAC Groups
 
@@ -26882,7 +26923,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Delete RBAC Group
 
@@ -26948,7 +26989,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › RBAC Groups › Members
 
@@ -27091,7 +27132,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Remove RBAC Group Member
 
@@ -27168,7 +27209,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › RBAC Roles
 
@@ -27641,6 +27682,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
 
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 - `BetaPluginNameTakenError` (HTTP status 409, error code `plugin_name_taken`)
 
   The marketplace already holds this name. `plugin_id` is the Plugin that holds it, and can be absent.
@@ -27793,8 +27838,11 @@ interface PluginRetrieveParams {
 
 Change which stored version of an organization-owned Plugin is served to members,
 for example to roll back to an earlier one. This pins the served version: later
-uploads are stored but no longer change what is served, and pinning cannot currently
-be undone, here or in claude.ai.
+uploads through this API are stored but no longer change what is served, and pinning
+cannot currently be undone, here or in claude.ai.
+
+A version from claude.ai might still change what is served: see [Versions and the served version](https://platform.claude.com/docs/en/manage-claude/plugins-api?sdk_languages=typescript#versions-and-the-served-version)
+in the Plugins API guide.
 
 Pass the version as `served_version_id`: an earlier one to roll back, a later one to
 start serving a version that was stored without being served, or the one already
@@ -27906,6 +27954,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - `BetaScanFailedError` (HTTP status 400, error code `scan_failed`)
 
   The version in `plugin_version_id` did not pass its content scan, so it cannot be served.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 - `BetaScanPendingError` (HTTP status 409, error code `scan_pending`)
 
@@ -28103,6 +28155,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
 
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ## Beta › Organization › Plugins › Versions
 
 ### Create Plugin Version
@@ -28247,6 +28303,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - `BetaUnsupportedCharsetError` (HTTP status 400, error code `unsupported_charset`)
 
   The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 - `BetaSkillNameTakenError` (HTTP status 409, error code `skill_name_taken`)
 
@@ -28496,6 +28556,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   The key management service's network access controls blocked the request to the workspace's customer-managed encryption key. The key itself may be healthy.
 
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ## Beta › Organization › Plugins › Installation Settings
 
 ### List Plugin Installation Settings
@@ -28688,6 +28752,14 @@ interface InstallationSettingSetParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Remove Plugin Installation Setting
 
 - Signature: `client.beta.organization.plugins.installationSettings.remove(target: string, params: InstallationSettingRemoveParams, options?: RequestOptions): BetaDeletedPluginInstallationSetting`
@@ -28773,6 +28845,14 @@ interface BetaDeletedPluginInstallationSetting {
   target: BetaPluginTargetOrganization | BetaPluginTargetRBACGroup | BetaPluginTargetOrganizationMember;
 }
 ```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Plugins › Shares
 
@@ -29098,6 +29178,14 @@ interface PluginMarketplaceUpdateParams {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 ### Validate Plugin Marketplace Repository
 
 - Signature: `client.beta.organization.pluginMarketplaces.validateRepository(params: PluginMarketplaceValidateRepositoryParams, options?: RequestOptions): BetaPluginMarketplaceValidationReport`
@@ -29201,7 +29289,7 @@ interface BetaPluginMarketplaceValidationReport {
   /** A stable identifier for `manifest_error`; null when that is. */
   manifest_error_code: string | null;
   /** One entry per plugin a synchronization would skip entirely, keyed by the plugin's name in marketplace.json. */
-  plugin_errors: Array<BetaPluginMarketplaceValidationPluginError>;
+  plugin_errors: Array<BetaPluginMarketplaceValidationPluginErrorObject>;
   /** One entry per plugin that would synchronize with some of its contents left out, keyed by the plugin's name in marketplace.json. */
   plugin_warnings: Array<BetaPluginMarketplaceValidationPluginWarnings>;
   /** For a repository, the branch that was read by name: the one requested, or else the branch a synchronization of this repository is set to read. Null when no branch is named or set and the repository's default branch was read, for a request by commit SHA, and for an uploaded archive. */
@@ -29213,10 +29301,18 @@ interface BetaPluginMarketplaceValidationReport {
 }
 ```
 
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
 #### Types
 
 ```ts
-interface BetaPluginMarketplaceValidationPluginError {
+interface BetaPluginMarketplaceValidationPluginErrorObject {
   /** Why the plugin would be skipped by a synchronization. */
   error: string;
   /** A stable identifier for the reason — the value to branch on. */
@@ -29335,6 +29431,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - `BetaUnsupportedCharsetError` (HTTP status 400, error code `unsupported_charset`)
 
   The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Telemetry Destinations
 
@@ -30544,7 +30644,7 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ### Regenerate Organization Webhook Endpoint Signing Secret
 
@@ -30608,7 +30708,734 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this change. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+## Beta › Organization › Claude Code › Managed Settings › Configuration
+
+### Get Claude Code Managed Settings Configuration
+
+- Signature: `client.beta.organization.claudeCode.managedSettings.configuration.retrieve(params?: ConfigurationRetrieveParams, options?: RequestOptions): BetaClaudeCodeManagedSettingsConfiguration`
+- Endpoint: `GET /v1/organizations/claude_code/managed_settings/configuration`
+- Beta header: `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`
+
+Retrieve the organization's Claude Code managed settings mode and RBAC Group order.
+
+**Accepted credentials:** an organization-level Admin API key with the `read:claude_code_managed_settings` scope.
+
+Every request must include the beta header `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`. A request without it, or from an organization not enabled for this beta, returns `404`. The Claude Code Managed Settings API is in beta and is available to Claude Enterprise organizations only.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaClaudeCodeManagedSettingsConfiguration =
+  await client.beta.organization.claudeCode.managedSettings.configuration.retrieve();
+
+console.log(betaClaudeCodeManagedSettingsConfiguration.mode);
+```
+
+#### Example response (200)
+
+```json
+{
+  "mode": {
+    "type": "organization"
+  },
+  "mode_updated_at": "2019-12-27T18:11:19.117Z",
+  "rbac_group_order": [
+    "rbac_group_012rppKaSVsmTo6NqRDXQXNF"
+  ],
+  "rbac_group_order_version": "rbac_group_order_version",
+  "type": "claude_code_managed_settings_configuration"
+}
+```
+
+#### Parameters
+
+```ts
+interface ConfigurationRetrieveParams {
+  /** This endpoint is in beta: requests must send `ce-claude-code-managed-settings-2026-10-06` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Returns
+
+```ts
+interface BetaClaudeCodeManagedSettingsConfiguration {
+  /** Always `claude_code_managed_settings_configuration`. */
+  type: "claude_code_managed_settings_configuration";
+  /** How the organization serves managed settings. In `organization` mode every member receives the organization settings, which are set in claude.ai. In `rbac_groups` mode each member receives the settings of the first RBAC Group in `rbac_group_order` that they belong to. A member in none of them receives the default settings, or no settings if no default is set. */
+  mode: BetaClaudeCodeManagedSettingsMode;
+  /** When the mode last changed, in RFC 3339 format, or `null` if it never has. */
+  mode_updated_at: string | null; // format: date-time
+  /** The ID of every RBAC Group with settings, deleted groups included, highest precedence first. */
+  rbac_group_order: Array<string>;
+  /** An opaque version of `rbac_group_order`, which changes whenever the order does. Send it back with a new order. */
+  rbac_group_order_version: string;
+}
+```
+
+#### Types
+
+```ts
+type BetaClaudeCodeManagedSettingsMode = BetaClaudeCodeManagedSettingsOrganizationMode | BetaClaudeCodeManagedSettingsRBACGroupsMode;
+
+interface BetaClaudeCodeManagedSettingsOrganizationMode {
+  /** Always `organization`. */
+  type: "organization";
+}
+
+interface BetaClaudeCodeManagedSettingsRBACGroupsMode {
+  /** Always `rbac_groups`. */
+  type: "rbac_groups";
+}
+```
+
+### Update Claude Code Managed Settings Configuration
+
+- Signature: `client.beta.organization.claudeCode.managedSettings.configuration.update(params: ConfigurationUpdateParams, options?: RequestOptions): BetaClaudeCodeManagedSettingsConfiguration`
+- Endpoint: `POST /v1/organizations/claude_code/managed_settings/configuration`
+- Beta header: `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`
+
+Change the organization's Claude Code managed settings mode, the RBAC Group order, or both, in one atomic write.
+
+To change the order, send `rbac_group_order` with the `rbac_group_order_version` from the read the change is based on. If the order has changed since that read, the request returns `409`: read it again and retry. To switch modes only if the order has not changed, send the current `rbac_group_order` and `rbac_group_order_version` with the new `mode`.
+
+A switch to `rbac_groups` mode with no RBAC Group settings and no default settings copies the organization settings into a new default, in the same write, so members keep the settings they had. The copy does not follow later changes to the organization settings. If the organization settings cannot be copied, the request returns `400` and changes nothing. If they cannot be read, are over 1 MiB or are not valid, setting the default settings first avoids the copy.
+
+After a switch to `rbac_groups` mode, a member in no listed RBAC Group receives the default settings, or no settings if no default is set, not the organization settings.
+
+**Accepted credentials:** an organization-level Admin API key with the `write:claude_code_managed_settings` scope.
+
+Every request must include the beta header `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`. A request without it, or from an organization not enabled for this beta, returns `404`. The Claude Code Managed Settings API is in beta and is available to Claude Enterprise organizations only.
+
+A write that returns `503` may have applied. Retrying it is safe.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaClaudeCodeManagedSettingsConfiguration =
+  await client.beta.organization.claudeCode.managedSettings.configuration.update({});
+
+console.log(betaClaudeCodeManagedSettingsConfiguration.mode);
+```
+
+#### Example response (200)
+
+```json
+{
+  "mode": {
+    "type": "organization"
+  },
+  "mode_updated_at": "2019-12-27T18:11:19.117Z",
+  "rbac_group_order": [
+    "rbac_group_012rppKaSVsmTo6NqRDXQXNF"
+  ],
+  "rbac_group_order_version": "rbac_group_order_version",
+  "type": "claude_code_managed_settings_configuration"
+}
+```
+
+#### Parameters
+
+```ts
+interface ConfigurationUpdateParams {
+  /** The new mode, as an object such as `{"type": "rbac_groups"}`. */
+  mode?: BetaClaudeCodeManagedSettingsModeParam;
+  /** Every RBAC Group that has settings, each listed once, in the new order, highest precedence first. Requires `rbac_group_order_version`. */
+  rbac_group_order?: Array<string>;
+  /** The `rbac_group_order_version` from the read this change is based on. Requires `rbac_group_order`. */
+  rbac_group_order_version?: string;
+  /** This endpoint is in beta: requests must send `ce-claude-code-managed-settings-2026-10-06` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `BetaRequestBodyTimeoutError` (HTTP status 400, error code `request_body_timeout`)
+
+  The request body did not finish arriving in time, so nothing was done. Send a smaller body, or send it over a faster connection.
+
+- `BetaSettingsDocumentLimitExceededError` (HTTP status 400, error code `settings_document_limit_exceeded`)
+
+  The organization has reached its limit of settings documents, counting unused ones. An owner can remove unused documents in claude.ai. Deleting a group's settings or clearing the default settings also frees a document, if nothing else uses it. None of these works once the organization has also reached its settings history limit.
+
+- `BetaSettingsHistoryLimitExceededError` (HTTP status 400, error code `settings_history_limit_exceeded`)
+
+  The organization has reached its settings history limit, a cap on stored versions of its settings documents. Nothing in the API or claude.ai lowers the count, so contact support. Creating or deleting group settings, creating or clearing the default settings, and reordering are refused. Changing the mode still works, unless it would copy the organization settings into a new default.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+#### Types
+
+```ts
+type BetaClaudeCodeManagedSettingsModeParam = BetaClaudeCodeManagedSettingsOrganizationModeParam | BetaClaudeCodeManagedSettingsRBACGroupsModeParam;
+
+interface BetaClaudeCodeManagedSettingsOrganizationModeParam {
+  type: "organization";
+}
+
+interface BetaClaudeCodeManagedSettingsRBACGroupsModeParam {
+  type: "rbac_groups";
+}
+```
+
+## Beta › Organization › Claude Code › Managed Settings › RBAC Groups
+
+### List RBAC Group Claude Code Managed Settings
+
+- Signature: `client.beta.organization.claudeCode.managedSettings.rbacGroups.list(params?: RBACGroupListParams, options?: RequestOptions): PageCursor<BetaClaudeCodeRBACGroupManagedSettingsSummary>`
+- Endpoint: `GET /v1/organizations/claude_code/managed_settings/rbac_groups`
+- Beta header: `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`
+
+List the RBAC Groups that have Claude Code managed settings, highest precedence first.
+
+Each entry gives the group's status and timestamps, not its settings. The list includes deleted groups that still have settings, and leaves out the default settings. If the order changes between pages, the request returns `409`: list again from the first page.
+
+**Accepted credentials:** an organization-level Admin API key with the `read:claude_code_managed_settings` scope.
+
+Every request must include the beta header `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`. A request without it, or from an organization not enabled for this beta, returns `404`. The Claude Code Managed Settings API is in beta and is available to Claude Enterprise organizations only.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+// Automatically fetches more pages as needed.
+for await (const betaClaudeCodeRBACGroupManagedSettingsSummary of client.beta.organization.claudeCode.managedSettings.rbacGroups.list()) {
+  console.log(betaClaudeCodeRBACGroupManagedSettingsSummary.rbac_group_id);
+}
+```
+
+#### Example response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_at": "2019-12-27T18:11:19.117Z",
+      "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+      "rbac_group_status": {
+        "type": "active"
+      },
+      "type": "claude_code_rbac_group_managed_settings_summary",
+      "updated_at": "2019-12-27T18:11:19.117Z"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+#### Parameters
+
+```ts
+interface RBACGroupListParams {
+  /** Number of items to return per page. Defaults to `20`. Ranges from `1` to `100`. */
+  limit?: number; // query parameter, minimum: 1, maximum: 100
+  /** Optionally set to the `next_page` token from the previous response. */
+  page?: string | null; // query parameter
+  /** This endpoint is in beta: requests must send `ce-claude-code-managed-settings-2026-10-06` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Returns
+
+```ts
+interface BetaClaudeCodeRBACGroupManagedSettingsSummary {
+  /** Always `claude_code_rbac_group_managed_settings_summary`. */
+  type: "claude_code_rbac_group_managed_settings_summary";
+  /** When the settings document this group uses was first stored, in RFC 3339 format. This can be earlier than when the group got its settings, and it changes if the group gets a different document. */
+  created_at: string; // format: date-time
+  /** The RBAC Group's ID, prefixed `rbac_group_`. */
+  rbac_group_id: string;
+  /** Whether the group is still one of the organization's RBAC Groups. Its `type` is `active` if it is, `deleted` if it is not, and `unknown` if that cannot be checked right now. A deleted group's settings stay in `rbac_group_order` but match no member. */
+  rbac_group_status: BetaClaudeCodeRBACGroupStatus;
+  /** When this group's settings or its position in the order last changed, in RFC 3339 format. Its position changes whenever the number of groups ahead of it changes. */
+  updated_at: string; // format: date-time
+}
+```
+
+#### Types
+
+```ts
+type BetaClaudeCodeRBACGroupStatus = BetaClaudeCodeRBACGroupStatusActive | BetaClaudeCodeRBACGroupStatusDeleted | BetaClaudeCodeRBACGroupStatusUnknown;
+
+interface BetaClaudeCodeRBACGroupStatusActive {
+  /** Always `active`. */
+  type: "active";
+}
+
+interface BetaClaudeCodeRBACGroupStatusDeleted {
+  /** Always `deleted`. */
+  type: "deleted";
+}
+
+interface BetaClaudeCodeRBACGroupStatusUnknown {
+  /** Always `unknown`. */
+  type: "unknown";
+}
+```
+
+### Get RBAC Group Claude Code Managed Settings
+
+- Signature: `client.beta.organization.claudeCode.managedSettings.rbacGroups.retrieve(rbacGroupID: string, params?: RBACGroupRetrieveParams, options?: RequestOptions): BetaClaudeCodeRBACGroupManagedSettings`
+- Endpoint: `GET /v1/organizations/claude_code/managed_settings/rbac_groups/{rbac_group_id}`
+- Beta header: `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`
+
+Retrieve an RBAC Group's Claude Code managed settings.
+
+**Accepted credentials:** an organization-level Admin API key with the `read:claude_code_managed_settings` scope.
+
+Every request must include the beta header `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`. A request without it, or from an organization not enabled for this beta, returns `404`. The Claude Code Managed Settings API is in beta and is available to Claude Enterprise organizations only.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaClaudeCodeRBACGroupManagedSettings =
+  await client.beta.organization.claudeCode.managedSettings.rbacGroups.retrieve(
+    "rbac_group_id"
+  );
+
+console.log(betaClaudeCodeRBACGroupManagedSettings.rbac_group_id);
+```
+
+#### Example response (200)
+
+```json
+{
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "rbac_group_status": {
+    "type": "active"
+  },
+  "settings": {
+    "foo": "bar"
+  },
+  "type": "claude_code_rbac_group_managed_settings",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+#### Parameters
+
+```ts
+/** The RBAC Group's ID, prefixed `rbac_group_`. */
+rbacGroupID: string; // path parameter
+
+interface RBACGroupRetrieveParams {
+  /** This endpoint is in beta: requests must send `ce-claude-code-managed-settings-2026-10-06` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Returns
+
+```ts
+interface BetaClaudeCodeRBACGroupManagedSettings {
+  /** Always `claude_code_rbac_group_managed_settings`. */
+  type: "claude_code_rbac_group_managed_settings";
+  /** When the settings document this group uses was first stored, in RFC 3339 format. This can be earlier than when the group got its settings, and it changes if the group gets a different document. */
+  created_at: string; // format: date-time
+  /** The RBAC Group's ID, prefixed `rbac_group_`. */
+  rbac_group_id: string;
+  /** Whether the group is still one of the organization's RBAC Groups. Its `type` is `active` if it is, `deleted` if it is not, and `unknown` if that cannot be checked right now. A deleted group's settings stay in `rbac_group_order` but match no member. */
+  rbac_group_status: BetaClaudeCodeRBACGroupStatus;
+  /** The group's settings document, or `null` if the stored document is damaged and can no longer be read. Replacing it fixes this. */
+  settings: Record<string, unknown> | null;
+  /** When this group's settings or its position in the order last changed, in RFC 3339 format. Its position changes whenever the number of groups ahead of it changes. */
+  updated_at: string; // format: date-time
+}
+```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaCMEKFeatureUnsupportedError` (HTTP status 400, error code `cmek_feature_unsupported`)
+
+  This stored settings document currently cannot be read or replaced. Contact support, or, if you no longer need these settings, delete the group's settings or clear the default.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `BetaRBACGroupManagedSettingsNotFoundError` (HTTP status 404, error code `rbac_group_managed_settings_not_found`)
+
+  This RBAC Group has no Claude Code managed settings.
+
+### Set RBAC Group Claude Code Managed Settings
+
+- Signature: `client.beta.organization.claudeCode.managedSettings.rbacGroups.set(rbacGroupID: string, params: RBACGroupSetParams, options?: RequestOptions): BetaClaudeCodeRBACGroupManagedSettings`
+- Endpoint: `POST /v1/organizations/claude_code/managed_settings/rbac_groups/{rbac_group_id}`
+- Beta header: `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`
+
+Create or replace an RBAC Group's Claude Code managed settings.
+
+New settings join the end of `rbac_group_order`, and existing settings keep their place. Until the group is moved up, its members who also belong to an earlier group keep that group's settings. In `organization` mode a write changes no member's settings until the organization switches to `rbac_groups` mode. Once a group has settings, that switch no longer copies the organization settings into default settings, so members in no RBAC Group in `rbac_group_order` receive no settings unless you set the default settings before the switch.
+
+Get the group's ID from the RBAC Groups API. One key can hold `read:rbac_groups` and `write:claude_code_managed_settings`.
+
+**Accepted credentials:** an organization-level Admin API key with the `write:claude_code_managed_settings` scope.
+
+Every request must include the beta header `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`. A request without it, or from an organization not enabled for this beta, returns `404`. The Claude Code Managed Settings API is in beta and is available to Claude Enterprise organizations only.
+
+A write that returns `503` may have applied. Retrying it is safe.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaClaudeCodeRBACGroupManagedSettings =
+  await client.beta.organization.claudeCode.managedSettings.rbacGroups.set("rbac_group_id", {
+    settings: { foo: "bar" }
+  });
+
+console.log(betaClaudeCodeRBACGroupManagedSettings.rbac_group_id);
+```
+
+#### Example response (200)
+
+```json
+{
+  "created_at": "2019-12-27T18:11:19.117Z",
+  "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "rbac_group_status": {
+    "type": "active"
+  },
+  "settings": {
+    "foo": "bar"
+  },
+  "type": "claude_code_rbac_group_managed_settings",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+#### Parameters
+
+```ts
+/** The RBAC Group's ID, prefixed `rbac_group_`. */
+rbacGroupID: string; // path parameter
+
+interface RBACGroupSetParams {
+  /** The whole settings document, a JSON object of Claude Code managed settings. It replaces any stored document. At most 1 MiB as the server stores it, which can be larger than the request body. */
+  settings: Record<string, unknown>;
+  /** This endpoint is in beta: requests must send `ce-claude-code-managed-settings-2026-10-06` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaCMEKFeatureUnsupportedError` (HTTP status 400, error code `cmek_feature_unsupported`)
+
+  This stored settings document currently cannot be read or replaced. Contact support, or, if you no longer need these settings, delete the group's settings or clear the default.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `BetaRBACGroupOrderLimitExceededError` (HTTP status 400, error code `rbac_group_order_limit_exceeded`)
+
+  The RBAC Group order already has the most groups allowed. Delete another group's settings first.
+
+- `BetaRequestBodyTimeoutError` (HTTP status 400, error code `request_body_timeout`)
+
+  The request body did not finish arriving in time, so nothing was done. Send a smaller body, or send it over a faster connection.
+
+- `BetaSettingsDocumentLimitExceededError` (HTTP status 400, error code `settings_document_limit_exceeded`)
+
+  The organization has reached its limit of settings documents, counting unused ones. An owner can remove unused documents in claude.ai. Deleting a group's settings or clearing the default settings also frees a document, if nothing else uses it. None of these works once the organization has also reached its settings history limit.
+
+- `BetaSettingsHistoryLimitExceededError` (HTTP status 400, error code `settings_history_limit_exceeded`)
+
+  The organization has reached its settings history limit, a cap on stored versions of its settings documents. Nothing in the API or claude.ai lowers the count, so contact support. Creating or deleting group settings, creating or clearing the default settings, and reordering are refused. Changing the mode still works, unless it would copy the organization settings into a new default.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `BetaRBACGroupNotFoundError` (HTTP status 404, error code `rbac_group_not_found`)
+
+  The RBAC Group is not one of the organization's groups.
+
+### Delete RBAC Group Claude Code Managed Settings
+
+- Signature: `client.beta.organization.claudeCode.managedSettings.rbacGroups.delete(rbacGroupID: string, params?: RBACGroupDeleteParams, options?: RequestOptions): BetaDeletedClaudeCodeRBACGroupManagedSettings`
+- Endpoint: `DELETE /v1/organizations/claude_code/managed_settings/rbac_groups/{rbac_group_id}`
+- Beta header: `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`
+
+Delete an RBAC Group's Claude Code managed settings and remove the group from `rbac_group_order`.
+
+A group with no settings returns `404` with the error code `rbac_group_managed_settings_not_found`. That code on a retry of a delete that returned `503` means the settings are gone.
+
+**Accepted credentials:** an organization-level Admin API key with the `write:claude_code_managed_settings` scope.
+
+Every request must include the beta header `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`. A request without it, or from an organization not enabled for this beta, returns `404`. The Claude Code Managed Settings API is in beta and is available to Claude Enterprise organizations only.
+
+A write that returns `503` may have applied. Retrying it is safe.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaDeletedClaudeCodeRBACGroupManagedSettings =
+  await client.beta.organization.claudeCode.managedSettings.rbacGroups.delete("rbac_group_id");
+
+console.log(betaDeletedClaudeCodeRBACGroupManagedSettings.rbac_group_id);
+```
+
+#### Example response (200)
+
+```json
+{
+  "rbac_group_id": "rbac_group_012rppKaSVsmTo6NqRDXQXNF",
+  "type": "claude_code_rbac_group_managed_settings_deleted"
+}
+```
+
+#### Parameters
+
+```ts
+/** The RBAC Group's ID, prefixed `rbac_group_`. */
+rbacGroupID: string; // path parameter
+
+interface RBACGroupDeleteParams {
+  /** This endpoint is in beta: requests must send `ce-claude-code-managed-settings-2026-10-06` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Returns
+
+```ts
+interface BetaDeletedClaudeCodeRBACGroupManagedSettings {
+  /** Always `claude_code_rbac_group_managed_settings_deleted`. */
+  type: "claude_code_rbac_group_managed_settings_deleted";
+  /** The RBAC Group's ID, prefixed `rbac_group_`. */
+  rbac_group_id: string;
+}
+```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `BetaSettingsHistoryLimitExceededError` (HTTP status 400, error code `settings_history_limit_exceeded`)
+
+  The organization has reached its settings history limit, a cap on stored versions of its settings documents. Nothing in the API or claude.ai lowers the count, so contact support. Creating or deleting group settings, creating or clearing the default settings, and reordering are refused. Changing the mode still works, unless it would copy the organization settings into a new default.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `BetaRBACGroupManagedSettingsNotFoundError` (HTTP status 404, error code `rbac_group_managed_settings_not_found`)
+
+  This RBAC Group has no Claude Code managed settings.
+
+## Beta › Organization › Claude Code › Managed Settings › RBAC Group Default
+
+### Get RBAC Group Default Claude Code Managed Settings
+
+- Signature: `client.beta.organization.claudeCode.managedSettings.rbacGroupDefault.retrieve(params?: RBACGroupDefaultRetrieveParams, options?: RequestOptions): BetaClaudeCodeRBACGroupDefaultManagedSettings`
+- Endpoint: `GET /v1/organizations/claude_code/managed_settings/rbac_group_default`
+- Beta header: `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`
+
+Retrieve the default Claude Code managed settings, which members who belong to no RBAC Group in `rbac_group_order` receive in `rbac_groups` mode.
+
+**Accepted credentials:** an organization-level Admin API key with the `read:claude_code_managed_settings` scope.
+
+Every request must include the beta header `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`. A request without it, or from an organization not enabled for this beta, returns `404`. The Claude Code Managed Settings API is in beta and is available to Claude Enterprise organizations only.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaClaudeCodeRBACGroupDefaultManagedSettings =
+  await client.beta.organization.claudeCode.managedSettings.rbacGroupDefault.retrieve();
+
+console.log(betaClaudeCodeRBACGroupDefaultManagedSettings.settings);
+```
+
+#### Example response (200)
+
+```json
+{
+  "settings": {
+    "foo": "bar"
+  },
+  "type": "claude_code_rbac_group_default_managed_settings",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+#### Parameters
+
+```ts
+interface RBACGroupDefaultRetrieveParams {
+  /** This endpoint is in beta: requests must send `ce-claude-code-managed-settings-2026-10-06` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Returns
+
+```ts
+interface BetaClaudeCodeRBACGroupDefaultManagedSettings {
+  /** Always `claude_code_rbac_group_default_managed_settings`. */
+  type: "claude_code_rbac_group_default_managed_settings";
+  /** The default settings document, or `null` if none are set or the stored document is damaged and can no longer be read. To tell these apart, `updated_at` is `null` only when none are set. Replacing a damaged document fixes this. */
+  settings: Record<string, unknown> | null;
+  /** When the default settings last changed, in RFC 3339 format, or `null` if none are set. */
+  updated_at: string | null; // format: date-time
+}
+```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaCMEKFeatureUnsupportedError` (HTTP status 400, error code `cmek_feature_unsupported`)
+
+  This stored settings document currently cannot be read or replaced. Contact support, or, if you no longer need these settings, delete the group's settings or clear the default.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+### Update RBAC Group Default Claude Code Managed Settings
+
+- Signature: `client.beta.organization.claudeCode.managedSettings.rbacGroupDefault.update(params: RBACGroupDefaultUpdateParams, options?: RequestOptions): BetaClaudeCodeRBACGroupDefaultManagedSettings`
+- Endpoint: `POST /v1/organizations/claude_code/managed_settings/rbac_group_default`
+- Beta header: `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`
+
+Set or replace the default Claude Code managed settings, or clear them with `null`.
+
+**Accepted credentials:** an organization-level Admin API key with the `write:claude_code_managed_settings` scope.
+
+Every request must include the beta header `anthropic-beta: ce-claude-code-managed-settings-2026-10-06`. A request without it, or from an organization not enabled for this beta, returns `404`. The Claude Code Managed Settings API is in beta and is available to Claude Enterprise organizations only.
+
+A write that returns `503` may have applied. Retrying it is safe.
+
+#### Example request
+
+```ts
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+const betaClaudeCodeRBACGroupDefaultManagedSettings =
+  await client.beta.organization.claudeCode.managedSettings.rbacGroupDefault.update({
+    settings: { foo: "bar" }
+  });
+
+console.log(betaClaudeCodeRBACGroupDefaultManagedSettings.settings);
+```
+
+#### Example response (200)
+
+```json
+{
+  "settings": {
+    "foo": "bar"
+  },
+  "type": "claude_code_rbac_group_default_managed_settings",
+  "updated_at": "2019-12-27T18:11:19.117Z"
+}
+```
+
+#### Parameters
+
+```ts
+interface RBACGroupDefaultUpdateParams {
+  /** The whole settings document, a JSON object of Claude Code managed settings. It replaces any stored document, or `null` clears the default settings. At most 1 MiB as the server stores it, which can be larger than the request body. */
+  settings: Record<string, unknown> | null;
+  /** This endpoint is in beta: requests must send `ce-claude-code-managed-settings-2026-10-06` in this header. */
+  betas?: Array<AnthropicBeta>; // header parameter
+}
+```
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=typescript).
+
+- `BetaCMEKFeatureUnsupportedError` (HTTP status 400, error code `cmek_feature_unsupported`)
+
+  This stored settings document currently cannot be read or replaced. Contact support, or, if you no longer need these settings, delete the group's settings or clear the default.
+
+- `CMEKKeyDisabledError` (HTTP status 400, error code `cmek_key_disabled`)
+
+  The workspace's customer-managed encryption key is disabled or revoked. Re-enable the key, then retry.
+
+- `BetaRequestBodyTimeoutError` (HTTP status 400, error code `request_body_timeout`)
+
+  The request body did not finish arriving in time, so nothing was done. Send a smaller body, or send it over a faster connection.
+
+- `BetaSettingsDocumentLimitExceededError` (HTTP status 400, error code `settings_document_limit_exceeded`)
+
+  The organization has reached its limit of settings documents, counting unused ones. An owner can remove unused documents in claude.ai. Deleting a group's settings or clearing the default settings also frees a document, if nothing else uses it. None of these works once the organization has also reached its settings history limit.
+
+- `BetaSettingsHistoryLimitExceededError` (HTTP status 400, error code `settings_history_limit_exceeded`)
+
+  The organization has reached its settings history limit, a cap on stored versions of its settings documents. Nothing in the API or claude.ai lowers the count, so contact support. Creating or deleting group settings, creating or clearing the default settings, and reordering are refused. Changing the mode still works, unless it would copy the organization settings into a new default.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
 ## Beta › Organization › Claude Tag › Slack Channels
 
@@ -32364,6 +33191,11 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 /** The beta that the endpoint requires is not enabled for the organization. The message names the beta value. */
 interface BetaOrganizationNotEnrolledInBetaErrorDetails {
   error_code: "organization_not_enrolled_in_beta";
+}
+
+/** The request body did not finish arriving in time, so nothing was done. Send a smaller body, or send it over a faster connection. */
+interface BetaRequestBodyTimeoutErrorDetails {
+  error_code: "request_body_timeout";
 }
 
 /** The request's `Content-Type` header names a charset other than UTF-8, ISO-8859-1 or US-ASCII. Send the request with no charset, or with one of these. */

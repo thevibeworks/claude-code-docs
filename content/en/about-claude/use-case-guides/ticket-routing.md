@@ -1,16 +1,19 @@
 ---
 title: Ticket routing
 url: https://platform.claude.com/docs/en/about-claude/use-case-guides/ticket-routing
-description: This guide walks through how to use Claude's advanced natural language understanding capabilities to classify customer support tickets at scale based on customer intent, urgency, prioritization, customer profile, and more.
+description: Classify customer support tickets by intent, urgency, and other criteria with Claude, then evaluate and improve the routing.
 ---
+
+This guide shows how to route customer support tickets with Claude. It covers why Claude suits the task, how to write and deploy a classification prompt, and how to evaluate and improve it.
 
 ## Prerequisites
 
-* A Claude API key and the Anthropic SDK installed
+* The Anthropic SDK installed
+* A credential for the Claude API, such as [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation) for a service or [CLI sign-in](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication) on your own machine
 * Access to, and familiarity with, your existing support ticketing system
 * A sample set of historical support tickets for testing
 
-## Define whether to use Claude for ticket routing
+## Why use Claude for ticket routing
 
 Here are some key indicators that you should use an LLM such as Claude instead of traditional ML approaches for your classification task:
 
@@ -31,8 +34,8 @@ Here are some key indicators that you should use an LLM such as Claude instead o
     Traditional ML approaches often rely on bag-of-words models or simple pattern matching. Claude excels at applying underlying rules when classes are defined by conditions rather than examples.
   </Accordion>
 
-  <Accordion title="You need interpretable reasoning for classification decisions">
-    Many traditional ML models provide little insight into their decision-making process. Claude can provide human-readable explanations for its classification decisions, building trust in the automation system and facilitating easy adaptation if needed.
+  <Accordion title="You need explanations for classification decisions">
+    Many traditional ML models provide little insight into their decision-making process. Claude can give a short explanation of each classification, which helps your team trust the automation and adjust it when needed.
   </Accordion>
 
   <Accordion title="You want to handle edge cases and ambiguous tickets more effectively">
@@ -241,7 +244,7 @@ Claude Haiku 5.5 (`claude-haiku-5-5`) suits ticket routing: it’s the fastest a
 
 Ticket routing is a type of classification task. Claude analyzes the content of a support ticket and classifies it into predefined categories based on the issue type, urgency, required expertise, or other relevant factors.
 
-Write a ticket classification prompt. The initial prompt should contain the contents of the user request and return both the reasoning and the intent.
+Write a ticket classification prompt. It contains the text of the support request and asks Claude for two things: a one-sentence summary of the request and its intent.
 
 <Tip>
   Try the [metaprompt recipe from the Claude Cookbook](https://colab.research.google.com/github/anthropics/claude-cookbooks/blob/main/misc/metaprompt.ipynb) to have Claude write a first draft for you.
@@ -261,17 +264,17 @@ Here’s an example ticket routing classification prompt:
   ```python Python
   def classify_support_request(ticket_contents):
       # Define the prompt for the classification task
-      classification_prompt = f"""You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+      classification_prompt = f"""You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with a one-sentence summary of the request.
 
           Here is the customer support request you need to classify:
 
           <request>{ticket_contents}</request>
 
-          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for or has concerns about.
 
-          First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+          First, write a one-sentence summary of the request inside <summary> tags.
 
-          Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+          Then, output the appropriate classification label for the request inside an <intent> tag. The valid intents are:
           <intents>
           <intent>Support, Feedback, Complaint</intent>
           <intent>Order Tracking</intent>
@@ -284,7 +287,7 @@ Here’s an example ticket routing classification prompt:
           <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
 
           Here is an example of how your output should be formatted (for the above example request):
-          <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+          <summary>The user seeks information in order to leave positive feedback.</summary>
           <intent>Support, Feedback, Complaint</intent>
 
           Here are a few more examples:
@@ -294,7 +297,7 @@ Here’s an example ticket routing classification prompt:
           <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
 
           Example 2 Output:
-          <reasoning>User leaves a positive review of their experience.</reasoning>
+          <summary>User leaves a positive review of their experience.</summary>
           <intent>Support, Feedback, Complaint</intent>
           </example 2>
           <example 3>
@@ -307,28 +310,28 @@ Here’s an example ticket routing classification prompt:
           <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
 
           Example 9 Output:
-          <reasoning>The user requests help accessing their web account information.</reasoning>
+          <summary>The user requests help accessing their web account information.</summary>
           <intent>Support, Feedback, Complaint</intent>
           </example 9>
 
-          Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          Remember to always include your one-sentence summary before your intent output. The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """
   ```
 
   ```typescript TypeScript
   function classifySupportRequest(ticketContents: string) {
     // Define the prompt for the classification task
-    const classificationPrompt = `You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+    const classificationPrompt = `You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with a one-sentence summary of the request.
 
       Here is the customer support request you need to classify:
 
       <request>${ticketContents}</request>
 
-      Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+      Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for or has concerns about.
 
-      First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+      First, write a one-sentence summary of the request inside <summary> tags.
 
-      Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+      Then, output the appropriate classification label for the request inside an <intent> tag. The valid intents are:
       <intents>
       <intent>Support, Feedback, Complaint</intent>
       <intent>Order Tracking</intent>
@@ -341,7 +344,7 @@ Here’s an example ticket routing classification prompt:
       <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
 
       Here is an example of how your output should be formatted (for the above example request):
-      <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+      <summary>The user seeks information in order to leave positive feedback.</summary>
       <intent>Support, Feedback, Complaint</intent>
 
       Here are a few more examples:
@@ -351,7 +354,7 @@ Here’s an example ticket routing classification prompt:
       <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
 
       Example 2 Output:
-      <reasoning>User leaves a positive review of their experience.</reasoning>
+      <summary>User leaves a positive review of their experience.</summary>
       <intent>Support, Feedback, Complaint</intent>
       </example 2>
       <example 3>
@@ -364,11 +367,11 @@ Here’s an example ticket routing classification prompt:
       <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
 
       Example 9 Output:
-      <reasoning>The user requests help accessing their web account information.</reasoning>
+      <summary>The user requests help accessing their web account information.</summary>
       <intent>Support, Feedback, Complaint</intent>
       </example 9>
 
-      Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      Remember to always include your one-sentence summary before your intent output. The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
       `;
   }
   ```
@@ -378,17 +381,17 @@ Here’s an example ticket routing classification prompt:
   {
       // Define the prompt for the classification task
       var classificationPrompt = $"""
-          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with a one-sentence summary of the request.
 
           Here is the customer support request you need to classify:
 
           <request>{ticketContents}</request>
 
-          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for or has concerns about.
 
-          First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+          First, write a one-sentence summary of the request inside <summary> tags.
 
-          Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+          Then, output the appropriate classification label for the request inside an <intent> tag. The valid intents are:
           <intents>
           <intent>Support, Feedback, Complaint</intent>
           <intent>Order Tracking</intent>
@@ -401,7 +404,7 @@ Here’s an example ticket routing classification prompt:
           <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
 
           Here is an example of how your output should be formatted (for the above example request):
-          <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+          <summary>The user seeks information in order to leave positive feedback.</summary>
           <intent>Support, Feedback, Complaint</intent>
 
           Here are a few more examples:
@@ -411,7 +414,7 @@ Here’s an example ticket routing classification prompt:
           <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
 
           Example 2 Output:
-          <reasoning>User leaves a positive review of their experience.</reasoning>
+          <summary>User leaves a positive review of their experience.</summary>
           <intent>Support, Feedback, Complaint</intent>
           </example 2>
           <example 3>
@@ -424,11 +427,11 @@ Here’s an example ticket routing classification prompt:
           <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
 
           Example 9 Output:
-          <reasoning>The user requests help accessing their web account information.</reasoning>
+          <summary>The user requests help accessing their web account information.</summary>
           <intent>Support, Feedback, Complaint</intent>
           </example 9>
 
-          Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          Remember to always include your one-sentence summary before your intent output. The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """;
   }
   ```
@@ -436,17 +439,17 @@ Here’s an example ticket routing classification prompt:
   ```go Go
   func classifySupportRequest(ticketContents string) {
   	// Define the prompt for the classification task
-  	classificationPrompt := `You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+  	classificationPrompt := `You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with a one-sentence summary of the request.
 
   		Here is the customer support request you need to classify:
 
   		<request>` + ticketContents + `</request>
 
-  		Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+  		Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for or has concerns about.
 
-  		First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+  		First, write a one-sentence summary of the request inside <summary> tags.
 
-  		Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+  		Then, output the appropriate classification label for the request inside an <intent> tag. The valid intents are:
   		<intents>
   		<intent>Support, Feedback, Complaint</intent>
   		<intent>Order Tracking</intent>
@@ -459,7 +462,7 @@ Here’s an example ticket routing classification prompt:
   		<request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
 
   		Here is an example of how your output should be formatted (for the above example request):
-  		<reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+  		<summary>The user seeks information in order to leave positive feedback.</summary>
   		<intent>Support, Feedback, Complaint</intent>
 
   		Here are a few more examples:
@@ -469,7 +472,7 @@ Here’s an example ticket routing classification prompt:
   		<request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
 
   		Example 2 Output:
-  		<reasoning>User leaves a positive review of their experience.</reasoning>
+  		<summary>User leaves a positive review of their experience.</summary>
   		<intent>Support, Feedback, Complaint</intent>
   		</example 2>
   		<example 3>
@@ -482,11 +485,11 @@ Here’s an example ticket routing classification prompt:
   		<request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
 
   		Example 9 Output:
-  		<reasoning>The user requests help accessing their web account information.</reasoning>
+  		<summary>The user requests help accessing their web account information.</summary>
   		<intent>Support, Feedback, Complaint</intent>
   		</example 9>
 
-  		Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+  		Remember to always include your one-sentence summary before your intent output. The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
   		`
   	// ...
   }
@@ -496,17 +499,17 @@ Here’s an example ticket routing classification prompt:
   void classifySupportRequest(String ticketContents) {
       // Define the prompt for the classification task
       String classificationPrompt = """
-          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with a one-sentence summary of the request.
 
           Here is the customer support request you need to classify:
 
           <request>%s</request>
 
-          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for or has concerns about.
 
-          First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+          First, write a one-sentence summary of the request inside <summary> tags.
 
-          Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+          Then, output the appropriate classification label for the request inside an <intent> tag. The valid intents are:
           <intents>
           <intent>Support, Feedback, Complaint</intent>
           <intent>Order Tracking</intent>
@@ -519,7 +522,7 @@ Here’s an example ticket routing classification prompt:
           <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
 
           Here is an example of how your output should be formatted (for the above example request):
-          <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+          <summary>The user seeks information in order to leave positive feedback.</summary>
           <intent>Support, Feedback, Complaint</intent>
 
           Here are a few more examples:
@@ -529,7 +532,7 @@ Here’s an example ticket routing classification prompt:
           <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
 
           Example 2 Output:
-          <reasoning>User leaves a positive review of their experience.</reasoning>
+          <summary>User leaves a positive review of their experience.</summary>
           <intent>Support, Feedback, Complaint</intent>
           </example 2>
           <example 3>
@@ -542,11 +545,11 @@ Here’s an example ticket routing classification prompt:
           <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
 
           Example 9 Output:
-          <reasoning>The user requests help accessing their web account information.</reasoning>
+          <summary>The user requests help accessing their web account information.</summary>
           <intent>Support, Feedback, Complaint</intent>
           </example 9>
 
-          Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          Remember to always include your one-sentence summary before your intent output. The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """.formatted(ticketContents);
   }
   ```
@@ -556,17 +559,17 @@ Here’s an example ticket routing classification prompt:
   {
       // Define the prompt for the classification task
       $classificationPrompt = <<<PROMPT
-          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+          You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with a one-sentence summary of the request.
 
           Here is the customer support request you need to classify:
 
           <request>{$ticketContents}</request>
 
-          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+          Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for or has concerns about.
 
-          First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+          First, write a one-sentence summary of the request inside <summary> tags.
 
-          Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+          Then, output the appropriate classification label for the request inside an <intent> tag. The valid intents are:
           <intents>
           <intent>Support, Feedback, Complaint</intent>
           <intent>Order Tracking</intent>
@@ -579,7 +582,7 @@ Here’s an example ticket routing classification prompt:
           <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
 
           Here is an example of how your output should be formatted (for the above example request):
-          <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+          <summary>The user seeks information in order to leave positive feedback.</summary>
           <intent>Support, Feedback, Complaint</intent>
 
           Here are a few more examples:
@@ -589,7 +592,7 @@ Here’s an example ticket routing classification prompt:
           <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
 
           Example 2 Output:
-          <reasoning>User leaves a positive review of their experience.</reasoning>
+          <summary>User leaves a positive review of their experience.</summary>
           <intent>Support, Feedback, Complaint</intent>
           </example 2>
           <example 3>
@@ -602,11 +605,11 @@ Here’s an example ticket routing classification prompt:
           <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
 
           Example 9 Output:
-          <reasoning>The user requests help accessing their web account information.</reasoning>
+          <summary>The user requests help accessing their web account information.</summary>
           <intent>Support, Feedback, Complaint</intent>
           </example 9>
 
-          Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          Remember to always include your one-sentence summary before your intent output. The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           PROMPT;
   }
   ```
@@ -615,17 +618,17 @@ Here’s an example ticket routing classification prompt:
   def classify_support_request(ticket_contents)
     # Define the prompt for the classification task
     classification_prompt = <<~PROMPT
-      You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with your reasoning.
+      You will be acting as a customer support ticket classification system. Your task is to analyze customer support requests and output the appropriate classification intent for each request, along with a one-sentence summary of the request.
 
       Here is the customer support request you need to classify:
 
       <request>#{ticket_contents}</request>
 
-      Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for has concerns about.
+      Please carefully analyze the above request to determine the customer's core intent and needs. Consider what the customer is asking for or has concerns about.
 
-      First, write out your reasoning and analysis of how to classify this request inside <reasoning> tags.
+      First, write a one-sentence summary of the request inside <summary> tags.
 
-      Then, output the appropriate classification label for the request inside a <intent> tag. The valid intents are:
+      Then, output the appropriate classification label for the request inside an <intent> tag. The valid intents are:
       <intents>
       <intent>Support, Feedback, Complaint</intent>
       <intent>Order Tracking</intent>
@@ -638,7 +641,7 @@ Here’s an example ticket routing classification prompt:
       <request>Hello! I had high-speed fiber internet installed on Saturday and my installer, Kevin, was absolutely fantastic! Where can I send my positive review? Thanks for your help!</request>
 
       Here is an example of how your output should be formatted (for the above example request):
-      <reasoning>The user seeks information in order to leave positive feedback.</reasoning>
+      <summary>The user seeks information in order to leave positive feedback.</summary>
       <intent>Support, Feedback, Complaint</intent>
 
       Here are a few more examples:
@@ -648,7 +651,7 @@ Here’s an example ticket routing classification prompt:
       <request>I wanted to write and personally thank you for the compassion you showed towards my family during my father's funeral this past weekend. Your staff was so considerate and helpful throughout this whole process; it really took a load off our shoulders. The visitation brochures were beautiful. We'll never forget the kindness you showed us and we are so appreciative of how smoothly the proceedings went. Thank you, again, Amarantha Hill on behalf of the Hill Family.</request>
 
       Example 2 Output:
-      <reasoning>User leaves a positive review of their experience.</reasoning>
+      <summary>User leaves a positive review of their experience.</summary>
       <intent>Support, Feedback, Complaint</intent>
       </example 2>
       <example 3>
@@ -661,35 +664,33 @@ Here’s an example ticket routing classification prompt:
       <request>Your website keeps sending ad-popups that block the entire screen. It took me twenty minutes just to finally find the phone number to call and complain. How can I possibly access my account information with all of these popups? Can you access my account for me, since your website is broken? I need to know what the address is on file.</request>
 
       Example 9 Output:
-      <reasoning>The user requests help accessing their web account information.</reasoning>
+      <summary>The user requests help accessing their web account information.</summary>
       <intent>Support, Feedback, Complaint</intent>
       </example 9>
 
-      Remember to always include your classification reasoning before your actual intent output. The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      Remember to always include your one-sentence summary before your intent output. The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
     PROMPT
   end
   ```
 </CodeGroup>
 
-<Note>
-  This prompt is written for Claude Haiku 5.5, which runs here at `low` effort. On Claude Fable 5.2, Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, and Claude Sonnet 5.5, ask for the intent and a one-sentence summary of the request instead. See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
-</Note>
-
 Here are the key components of this prompt:
 
 * The prompt template inserts `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) into the `<request>` tags.
 * The prompt gives Claude a clearly defined role as a classification system that carefully analyzes the ticket content to determine the customer’s core intent and needs.
-* The prompt instructs Claude on proper output formatting, in this case to provide its reasoning and analysis inside `<reasoning>` tags, followed by the appropriate classification label inside `<intent>` tags.
+* The prompt tells Claude how to format its output: a one-sentence summary of the request inside `<summary>` tags, followed by the classification label inside `<intent>` tags.
 * The prompt specifies the valid intent categories: `Support, Feedback, Complaint`, `Order Tracking`, and `Refund/Exchange`.
 * The prompt includes a few examples (a.k.a. few-shot prompting) to illustrate how the output should be formatted, which improves accuracy and consistency.
 
-Having Claude split its response into separate XML tag sections lets you use regular expressions to extract the reasoning and intent from the output independently. This lets you create targeted next steps in the ticket routing workflow, such as using only the intent to decide which person to route the ticket to.
+Because each part of the response sits in its own XML tags, you can use regular expressions to extract the summary and the intent separately. Then, you can act on each part on its own, such as using only the intent to decide who gets the ticket.
+
+The prompt asks for a summary of the request rather than Claude’s reasoning. [Some Claude models](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks) might decline a prompt that asks them to write their reasoning. You can still ask for a short explanation of a classification. To see a summary of how Claude reached it, set `thinking: {"type": "adaptive", "display": "summarized"}` and read the response’s [`thinking` blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#summarized-thinking). Claude can skip thinking on a simple ticket, so some responses have no `thinking` block.
 
 ### Deploy your prompt
 
 It’s hard to know how well your prompt works without deploying it in a test production setting and [running evaluations](https://platform.claude.com/docs/en/test-and-evaluate/develop-tests).
 
-Build the deployment structure. Start by defining the function signature for wrapping the call to Claude. Extend the function you started writing earlier, which takes `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) as input, so that it now returns the reasoning and the intent as output. If you have an existing automation using traditional ML, you’ll want to follow that signature instead.
+Build the deployment structure. Start by defining the function signature for wrapping the call to Claude. Extend the function you started writing earlier, which takes `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) as input, so that it now returns the summary and the intent. If you have an existing automation that uses traditional ML, follow its signature instead.
 
 <CodeGroup exclude="shell">
   <CodeGroupItem language="cURL">
@@ -714,7 +715,7 @@ Build the deployment structure. Start by defining the function signature for wra
       # Define the prompt for the classification task
       classification_prompt = f"""You will be acting as a customer support ticket classification system.
           […]
-          ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """
       # Send the prompt to the API to classify the support request.
       message = client.messages.create(
@@ -724,21 +725,23 @@ Build the deployment structure. Start by defining the function signature for wra
           messages=[{"role": "user", "content": classification_prompt}],
           stream=False,
       )
-      reasoning_and_intent = next(
+      if message.stop_reason == "refusal":
+          raise RuntimeError("Claude declined to classify this ticket.")
+      summary_and_intent = next(
           (block.text for block in message.content if block.type == "text"), ""
       )
 
-      # Use Python's regular expressions library to extract `reasoning`.
-      reasoning_match = re.search(
-          r"<reasoning>(.*?)</reasoning>", reasoning_and_intent, re.DOTALL
+      # Use Python's regular expressions library to extract `summary`.
+      summary_match = re.search(
+          r"<summary>(.*?)</summary>", summary_and_intent, re.DOTALL
       )
-      reasoning = reasoning_match.group(1).strip() if reasoning_match else ""
+      summary = summary_match.group(1).strip() if summary_match else ""
 
       # Similarly, also extract the `intent`.
-      intent_match = re.search(r"<intent>(.*?)</intent>", reasoning_and_intent, re.DOTALL)
+      intent_match = re.search(r"<intent>(.*?)</intent>", summary_and_intent, re.DOTALL)
       intent = intent_match.group(1).strip() if intent_match else ""
 
-      return reasoning, intent
+      return summary, intent
   ```
 
   ```typescript TypeScript
@@ -750,11 +753,11 @@ Build the deployment structure. Start by defining the function signature for wra
 
   async function classifySupportRequest(
     ticketContents: string
-  ): Promise<{ reasoning: string; intent: string }> {
+  ): Promise<{ summary: string; intent: string }> {
     // Define the prompt for the classification task
     const classificationPrompt = `You will be acting as a customer support ticket classification system.
       […]
-      ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
       `;
     // Send the prompt to the API to classify the support request.
     const message = await client.messages.create({
@@ -763,18 +766,21 @@ Build the deployment structure. Start by defining the function signature for wra
       output_config: { effort: "low" },
       messages: [{ role: "user", content: classificationPrompt }]
     });
+    if (message.stop_reason === "refusal") {
+      throw new Error("Claude declined to classify this ticket.");
+    }
     const textBlock = message.content.find((block) => block.type === "text");
-    const reasoningAndIntent = textBlock?.text ?? "";
+    const summaryAndIntent = textBlock?.text ?? "";
 
-    // Use a regular expression to extract `reasoning`.
-    const reasoningMatch = /<reasoning>(.*?)<\/reasoning>/s.exec(reasoningAndIntent);
-    const reasoning = reasoningMatch?.[1].trim() ?? "";
+    // Use a regular expression to extract `summary`.
+    const summaryMatch = /<summary>(.*?)<\/summary>/s.exec(summaryAndIntent);
+    const summary = summaryMatch?.[1].trim() ?? "";
 
     // Similarly, also extract the `intent`.
-    const intentMatch = /<intent>(.*?)<\/intent>/s.exec(reasoningAndIntent);
+    const intentMatch = /<intent>(.*?)<\/intent>/s.exec(summaryAndIntent);
     const intent = intentMatch?.[1].trim() ?? "";
 
-    return { reasoning, intent };
+    return { summary, intent };
   }
   ```
 
@@ -788,13 +794,13 @@ Build the deployment structure. Start by defining the function signature for wra
   // Set the default model
   const Model DefaultModel = Model.ClaudeHaiku5_5;
 
-  async Task<(string Reasoning, string Intent)> ClassifySupportRequest(string ticketContents)
+  async Task<(string Summary, string Intent)> ClassifySupportRequest(string ticketContents)
   {
       // Define the prompt for the classification task
       var classificationPrompt = """
           You will be acting as a customer support ticket classification system.
           […]
-          ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """;
       // Send the prompt to the API to classify the support request.
       var message = await client.Messages.Create(new MessageCreateParams
@@ -804,31 +810,36 @@ Build the deployment structure. Start by defining the function signature for wra
           OutputConfig = new OutputConfig { Effort = Effort.Low },
           Messages = [new UserMessageParam { Content = classificationPrompt }],
       });
-      var reasoningAndIntent = "";
+      if (message.StopReason?.Value() == StopReason.Refusal)
+      {
+          throw new InvalidOperationException("Claude declined to classify this ticket.");
+      }
+      var summaryAndIntent = "";
       foreach (var block in message.Content)
       {
           if (block.TryPickText(out var textBlock))
           {
-              reasoningAndIntent = textBlock.Text;
+              summaryAndIntent = textBlock.Text;
               break;
           }
       }
 
-      // Use a regular expression to extract `reasoning`.
-      var reasoningMatch = Regex.Match(reasoningAndIntent, "<reasoning>(.*?)</reasoning>", RegexOptions.Singleline);
-      var reasoning = reasoningMatch.Success ? reasoningMatch.Groups[1].Value.Trim() : "";
+      // Use a regular expression to extract `summary`.
+      var summaryMatch = Regex.Match(summaryAndIntent, "<summary>(.*?)</summary>", RegexOptions.Singleline);
+      var summary = summaryMatch.Success ? summaryMatch.Groups[1].Value.Trim() : "";
 
       // Similarly, also extract the `intent`.
-      var intentMatch = Regex.Match(reasoningAndIntent, "<intent>(.*?)</intent>", RegexOptions.Singleline);
+      var intentMatch = Regex.Match(summaryAndIntent, "<intent>(.*?)</intent>", RegexOptions.Singleline);
       var intent = intentMatch.Success ? intentMatch.Groups[1].Value.Trim() : "";
 
-      return (reasoning, intent);
+      return (summary, intent);
   }
   ```
 
   ```go Go
   import (
   	"context"
+  	"errors"
   	"regexp"
   	"strings"
   	// ...
@@ -840,11 +851,11 @@ Build the deployment structure. Start by defining the function signature for wra
   // Set the default model
   const defaultModel = anthropic.ModelClaudeHaiku5_5
 
-  func classifySupportRequest(ctx context.Context, ticketContents string) (reasoning, intent string, err error) {
+  func classifySupportRequest(ctx context.Context, ticketContents string) (summary, intent string, err error) {
   	// Define the prompt for the classification task
   	classificationPrompt := `You will be acting as a customer support ticket classification system.
   		[…]
-  		... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+  		... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
   		`
   	// Send the prompt to the API to classify the support request.
   	message, err := client.Messages.New(ctx, anthropic.MessageNewParams{
@@ -858,27 +869,30 @@ Build the deployment structure. Start by defining the function signature for wra
   	if err != nil {
   		return "", "", err
   	}
-  	var reasoningAndIntent string
+  	if message.StopReason == anthropic.StopReasonRefusal {
+  		return "", "", errors.New("Claude declined to classify this ticket")
+  	}
+  	var summaryAndIntent string
   	for _, block := range message.Content {
   		if textBlock, ok := block.AsAny().(anthropic.TextBlock); ok {
-  			reasoningAndIntent = textBlock.Text
+  			summaryAndIntent = textBlock.Text
   			break
   		}
   	}
 
-  	// Use a regular expression to extract `reasoning`.
-  	reasoningMatch := regexp.MustCompile(`(?s)<reasoning>(.*?)</reasoning>`).FindStringSubmatch(reasoningAndIntent)
-  	if reasoningMatch != nil {
-  		reasoning = strings.TrimSpace(reasoningMatch[1])
+  	// Use a regular expression to extract `summary`.
+  	summaryMatch := regexp.MustCompile(`(?s)<summary>(.*?)</summary>`).FindStringSubmatch(summaryAndIntent)
+  	if summaryMatch != nil {
+  		summary = strings.TrimSpace(summaryMatch[1])
   	}
 
   	// Similarly, also extract the `intent`.
-  	intentMatch := regexp.MustCompile(`(?s)<intent>(.*?)</intent>`).FindStringSubmatch(reasoningAndIntent)
+  	intentMatch := regexp.MustCompile(`(?s)<intent>(.*?)</intent>`).FindStringSubmatch(summaryAndIntent)
   	if intentMatch != nil {
   		intent = strings.TrimSpace(intentMatch[1])
   	}
 
-  	return reasoning, intent, nil
+  	return summary, intent, nil
   }
   ```
 
@@ -892,14 +906,14 @@ Build the deployment structure. Start by defining the function signature for wra
   // Set the default model
   static final Model DEFAULT_MODEL = Model.CLAUDE_HAIKU_5_5;
 
-  record Classification(String reasoning, String intent) {}
+  record Classification(String summary, String intent) {}
 
   Classification classifySupportRequest(String ticketContents) {
       // Define the prompt for the classification task
       String classificationPrompt = """
           You will be acting as a customer support ticket classification system.
           […]
-          ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """;
       // Send the prompt to the API to classify the support request.
       Message message = client.messages().create(MessageCreateParams.builder()
@@ -910,23 +924,26 @@ Build the deployment structure. Start by defining the function signature for wra
               .build())
           .addUserMessage(classificationPrompt)
           .build());
-      String reasoningAndIntent = message.content().stream()
+      if (message.stopReason().filter(StopReason.REFUSAL::equals).isPresent()) {
+          throw new IllegalStateException("Claude declined to classify this ticket.");
+      }
+      String summaryAndIntent = message.content().stream()
           .flatMap(block -> block.text().stream())
           .map(textBlock -> textBlock.text())
           .findFirst()
           .orElse("");
 
-      // Use a regular expression to extract `reasoning`.
-      Matcher reasoningMatch = Pattern.compile("<reasoning>(.*?)</reasoning>", Pattern.DOTALL)
-          .matcher(reasoningAndIntent);
-      String reasoning = reasoningMatch.find() ? reasoningMatch.group(1).strip() : "";
+      // Use a regular expression to extract `summary`.
+      Matcher summaryMatch = Pattern.compile("<summary>(.*?)</summary>", Pattern.DOTALL)
+          .matcher(summaryAndIntent);
+      String summary = summaryMatch.find() ? summaryMatch.group(1).strip() : "";
 
       // Similarly, also extract the `intent`.
       Matcher intentMatch = Pattern.compile("<intent>(.*?)</intent>", Pattern.DOTALL)
-          .matcher(reasoningAndIntent);
+          .matcher(summaryAndIntent);
       String intent = intentMatch.find() ? intentMatch.group(1).strip() : "";
 
-      return new Classification(reasoning, intent);
+      return new Classification(summary, intent);
   }
   ```
 
@@ -938,7 +955,7 @@ Build the deployment structure. Start by defining the function signature for wra
   const DEFAULT_MODEL = Model::CLAUDE_HAIKU_5_5;
 
   /**
-   * @return array{string, string} the reasoning and the intent
+   * @return array{string, string} the summary and the intent
    */
   function classifySupportRequest(Client $client, string $ticketContents): array
   {
@@ -946,7 +963,7 @@ Build the deployment structure. Start by defining the function signature for wra
       $classificationPrompt = <<<PROMPT
           You will be acting as a customer support ticket classification system.
           […]
-          ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           PROMPT;
       // Send the prompt to the API to classify the support request.
       $message = $client->messages->create(
@@ -955,25 +972,28 @@ Build the deployment structure. Start by defining the function signature for wra
           outputConfig: ['effort' => 'low'],
           messages: [['role' => 'user', 'content' => $classificationPrompt]],
       );
-      $reasoningAndIntent = '';
+      if ($message->stopReason === 'refusal') {
+          throw new \RuntimeException('Claude declined to classify this ticket.');
+      }
+      $summaryAndIntent = '';
       foreach ($message->content as $block) {
           if ($block instanceof \Anthropic\Messages\TextBlock) {
-              $reasoningAndIntent = $block->text;
+              $summaryAndIntent = $block->text;
               break;
           }
       }
 
-      // Use a regular expression to extract `reasoning`.
-      $reasoning = preg_match('/<reasoning>(.*?)<\/reasoning>/s', $reasoningAndIntent, $reasoningMatch)
-          ? trim($reasoningMatch[1])
+      // Use a regular expression to extract `summary`.
+      $summary = preg_match('/<summary>(.*?)<\/summary>/s', $summaryAndIntent, $summaryMatch)
+          ? trim($summaryMatch[1])
           : '';
 
       // Similarly, also extract the `intent`.
-      $intent = preg_match('/<intent>(.*?)<\/intent>/s', $reasoningAndIntent, $intentMatch)
+      $intent = preg_match('/<intent>(.*?)<\/intent>/s', $summaryAndIntent, $intentMatch)
           ? trim($intentMatch[1])
           : '';
 
-      return [$reasoning, $intent];
+      return [$summary, $intent];
   }
   ```
 
@@ -989,7 +1009,7 @@ Build the deployment structure. Start by defining the function signature for wra
     classification_prompt = <<~PROMPT
       You will be acting as a customer support ticket classification system.
       […]
-      ... The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
     PROMPT
     # Send the prompt to the API to classify the support request.
     message = client.messages.create(
@@ -998,27 +1018,29 @@ Build the deployment structure. Start by defining the function signature for wra
       output_config: { effort: "low" },
       messages: [{ role: "user", content: classification_prompt }]
     )
-    reasoning_and_intent = message.content.grep(Anthropic::Models::TextBlock).first&.text || ""
+    raise "Claude declined to classify this ticket." if message.stop_reason == :refusal
+    summary_and_intent = message.content.grep(Anthropic::Models::TextBlock).first&.text || ""
 
-    # Use a regular expression to extract `reasoning`.
-    reasoning = reasoning_and_intent[%r{<reasoning>(.*?)</reasoning>}m, 1]&.strip || ""
+    # Use a regular expression to extract `summary`.
+    summary = summary_and_intent[%r{<summary>(.*?)</summary>}m, 1]&.strip || ""
 
     # Similarly, also extract the `intent`.
-    intent = reasoning_and_intent[%r{<intent>(.*?)</intent>}m, 1]&.strip || ""
+    intent = summary_and_intent[%r{<intent>(.*?)</intent>}m, 1]&.strip || ""
 
-    [reasoning, intent]
+    [summary, intent]
   end
   ```
 </CodeGroup>
 
 This code:
 
-* Creates a client instance using your API key.
+* Creates a client instance.
 * Defines a `classify_support_request()` (typescript, go, java, php: `classifySupportRequest()`; csharp: `ClassifySupportRequest()`) function that takes a `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) string.
 * Sends the `ticket_contents` (typescript, csharp, go, java: `ticketContents`; php: `$ticketContents`) to Claude for classification using the `classification_prompt` (typescript, csharp, go, java: `classificationPrompt`; php: `$classificationPrompt`).
-* Returns the model’s reasoning and intent extracted from the response.
+* Stops with an error if Claude [declines the request](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback), because a declined response has no complete text to parse.
+* Returns the summary and the intent extracted from the response.
 
-Because the entire reasoning and intent text must be generated before parsing, the example does not stream the response.
+The code parses the whole response at once, so the example doesn’t stream the response.
 
 ***
 
@@ -1062,7 +1084,7 @@ To assess this, first modify the script so that it compares the predicted intent
       # Define the prompt for the classification task
       classification_prompt = f"""You will be acting as a customer support ticket classification system.
           […]
-          ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """
 
       message = client.messages.create(
@@ -1072,25 +1094,27 @@ To assess this, first modify the script so that it compares the predicted intent
           messages=[{"role": "user", "content": classification_prompt}],
       )
       usage = message.usage  # Get the usage statistics for the API call for how many input and output tokens were used.
-      reasoning_and_intent = next(
+      if message.stop_reason == "refusal":
+          return "", "", False, usage
+      summary_and_intent = next(
           (block.text for block in message.content if block.type == "text"), ""
       )
 
-      # Use Python's regular expressions library to extract `reasoning`.
-      reasoning_match = re.search(
-          r"<reasoning>(.*?)</reasoning>", reasoning_and_intent, re.DOTALL
+      # Use Python's regular expressions library to extract `summary`.
+      summary_match = re.search(
+          r"<summary>(.*?)</summary>", summary_and_intent, re.DOTALL
       )
-      reasoning = reasoning_match.group(1).strip() if reasoning_match else ""
+      summary = summary_match.group(1).strip() if summary_match else ""
 
       # Similarly, also extract the `intent`.
-      intent_match = re.search(r"<intent>(.*?)</intent>", reasoning_and_intent, re.DOTALL)
+      intent_match = re.search(r"<intent>(.*?)</intent>", summary_and_intent, re.DOTALL)
       intent = intent_match.group(1).strip() if intent_match else ""
 
       # Check if the model's prediction is correct.
       correct = actual_intent.strip() == intent.strip()
 
-      # Return the reasoning, intent, correct, and usage.
-      return reasoning, intent, correct, usage
+      # Return the summary, intent, correct, and usage.
+      return summary, intent, correct, usage
   ```
 
   ```typescript TypeScript
@@ -1103,11 +1127,11 @@ To assess this, first modify the script so that it compares the predicted intent
   async function classifySupportRequest(
     ticketContents: string,
     actualIntent: string
-  ): Promise<{ reasoning: string; intent: string; correct: boolean; usage: Anthropic.Usage }> {
+  ): Promise<{ summary: string; intent: string; correct: boolean; usage: Anthropic.Usage }> {
     // Define the prompt for the classification task
     const classificationPrompt = `You will be acting as a customer support ticket classification system.
       […]
-      ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
       `;
 
     const message = await client.messages.create({
@@ -1118,22 +1142,25 @@ To assess this, first modify the script so that it compares the predicted intent
     });
     // Get the usage statistics for the API call for how many input and output tokens were used.
     const usage = message.usage;
+    if (message.stop_reason === "refusal") {
+      return { summary: "", intent: "", correct: false, usage };
+    }
     const textBlock = message.content.find((block) => block.type === "text");
-    const reasoningAndIntent = textBlock?.text ?? "";
+    const summaryAndIntent = textBlock?.text ?? "";
 
-    // Use a regular expression to extract `reasoning`.
-    const reasoningMatch = /<reasoning>(.*?)<\/reasoning>/s.exec(reasoningAndIntent);
-    const reasoning = reasoningMatch?.[1].trim() ?? "";
+    // Use a regular expression to extract `summary`.
+    const summaryMatch = /<summary>(.*?)<\/summary>/s.exec(summaryAndIntent);
+    const summary = summaryMatch?.[1].trim() ?? "";
 
     // Similarly, also extract the `intent`.
-    const intentMatch = /<intent>(.*?)<\/intent>/s.exec(reasoningAndIntent);
+    const intentMatch = /<intent>(.*?)<\/intent>/s.exec(summaryAndIntent);
     const intent = intentMatch?.[1].trim() ?? "";
 
     // Check if the model's prediction is correct.
     const correct = actualIntent.trim() === intent.trim();
 
-    // Return the reasoning, intent, correct, and usage.
-    return { reasoning, intent, correct, usage };
+    // Return the summary, intent, correct, and usage.
+    return { summary, intent, correct, usage };
   }
   ```
 
@@ -1147,13 +1174,13 @@ To assess this, first modify the script so that it compares the predicted intent
   // Set the default model
   const Model DefaultModel = Model.ClaudeHaiku5_5;
 
-  async Task<(string Reasoning, string Intent, bool Correct, Usage Usage)> ClassifySupportRequest(string ticketContents, string actualIntent)
+  async Task<(string Summary, string Intent, bool Correct, Usage Usage)> ClassifySupportRequest(string ticketContents, string actualIntent)
   {
       // Define the prompt for the classification task
       var classificationPrompt = """
           You will be acting as a customer support ticket classification system.
           […]
-          ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """;
 
       var message = await client.Messages.Create(new MessageCreateParams
@@ -1165,29 +1192,33 @@ To assess this, first modify the script so that it compares the predicted intent
       });
       // Get the usage statistics for the API call for how many input and output tokens were used.
       var usage = message.Usage;
-      var reasoningAndIntent = "";
+      if (message.StopReason?.Value() == StopReason.Refusal)
+      {
+          return ("", "", false, usage);
+      }
+      var summaryAndIntent = "";
       foreach (var block in message.Content)
       {
           if (block.TryPickText(out var textBlock))
           {
-              reasoningAndIntent = textBlock.Text;
+              summaryAndIntent = textBlock.Text;
               break;
           }
       }
 
-      // Use a regular expression to extract `reasoning`.
-      var reasoningMatch = Regex.Match(reasoningAndIntent, "<reasoning>(.*?)</reasoning>", RegexOptions.Singleline);
-      var reasoning = reasoningMatch.Success ? reasoningMatch.Groups[1].Value.Trim() : "";
+      // Use a regular expression to extract `summary`.
+      var summaryMatch = Regex.Match(summaryAndIntent, "<summary>(.*?)</summary>", RegexOptions.Singleline);
+      var summary = summaryMatch.Success ? summaryMatch.Groups[1].Value.Trim() : "";
 
       // Similarly, also extract the `intent`.
-      var intentMatch = Regex.Match(reasoningAndIntent, "<intent>(.*?)</intent>", RegexOptions.Singleline);
+      var intentMatch = Regex.Match(summaryAndIntent, "<intent>(.*?)</intent>", RegexOptions.Singleline);
       var intent = intentMatch.Success ? intentMatch.Groups[1].Value.Trim() : "";
 
       // Check if the model's prediction is correct.
       var correct = actualIntent.Trim() == intent.Trim();
 
-      // Return the reasoning, intent, correct, and usage.
-      return (reasoning, intent, correct, usage);
+      // Return the summary, intent, correct, and usage.
+      return (summary, intent, correct, usage);
   }
   ```
 
@@ -1205,11 +1236,11 @@ To assess this, first modify the script so that it compares the predicted intent
   // Set the default model
   const defaultModel = anthropic.ModelClaudeHaiku5_5
 
-  func classifySupportRequest(ctx context.Context, ticketContents, actualIntent string) (reasoning, intent string, correct bool, usage anthropic.Usage, err error) {
+  func classifySupportRequest(ctx context.Context, ticketContents, actualIntent string) (summary, intent string, correct bool, usage anthropic.Usage, err error) {
   	// Define the prompt for the classification task
   	classificationPrompt := `You will be acting as a customer support ticket classification system.
   		[…]
-  		...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+  		... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
   		`
   	message, err := client.Messages.New(ctx, anthropic.MessageNewParams{
   		Model:        defaultModel,
@@ -1224,22 +1255,25 @@ To assess this, first modify the script so that it compares the predicted intent
   	}
   	// Get the usage statistics for the API call for how many input and output tokens were used.
   	usage = message.Usage
-  	var reasoningAndIntent string
+  	if message.StopReason == anthropic.StopReasonRefusal {
+  		return "", "", false, usage, nil
+  	}
+  	var summaryAndIntent string
   	for _, block := range message.Content {
   		if textBlock, ok := block.AsAny().(anthropic.TextBlock); ok {
-  			reasoningAndIntent = textBlock.Text
+  			summaryAndIntent = textBlock.Text
   			break
   		}
   	}
 
-  	// Use a regular expression to extract `reasoning`.
-  	reasoningMatch := regexp.MustCompile(`(?s)<reasoning>(.*?)</reasoning>`).FindStringSubmatch(reasoningAndIntent)
-  	if reasoningMatch != nil {
-  		reasoning = strings.TrimSpace(reasoningMatch[1])
+  	// Use a regular expression to extract `summary`.
+  	summaryMatch := regexp.MustCompile(`(?s)<summary>(.*?)</summary>`).FindStringSubmatch(summaryAndIntent)
+  	if summaryMatch != nil {
+  		summary = strings.TrimSpace(summaryMatch[1])
   	}
 
   	// Similarly, also extract the `intent`.
-  	intentMatch := regexp.MustCompile(`(?s)<intent>(.*?)</intent>`).FindStringSubmatch(reasoningAndIntent)
+  	intentMatch := regexp.MustCompile(`(?s)<intent>(.*?)</intent>`).FindStringSubmatch(summaryAndIntent)
   	if intentMatch != nil {
   		intent = strings.TrimSpace(intentMatch[1])
   	}
@@ -1247,8 +1281,8 @@ To assess this, first modify the script so that it compares the predicted intent
   	// Check if the model's prediction is correct.
   	correct = strings.TrimSpace(actualIntent) == strings.TrimSpace(intent)
 
-  	// Return the reasoning, intent, correct, and usage.
-  	return reasoning, intent, correct, usage, nil
+  	// Return the summary, intent, correct, and usage.
+  	return summary, intent, correct, usage, nil
   }
   ```
 
@@ -1262,14 +1296,14 @@ To assess this, first modify the script so that it compares the predicted intent
   // Set the default model
   static final Model DEFAULT_MODEL = Model.CLAUDE_HAIKU_5_5;
 
-  record Classification(String reasoning, String intent, boolean correct, Usage usage) {}
+  record Classification(String summary, String intent, boolean correct, Usage usage) {}
 
   Classification classifySupportRequest(String ticketContents, String actualIntent) {
       // Define the prompt for the classification task
       String classificationPrompt = """
           You will be acting as a customer support ticket classification system.
           […]
-          ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           """;
 
       Message message = client.messages().create(MessageCreateParams.builder()
@@ -1282,27 +1316,30 @@ To assess this, first modify the script so that it compares the predicted intent
           .build());
       // Get the usage statistics for the API call for how many input and output tokens were used.
       Usage usage = message.usage();
-      String reasoningAndIntent = message.content().stream()
+      if (message.stopReason().filter(StopReason.REFUSAL::equals).isPresent()) {
+          return new Classification("", "", false, usage);
+      }
+      String summaryAndIntent = message.content().stream()
           .flatMap(block -> block.text().stream())
           .map(textBlock -> textBlock.text())
           .findFirst()
           .orElse("");
 
-      // Use a regular expression to extract `reasoning`.
-      Matcher reasoningMatch = Pattern.compile("<reasoning>(.*?)</reasoning>", Pattern.DOTALL)
-          .matcher(reasoningAndIntent);
-      String reasoning = reasoningMatch.find() ? reasoningMatch.group(1).strip() : "";
+      // Use a regular expression to extract `summary`.
+      Matcher summaryMatch = Pattern.compile("<summary>(.*?)</summary>", Pattern.DOTALL)
+          .matcher(summaryAndIntent);
+      String summary = summaryMatch.find() ? summaryMatch.group(1).strip() : "";
 
       // Similarly, also extract the `intent`.
       Matcher intentMatch = Pattern.compile("<intent>(.*?)</intent>", Pattern.DOTALL)
-          .matcher(reasoningAndIntent);
+          .matcher(summaryAndIntent);
       String intent = intentMatch.find() ? intentMatch.group(1).strip() : "";
 
       // Check if the model's prediction is correct.
       boolean correct = actualIntent.strip().equals(intent.strip());
 
-      // Return the reasoning, intent, correct, and usage.
-      return new Classification(reasoning, intent, correct, usage);
+      // Return the summary, intent, correct, and usage.
+      return new Classification(summary, intent, correct, usage);
   }
   ```
 
@@ -1314,7 +1351,7 @@ To assess this, first modify the script so that it compares the predicted intent
   const DEFAULT_MODEL = Model::CLAUDE_HAIKU_5_5;
 
   /**
-   * @return array{string, string, bool, Usage} the reasoning, the intent, whether the intent is correct, and the usage
+   * @return array{string, string, bool, Usage} the summary, the intent, whether the intent is correct, and the usage
    */
   function classifySupportRequest(Client $client, string $ticketContents, string $actualIntent): array
   {
@@ -1322,7 +1359,7 @@ To assess this, first modify the script so that it compares the predicted intent
       $classificationPrompt = <<<PROMPT
           You will be acting as a customer support ticket classification system.
           […]
-          ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+          ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
           PROMPT;
 
       $message = $client->messages->create(
@@ -1333,29 +1370,32 @@ To assess this, first modify the script so that it compares the predicted intent
       );
       // Get the usage statistics for the API call for how many input and output tokens were used.
       $usage = $message->usage;
-      $reasoningAndIntent = '';
+      if ($message->stopReason === 'refusal') {
+          return ['', '', false, $usage];
+      }
+      $summaryAndIntent = '';
       foreach ($message->content as $block) {
           if ($block instanceof \Anthropic\Messages\TextBlock) {
-              $reasoningAndIntent = $block->text;
+              $summaryAndIntent = $block->text;
               break;
           }
       }
 
-      // Use a regular expression to extract `reasoning`.
-      $reasoning = preg_match('/<reasoning>(.*?)<\/reasoning>/s', $reasoningAndIntent, $reasoningMatch)
-          ? trim($reasoningMatch[1])
+      // Use a regular expression to extract `summary`.
+      $summary = preg_match('/<summary>(.*?)<\/summary>/s', $summaryAndIntent, $summaryMatch)
+          ? trim($summaryMatch[1])
           : '';
 
       // Similarly, also extract the `intent`.
-      $intent = preg_match('/<intent>(.*?)<\/intent>/s', $reasoningAndIntent, $intentMatch)
+      $intent = preg_match('/<intent>(.*?)<\/intent>/s', $summaryAndIntent, $intentMatch)
           ? trim($intentMatch[1])
           : '';
 
       // Check if the model's prediction is correct.
       $correct = trim($actualIntent) === trim($intent);
 
-      // Return the reasoning, intent, correct, and usage.
-      return [$reasoning, $intent, $correct, $usage];
+      // Return the summary, intent, correct, and usage.
+      return [$summary, $intent, $correct, $usage];
   }
   ```
 
@@ -1371,7 +1411,7 @@ To assess this, first modify the script so that it compares the predicted intent
     classification_prompt = <<~PROMPT
       You will be acting as a customer support ticket classification system.
       […]
-      ...The reasoning should be enclosed in <reasoning> tags and the intent in <intent> tags. Return only the reasoning and the intent.
+      ... The summary should be enclosed in <summary> tags and the intent in <intent> tags. Return only the summary and the intent.
     PROMPT
 
     message = client.messages.create(
@@ -1382,19 +1422,20 @@ To assess this, first modify the script so that it compares the predicted intent
     )
     # Get the usage statistics for the API call for how many input and output tokens were used.
     usage = message.usage
-    reasoning_and_intent = message.content.grep(Anthropic::Models::TextBlock).first&.text || ""
+    return ["", "", false, usage] if message.stop_reason == :refusal
+    summary_and_intent = message.content.grep(Anthropic::Models::TextBlock).first&.text || ""
 
-    # Use a regular expression to extract `reasoning`.
-    reasoning = reasoning_and_intent[%r{<reasoning>(.*?)</reasoning>}m, 1]&.strip || ""
+    # Use a regular expression to extract `summary`.
+    summary = summary_and_intent[%r{<summary>(.*?)</summary>}m, 1]&.strip || ""
 
     # Similarly, also extract the `intent`.
-    intent = reasoning_and_intent[%r{<intent>(.*?)</intent>}m, 1]&.strip || ""
+    intent = summary_and_intent[%r{<intent>(.*?)</intent>}m, 1]&.strip || ""
 
     # Check if the model's prediction is correct.
     correct = actual_intent.strip == intent.strip
 
-    # Return the reasoning, intent, correct, and usage.
-    [reasoning, intent, correct, usage]
+    # Return the summary, intent, correct, and usage.
+    [summary, intent, correct, usage]
   end
   ```
 </CodeGroup>
@@ -1403,13 +1444,14 @@ Here is a breakdown of the edits:
 
 * The `classify_support_request()` (typescript, go, java, php: `classifySupportRequest()`; csharp: `ClassifySupportRequest()`) function now takes the `actual_intent` (typescript, csharp, go, java: `actualIntent`; php: `$actualIntent`) from the test cases and compares it against Claude’s intent classification to assess whether they match.
 * The function extracts usage statistics for the API call to calculate cost based on input and output tokens used.
+* A declined request counts as a wrong classification, so one refusal doesn’t stop the evaluation. The function still returns its usage, because [some refusals are billed](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed).
 
 ### Run your evaluation
 
 A proper evaluation requires clear thresholds and benchmarks to determine what is a good result. The preceding script returns the values you need to measure accuracy and cost per classification, but you still need clearly established thresholds. For example:
 
-* **Accuracy:** 95% (out of 100 tests)
-* **Cost per classification:** 50% reduction on average (across 100 tests) from current routing method
+* **Accuracy:** 95 percent (out of 100 tests)
+* **Cost per classification:** 50 percent reduction on average (across 100 tests) from current routing method
 
 Having these thresholds allows you to tell at scale, and with impartial empiricism, what method is best for you and what changes you might need to make to better fit your requirements.
 
@@ -1462,7 +1504,7 @@ flowchart LR
 
 ### Use vector databases and similarity search retrieval to handle highly variable tickets
 
-Despite providing examples being the most effective way to improve performance, if support requests are highly variable, it can be hard to include enough examples in a single prompt.
+Examples are the most effective way to improve performance, but if support requests are highly variable, it can be hard to include enough of them in a single prompt.
 
 In this scenario, you could employ a vector database to do similarity searches from a dataset of examples and retrieve the most relevant examples for a given query.
 
@@ -1476,7 +1518,7 @@ Here are some scenarios where Claude might misclassify tickets (there might be o
   <Accordion title="Customers make implicit requests">
     Customers often express needs indirectly. For example, “I’ve been waiting for my package for over two weeks now” might be an indirect request for order status.
 
-    * **Solution:** Provide Claude with some real customer examples of these kinds of requests, along with what the underlying intent is. You can get even better results if you include a classification rationale for particularly nuanced ticket intents, so that Claude can better generalize the logic to other tickets.
+    * **Solution:** Provide Claude with some real customer examples of these kinds of requests, along with what the underlying intent is. For particularly nuanced intents, also say in the prompt what sets each one apart, so that Claude can apply the same distinction to other tickets.
   </Accordion>
 
   <Accordion title="Claude prioritizes emotion over intent">

@@ -209,6 +209,8 @@ Create User Profile
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -569,6 +571,8 @@ List User Profiles
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -901,6 +905,8 @@ Get User Profile
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -1326,6 +1332,8 @@ Update User Profile
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -1654,6 +1662,8 @@ Delete User Profile
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -1846,6 +1856,8 @@ Create Enrollment URL
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -2350,6 +2362,8 @@ Create Action URL
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
 
   - `:"user-profiles-billing-2026-10-01"`
 

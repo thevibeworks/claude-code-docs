@@ -252,10 +252,10 @@ The API is stateless. Nothing about your shell session travels between requests,
 
 A bash tool definition has two required fields, `type` and `name`, and the `name` must be `bash`. The tool is schema-less: you don’t provide an `input_schema`, because the schema is built into Claude’s model and can’t be modified. The following table lists the input fields Claude sets when it calls the tool.
 
-| Parameter | Required | Description                               |
-| --------- | -------- | ----------------------------------------- |
-| `command` | Yes\*    | The bash command to run                   |
-| `restart` | No       | Set to `true` to restart the bash session |
+| Parameter | Required | Description |
+| ----- | ----- | ----- |
+| `command` | Yes\* | The bash command to run |
+| `restart` | No | Set to `true` to restart the bash session |
 
 \*Required unless using `restart`
 
@@ -1941,10 +1941,10 @@ Beyond isolation, add these controls:
 
 The bash tool definition adds the following input tokens to your request. This is in addition to the per-model [tool use system prompt](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#pricing) that applies whenever any tool is present.
 
-| Model                                                 | Additional input tokens |
-| ----------------------------------------------------- | ----------------------- |
-| Claude 4.7 and later models and Claude Mythos Preview | 325 tokens              |
-| Claude 4.6 and earlier models                         | 244 tokens              |
+| Model | Additional input tokens |
+| ----- | ----- |
+| Claude 4.7 and later models and Claude Mythos Preview | 325 tokens |
+| Claude 4.6 and earlier models | 244 tokens |
 
 Additional tokens are consumed by:
 
@@ -2014,18 +2014,18 @@ Bash tool is available on every model and eligible for zero data retention and H
 
 * Availability: Available
 
-| Status    | Cloud platforms         |
-| --------- | ----------------------- |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | All supported platforms |
 
 ### Data handling
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                       | HIPAA    |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| Status  | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible |
-| Details | Client-side tool run in your environment.                                                                                                                 | —        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible |
+| Details | Client-side tool run in your environment. | — |
 
 Applicable endpoints:
 

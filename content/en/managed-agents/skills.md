@@ -237,11 +237,11 @@ Attach skills when creating an agent. Each [session](https://platform.claude.com
 
 Each entry in the `skills` (csharp, go: `Skills`) array uses the following fields:
 
-| Field                                                               | Description                                                                                                                                                                                                                                                        |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `type` (csharp, go: `Type`)                                         | Either `anthropic` for pre-built skills or `custom` for workspace-authored skills.                                                                                                                                                                                 |
+| Field | Description |
+| ----- | ----- |
+| `type` (csharp, go: `Type`) | Either `anthropic` for pre-built skills or `custom` for workspace-authored skills. |
 | `skill_id` (java: `skillId`; php: `skillID`; csharp, go: `SkillID`) | The skill identifier. For Anthropic skills, use the short name (for example, `xlsx`). For custom skills, use the `skill_*` ID returned at creation (see [Create a custom skill](https://platform.claude.com/docs/en/managed-agents/skills#create-a-custom-skill)). |
-| `version` (csharp, go: `Version`)                                   | Pin to a specific version or use `latest`. Optional. Defaults to `latest` when omitted. Applies to both Anthropic and custom skills.                                                                                                                               |
+| `version` (csharp, go: `Version`) | Pin to a specific version or use `latest`. Optional. Defaults to `latest` when omitted. Applies to both Anthropic and custom skills. |
 
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL

@@ -31,9 +31,9 @@ Both patterns share these constraints:
 * Cursor values are opaque strings that you must not parse.
 * Requests are limited to 600 per minute for each [parent organization](https://platform.claude.com/docs/en/manage-claude/compliance-api#how-the-compliance-api-works), shared across every key, every linked organization, and every `/v1/compliance/*` endpoint; unlike the local session endpoints, the remote session endpoints carry a second request budget on top. See [429 Too Many Requests](https://platform.claude.com/docs/en/manage-claude/compliance-errors#429-too-many-requests) for the response headers and retry contract.
 
-| Pattern                         | Choose when                                                                                                                                                                                                     |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Window polling                  | Your pipeline runs on a fixed schedule, you prefer stateless workers, and you can tolerate replaying or overlapping windows                                                                                     |
+| Pattern | Choose when |
+| ----- | ----- |
+| Window polling | Your pipeline runs on a fixed schedule, you prefer stateless workers, and you can tolerate replaying or overlapping windows |
 | Cursor-driven incremental reads | You want the lowest latency between an activity occurring and your pipeline ingesting it, you want to avoid re-reading pages you already drained, and you have a durable place to persist a cursor between runs |
 
 ### Window polling
@@ -95,13 +95,13 @@ Cursors survive key rotation; see [Manage and rotate keys](https://platform.clau
 
 Each `Activity` carries fields you can join against events already in your SIEM (Splunk, Datadog, Microsoft Sentinel, Cribl, or similar):
 
-| Compliance API field  | Join target                                                             |
-| --------------------- | ----------------------------------------------------------------------- |
-| `actor.user_id`       | Your identity provider’s stable user identifier                         |
-| `actor.email_address` | Directory email when a stable ID is unavailable                         |
-| `actor.ip_address`    | Network, VPN, and endpoint logs                                         |
-| `actor.user_agent`    | Endpoint and device inventory, and the client app that made the request |
-| `created_at`          | Time-window correlation across any source                               |
+| Compliance API field | Join target |
+| ----- | ----- |
+| `actor.user_id` | Your identity provider’s stable user identifier |
+| `actor.email_address` | Directory email when a stable ID is unavailable |
+| `actor.ip_address` | Network, VPN, and endpoint logs |
+| `actor.user_agent` | Endpoint and device inventory, and the client app that made the request |
+| `created_at` | Time-window correlation across any source |
 
 `actor.user_id` and `actor.email_address` are present when `actor.type` is `user_actor`. `actor.ip_address` and `actor.user_agent` are absent on some actor types, such as `anthropic_actor` and `scim_directory_sync_actor`. Check the discriminator before reading any of these fields. `user_id` is a stable, opaque identifier for the user account: it is consistent across every Compliance API endpoint and activity payload, and it does not change when the user’s email or display name changes. Use `user_id`, not `email_address`, as the primary join key.
 
@@ -113,14 +113,14 @@ Some calls to the Compliance API leave no activity in the Activity Feed, includi
 
 Six retention horizons govern what you can retrieve later:
 
-| Data                                                                      | Retained for                                                                                                                                                                                  | Controlled by                                                                                                |
-| ------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| Activity Feed records                                                     | 6 years                                                                                                                                                                                       | Anthropic                                                                                                    |
-| Chat, file, and project content                                           | Your organization’s claude.ai retention policy, unless a user deletes it sooner                                                                                                               | Your organization                                                                                            |
-| Local session transcripts (sessions on users’ machines)                   | 6 years by default, or your organization’s custom conversation retention period when a finite one is set; 30 days in organizations with HIPAA readiness enabled                               | Anthropic by default; your organization when it sets a custom period                                         |
-| Remote session transcripts (sessions in the cloud), other than Claude Tag | No default period; see [Retention and deletion](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retention-and-deletion)                                                 | Your users by default; also your organization’s retention policy for sessions that Claude starts from a chat |
-| Claude Tag session transcripts (sessions in the cloud)                    | No default period; deleted with their channel or Slack workspace (see [Retention and deletion](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retention-and-deletion)) | Your organization                                                                                            |
-| Content hard-deleted through the Compliance API                           | Not retained; deletion is immediate and permanent                                                                                                                                             | The caller of the `DELETE` endpoint                                                                          |
+| Data | Retained for | Controlled by |
+| ----- | ----- | ----- |
+| Activity Feed records | 6 years | Anthropic |
+| Chat, file, and project content | Your organization’s claude.ai retention policy, unless a user deletes it sooner | Your organization |
+| Local session transcripts (sessions on users’ machines) | 6 years by default, or your organization’s custom conversation retention period when a finite one is set; 30 days in organizations with HIPAA readiness enabled | Anthropic by default; your organization when it sets a custom period |
+| Remote session transcripts (sessions in the cloud), other than Claude Tag | No default period; see [Retention and deletion](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retention-and-deletion) | Your users by default; also your organization’s retention policy for sessions that Claude starts from a chat |
+| Claude Tag session transcripts (sessions in the cloud) | No default period; deleted with their channel or Slack workspace (see [Retention and deletion](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retention-and-deletion)) | Your organization |
+| Content hard-deleted through the Compliance API | Not retained; deletion is immediate and permanent | The caller of the `DELETE` endpoint |
 
 To learn how the rest of the Claude Platform handles retention, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 

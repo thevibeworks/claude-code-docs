@@ -70,11 +70,11 @@ Before deploying, make sure you have:
 
 ### Network requirements
 
-| Component       | Destination                                          | Port / protocol  | Used during                     |
-| --------------- | ---------------------------------------------------- | ---------------- | ------------------------------- |
-| Setup component | `api.anthropic.com`                                  | 443 TCP          | Provisioning and token rotation |
-| cloudflared     | Tunnel edge (`198.41.192.0/19`, `2606:4700:a0::/44`) | 7844 TCP and UDP | Runtime                         |
-| Proxy           | Your upstream MCP servers                            | As configured    | Runtime                         |
+| Component | Destination | Port / protocol | Used during |
+| ----- | ----- | ----- | ----- |
+| Setup component | `api.anthropic.com` | 443 TCP | Provisioning and token rotation |
+| cloudflared | Tunnel edge (`198.41.192.0/19`, `2606:4700:a0::/44`) | 7844 TCP and UDP | Runtime |
+| Proxy | Your upstream MCP servers | As configured | Runtime |
 
 ## Security model
 
@@ -82,25 +82,25 @@ Before deploying, make sure you have:
 
 Three independent layers protect every request:
 
-| Layer                                                                       | Protects against                                                         |
-| --------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Outer mTLS between Anthropic and the transport provider, with IP validation | Unauthorized clients reaching the tunnel                                 |
-| Inner TLS from Anthropic’s back end to your proxy                           | Payload inspection by the transport provider or any network intermediary |
-| OAuth on each MCP server                                                    | Unauthorized use of MCP tools by authenticated tunnel traffic            |
+| Layer | Protects against |
+| ----- | ----- |
+| Outer mTLS between Anthropic and the transport provider, with IP validation | Unauthorized clients reaching the tunnel |
+| Inner TLS from Anthropic’s back end to your proxy | Payload inspection by the transport provider or any network intermediary |
+| OAuth on each MCP server | Unauthorized use of MCP tools by authenticated tunnel traffic |
 
 The tunnel transport runs on Cloudflare’s network. Because the proxy terminates inner TLS using a certificate that only you hold, Cloudflare cannot read request or response payloads. Anthropic does not connect to a tunnel until a CA certificate is registered, so payloads are always encrypted when they cross Cloudflare’s network. Cloudflare does receive connection metadata; see [What the transport provider can observe](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/overview#what-the-transport-provider-can-observe).
 
 ### Shared responsibility model
 
-| Anthropic handles                                                         | Your organization handles                                                                                                                      |
-| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tunnel access control                                                     | All content and traffic that transits your tunnel, and compliance with applicable third-party acceptable-use policies (including Cloudflare’s) |
-| Validating your CA certificate before connecting to your proxy            | Adherence to the deployment guidance on these pages                                                                                            |
-| Ensuring Claude only sends requests to tunnels owned by your organization | Securing tunnel tokens and TLS private keys                                                                                                    |
-|                                                                           | Managing the server certificate and renewing it before it expires                                                                              |
-|                                                                           | Configuring OAuth on each MCP server                                                                                                           |
-|                                                                           | Restricting network access for the proxy and MCP servers                                                                                       |
-|                                                                           | Notifying Anthropic if you suspect a breach                                                                                                    |
+| Anthropic handles | Your organization handles |
+| ----- | ----- |
+| Tunnel access control | All content and traffic that transits your tunnel, and compliance with applicable third-party acceptable-use policies (including Cloudflare’s) |
+| Validating your CA certificate before connecting to your proxy | Adherence to the deployment guidance on these pages |
+| Ensuring Claude only sends requests to tunnels owned by your organization | Securing tunnel tokens and TLS private keys |
+|  | Managing the server certificate and renewing it before it expires |
+|  | Configuring OAuth on each MCP server |
+|  | Restricting network access for the proxy and MCP servers |
+|  | Notifying Anthropic if you suspect a breach |
 
 <Warning>
   If an attacker obtains your tunnel token **and** one of your TLS private keys, they could impersonate your proxy and read MCP request payloads. Treat both as high-value secrets. See [MCP tunnels security](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/security) for hardening guidance.
@@ -439,17 +439,17 @@ MCP tunnels are in research preview on every model.
 
 * Availability: Available
 
-| Status           | Cloud platforms |
-| ---------------- | --------------- |
-| Research preview | Claude API      |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Research preview | Claude API |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 
 * Availability: Available
 
-| Status           | Cloud platforms |
-| ---------------- | --------------- |
-| Research preview | Claude API      |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Research preview | Claude API |
 
 ### Required beta headers
 
@@ -457,18 +457,18 @@ MCP tunnels are in research preview on every model.
 
 Beta headers allow you to access experimental features and new model capabilities before they become part of the standard API.
 
-| Header                                             | APIs                                                                                        |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Header | APIs |
+| ----- | ----- |
 | `mcp-client-2026-09-15` or `mcp-client-2025-11-20` | [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) |
 
 ### Data handling
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                | HIPAA        |
-| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Status  | Not eligible                                                                                                                                                                                       | Not eligible |
-| Details | Research preview. The MCP tunnels security page describes the data-flow boundary and subprocessor details. [Learn more](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/security) | —            |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
+| Details | Research preview. The MCP tunnels security page describes the data-flow boundary and subprocessor details. [Learn more](https://platform.claude.com/docs/en/agents-and-tools/mcp-tunnels/security) | — |
 
 Applicable endpoints:
 

@@ -442,13 +442,13 @@ If a budgeted session’s usage comes to include a model with no list price, the
 
 Budget-related requests are rejected in the following cases:
 
-| Condition                                                                                                                                                                                                                                   | Status |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| A work-starting event (for example, `user.message`) is sent while the session is at or over its budget; the error names the [accepted settle events](https://platform.claude.com/docs/en/managed-agents/budgets#events-accepted-at-the-cap) | 400    |
-| The budget is set to a value at or below the session’s consumed list cost                                                                                                                                                                   | 400    |
-| A budget is added to a session created without one, or re-added after removal                                                                                                                                                               | 400    |
-| `amount` (csharp, go: `Amount`) is not a whole number of cents (for example, `"25.00"`), is zero or negative, or `currency` (csharp, go: `Currency`) is not `USD`                                                                           | 400    |
-| A budgeted create references a model with [no public list price](https://platform.claude.com/docs/en/managed-agents/budgets#models-without-a-list-price)                                                                                    | 400    |
+| Condition | Status |
+| ----- | ----- |
+| A work-starting event (for example, `user.message`) is sent while the session is at or over its budget; the error names the [accepted settle events](https://platform.claude.com/docs/en/managed-agents/budgets#events-accepted-at-the-cap) | 400 |
+| The budget is set to a value at or below the session’s consumed list cost | 400 |
+| A budget is added to a session created without one, or re-added after removal | 400 |
+| `amount` (csharp, go: `Amount`) is not a whole number of cents (for example, `"25.00"`), is zero or negative, or `currency` (csharp, go: `Currency`) is not `USD` | 400 |
+| A budgeted create references a model with [no public list price](https://platform.claude.com/docs/en/managed-agents/budgets#models-without-a-list-price) | 400 |
 
 <Note>
   Session budgets are hard caps in US dollars (written in cents) on a single session, enforced by the platform. They are distinct from the Messages API’s [task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets), which are advisory, token-denominated budgets the model uses to self-regulate within one agentic loop.
@@ -469,9 +469,9 @@ Session budgets are in beta on every model.
 
 * Availability: Available
 
-| Status | Cloud platforms         |
-| ------ | ----------------------- |
-| Beta   | All supported platforms |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Beta | All supported platforms |
 
 ### Required beta headers
 
@@ -485,9 +485,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

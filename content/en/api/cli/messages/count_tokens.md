@@ -674,7 +674,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: "web_search_tool_result"`
 
-        - `content: array of WebSearchResultBlockParam or WebSearchToolRequestError`
+        - `content: array of WebSearchResultBlockParam or WebSearchToolRequestErrorObject`
 
           - `web_search_tool_result_block_item: array of WebSearchResultBlockParam`
 
@@ -688,7 +688,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `page_age: optional string`
 
-          - `web_search_tool_request_error: object`
+          - `web_search_tool_request_error_object: object`
 
             - `type: "web_search_tool_result_error"`
 

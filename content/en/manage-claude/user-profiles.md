@@ -18,10 +18,10 @@ Each end customer gets one profile, so a company gets one profile for the whole 
 
 The profile’s `access_type` field says whether the end customer uses your product or buys API access from you, such as through your gateway:
 
-| The end customer                           | `access_type`                                                     |
-| ------------------------------------------ | ----------------------------------------------------------------- |
-| Uses your product                          | `application` (the default, set when you leave `access_type` out) |
-| Is a company that buys API access from you | `passthrough` (not the default, so you have to send it)           |
+| The end customer | `access_type` |
+| ----- | ----- |
+| Uses your product | `application` (the default, set when you leave `access_type` out) |
+| Is a company that buys API access from you | `passthrough` (not the default, so you have to send it) |
 
 Don’t create a profile for either of the following:
 
@@ -377,14 +377,14 @@ A profile for a company identifies the company, not the person a request comes f
 
 A profile ID of either access type also works on Claude Models on Google Cloud (Google managed) and on [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock). It doesn’t work on [Amazon Bedrock (`bedrock-runtime`)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), which you call with `InvokeModel` or `Converse`. You use your Anthropic organization’s credentials only to create and manage profiles. Inference stays on your existing AWS or Google Cloud credentials.
 
-| Platform                                                                                                                                                   | Create profiles                                                                                                                                                         | Send the profile ID in                      |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| Claude API                                                                                                                                                 | Yes                                                                                                                                                                     | `anthropic-user-profile-id` header          |
-| [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)                                                     | Yes                                                                                                                                                                     | `anthropic-user-profile-id` header          |
-| [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), deployments hosted on Anthropic                    | No. Create them on the Claude API, and [ask Anthropic to link your Foundry resource](https://platform.claude.com/docs/en/manage-claude/user-profiles#before-you-begin). | `anthropic-user-profile-id` header          |
-| [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) | Yes                                                                                                                                                                     | `anthropic-user-profile-id` header          |
-| [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)       | No. Create them on the Claude API or Claude Platform on AWS.                                                                                                            | `anthropic-user-profile-id` header          |
-| [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)                                                 | No. Create them on the Claude API or Claude Platform on AWS.                                                                                                            | `user_profile_id` field in the request body |
+| Platform | Create profiles | Send the profile ID in |
+| ----- | ----- | ----- |
+| Claude API | Yes | `anthropic-user-profile-id` header |
+| [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) | Yes | `anthropic-user-profile-id` header |
+| [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), deployments hosted on Anthropic | No. Create them on the Claude API, and [ask Anthropic to link your Foundry resource](https://platform.claude.com/docs/en/manage-claude/user-profiles#before-you-begin). | `anthropic-user-profile-id` header |
+| [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) | Yes | `anthropic-user-profile-id` header |
+| [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed) | No. Create them on the Claude API or Claude Platform on AWS. | `anthropic-user-profile-id` header |
+| [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) | No. Create them on the Claude API or Claude Platform on AWS. | `user_profile_id` field in the request body |
 
 On Claude in Amazon Bedrock, put the ID at the top level of the request body:
 

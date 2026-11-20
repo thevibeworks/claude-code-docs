@@ -186,6 +186,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -277,7 +278,7 @@ interface Params {
   messages: Array<BetaMessageParam>;
   /** The model that will complete your prompt. See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options. */
   model: Model;
-  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. */
+  /** Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual. Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual. */
   billing_policy?: BetaBillingPolicy | null; // beta header: user-profiles-billing-2026-10-01
   /** Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request. */
   cache_control?: BetaCacheControlEphemeral | null;
@@ -926,7 +927,7 @@ interface BetaServerToolCaller20260120 {
   tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
-type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
+type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestErrorObject;
 
 interface BetaWebSearchResultBlockParam {
   type: "web_search_result";
@@ -936,7 +937,7 @@ interface BetaWebSearchResultBlockParam {
   page_age?: string | null;
 }
 
-interface BetaWebSearchToolRequestError {
+interface BetaWebSearchToolRequestErrorObject {
   type: "web_search_tool_result_error";
   error_code: BetaWebSearchToolResultErrorCode;
 }
@@ -2805,69 +2806,69 @@ interface BetaMessageBatchExpiredResult {
 
 interface BetaErrorResponse {
   type: "error";
-  error: BetaError;
+  error: BetaErrorObject;
   request_id: string | null;
 }
 
-type BetaError = BetaInvalidRequestError | BetaAuthenticationError | BetaBillingError | BetaPermissionError | BetaNotFoundError | BetaRateLimitError | BetaGatewayTimeoutError | BetaAPIError | BetaOverloadedError;
+type BetaErrorObject = BetaInvalidRequestErrorObject | BetaAuthenticationErrorObject | BetaBillingErrorObject | BetaPermissionErrorObject | BetaNotFoundErrorObject | BetaRateLimitErrorObject | BetaGatewayTimeoutErrorObject | BetaAPIErrorObject | BetaOverloadedErrorObject;
 
-interface BetaInvalidRequestError {
+interface BetaInvalidRequestErrorObject {
   /** The broad category of the error. */
   type: "invalid_request_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Invalid request
 }
 
-interface BetaAuthenticationError {
+interface BetaAuthenticationErrorObject {
   /** The broad category of the error. */
   type: "authentication_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Authentication error
 }
 
-interface BetaBillingError {
+interface BetaBillingErrorObject {
   /** The broad category of the error. */
   type: "billing_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Billing error
 }
 
-interface BetaPermissionError {
+interface BetaPermissionErrorObject {
   /** The broad category of the error. */
   type: "permission_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Permission denied
 }
 
-interface BetaNotFoundError {
+interface BetaNotFoundErrorObject {
   /** The broad category of the error. */
   type: "not_found_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Not found
 }
 
-interface BetaRateLimitError {
+interface BetaRateLimitErrorObject {
   /** The broad category of the error. */
   type: "rate_limit_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Rate limited
 }
 
-interface BetaGatewayTimeoutError {
+interface BetaGatewayTimeoutErrorObject {
   /** The broad category of the error. */
   type: "timeout_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Request timeout
 }
 
-interface BetaAPIError {
+interface BetaAPIErrorObject {
   /** The broad category of the error. */
   type: "api_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Internal server error
 }
 
-interface BetaOverloadedError {
+interface BetaOverloadedErrorObject {
   /** The broad category of the error. */
   type: "overloaded_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
@@ -3302,7 +3303,7 @@ interface BetaWebFetchToolResultBlock {
 
 interface BetaAdvisorToolResultBlock {
   type: "advisor_tool_result";
-  content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock;
+  content: BetaAdvisorToolResultErrorObject | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
@@ -3314,19 +3315,19 @@ interface BetaCodeExecutionToolResultBlock {
 
 interface BetaBashCodeExecutionToolResultBlock {
   type: "bash_code_execution_tool_result";
-  content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock;
+  content: BetaBashCodeExecutionToolResultErrorObject | BetaBashCodeExecutionResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface BetaTextEditorCodeExecutionToolResultBlock {
   type: "text_editor_code_execution_tool_result";
-  content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock;
+  content: BetaTextEditorCodeExecutionToolResultErrorObject | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface BetaToolSearchToolResultBlock {
   type: "tool_search_tool_result";
-  content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock;
+  content: BetaToolSearchToolResultErrorObject | BetaToolSearchToolSearchResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
@@ -3384,9 +3385,9 @@ interface BetaMCPToolListingBlock {
   tools: Array<BetaMCPTool>;
 }
 
-type BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultError | Array<BetaWebSearchResultBlock>;
+type BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultErrorObject | Array<BetaWebSearchResultBlock>;
 
-interface BetaWebSearchToolResultError {
+interface BetaWebSearchToolResultErrorObject {
   type: "web_search_tool_result_error";
   error_code: BetaWebSearchToolResultErrorCode;
 }
@@ -3426,7 +3427,7 @@ interface BetaCitationConfig {
   enabled: boolean; // default: false
 }
 
-interface BetaAdvisorToolResultError {
+interface BetaAdvisorToolResultErrorObject {
   type: "advisor_tool_result_error";
   error_code: "max_uses_exceeded" | "prompt_too_long" | "too_many_requests" | "overloaded" | "unavailable" | "execution_time_exceeded" | "model_not_found";
 }
@@ -3446,9 +3447,9 @@ interface BetaAdvisorRedactedResultBlock {
   stop_reason: string | null;
 }
 
-type BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultError | BetaCodeExecutionResultBlock | BetaEncryptedCodeExecutionResultBlock;
+type BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultErrorObject | BetaCodeExecutionResultBlock | BetaEncryptedCodeExecutionResultBlock;
 
-interface BetaCodeExecutionToolResultError {
+interface BetaCodeExecutionToolResultErrorObject {
   type: "code_execution_tool_result_error";
   error_code: BetaCodeExecutionToolResultErrorCode;
 }
@@ -3475,7 +3476,7 @@ interface BetaCodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface BetaBashCodeExecutionToolResultError {
+interface BetaBashCodeExecutionToolResultErrorObject {
   type: "bash_code_execution_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "output_file_too_large";
 }
@@ -3493,7 +3494,7 @@ interface BetaBashCodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface BetaTextEditorCodeExecutionToolResultError {
+interface BetaTextEditorCodeExecutionToolResultErrorObject {
   type: "text_editor_code_execution_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded" | "file_not_found";
   error_message: string | null;
@@ -3522,7 +3523,7 @@ interface BetaTextEditorCodeExecutionStrReplaceResultBlock {
   old_start: number | null;
 }
 
-interface BetaToolSearchToolResultError {
+interface BetaToolSearchToolResultErrorObject {
   type: "tool_search_tool_result_error";
   error_code: "invalid_tool_input" | "unavailable" | "too_many_requests" | "execution_time_exceeded";
   error_message: string | null;

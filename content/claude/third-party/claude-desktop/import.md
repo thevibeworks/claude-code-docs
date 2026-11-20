@@ -24,13 +24,13 @@ Along with the sessions, the automatic copy brings over other things you had und
 * **Uploaded plugins**: plugins you uploaded, unless your administrator has turned off plugin uploads ([`userPluginUploadsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled)). Each stays on or off as it was.
 * **Saved skills**: skills you saved, unless your administrator has turned off skill creation ([`skillCreationEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#skillcreationenabled)).
 * **Your organization's optional plugins**: the ones you had turned on are turned on again, if they come from your organization's plugins directory or from a marketplace hosted at the address of its gateway or bootstrap server. With Claude Desktop 2.42304.0 or later, plugins from other marketplaces, such as a git repository, are turned on again too, if your administrator offers the marketplace from the same repository or URL as before. On a computer where the copy already ran, they're turned on the first time the app starts on 2.42304.0 or later.
-* **Artifacts**: your Cowork artifacts, with their earlier versions.
+* **Live artifacts**: the interactive pages that Claude made for you, with their earlier versions.
 * **Attached files**: the files you attached to Cowork and Chat sessions, except configuration files such as `CLAUDE.md`, `.mcp.json`, and `.env`. Some files can stay behind when the disk is nearly full.
 * **Imported data**: sessions you imported under the earlier configuration from a [Claude Desktop export](#move-your-data-to-another-device) or a folder. The projects and scheduled tasks of an export you imported with **Import as my own** come over too.
 
 The copy runs once on each computer, in the background shortly after the app starts, and the sessions then appear in the sidebar. Your original sessions stay where they were, and sessions you already imported under the new configuration are skipped. The copy is listed under **Import history** in **Settings → Import & export**, where the **Remove** button deletes the copied sessions and the projects copied with them. The app doesn't copy them again later.
 
-Copied sessions go back into custom groups of the same name in the sidebar, and Cowork sessions keep their connected folders. Sessions and scheduled tasks arrive unpinned. The copy doesn't bring connector sign-ins, files you attached to Code sessions, or **Always allow** choices. It also doesn't bring app preferences such as the model, per-tool permissions, and notifications. Set them up again as you need them.
+Copied sessions go back into custom groups of the same name in the sidebar, and Cowork sessions keep their connected folders. Sessions and scheduled tasks arrive unpinned. The copy doesn't bring connector sign-ins, files you attached to Code sessions, or **Always allow** choices. It also doesn't bring app preferences such as the model, per-tool permissions, and notifications. Set them up again as you need them. [Designs and slide decks](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md), and design systems you added on the computer, stay under the earlier configuration and aren't copied.
 
 Use the [import wizard](#open-the-import-wizard) for your claude.ai conversations and projects, and for any local sessions the automatic copy left out.
 
@@ -45,7 +45,7 @@ If the copy ran on a Claude Desktop version before 5.1231.0, set up these items 
 The first time the app starts on 5.1231.0 or later, it brings these items:
 
 * **Sidebar pins of your projects and custom groups of your sessions**
-* **Earlier versions of your artifacts**, if the automatic copy is still on
+* **Earlier versions of your live artifacts**, if the automatic copy is still on
 * **Your projects, scheduled tasks, and instructions**, if you had no earlier sessions and the automatic copy is still on. Before 5.1231.0, the app copies nothing for someone with no sessions. Projects and scheduled tasks that you made again under the new configuration appear twice. Delete the ones you don't need.
 
 Versions from 5.1231.0 bring most kinds of items in the [list above](#automatic-import-of-earlier-third-party-sessions). If the copy ran on a Claude Desktop version before 5.11492.0, what already arrived differs from that list in these items, and an update doesn't change it:
@@ -253,7 +253,7 @@ For an export, both devices need Claude Desktop 4.23118.0 or later, the same ope
 
 * Other folders that your projects, Cowork tasks, and Cowork scheduled tasks use. Copy them yourself, then choose them again, or ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
 * The settings **Global instructions** (**Settings > Cowork**) and **Instructions for Claude** (**Settings > General**). Copy their text to the new device yourself.
-* Artifacts
+* Live artifacts (interactive pages), [designs and slide decks](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md), and design systems that you added on the computer. To move them, ask your administrator to [copy your data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
 * Sign-ins, saved API keys, connectors, and tool permissions such as **Always allow** and **Blocked**
 * Desktop extensions, other plugins and marketplaces, plugin settings, other app preferences such as language, theme, and notifications, environment variables for Code sessions, and the values of environment variables for the local MCP servers that you added
 * Plugins that you uploaded in the **Code** tab on a version before 4.23118.0. Upload them again on the new device.

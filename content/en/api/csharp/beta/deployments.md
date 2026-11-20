@@ -487,6 +487,8 @@ Create Deployment
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -1282,6 +1284,8 @@ List Deployments
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -2038,6 +2042,8 @@ Get Deployment
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -3166,6 +3172,8 @@ Update Deployment
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -3918,6 +3926,8 @@ Archive Deployment
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -4672,6 +4682,8 @@ Run Deployment Now
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -5096,6 +5108,8 @@ Pause Deployment
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -5850,6 +5864,8 @@ Unpause Deployment
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -6493,7 +6509,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
 ## Domain types
 
-### Beta Managed Agents Agent Archived Deployment Paused Reason Error
+### Beta Managed Agents Agent Archived Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
 
@@ -7621,7 +7637,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
         - `JsonElement Type = "mcp_egress_blocked_error"`
 
-### Beta Managed Agents Deployment Paused Reason Error
+### Beta Managed Agents Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsDeploymentPausedReasonError: union`
 
@@ -7945,7 +7961,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
       - `JsonElement Type = "redacted"`
 
-### Beta Managed Agents Environment Archived Deployment Paused Reason Error
+### Beta Managed Agents Environment Archived Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
 
@@ -7953,7 +7969,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
   - `JsonElement Type = "environment_archived_error"`
 
-### Beta Managed Agents Environment Not Found Deployment Paused Reason Error
+### Beta Managed Agents Environment Not Found Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
 
@@ -8057,7 +8073,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
       - `JsonElement Type = "mcp_egress_blocked_error"`
 
-### Beta Managed Agents File Not Found Deployment Paused Reason Error
+### Beta Managed Agents File Not Found Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
 
@@ -8129,7 +8145,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
   - `JsonElement Type = "manual"`
 
-### Beta Managed Agents MCP Egress Blocked Deployment Paused Reason Error
+### Beta Managed Agents MCP Egress Blocked Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError`
 
@@ -8137,7 +8153,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
   - `JsonElement Type = "mcp_egress_blocked_error"`
 
-### Beta Managed Agents Memory Store Archived Deployment Paused Reason Error
+### Beta Managed Agents Memory Store Archived Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
 
@@ -8169,7 +8185,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-### Beta Managed Agents Organization Disabled Deployment Paused Reason Error
+### Beta Managed Agents Organization Disabled Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
 
@@ -8227,7 +8243,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
     minLength: 1
 
-### Beta Managed Agents Self Hosted Resources Unsupported Deployment Paused Reason Error
+### Beta Managed Agents Self Hosted Resources Unsupported Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
 
@@ -8315,7 +8331,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-### Beta Managed Agents Session Resource Not Found Deployment Paused Reason Error
+### Beta Managed Agents Session Resource Not Found Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
 
@@ -8323,7 +8339,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
   - `JsonElement Type = "session_resource_not_found_error"`
 
-### Beta Managed Agents Skill Not Found Deployment Paused Reason Error
+### Beta Managed Agents Skill Not Found Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
 
@@ -8331,7 +8347,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
   - `JsonElement Type = "skill_not_found_error"`
 
-### Beta Managed Agents Unknown Deployment Paused Reason Error
+### Beta Managed Agents Unknown Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsUnknownDeploymentPausedReasonError`
 
@@ -8339,7 +8355,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
   - `JsonElement Type = "unknown_error"`
 
-### Beta Managed Agents Vault Archived Deployment Paused Reason Error
+### Beta Managed Agents Vault Archived Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
 
@@ -8347,7 +8363,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
   - `JsonElement Type = "vault_archived_error"`
 
-### Beta Managed Agents Vault Not Found Deployment Paused Reason Error
+### Beta Managed Agents Vault Not Found Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
 
@@ -8355,7 +8371,7 @@ Console.WriteLine(betaManagedAgentsDeployment);
 
   - `JsonElement Type = "vault_not_found_error"`
 
-### Beta Managed Agents Workspace Archived Deployment Paused Reason Error
+### Beta Managed Agents Workspace Archived Deployment Paused Reason Error Object
 
 - `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
 

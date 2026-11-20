@@ -157,6 +157,8 @@ List Deployment Runs
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -243,7 +245,7 @@ List Deployment Runs
 
     Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
-    - `type BetaManagedAgentsEnvironmentArchivedRunError`
+    - `type BetaManagedAgentsEnvironmentArchivedRunErrorObject`
 
       The deployment's environment was archived.
 
@@ -253,7 +255,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsAgentArchivedRunError`
+    - `type BetaManagedAgentsAgentArchivedRunErrorObject`
 
       The deployment's agent was archived.
 
@@ -263,7 +265,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsEnvironmentNotFoundRunError`
+    - `type BetaManagedAgentsEnvironmentNotFoundRunErrorObject`
 
       The deployment's environment no longer exists.
 
@@ -273,7 +275,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultNotFoundRunError`
+    - `type BetaManagedAgentsVaultNotFoundRunErrorObject`
 
       A vault referenced by the deployment no longer exists.
 
@@ -283,7 +285,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultArchivedRunError`
+    - `type BetaManagedAgentsVaultArchivedRunErrorObject`
 
       A vault referenced by the deployment is archived.
 
@@ -293,7 +295,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsFileNotFoundRunError`
+    - `type BetaManagedAgentsFileNotFoundRunErrorObject`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -303,7 +305,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMemoryStoreArchivedRunError`
+    - `type BetaManagedAgentsMemoryStoreArchivedRunErrorObject`
 
       A memory store referenced by the deployment is archived.
 
@@ -313,7 +315,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSkillNotFoundRunError`
+    - `type BetaManagedAgentsSkillNotFoundRunErrorObject`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -323,7 +325,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionResourceNotFoundRunError`
+    - `type BetaManagedAgentsSessionResourceNotFoundRunErrorObject`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -333,7 +335,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsWorkspaceArchivedRunError`
+    - `type BetaManagedAgentsWorkspaceArchivedRunErrorObject`
 
       The deployment's workspace was archived.
 
@@ -343,7 +345,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsOrganizationDisabledRunError`
+    - `type BetaManagedAgentsOrganizationDisabledRunErrorObject`
 
       The deployment's organization is disabled.
 
@@ -353,7 +355,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionRateLimitedRunError`
+    - `type BetaManagedAgentsSessionRateLimitedRunErrorObject`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -363,7 +365,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionCreationRejectedRunError`
+    - `type BetaManagedAgentsSessionCreationRejectedRunErrorObject`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -373,7 +375,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsUnknownRunError`
+    - `type BetaManagedAgentsUnknownRunErrorObject`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -383,7 +385,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
+    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -393,7 +395,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMCPEgressBlockedRunError`
+    - `type BetaManagedAgentsMCPEgressBlockedRunErrorObject`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 

@@ -67,11 +67,11 @@ This message appears in **Settings > Connectors** on a Featured connector marked
 
 ## Files in granted folders
 
-Code that Claude runs can read but not change granted folders, even with **Read & write**. On Windows, it can write in folders whose own permissions let all sandboxed apps write (see [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)). Before version 0.1.73, it could write in **Read & write** folders.
+Code that Claude runs can read but not change granted folders, even with **Read & write**. On Windows, it can change files and folders there whose own permissions let it, such as some that you moved or restored there (see [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)). Before version 0.1.73, it could write in **Read & write** folders.
 
 ### Claude's code can't write in a granted folder
 
-The error can include `Read-only file system` on Linux, `Operation not permitted` on a Mac, or `Access is denied`, `Access to the path`, or `Permission denied` on Windows. Asking for access again doesn't change it. Your local-command connectors can't write there either, with one Windows exception (see [Custom connectors](https://claude.com/docs/claude-science/custom-connectors.md)).
+The error can include `Read-only file system` on Linux, `Operation not permitted` on a Mac, or `Access is denied`, `Access to the path`, or `Permission denied` on Windows. Asking for access again doesn't change it. Your local-command connectors can't write there either, with exceptions on Windows (see [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)).
 
 * **To get a result into the folder**: ask Claude to save it there. It saves finished files such as CSVs, PNGs, SVGs, PDFs, and notebooks by itself. In a **Read-only** folder, a card first asks you to choose **Read & write**. Claude makes the file in the session's workspace folder, inside the folder **Settings > Storage > Data location** shows, then copies it to your folder, so a large result needs free space in both. Before a large run, check **Available on disk** in **Settings > Storage > Disk usage**.
 * **To get source code into the folder**, such as a `.py` or `.R` file: ask Claude to save it there. In [auto mode](https://claude.com/docs/claude-science/auto-mode.md), it saves most source code without asking. Otherwise, a card asks first, and nothing is saved if nobody answers within 10 minutes. **Allow in this repo** or **Allow in this folder** lets Claude save most source code there without asking until the session ends or Claude Science restarts.
@@ -117,7 +117,7 @@ If Claude Science isn't running when the time is up, it clears the folder at its
 
 ## Git in granted folders
 
-The messages in this section appear when Claude runs git in the sandbox on a Mac or Linux. On Windows, git commands that write in a granted folder fail too, without these messages.
+The messages in this section appear when Claude runs git in the sandbox on a Mac or Linux. On Windows, git commands that write in a granted folder fail too, without these messages and with exceptions (see [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)).
 
 ### Git can't write here: .git is read-only in the sandbox
 

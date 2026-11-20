@@ -15,8 +15,8 @@ The first three also apply on Claude Fable 5.1. A further change alters the resp
 
 ## New model
 
-| Model           | Claude API ID   | Description                                        |
-| --------------- | --------------- | -------------------------------------------------- |
+| Model | Claude API ID | Description |
+| ----- | ----- | ----- |
 | Claude Opus 5.5 | claude-opus-5-5 | For long-running agentic coding and knowledge work |
 
 [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is always on, and the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) controls thinking depth; its default on this model is `medium`. For the context window, output limits, knowledge cutoff, and prices, see the [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview) model page; for all current models, see [Models overview](https://platform.claude.com/docs/en/models/overview).
@@ -53,14 +53,14 @@ tool_choice: type "tool" and "any" are not supported for this model.
 
 Every thinking block records which model produced it. A conversation that switches models keeps its earlier reasoning only if the model that it switches to can read the earlier model’s thinking blocks:
 
-| Switch                                                                                                        | Keeps its reasoning                                                            |
-| ------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| To Claude Opus 5.5, from Claude Opus 5 or earlier, Claude Sonnet 5 or earlier, or Claude Haiku 4.5 or earlier | Yes                                                                            |
-| To Claude Opus 5.5, from Claude Sonnet 5.5 or Claude Haiku 5.5                                                | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
-| To Claude Opus 5.5, from a Claude Fable or Claude Mythos model                                                | No                                                                             |
-| From Claude Opus 5.5, to Claude Fable 5.2 or Claude Mythos 5.2                                                | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
-| From Claude Opus 5.5, to Claude Fable 5.1 or Claude Mythos 5.1                                                | Yes, on the Claude API only                                                    |
-| From Claude Opus 5.5, to any other model                                                                      | No                                                                             |
+| Switch | Keeps its reasoning |
+| ----- | ----- |
+| To Claude Opus 5.5, from Claude Opus 5 or earlier, Claude Sonnet 5 or earlier, or Claude Haiku 4.5 or earlier | Yes |
+| To Claude Opus 5.5, from Claude Sonnet 5.5 or Claude Haiku 5.5 | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
+| To Claude Opus 5.5, from a Claude Fable or Claude Mythos model | No |
+| From Claude Opus 5.5, to Claude Fable 5.2 or Claude Mythos 5.2 | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
+| From Claude Opus 5.5, to Claude Fable 5.1 or Claude Mythos 5.1 | Yes, on the Claude API only |
+| From Claude Opus 5.5, to any other model | No |
 
 When a request carries a block the target model can’t read, the API drops it before the model receives it. The request succeeds, and dropped blocks aren’t billed. With the `thinking-binding-controls-2026-08-01` beta header, the API reports the drop in a top-level `input_transformations` array. See [Switch models and back](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models). For switches that don’t involve Claude Opus 5.5, see [Which model switches keep the reasoning on the Claude API](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#which-model-switches-keep-reasoning).
 

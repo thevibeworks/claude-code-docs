@@ -119,6 +119,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `:"experimental-claude-tag-2026-10-21"`
 
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -522,7 +524,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: BetaWebSearchToolResultBlockContent`
 
-              - `class BetaWebSearchToolResultError`
+              - `class BetaWebSearchToolResultErrorObject`
 
                 - `type: :web_search_tool_result_error`
 
@@ -666,9 +668,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :advisor_tool_result`
 
-            - `content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock`
+            - `content: BetaAdvisorToolResultErrorObject | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock`
 
-              - `class BetaAdvisorToolResultError`
+              - `class BetaAdvisorToolResultErrorObject`
 
                 - `type: :advisor_tool_result_error`
 
@@ -720,7 +722,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: BetaCodeExecutionToolResultBlockContent`
 
-              - `class BetaCodeExecutionToolResultError`
+              - `class BetaCodeExecutionToolResultErrorObject`
 
                 - `type: :code_execution_tool_result_error`
 
@@ -780,9 +782,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :bash_code_execution_tool_result`
 
-            - `content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock`
+            - `content: BetaBashCodeExecutionToolResultErrorObject | BetaBashCodeExecutionResultBlock`
 
-              - `class BetaBashCodeExecutionToolResultError`
+              - `class BetaBashCodeExecutionToolResultErrorObject`
 
                 - `type: :bash_code_execution_tool_result_error`
 
@@ -822,9 +824,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :text_editor_code_execution_tool_result`
 
-            - `content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock`
+            - `content: BetaTextEditorCodeExecutionToolResultErrorObject | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-              - `class BetaTextEditorCodeExecutionToolResultError`
+              - `class BetaTextEditorCodeExecutionToolResultErrorObject`
 
                 - `type: :text_editor_code_execution_tool_result_error`
 
@@ -890,9 +892,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :tool_search_tool_result`
 
-            - `content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock`
+            - `content: BetaToolSearchToolResultErrorObject | BetaToolSearchToolSearchResultBlock`
 
-              - `class BetaToolSearchToolResultError`
+              - `class BetaToolSearchToolResultErrorObject`
 
                 - `type: :tool_search_tool_result_error`
 
@@ -3917,9 +3919,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: :error`
 
-        - `error: BetaError`
+        - `error: BetaErrorObject`
 
-          - `class BetaInvalidRequestError`
+          - `class BetaInvalidRequestErrorObject`
 
             - `type: :invalid_request_error`
 
@@ -3929,7 +3931,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BetaAuthenticationError`
+          - `class BetaAuthenticationErrorObject`
 
             - `type: :authentication_error`
 
@@ -3939,7 +3941,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BetaBillingError`
+          - `class BetaBillingErrorObject`
 
             - `type: :billing_error`
 
@@ -3949,7 +3951,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BetaPermissionError`
+          - `class BetaPermissionErrorObject`
 
             - `type: :permission_error`
 
@@ -3959,7 +3961,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BetaNotFoundError`
+          - `class BetaNotFoundErrorObject`
 
             - `type: :not_found_error`
 
@@ -3969,7 +3971,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BetaRateLimitError`
+          - `class BetaRateLimitErrorObject`
 
             - `type: :rate_limit_error`
 
@@ -3979,7 +3981,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BetaGatewayTimeoutError`
+          - `class BetaGatewayTimeoutErrorObject`
 
             - `type: :timeout_error`
 
@@ -3989,7 +3991,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BetaAPIError`
+          - `class BetaAPIErrorObject`
 
             - `type: :api_error`
 
@@ -3999,7 +4001,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `class BetaOverloadedError`
+          - `class BetaOverloadedErrorObject`
 
             - `type: :overloaded_error`
 

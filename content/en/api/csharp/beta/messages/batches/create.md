@@ -3489,6 +3489,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
 
+        Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual.
+
         - `JsonElement Type = "billing_policy"`
 
         - `BetaBillTo BillTo`
@@ -4316,6 +4318,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 

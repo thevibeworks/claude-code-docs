@@ -44,11 +44,11 @@ Each model call carries the conversation so far, including prompts, tool inputs,
 
 When the Claude API is the inference provider, each model call also carries up to three headers. They hold IDs that your server generated:
 
-| Header                                    | What it holds                              |
-| ----------------------------------------- | ------------------------------------------ |
-| `anthropic-managed-agents-session-id`     | The ID of the session that the call serves |
-| `anthropic-managed-agents-agent-id`       | The ID of that session’s agent             |
-| `anthropic-managed-agents-environment-id` | The ID of that session’s environment       |
+| Header | What it holds |
+| ----- | ----- |
+| `anthropic-managed-agents-session-id` | The ID of the session that the call serves |
+| `anthropic-managed-agents-agent-id` | The ID of that session’s agent |
+| `anthropic-managed-agents-environment-id` | The ID of that session’s environment |
 
 An ID holds no name and no content, but it does encode the time when your server created it. With these headers, Anthropic can attribute usage to a session, an agent, or an environment. No setting turns them off. If `ANTHROPIC_BASE_URL` names a proxy or a gateway, the headers go there. Under any other inference provider, the server never sends them.
 
@@ -79,7 +79,7 @@ Your log pipeline, your collector, and your tracing backend determine how long t
 
 The server stores everything else, such as agents, sessions, and session history, in your database. If you set up no database, which is the default, the server holds that data in memory, and a restart erases it. If you configure a secret manager, the server keeps the secret of each new [vault credential](https://platform.claude.com/docs/en/managed-agents/vaults) there instead of in the database. Secrets that it stored earlier stay in the database.
 
-Sessions and their history stay in your database until you delete them. The server doesn’t delete a session because of its age, archived or not. Deleting a session through the API removes the session and its history from your database, though the server keeps the session’s ID. The server can refuse the delete while a session is running. The delete doesn’t reach copies elsewhere, such as database backups, exported logs and traces, or what the agent wrote to a [memory store](https://platform.claude.com/docs/en/managed-agents/memory). On Kubernetes, the delete also leaves the session’s `/workspace` volume in place, as [Free a session’s volume](https://platform.claude.com/docs/en/managed-agents/self-hosted/kubernetes#free-a-sessions-volume) describes.
+Sessions and their history stay in your database until you delete them. The server doesn’t delete a session because of its age, archived or not. Deleting a session through the API removes the session and its history from your database, though the server keeps the session’s ID. The server can refuse the delete while a session is running. The delete doesn’t reach copies elsewhere, such as database backups, exported logs and traces, or what the agent wrote to a [memory store](https://platform.claude.com/docs/en/managed-agents/memory). On Kubernetes, the session’s `/workspace` volume can stay after the delete, as [Free a session’s volume](https://platform.claude.com/docs/en/managed-agents/self-hosted/kubernetes#free-a-sessions-volume) describes.
 
 What the server sends to the model, and what the model returns, fall under your organization’s agreement with the provider that serves the model. The agreement’s data retention terms apply. When the Claude API serves the model, the data retention agreement and settings that your organization has with Anthropic apply. If your organization has a [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) arrangement, it covers these model calls in the same way as other Messages API calls.
 
@@ -104,12 +104,12 @@ Anthropic issues none of the credentials that the server accepts, and it holds n
 
 The server accepts API requests on one address and port. The server opens two more listeners, each only if you turn it on.
 
-| Listener                                                                                                                                                       | On by default                                                                                                                                     | Default address                                                                                             | What it asks for                                                                                                                                               |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| API requests                                                                                                                                                   | Yes                                                                                                                                               | `127.0.0.1:8400`, which only the same machine can reach. To change the address and port, set `server.addr`. | See [Credentials that the server accepts](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#credentials-that-the-server-accepts). |
-| The [console on your server](https://platform.claude.com/docs/en/managed-agents/self-hosted/console), a webpage                                                | Yes. To stop serving it, see [Turn off the console](https://platform.claude.com/docs/en/managed-agents/self-hosted/console#turn-off-the-console). | The same address and port as API requests                                                                   | Nothing to load the page, for anyone who can reach it. To do anything in the console, a person signs in through your identity provider.                        |
-| The Prometheus metrics endpoint                                                                                                                                | No                                                                                                                                                | `localhost:9464`, which only the same machine can reach                                                     | No credential                                                                                                                                                  |
-| The server’s listener for the [egress gateway](https://platform.claude.com/docs/en/managed-agents/self-hosted/agent-identity#environment-variable-credentials) | No                                                                                                                                                | Port 8410 on every interface                                                                                | The gateway’s key                                                                                                                                              |
+| Listener | On by default | Default address | What it asks for |
+| ----- | ----- | ----- | ----- |
+| API requests | Yes | `127.0.0.1:8400`, which only the same machine can reach. To change the address and port, set `server.addr`. | See [Credentials that the server accepts](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#credentials-that-the-server-accepts). |
+| The [console on your server](https://platform.claude.com/docs/en/managed-agents/self-hosted/console), a webpage | Yes. To stop serving it, see [Turn off the console](https://platform.claude.com/docs/en/managed-agents/self-hosted/console#turn-off-the-console). | The same address and port as API requests | Nothing to load the page, for anyone who can reach it. To do anything in the console, a person signs in through your identity provider. |
+| The Prometheus metrics endpoint | No | `localhost:9464`, which only the same machine can reach | No credential |
+| The server’s listener for the [egress gateway](https://platform.claude.com/docs/en/managed-agents/self-hosted/agent-identity#environment-variable-credentials) | No | Port 8410 on every interface | The gateway’s key |
 
 More detail on the last two listeners:
 
@@ -122,11 +122,11 @@ The Docker Compose stack publishes port 8400 on the Docker host’s loopback add
 
 Each deployment serves one tenant at one trust level. Environments in one deployment don’t keep trust levels apart. The server API key reaches every environment. Every caller with a role can run sessions in every environment, with whatever network and files that environment’s workers can reach.
 
-| To keep apart                       | Do this                                                                                                                                                                                                                                                                                                                                                                |
-| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tenants                             | Give each tenant its own deployment, with its own database, server API key, and workers.                                                                                                                                                                                                                                                                               |
-| Workloads at different trust levels | Give each trust level its own deployment, set up as for a tenant. Examples are trusted and untrusted code, or workers that reach systems that only some callers may use.                                                                                                                                                                                               |
-| Callers in a deployment             | Turn on [single sign-on](https://platform.claude.com/docs/en/managed-agents/self-hosted/configure#single-sign-on), map groups to the `developer` or `user` role, and keep the server API key for administrators. [What each role can do](https://platform.claude.com/docs/en/managed-agents/self-hosted/configure#what-each-role-can-do) shows what those callers see. |
+| To keep apart | Do this |
+| ----- | ----- |
+| Tenants | Give each tenant its own deployment, with its own database, server API key, and workers. |
+| Workloads at different trust levels | Give each trust level its own deployment, set up as for a tenant. Examples are trusted and untrusted code, or workers that reach systems that only some callers may use. |
+| Callers in a deployment | Turn on [single sign-on](https://platform.claude.com/docs/en/managed-agents/self-hosted/configure#single-sign-on), map groups to the `developer` or `user` role, and keep the server API key for administrators. [What each role can do](https://platform.claude.com/docs/en/managed-agents/self-hosted/configure#what-each-role-can-do) shows what those callers see. |
 
 ### Secret managers, single sign-on, and model gateways
 

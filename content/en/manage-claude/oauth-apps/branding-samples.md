@@ -8,19 +8,15 @@ description: "A Link your Claude organization button for Linked billing: its HTM
   Claude Platform OAuth is a Beta Service: prerelease software provided under your agreement with Anthropic, such as the [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms), and the [Service Specific Terms](https://www.anthropic.com/legal/service-specific-terms). Endpoints, parameters, and behavior can change during the beta. It might not be suitable for production use.
 </Warning>
 
-This page has branding samples for products that use [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections): the Link your Claude organization button.
-
-## The buttons
-
-Put a **Link your Claude organization** button where your customers manage billing or integrations. When someone clicks it, your back end [starts the billing connection](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#runtime-step-2).
+Add a **Link your Claude organization** button to a product that uses [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections). Put the button where your customers manage billing or integrations. When someone clicks it, your back end [starts the billing connection](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#runtime-step-2).
 
 <Frame caption="The button in light and dark">
   ![Link your Claude organization button, light and dark, with the Claude logo before its words](https://platform.claude.com/docs/images/claude-link-button.svg)
 </Frame>
 
-### Copy the button’s HTML
+## Copy the button’s HTML and CSS
 
-Open **Button CSS** and put its `<style>` block in your page’s `<head>`, or move the rules inside it to your style sheet. Then open **Sample HTML for the Link your Claude organization button** and put the link where you want the button. Change `/claude/billing/link` to the address on your back end that starts the connection.
+Open **Button CSS** and put its `<style>` block in your page’s `<head>`, or move the rules inside it to your style sheet. Then, open **Sample HTML for the Link your Claude organization button** and put the link where you want the button. Change `/claude/billing/link` to the address on your back end that starts the connection.
 
 Together, the CSS and the HTML contain the logo and all of the button’s styles, so if your site has a Content Security Policy, you don’t need to add an Anthropic host to it.
 
@@ -122,21 +118,19 @@ Together, the CSS and the HTML contain the logo and all of the button’s styles
   For the dark button, add the `claude-button-dark` class to the link.
 </Accordion>
 
-<Note>
-  If your page starts the connection by submitting a form, use `<button type="submit" class="claude-button">` in place of the link. The same styles apply. A rule in your style sheet that styles every button inside a container can still restyle it. Compare the result with the picture.
-</Note>
+If your page starts the connection by submitting a form, use `<button type="submit" class="claude-button">` in place of the link. The same styles apply. A rule in your style sheet that styles every button inside a container can still restyle the button. Compare the result with the picture.
 
-### Colors
+## Colors
 
-| Part                                            | Light button | Dark button |
-| ----------------------------------------------- | ------------ | ----------- |
-| Background                                      | `#FFFFFF`    | `#141413`   |
-| Text                                            | `#141413`    | `#FAF9F5`   |
-| Border                                          | `#87867F`    | `#73726C`   |
-| Background while the pointer is over the button | `#F5F4ED`    | `#262624`   |
-| Logo                                            | `#D97757`    | `#D97757`   |
+| Part | Light button | Dark button |
+| ----- | ----- | ----- |
+| Background | `#FFFFFF` | `#141413` |
+| Text | `#141413` | `#FAF9F5` |
+| Border | `#87867F` | `#73726C` |
+| Background while the pointer is over the button | `#F5F4ED` | `#262624` |
+| Logo | `#D97757` | `#D97757` |
 
-### Download the logo
+## Download the logo
 
 To build the same button without HTML, for example in a mobile or desktop app, save the following file as `claude-logo.svg`. Use the colors in [Colors](https://platform.claude.com/docs/en/manage-claude/oauth-apps/branding-samples#button-colors), and hide the logo from screen readers, because the words already name the button.
 

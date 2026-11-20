@@ -19,7 +19,7 @@ Your PostgreSQL database stays outside both. On another kind of cluster, the ste
 
 * **A cluster:** Kubernetes 1.30 or later, with:
 
-  * The Agent Sandbox controller (on GKE, the [Agent Sandbox add-on](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/how-install-agent-sandbox))
+  * The Agent Sandbox controller (on GKE, the Agent Sandbox add-on; release 0.16.0 needs GKE 1.35, as [Set up the add-on on GKE](https://platform.claude.com/docs/en/managed-agents/self-hosted/kubernetes#set-up-the-add-on-on-gke) says)
   * Nodes that run gVisor (on GKE, a [GKE Sandbox node pool](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/sandbox-pods))
   * A network plugin that enforces NetworkPolicy (on GKE, Dataplane V2 or Calico)
 
@@ -230,11 +230,21 @@ In `cma-values.yaml`, `egress.mode: publicInternet` lets sandboxes reach the pub
 
 This table compares it with the two other modes:
 
-| `egress.mode`         | What sandboxes can reach                                                                                                                                                                                                                          |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `closed`, the default | Your servers and the dispatcher, and no DNS server                                                                                                                                                                                                |
-| `publicInternet`      | Your servers, the dispatcher, a DNS server, and the public internet                                                                                                                                                                               |
-| `gateway`             | Your servers, the dispatcher, and, through the egress gateway, the hosts that you list. See [Turn on the gateway on Kubernetes](https://platform.claude.com/docs/en/managed-agents/self-hosted/agent-identity#turn-on-the-gateway-on-kubernetes). |
+| `egress.mode` | What sandboxes can reach |
+| ----- | ----- |
+| `closed`, the default | Your servers and the dispatcher, and no DNS server |
+| `publicInternet` | Your servers, the dispatcher, a DNS server, and the public internet |
+| `gateway` | Your servers, the dispatcher, and, through the egress gateway, the hosts that you list. See [Turn on the gateway on Kubernetes](https://platform.claude.com/docs/en/managed-agents/self-hosted/agent-identity#turn-on-the-gateway-on-kubernetes). |
+
+## Set up the add-on on GKE
+
+Release 0.16.0 needs a cluster on GKE 1.35 and the Agent Sandbox add-on’s `v1alpha1` API. GKE can’t move a cluster back to an earlier minor version. If yours is on 1.36 or later, create a new cluster. A new cluster doesn’t have the `/workspace` volumes of your existing sessions, so copy out any files you need before you delete the old cluster.
+
+Starting in GKE 1.36.3-gke.1767000, the add-on moves to `v1beta1`, and [existing `v1alpha1` workloads can fail](https://docs.cloud.google.com/kubernetes-engine/docs/troubleshooting/known-issues#agentsandbox-v1alpha1-workload-failures) when a cluster upgrades to that version or later.
+
+1. Turn on the add-on with `gcloud beta container clusters update <cluster> --enable-agent-sandbox`.
+2. Check that `kubectl api-versions | grep agents.x-k8s.io` lists `agents.x-k8s.io/v1alpha1`. Later GKE versions can list it too, so also confirm that the cluster is on 1.35.
+3. Add a [maintenance exclusion](https://docs.cloud.google.com/kubernetes-engine/docs/how-to/maintenance-windows-and-exclusions#configuring_a_maintenance_exclusion) with the `no_minor_upgrades` scope, because GKE upgrades clusters automatically.
 
 ## Other clusters
 
@@ -250,25 +260,25 @@ The folder `kubernetes/chart/examples/` in the archive has a complete values fil
 
 By the chart’s defaults, each session has a 10 GiB volume for `/workspace`. The volume stays after the session’s pod goes away, so the session’s next message finds its files.
 
-| To free                                      | Do this                                                                                                                                                                                                                                                      |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| One session’s volume                         | Archive the session after its turn ends. The dispatcher usually deletes the volume within about 5 minutes.                                                                                                                                                   |
+| To free | Do this |
+| ----- | ----- |
+| One session’s volume | Archive the session after its turn ends. The dispatcher usually deletes the volume within about 5 minutes. |
 | The volumes of sessions that nobody archives | Set `dispatcher.retentionDays` in `cma-values.yaml`. The dispatcher then deletes a volume once its session has been idle for that many days, and the session’s next message starts with an empty `/workspace`. The chart’s default, `0`, keeps every volume. |
 
 The commands in this section are for GKE. On another cluster, use `sandboxclaims` in place of `sandboxes`.
 
-Deleting a session doesn’t free its volume. Archive the session first. Delete it only after `kubectl -n cma get sandboxes -l anthropic.com/session-id=<session-id>` lists nothing.
+Deleting a session might not free its volume, so archive the session first. Delete it only after `kubectl -n cma get sandboxes -l anthropic.com/session-id=<session-id>` lists nothing. An upgrade can delete the volumes of deleted sessions, as [Kubernetes: the volumes of deleted sessions](https://platform.claude.com/docs/en/managed-agents/self-hosted/upgrade#deleted-sessions-volumes) says.
 
-If you deleted a session without archiving it, free its volume yourself:
+If you deleted a session without archiving it and its volume stays, free the volume yourself:
 
-1. Find the session’s ID in the dispatcher’s log. This command prints a line for each session that appears to be deleted and still has a volume, with the ID after `session_id`:
+1. Find the session’s ID in the dispatcher’s log. This command can print a line for each session that appears to be deleted and still has a volume, with the ID after `session_id`:
 
    ```bash
    kubectl -n cma logs deployment/cma-dispatcher --since=6m \
      | grep "could not check the claim's session" | grep "403 Forbidden"
    ```
 
-   The dispatcher writes these lines every 5 minutes. If the session isn’t listed, wait 5 minutes and run the command again.
+   The dispatcher writes these lines every 5 minutes. If the session isn’t listed, wait 5 minutes and run the command again. If it still isn’t listed, run `kubectl -n cma get sandboxes -l anthropic.com/session-id=<session-id>`. If that lists nothing, the volume is gone. If it lists a sandbox, go on to step 2 with that ID.
 
 2. Confirm that the session is deleted. With the port forwarded and `ANTHROPIC_API_KEY` set as in [Run a session](https://platform.claude.com/docs/en/managed-agents/self-hosted/kubernetes#run-a-session), run `ant --base-url http://127.0.0.1:8400 beta:sessions retrieve --session-id <session-id>`. Go on only if the answer is `404 Not Found` with `Session not found`. If the command prints a session, stop: that session isn’t deleted.
 

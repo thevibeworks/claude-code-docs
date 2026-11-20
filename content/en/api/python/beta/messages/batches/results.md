@@ -119,6 +119,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -548,7 +550,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: BetaWebSearchToolResultBlockContent`
 
-              - `class BetaWebSearchToolResultError`
+              - `class BetaWebSearchToolResultErrorObject`
 
                 - `type: Literal["web_search_tool_result_error"]`
 
@@ -710,7 +712,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BetaAdvisorToolResultError`
+              - `class BetaAdvisorToolResultErrorObject`
 
                 - `type: Literal["advisor_tool_result_error"]`
 
@@ -770,7 +772,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: BetaCodeExecutionToolResultBlockContent`
 
-              - `class BetaCodeExecutionToolResultError`
+              - `class BetaCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["code_execution_tool_result_error"]`
 
@@ -844,7 +846,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BetaBashCodeExecutionToolResultError`
+              - `class BetaBashCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -894,7 +896,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BetaTextEditorCodeExecutionToolResultError`
+              - `class BetaTextEditorCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -972,7 +974,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BetaToolSearchToolResultError`
+              - `class BetaToolSearchToolResultErrorObject`
 
                 - `type: Literal["tool_search_tool_result_error"]`
 
@@ -4073,9 +4075,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           default: error
 
-        - `error: BetaError`
+        - `error: BetaErrorObject`
 
-          - `class BetaInvalidRequestError`
+          - `class BetaInvalidRequestErrorObject`
 
             - `type: Literal["invalid_request_error"]`
 
@@ -4089,7 +4091,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Invalid request
 
-          - `class BetaAuthenticationError`
+          - `class BetaAuthenticationErrorObject`
 
             - `type: Literal["authentication_error"]`
 
@@ -4103,7 +4105,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Authentication error
 
-          - `class BetaBillingError`
+          - `class BetaBillingErrorObject`
 
             - `type: Literal["billing_error"]`
 
@@ -4117,7 +4119,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Billing error
 
-          - `class BetaPermissionError`
+          - `class BetaPermissionErrorObject`
 
             - `type: Literal["permission_error"]`
 
@@ -4131,7 +4133,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Permission denied
 
-          - `class BetaNotFoundError`
+          - `class BetaNotFoundErrorObject`
 
             - `type: Literal["not_found_error"]`
 
@@ -4145,7 +4147,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Not found
 
-          - `class BetaRateLimitError`
+          - `class BetaRateLimitErrorObject`
 
             - `type: Literal["rate_limit_error"]`
 
@@ -4159,7 +4161,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Rate limited
 
-          - `class BetaGatewayTimeoutError`
+          - `class BetaGatewayTimeoutErrorObject`
 
             - `type: Literal["timeout_error"]`
 
@@ -4173,7 +4175,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Request timeout
 
-          - `class BetaAPIError`
+          - `class BetaAPIErrorObject`
 
             - `type: Literal["api_error"]`
 
@@ -4187,7 +4189,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Internal server error
 
-          - `class BetaOverloadedError`
+          - `class BetaOverloadedErrorObject`
 
             - `type: Literal["overloaded_error"]`
 

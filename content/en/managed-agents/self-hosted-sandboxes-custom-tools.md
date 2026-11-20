@@ -879,12 +879,12 @@ The worker lists the MCP server’s tools once at startup and cannot add tools t
 
 The MCP helpers keep the server’s names and descriptions, and most schemas pass through unchanged. Rename, trim, or inline where a declaration breaks one of these rules:
 
-| Field                     | Rule                                                                                                                                                                                                                                                                                          |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`                    | Unique within the agent. Letters, digits, underscores, and hyphens, 1–128 characters. Cannot match a built-in agent tool such as `bash` or `read`, or use the reserved `mcp__` or `ant__` prefix.                                                                                             |
-| `description`             | Required and non-empty.                                                                                                                                                                                                                                                                       |
-| `input_schema`            | Accepts the JSON Schema keywords MCP servers commonly emit, such as `additionalProperties` and `title`. Rejects reference keywords such as `$ref` anywhere, and top-level `oneOf`, `anyOf`, and `allOf`. Property names use letters, digits, underscores, dots, and hyphens, 1–64 characters. |
-| The agent’s `tools` array | At most 256 entries. Each wrapped tool is one entry, and the built-in toolset is one more.                                                                                                                                                                                                    |
+| Field | Rule |
+| ----- | ----- |
+| `name` | Unique within the agent. Letters, digits, underscores, and hyphens, 1–128 characters. Cannot match a built-in agent tool such as `bash` or `read`, or use the reserved `mcp__` or `ant__` prefix. |
+| `description` | Required and non-empty. |
+| `input_schema` | Accepts the JSON Schema keywords MCP servers commonly emit, such as `additionalProperties` and `title`. Rejects reference keywords such as `$ref` anywhere, and top-level `oneOf`, `anyOf`, and `allOf`. Property names use letters, digits, underscores, dots, and hyphens, 1–64 characters. |
+| The agent’s `tools` array | At most 256 entries. Each wrapped tool is one entry, and the built-in toolset is one more. |
 
 Two cases need extra work:
 

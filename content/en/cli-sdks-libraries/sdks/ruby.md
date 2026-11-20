@@ -136,19 +136,19 @@ end
 
 Error codes are as follows:
 
-| Cause            | Error type                 |
-| ---------------- | -------------------------- |
-| HTTP 400         | `BadRequestError`          |
-| HTTP 401         | `AuthenticationError`      |
-| HTTP 403         | `PermissionDeniedError`    |
-| HTTP 404         | `NotFoundError`            |
-| HTTP 409         | `ConflictError`            |
-| HTTP 422         | `UnprocessableEntityError` |
-| HTTP 429         | `RateLimitError`           |
-| HTTP >= 500      | `InternalServerError`      |
-| Other HTTP error | `APIStatusError`           |
-| Timeout          | `APITimeoutError`          |
-| Network error    | `APIConnectionError`       |
+| Cause | Error type |
+| ----- | ----- |
+| HTTP 400 | `BadRequestError` |
+| HTTP 401 | `AuthenticationError` |
+| HTTP 403 | `PermissionDeniedError` |
+| HTTP 404 | `NotFoundError` |
+| HTTP 409 | `ConflictError` |
+| HTTP 422 | `UnprocessableEntityError` |
+| HTTP 429 | `RateLimitError` |
+| HTTP >= 500 | `InternalServerError` |
+| Other HTTP error | `APIStatusError` |
+| Timeout | `APITimeoutError` |
+| Network error | `APIConnectionError` |
 
 ## Retries
 

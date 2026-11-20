@@ -38,7 +38,8 @@ The migration never changes or deletes the Claude (third-party) data. Nothing mi
 * Scheduled Code tasks in folders Claude Code doesn't trust
 * A few system or network folders. The user can attach most of them again.
 * Session and project folders that [`allowedWorkspaceFolders` leaves out](#check-the-allowedworkspacefolders-list)
-* Artifacts. The **Artifacts** page in Claude Enterprise doesn't list them. Their files stay on the computer, by default in [`~/Claude/`](https://claude.com/docs/third-party/claude-desktop/data-storage#data-shared-with-standard-claude-desktop).
+* Live artifacts (interactive pages). The **Artifacts** page in Claude Enterprise doesn't list them. Their files stay on the computer, by default in [`~/Claude/`](https://claude.com/docs/third-party/claude-desktop/data-storage#data-shared-with-standard-claude-desktop).
+* [Designs and slide decks](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md), and design systems that users added on their computers. They stay on the computer, in the [application-data directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) of Claude (third-party). If you move everyone to Claude Enterprise, first have users [export the designs and decks they need](#before-you-begin).
 * [Project memory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#project-memory). A migrated project starts without the memory that Claude kept for it in Claude (third-party), and **Notes from Cowork** in **Settings > Import** doesn't include it.
 
 Migrated sessions stay on the computer and don't sync to claude.ai. Continuing one sends its content to Anthropic. Uploaded skills, added instructions, added Cowork memory, plugin marketplaces, and MCP tool on/off settings go to the user's account. Claude also sends standard usage data.
@@ -50,6 +51,7 @@ Migrated sessions stay on the computer and don't sync to claude.ai. Continuing o
 3. **Turn on memory.** For Cowork to use each user's memory, turn on **Memory** and [**Chat and Cowork unified**](https://support.claude.com/en/articles/17444462-set-up-and-manage-the-new-unified-claude-experience-for-your-enterprise-organization) in [**Organization settings > Capabilities**](https://claude.ai/admin-settings/capabilities). Users turn on memory for themselves in the [steps for each user](#steps-for-each-user).
 4. **Replace the controls** listed in [What changes for your security controls](#what-changes-for-your-security-controls).
 5. **Check the folder list.** If you set `allowedWorkspaceFolders`, follow [Check the `allowedWorkspaceFolders` list](#check-the-allowedworkspacefolders-list).
+6. **Export designs and slide decks.** If you move everyone to Claude Enterprise, have users [export the designs and decks they need](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md#use-design-and-slides) to files before the configuration change.
 
 Special cases:
 

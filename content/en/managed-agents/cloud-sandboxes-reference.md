@@ -43,26 +43,26 @@ These specifications apply to `cloud` environments. Self-hosted sandboxes run on
 
 ## Programming languages
 
-| Language | Version                     | Package manager      |
-| -------- | --------------------------- | -------------------- |
-| Python   | 3.10, 3.11, 3.12, and 3.13  | pip, uv, poetry      |
-| Node.js  | 20, 21, and 22 (default)    | npm, yarn, pnpm, bun |
-| Go       | 1.24 (default) and 1.25     | Go modules           |
-| Rust     | Stable toolchain (rustup)   | cargo                |
-| Java     | OpenJDK 21                  | maven, gradle        |
-| Ruby     | 3.1, 3.2, and 3.3 (default) | bundler, gem         |
-| PHP      | 8.3                         | composer             |
-| C/C++    | GCC 13 and Clang            | make, cmake, ninja   |
+| Language | Version | Package manager |
+| ----- | ----- | ----- |
+| Python | 3.10, 3.11, 3.12, and 3.13 | pip, uv, poetry |
+| Node.js | 20, 21, and 22 (default) | npm, yarn, pnpm, bun |
+| Go | 1.24 (default) and 1.25 | Go modules |
+| Rust | Stable toolchain (rustup) | cargo |
+| Java | OpenJDK 21 | maven, gradle |
+| Ruby | 3.1, 3.2, and 3.3 (default) | bundler, gem |
+| PHP | 8.3 | composer |
+| C/C++ | GCC 13 and Clang | make, cmake, ninja |
 
 Common Python data and document libraries, including NumPy, pandas, Matplotlib, openpyxl, python-docx, python-pptx, and pypdf, are installed for the `python3` interpreter.
 
 ## Databases
 
-| Database      | Description                                                                   |
-| ------------- | ----------------------------------------------------------------------------- |
+| Database | Description |
+| ----- | ----- |
 | PostgreSQL 16 | Server and `psql` client are installed. The server is not running by default. |
-| Redis 7       | Server and `redis-cli` are installed. The server is not running by default.   |
-| SQLite        | Available through language bindings, such as Python’s `sqlite3` module.       |
+| Redis 7 | Server and `redis-cli` are installed. The server is not running by default. |
+| SQLite | Available through language bindings, such as Python’s `sqlite3` module. |
 
 ## Utilities
 
@@ -105,10 +105,10 @@ The sandbox sets `PLAYWRIGHT_BROWSERS_PATH` to `/opt/pw-browsers`, so the pre-in
 
 ## Sandbox specifications
 
-| Property         | Value                                                                                                                                                                                                         |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Operating system | Ubuntu 24.04 LTS                                                                                                                                                                                              |
-| Architecture     | x86\_64 (amd64)                                                                                                                                                                                               |
-| Memory           | Up to 8 GB                                                                                                                                                                                                    |
-| Disk space       | Up to 10 GB                                                                                                                                                                                                   |
-| Network          | API-created environments default to [`unrestricted` networking](https://platform.claude.com/docs/en/managed-agents/environments#networking); sandboxes provisioned through Claude Studio default to `limited` |
+| Property | Value |
+| ----- | ----- |
+| Operating system | Ubuntu 24.04 LTS |
+| Architecture | x86\_64 (amd64) |
+| Memory | Up to 8 GB |
+| Disk space | Up to 10 GB |
+| Network | API-created environments default to [`unrestricted` networking](https://platform.claude.com/docs/en/managed-agents/environments#networking); sandboxes provisioned through Claude Studio default to `limited` |

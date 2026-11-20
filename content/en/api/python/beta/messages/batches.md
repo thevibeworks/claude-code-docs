@@ -732,7 +732,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `page_age: Optional[str]`
 
-                - `class BetaWebSearchToolRequestErrorParam`
+                - `class BetaWebSearchToolRequestErrorObjectParam`
 
                   - `type: Literal["web_search_tool_result_error"]`
 
@@ -3491,6 +3491,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
 
+      Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual.
+
       - `type: Literal["billing_policy"]`
 
       - `bill_to: Optional[BetaBillTo]`
@@ -4313,6 +4315,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -4663,6 +4667,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -4999,6 +5005,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -5331,6 +5339,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -5657,6 +5667,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -5874,6 +5886,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -6304,7 +6318,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: BetaWebSearchToolResultBlockContent`
 
-              - `class BetaWebSearchToolResultError`
+              - `class BetaWebSearchToolResultErrorObject`
 
                 - `type: Literal["web_search_tool_result_error"]`
 
@@ -6466,7 +6480,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BetaAdvisorToolResultError`
+              - `class BetaAdvisorToolResultErrorObject`
 
                 - `type: Literal["advisor_tool_result_error"]`
 
@@ -6526,7 +6540,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: BetaCodeExecutionToolResultBlockContent`
 
-              - `class BetaCodeExecutionToolResultError`
+              - `class BetaCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["code_execution_tool_result_error"]`
 
@@ -6600,7 +6614,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BetaBashCodeExecutionToolResultError`
+              - `class BetaBashCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -6650,7 +6664,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BetaTextEditorCodeExecutionToolResultError`
+              - `class BetaTextEditorCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -6728,7 +6742,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BetaToolSearchToolResultError`
+              - `class BetaToolSearchToolResultErrorObject`
 
                 - `type: Literal["tool_search_tool_result_error"]`
 
@@ -9829,9 +9843,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           default: error
 
-        - `error: BetaError`
+        - `error: BetaErrorObject`
 
-          - `class BetaInvalidRequestError`
+          - `class BetaInvalidRequestErrorObject`
 
             - `type: Literal["invalid_request_error"]`
 
@@ -9845,7 +9859,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Invalid request
 
-          - `class BetaAuthenticationError`
+          - `class BetaAuthenticationErrorObject`
 
             - `type: Literal["authentication_error"]`
 
@@ -9859,7 +9873,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Authentication error
 
-          - `class BetaBillingError`
+          - `class BetaBillingErrorObject`
 
             - `type: Literal["billing_error"]`
 
@@ -9873,7 +9887,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Billing error
 
-          - `class BetaPermissionError`
+          - `class BetaPermissionErrorObject`
 
             - `type: Literal["permission_error"]`
 
@@ -9887,7 +9901,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Permission denied
 
-          - `class BetaNotFoundError`
+          - `class BetaNotFoundErrorObject`
 
             - `type: Literal["not_found_error"]`
 
@@ -9901,7 +9915,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Not found
 
-          - `class BetaRateLimitError`
+          - `class BetaRateLimitErrorObject`
 
             - `type: Literal["rate_limit_error"]`
 
@@ -9915,7 +9929,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Rate limited
 
-          - `class BetaGatewayTimeoutError`
+          - `class BetaGatewayTimeoutErrorObject`
 
             - `type: Literal["timeout_error"]`
 
@@ -9929,7 +9943,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Request timeout
 
-          - `class BetaAPIError`
+          - `class BetaAPIErrorObject`
 
             - `type: Literal["api_error"]`
 
@@ -9943,7 +9957,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Internal server error
 
-          - `class BetaOverloadedError`
+          - `class BetaOverloadedErrorObject`
 
             - `type: Literal["overloaded_error"]`
 
@@ -10154,9 +10168,9 @@ for batch in client.beta.messages.batches.results(
 
       default: error
 
-    - `error: BetaError`
+    - `error: BetaErrorObject`
 
-      - `class BetaInvalidRequestError`
+      - `class BetaInvalidRequestErrorObject`
 
         - `type: Literal["invalid_request_error"]`
 
@@ -10170,7 +10184,7 @@ for batch in client.beta.messages.batches.results(
 
           default: Invalid request
 
-      - `class BetaAuthenticationError`
+      - `class BetaAuthenticationErrorObject`
 
         - `type: Literal["authentication_error"]`
 
@@ -10184,7 +10198,7 @@ for batch in client.beta.messages.batches.results(
 
           default: Authentication error
 
-      - `class BetaBillingError`
+      - `class BetaBillingErrorObject`
 
         - `type: Literal["billing_error"]`
 
@@ -10198,7 +10212,7 @@ for batch in client.beta.messages.batches.results(
 
           default: Billing error
 
-      - `class BetaPermissionError`
+      - `class BetaPermissionErrorObject`
 
         - `type: Literal["permission_error"]`
 
@@ -10212,7 +10226,7 @@ for batch in client.beta.messages.batches.results(
 
           default: Permission denied
 
-      - `class BetaNotFoundError`
+      - `class BetaNotFoundErrorObject`
 
         - `type: Literal["not_found_error"]`
 
@@ -10226,7 +10240,7 @@ for batch in client.beta.messages.batches.results(
 
           default: Not found
 
-      - `class BetaRateLimitError`
+      - `class BetaRateLimitErrorObject`
 
         - `type: Literal["rate_limit_error"]`
 
@@ -10240,7 +10254,7 @@ for batch in client.beta.messages.batches.results(
 
           default: Rate limited
 
-      - `class BetaGatewayTimeoutError`
+      - `class BetaGatewayTimeoutErrorObject`
 
         - `type: Literal["timeout_error"]`
 
@@ -10254,7 +10268,7 @@ for batch in client.beta.messages.batches.results(
 
           default: Request timeout
 
-      - `class BetaAPIError`
+      - `class BetaAPIErrorObject`
 
         - `type: Literal["api_error"]`
 
@@ -10268,7 +10282,7 @@ for batch in client.beta.messages.batches.results(
 
           default: Internal server error
 
-      - `class BetaOverloadedError`
+      - `class BetaOverloadedErrorObject`
 
         - `type: Literal["overloaded_error"]`
 
@@ -10673,7 +10687,7 @@ for batch in client.beta.messages.batches.results(
 
             - `content: BetaWebSearchToolResultBlockContent`
 
-              - `class BetaWebSearchToolResultError`
+              - `class BetaWebSearchToolResultErrorObject`
 
                 - `type: Literal["web_search_tool_result_error"]`
 
@@ -10835,7 +10849,7 @@ for batch in client.beta.messages.batches.results(
 
             - `content: Content`
 
-              - `class BetaAdvisorToolResultError`
+              - `class BetaAdvisorToolResultErrorObject`
 
                 - `type: Literal["advisor_tool_result_error"]`
 
@@ -10895,7 +10909,7 @@ for batch in client.beta.messages.batches.results(
 
             - `content: BetaCodeExecutionToolResultBlockContent`
 
-              - `class BetaCodeExecutionToolResultError`
+              - `class BetaCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["code_execution_tool_result_error"]`
 
@@ -10969,7 +10983,7 @@ for batch in client.beta.messages.batches.results(
 
             - `content: Content`
 
-              - `class BetaBashCodeExecutionToolResultError`
+              - `class BetaBashCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -11019,7 +11033,7 @@ for batch in client.beta.messages.batches.results(
 
             - `content: Content`
 
-              - `class BetaTextEditorCodeExecutionToolResultError`
+              - `class BetaTextEditorCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -11097,7 +11111,7 @@ for batch in client.beta.messages.batches.results(
 
             - `content: Content`
 
-              - `class BetaToolSearchToolResultError`
+              - `class BetaToolSearchToolResultErrorObject`
 
                 - `type: Literal["tool_search_tool_result_error"]`
 
@@ -14198,9 +14212,9 @@ for batch in client.beta.messages.batches.results(
 
           default: error
 
-        - `error: BetaError`
+        - `error: BetaErrorObject`
 
-          - `class BetaInvalidRequestError`
+          - `class BetaInvalidRequestErrorObject`
 
             - `type: Literal["invalid_request_error"]`
 
@@ -14214,7 +14228,7 @@ for batch in client.beta.messages.batches.results(
 
               default: Invalid request
 
-          - `class BetaAuthenticationError`
+          - `class BetaAuthenticationErrorObject`
 
             - `type: Literal["authentication_error"]`
 
@@ -14228,7 +14242,7 @@ for batch in client.beta.messages.batches.results(
 
               default: Authentication error
 
-          - `class BetaBillingError`
+          - `class BetaBillingErrorObject`
 
             - `type: Literal["billing_error"]`
 
@@ -14242,7 +14256,7 @@ for batch in client.beta.messages.batches.results(
 
               default: Billing error
 
-          - `class BetaPermissionError`
+          - `class BetaPermissionErrorObject`
 
             - `type: Literal["permission_error"]`
 
@@ -14256,7 +14270,7 @@ for batch in client.beta.messages.batches.results(
 
               default: Permission denied
 
-          - `class BetaNotFoundError`
+          - `class BetaNotFoundErrorObject`
 
             - `type: Literal["not_found_error"]`
 
@@ -14270,7 +14284,7 @@ for batch in client.beta.messages.batches.results(
 
               default: Not found
 
-          - `class BetaRateLimitError`
+          - `class BetaRateLimitErrorObject`
 
             - `type: Literal["rate_limit_error"]`
 
@@ -14284,7 +14298,7 @@ for batch in client.beta.messages.batches.results(
 
               default: Rate limited
 
-          - `class BetaGatewayTimeoutError`
+          - `class BetaGatewayTimeoutErrorObject`
 
             - `type: Literal["timeout_error"]`
 
@@ -14298,7 +14312,7 @@ for batch in client.beta.messages.batches.results(
 
               default: Request timeout
 
-          - `class BetaAPIError`
+          - `class BetaAPIErrorObject`
 
             - `type: Literal["api_error"]`
 
@@ -14312,7 +14326,7 @@ for batch in client.beta.messages.batches.results(
 
               default: Internal server error
 
-          - `class BetaOverloadedError`
+          - `class BetaOverloadedErrorObject`
 
             - `type: Literal["overloaded_error"]`
 
@@ -14753,7 +14767,7 @@ for batch in client.beta.messages.batches.results(
 
           - `content: BetaWebSearchToolResultBlockContent`
 
-            - `class BetaWebSearchToolResultError`
+            - `class BetaWebSearchToolResultErrorObject`
 
               - `type: Literal["web_search_tool_result_error"]`
 
@@ -14915,7 +14929,7 @@ for batch in client.beta.messages.batches.results(
 
           - `content: Content`
 
-            - `class BetaAdvisorToolResultError`
+            - `class BetaAdvisorToolResultErrorObject`
 
               - `type: Literal["advisor_tool_result_error"]`
 
@@ -14975,7 +14989,7 @@ for batch in client.beta.messages.batches.results(
 
           - `content: BetaCodeExecutionToolResultBlockContent`
 
-            - `class BetaCodeExecutionToolResultError`
+            - `class BetaCodeExecutionToolResultErrorObject`
 
               - `type: Literal["code_execution_tool_result_error"]`
 
@@ -15049,7 +15063,7 @@ for batch in client.beta.messages.batches.results(
 
           - `content: Content`
 
-            - `class BetaBashCodeExecutionToolResultError`
+            - `class BetaBashCodeExecutionToolResultErrorObject`
 
               - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -15099,7 +15113,7 @@ for batch in client.beta.messages.batches.results(
 
           - `content: Content`
 
-            - `class BetaTextEditorCodeExecutionToolResultError`
+            - `class BetaTextEditorCodeExecutionToolResultErrorObject`
 
               - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -15177,7 +15191,7 @@ for batch in client.beta.messages.batches.results(
 
           - `content: Content`
 
-            - `class BetaToolSearchToolResultError`
+            - `class BetaToolSearchToolResultErrorObject`
 
               - `type: Literal["tool_search_tool_result_error"]`
 
@@ -18278,9 +18292,9 @@ for batch in client.beta.messages.batches.results(
 
         default: error
 
-      - `error: BetaError`
+      - `error: BetaErrorObject`
 
-        - `class BetaInvalidRequestError`
+        - `class BetaInvalidRequestErrorObject`
 
           - `type: Literal["invalid_request_error"]`
 
@@ -18294,7 +18308,7 @@ for batch in client.beta.messages.batches.results(
 
             default: Invalid request
 
-        - `class BetaAuthenticationError`
+        - `class BetaAuthenticationErrorObject`
 
           - `type: Literal["authentication_error"]`
 
@@ -18308,7 +18322,7 @@ for batch in client.beta.messages.batches.results(
 
             default: Authentication error
 
-        - `class BetaBillingError`
+        - `class BetaBillingErrorObject`
 
           - `type: Literal["billing_error"]`
 
@@ -18322,7 +18336,7 @@ for batch in client.beta.messages.batches.results(
 
             default: Billing error
 
-        - `class BetaPermissionError`
+        - `class BetaPermissionErrorObject`
 
           - `type: Literal["permission_error"]`
 
@@ -18336,7 +18350,7 @@ for batch in client.beta.messages.batches.results(
 
             default: Permission denied
 
-        - `class BetaNotFoundError`
+        - `class BetaNotFoundErrorObject`
 
           - `type: Literal["not_found_error"]`
 
@@ -18350,7 +18364,7 @@ for batch in client.beta.messages.batches.results(
 
             default: Not found
 
-        - `class BetaRateLimitError`
+        - `class BetaRateLimitErrorObject`
 
           - `type: Literal["rate_limit_error"]`
 
@@ -18364,7 +18378,7 @@ for batch in client.beta.messages.batches.results(
 
             default: Rate limited
 
-        - `class BetaGatewayTimeoutError`
+        - `class BetaGatewayTimeoutErrorObject`
 
           - `type: Literal["timeout_error"]`
 
@@ -18378,7 +18392,7 @@ for batch in client.beta.messages.batches.results(
 
             default: Request timeout
 
-        - `class BetaAPIError`
+        - `class BetaAPIErrorObject`
 
           - `type: Literal["api_error"]`
 
@@ -18392,7 +18406,7 @@ for batch in client.beta.messages.batches.results(
 
             default: Internal server error
 
-        - `class BetaOverloadedError`
+        - `class BetaOverloadedErrorObject`
 
           - `type: Literal["overloaded_error"]`
 
@@ -18785,7 +18799,7 @@ for batch in client.beta.messages.batches.results(
 
         - `content: BetaWebSearchToolResultBlockContent`
 
-          - `class BetaWebSearchToolResultError`
+          - `class BetaWebSearchToolResultErrorObject`
 
             - `type: Literal["web_search_tool_result_error"]`
 
@@ -18947,7 +18961,7 @@ for batch in client.beta.messages.batches.results(
 
         - `content: Content`
 
-          - `class BetaAdvisorToolResultError`
+          - `class BetaAdvisorToolResultErrorObject`
 
             - `type: Literal["advisor_tool_result_error"]`
 
@@ -19007,7 +19021,7 @@ for batch in client.beta.messages.batches.results(
 
         - `content: BetaCodeExecutionToolResultBlockContent`
 
-          - `class BetaCodeExecutionToolResultError`
+          - `class BetaCodeExecutionToolResultErrorObject`
 
             - `type: Literal["code_execution_tool_result_error"]`
 
@@ -19081,7 +19095,7 @@ for batch in client.beta.messages.batches.results(
 
         - `content: Content`
 
-          - `class BetaBashCodeExecutionToolResultError`
+          - `class BetaBashCodeExecutionToolResultErrorObject`
 
             - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -19131,7 +19145,7 @@ for batch in client.beta.messages.batches.results(
 
         - `content: Content`
 
-          - `class BetaTextEditorCodeExecutionToolResultError`
+          - `class BetaTextEditorCodeExecutionToolResultErrorObject`
 
             - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -19209,7 +19223,7 @@ for batch in client.beta.messages.batches.results(
 
         - `content: Content`
 
-          - `class BetaToolSearchToolResultError`
+          - `class BetaToolSearchToolResultErrorObject`
 
             - `type: Literal["tool_search_tool_result_error"]`
 

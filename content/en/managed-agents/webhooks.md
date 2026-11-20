@@ -46,80 +46,80 @@ Webhook events return the event `type` and `id`, not the full object. When you r
   <Tab title="Session events">
     Some of these events are named differently from the matching events on the session’s [event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming). For example, the stream’s `session.status_idle` and `session.status_running` correspond to the `session.status_idled` and `session.status_run_started` webhook events.
 
-    | Event                              | Trigger                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
-    | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | `session.status_run_started`       | The agent started running. This triggers at every session status transition to `running`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-    | `session.status_idled`             | Agent awaiting input, for example, a tool permission approval or a new user message.                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-    | `session.budget_reached`           | The session reached its [budget](https://platform.claude.com/docs/en/managed-agents/budgets) and paused. Fires at most once for each budget value you set; changing the budget arms it again.                                                                                                                                                                                                                                                                                                                                                               |
-    | `session.status_rescheduled`       | A transient error occurred and the session is retrying automatically.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
-    | `session.status_terminated`        | The session terminated, either because of an unrecoverable error or because it was archived.                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-    | `session.thread_created`           | New [multiagent thread](https://platform.claude.com/docs/en/managed-agents/session-threads) opened: an additional agent called by the agent that the session runs is starting work, or the session’s [advisor](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor) is being consulted. It also fires for each thread of a [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#a-runs-threads), and so do the other two thread events in this table.                        |
-    | `session.thread_idled`             | An agent in a [multiagent interaction](https://platform.claude.com/docs/en/managed-agents/session-threads) is waiting for input.                                                                                                                                                                                                                                                                                                                                                                                                                            |
-    | `session.thread_terminated`        | A [multiagent thread](https://platform.claude.com/docs/en/managed-agents/session-threads) terminated, either because the thread was archived or because it exhausted its retries. A subagent that finishes its work goes `idle`, not `terminated` (an advisor thread terminates once its consultation completes, and a workflow run’s threads terminate when the server archives them, by the end of the run). Fires for child threads only; the primary thread’s end, including archiving the whole session, surfaces only as `session.status_terminated`. |
-    | `session.outcome_evaluation_ended` | [Outcome evaluation](https://platform.claude.com/docs/en/managed-agents/define-outcomes) for a single iteration completed.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-    | `session.updated`                  | Session properties changed (for example, its name or configuration was updated).                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-    | `session.deleted`                  | Session permanently deleted. There is no object left to fetch, so treat the event itself as final.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+    | Event | Trigger |
+    | ----- | ----- |
+    | `session.status_run_started` | The agent started running. This triggers at every session status transition to `running`. |
+    | `session.status_idled` | Agent awaiting input, for example, a tool permission approval or a new user message. |
+    | `session.budget_reached` | The session reached its [budget](https://platform.claude.com/docs/en/managed-agents/budgets) and paused. Fires at most once for each budget value you set; changing the budget arms it again. |
+    | `session.status_rescheduled` | A transient error occurred and the session is retrying automatically. |
+    | `session.status_terminated` | The session terminated, either because of an unrecoverable error or because it was archived. |
+    | `session.thread_created` | New [multiagent thread](https://platform.claude.com/docs/en/managed-agents/session-threads) opened: an additional agent called by the agent that the session runs is starting work, or the session’s [advisor](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor) is being consulted. It also fires for each thread of a [workflow run](https://platform.claude.com/docs/en/managed-agents/workflow-runs#a-runs-threads), and so do the other two thread events in this table. |
+    | `session.thread_idled` | An agent in a [multiagent interaction](https://platform.claude.com/docs/en/managed-agents/session-threads) is waiting for input. |
+    | `session.thread_terminated` | A [multiagent thread](https://platform.claude.com/docs/en/managed-agents/session-threads) terminated, either because the thread was archived or because it exhausted its retries. A subagent that finishes its work goes `idle`, not `terminated` (an advisor thread terminates once its consultation completes, and a workflow run’s threads terminate when the server archives them, by the end of the run). Fires for child threads only; the primary thread’s end, including archiving the whole session, surfaces only as `session.status_terminated`. |
+    | `session.outcome_evaluation_ended` | [Outcome evaluation](https://platform.claude.com/docs/en/managed-agents/define-outcomes) for a single iteration completed. |
+    | `session.updated` | Session properties changed (for example, its name or configuration was updated). |
+    | `session.deleted` | Session permanently deleted. There is no object left to fetch, so treat the event itself as final. |
   </Tab>
 
   <Tab title="Vault events">
-    | Event                             | Trigger                                                                                                                                                                 |
-    | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | `vault.created`                   | Vault created.                                                                                                                                                          |
-    | `vault.archived`                  | Vault archived. A `vault_credential.archived` event is also emitted for each underlying credential.                                                                     |
-    | `vault.deleted`                   | Vault deleted. A `vault_credential.deleted` event is also emitted for each underlying credential. There is no object left to fetch, so treat the event itself as final. |
-    | `vault_credential.created`        | Credential created.                                                                                                                                                     |
-    | `vault_credential.archived`       | Credential archived, either directly or as a result of vault archival.                                                                                                  |
-    | `vault_credential.deleted`        | Credential deleted, either directly or as a result of vault deletion. There is no object left to fetch, so treat the event itself as final.                             |
-    | `vault_credential.refresh_failed` | An `mcp_oauth` credential cannot be refreshed (invalid refresh token, or irrecoverable error from the OAuth server).                                                    |
+    | Event | Trigger |
+    | ----- | ----- |
+    | `vault.created` | Vault created. |
+    | `vault.archived` | Vault archived. A `vault_credential.archived` event is also emitted for each underlying credential. |
+    | `vault.deleted` | Vault deleted. A `vault_credential.deleted` event is also emitted for each underlying credential. There is no object left to fetch, so treat the event itself as final. |
+    | `vault_credential.created` | Credential created. |
+    | `vault_credential.archived` | Credential archived, either directly or as a result of vault archival. |
+    | `vault_credential.deleted` | Credential deleted, either directly or as a result of vault deletion. There is no object left to fetch, so treat the event itself as final. |
+    | `vault_credential.refresh_failed` | An `mcp_oauth` credential cannot be refreshed (invalid refresh token, or irrecoverable error from the OAuth server). |
   </Tab>
 
   <Tab title="Agent events">
     These events track the lifecycle of the agent resources in your workspace, and are distinct from the agent events delivered on a session’s event stream.
 
-    | Event            | Trigger                                                                                                                                                                                         |
-    | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | `agent.created`  | Agent created.                                                                                                                                                                                  |
-    | `agent.updated`  | A [new version of the agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent) was published. Updates that do not create a new version do not trigger this event. |
-    | `agent.archived` | Agent archived.                                                                                                                                                                                 |
-    | `agent.deleted`  | Agent permanently deleted. There is no object left to fetch, so treat the event itself as final.                                                                                                |
+    | Event | Trigger |
+    | ----- | ----- |
+    | `agent.created` | Agent created. |
+    | `agent.updated` | A [new version of the agent](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-an-agent) was published. Updates that do not create a new version do not trigger this event. |
+    | `agent.archived` | Agent archived. |
+    | `agent.deleted` | Agent permanently deleted. There is no object left to fetch, so treat the event itself as final. |
   </Tab>
 
   <Tab title="Deployment events">
-    | Event                 | Trigger                                                                                                                                                                                                                                                                                                                                                            |
-    | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-    | `deployment.created`  | [Scheduled deployment](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments) created.                                                                                                                                                                                                                                                          |
-    | `deployment.updated`  | Deployment properties changed (for example, its schedule was updated).                                                                                                                                                                                                                                                                                             |
-    | `deployment.paused`   | Deployment paused, either by request or automatically when a scheduled run fails with an unrecoverable error, such as an archived subagent or an archived environment. Recoverable failures, including rate limits, don’t pause the deployment. See [Failure behavior](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#failure-behavior). |
-    | `deployment.unpaused` | Deployment unpaused, resuming its schedule.                                                                                                                                                                                                                                                                                                                        |
-    | `deployment.archived` | Deployment archived, either directly or because its agent was archived. If the agent is deleted instead, a scheduled deployment is archived at its next scheduled run; a deployment without a schedule is not archived automatically.                                                                                                                              |
-    | `deployment.deleted`  | Deployment permanently deleted. There is no object left to fetch, so treat the event itself as final.                                                                                                                                                                                                                                                              |
+    | Event | Trigger |
+    | ----- | ----- |
+    | `deployment.created` | [Scheduled deployment](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments) created. |
+    | `deployment.updated` | Deployment properties changed (for example, its schedule was updated). |
+    | `deployment.paused` | Deployment paused, either by request or automatically when a scheduled run fails with an unrecoverable error, such as an archived subagent or an archived environment. Recoverable failures, including rate limits, don’t pause the deployment. See [Failure behavior](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#failure-behavior). |
+    | `deployment.unpaused` | Deployment unpaused, resuming its schedule. |
+    | `deployment.archived` | Deployment archived, either directly or because its agent was archived. If the agent is deleted instead, a scheduled deployment is archived at its next scheduled run; a deployment without a schedule is not archived automatically. |
+    | `deployment.deleted` | Deployment permanently deleted. There is no object left to fetch, so treat the event itself as final. |
   </Tab>
 
   <Tab title="Deployment run events">
-    | Event                      | Trigger                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-    | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | `deployment_run.started`   | A scheduled run started. Only scheduled runs emit `deployment_run` events; [manual runs](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#trigger-a-manual-run) do not.                                                                                                                                                                                                                                              |
+    | Event | Trigger |
+    | ----- | ----- |
+    | `deployment_run.started` | A scheduled run started. Only scheduled runs emit `deployment_run` events; [manual runs](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#trigger-a-manual-run) do not. |
     | `deployment_run.succeeded` | A scheduled run created its session. The event carries the same `data.id` (the run ID) as the run’s `deployment_run.started` event. To follow the session’s work, subscribe to its session events (the **Session events** tab), or fetch the [deployment run](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#deployment-runs) for its `session_id` (java: `sessionId`; php: `sessionID`; csharp, go: `SessionID`). |
-    | `deployment_run.failed`    | A scheduled run did not create a session. The event carries the same `data.id` as the run’s `deployment_run.started` event. Fetch the [deployment run](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#deployment-runs) for the error details.                                                                                                                                                                      |
+    | `deployment_run.failed` | A scheduled run did not create a session. The event carries the same `data.id` as the run’s `deployment_run.started` event. Fetch the [deployment run](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#deployment-runs) for the error details. |
   </Tab>
 
   <Tab title="Environment events">
-    | Event                  | Trigger                                                                                                                                         |
-    | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-    | `environment.created`  | Environment created.                                                                                                                            |
-    | `environment.updated`  | Environment updated with at least one changed field. A no-op update emits nothing.                                                              |
-    | `environment.archived` | Environment archived. Re-archiving an already-archived environment emits nothing.                                                               |
-    | `environment.deleted`  | Environment deleted, including delete of an already-archived environment. There is no object left to fetch, so treat the event itself as final. |
+    | Event | Trigger |
+    | ----- | ----- |
+    | `environment.created` | Environment created. |
+    | `environment.updated` | Environment updated with at least one changed field. A no-op update emits nothing. |
+    | `environment.archived` | Environment archived. Re-archiving an already-archived environment emits nothing. |
+    | `environment.deleted` | Environment deleted, including delete of an already-archived environment. There is no object left to fetch, so treat the event itself as final. |
 
     An environment’s [work items](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes) emit no webhook events.
   </Tab>
 
   <Tab title="Memory store events">
-    | Event                   | Trigger                                                                                                                                                                                                                                                                                             |
-    | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | `memory_store.created`  | Memory store created, either by you or by an Anthropic-operated process that clones one of your existing stores.                                                                                                                                                                                    |
-    | `memory_store.archived` | Memory store archived. Re-archiving an already-archived store emits nothing.                                                                                                                                                                                                                        |
-    | `memory_store.deleted`  | Memory store deleted, including delete of an already-archived store. Deleting a store cascades to its memories and memory versions without emitting per-memory events; the single `memory_store.deleted` event is the signal. There is no object left to fetch, so treat the event itself as final. |
+    | Event | Trigger |
+    | ----- | ----- |
+    | `memory_store.created` | Memory store created, either by you or by an Anthropic-operated process that clones one of your existing stores. |
+    | `memory_store.archived` | Memory store archived. Re-archiving an already-archived store emits nothing. |
+    | `memory_store.deleted` | Memory store deleted, including delete of an already-archived store. Deleting a store cascades to its memories and memory versions without emitting per-memory events; the single `memory_store.deleted` event is the signal. There is no object left to fetch, so treat the event itself as final. |
 
     Individual [memories](https://platform.claude.com/docs/en/managed-agents/memory) and memory versions emit no webhook events.
   </Tab>
@@ -449,9 +449,9 @@ Webhooks are in beta on every model.
 
 * Availability: Available
 
-| Status | Cloud platforms                                                                                                    |
-| ------ | ------------------------------------------------------------------------------------------------------------------ |
-| Beta   | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Beta | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) |
 
 ### Required beta headers
 
@@ -465,9 +465,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

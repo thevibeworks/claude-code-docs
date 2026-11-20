@@ -52,10 +52,10 @@ This page shows how to add your identity provider, what each role can do, and ho
 
 ### If sign-in fails
 
-| Response                               | Cause                                                  | The server’s log line contains |
-| -------------------------------------- | ------------------------------------------------------ | ------------------------------ |
-| `401`, the same as for a wrong API key | The token failed a check. The log line has the reason. | `oidc token`                   |
-| `403`                                  | The token’s groups match no `roles` entry              | `token holds no role`          |
+| Response | Cause | The server’s log line contains |
+| ----- | ----- | ----- |
+| `401`, the same as for a wrong API key | The token failed a check. The log line has the reason. | `oidc token` |
+| `403` | The token’s groups match no `roles` entry | `token holds no role` |
 
 ### Microsoft Entra ID
 
@@ -66,10 +66,10 @@ Entra ID differs from other providers in two ways. Both settings go in the issue
 
 ## What each role can do
 
-| Role                            | Agents, skills, sessions, vaults, and memory stores | Environments                                               |
-| ------------------------------- | --------------------------------------------------- | ---------------------------------------------------------- |
-| `admin`, and the server API key | Sees and changes everything                         | Creates, changes, and deletes them, and creates their keys |
-| `developer` or `user`           | Sees and changes only what that caller created      | Lists them, reads them, and runs sessions in them          |
+| Role | Agents, skills, sessions, vaults, and memory stores | Environments |
+| ----- | ----- | ----- |
+| `admin`, and the server API key | Sees and changes everything | Creates, changes, and deletes them, and creates their keys |
+| `developer` or `user` | Sees and changes only what that caller created | Lists them, reads them, and runs sessions in them |
 
 `developer` and `user` have the same access. A caller with either role:
 
@@ -121,10 +121,10 @@ When the token expires, the developer runs `login` again. To have the `ant` CLI 
 
 ### Other redirect URIs
 
-| Provider                                       | Redirect URI to register                                          | Flag that developers add to the `login` command |
-| ---------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------- |
-| Microsoft Entra ID                             | `http://localhost/callback`                                       | `-listen localhost:0`                           |
-| One that requires the port in the redirect URI | A URI with a fixed port, such as `http://127.0.0.1:8123/callback` | `-listen 127.0.0.1:8123`                        |
+| Provider | Redirect URI to register | Flag that developers add to the `login` command |
+| ----- | ----- | ----- |
+| Microsoft Entra ID | `http://localhost/callback` | `-listen localhost:0` |
+| One that requires the port in the redirect URI | A URI with a fixed port, such as `http://127.0.0.1:8123/callback` | `-listen 127.0.0.1:8123` |
 
 To list the other flags, add `-h` to the `login` command.
 

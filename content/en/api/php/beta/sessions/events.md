@@ -931,7 +931,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish, or was not created.
 
@@ -2006,7 +2006,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish, or was not created.
 
@@ -2441,9 +2441,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-### Beta Managed Agents Billing Error
+### Beta Managed Agents Billing Error Object
 
-- `class ManagedAgentsBillingError`
+- `class ManagedAgentsBillingErrorObject`
 
   - `"billing_error" type`
 
@@ -2455,9 +2455,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
-### Beta Managed Agents Compaction Limit Reached Error
+### Beta Managed Agents Compaction Limit Reached Error Object
 
-- `class ManagedAgentsCompactionLimitReachedError`
+- `class ManagedAgentsCompactionLimitReachedErrorObject`
 
   - `"compaction_limit_reached_error" type`
 
@@ -2469,9 +2469,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
-### Beta Managed Agents Credential Host Unreachable Error
+### Beta Managed Agents Credential Host Unreachable Error Object
 
-- `class ManagedAgentsCredentialHostUnreachableError`
+- `class ManagedAgentsCredentialHostUnreachableErrorObject`
 
   - `"credential_host_unreachable_error" type`
 
@@ -2651,9 +2651,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     The source of the image data.
 
-### Beta Managed Agents Max Workflow Runs Workflow Run Error
+### Beta Managed Agents Max Workflow Runs Workflow Run Error Object
 
-- `class ManagedAgentsMaxWorkflowRunsWorkflowRunError`
+- `class ManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject`
 
   - `"max_workflow_runs_error" type`
 
@@ -2661,9 +2661,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     Short explanation written by the server. It never contains content from the run or its agents.
 
-### Beta Managed Agents MCP Authentication Failed Error
+### Beta Managed Agents MCP Authentication Failed Error Object
 
-- `class ManagedAgentsMCPAuthenticationFailedError`
+- `class ManagedAgentsMCPAuthenticationFailedErrorObject`
 
   - `"mcp_authentication_failed_error" type`
 
@@ -2679,9 +2679,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
-### Beta Managed Agents MCP Connection Failed Error
+### Beta Managed Agents MCP Connection Failed Error Object
 
-- `class ManagedAgentsMCPConnectionFailedError`
+- `class ManagedAgentsMCPConnectionFailedErrorObject`
 
   - `"mcp_connection_failed_error" type`
 
@@ -2697,9 +2697,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
-### Beta Managed Agents Model Overloaded Error
+### Beta Managed Agents Model Overloaded Error Object
 
-- `class ManagedAgentsModelOverloadedError`
+- `class ManagedAgentsModelOverloadedErrorObject`
 
   - `"model_overloaded_error" type`
 
@@ -2711,9 +2711,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
-### Beta Managed Agents Model Rate Limited Error
+### Beta Managed Agents Model Rate Limited Error Object
 
-- `class ManagedAgentsModelRateLimitedError`
+- `class ManagedAgentsModelRateLimitedErrorObject`
 
   - `"model_rate_limited_error" type`
 
@@ -2725,9 +2725,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
-### Beta Managed Agents Model Request Failed Error
+### Beta Managed Agents Model Request Failed Error Object
 
-- `class ManagedAgentsModelRequestFailedError`
+- `class ManagedAgentsModelRequestFailedErrorObject`
 
   - `"model_request_failed_error" type`
 
@@ -2753,9 +2753,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     MIME type of the text content. Must be "text/plain".
 
-### Beta Managed Agents Program Workflow Run Error
+### Beta Managed Agents Program Workflow Run Error Object
 
-- `class ManagedAgentsProgramWorkflowRunError`
+- `class ManagedAgentsProgramWorkflowRunErrorObject`
 
   - `"program_error" type`
 
@@ -2769,9 +2769,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `"redacted" type`
 
-### Beta Managed Agents Repository Authentication Error
+### Beta Managed Agents Repository Authentication Error Object
 
-- `class ManagedAgentsRepositoryAuthenticationError`
+- `class ManagedAgentsRepositoryAuthenticationErrorObject`
 
   - `"repository_authentication_error" type`
 
@@ -2787,9 +2787,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
-### Beta Managed Agents Repository Checkout Error
+### Beta Managed Agents Repository Checkout Error Object
 
-- `class ManagedAgentsRepositoryCheckoutError`
+- `class ManagedAgentsRepositoryCheckoutErrorObject`
 
   - `"repository_checkout_error" type`
 
@@ -2805,9 +2805,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
-### Beta Managed Agents Repository Clone Error
+### Beta Managed Agents Repository Clone Error Object
 
-- `class ManagedAgentsRepositoryCloneError`
+- `class ManagedAgentsRepositoryCloneErrorObject`
 
   - `"repository_clone_error" type`
 
@@ -2823,9 +2823,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
-### Beta Managed Agents Repository Forbidden Error
+### Beta Managed Agents Repository Forbidden Error Object
 
-- `class ManagedAgentsRepositoryForbiddenError`
+- `class ManagedAgentsRepositoryForbiddenErrorObject`
 
   - `"repository_forbidden_error" type`
 
@@ -2841,9 +2841,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next. Always `retrying`: the session keeps running without the repository.
 
-### Beta Managed Agents Repository Not Found Error
+### Beta Managed Agents Repository Not Found Error Object
 
-- `class ManagedAgentsRepositoryNotFoundError`
+- `class ManagedAgentsRepositoryNotFoundErrorObject`
 
   - `"repository_not_found_error" type`
 
@@ -3841,7 +3841,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Unique identifier for this event.
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish, or was not created.
 
@@ -5229,7 +5229,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Unique identifier for this event.
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish, or was not created.
 
@@ -5281,9 +5281,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
-### Beta Managed Agents Thread Limit Workflow Run Error
+### Beta Managed Agents Thread Limit Workflow Run Error Object
 
-- `class ManagedAgentsThreadLimitWorkflowRunError`
+- `class ManagedAgentsThreadLimitWorkflowRunErrorObject`
 
   - `"thread_limit_error" type`
 
@@ -5291,9 +5291,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     Short explanation written by the server. It never contains content from the run or its agents.
 
-### Beta Managed Agents Timeout Workflow Run Error
+### Beta Managed Agents Timeout Workflow Run Error Object
 
-- `class ManagedAgentsTimeoutWorkflowRunError`
+- `class ManagedAgentsTimeoutWorkflowRunErrorObject`
 
   - `"timeout_error" type`
 
@@ -5301,9 +5301,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     Short explanation written by the server. It never contains content from the run or its agents.
 
-### Beta Managed Agents Tool Use Limit Reached Error
+### Beta Managed Agents Tool Use Limit Reached Error Object
 
-- `class ManagedAgentsToolUseLimitReachedError`
+- `class ManagedAgentsToolUseLimitReachedErrorObject`
 
   - `"tool_use_limit_reached_error" type`
 
@@ -5315,9 +5315,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
-### Beta Managed Agents Unknown Error
+### Beta Managed Agents Unknown Error Object
 
-- `class ManagedAgentsUnknownError`
+- `class ManagedAgentsUnknownErrorObject`
 
   - `"unknown_error" type`
 
@@ -5329,9 +5329,9 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     What the client should do next.
 
-### Beta Managed Agents Unknown Workflow Run Error
+### Beta Managed Agents Unknown Workflow Run Error Object
 
-- `class ManagedAgentsUnknownWorkflowRunError`
+- `class ManagedAgentsUnknownWorkflowRunErrorObject`
 
   - `"unknown_error" type`
 
@@ -5607,50 +5607,6 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
 
-### Beta Managed Agents Workflow Run Error
-
-- `class ManagedAgentsWorkflowRunError`
-
-  - `class ManagedAgentsTimeoutWorkflowRunError`
-
-    - `"timeout_error" type`
-
-    - `string message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
-  - `class ManagedAgentsProgramWorkflowRunError`
-
-    - `"program_error" type`
-
-    - `string message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
-  - `class ManagedAgentsUnknownWorkflowRunError`
-
-    - `"unknown_error" type`
-
-    - `string message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
-  - `class ManagedAgentsThreadLimitWorkflowRunError`
-
-    - `"thread_limit_error" type`
-
-    - `string message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
-  - `class ManagedAgentsMaxWorkflowRunsWorkflowRunError`
-
-    - `"max_workflow_runs_error" type`
-
-    - `string message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
 ### Beta Managed Agents Workflow Run Error Event
 
 - `class ManagedAgentsWorkflowRunErrorEvent`
@@ -5661,7 +5617,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     Unique identifier for this event.
 
-  - `ManagedAgentsWorkflowRunError error`
+  - `ManagedAgentsWorkflowRunErrorObject error`
 
     Why the run did not finish, or was not created.
 
@@ -5672,6 +5628,50 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `?string workflowRunID`
 
     Identifier of the run that met the error, or `null` when the error kept a run from being created.
+
+### Beta Managed Agents Workflow Run Error Object
+
+- `class ManagedAgentsWorkflowRunErrorObject`
+
+  - `class ManagedAgentsTimeoutWorkflowRunErrorObject`
+
+    - `"timeout_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class ManagedAgentsProgramWorkflowRunErrorObject`
+
+    - `"program_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class ManagedAgentsUnknownWorkflowRunErrorObject`
+
+    - `"unknown_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class ManagedAgentsThreadLimitWorkflowRunErrorObject`
+
+    - `"thread_limit_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class ManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject`
+
+    - `"max_workflow_runs_error" type`
+
+    - `string message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
 
 ### Beta Managed Agents Workflow Run Phase
 
@@ -5745,11 +5745,11 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     - `"completed" type`
 
-  - `class ManagedAgentsWorkflowRunResultError`
+  - `class ManagedAgentsWorkflowRunResultErrorObject`
 
     - `"error" type`
 
-    - `ManagedAgentsWorkflowRunError error`
+    - `ManagedAgentsWorkflowRunErrorObject error`
 
       Why the run did not finish.
 
@@ -5763,13 +5763,13 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `"completed" type`
 
-### Beta Managed Agents Workflow Run Result Error
+### Beta Managed Agents Workflow Run Result Error Object
 
-- `class ManagedAgentsWorkflowRunResultError`
+- `class ManagedAgentsWorkflowRunResultErrorObject`
 
   - `"error" type`
 
-  - `ManagedAgentsWorkflowRunError error`
+  - `ManagedAgentsWorkflowRunErrorObject error`
 
     Why the run did not finish.
 

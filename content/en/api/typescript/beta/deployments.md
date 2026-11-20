@@ -272,6 +272,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -398,79 +399,79 @@ interface BetaManagedAgentsManualDeploymentPausedReason {
 interface BetaManagedAgentsErrorDeploymentPausedReason {
   type: "error";
   /** The failed run's error. */
-  error: BetaManagedAgentsDeploymentPausedReasonError;
+  error: BetaManagedAgentsDeploymentPausedReasonErrorObject;
 }
 
 /** The error that triggered an auto-pause. Matches the failed run's `error.type`. */
-type BetaManagedAgentsDeploymentPausedReasonError = BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError | BetaManagedAgentsAgentArchivedDeploymentPausedReasonError | BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError | BetaManagedAgentsFileNotFoundDeploymentPausedReasonError | BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError | BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError | BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError | BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError | BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError | BetaManagedAgentsVaultArchivedDeploymentPausedReasonError | BetaManagedAgentsUnknownDeploymentPausedReasonError | BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError | BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError;
+type BetaManagedAgentsDeploymentPausedReasonErrorObject = BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject | BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject | BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject | BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject | BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject | BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject;
 
 /** The deployment's environment was archived. */
-interface BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject {
   type: "environment_archived_error";
 }
 
 /** The deployment's agent was archived. */
-interface BetaManagedAgentsAgentArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject {
   type: "agent_archived_error";
 }
 
 /** The deployment's environment no longer exists. */
-interface BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject {
   type: "environment_not_found_error";
 }
 
 /** A vault referenced by the deployment no longer exists. */
-interface BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject {
   type: "vault_not_found_error";
 }
 
 /** A file resource referenced by the deployment no longer exists. */
-interface BetaManagedAgentsFileNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject {
   type: "file_not_found_error";
 }
 
 /** A referenced resource no longer exists and its kind was not reported. */
-interface BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject {
   type: "session_resource_not_found_error";
 }
 
 /** The deployment's workspace was archived. */
-interface BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject {
   type: "workspace_archived_error";
 }
 
 /** The deployment's organization is disabled. */
-interface BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError {
+interface BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject {
   type: "organization_disabled_error";
 }
 
 /** A memory store referenced by the deployment is archived. */
-interface BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject {
   type: "memory_store_archived_error";
 }
 
 /** A skill referenced by the deployment's agent no longer exists. */
-interface BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError {
+interface BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject {
   type: "skill_not_found_error";
 }
 
 /** A vault referenced by the deployment is archived. */
-interface BetaManagedAgentsVaultArchivedDeploymentPausedReasonError {
+interface BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject {
   type: "vault_archived_error";
 }
 
 /** An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`. */
-interface BetaManagedAgentsUnknownDeploymentPausedReasonError {
+interface BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject {
   type: "unknown_error";
 }
 
 /** The deployment configures resources, but its environment is self-hosted and cannot mount them. */
-interface BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError {
+interface BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject {
   type: "self_hosted_resources_unsupported_error";
 }
 
 /** An MCP server host used by the deployment's agent is blocked by the environment's network policy. */
-interface BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError {
+interface BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject {
   type: "mcp_egress_blocked_error";
 }
 
@@ -1112,7 +1113,7 @@ interface BetaManagedAgentsDeploymentRun {
   /** ID of the deployment that produced this run. */
   deployment_id: string;
   /** Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null. */
-  error: BetaManagedAgentsEnvironmentArchivedRunError | BetaManagedAgentsAgentArchivedRunError | BetaManagedAgentsEnvironmentNotFoundRunError | BetaManagedAgentsVaultNotFoundRunError | BetaManagedAgentsVaultArchivedRunError | BetaManagedAgentsFileNotFoundRunError | BetaManagedAgentsMemoryStoreArchivedRunError | BetaManagedAgentsSkillNotFoundRunError | BetaManagedAgentsSessionResourceNotFoundRunError | BetaManagedAgentsWorkspaceArchivedRunError | BetaManagedAgentsOrganizationDisabledRunError | BetaManagedAgentsSessionRateLimitedRunError | BetaManagedAgentsSessionCreationRejectedRunError | BetaManagedAgentsUnknownRunError | BetaManagedAgentsSelfHostedResourcesUnsupportedRunError | BetaManagedAgentsMCPEgressBlockedRunError | null;
+  error: BetaManagedAgentsEnvironmentArchivedRunErrorObject | BetaManagedAgentsAgentArchivedRunErrorObject | BetaManagedAgentsEnvironmentNotFoundRunErrorObject | BetaManagedAgentsVaultNotFoundRunErrorObject | BetaManagedAgentsVaultArchivedRunErrorObject | BetaManagedAgentsFileNotFoundRunErrorObject | BetaManagedAgentsMemoryStoreArchivedRunErrorObject | BetaManagedAgentsSkillNotFoundRunErrorObject | BetaManagedAgentsSessionResourceNotFoundRunErrorObject | BetaManagedAgentsWorkspaceArchivedRunErrorObject | BetaManagedAgentsOrganizationDisabledRunErrorObject | BetaManagedAgentsSessionRateLimitedRunErrorObject | BetaManagedAgentsSessionCreationRejectedRunErrorObject | BetaManagedAgentsUnknownRunErrorObject | BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject | BetaManagedAgentsMCPEgressBlockedRunErrorObject | null;
   /** Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null. */
   session_id: string | null;
   /** What triggered this run and trigger-specific metadata. */
@@ -1124,112 +1125,112 @@ interface BetaManagedAgentsDeploymentRun {
 
 ```ts
 /** The deployment's environment was archived. */
-interface BetaManagedAgentsEnvironmentArchivedRunError {
+interface BetaManagedAgentsEnvironmentArchivedRunErrorObject {
   type: "environment_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment's agent was archived. */
-interface BetaManagedAgentsAgentArchivedRunError {
+interface BetaManagedAgentsAgentArchivedRunErrorObject {
   type: "agent_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment's environment no longer exists. */
-interface BetaManagedAgentsEnvironmentNotFoundRunError {
+interface BetaManagedAgentsEnvironmentNotFoundRunErrorObject {
   type: "environment_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A vault referenced by the deployment no longer exists. */
-interface BetaManagedAgentsVaultNotFoundRunError {
+interface BetaManagedAgentsVaultNotFoundRunErrorObject {
   type: "vault_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A vault referenced by the deployment is archived. */
-interface BetaManagedAgentsVaultArchivedRunError {
+interface BetaManagedAgentsVaultArchivedRunErrorObject {
   type: "vault_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A file resource referenced by the deployment no longer exists. */
-interface BetaManagedAgentsFileNotFoundRunError {
+interface BetaManagedAgentsFileNotFoundRunErrorObject {
   type: "file_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A memory store referenced by the deployment is archived. */
-interface BetaManagedAgentsMemoryStoreArchivedRunError {
+interface BetaManagedAgentsMemoryStoreArchivedRunErrorObject {
   type: "memory_store_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A skill referenced by the deployment's agent no longer exists. */
-interface BetaManagedAgentsSkillNotFoundRunError {
+interface BetaManagedAgentsSkillNotFoundRunErrorObject {
   type: "skill_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** A referenced resource no longer exists and its kind was not reported. */
-interface BetaManagedAgentsSessionResourceNotFoundRunError {
+interface BetaManagedAgentsSessionResourceNotFoundRunErrorObject {
   type: "session_resource_not_found_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment's workspace was archived. */
-interface BetaManagedAgentsWorkspaceArchivedRunError {
+interface BetaManagedAgentsWorkspaceArchivedRunErrorObject {
   type: "workspace_archived_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment's organization is disabled. */
-interface BetaManagedAgentsOrganizationDisabledRunError {
+interface BetaManagedAgentsOrganizationDisabledRunErrorObject {
   type: "organization_disabled_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed. */
-interface BetaManagedAgentsSessionRateLimitedRunError {
+interface BetaManagedAgentsSessionRateLimitedRunErrorObject {
   type: "session_rate_limited_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The session create request was rejected with a non-retryable validation error. */
-interface BetaManagedAgentsSessionCreationRejectedRunError {
+interface BetaManagedAgentsSessionCreationRejectedRunErrorObject {
   type: "session_creation_rejected_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone. */
-interface BetaManagedAgentsUnknownRunError {
+interface BetaManagedAgentsUnknownRunErrorObject {
   type: "unknown_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** The deployment configures resources, but its environment is self-hosted and cannot mount them. */
-interface BetaManagedAgentsSelfHostedResourcesUnsupportedRunError {
+interface BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject {
   type: "self_hosted_resources_unsupported_error";
   /** Human-readable error description. */
   message: string;
 }
 
 /** An MCP server host used by the deployment's agent is blocked by the environment's network policy. */
-interface BetaManagedAgentsMCPEgressBlockedRunError {
+interface BetaManagedAgentsMCPEgressBlockedRunErrorObject {
   type: "mcp_egress_blocked_error";
   /** Human-readable error description. */
   message: string;

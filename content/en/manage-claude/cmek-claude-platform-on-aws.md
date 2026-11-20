@@ -86,10 +86,10 @@ Keep `aws:SourceArn` on both service principal statements. Every organization on
 
 The conditions determine which workspaces can use the key. The sample follows the second row:
 
-| Workspaces that can use the key                                          | What to do                                                                                                                                                                                                                               |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Every workspace in the account                                           | Delete the `StringEquals` entry and keep the `ArnLike` entry.                                                                                                                                                                            |
-| Only the workspaces you list, for encryption and decryption              | List each workspace’s compartment ID in the `StringEquals` entry.                                                                                                                                                                        |
+| Workspaces that can use the key | What to do |
+| ----- | ----- |
+| Every workspace in the account | Delete the `StringEquals` entry and keep the `ArnLike` entry. |
+| Only the workspaces you list, for encryption and decryption | List each workspace’s compartment ID in the `StringEquals` entry. |
 | Only the workspaces you list, for every call, `kms:DescribeKey` included | In both statements, replace the `aws:SourceArn` value with a JSON array of full [workspace ARNs](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#service-details). The `StringEquals` entry is then optional. |
 
 A full workspace ARN has this form:

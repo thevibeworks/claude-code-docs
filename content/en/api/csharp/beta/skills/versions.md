@@ -125,6 +125,8 @@ Create Skill Version
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -397,6 +399,8 @@ List Skill Versions
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -650,6 +654,8 @@ Download a skill version's content as a zip archive.
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -834,6 +840,8 @@ Get Skill Version
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -1084,6 +1092,8 @@ Delete Skill Version
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 

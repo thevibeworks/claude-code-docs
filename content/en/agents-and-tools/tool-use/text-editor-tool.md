@@ -2260,10 +2260,10 @@ The text editor tool uses the same pricing structure as other tools used with Cl
 
 In addition to the base tokens, the following additional input tokens are needed for the text editor tool:
 
-| Tool                                                                           | Additional input tokens |
-| ------------------------------------------------------------------------------ | ----------------------- |
-| `text_editor_20250728` (Claude 4.7 and later models and Claude Mythos Preview) | 974 tokens              |
-| `text_editor_20250728` (Claude 4.6 and earlier models)                         | 745 tokens              |
+| Tool | Additional input tokens |
+| ----- | ----- |
+| `text_editor_20250728` (Claude 4.7 and later models and Claude Mythos Preview) | 974 tokens |
+| `text_editor_20250728` (Claude 4.6 and earlier models) | 745 tokens |
 
 For more detailed information about tool pricing, see [Tool use pricing](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview#pricing).
 
@@ -2276,11 +2276,11 @@ You can use the text editor tool alongside other Claude tools. When combining to
 
 ## Change log
 
-| Date             | Version                | Changes                                                                                                                                                                                                                                                                                                                  |
-| ---------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| July 28, 2025    | `text_editor_20250728` | Release of an updated text editor tool that fixes some issues and adds an optional `max_characters` parameter. It is otherwise identical to `text_editor_20250429`.                                                                                                                                                      |
-| April 29, 2025   | `text_editor_20250429` | Release of the text editor tool for Claude 4. This version removes the `undo_edit` command but maintains all other capabilities. The tool name has been updated to reflect its `str_replace`-based architecture.                                                                                                         |
-| March 13, 2025   | `text_editor_20250124` | Introduction of standalone text editor tool documentation. This version is optimized for Claude Sonnet 3.7 but has identical capabilities to the previous version.                                                                                                                                                       |
+| Date | Version | Changes |
+| ----- | ----- | ----- |
+| July 28, 2025 | `text_editor_20250728` | Release of an updated text editor tool that fixes some issues and adds an optional `max_characters` parameter. It is otherwise identical to `text_editor_20250429`. |
+| April 29, 2025 | `text_editor_20250429` | Release of the text editor tool for Claude 4. This version removes the `undo_edit` command but maintains all other capabilities. The tool name has been updated to reflect its `str_replace`-based architecture. |
+| March 13, 2025 | `text_editor_20250124` | Introduction of standalone text editor tool documentation. This version is optimized for Claude Sonnet 3.7 but has identical capabilities to the previous version. |
 | October 22, 2024 | `text_editor_20241022` | Initial release of the text editor tool with Claude Sonnet 3.5 (retired; see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations)). Provides capabilities for viewing, creating, and editing files through the `view`, `create`, `str_replace`, `insert`, and `undo_edit` commands. |
 
 ## Next steps
@@ -2315,18 +2315,18 @@ Text editor tool is available on every model and eligible for zero data retentio
 
 * Availability: Available
 
-| Status    | Cloud platforms         |
-| --------- | ----------------------- |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | All supported platforms |
 
 ### Data handling
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                       | HIPAA    |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| Status  | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible |
-| Details | Client-side tool run in your environment.                                                                                                                 | —        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible |
+| Details | Client-side tool run in your environment. | — |
 
 Applicable endpoints:
 
