@@ -121,6 +121,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -868,7 +870,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `page_age: optional string or null`
 
-            - `BetaWebSearchToolRequestError object`
+            - `BetaWebSearchToolRequestErrorObject object`
 
               - `type: "web_search_tool_result_error"`
 
@@ -3627,6 +3629,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
 
+  Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual.
+
   - `type: "billing_policy"`
 
   - `bill_to: optional BetaBillTo`
@@ -4718,7 +4722,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: BetaWebSearchToolResultBlockContent`
 
-        - `BetaWebSearchToolResultError object`
+        - `BetaWebSearchToolResultErrorObject object`
 
           - `type: "web_search_tool_result_error"`
 
@@ -4878,9 +4882,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         default: advisor_tool_result
 
-      - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+      - `content: BetaAdvisorToolResultErrorObject or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-        - `BetaAdvisorToolResultError object`
+        - `BetaAdvisorToolResultErrorObject object`
 
           - `type: "advisor_tool_result_error"`
 
@@ -4940,7 +4944,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: BetaCodeExecutionToolResultBlockContent`
 
-        - `BetaCodeExecutionToolResultError object`
+        - `BetaCodeExecutionToolResultErrorObject object`
 
           - `type: "code_execution_tool_result_error"`
 
@@ -5012,9 +5016,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         default: bash_code_execution_tool_result
 
-      - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+      - `content: BetaBashCodeExecutionToolResultErrorObject or BetaBashCodeExecutionResultBlock`
 
-        - `BetaBashCodeExecutionToolResultError object`
+        - `BetaBashCodeExecutionToolResultErrorObject object`
 
           - `type: "bash_code_execution_tool_result_error"`
 
@@ -5062,9 +5066,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         default: text_editor_code_execution_tool_result
 
-      - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+      - `content: BetaTextEditorCodeExecutionToolResultErrorObject or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `BetaTextEditorCodeExecutionToolResultError object`
+        - `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -5140,9 +5144,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         default: tool_search_tool_result
 
-      - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+      - `content: BetaToolSearchToolResultErrorObject or BetaToolSearchToolSearchResultBlock`
 
-        - `BetaToolSearchToolResultError object`
+        - `BetaToolSearchToolResultErrorObject object`
 
           - `type: "tool_search_tool_result_error"`
 
@@ -8588,6 +8592,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `image_dimensions_too_large` (HTTP status 400)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `organization_on_hold` (HTTP status 400)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -8624,6 +8632,26 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `user_profile_required` (HTTP status 400)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `linked_organization_billing_unavailable` (HTTP status 402)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `linked_organization_spend_limit_reached` (HTTP status 402)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `user_profile_billing_not_authorized` (HTTP status 403)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `user_profile_not_billable` (HTTP status 403)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `thread_not_found` (HTTP status 404)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -8635,6 +8663,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 - `request_body_too_large_after_decoding` (HTTP status 413)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `contract_spend_limit_reached` (HTTP status 429)
+
+  The organization has reached the spend limit of its contract.
 
 - `enforced_spend_limit_reached` (HTTP status 429)
 
@@ -8900,6 +8932,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -9636,7 +9670,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `page_age: optional string or null`
 
-            - `BetaWebSearchToolRequestError object`
+            - `BetaWebSearchToolRequestErrorObject object`
 
               - `type: "web_search_tool_result_error"`
 
@@ -13424,9 +13458,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     default: advisor_tool_result
 
-  - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+  - `content: BetaAdvisorToolResultErrorObject or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-    - `BetaAdvisorToolResultError object`
+    - `BetaAdvisorToolResultErrorObject object`
 
       - `type: "advisor_tool_result_error"`
 
@@ -13549,9 +13583,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-### Beta Advisor Tool Result Error
+### Beta Advisor Tool Result Error Object
 
-- `BetaAdvisorToolResultError object`
+- `BetaAdvisorToolResultErrorObject object`
 
   - `type: "advisor_tool_result_error"`
 
@@ -14233,7 +14267,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `page_age: optional string or null`
 
-          - `BetaWebSearchToolRequestError object`
+          - `BetaWebSearchToolRequestErrorObject object`
 
             - `type: "web_search_tool_result_error"`
 
@@ -17010,9 +17044,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     default: bash_code_execution_tool_result
 
-  - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+  - `content: BetaBashCodeExecutionToolResultErrorObject or BetaBashCodeExecutionResultBlock`
 
-    - `BetaBashCodeExecutionToolResultError object`
+    - `BetaBashCodeExecutionToolResultErrorObject object`
 
       - `type: "bash_code_execution_tool_result_error"`
 
@@ -17119,9 +17153,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-### Beta Bash Code Execution Tool Result Error
+### Beta Bash Code Execution Tool Result Error Object
 
-- `BetaBashCodeExecutionToolResultError object`
+- `BetaBashCodeExecutionToolResultErrorObject object`
 
   - `type: "bash_code_execution_tool_result_error"`
 
@@ -23909,7 +23943,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `content: BetaCodeExecutionToolResultBlockContent`
 
-    - `BetaCodeExecutionToolResultError object`
+    - `BetaCodeExecutionToolResultErrorObject object`
 
       - `type: "code_execution_tool_result_error"`
 
@@ -23977,9 +24011,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 ### Beta Code Execution Tool Result Block Content
 
-- `BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
+- `BetaCodeExecutionToolResultBlockContent = BetaCodeExecutionToolResultErrorObject or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
-  - `BetaCodeExecutionToolResultError object`
+  - `BetaCodeExecutionToolResultErrorObject object`
 
     - `type: "code_execution_tool_result_error"`
 
@@ -24174,9 +24208,21 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `stderr: string`
 
-### Beta Code Execution Tool Result Error
+### Beta Code Execution Tool Result Error Code
 
-- `BetaCodeExecutionToolResultError object`
+- `BetaCodeExecutionToolResultErrorCode = "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
+
+  - `"invalid_tool_input"`
+
+  - `"unavailable"`
+
+  - `"too_many_requests"`
+
+  - `"execution_time_exceeded"`
+
+### Beta Code Execution Tool Result Error Object
+
+- `BetaCodeExecutionToolResultErrorObject object`
 
   - `type: "code_execution_tool_result_error"`
 
@@ -24191,18 +24237,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"too_many_requests"`
 
     - `"execution_time_exceeded"`
-
-### Beta Code Execution Tool Result Error Code
-
-- `BetaCodeExecutionToolResultErrorCode = "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"too_many_requests"`
-
-  - `"execution_time_exceeded"`
 
 ### Beta Code Execution Tool Result Error Param
 
@@ -31532,7 +31566,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `content: BetaWebSearchToolResultBlockContent`
 
-      - `BetaWebSearchToolResultError object`
+      - `BetaWebSearchToolResultErrorObject object`
 
         - `type: "web_search_tool_result_error"`
 
@@ -31692,9 +31726,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       default: advisor_tool_result
 
-    - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+    - `content: BetaAdvisorToolResultErrorObject or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-      - `BetaAdvisorToolResultError object`
+      - `BetaAdvisorToolResultErrorObject object`
 
         - `type: "advisor_tool_result_error"`
 
@@ -31754,7 +31788,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `content: BetaCodeExecutionToolResultBlockContent`
 
-      - `BetaCodeExecutionToolResultError object`
+      - `BetaCodeExecutionToolResultErrorObject object`
 
         - `type: "code_execution_tool_result_error"`
 
@@ -31826,9 +31860,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       default: bash_code_execution_tool_result
 
-    - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+    - `content: BetaBashCodeExecutionToolResultErrorObject or BetaBashCodeExecutionResultBlock`
 
-      - `BetaBashCodeExecutionToolResultError object`
+      - `BetaBashCodeExecutionToolResultErrorObject object`
 
         - `type: "bash_code_execution_tool_result_error"`
 
@@ -31876,9 +31910,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       default: text_editor_code_execution_tool_result
 
-    - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+    - `content: BetaTextEditorCodeExecutionToolResultErrorObject or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-      - `BetaTextEditorCodeExecutionToolResultError object`
+      - `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
         - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -31954,9 +31988,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       default: tool_search_tool_result
 
-    - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+    - `content: BetaToolSearchToolResultErrorObject or BetaToolSearchToolSearchResultBlock`
 
-      - `BetaToolSearchToolResultError object`
+      - `BetaToolSearchToolResultErrorObject object`
 
         - `type: "tool_search_tool_result_error"`
 
@@ -34919,7 +34953,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `page_age: optional string or null`
 
-      - `BetaWebSearchToolRequestError object`
+      - `BetaWebSearchToolRequestErrorObject object`
 
         - `type: "web_search_tool_result_error"`
 
@@ -41302,7 +41336,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `content: BetaWebSearchToolResultBlockContent`
 
-        - `BetaWebSearchToolResultError object`
+        - `BetaWebSearchToolResultErrorObject object`
 
           - `type: "web_search_tool_result_error"`
 
@@ -41462,9 +41496,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         default: advisor_tool_result
 
-      - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+      - `content: BetaAdvisorToolResultErrorObject or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-        - `BetaAdvisorToolResultError object`
+        - `BetaAdvisorToolResultErrorObject object`
 
           - `type: "advisor_tool_result_error"`
 
@@ -41524,7 +41558,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `content: BetaCodeExecutionToolResultBlockContent`
 
-        - `BetaCodeExecutionToolResultError object`
+        - `BetaCodeExecutionToolResultErrorObject object`
 
           - `type: "code_execution_tool_result_error"`
 
@@ -41596,9 +41630,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         default: bash_code_execution_tool_result
 
-      - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+      - `content: BetaBashCodeExecutionToolResultErrorObject or BetaBashCodeExecutionResultBlock`
 
-        - `BetaBashCodeExecutionToolResultError object`
+        - `BetaBashCodeExecutionToolResultErrorObject object`
 
           - `type: "bash_code_execution_tool_result_error"`
 
@@ -41646,9 +41680,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         default: text_editor_code_execution_tool_result
 
-      - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+      - `content: BetaTextEditorCodeExecutionToolResultErrorObject or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `BetaTextEditorCodeExecutionToolResultError object`
+        - `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -41724,9 +41758,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         default: tool_search_tool_result
 
-      - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+      - `content: BetaToolSearchToolResultErrorObject or BetaToolSearchToolSearchResultBlock`
 
-        - `BetaToolSearchToolResultError object`
+        - `BetaToolSearchToolResultErrorObject object`
 
           - `type: "tool_search_tool_result_error"`
 
@@ -45445,7 +45479,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `page_age: optional string or null`
 
-        - `BetaWebSearchToolRequestError object`
+        - `BetaWebSearchToolRequestErrorObject object`
 
           - `type: "web_search_tool_result_error"`
 
@@ -49337,7 +49371,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
               - `page_age: optional string or null`
 
-            - `BetaWebSearchToolRequestError object`
+            - `BetaWebSearchToolRequestErrorObject object`
 
               - `type: "web_search_tool_result_error"`
 
@@ -52886,7 +52920,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `content: BetaWebSearchToolResultBlockContent`
 
-        - `BetaWebSearchToolResultError object`
+        - `BetaWebSearchToolResultErrorObject object`
 
           - `type: "web_search_tool_result_error"`
 
@@ -53046,9 +53080,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         default: advisor_tool_result
 
-      - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+      - `content: BetaAdvisorToolResultErrorObject or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-        - `BetaAdvisorToolResultError object`
+        - `BetaAdvisorToolResultErrorObject object`
 
           - `type: "advisor_tool_result_error"`
 
@@ -53108,7 +53142,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `content: BetaCodeExecutionToolResultBlockContent`
 
-        - `BetaCodeExecutionToolResultError object`
+        - `BetaCodeExecutionToolResultErrorObject object`
 
           - `type: "code_execution_tool_result_error"`
 
@@ -53180,9 +53214,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         default: bash_code_execution_tool_result
 
-      - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+      - `content: BetaBashCodeExecutionToolResultErrorObject or BetaBashCodeExecutionResultBlock`
 
-        - `BetaBashCodeExecutionToolResultError object`
+        - `BetaBashCodeExecutionToolResultErrorObject object`
 
           - `type: "bash_code_execution_tool_result_error"`
 
@@ -53230,9 +53264,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         default: text_editor_code_execution_tool_result
 
-      - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+      - `content: BetaTextEditorCodeExecutionToolResultErrorObject or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `BetaTextEditorCodeExecutionToolResultError object`
+        - `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -53308,9 +53342,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         default: tool_search_tool_result
 
-      - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+      - `content: BetaToolSearchToolResultErrorObject or BetaToolSearchToolSearchResultBlock`
 
-        - `BetaToolSearchToolResultError object`
+        - `BetaToolSearchToolResultErrorObject object`
 
           - `type: "tool_search_tool_result_error"`
 
@@ -56768,7 +56802,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `content: BetaWebSearchToolResultBlockContent`
 
-          - `BetaWebSearchToolResultError object`
+          - `BetaWebSearchToolResultErrorObject object`
 
             - `type: "web_search_tool_result_error"`
 
@@ -56928,9 +56962,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           default: advisor_tool_result
 
-        - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+        - `content: BetaAdvisorToolResultErrorObject or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-          - `BetaAdvisorToolResultError object`
+          - `BetaAdvisorToolResultErrorObject object`
 
             - `type: "advisor_tool_result_error"`
 
@@ -56990,7 +57024,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
         - `content: BetaCodeExecutionToolResultBlockContent`
 
-          - `BetaCodeExecutionToolResultError object`
+          - `BetaCodeExecutionToolResultErrorObject object`
 
             - `type: "code_execution_tool_result_error"`
 
@@ -57062,9 +57096,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           default: bash_code_execution_tool_result
 
-        - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+        - `content: BetaBashCodeExecutionToolResultErrorObject or BetaBashCodeExecutionResultBlock`
 
-          - `BetaBashCodeExecutionToolResultError object`
+          - `BetaBashCodeExecutionToolResultErrorObject object`
 
             - `type: "bash_code_execution_tool_result_error"`
 
@@ -57112,9 +57146,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           default: text_editor_code_execution_tool_result
 
-        - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+        - `content: BetaTextEditorCodeExecutionToolResultErrorObject or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-          - `BetaTextEditorCodeExecutionToolResultError object`
+          - `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
             - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -57190,9 +57224,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           default: tool_search_tool_result
 
-        - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+        - `content: BetaToolSearchToolResultErrorObject or BetaToolSearchToolSearchResultBlock`
 
-          - `BetaToolSearchToolResultError object`
+          - `BetaToolSearchToolResultErrorObject object`
 
             - `type: "tool_search_tool_result_error"`
 
@@ -60656,7 +60690,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `content: BetaWebSearchToolResultBlockContent`
 
-            - `BetaWebSearchToolResultError object`
+            - `BetaWebSearchToolResultErrorObject object`
 
               - `type: "web_search_tool_result_error"`
 
@@ -60816,9 +60850,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             default: advisor_tool_result
 
-          - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+          - `content: BetaAdvisorToolResultErrorObject or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-            - `BetaAdvisorToolResultError object`
+            - `BetaAdvisorToolResultErrorObject object`
 
               - `type: "advisor_tool_result_error"`
 
@@ -60878,7 +60912,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
           - `content: BetaCodeExecutionToolResultBlockContent`
 
-            - `BetaCodeExecutionToolResultError object`
+            - `BetaCodeExecutionToolResultErrorObject object`
 
               - `type: "code_execution_tool_result_error"`
 
@@ -60950,9 +60984,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             default: bash_code_execution_tool_result
 
-          - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+          - `content: BetaBashCodeExecutionToolResultErrorObject or BetaBashCodeExecutionResultBlock`
 
-            - `BetaBashCodeExecutionToolResultError object`
+            - `BetaBashCodeExecutionToolResultErrorObject object`
 
               - `type: "bash_code_execution_tool_result_error"`
 
@@ -61000,9 +61034,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             default: text_editor_code_execution_tool_result
 
-          - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+          - `content: BetaTextEditorCodeExecutionToolResultErrorObject or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-            - `BetaTextEditorCodeExecutionToolResultError object`
+            - `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -61078,9 +61112,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             default: tool_search_tool_result
 
-          - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+          - `content: BetaToolSearchToolResultErrorObject or BetaToolSearchToolSearchResultBlock`
 
-            - `BetaToolSearchToolResultError object`
+            - `BetaToolSearchToolResultErrorObject object`
 
               - `type: "tool_search_tool_result_error"`
 
@@ -74859,9 +74893,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     default: text_editor_code_execution_tool_result
 
-  - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+  - `content: BetaTextEditorCodeExecutionToolResultErrorObject or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-    - `BetaTextEditorCodeExecutionToolResultError object`
+    - `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
       - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -75022,9 +75056,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"1h"`
 
-### Beta Text Editor Code Execution Tool Result Error
+### Beta Text Editor Code Execution Tool Result Error Object
 
-- `BetaTextEditorCodeExecutionToolResultError object`
+- `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
   - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -80737,9 +80771,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     default: tool_search_tool_result
 
-  - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+  - `content: BetaToolSearchToolResultErrorObject or BetaToolSearchToolSearchResultBlock`
 
-    - `BetaToolSearchToolResultError object`
+    - `BetaToolSearchToolResultErrorObject object`
 
       - `type: "tool_search_tool_result_error"`
 
@@ -80842,9 +80876,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     Create a cache control breakpoint at this content block.
 
-### Beta Tool Search Tool Result Error
+### Beta Tool Search Tool Result Error Object
 
-- `BetaToolSearchToolResultError object`
+- `BetaToolSearchToolResultErrorObject object`
 
   - `type: "tool_search_tool_result_error"`
 
@@ -86120,7 +86154,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
             - `page_age: optional string or null`
 
-          - `BetaWebSearchToolRequestError object`
+          - `BetaWebSearchToolRequestErrorObject object`
 
             - `type: "web_search_tool_result_error"`
 
@@ -90824,9 +90858,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       minLength: 1, maxLength: 255
 
-### Beta Web Search Tool Request Error
+### Beta Web Search Tool Request Error Object
 
-- `BetaWebSearchToolRequestError object`
+- `BetaWebSearchToolRequestErrorObject object`
 
   - `type: "web_search_tool_result_error"`
 
@@ -90854,7 +90888,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
   - `content: BetaWebSearchToolResultBlockContent`
 
-    - `BetaWebSearchToolResultError object`
+    - `BetaWebSearchToolResultErrorObject object`
 
       - `type: "web_search_tool_result_error"`
 
@@ -90920,9 +90954,9 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 ### Beta Web Search Tool Result Block Content
 
-- `BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
+- `BetaWebSearchToolResultBlockContent = BetaWebSearchToolResultErrorObject or array of BetaWebSearchResultBlock`
 
-  - `BetaWebSearchToolResultError object`
+  - `BetaWebSearchToolResultErrorObject object`
 
     - `type: "web_search_tool_result_error"`
 
@@ -90976,7 +91010,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `page_age: optional string or null`
 
-    - `BetaWebSearchToolRequestError object`
+    - `BetaWebSearchToolRequestErrorObject object`
 
       - `type: "web_search_tool_result_error"`
 
@@ -91047,7 +91081,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
 ### Beta Web Search Tool Result Block Param Content
 
-- `BetaWebSearchToolResultBlockParamContent = array of BetaWebSearchResultBlockParam or BetaWebSearchToolRequestError`
+- `BetaWebSearchToolResultBlockParamContent = array of BetaWebSearchResultBlockParam or BetaWebSearchToolRequestErrorObject`
 
   - `ResultBlock = array of BetaWebSearchResultBlockParam`
 
@@ -91061,7 +91095,7 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
     - `page_age: optional string or null`
 
-  - `BetaWebSearchToolRequestError object`
+  - `BetaWebSearchToolRequestErrorObject object`
 
     - `type: "web_search_tool_result_error"`
 
@@ -91079,9 +91113,25 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
 
       - `"request_too_large"`
 
-### Beta Web Search Tool Result Error
+### Beta Web Search Tool Result Error Code
 
-- `BetaWebSearchToolResultError object`
+- `BetaWebSearchToolResultErrorCode = "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
+
+  - `"invalid_tool_input"`
+
+  - `"unavailable"`
+
+  - `"max_uses_exceeded"`
+
+  - `"too_many_requests"`
+
+  - `"query_too_long"`
+
+  - `"request_too_large"`
+
+### Beta Web Search Tool Result Error Object
+
+- `BetaWebSearchToolResultErrorObject object`
 
   - `type: "web_search_tool_result_error"`
 
@@ -91100,22 +91150,6 @@ curl https://api.anthropic.com/v1/messages/count_tokens \
     - `"query_too_long"`
 
     - `"request_too_large"`
-
-### Beta Web Search Tool Result Error Code
-
-- `BetaWebSearchToolResultErrorCode = "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"max_uses_exceeded"`
-
-  - `"too_many_requests"`
-
-  - `"query_too_long"`
-
-  - `"request_too_large"`
 
 ## Messages › Batches
 
@@ -91234,6 +91268,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -92002,7 +92038,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `page_age: optional string or null`
 
-                - `BetaWebSearchToolRequestError object`
+                - `BetaWebSearchToolRequestErrorObject object`
 
                   - `type: "web_search_tool_result_error"`
 
@@ -94761,6 +94797,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
 
+      Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual.
+
       - `type: "billing_policy"`
 
       - `bill_to: optional BetaBillTo`
@@ -95794,6 +95832,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -96128,6 +96168,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -96473,6 +96515,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -96799,6 +96843,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -97016,6 +97062,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"analytics-usage-cost-2026-08-24"`
 
   - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -97446,7 +97494,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: BetaWebSearchToolResultBlockContent`
 
-              - `BetaWebSearchToolResultError object`
+              - `BetaWebSearchToolResultErrorObject object`
 
                 - `type: "web_search_tool_result_error"`
 
@@ -97606,9 +97654,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: advisor_tool_result
 
-            - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+            - `content: BetaAdvisorToolResultErrorObject or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-              - `BetaAdvisorToolResultError object`
+              - `BetaAdvisorToolResultErrorObject object`
 
                 - `type: "advisor_tool_result_error"`
 
@@ -97668,7 +97716,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: BetaCodeExecutionToolResultBlockContent`
 
-              - `BetaCodeExecutionToolResultError object`
+              - `BetaCodeExecutionToolResultErrorObject object`
 
                 - `type: "code_execution_tool_result_error"`
 
@@ -97740,9 +97788,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: bash_code_execution_tool_result
 
-            - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+            - `content: BetaBashCodeExecutionToolResultErrorObject or BetaBashCodeExecutionResultBlock`
 
-              - `BetaBashCodeExecutionToolResultError object`
+              - `BetaBashCodeExecutionToolResultErrorObject object`
 
                 - `type: "bash_code_execution_tool_result_error"`
 
@@ -97790,9 +97838,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: text_editor_code_execution_tool_result
 
-            - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+            - `content: BetaTextEditorCodeExecutionToolResultErrorObject or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-              - `BetaTextEditorCodeExecutionToolResultError object`
+              - `BetaTextEditorCodeExecutionToolResultErrorObject object`
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -97868,9 +97916,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: tool_search_tool_result
 
-            - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+            - `content: BetaToolSearchToolResultErrorObject or BetaToolSearchToolSearchResultBlock`
 
-              - `BetaToolSearchToolResultError object`
+              - `BetaToolSearchToolResultErrorObject object`
 
                 - `type: "tool_search_tool_result_error"`
 
@@ -100971,9 +101019,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           default: error
 
-        - `error: BetaError`
+        - `error: BetaErrorObject`
 
-          - `BetaInvalidRequestError object`
+          - `BetaInvalidRequestErrorObject object`
 
             - `type: "invalid_request_error"`
 
@@ -100987,7 +101035,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Invalid request
 
-          - `BetaAuthenticationError object`
+          - `BetaAuthenticationErrorObject object`
 
             - `type: "authentication_error"`
 
@@ -101001,7 +101049,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Authentication error
 
-          - `BetaBillingError object`
+          - `BetaBillingErrorObject object`
 
             - `type: "billing_error"`
 
@@ -101015,7 +101063,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Billing error
 
-          - `BetaPermissionError object`
+          - `BetaPermissionErrorObject object`
 
             - `type: "permission_error"`
 
@@ -101029,7 +101077,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Permission denied
 
-          - `BetaNotFoundError object`
+          - `BetaNotFoundErrorObject object`
 
             - `type: "not_found_error"`
 
@@ -101043,7 +101091,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Not found
 
-          - `BetaRateLimitError object`
+          - `BetaRateLimitErrorObject object`
 
             - `type: "rate_limit_error"`
 
@@ -101057,7 +101105,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Rate limited
 
-          - `BetaGatewayTimeoutError object`
+          - `BetaGatewayTimeoutErrorObject object`
 
             - `type: "timeout_error"`
 
@@ -101071,7 +101119,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Request timeout
 
-          - `BetaAPIError object`
+          - `BetaAPIErrorObject object`
 
             - `type: "api_error"`
 
@@ -101085,7 +101133,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Internal server error
 
-          - `BetaOverloadedError object`
+          - `BetaOverloadedErrorObject object`
 
             - `type: "overloaded_error"`
 

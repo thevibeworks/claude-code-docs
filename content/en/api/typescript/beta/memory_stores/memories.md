@@ -152,6 +152,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -457,7 +458,7 @@ interface BetaManagedAgentsDeletedMemory {
 ## Types
 
 ```ts
-interface BetaManagedAgentsConflictError {
+interface BetaManagedAgentsConflictErrorObject {
   type: "conflict_error";
   message?: string;
 }
@@ -469,10 +470,10 @@ interface BetaManagedAgentsContentSha256Precondition {
   content_sha256?: string; // pattern: ^[a-f0-9]{64}$
 }
 
-type BetaManagedAgentsError = BetaInvalidRequestError | BetaAuthenticationError | BetaBillingError | BetaPermissionError | BetaNotFoundError | BetaRateLimitError | BetaGatewayTimeoutError | BetaAPIError | BetaOverloadedError | BetaManagedAgentsMemoryPreconditionFailedError | BetaManagedAgentsMemoryPathConflictError | BetaManagedAgentsConflictError;
+type BetaManagedAgentsErrorObject = BetaInvalidRequestErrorObject | BetaAuthenticationErrorObject | BetaBillingErrorObject | BetaPermissionErrorObject | BetaNotFoundErrorObject | BetaRateLimitErrorObject | BetaGatewayTimeoutErrorObject | BetaAPIErrorObject | BetaOverloadedErrorObject | BetaManagedAgentsMemoryPreconditionFailedErrorObject | BetaManagedAgentsMemoryPathConflictErrorObject | BetaManagedAgentsConflictErrorObject;
 
 /** The error returned with HTTP status 409 when you create or rename a memory and the path you give is already used by another memory or overlaps another memory's path. Two paths overlap when one is an ancestor of the other, such as `/notes` and `/notes/todo.md`. To free the path, rename or delete the memory that `conflicting_memory_id` references, then retry. To change that memory instead of creating a new one, update it. To handle the error in code, use `conflicting_path` and `conflicting_memory_id` instead of `message`. */
-interface BetaManagedAgentsMemoryPathConflictError {
+interface BetaManagedAgentsMemoryPathConflictErrorObject {
   type: "memory_path_conflict_error";
   /** The ID of the memory that blocked the write (`mem_...`), or an empty string if that memory can't be identified. Retry the request when it is empty. */
   conflicting_memory_id?: string;
@@ -482,68 +483,68 @@ interface BetaManagedAgentsMemoryPathConflictError {
 }
 
 /** The error returned with HTTP status 409 when a request's precondition doesn't hold for the memory's current state, such as `precondition` on an update or `expected_content_sha256` on a delete. The error doesn't include the memory's current state. Retrieve the memory to see its current content and `content_sha256` before you retry. See the [memory guide](https://platform.claude.com/docs/en/managed-agents/memory?sdk_languages=typescript#safe-content-edits-optimistic-concurrency) to learn more about safe content edits with content hash preconditions. */
-interface BetaManagedAgentsMemoryPreconditionFailedError {
+interface BetaManagedAgentsMemoryPreconditionFailedErrorObject {
   type: "memory_precondition_failed_error";
   message?: string;
 }
 
-interface BetaInvalidRequestError {
+interface BetaInvalidRequestErrorObject {
   /** The broad category of the error. */
   type: "invalid_request_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Invalid request
 }
 
-interface BetaAuthenticationError {
+interface BetaAuthenticationErrorObject {
   /** The broad category of the error. */
   type: "authentication_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Authentication error
 }
 
-interface BetaBillingError {
+interface BetaBillingErrorObject {
   /** The broad category of the error. */
   type: "billing_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Billing error
 }
 
-interface BetaPermissionError {
+interface BetaPermissionErrorObject {
   /** The broad category of the error. */
   type: "permission_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Permission denied
 }
 
-interface BetaNotFoundError {
+interface BetaNotFoundErrorObject {
   /** The broad category of the error. */
   type: "not_found_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Not found
 }
 
-interface BetaRateLimitError {
+interface BetaRateLimitErrorObject {
   /** The broad category of the error. */
   type: "rate_limit_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Rate limited
 }
 
-interface BetaGatewayTimeoutError {
+interface BetaGatewayTimeoutErrorObject {
   /** The broad category of the error. */
   type: "timeout_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Request timeout
 }
 
-interface BetaAPIError {
+interface BetaAPIErrorObject {
   /** The broad category of the error. */
   type: "api_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */
   message: string; // default: Internal server error
 }
 
-interface BetaOverloadedError {
+interface BetaOverloadedErrorObject {
   /** The broad category of the error. */
   type: "overloaded_error";
   /** A human-readable explanation of the error. Its wording can change, so don't match on it. */

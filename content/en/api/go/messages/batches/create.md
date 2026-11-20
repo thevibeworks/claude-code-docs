@@ -726,7 +726,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `PageAge string Optional`
 
-                  - `type WebSearchToolRequestErrorParam`
+                  - `type WebSearchToolRequestErrorObjectParam`
 
                     - `Type WebSearchToolResultError`
 

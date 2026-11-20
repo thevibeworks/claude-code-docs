@@ -86,15 +86,15 @@ With another agent, give it [Change tools or instructions without failing the pr
 
 A dash means the model you move to can’t read the blocks. After several switches, read one row for each model in your history.
 
-| Model you move from                   | To Claude Fable 5.2 or Claude Mythos 5.2 | To Claude Fable 5.1 or Claude Mythos 5.1 | To Claude Opus 5.5 | To Claude Sonnet 5.5 | To Claude Haiku 5.5 |
-| ------------------------------------- | ---------------------------------------- | ---------------------------------------- | ------------------ | -------------------- | ------------------- |
-| Claude Haiku 5.5                      | ✅                                        | —                                        | ✅                  | ✅                    | ✅                   |
-| Claude Sonnet 5.5                     | ✅                                        | —                                        | ✅                  | ✅                    | —                   |
-| Claude Opus 5                         | ✅                                        | ✅                                        | ✅                  | —                    | —                   |
-| Claude Opus 5.5                       | ✅                                        | ✅                                        | ✅                  | —                    | —                   |
-| Claude Fable 5 or Claude Mythos 5     | ✅                                        | ✅                                        | —                  | —                    | —                   |
-| Claude Fable 5.1 or Claude Mythos 5.1 | ✅                                        | ✅                                        | —                  | —                    | —                   |
-| Claude Fable 5.2 or Claude Mythos 5.2 | ✅                                        | —                                        | —                  | —                    | —                   |
+| Model you move from | To Claude Fable 5.2 or Claude Mythos 5.2 | To Claude Fable 5.1 or Claude Mythos 5.1 | To Claude Opus 5.5 | To Claude Sonnet 5.5 | To Claude Haiku 5.5 |
+| ----- | ----- | ----- | ----- | ----- | ----- |
+| Claude Haiku 5.5 | ✅ | — | ✅ | ✅ | ✅ |
+| Claude Sonnet 5.5 | ✅ | — | ✅ | ✅ | — |
+| Claude Opus 5 | ✅ | ✅ | ✅ | — | — |
+| Claude Opus 5.5 | ✅ | ✅ | ✅ | — | — |
+| Claude Fable 5 or Claude Mythos 5 | ✅ | ✅ | — | — | — |
+| Claude Fable 5.1 or Claude Mythos 5.1 | ✅ | ✅ | — | — | — |
+| Claude Fable 5.2 or Claude Mythos 5.2 | ✅ | — | — | — | — |
 
 If a model has no row or no column, use [Earlier models](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#earlier-models).
 
@@ -102,11 +102,11 @@ If a model has no row or no column, use [Earlier models](https://platform.claude
 
 Every Claude model reads blocks from Claude Opus 4.8, Claude Sonnet 5, Claude Haiku 4.5, and earlier Claude Opus, Claude Sonnet, and Claude Haiku models.
 
-| Models you move to                                                                                                  | Read blocks only from                                                             |
-| ------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| Claude Opus 4.8, Claude Sonnet 5, Claude Haiku 4.5, and earlier Claude Opus, Claude Sonnet, and Claude Haiku models | Each other                                                                        |
-| Claude Opus 5                                                                                                       | Itself, and the models in the first row                                           |
-| Claude Fable 5 and Claude Mythos 5                                                                                  | Each other, Claude Mythos Preview, Claude Opus 5, and the models in the first row |
+| Models you move to | Read blocks only from |
+| ----- | ----- |
+| Claude Opus 4.8, Claude Sonnet 5, Claude Haiku 4.5, and earlier Claude Opus, Claude Sonnet, and Claude Haiku models | Each other |
+| Claude Opus 5 | Itself, and the models in the first row |
+| Claude Fable 5 and Claude Mythos 5 | Each other, Claude Mythos Preview, Claude Opus 5, and the models in the first row |
 
 ### Thinking settings on the new model
 
@@ -126,11 +126,11 @@ A turn from another provider’s model goes at the end, as `text` and `tool_use`
 
 ### What counts as your account on each platform
 
-| Where you call Claude                                                                                       | Your account              |
-| ----------------------------------------------------------------------------------------------------------- | ------------------------- |
-| Claude API, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), or Microsoft Foundry | Your organization         |
-| Amazon Bedrock                                                                                              | Your AWS account          |
-| Claude Models on Google Cloud (Google managed)                                                              | Your Google Cloud project |
+| Where you call Claude | Your account |
+| ----- | ----- |
+| Claude API, Claude Platform on AWS, Claude Models on Google Cloud (Anthropic managed), or Microsoft Foundry | Your organization |
+| Amazon Bedrock | Your AWS account |
+| Claude Models on Google Cloud (Google managed) | Your Google Cloud project |
 
 The API can also leave out a thinking block that another account produced, if that account is no longer in good standing. This applies to requests to Claude Fable and Claude Mythos models, Claude Opus 5, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5. The request still succeeds, and the model answers without that block’s reasoning.
 
@@ -146,18 +146,18 @@ The models with preserved thinking are in [What each model does when the prefix 
 
 * Availability: Always on
 
-| Status    | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Models                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Status | Cloud platforms | Models |
+| ----- | ----- | ----- |
 | Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
-| Available | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)                                                                                                                                                                                                                                                                                                                                                                                                                                             | [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview)                                                                                                                                                                                                                                                              |
-| Available | [Amazon Bedrock (bedrock-runtime)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)                                                                                                                                                                                                                                                                                                                                                                                                                    | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview)                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Available | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) | [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
+| Available | [Amazon Bedrock (bedrock-runtime)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy) | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview) |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 
 * Availability: Always on
 
-| Status    | Cloud platforms                                                                                                                                                                                                                                                                | Models                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Status | Cloud platforms | Models |
+| ----- | ----- | ----- |
 | Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
 
 ## Next steps

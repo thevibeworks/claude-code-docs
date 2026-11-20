@@ -712,7 +712,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `page_age: optional string or null`
 
-            - `WebSearchToolRequestError object`
+            - `WebSearchToolRequestErrorObject object`
 
               - `type: "web_search_tool_result_error"`
 

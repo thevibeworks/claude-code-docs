@@ -1076,14 +1076,14 @@ Each tool type can return specific errors:
 
 **Error codes by tool type:**
 
-| Tool         | Error code                | Description                                       |
-| ------------ | ------------------------- | ------------------------------------------------- |
-| All tools    | `unavailable`             | The tool is temporarily unavailable               |
-| All tools    | `execution_time_exceeded` | The tool call exceeded the maximum execution time |
-| All tools    | `invalid_tool_input`      | Invalid parameters provided to the tool           |
-| All tools    | `too_many_requests`       | Rate limit exceeded for tool usage                |
-| bash         | `output_file_too_large`   | Command output exceeded the maximum size          |
-| text\_editor | `file_not_found`          | File doesn’t exist (for view/edit operations)     |
+| Tool | Error code | Description |
+| ----- | ----- | ----- |
+| All tools | `unavailable` | The tool is temporarily unavailable |
+| All tools | `execution_time_exceeded` | The tool call exceeded the maximum execution time |
+| All tools | `invalid_tool_input` | Invalid parameters provided to the tool |
+| All tools | `too_many_requests` | Rate limit exceeded for tool usage |
+| bash | `output_file_too_large` | Command output exceeded the maximum size |
+| text\_editor | `file_not_found` | File doesn’t exist (for view/edit operations) |
 
 An expired container can’t be reused: requests that reference it return an error instead of restoring it. Send the request again without the `container` parameter to get a new container.
 
@@ -1500,12 +1500,12 @@ The rest of this section covers migrating from the legacy Python-only `code_exec
 
 ### What’s changed
 
-| Component      | Legacy                      | Current                                                             |
-| -------------- | --------------------------- | ------------------------------------------------------------------- |
-| Beta header    | `code-execution-2025-05-22` | None required                                                       |
-| Tool type      | `code_execution_20250522`   | `code_execution_20250825` or later                                  |
-| Capabilities   | Python only                 | Bash commands, file operations                                      |
-| Response types | `code_execution_result`     | `bash_code_execution_result`, `text_editor_code_execution_*_result` |
+| Component | Legacy | Current |
+| ----- | ----- | ----- |
+| Beta header | `code-execution-2025-05-22` | None required |
+| Tool type | `code_execution_20250522` | `code_execution_20250825` or later |
+| Capabilities | Python only | Bash commands, file operations |
+| Response types | `code_execution_result` | `bash_code_execution_result`, `text_editor_code_execution_*_result` |
 
 ### Backward compatibility
 
@@ -1560,18 +1560,18 @@ Code execution tool is available on every model.
 
 * Availability: Available
 
-| Status    | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                                              |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
 ### Data handling
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                   | HIPAA        |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Status  | Not eligible                                                                                                                                          | Not eligible |
-| Details | Container data retained up to 30 days. [Learn more](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#data-retention) | —            |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
+| Details | Container data retained up to 30 days. [Learn more](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#data-retention) | — |
 
 Applicable endpoints:
 

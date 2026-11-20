@@ -374,6 +374,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `ImageDimensionsTooLargeError` (HTTP status 400, error code `image_dimensions_too_large`)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -410,6 +414,26 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `UserProfileRequiredError` (HTTP status 400, error code `user_profile_required`)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `LinkedOrganizationBillingUnavailableError` (HTTP status 402, error code `linked_organization_billing_unavailable`)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `LinkedOrganizationSpendLimitReachedError` (HTTP status 402, error code `linked_organization_spend_limit_reached`)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `UserProfileBillingNotAuthorizedError` (HTTP status 403, error code `user_profile_billing_not_authorized`)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `UserProfileNotBillableError` (HTTP status 403, error code `user_profile_not_billable`)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `ThreadNotFoundError` (HTTP status 404, error code `thread_not_found`)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -421,6 +445,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 - `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `ContractSpendLimitReachedError` (HTTP status 429, error code `contract_spend_limit_reached`)
+
+  The organization has reached the spend limit of its contract.
 
 - `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
@@ -857,7 +885,7 @@ interface ServerToolCaller20260120 {
   tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
-type WebSearchToolResultBlockParamContent = Array<WebSearchResultBlockParam> | WebSearchToolRequestError;
+type WebSearchToolResultBlockParamContent = Array<WebSearchResultBlockParam> | WebSearchToolRequestErrorObject;
 
 interface WebSearchResultBlockParam {
   type: "web_search_result";
@@ -867,7 +895,7 @@ interface WebSearchResultBlockParam {
   page_age?: string | null;
 }
 
-interface WebSearchToolRequestError {
+interface WebSearchToolRequestErrorObject {
   type: "web_search_tool_result_error";
   error_code: WebSearchToolResultErrorCode;
 }
@@ -1254,19 +1282,19 @@ interface CodeExecutionToolResultBlock {
 
 interface BashCodeExecutionToolResultBlock {
   type: "bash_code_execution_tool_result";
-  content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock;
+  content: BashCodeExecutionToolResultErrorObject | BashCodeExecutionResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface TextEditorCodeExecutionToolResultBlock {
   type: "text_editor_code_execution_tool_result";
-  content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock;
+  content: TextEditorCodeExecutionToolResultErrorObject | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
 interface ToolSearchToolResultBlock {
   type: "tool_search_tool_result";
-  content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock;
+  content: ToolSearchToolResultErrorObject | ToolSearchToolSearchResultBlock;
   tool_use_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
@@ -1276,9 +1304,9 @@ interface ContainerUploadBlock {
   file_id: string;
 }
 
-type WebSearchToolResultBlockContent = WebSearchToolResultError | Array<WebSearchResultBlock>;
+type WebSearchToolResultBlockContent = WebSearchToolResultErrorObject | Array<WebSearchResultBlock>;
 
-interface WebSearchToolResultError {
+interface WebSearchToolResultErrorObject {
   type: "web_search_tool_result_error";
   error_code: WebSearchToolResultErrorCode;
 }
@@ -1318,9 +1346,9 @@ interface CitationsConfig {
   enabled: boolean; // default: false
 }
 
-type CodeExecutionToolResultBlockContent = CodeExecutionToolResultError | CodeExecutionResultBlock | EncryptedCodeExecutionResultBlock;
+type CodeExecutionToolResultBlockContent = CodeExecutionToolResultErrorObject | CodeExecutionResultBlock | EncryptedCodeExecutionResultBlock;
 
-interface CodeExecutionToolResultError {
+interface CodeExecutionToolResultErrorObject {
   type: "code_execution_tool_result_error";
   error_code: CodeExecutionToolResultErrorCode;
 }
@@ -1347,7 +1375,7 @@ interface CodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface BashCodeExecutionToolResultError {
+interface BashCodeExecutionToolResultErrorObject {
   type: "bash_code_execution_tool_result_error";
   error_code: BashCodeExecutionToolResultErrorCode;
 }
@@ -1365,7 +1393,7 @@ interface BashCodeExecutionOutputBlock {
   file_id: string;
 }
 
-interface TextEditorCodeExecutionToolResultError {
+interface TextEditorCodeExecutionToolResultErrorObject {
   type: "text_editor_code_execution_tool_result_error";
   error_code: TextEditorCodeExecutionToolResultErrorCode;
   error_message: string | null;
@@ -1394,7 +1422,7 @@ interface TextEditorCodeExecutionStrReplaceResultBlock {
   old_start: number | null;
 }
 
-interface ToolSearchToolResultError {
+interface ToolSearchToolResultErrorObject {
   type: "tool_search_tool_result_error";
   error_code: ToolSearchToolResultErrorCode;
   error_message: string | null;

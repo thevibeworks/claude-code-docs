@@ -425,14 +425,14 @@ The `packages` (csharp, go: `Packages`) field installs packages into the sandbox
 
 Supported package managers:
 
-| Field   | Package manager           | Example                                     |
-| ------- | ------------------------- | ------------------------------------------- |
-| `apt`   | System packages (apt-get) | `"graphviz"`                                |
-| `cargo` | Rust (cargo)              | `"hyperfine@1.18.0"`                        |
-| `gem`   | Ruby (gem)                | `"rails:7.1.0"`                             |
-| `go`    | Go modules                | `"golang.org/x/tools/cmd/goimports@latest"` |
-| `npm`   | Node.js (npm)             | `"express@4.18.0"`                          |
-| `pip`   | Python (pip)              | `"sqlalchemy==2.0.30"`                      |
+| Field | Package manager | Example |
+| ----- | ----- | ----- |
+| `apt` | System packages (apt-get) | `"graphviz"` |
+| `cargo` | Rust (cargo) | `"hyperfine@1.18.0"` |
+| `gem` | Ruby (gem) | `"rails:7.1.0"` |
+| `go` | Go modules | `"golang.org/x/tools/cmd/goimports@latest"` |
+| `npm` | Node.js (npm) | `"express@4.18.0"` |
+| `pip` | Python (pip) | `"sqlalchemy==2.0.30"` |
 
 ### Networking
 
@@ -440,10 +440,10 @@ The `networking` (csharp, go: `Networking`) field controls the sandbox’s outbo
 
 With `limited` networking, `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) also applies to the `web_search` and `web_fetch` tools, which run on Anthropic’s servers. A `web_fetch` call for a URL on a host that `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) does not match returns an error result to the agent. `web_search` omits results from hosts that `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) does not match. `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) and `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) add no hosts for these tools. When `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) lists no hosts, no `web_fetch` or `web_search` call returns a page or a search result. A host that you add to `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`) for these tools is also open to the sandbox. `unrestricted` networking and self-hosted environments do not limit these tools. To restrict them further, set `allowed_domains` (java, php: `allowedDomains`; csharp, go: `AllowedDomains`) or `blocked_domains` (java, php: `blockedDomains`; csharp, go: `BlockedDomains`) on the tool’s entry in the agent toolset. See [Restrict web search and web fetch domains](https://platform.claude.com/docs/en/managed-agents/tools-web-restrictions).
 
-| Mode           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `limited`      | Restricts sandbox network access to the hosts in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). Set `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) and `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) to `true` to allow additional access. Use this mode unless the agent must reach sites you cannot list in advance. |
-| `unrestricted` | Full outbound network access, except for a general safety blocklist. Before you use it, read [Risks of unrestricted networking](https://platform.claude.com/docs/en/managed-agents/environments#risks-of-unrestricted-networking).                                                                                                                                                                                                                                           |
+| Mode | Description |
+| ----- | ----- |
+| `limited` | Restricts sandbox network access to the hosts in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). Set `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) and `allow_mcp_servers` (java: `allowMcpServers`; php: `allowMCPServers`; csharp: `AllowMcpServers`; go: `AllowMCPServers`) to `true` to allow additional access. Use this mode unless the agent must reach sites you cannot list in advance. |
+| `unrestricted` | Full outbound network access, except for a general safety blocklist. Before you use it, read [Risks of unrestricted networking](https://platform.claude.com/docs/en/managed-agents/environments#risks-of-unrestricted-networking). |
 
 <Note>
   Set `networking` (csharp, go: `Networking`) explicitly in API requests; a create request that omits it gets `unrestricted`. The Claude Console’s form for creating an environment starts with **Limited** selected and nothing else allowed.
@@ -624,18 +624,18 @@ When using `limited` networking:
 
 When `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) is `true`, the sandbox can reach the following hosts in addition to those in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`). Anthropic maintains this list and can change it.
 
-| Ecosystem    | Hosts                                                                                                                                                                                      |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Ecosystem | Hosts |
+| ----- | ----- |
 | Code hosting | `github.com`, `api.github.com`, `codeload.github.com`, `raw.githubusercontent.com`, `objects.githubusercontent.com`, `release-assets.githubusercontent.com`, `gitlab.com`, `bitbucket.org` |
-| Node.js      | `registry.npmjs.org`, `registry.yarnpkg.com`, `nodejs.org`                                                                                                                                 |
-| Python       | `pypi.org`, `files.pythonhosted.org`                                                                                                                                                       |
-| Rust         | `crates.io`, `index.crates.io`, `static.crates.io`, `static.rust-lang.org`                                                                                                                 |
-| Go           | `proxy.golang.org`, `sum.golang.org`                                                                                                                                                       |
-| Java         | `repo1.maven.org`, `repo.maven.apache.org`, `services.gradle.org`, `plugins.gradle.org`, `plugins-artifacts.gradle.org`                                                                    |
-| Ruby         | `rubygems.org`, `index.rubygems.org`                                                                                                                                                       |
-| PHP          | `packagist.org`, `repo.packagist.org`                                                                                                                                                      |
-| Ubuntu (apt) | `archive.ubuntu.com`, `security.ubuntu.com`, `ppa.launchpad.net`                                                                                                                           |
-| Containers   | `registry-1.docker.io`, `auth.docker.io`, `production.cloudflare.docker.com`, `download.docker.com`, `ghcr.io`                                                                             |
+| Node.js | `registry.npmjs.org`, `registry.yarnpkg.com`, `nodejs.org` |
+| Python | `pypi.org`, `files.pythonhosted.org` |
+| Rust | `crates.io`, `index.crates.io`, `static.crates.io`, `static.rust-lang.org` |
+| Go | `proxy.golang.org`, `sum.golang.org` |
+| Java | `repo1.maven.org`, `repo.maven.apache.org`, `services.gradle.org`, `plugins.gradle.org`, `plugins-artifacts.gradle.org` |
+| Ruby | `rubygems.org`, `index.rubygems.org` |
+| PHP | `packagist.org`, `repo.packagist.org` |
+| Ubuntu (apt) | `archive.ubuntu.com`, `security.ubuntu.com`, `ppa.launchpad.net` |
+| Containers | `registry-1.docker.io`, `auth.docker.io`, `production.cloudflare.docker.com`, `download.docker.com`, `ghcr.io` |
 
 <Warning>
   Network access is granted by host, not by operation. The sandbox can send any request to an allowed host, including uploads such as `git push` and package publishing, with any credential the command supplies. If the agent processes untrusted input (repository files, fetched web content, or third-party tool output), a successful prompt injection could use an allowed host to copy files out of the sandbox. To reduce this risk, set the `bash` tool’s [permission policy](https://platform.claude.com/docs/en/managed-agents/permission-policies) to `always_ask` or `auto`. If the environment does not specify `packages` (csharp, go: `Packages`), you can instead leave `allow_package_managers` (java, php: `allowPackageManagers`; csharp, go: `AllowPackageManagers`) set to `false` and list only the hosts your agent needs in `allowed_hosts` (java, php: `allowedHosts`; csharp, go: `AllowedHosts`).
@@ -838,9 +838,9 @@ Cloud sandboxes are in beta on every model.
 
 * Availability: Available
 
-| Status | Cloud platforms                                                                                                                                                                                                                                                                | Models                                                            |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- |
-| Beta   | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) | [All models](https://platform.claude.com/docs/en/models/overview) |
+| Status | Cloud platforms | Models |
+| ----- | ----- | ----- |
+| Beta | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) | [All models](https://platform.claude.com/docs/en/models/overview) |
 
 ### Required beta headers
 
@@ -854,9 +854,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

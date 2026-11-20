@@ -215,6 +215,8 @@ The command deletes the containers and keeps the database. To also delete the da
 
 ## Troubleshooting
 
+* **`docker compose up` stops with `required variable CMA_PG_USER is missing a value`:** On a new install, add the line `CMA_PG_USER=cma_server` to `.env`, and run `docker compose up --build -d` again. To upgrade a stack, don’t add the line. See [If the upgrade fails](https://platform.claude.com/docs/en/managed-agents/self-hosted/upgrade#if-the-upgrade-fails).
+
 * **Your archive has no `compose` directory:** The archive holds an earlier release, and this page’s commands don’t match it. Ask your Anthropic account team for the current release. To move a running deployment to the current release, see [Upgrade self-hosted Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/self-hosted/upgrade).
 
 * **The server never comes up:** Run `docker compose logs migrate`. The one-time `migrate` container creates the database tables. It must exit with status `0` before the server starts.

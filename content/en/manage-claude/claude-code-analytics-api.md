@@ -98,11 +98,11 @@ page=page_MjAyNS0wNS0xNFQwMDowMDowMFo=" \
 
 ### Request parameters
 
-| Parameter     | Type    | Required | Description                                                             |
-| ------------- | ------- | -------- | ----------------------------------------------------------------------- |
-| `starting_at` | string  | Yes      | UTC date in YYYY-MM-DD format; returns metrics for this single day only |
-| `limit`       | integer | No       | Number of records per page (default: 20, max: 1000)                     |
-| `page`        | string  | No       | Opaque cursor token from previous response’s `next_page` field          |
+| Parameter | Type | Required | Description |
+| ----- | ----- | ----- | ----- |
+| `starting_at` | string | Yes | UTC date in YYYY-MM-DD format; returns metrics for this single day only |
+| `limit` | integer | No | Number of records per page (default: 20, max: 1000) |
+| `page` | string | No | Opaque cursor token from previous response’s `next_page` field |
 
 ### Available metrics
 

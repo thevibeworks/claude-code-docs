@@ -14,7 +14,7 @@ A session is one conversation thread. Each session has its own workspace folder 
 
 ## Files stay on your computer
 
-Claude reads files in place in the folders you grant, and its code can only read them. Claude works on copies in the session's workspace folder, then saves finished files to **Read & write** folders.
+Claude reads files in place in the folders you grant, and its code can only read them, with exceptions on Windows (see [Sandbox](#sandbox)). Claude works on copies in the session's workspace folder, then saves finished files to **Read & write** folders.
 
 Anthropic doesn't host or store your files; file content that Claude reads to answer a prompt is sent to Anthropic as part of the conversation, and Anthropic retains it as [How Claude Science works with your data](https://claude.com/docs/claude-science/how-claude-science-works-with-your-data.md) describes. If you sign in to Claude Science on a different computer, your files, artifacts, and conversation history don't follow you there. See [Use Claude Science on more than one computer](https://claude.com/docs/claude-science/multiple-computers.md) for what your account does carry between computers.
 
@@ -42,7 +42,7 @@ A permission card appears in the conversation each time Claude needs a new kind 
 
 Most standing grants are listed in **Settings > Permissions** and can be revoked there. Network hosts are listed in **Settings > Network**, where you can revoke them. Source-file grants aren't listed and end when the session ends, Claude Science restarts, or you revoke folder access. Claude Science can still ask about code using a saved credential despite a standing grant for code or credentials. See [What auto mode checks](https://claude.com/docs/claude-science/auto-mode.md#what-auto-mode-checks).
 
-**Read & write** lets Claude save, change, and delete files in the folder, but code Claude runs can only read it. When Claude overwrites a file there, Claude Science keeps the earlier version only in some cases, such as when another program may be writing it. Builds, package installs, and git writes there fail. See [Files in granted folders](https://claude.com/docs/claude-science/troubleshooting.md#files-in-granted-folders), [Environments in granted folders](https://claude.com/docs/claude-science/tools-and-environments.md#environments-in-granted-folders), and [Git in granted folders](https://claude.com/docs/claude-science/troubleshooting.md#git-in-granted-folders).
+**Read & write** lets Claude save, change, and delete files in the folder, but code Claude runs can only read it, with exceptions on Windows (see [Sandbox](#sandbox)). When Claude overwrites a file there, Claude Science keeps the earlier version only in some cases, such as when another program may be writing it. Builds, package installs, and git writes there fail. See [Files in granted folders](https://claude.com/docs/claude-science/troubleshooting.md#files-in-granted-folders), [Environments in granted folders](https://claude.com/docs/claude-science/tools-and-environments.md#environments-in-granted-folders), and [Git in granted folders](https://claude.com/docs/claude-science/troubleshooting.md#git-in-granted-folders).
 
 ## Plans
 
@@ -57,7 +57,7 @@ The sandbox lets code write to these locations and, on macOS and Linux, nowhere 
 * Folders that Claude Science provides, such as the session's [workspace folder](#projects-and-sessions) and the project's [artifacts](https://claude.com/docs/claude-science/artifacts.md) folder
 * Temporary storage, which is the shared `/tmp` folder on macOS and private folders on Linux and Windows
 
-Granted folders aren't on this list. On macOS and Linux, code can only read them. On Windows, it can also write in one whose own permissions let all sandboxed apps write, such as an **ALL APPLICATION PACKAGES** entry. **Read & write** lets Claude Science save, change, and delete files there for Claude, outside the sandbox, under its own checks.
+Granted folders aren't on this list. On macOS and Linux, code can only read them. On Windows, it can also write in a file or folder there whose own permissions let it, such as one that gives **ALL APPLICATION PACKAGES** write access. On Windows, a file or folder that code could write can keep that access when you move it into a granted folder or restore it with its old permissions. Make an ordinary copy in the granted folder instead of moving it. **Read & write** lets Claude Science save, change, and delete files there for Claude, outside the sandbox, under its own checks.
 
 The sandbox is designed to block reading your home directory, except granted folders and those Claude Science needs to run code, such as the current session's workspace folder and saved tool results, [artifacts](https://claude.com/docs/claude-science/artifacts.md), and [conda environments](https://claude.com/docs/claude-science/tools-and-environments.md). Code can also read all projects' artifacts and, on Windows, all sessions' saved tool results, which can include copies of earlier messages from long conversations.
 

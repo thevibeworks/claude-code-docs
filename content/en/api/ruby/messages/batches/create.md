@@ -728,7 +728,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `page_age: optional String | nil`
 
-                - `class WebSearchToolRequestError`
+                - `class WebSearchToolRequestErrorObject`
 
                   - `type: :web_search_tool_result_error`
 

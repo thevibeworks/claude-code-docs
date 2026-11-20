@@ -45,7 +45,7 @@ To use a package Claude can't install this way, ask Claude to install it into th
 
 ### Environments in granted folders
 
-Code Claude runs can read granted folders but can't change anything in them, including Python and conda environments from any tool (see [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)).
+Code Claude runs can read granted folders but can't change anything in them, including Python and conda environments from any tool, with exceptions on Windows (see [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)).
 
 Claude can run code from an environment there unless its Python is somewhere the sandbox can't read, such as `~/.local/share/uv`. Claude can't create environments there or change their packages.
 

@@ -60,15 +60,15 @@ The following steps take a new configuration from off to enforcing.
 
     Common failure results:
 
-    | Result                  | What to check                                                                                                                                         |
-    | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | URL rejected            | The URL failed a structural check. Use an `https://` URL on port 443.                                                                                 |
-    | Private or internal IP  | The URL’s host is a private or internal IP address, an IPv6 address, or `localhost`. Use a publicly routable host.                                    |
-    | Timeout                 | The AI security server did not return a verdict within the timeout.                                                                                   |
-    | Transport error         | DNS resolution, the TLS handshake, or the connection failed, or the hostname resolves to a private address.                                           |
-    | Non-200 status          | The AI security server responded with a status other than 200. Verdicts must come back as HTTP 200; redirects are not followed and count as failures. |
-    | Unparseable response    | The AI security server responded, but the body is not a valid verdict.                                                                                |
-    | Signing secret required | Your organization has no signing secret, so the test would be sent unsigned. Click **Generate secret** under **Request signing**, then test again.    |
+    | Result | What to check |
+    | ----- | ----- |
+    | URL rejected | The URL failed a structural check. Use an `https://` URL on port 443. |
+    | Private or internal IP | The URL’s host is a private or internal IP address, an IPv6 address, or `localhost`. Use a publicly routable host. |
+    | Timeout | The AI security server did not return a verdict within the timeout. |
+    | Transport error | DNS resolution, the TLS handshake, or the connection failed, or the hostname resolves to a private address. |
+    | Non-200 status | The AI security server responded with a status other than 200. Verdicts must come back as HTTP 200; redirects are not followed and count as failures. |
+    | Unparseable response | The AI security server responded, but the body is not a valid verdict. |
+    | Signing secret required | Your organization has no signing secret, so the test would be sent unsigned. Click **Generate secret** under **Request signing**, then test again. |
   </Step>
 
   <Step title="Choose failure handling and timeout">
@@ -141,15 +141,15 @@ The endpoint health area of the Inference hooks settings page shows:
 
 The error types in **Recent errors** mean:
 
-| Error shown                                          | What it means                                                                                                                                                                                                                                                                    | Counts toward the circuit breaker |
-| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `DlpWebhookTimeoutError` · `webhook_error`           | Your AI security server didn’t return a verdict within the **Prompt verdict timeout (ms)** you set.                                                                                                                                                                              | Yes                               |
-| `DlpWebhookStatusError` · `webhook_error`            | Your AI security server answered with an HTTP status other than 200, such as a redirect.                                                                                                                                                                                         | Yes                               |
-| `DlpWebhookResponseError` · `webhook_error`          | Your AI security server answered 200, but the body isn’t a valid verdict or is larger than 64 KiB.                                                                                                                                                                               | Yes                               |
-| `DlpWebhookTransportError` · `webhook_error`         | The connection failed or dropped before a complete answer arrived: for example, the hostname didn’t resolve or resolved to a private address, the connection was refused or reset, or the TLS handshake failed. A network problem on Anthropic’s side can also show up this way. | No                                |
-| `DlpWebhookDisallowedAddressError` · `webhook_error` | The endpoint URL’s host is a private or internal IP address, an IPv6 address, or `localhost`. A hostname that resolves to such an address shows as a transport error instead.                                                                                                    | Yes                               |
-| `DlpWebhookBlockedError` · `webhook_error`           | The endpoint URL isn’t an `https://` URL on port 443, or can’t be parsed, so no request was sent.                                                                                                                                                                                | No                                |
-| `DlpWebhookRelayError` · `relay_error`               | The failure was inside Anthropic’s systems, and your AI security server usually wasn’t contacted.                                                                                                                                                                                | No                                |
+| Error shown | What it means | Counts toward the circuit breaker |
+| ----- | ----- | ----- |
+| `DlpWebhookTimeoutError` · `webhook_error` | Your AI security server didn’t return a verdict within the **Prompt verdict timeout (ms)** you set. | Yes |
+| `DlpWebhookStatusError` · `webhook_error` | Your AI security server answered with an HTTP status other than 200, such as a redirect. | Yes |
+| `DlpWebhookResponseError` · `webhook_error` | Your AI security server answered 200, but the body isn’t a valid verdict or is larger than 64 KiB. | Yes |
+| `DlpWebhookTransportError` · `webhook_error` | The connection failed or dropped before a complete answer arrived: for example, the hostname didn’t resolve or resolved to a private address, the connection was refused or reset, or the TLS handshake failed. A network problem on Anthropic’s side can also show up this way. | No |
+| `DlpWebhookDisallowedAddressError` · `webhook_error` | The endpoint URL’s host is a private or internal IP address, an IPv6 address, or `localhost`. A hostname that resolves to such an address shows as a transport error instead. | Yes |
+| `DlpWebhookBlockedError` · `webhook_error` | The endpoint URL isn’t an `https://` URL on port 443, or can’t be parsed, so no request was sent. | No |
+| `DlpWebhookRelayError` · `relay_error` | The failure was inside Anthropic’s systems, and your AI security server usually wasn’t contacted. | No |
 
 In shadow mode, no error counts toward the circuit breaker.
 

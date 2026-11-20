@@ -41,7 +41,7 @@ The other two keys work only while `artifactsEnabled` is `true`. `artifactsEnabl
 
 ## Use Design and Slides
 
-Design and Slides work in [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md), which is on by default. All of a user's designs and decks are listed under **Artifacts** in the sidebar. You don't need to allow any hosts for Design and Slides, other than your plugin marketplace if you provide design systems, and they work with [`disableNonessentialServices`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialservices) on.
+Design and Slides work in [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md), which is on by default. All of a user's designs and decks are listed under **Artifacts** in the sidebar. To export one, users open it, click its title, and click **Export**. To delete one, they right-click it in the list and click **Delete**. You don't need to allow any hosts for Design and Slides, other than your plugin marketplace if you provide design systems, and they work with [`disableNonessentialServices`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialservices) on.
 
 Claude's design and deck tools aren't available in Code sessions or in runs of [scheduled tasks](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md).
 
@@ -52,6 +52,7 @@ These restrictions apply to Design and Slides in Claude Desktop on 3P:
 * **Export**: designs export to HTML, PDF, and PNG. Decks export to PowerPoint, PDF, and HTML. In Claude Desktop 6.28899.2 or later, users can also export a slide as PNG. Users can't export a design to PowerPoint, or send designs and decks to Google Slides, other tools, or Claude Code.
 * **Connectors**: designs and decks can't use connectors.
 * **Web content**: designs and decks don't load images, fonts, or scripts from the web in Claude Desktop. Their exported HTML files can, when someone opens them in a browser.
+* **Migration**: the [migration to Claude Enterprise](https://claude.com/docs/third-party/claude-desktop/move-to-claude-enterprise.md), the [automatic import of earlier third-party sessions](https://claude.com/docs/third-party/claude-desktop/import.md#automatic-import-of-earlier-third-party-sessions), and a [Claude Desktop export](https://claude.com/docs/third-party/claude-desktop/import.md#what-a-claude-desktop-export-moves) leave out designs, decks, and design systems that users added on the computer. Before you migrate, have users export the designs and decks they need to files. The originals stay on the computer. To move them to a new device, [copy the data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
 
 ## Design systems
 

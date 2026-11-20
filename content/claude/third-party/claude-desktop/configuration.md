@@ -1175,7 +1175,7 @@ object\[]Since 1.2581.0
 >
 > Each entry is a model ID or an object:
 >
-> ```json theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
+> ```json theme={null}
 > [
 >   {"name": "claude-sonnet-5",
 >    "supports1m": true},
@@ -3530,7 +3530,7 @@ integerRange: 1–3,650Since 1.52386.0
 > * another account's sessions, until that account signs in
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
-> * a Cowork task's live artifacts
+> * a Cowork task's artifacts
 > * Claude Code's prompt history, plans and shell snapshots
 >
 > A value that cannot be read as a whole number of days deletes nothing.
@@ -3555,7 +3555,7 @@ integerRange: 1–3,650Since 1.52386.0
 > * another account's sessions, until that account signs in
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
-> * a Cowork task's live artifacts
+> * a Cowork task's artifacts
 > * Claude Code's prompt history, plans and shell snapshots
 >
 > A value that cannot be read as a whole number of days deletes nothing.
@@ -3580,7 +3580,7 @@ integerRange: 1–3,650Since 1.52386.0
 > * another account's sessions, until that account signs in
 > * Code sessions on an SSH host or in WSL
 > * Cowork background tasks that the sidebar does not list
-> * a Cowork task's live artifacts
+> * a Cowork task's artifacts
 > * Claude Code's prompt history, plans and shell snapshots
 >
 > A value that cannot be read as a whole number of days deletes nothing.

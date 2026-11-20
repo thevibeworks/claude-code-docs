@@ -234,13 +234,13 @@ Common uses include automating onboarding and offboarding, managing workspace ac
 
 Claude Console organizations have five organization-level roles. For details, see [API Console roles and permissions](https://support.claude.com/en/articles/10186004-api-console-roles-and-permissions).
 
-| Role               | Permissions                                                                    |
-| ------------------ | ------------------------------------------------------------------------------ |
-| user               | Can use playground                                                             |
+| Role | Permissions |
+| ----- | ----- |
+| user | Can use playground |
 | claude\_code\_user | Can use playground and [Claude Code](https://code.claude.com/docs/en/overview) |
-| developer          | Can use playground and manage API keys                                         |
-| billing            | Can use playground and manage billing details                                  |
-| admin              | Can do all of the preceding, plus manage users                                 |
+| developer | Can use playground and manage API keys |
+| billing | Can use playground and manage billing details |
+| admin | Can do all of the preceding, plus manage users |
 
 Claude Enterprise organizations have a different set of roles, including owners and a primary owner. See [Organization roles](https://platform.claude.com/docs/en/manage-claude/user-management#organization-roles).
 

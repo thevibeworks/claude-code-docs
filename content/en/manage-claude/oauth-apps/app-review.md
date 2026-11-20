@@ -16,13 +16,13 @@ An app is live when Anthropic has approved it or when you have published it with
 
 Until the app is live, the Console shows one of these statuses for it:
 
-| Status           | What it means                                                               |
-| ---------------- | --------------------------------------------------------------------------- |
-| **Testing**      | You haven’t published the app.                                              |
-| **In review**    | Anthropic is reviewing the app or a change that you made while it was live. |
-| **Not approved** | Anthropic reviewed the app or the change and didn’t approve it.             |
+| Status | What it means |
+| ----- | ----- |
+| **Testing** | You haven’t published the app. |
+| **In review** | Anthropic is reviewing the app or a change that you made while it was live. |
+| **Not approved** | Anthropic reviewed the app or the change and didn’t approve it. |
 
-An app that goes back to review after a change isn’t live again until Anthropic approves the change. Each Linked billing app has its own status and its own test users. See the note in [Step 1: Create the app](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#step-1-create-the-app) in the Linked billing guide.
+An app that goes back to review after a change isn’t live again until Anthropic approves the change. Each app has its own status and its own test users. See the note in [Step 1: Create the app](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#step-1-create-the-app) in the Linked billing guide.
 
 ## Before you begin
 

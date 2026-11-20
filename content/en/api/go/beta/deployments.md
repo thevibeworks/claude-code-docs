@@ -487,6 +487,8 @@ Create Deployment
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -821,89 +823,89 @@ Create Deployment
 
       - `Type Error`
 
-      - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+      - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
         The failed run's error.
 
-        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's environment was archived.
 
           - `Type EnvironmentArchivedError`
 
-        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's agent was archived.
 
           - `Type AgentArchivedError`
 
-        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
           The deployment's environment no longer exists.
 
           - `Type EnvironmentNotFoundError`
 
-        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type VaultNotFoundError`
 
-        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
           A file resource referenced by the deployment no longer exists.
 
           - `Type FileNotFoundError`
 
-        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type SessionResourceNotFoundError`
 
-        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's workspace was archived.
 
           - `Type WorkspaceArchivedError`
 
-        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
           The deployment's organization is disabled.
 
           - `Type OrganizationDisabledError`
 
-        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
           A memory store referenced by the deployment is archived.
 
           - `Type MemoryStoreArchivedError`
 
-        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type SkillNotFoundError`
 
-        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment is archived.
 
           - `Type VaultArchivedError`
 
-        - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+        - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type UnknownError`
 
-        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `Type SelfHostedResourcesUnsupportedError`
 
-        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -1294,6 +1296,8 @@ List Deployments
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -1628,89 +1632,89 @@ List Deployments
 
       - `Type Error`
 
-      - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+      - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
         The failed run's error.
 
-        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's environment was archived.
 
           - `Type EnvironmentArchivedError`
 
-        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's agent was archived.
 
           - `Type AgentArchivedError`
 
-        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
           The deployment's environment no longer exists.
 
           - `Type EnvironmentNotFoundError`
 
-        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type VaultNotFoundError`
 
-        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
           A file resource referenced by the deployment no longer exists.
 
           - `Type FileNotFoundError`
 
-        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type SessionResourceNotFoundError`
 
-        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's workspace was archived.
 
           - `Type WorkspaceArchivedError`
 
-        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
           The deployment's organization is disabled.
 
           - `Type OrganizationDisabledError`
 
-        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
           A memory store referenced by the deployment is archived.
 
           - `Type MemoryStoreArchivedError`
 
-        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type SkillNotFoundError`
 
-        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment is archived.
 
           - `Type VaultArchivedError`
 
-        - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+        - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type UnknownError`
 
-        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `Type SelfHostedResourcesUnsupportedError`
 
-        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -2061,6 +2065,8 @@ Get Deployment
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -2395,89 +2401,89 @@ Get Deployment
 
       - `Type Error`
 
-      - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+      - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
         The failed run's error.
 
-        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's environment was archived.
 
           - `Type EnvironmentArchivedError`
 
-        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's agent was archived.
 
           - `Type AgentArchivedError`
 
-        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
           The deployment's environment no longer exists.
 
           - `Type EnvironmentNotFoundError`
 
-        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type VaultNotFoundError`
 
-        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
           A file resource referenced by the deployment no longer exists.
 
           - `Type FileNotFoundError`
 
-        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type SessionResourceNotFoundError`
 
-        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's workspace was archived.
 
           - `Type WorkspaceArchivedError`
 
-        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
           The deployment's organization is disabled.
 
           - `Type OrganizationDisabledError`
 
-        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
           A memory store referenced by the deployment is archived.
 
           - `Type MemoryStoreArchivedError`
 
-        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type SkillNotFoundError`
 
-        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment is archived.
 
           - `Type VaultArchivedError`
 
-        - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+        - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type UnknownError`
 
-        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `Type SelfHostedResourcesUnsupportedError`
 
-        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -3201,6 +3207,8 @@ Update Deployment
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -3535,89 +3543,89 @@ Update Deployment
 
       - `Type Error`
 
-      - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+      - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
         The failed run's error.
 
-        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's environment was archived.
 
           - `Type EnvironmentArchivedError`
 
-        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's agent was archived.
 
           - `Type AgentArchivedError`
 
-        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
           The deployment's environment no longer exists.
 
           - `Type EnvironmentNotFoundError`
 
-        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type VaultNotFoundError`
 
-        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
           A file resource referenced by the deployment no longer exists.
 
           - `Type FileNotFoundError`
 
-        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type SessionResourceNotFoundError`
 
-        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's workspace was archived.
 
           - `Type WorkspaceArchivedError`
 
-        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
           The deployment's organization is disabled.
 
           - `Type OrganizationDisabledError`
 
-        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
           A memory store referenced by the deployment is archived.
 
           - `Type MemoryStoreArchivedError`
 
-        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type SkillNotFoundError`
 
-        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment is archived.
 
           - `Type VaultArchivedError`
 
-        - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+        - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type UnknownError`
 
-        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `Type SelfHostedResourcesUnsupportedError`
 
-        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -3967,6 +3975,8 @@ Archive Deployment
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -4301,89 +4311,89 @@ Archive Deployment
 
       - `Type Error`
 
-      - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+      - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
         The failed run's error.
 
-        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's environment was archived.
 
           - `Type EnvironmentArchivedError`
 
-        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's agent was archived.
 
           - `Type AgentArchivedError`
 
-        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
           The deployment's environment no longer exists.
 
           - `Type EnvironmentNotFoundError`
 
-        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type VaultNotFoundError`
 
-        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
           A file resource referenced by the deployment no longer exists.
 
           - `Type FileNotFoundError`
 
-        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type SessionResourceNotFoundError`
 
-        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's workspace was archived.
 
           - `Type WorkspaceArchivedError`
 
-        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
           The deployment's organization is disabled.
 
           - `Type OrganizationDisabledError`
 
-        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
           A memory store referenced by the deployment is archived.
 
           - `Type MemoryStoreArchivedError`
 
-        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type SkillNotFoundError`
 
-        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment is archived.
 
           - `Type VaultArchivedError`
 
-        - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+        - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type UnknownError`
 
-        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `Type SelfHostedResourcesUnsupportedError`
 
-        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -4733,6 +4743,8 @@ Run Deployment Now
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -4819,7 +4831,7 @@ Run Deployment Now
 
     Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
-    - `type BetaManagedAgentsEnvironmentArchivedRunError`
+    - `type BetaManagedAgentsEnvironmentArchivedRunErrorObject`
 
       The deployment's environment was archived.
 
@@ -4829,7 +4841,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsAgentArchivedRunError`
+    - `type BetaManagedAgentsAgentArchivedRunErrorObject`
 
       The deployment's agent was archived.
 
@@ -4839,7 +4851,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsEnvironmentNotFoundRunError`
+    - `type BetaManagedAgentsEnvironmentNotFoundRunErrorObject`
 
       The deployment's environment no longer exists.
 
@@ -4849,7 +4861,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultNotFoundRunError`
+    - `type BetaManagedAgentsVaultNotFoundRunErrorObject`
 
       A vault referenced by the deployment no longer exists.
 
@@ -4859,7 +4871,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultArchivedRunError`
+    - `type BetaManagedAgentsVaultArchivedRunErrorObject`
 
       A vault referenced by the deployment is archived.
 
@@ -4869,7 +4881,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsFileNotFoundRunError`
+    - `type BetaManagedAgentsFileNotFoundRunErrorObject`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -4879,7 +4891,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMemoryStoreArchivedRunError`
+    - `type BetaManagedAgentsMemoryStoreArchivedRunErrorObject`
 
       A memory store referenced by the deployment is archived.
 
@@ -4889,7 +4901,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSkillNotFoundRunError`
+    - `type BetaManagedAgentsSkillNotFoundRunErrorObject`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -4899,7 +4911,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionResourceNotFoundRunError`
+    - `type BetaManagedAgentsSessionResourceNotFoundRunErrorObject`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -4909,7 +4921,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsWorkspaceArchivedRunError`
+    - `type BetaManagedAgentsWorkspaceArchivedRunErrorObject`
 
       The deployment's workspace was archived.
 
@@ -4919,7 +4931,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsOrganizationDisabledRunError`
+    - `type BetaManagedAgentsOrganizationDisabledRunErrorObject`
 
       The deployment's organization is disabled.
 
@@ -4929,7 +4941,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionRateLimitedRunError`
+    - `type BetaManagedAgentsSessionRateLimitedRunErrorObject`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -4939,7 +4951,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionCreationRejectedRunError`
+    - `type BetaManagedAgentsSessionCreationRejectedRunErrorObject`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -4949,7 +4961,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsUnknownRunError`
+    - `type BetaManagedAgentsUnknownRunErrorObject`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -4959,7 +4971,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
+    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -4969,7 +4981,7 @@ Run Deployment Now
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMCPEgressBlockedRunError`
+    - `type BetaManagedAgentsMCPEgressBlockedRunErrorObject`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -5170,6 +5182,8 @@ Pause Deployment
     - `const AnthropicBetaAnalyticsUsageCost2026_08_24 AnthropicBeta = "analytics-usage-cost-2026-08-24"`
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
+
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
 
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
@@ -5505,89 +5519,89 @@ Pause Deployment
 
       - `Type Error`
 
-      - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+      - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
         The failed run's error.
 
-        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's environment was archived.
 
           - `Type EnvironmentArchivedError`
 
-        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's agent was archived.
 
           - `Type AgentArchivedError`
 
-        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
           The deployment's environment no longer exists.
 
           - `Type EnvironmentNotFoundError`
 
-        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type VaultNotFoundError`
 
-        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
           A file resource referenced by the deployment no longer exists.
 
           - `Type FileNotFoundError`
 
-        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type SessionResourceNotFoundError`
 
-        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's workspace was archived.
 
           - `Type WorkspaceArchivedError`
 
-        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
           The deployment's organization is disabled.
 
           - `Type OrganizationDisabledError`
 
-        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
           A memory store referenced by the deployment is archived.
 
           - `Type MemoryStoreArchivedError`
 
-        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type SkillNotFoundError`
 
-        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment is archived.
 
           - `Type VaultArchivedError`
 
-        - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+        - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type UnknownError`
 
-        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `Type SelfHostedResourcesUnsupportedError`
 
-        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -5937,6 +5951,8 @@ Unpause Deployment
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -6271,89 +6287,89 @@ Unpause Deployment
 
       - `Type Error`
 
-      - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+      - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
         The failed run's error.
 
-        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's environment was archived.
 
           - `Type EnvironmentArchivedError`
 
-        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's agent was archived.
 
           - `Type AgentArchivedError`
 
-        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
           The deployment's environment no longer exists.
 
           - `Type EnvironmentNotFoundError`
 
-        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type VaultNotFoundError`
 
-        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
           A file resource referenced by the deployment no longer exists.
 
           - `Type FileNotFoundError`
 
-        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type SessionResourceNotFoundError`
 
-        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's workspace was archived.
 
           - `Type WorkspaceArchivedError`
 
-        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
           The deployment's organization is disabled.
 
           - `Type OrganizationDisabledError`
 
-        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
           A memory store referenced by the deployment is archived.
 
           - `Type MemoryStoreArchivedError`
 
-        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type SkillNotFoundError`
 
-        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment is archived.
 
           - `Type VaultArchivedError`
 
-        - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+        - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type UnknownError`
 
-        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `Type SelfHostedResourcesUnsupportedError`
 
-        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -6593,9 +6609,9 @@ func main() {
 
 ## Domain types
 
-### Beta Managed Agents Agent Archived Deployment Paused Reason Error
+### Beta Managed Agents Agent Archived Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+- `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
   The deployment's agent was archived.
 
@@ -6937,89 +6953,89 @@ func main() {
 
       - `Type Error`
 
-      - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+      - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
         The failed run's error.
 
-        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's environment was archived.
 
           - `Type EnvironmentArchivedError`
 
-        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's agent was archived.
 
           - `Type AgentArchivedError`
 
-        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
           The deployment's environment no longer exists.
 
           - `Type EnvironmentNotFoundError`
 
-        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type VaultNotFoundError`
 
-        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
           A file resource referenced by the deployment no longer exists.
 
           - `Type FileNotFoundError`
 
-        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type SessionResourceNotFoundError`
 
-        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
           The deployment's workspace was archived.
 
           - `Type WorkspaceArchivedError`
 
-        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+        - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
           The deployment's organization is disabled.
 
           - `Type OrganizationDisabledError`
 
-        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
           A memory store referenced by the deployment is archived.
 
           - `Type MemoryStoreArchivedError`
 
-        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type SkillNotFoundError`
 
-        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
           A vault referenced by the deployment is archived.
 
           - `Type VaultArchivedError`
 
-        - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+        - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type UnknownError`
 
-        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
           The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
           - `Type SelfHostedResourcesUnsupportedError`
 
-        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+        - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -7633,179 +7649,179 @@ func main() {
 
     - `Type Error`
 
-    - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+    - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
       The failed run's error.
 
-      - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+      - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
         The deployment's environment was archived.
 
         - `Type EnvironmentArchivedError`
 
-      - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+      - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
         The deployment's agent was archived.
 
         - `Type AgentArchivedError`
 
-      - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+      - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
         The deployment's environment no longer exists.
 
         - `Type EnvironmentNotFoundError`
 
-      - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+      - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
         A vault referenced by the deployment no longer exists.
 
         - `Type VaultNotFoundError`
 
-      - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+      - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
         A file resource referenced by the deployment no longer exists.
 
         - `Type FileNotFoundError`
 
-      - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+      - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
         A referenced resource no longer exists and its kind was not reported.
 
         - `Type SessionResourceNotFoundError`
 
-      - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+      - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
         The deployment's workspace was archived.
 
         - `Type WorkspaceArchivedError`
 
-      - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+      - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
         The deployment's organization is disabled.
 
         - `Type OrganizationDisabledError`
 
-      - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+      - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
         A memory store referenced by the deployment is archived.
 
         - `Type MemoryStoreArchivedError`
 
-      - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+      - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
         A skill referenced by the deployment's agent no longer exists.
 
         - `Type SkillNotFoundError`
 
-      - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+      - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
         A vault referenced by the deployment is archived.
 
         - `Type VaultArchivedError`
 
-      - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+      - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
         An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
         - `Type UnknownError`
 
-      - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+      - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
         The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
         - `Type SelfHostedResourcesUnsupportedError`
 
-      - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+      - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
         An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
         - `Type MCPEgressBlockedError`
 
-### Beta Managed Agents Deployment Paused Reason Error
+### Beta Managed Agents Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsDeploymentPausedReasonErrorUnion interface{…}`
+- `type BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion interface{…}`
 
   The error that triggered an auto-pause. Matches the failed run's `error.type`.
 
-  - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+  - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
     The deployment's environment was archived.
 
     - `Type EnvironmentArchivedError`
 
-  - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+  - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
     The deployment's agent was archived.
 
     - `Type AgentArchivedError`
 
-  - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+  - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
     The deployment's environment no longer exists.
 
     - `Type EnvironmentNotFoundError`
 
-  - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+  - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
     A vault referenced by the deployment no longer exists.
 
     - `Type VaultNotFoundError`
 
-  - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+  - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
     A file resource referenced by the deployment no longer exists.
 
     - `Type FileNotFoundError`
 
-  - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+  - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
     A referenced resource no longer exists and its kind was not reported.
 
     - `Type SessionResourceNotFoundError`
 
-  - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+  - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
     The deployment's workspace was archived.
 
     - `Type WorkspaceArchivedError`
 
-  - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+  - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
     The deployment's organization is disabled.
 
     - `Type OrganizationDisabledError`
 
-  - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+  - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
     A memory store referenced by the deployment is archived.
 
     - `Type MemoryStoreArchivedError`
 
-  - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+  - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
     A skill referenced by the deployment's agent no longer exists.
 
     - `Type SkillNotFoundError`
 
-  - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+  - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
     A vault referenced by the deployment is archived.
 
     - `Type VaultArchivedError`
 
-  - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+  - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
     An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
     - `Type UnknownError`
 
-  - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+  - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
     The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
     - `Type SelfHostedResourcesUnsupportedError`
 
-  - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+  - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
     An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -8045,17 +8061,17 @@ func main() {
 
       - `Type Redacted`
 
-### Beta Managed Agents Environment Archived Deployment Paused Reason Error
+### Beta Managed Agents Environment Archived Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+- `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
   The deployment's environment was archived.
 
   - `Type EnvironmentArchivedError`
 
-### Beta Managed Agents Environment Not Found Deployment Paused Reason Error
+### Beta Managed Agents Environment Not Found Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+- `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
   The deployment's environment no longer exists.
 
@@ -8069,97 +8085,97 @@ func main() {
 
   - `Type Error`
 
-  - `Error BetaManagedAgentsDeploymentPausedReasonErrorUnion`
+  - `Error BetaManagedAgentsDeploymentPausedReasonErrorObjectUnion`
 
     The failed run's error.
 
-    - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
+    - `type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorObject`
 
       The deployment's environment was archived.
 
       - `Type EnvironmentArchivedError`
 
-    - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
+    - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorObject`
 
       The deployment's agent was archived.
 
       - `Type AgentArchivedError`
 
-    - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
+    - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorObject`
 
       The deployment's environment no longer exists.
 
       - `Type EnvironmentNotFoundError`
 
-    - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+    - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
       A vault referenced by the deployment no longer exists.
 
       - `Type VaultNotFoundError`
 
-    - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+    - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
       A file resource referenced by the deployment no longer exists.
 
       - `Type FileNotFoundError`
 
-    - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+    - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
       A referenced resource no longer exists and its kind was not reported.
 
       - `Type SessionResourceNotFoundError`
 
-    - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+    - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
       The deployment's workspace was archived.
 
       - `Type WorkspaceArchivedError`
 
-    - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+    - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
       The deployment's organization is disabled.
 
       - `Type OrganizationDisabledError`
 
-    - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+    - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
       A memory store referenced by the deployment is archived.
 
       - `Type MemoryStoreArchivedError`
 
-    - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+    - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
       A skill referenced by the deployment's agent no longer exists.
 
       - `Type SkillNotFoundError`
 
-    - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+    - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
       A vault referenced by the deployment is archived.
 
       - `Type VaultArchivedError`
 
-    - `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+    - `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
       An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
       - `Type UnknownError`
 
-    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
       - `Type SelfHostedResourcesUnsupportedError`
 
-    - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+    - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
       - `Type MCPEgressBlockedError`
 
-### Beta Managed Agents File Not Found Deployment Paused Reason Error
+### Beta Managed Agents File Not Found Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
+- `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorObject`
 
   A file resource referenced by the deployment no longer exists.
 
@@ -8229,17 +8245,17 @@ func main() {
 
   - `Type Manual`
 
-### Beta Managed Agents MCP Egress Blocked Deployment Paused Reason Error
+### Beta Managed Agents MCP Egress Blocked Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
+- `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorObject`
 
   An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
   - `Type MCPEgressBlockedError`
 
-### Beta Managed Agents Memory Store Archived Deployment Paused Reason Error
+### Beta Managed Agents Memory Store Archived Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
+- `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorObject`
 
   A memory store referenced by the deployment is archived.
 
@@ -8269,9 +8285,9 @@ func main() {
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-### Beta Managed Agents Organization Disabled Deployment Paused Reason Error
+### Beta Managed Agents Organization Disabled Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
+- `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorObject`
 
   The deployment's organization is disabled.
 
@@ -8327,9 +8343,9 @@ func main() {
 
     minLength: 1
 
-### Beta Managed Agents Self Hosted Resources Unsupported Deployment Paused Reason Error
+### Beta Managed Agents Self Hosted Resources Unsupported Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
+- `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorObject`
 
   The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -8415,49 +8431,49 @@ func main() {
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-### Beta Managed Agents Session Resource Not Found Deployment Paused Reason Error
+### Beta Managed Agents Session Resource Not Found Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
+- `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorObject`
 
   A referenced resource no longer exists and its kind was not reported.
 
   - `Type SessionResourceNotFoundError`
 
-### Beta Managed Agents Skill Not Found Deployment Paused Reason Error
+### Beta Managed Agents Skill Not Found Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
+- `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorObject`
 
   A skill referenced by the deployment's agent no longer exists.
 
   - `Type SkillNotFoundError`
 
-### Beta Managed Agents Unknown Deployment Paused Reason Error
+### Beta Managed Agents Unknown Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsUnknownDeploymentPausedReasonError`
+- `type BetaManagedAgentsUnknownDeploymentPausedReasonErrorObject`
 
   An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
   - `Type UnknownError`
 
-### Beta Managed Agents Vault Archived Deployment Paused Reason Error
+### Beta Managed Agents Vault Archived Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
+- `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorObject`
 
   A vault referenced by the deployment is archived.
 
   - `Type VaultArchivedError`
 
-### Beta Managed Agents Vault Not Found Deployment Paused Reason Error
+### Beta Managed Agents Vault Not Found Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
+- `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorObject`
 
   A vault referenced by the deployment no longer exists.
 
   - `Type VaultNotFoundError`
 
-### Beta Managed Agents Workspace Archived Deployment Paused Reason Error
+### Beta Managed Agents Workspace Archived Deployment Paused Reason Error Object
 
-- `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
+- `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorObject`
 
   The deployment's workspace was archived.
 

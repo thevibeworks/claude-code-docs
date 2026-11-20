@@ -499,11 +499,11 @@ With interleaved thinking and ONLY with interleaved thinking (not regular manual
 
 Client tools are specified in the `tools` top-level parameter of the API request. Each tool definition includes:
 
-| Parameter      | Description                                                                                          |
-| -------------- | ---------------------------------------------------------------------------------------------------- |
-| `name`         | The name of the tool. Must match the regex `^[a-zA-Z0-9_-]{1,128}$`.                                 |
-| `description`  | A detailed plain text description of what the tool does, when it should be used, and how it behaves. |
-| `input_schema` | A [JSON Schema](https://json-schema.org/) object defining the expected parameters for the tool.      |
+| Parameter | Description |
+| ----- | ----- |
+| `name` | The name of the tool. Must match the regex `^[a-zA-Z0-9_-]{1,128}$`. |
+| `description` | A detailed plain text description of what the tool does, when it should be used, and how it behaves. |
+| `input_schema` | A [JSON Schema](https://json-schema.org/) object defining the expected parameters for the tool. |
 
 ```json
 {

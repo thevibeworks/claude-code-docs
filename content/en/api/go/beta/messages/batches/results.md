@@ -119,6 +119,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -548,7 +550,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content BetaWebSearchToolResultBlockContentUnion`
 
-              - `type BetaWebSearchToolResultError`
+              - `type BetaWebSearchToolResultErrorObject`
 
                 - `Type WebSearchToolResultError`
 
@@ -710,27 +712,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content BetaAdvisorToolResultBlockContentUnion`
 
-              - `type BetaAdvisorToolResultError`
+              - `type BetaAdvisorToolResultErrorObject`
 
                 - `Type AdvisorToolResultError`
 
                   default: advisor_tool_result_error
 
-                - `ErrorCode BetaAdvisorToolResultErrorErrorCode`
+                - `ErrorCode BetaAdvisorToolResultErrorObjectErrorCode`
 
-                  - `const BetaAdvisorToolResultErrorErrorCodeMaxUsesExceeded BetaAdvisorToolResultErrorErrorCode = "max_uses_exceeded"`
+                  - `const BetaAdvisorToolResultErrorObjectErrorCodeMaxUsesExceeded BetaAdvisorToolResultErrorObjectErrorCode = "max_uses_exceeded"`
 
-                  - `const BetaAdvisorToolResultErrorErrorCodePromptTooLong BetaAdvisorToolResultErrorErrorCode = "prompt_too_long"`
+                  - `const BetaAdvisorToolResultErrorObjectErrorCodePromptTooLong BetaAdvisorToolResultErrorObjectErrorCode = "prompt_too_long"`
 
-                  - `const BetaAdvisorToolResultErrorErrorCodeTooManyRequests BetaAdvisorToolResultErrorErrorCode = "too_many_requests"`
+                  - `const BetaAdvisorToolResultErrorObjectErrorCodeTooManyRequests BetaAdvisorToolResultErrorObjectErrorCode = "too_many_requests"`
 
-                  - `const BetaAdvisorToolResultErrorErrorCodeOverloaded BetaAdvisorToolResultErrorErrorCode = "overloaded"`
+                  - `const BetaAdvisorToolResultErrorObjectErrorCodeOverloaded BetaAdvisorToolResultErrorObjectErrorCode = "overloaded"`
 
-                  - `const BetaAdvisorToolResultErrorErrorCodeUnavailable BetaAdvisorToolResultErrorErrorCode = "unavailable"`
+                  - `const BetaAdvisorToolResultErrorObjectErrorCodeUnavailable BetaAdvisorToolResultErrorObjectErrorCode = "unavailable"`
 
-                  - `const BetaAdvisorToolResultErrorErrorCodeExecutionTimeExceeded BetaAdvisorToolResultErrorErrorCode = "execution_time_exceeded"`
+                  - `const BetaAdvisorToolResultErrorObjectErrorCodeExecutionTimeExceeded BetaAdvisorToolResultErrorObjectErrorCode = "execution_time_exceeded"`
 
-                  - `const BetaAdvisorToolResultErrorErrorCodeModelNotFound BetaAdvisorToolResultErrorErrorCode = "model_not_found"`
+                  - `const BetaAdvisorToolResultErrorObjectErrorCodeModelNotFound BetaAdvisorToolResultErrorObjectErrorCode = "model_not_found"`
 
               - `type BetaAdvisorResultBlock`
 
@@ -770,7 +772,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content BetaCodeExecutionToolResultBlockContentUnion`
 
-              - `type BetaCodeExecutionToolResultError`
+              - `type BetaCodeExecutionToolResultErrorObject`
 
                 - `Type CodeExecutionToolResultError`
 
@@ -844,23 +846,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content BetaBashCodeExecutionToolResultBlockContentUnion`
 
-              - `type BetaBashCodeExecutionToolResultError`
+              - `type BetaBashCodeExecutionToolResultErrorObject`
 
                 - `Type BashCodeExecutionToolResultError`
 
                   default: bash_code_execution_tool_result_error
 
-                - `ErrorCode BetaBashCodeExecutionToolResultErrorErrorCode`
+                - `ErrorCode BetaBashCodeExecutionToolResultErrorObjectErrorCode`
 
-                  - `const BetaBashCodeExecutionToolResultErrorErrorCodeInvalidToolInput BetaBashCodeExecutionToolResultErrorErrorCode = "invalid_tool_input"`
+                  - `const BetaBashCodeExecutionToolResultErrorObjectErrorCodeInvalidToolInput BetaBashCodeExecutionToolResultErrorObjectErrorCode = "invalid_tool_input"`
 
-                  - `const BetaBashCodeExecutionToolResultErrorErrorCodeUnavailable BetaBashCodeExecutionToolResultErrorErrorCode = "unavailable"`
+                  - `const BetaBashCodeExecutionToolResultErrorObjectErrorCodeUnavailable BetaBashCodeExecutionToolResultErrorObjectErrorCode = "unavailable"`
 
-                  - `const BetaBashCodeExecutionToolResultErrorErrorCodeTooManyRequests BetaBashCodeExecutionToolResultErrorErrorCode = "too_many_requests"`
+                  - `const BetaBashCodeExecutionToolResultErrorObjectErrorCodeTooManyRequests BetaBashCodeExecutionToolResultErrorObjectErrorCode = "too_many_requests"`
 
-                  - `const BetaBashCodeExecutionToolResultErrorErrorCodeExecutionTimeExceeded BetaBashCodeExecutionToolResultErrorErrorCode = "execution_time_exceeded"`
+                  - `const BetaBashCodeExecutionToolResultErrorObjectErrorCodeExecutionTimeExceeded BetaBashCodeExecutionToolResultErrorObjectErrorCode = "execution_time_exceeded"`
 
-                  - `const BetaBashCodeExecutionToolResultErrorErrorCodeOutputFileTooLarge BetaBashCodeExecutionToolResultErrorErrorCode = "output_file_too_large"`
+                  - `const BetaBashCodeExecutionToolResultErrorObjectErrorCodeOutputFileTooLarge BetaBashCodeExecutionToolResultErrorObjectErrorCode = "output_file_too_large"`
 
               - `type BetaBashCodeExecutionResultBlock`
 
@@ -894,23 +896,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content BetaTextEditorCodeExecutionToolResultBlockContentUnion`
 
-              - `type BetaTextEditorCodeExecutionToolResultError`
+              - `type BetaTextEditorCodeExecutionToolResultErrorObject`
 
                 - `Type TextEditorCodeExecutionToolResultError`
 
                   default: text_editor_code_execution_tool_result_error
 
-                - `ErrorCode BetaTextEditorCodeExecutionToolResultErrorErrorCode`
+                - `ErrorCode BetaTextEditorCodeExecutionToolResultErrorObjectErrorCode`
 
-                  - `const BetaTextEditorCodeExecutionToolResultErrorErrorCodeInvalidToolInput BetaTextEditorCodeExecutionToolResultErrorErrorCode = "invalid_tool_input"`
+                  - `const BetaTextEditorCodeExecutionToolResultErrorObjectErrorCodeInvalidToolInput BetaTextEditorCodeExecutionToolResultErrorObjectErrorCode = "invalid_tool_input"`
 
-                  - `const BetaTextEditorCodeExecutionToolResultErrorErrorCodeUnavailable BetaTextEditorCodeExecutionToolResultErrorErrorCode = "unavailable"`
+                  - `const BetaTextEditorCodeExecutionToolResultErrorObjectErrorCodeUnavailable BetaTextEditorCodeExecutionToolResultErrorObjectErrorCode = "unavailable"`
 
-                  - `const BetaTextEditorCodeExecutionToolResultErrorErrorCodeTooManyRequests BetaTextEditorCodeExecutionToolResultErrorErrorCode = "too_many_requests"`
+                  - `const BetaTextEditorCodeExecutionToolResultErrorObjectErrorCodeTooManyRequests BetaTextEditorCodeExecutionToolResultErrorObjectErrorCode = "too_many_requests"`
 
-                  - `const BetaTextEditorCodeExecutionToolResultErrorErrorCodeExecutionTimeExceeded BetaTextEditorCodeExecutionToolResultErrorErrorCode = "execution_time_exceeded"`
+                  - `const BetaTextEditorCodeExecutionToolResultErrorObjectErrorCodeExecutionTimeExceeded BetaTextEditorCodeExecutionToolResultErrorObjectErrorCode = "execution_time_exceeded"`
 
-                  - `const BetaTextEditorCodeExecutionToolResultErrorErrorCodeFileNotFound BetaTextEditorCodeExecutionToolResultErrorErrorCode = "file_not_found"`
+                  - `const BetaTextEditorCodeExecutionToolResultErrorObjectErrorCodeFileNotFound BetaTextEditorCodeExecutionToolResultErrorObjectErrorCode = "file_not_found"`
 
                 - `ErrorMessage string`
 
@@ -972,21 +974,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Content BetaToolSearchToolResultBlockContentUnion`
 
-              - `type BetaToolSearchToolResultError`
+              - `type BetaToolSearchToolResultErrorObject`
 
                 - `Type ToolSearchToolResultError`
 
                   default: tool_search_tool_result_error
 
-                - `ErrorCode BetaToolSearchToolResultErrorErrorCode`
+                - `ErrorCode BetaToolSearchToolResultErrorObjectErrorCode`
 
-                  - `const BetaToolSearchToolResultErrorErrorCodeInvalidToolInput BetaToolSearchToolResultErrorErrorCode = "invalid_tool_input"`
+                  - `const BetaToolSearchToolResultErrorObjectErrorCodeInvalidToolInput BetaToolSearchToolResultErrorObjectErrorCode = "invalid_tool_input"`
 
-                  - `const BetaToolSearchToolResultErrorErrorCodeUnavailable BetaToolSearchToolResultErrorErrorCode = "unavailable"`
+                  - `const BetaToolSearchToolResultErrorObjectErrorCodeUnavailable BetaToolSearchToolResultErrorObjectErrorCode = "unavailable"`
 
-                  - `const BetaToolSearchToolResultErrorErrorCodeTooManyRequests BetaToolSearchToolResultErrorErrorCode = "too_many_requests"`
+                  - `const BetaToolSearchToolResultErrorObjectErrorCodeTooManyRequests BetaToolSearchToolResultErrorObjectErrorCode = "too_many_requests"`
 
-                  - `const BetaToolSearchToolResultErrorErrorCodeExecutionTimeExceeded BetaToolSearchToolResultErrorErrorCode = "execution_time_exceeded"`
+                  - `const BetaToolSearchToolResultErrorObjectErrorCodeExecutionTimeExceeded BetaToolSearchToolResultErrorObjectErrorCode = "execution_time_exceeded"`
 
                 - `ErrorMessage string`
 
@@ -4071,9 +4073,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           default: error
 
-        - `Error BetaErrorUnion`
+        - `Error BetaErrorObjectUnion`
 
-          - `type BetaInvalidRequestError`
+          - `type BetaInvalidRequestErrorObject`
 
             - `Type InvalidRequestError`
 
@@ -4087,7 +4089,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Invalid request
 
-          - `type BetaAuthenticationError`
+          - `type BetaAuthenticationErrorObject`
 
             - `Type AuthenticationError`
 
@@ -4101,7 +4103,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Authentication error
 
-          - `type BetaBillingError`
+          - `type BetaBillingErrorObject`
 
             - `Type BillingError`
 
@@ -4115,7 +4117,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Billing error
 
-          - `type BetaPermissionError`
+          - `type BetaPermissionErrorObject`
 
             - `Type PermissionError`
 
@@ -4129,7 +4131,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Permission denied
 
-          - `type BetaNotFoundError`
+          - `type BetaNotFoundErrorObject`
 
             - `Type NotFoundError`
 
@@ -4143,7 +4145,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Not found
 
-          - `type BetaRateLimitError`
+          - `type BetaRateLimitErrorObject`
 
             - `Type RateLimitError`
 
@@ -4157,7 +4159,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Rate limited
 
-          - `type BetaGatewayTimeoutError`
+          - `type BetaGatewayTimeoutErrorObject`
 
             - `Type TimeoutError`
 
@@ -4171,7 +4173,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Request timeout
 
-          - `type BetaAPIError`
+          - `type BetaAPIErrorObject`
 
             - `Type APIError`
 
@@ -4185,7 +4187,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Internal server error
 
-          - `type BetaOverloadedError`
+          - `type BetaOverloadedErrorObject`
 
             - `Type OverloadedError`
 

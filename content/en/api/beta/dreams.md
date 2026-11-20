@@ -121,6 +121,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -309,7 +311,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
     format: date-time
 
-  - `error: BetaDreamError or null`
+  - `error: BetaDreamErrorObject or null`
 
     Why the dream failed, or `null` if `status` isn't `failed`.
 
@@ -736,6 +738,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -816,7 +820,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
     format: date-time
 
-  - `error: BetaDreamError or null`
+  - `error: BetaDreamErrorObject or null`
 
     Why the dream failed, or `null` if `status` isn't `failed`.
 
@@ -1186,6 +1190,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -1272,7 +1278,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
     format: date-time
 
-  - `error: BetaDreamError or null`
+  - `error: BetaDreamErrorObject or null`
 
     Why the dream failed, or `null` if `status` isn't `failed`.
 
@@ -1631,6 +1637,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -1717,7 +1725,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
     format: date-time
 
-  - `error: BetaDreamError or null`
+  - `error: BetaDreamErrorObject or null`
 
     Why the dream failed, or `null` if `status` isn't `failed`.
 
@@ -2077,6 +2085,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `"experimental-claude-tag-2026-10-21"`
 
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -2163,7 +2173,7 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
     format: date-time
 
-  - `error: BetaDreamError or null`
+  - `error: BetaDreamErrorObject or null`
 
     Why the dream failed, or `null` if `status` isn't `failed`.
 
@@ -2441,7 +2451,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
     format: date-time
 
-  - `error: BetaDreamError or null`
+  - `error: BetaDreamErrorObject or null`
 
     Why the dream failed, or `null` if `status` isn't `failed`.
 
@@ -2625,9 +2635,9 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       format: int32
 
-### Beta Dream Error
+### Beta Dream Error Object
 
-- `BetaDreamError object`
+- `BetaDreamErrorObject object`
 
   Failure detail for a Dream whose `status` is `failed`.
 
@@ -2855,11 +2865,11 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
     format: int32
 
-### Beta Dreaming Error
+### Beta Dreaming Error Object
 
-- `BetaDreamingError = BetaInvalidRequestError or BetaAuthenticationError or BetaBillingError or 7 more`
+- `BetaDreamingErrorObject = BetaInvalidRequestErrorObject or BetaAuthenticationErrorObject or BetaBillingErrorObject or 7 more`
 
-  - `BetaInvalidRequestError object`
+  - `BetaInvalidRequestErrorObject object`
 
     - `type: "invalid_request_error"`
 
@@ -2873,7 +2883,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Invalid request
 
-  - `BetaAuthenticationError object`
+  - `BetaAuthenticationErrorObject object`
 
     - `type: "authentication_error"`
 
@@ -2887,7 +2897,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Authentication error
 
-  - `BetaBillingError object`
+  - `BetaBillingErrorObject object`
 
     - `type: "billing_error"`
 
@@ -2901,7 +2911,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Billing error
 
-  - `BetaPermissionError object`
+  - `BetaPermissionErrorObject object`
 
     - `type: "permission_error"`
 
@@ -2915,7 +2925,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Permission denied
 
-  - `BetaNotFoundError object`
+  - `BetaNotFoundErrorObject object`
 
     - `type: "not_found_error"`
 
@@ -2929,7 +2939,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Not found
 
-  - `BetaRateLimitError object`
+  - `BetaRateLimitErrorObject object`
 
     - `type: "rate_limit_error"`
 
@@ -2943,7 +2953,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Rate limited
 
-  - `BetaGatewayTimeoutError object`
+  - `BetaGatewayTimeoutErrorObject object`
 
     - `type: "timeout_error"`
 
@@ -2957,7 +2967,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Request timeout
 
-  - `BetaAPIError object`
+  - `BetaAPIErrorObject object`
 
     - `type: "api_error"`
 
@@ -2971,7 +2981,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Internal server error
 
-  - `BetaOverloadedError object`
+  - `BetaOverloadedErrorObject object`
 
     - `type: "overloaded_error"`
 
@@ -2985,7 +2995,7 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
       default: Overloaded
 
-  - `BetaTargetStoreHeldError object`
+  - `BetaTargetStoreHeldErrorObject object`
 
     Returned with status 409 when a request to create a dream sets `output_behavior` to `update_existing` and another dream that writes into the same memory store hasn't fully stopped.
 
@@ -3049,9 +3059,9 @@ curl https://api.anthropic.com/v1/dreams/$DREAM_ID/archive \
 
     minLength: 1
 
-### Beta Target Store Held Error
+### Beta Target Store Held Error Object
 
-- `BetaTargetStoreHeldError object`
+- `BetaTargetStoreHeldErrorObject object`
 
   Returned with status 409 when a request to create a dream sets `output_behavior` to `update_existing` and another dream that writes into the same memory store hasn't fully stopped.
 

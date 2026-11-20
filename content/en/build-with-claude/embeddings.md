@@ -26,51 +26,51 @@ Voyage AI offers the following text embedding models:
 
 **Latest generation**
 
-| Model            | Context length | Embedding dimension            | Description                                                                                                                                                                                                                                                                                          |
-| ---------------- | -------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `voyage-4-large` | 32,000         | 1024 (default), 256, 512, 2048 | The best general-purpose and multilingual retrieval quality. See the [Voyage 4 blog post](https://blog.voyageai.com/2026/01/15/voyage-4/) for details.                                                                                                                                               |
-| `voyage-4`       | 32,000         | 1024 (default), 256, 512, 2048 | Optimized for general-purpose and multilingual retrieval quality. Balances quality and efficiency. See the [Voyage 4 blog post](https://blog.voyageai.com/2026/01/15/voyage-4/) for details.                                                                                                         |
-| `voyage-4-lite`  | 32,000         | 1024 (default), 256, 512, 2048 | Optimized for latency and cost. See the [Voyage 4 blog post](https://blog.voyageai.com/2026/01/15/voyage-4/) for details.                                                                                                                                                                            |
-| `voyage-code-4`  | 32,000         | 1024 (default), 256, 512, 2048 | Optimized for **code** retrieval and agentic coding applications. See the [voyage-code-4 blog post](https://blog.voyageai.com/2026/08/13/voyage-code-4/) for details.                                                                                                                                |
-| `voyage-4-nano`  | 32,000         | 2048 (default), 256, 512, 1024 | Open-weight model (Apache 2.0 license) that you download from [Hugging Face](https://huggingface.co/voyageai/voyage-4-nano) and run yourself. Not available through the Atlas Embedding and Reranking API. See the [Voyage 4 blog post](https://blog.voyageai.com/2026/01/15/voyage-4/) for details. |
+| Model | Context length | Embedding dimension | Description |
+| ----- | ----- | ----- | ----- |
+| `voyage-4-large` | 32,000 | 1024 (default), 256, 512, 2048 | The best general-purpose and multilingual retrieval quality. See the [Voyage 4 blog post](https://blog.voyageai.com/2026/01/15/voyage-4/) for details. |
+| `voyage-4` | 32,000 | 1024 (default), 256, 512, 2048 | Optimized for general-purpose and multilingual retrieval quality. Balances quality and efficiency. See the [Voyage 4 blog post](https://blog.voyageai.com/2026/01/15/voyage-4/) for details. |
+| `voyage-4-lite` | 32,000 | 1024 (default), 256, 512, 2048 | Optimized for latency and cost. See the [Voyage 4 blog post](https://blog.voyageai.com/2026/01/15/voyage-4/) for details. |
+| `voyage-code-4` | 32,000 | 1024 (default), 256, 512, 2048 | Optimized for **code** retrieval and agentic coding applications. See the [voyage-code-4 blog post](https://blog.voyageai.com/2026/08/13/voyage-code-4/) for details. |
+| `voyage-4-nano` | 32,000 | 2048 (default), 256, 512, 1024 | Open-weight model (Apache 2.0 license) that you download from [Hugging Face](https://huggingface.co/voyageai/voyage-4-nano) and run yourself. Not available through the Atlas Embedding and Reranking API. See the [Voyage 4 blog post](https://blog.voyageai.com/2026/01/15/voyage-4/) for details. |
 
 **Previous generation**
 
 For each model’s lifecycle status and recommended replacement, see [Model deprecations, lifecycle states, and support](https://www.mongodb.com/docs/voyageai/models/lifecycle/) in the MongoDB documentation.
 
-| Model              | Context length | Embedding dimension            | Description                                                                                                                                                                                         |
-| ------------------ | -------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `voyage-3-large`   | 32,000         | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-4-large`. See the [voyage-3-large blog post](https://blog.voyageai.com/2025/01/07/voyage-3-large/) for details.                                                      |
-| `voyage-3.5`       | 32,000         | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-4`. See the [voyage-3.5 blog post](https://blog.voyageai.com/2025/05/20/voyage-3-5/) for details.                                                                    |
-| `voyage-3.5-lite`  | 32,000         | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-4-lite`. See the [voyage-3.5 blog post](https://blog.voyageai.com/2025/05/20/voyage-3-5/) for details.                                                               |
-| `voyage-code-3`    | 32,000         | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-code-4`. See the [voyage-code-3 blog post](https://blog.voyageai.com/2024/12/04/voyage-code-3/) for details.                                                         |
-| `voyage-finance-2` | 32,000         | 1024                           | Optimized for **finance** retrieval and RAG. See the [voyage-finance-2 blog post](https://blog.voyageai.com/2024/06/03/domain-specific-embeddings-finance-edition-voyage-finance-2/) for details.   |
-| `voyage-law-2`     | 16,000         | 1024                           | Optimized for **legal** retrieval and RAG. See the [voyage-law-2 blog post](https://blog.voyageai.com/2024/04/15/domain-specific-embeddings-and-retrieval-legal-edition-voyage-law-2/) for details. |
+| Model | Context length | Embedding dimension | Description |
+| ----- | ----- | ----- | ----- |
+| `voyage-3-large` | 32,000 | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-4-large`. See the [voyage-3-large blog post](https://blog.voyageai.com/2025/01/07/voyage-3-large/) for details. |
+| `voyage-3.5` | 32,000 | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-4`. See the [voyage-3.5 blog post](https://blog.voyageai.com/2025/05/20/voyage-3-5/) for details. |
+| `voyage-3.5-lite` | 32,000 | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-4-lite`. See the [voyage-3.5 blog post](https://blog.voyageai.com/2025/05/20/voyage-3-5/) for details. |
+| `voyage-code-3` | 32,000 | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-code-4`. See the [voyage-code-3 blog post](https://blog.voyageai.com/2024/12/04/voyage-code-3/) for details. |
+| `voyage-finance-2` | 32,000 | 1024 | Optimized for **finance** retrieval and RAG. See the [voyage-finance-2 blog post](https://blog.voyageai.com/2024/06/03/domain-specific-embeddings-finance-edition-voyage-finance-2/) for details. |
+| `voyage-law-2` | 16,000 | 1024 | Optimized for **legal** retrieval and RAG. See the [voyage-law-2 blog post](https://blog.voyageai.com/2024/04/15/domain-specific-embeddings-and-retrieval-legal-edition-voyage-law-2/) for details. |
 
 Additionally, Voyage AI offers the following multimodal embedding models. Call these models with `multimodal_embed()` instead of `embed()`:
 
-| Model                   | Context length | Embedding dimension            | Description                                                                                                                                                                                                                                                                              |
-| ----------------------- | -------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `voyage-multimodal-3.5` | 32,000         | 1024 (default), 256, 512, 2048 | Rich multimodal embedding model that can vectorize interleaved text, images, and videos. Includes video support as the first production-grade video embedding model. See the [voyage-multimodal-3.5 blog post](https://blog.voyageai.com/2026/01/15/voyage-multimodal-3-5/) for details. |
-| `voyage-multimodal-3`   | 32,000         | 1024                           | Previous generation of `voyage-multimodal-3.5`. Vectorizes interleaved text and content-rich images, such as screenshots of PDFs, slides, tables, figures, and more. See the [voyage-multimodal-3 blog post](https://blog.voyageai.com/2024/11/12/voyage-multimodal-3/) for details.     |
+| Model | Context length | Embedding dimension | Description |
+| ----- | ----- | ----- | ----- |
+| `voyage-multimodal-3.5` | 32,000 | 1024 (default), 256, 512, 2048 | Rich multimodal embedding model that can vectorize interleaved text, images, and videos. Includes video support as the first production-grade video embedding model. See the [voyage-multimodal-3.5 blog post](https://blog.voyageai.com/2026/01/15/voyage-multimodal-3-5/) for details. |
+| `voyage-multimodal-3` | 32,000 | 1024 | Previous generation of `voyage-multimodal-3.5`. Vectorizes interleaved text and content-rich images, such as screenshots of PDFs, slides, tables, figures, and more. See the [voyage-multimodal-3 blog post](https://blog.voyageai.com/2024/11/12/voyage-multimodal-3/) for details. |
 
 The following contextualized chunk embedding models produce chunk-level vectors that capture full document context without manual metadata augmentation. Call these models with `contextualized_embed()` instead of `embed()`:
 
-| Model              | Context length | Embedding dimension            | Description                                                                                                                                                                                                 |
-| ------------------ | -------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `voyage-context-4` | 120,000        | 1024 (default), 256, 512, 2048 | Contextualized chunk embeddings optimized for general-purpose and multilingual retrieval quality. See the [voyage-context-4 blog post](https://blog.voyageai.com/2026/06/29/voyage-context-4/) for details. |
-| `voyage-context-3` | 120,000        | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-context-4`. See the [voyage-context-3 blog post](https://blog.voyageai.com/2025/07/23/voyage-context-3/) for details.                                                        |
+| Model | Context length | Embedding dimension | Description |
+| ----- | ----- | ----- | ----- |
+| `voyage-context-4` | 120,000 | 1024 (default), 256, 512, 2048 | Contextualized chunk embeddings optimized for general-purpose and multilingual retrieval quality. See the [voyage-context-4 blog post](https://blog.voyageai.com/2026/06/29/voyage-context-4/) for details. |
+| `voyage-context-3` | 120,000 | 1024 (default), 256, 512, 2048 | Previous generation of `voyage-context-4`. See the [voyage-context-3 blog post](https://blog.voyageai.com/2025/07/23/voyage-context-3/) for details. |
 
 The 120,000-token limit applies when you set `enable_auto_chunking` to `true`. Otherwise, the total number of tokens across all inputs can’t exceed 32,000.
 
 Voyage AI also offers rerankers, which take a query and a list of documents and return them ranked by relevance to the query. Call these models with `rerank()`:
 
-| Model             | Context length | Description                                                                                                                                    |
-| ----------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rerank-3`        | 32,000         | Highest accuracy. Recommended for most applications. See the [rerank-3 blog post](https://blog.voyageai.com/2026/09/30/rerank-3/) for details. |
-| `rerank-3-lite`   | 32,000         | Optimized for latency and cost. See the [rerank-3 blog post](https://blog.voyageai.com/2026/09/30/rerank-3/) for details.                      |
-| `rerank-2.5`      | 32,000         | Previous generation of `rerank-3`. See the [rerank-2.5 blog post](https://blog.voyageai.com/2025/08/11/rerank-2-5/) for details.               |
-| `rerank-2.5-lite` | 32,000         | Previous generation of `rerank-3-lite`. See the [rerank-2.5 blog post](https://blog.voyageai.com/2025/08/11/rerank-2-5/) for details.          |
+| Model | Context length | Description |
+| ----- | ----- | ----- |
+| `rerank-3` | 32,000 | Highest accuracy. Recommended for most applications. See the [rerank-3 blog post](https://blog.voyageai.com/2026/09/30/rerank-3/) for details. |
+| `rerank-3-lite` | 32,000 | Optimized for latency and cost. See the [rerank-3 blog post](https://blog.voyageai.com/2026/09/30/rerank-3/) for details. |
+| `rerank-2.5` | 32,000 | Previous generation of `rerank-3`. See the [rerank-2.5 blog post](https://blog.voyageai.com/2025/08/11/rerank-2-5/) for details. |
+| `rerank-2.5-lite` | 32,000 | Previous generation of `rerank-3-lite`. See the [rerank-2.5 blog post](https://blog.voyageai.com/2025/08/11/rerank-2-5/) for details. |
 
 Need help deciding which model to use? See [Voyage AI embedding and reranking models overview](https://www.mongodb.com/docs/voyageai/models/) in the MongoDB documentation.
 

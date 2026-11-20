@@ -631,15 +631,15 @@ Structured outputs guarantee schema-compliant responses through constrained deco
     <Accordion title="Type inference">
       The SDK maps native PHP 8 property types to JSON Schema:
 
-      | PHP type                                   | JSON Schema                        |
-      | ------------------------------------------ | ---------------------------------- |
-      | `string`                                   | `"string"`                         |
-      | `int`                                      | `"integer"`                        |
-      | `float`                                    | `"number"`                         |
-      | `bool`                                     | `"boolean"`                        |
-      | `array`                                    | `"array"` (see the following note) |
-      | `?type` (nullable)                         | Optional field                     |
-      | Class implementing `StructuredOutputModel` | Nested object                      |
+      | PHP type | JSON Schema |
+      | ----- | ----- |
+      | `string` | `"string"` |
+      | `int` | `"integer"` |
+      | `float` | `"number"` |
+      | `bool` | `"boolean"` |
+      | `array` | `"array"` (see the following note) |
+      | `?type` (nullable) | Optional field |
+      | Class implementing `StructuredOutputModel` | Nested object |
 
       For `array` properties, the SDK adds an `items` schema only when the element type is a nested `StructuredOutputModel`, declared with `#[Constrained(itemClass: MyModel::class)]` or a `/** @var MyModel[] */` docblock. Arrays of scalars (`string[]`, `int[]`) emit an unconstrained `{"type":"array"}`.
 
@@ -3019,11 +3019,11 @@ Structured outputs work by compiling your JSON schemas into a grammar that const
 
 The following limits apply to all requests with `output_config.format` or `strict: true`:
 
-| Limit                       | Value | Description                                                                                                                                                                                              |
-| --------------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Strict tools per request    | 20    | Maximum number of tools with `strict: true`. Non-strict tools don’t count toward this limit.                                                                                                             |
-| Optional parameters         | 24    | Total optional parameters across all strict tool schemas and JSON output schemas. Each parameter not listed in `required` counts toward this limit.                                                      |
-| Parameters with union types | 16    | Total parameters that use `anyOf` or type arrays (for example, `"type": ["string", "null"]`) across all strict schemas. These are especially expensive because they create exponential compilation cost. |
+| Limit | Value | Description |
+| ----- | ----- | ----- |
+| Strict tools per request | 20 | Maximum number of tools with `strict: true`. Non-strict tools don’t count toward this limit. |
+| Optional parameters | 24 | Total optional parameters across all strict tool schemas and JSON output schemas. Each parameter not listed in `required` counts toward this limit. |
+| Parameters with union types | 16 | Total parameters that use `anyOf` or type arrays (for example, `"type": ["string", "null"]`) across all strict schemas. These are especially expensive because they create exponential compilation cost. |
 
 <Note>
   These limits apply to the combined total across all strict schemas in a single request. For example, if you have four strict tools with six optional parameters each, you’ll reach the 24-parameter limit even though no single tool seems complex.
@@ -3083,8 +3083,8 @@ Structured outputs are available on every model and eligible for HIPAA readiness
 
 * Availability: Available
 
-| Status    | Cloud platforms         | Models                                                            |
-| --------- | ----------------------- | ----------------------------------------------------------------- |
+| Status | Cloud platforms | Models |
+| ----- | ----- | ----- |
 | Available | All supported platforms | [All models](https://platform.claude.com/docs/en/models/overview) |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
@@ -3095,9 +3095,9 @@ Structured outputs are available on every model and eligible for HIPAA readiness
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                                                                                          | HIPAA                                                                                                                                                                                            |
-| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Status  | Eligible (qualified; excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))                                                                                                                                                         | Eligible                                                                                                                                                                                         |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Eligible (qualified; excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements)) | Eligible |
 | Details | Your prompts and Claude’s outputs are not stored. Only the JSON schema is cached, for up to 24 hours since last use. This also covers strict tool use (`strict: true` on tools), which uses the same grammar pipeline. [Learn more](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#data-retention) | PHI must not be included in JSON schema definitions; see PHI handling guidelines. [Learn more](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#phi-handling-guidelines) |
 
 Applicable endpoints:

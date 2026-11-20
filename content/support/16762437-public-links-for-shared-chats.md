@@ -2,7 +2,7 @@
 
 When you share a chat with a public link, anyone who has the link can view a snapshot of that chat. This article covers who can see it, what's included, and how public links interact with search engines like Google.
 
-Public links are available on Free, Pro, Max, and Ultra plans. Team and Enterprise members can only share chats inside their organization. For how to share and unshare, see **[Share and unshare chats](https://support.claude.com/en/articles/10593882)**.
+Public links are available on Free, Pro, Max, and Ultra plans. Team and Enterprise members can't create public links. For how to share and unshare, see **[Share and unshare chats](https://support.claude.com/en/articles/10593882)**.
 
 ## What a public link does
 
@@ -52,4 +52,4 @@ No. Turning it off disables the link on claude.ai. It can't remove copies, scree
 
 ### Can Team or Enterprise members create public links?
 
-No. On Team and Enterprise plans, shared chats are only visible to signed-in members of the same organization.
+No. On Team and Enterprise plans, shared chats are only visible to people who are signed in: members of the same organization and, if an admin allows external sharing, people outside it who were invited by email.

@@ -241,6 +241,8 @@ List Events
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -3795,6 +3797,8 @@ Send Events
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -4451,6 +4455,8 @@ Stream Events
     - `AnalyticsUsageCost2026_08_24("analytics-usage-cost-2026-08-24")`
 
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
+
+    - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -8877,7 +8883,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     minLength: 1
 
-### Beta Managed Agents Billing Error
+### Beta Managed Agents Billing Error Object
 
 - `class BetaManagedAgentsBillingError`
 
@@ -8911,7 +8917,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Compaction Limit Reached Error
+### Beta Managed Agents Compaction Limit Reached Error Object
 
 - `class BetaManagedAgentsCompactionLimitReachedError`
 
@@ -8945,7 +8951,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Credential Host Unreachable Error
+### Beta Managed Agents Credential Host Unreachable Error Object
 
 - `class BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -9535,7 +9541,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
         minLength: 1
 
-### Beta Managed Agents Max Workflow Runs Workflow Run Error
+### Beta Managed Agents Max Workflow Runs Workflow Run Error Object
 
 - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunError`
 
@@ -9547,7 +9553,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Short explanation written by the server. It never contains content from the run or its agents.
 
-### Beta Managed Agents MCP Authentication Failed Error
+### Beta Managed Agents MCP Authentication Failed Error Object
 
 - `class BetaManagedAgentsMcpAuthenticationFailedError`
 
@@ -9585,7 +9591,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents MCP Connection Failed Error
+### Beta Managed Agents MCP Connection Failed Error Object
 
 - `class BetaManagedAgentsMcpConnectionFailedError`
 
@@ -9623,7 +9629,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Model Overloaded Error
+### Beta Managed Agents Model Overloaded Error Object
 
 - `class BetaManagedAgentsModelOverloadedError`
 
@@ -9657,7 +9663,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Model Rate Limited Error
+### Beta Managed Agents Model Rate Limited Error Object
 
 - `class BetaManagedAgentsModelRateLimitedError`
 
@@ -9691,7 +9697,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Model Request Failed Error
+### Beta Managed Agents Model Request Failed Error Object
 
 - `class BetaManagedAgentsModelRequestFailedError`
 
@@ -9743,7 +9749,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     MIME type of the text content. Must be "text/plain".
 
-### Beta Managed Agents Program Workflow Run Error
+### Beta Managed Agents Program Workflow Run Error Object
 
 - `class BetaManagedAgentsProgramWorkflowRunError`
 
@@ -9763,7 +9769,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
   - `JsonElement Type = "redacted"`
 
-### Beta Managed Agents Repository Authentication Error
+### Beta Managed Agents Repository Authentication Error Object
 
 - `class BetaManagedAgentsRepositoryAuthenticationError`
 
@@ -9801,7 +9807,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Repository Checkout Error
+### Beta Managed Agents Repository Checkout Error Object
 
 - `class BetaManagedAgentsRepositoryCheckoutError`
 
@@ -9839,7 +9845,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Repository Clone Error
+### Beta Managed Agents Repository Clone Error Object
 
 - `class BetaManagedAgentsRepositoryCloneError`
 
@@ -9877,7 +9883,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Repository Forbidden Error
+### Beta Managed Agents Repository Forbidden Error Object
 
 - `class BetaManagedAgentsRepositoryForbiddenError`
 
@@ -9915,7 +9921,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Repository Not Found Error
+### Beta Managed Agents Repository Not Found Error Object
 
 - `class BetaManagedAgentsRepositoryNotFoundError`
 
@@ -17845,7 +17851,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     maxLength: 262144
 
-### Beta Managed Agents Thread Limit Workflow Run Error
+### Beta Managed Agents Thread Limit Workflow Run Error Object
 
 - `class BetaManagedAgentsThreadLimitWorkflowRunError`
 
@@ -17857,7 +17863,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Short explanation written by the server. It never contains content from the run or its agents.
 
-### Beta Managed Agents Timeout Workflow Run Error
+### Beta Managed Agents Timeout Workflow Run Error Object
 
 - `class BetaManagedAgentsTimeoutWorkflowRunError`
 
@@ -17869,7 +17875,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Short explanation written by the server. It never contains content from the run or its agents.
 
-### Beta Managed Agents Tool Use Limit Reached Error
+### Beta Managed Agents Tool Use Limit Reached Error Object
 
 - `class BetaManagedAgentsToolUseLimitReachedError`
 
@@ -17903,7 +17909,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Unknown Error
+### Beta Managed Agents Unknown Error Object
 
 - `class BetaManagedAgentsUnknownError`
 
@@ -17937,7 +17943,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
       - `JsonElement Type = "terminal"`
 
-### Beta Managed Agents Unknown Workflow Run Error
+### Beta Managed Agents Unknown Workflow Run Error Object
 
 - `class BetaManagedAgentsUnknownWorkflowRunError`
 
@@ -19163,62 +19169,6 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
     Identifier of the run. The same value is on all of the run's `workflow_run.*` events.
 
-### Beta Managed Agents Workflow Run Error
-
-- `class BetaManagedAgentsWorkflowRunError: union`
-
-  Why a workflow run did not finish, or was not created. More types may be added. On `workflow_run.status_ended`, for a `type` you do not recognize, rely on the event's `result.type`.
-
-  - `class BetaManagedAgentsTimeoutWorkflowRunError`
-
-    The run reached its time limit.
-
-    - `JsonElement Type = "timeout_error"`
-
-    - `required string Message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
-  - `class BetaManagedAgentsProgramWorkflowRunError`
-
-    The plan, a program that the agent wrote, failed, or the server refused it.
-
-    - `JsonElement Type = "program_error"`
-
-    - `required string Message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
-  - `class BetaManagedAgentsUnknownWorkflowRunError`
-
-    A failure that has no type of its own.
-
-    - `JsonElement Type = "unknown_error"`
-
-    - `required string Message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
-  - `class BetaManagedAgentsThreadLimitWorkflowRunError`
-
-    The run exceeded the limit on the number of threads that a run can create.
-
-    - `JsonElement Type = "thread_limit_error"`
-
-    - `required string Message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
-  - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunError`
-
-    No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
-
-    - `JsonElement Type = "max_workflow_runs_error"`
-
-    - `required string Message`
-
-      Short explanation written by the server. It never contains content from the run or its agents.
-
 ### Beta Managed Agents Workflow Run Error Event
 
 - `class BetaManagedAgentsWorkflowRunErrorEvent`
@@ -19294,6 +19244,62 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
   - `required string? WorkflowRunID`
 
     Identifier of the run that met the error, or `null` when the error kept a run from being created.
+
+### Beta Managed Agents Workflow Run Error Object
+
+- `class BetaManagedAgentsWorkflowRunError: union`
+
+  Why a workflow run did not finish, or was not created. More types may be added. On `workflow_run.status_ended`, for a `type` you do not recognize, rely on the event's `result.type`.
+
+  - `class BetaManagedAgentsTimeoutWorkflowRunError`
+
+    The run reached its time limit.
+
+    - `JsonElement Type = "timeout_error"`
+
+    - `required string Message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class BetaManagedAgentsProgramWorkflowRunError`
+
+    The plan, a program that the agent wrote, failed, or the server refused it.
+
+    - `JsonElement Type = "program_error"`
+
+    - `required string Message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class BetaManagedAgentsUnknownWorkflowRunError`
+
+    A failure that has no type of its own.
+
+    - `JsonElement Type = "unknown_error"`
+
+    - `required string Message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class BetaManagedAgentsThreadLimitWorkflowRunError`
+
+    The run exceeded the limit on the number of threads that a run can create.
+
+    - `JsonElement Type = "thread_limit_error"`
+
+    - `required string Message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
+
+  - `class BetaManagedAgentsMaxWorkflowRunsWorkflowRunError`
+
+    No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type.
+
+    - `JsonElement Type = "max_workflow_runs_error"`
+
+    - `required string Message`
+
+      Short explanation written by the server. It never contains content from the run or its agents.
 
 ### Beta Managed Agents Workflow Run Phase
 
@@ -19455,7 +19461,7 @@ await foreach (var betaManagedAgentsStreamSessionEvents in client.Beta.Sessions.
 
   - `JsonElement Type = "completed"`
 
-### Beta Managed Agents Workflow Run Result Error
+### Beta Managed Agents Workflow Run Result Error Object
 
 - `class BetaManagedAgentsWorkflowRunResultError`
 

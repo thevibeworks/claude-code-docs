@@ -152,11 +152,11 @@ Host your AI security server where Anthropic can reach it: an `https://` URL on 
 
 Every request carries these fixed headers, along with any [custom request headers](https://platform.claude.com/docs/en/manage-claude/inference-hooks-configuration) your administrator configured and, once your organization has a signing secret, the `webhook-*` signature headers described in [Verify the signature](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#verify-the-signature):
 
-| Header            | Value              |
-| ----------------- | ------------------ |
-| `Content-Type`    | `application/json` |
-| `User-Agent`      | `anthropic-dlp/1`  |
-| `Accept-Encoding` | `identity`         |
+| Header | Value |
+| ----- | ----- |
+| `Content-Type` | `application/json` |
+| `User-Agent` | `anthropic-dlp/1` |
+| `Accept-Encoding` | `identity` |
 
 There are two hook events, told apart by the top-level `type` field. The prompt frame is sent once for each governed inference request, before inference starts. The tool call frame is sent when a model response contains tool calls, before any of them runs, in organizations that have **Validate tool calls** on. Either way, Anthropic waits until your AI security server responds or the verdict timeout elapses.
 
@@ -164,17 +164,17 @@ There are two hook events, told apart by the top-level `type` field. The prompt 
 
 The request body is a JSON object with these fields:
 
-| Field        | Type           | Description                                                                                                                                                                                                                                                                                                                                                                                              |
-| ------------ | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`       | string         | The hook event: `"prompt"` or `"tool_call"` (see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame)). Other event types will be introduced in the future, so handle an unrecognized value gracefully (see [Forward compatibility](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#forward-compatibility)). |
-| `request_id` | string         | Opaque per-frame identifier for correlation. Equals the `webhook-id` header.                                                                                                                                                                                                                                                                                                                             |
-| `tenant_id`  | string or null | Opaque identifier for the organization the request belongs to.                                                                                                                                                                                                                                                                                                                                           |
-| `actor`      | object         | The principal the request is attributed to, discriminated on `type` (`"user"` is the only value sent today): `id` (a tagged identifier, stable across requests for the same account) and `email_address` (when available). Both `id` and `email_address` can be null.                                                                                                                                    |
-| `source`     | object         | The originating application: `application` (see [Source values](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#source-values)).                                                                                                                                                                                                                                              |
-| `messages`   | array          | The conversation transcript up to the point of inference. See [Content blocks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#content-blocks).                                                                                                                                                                                                                               |
-| `session_id` | string or null | Opaque conversation identifier, when one exists. Don’t parse it. For Claude Code it is a best-effort, client-asserted session identifier.                                                                                                                                                                                                                                                                |
-| `model`      | string or null | Public model identifier for this request, when available.                                                                                                                                                                                                                                                                                                                                                |
-| `metadata`   | object         | Reserved extension map of string keys to string values, sent empty today. Require nothing from it, and tolerate its absence, its presence, and any keys that appear.                                                                                                                                                                                                                                     |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `type` | string | The hook event: `"prompt"` or `"tool_call"` (see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame)). Other event types will be introduced in the future, so handle an unrecognized value gracefully (see [Forward compatibility](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#forward-compatibility)). |
+| `request_id` | string | Opaque per-frame identifier for correlation. Equals the `webhook-id` header. |
+| `tenant_id` | string or null | Opaque identifier for the organization the request belongs to. |
+| `actor` | object | The principal the request is attributed to, discriminated on `type` (`"user"` is the only value sent today): `id` (a tagged identifier, stable across requests for the same account) and `email_address` (when available). Both `id` and `email_address` can be null. |
+| `source` | object | The originating application: `application` (see [Source values](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#source-values)). |
+| `messages` | array | The conversation transcript up to the point of inference. See [Content blocks](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#content-blocks). |
+| `session_id` | string or null | Opaque conversation identifier, when one exists. Don’t parse it. For Claude Code it is a best-effort, client-asserted session identifier. |
+| `model` | string or null | Public model identifier for this request, when available. |
+| `metadata` | object | Reserved extension map of string keys to string values, sent empty today. Require nothing from it, and tolerate its absence, its presence, and any keys that appear. |
 
 An example request body:
 
@@ -219,12 +219,12 @@ An example request body:
 
 Each entry in `messages` has a `role` of `user` or `assistant` (tool results appear under the `user` role, matching the public Messages API content model) and a `content` array of blocks discriminated by `type`:
 
-| Block `type`  | Fields                                                                                                                                                                                                                                                                                                                                                                                                |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `text`        | `text`: the text content.                                                                                                                                                                                                                                                                                                                                                                             |
-| `tool_use`    | `id`: the identifier the matching tool result references. `tool_name`: the tool’s name. `input`: the arguments the model passed to the tool. `tool_info`: on a tool call frame only (left out elsewhere, never `null`), an object that says who runs or provides the tool; see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame). |
-| `tool_result` | `content`: the tool’s output as text, with parts joined by newlines; binary parts such as images are replaced by placeholder markers, and raw bytes are never sent. `is_error`: whether the tool call failed. `tool_name`: the tool’s name, so a policy can condition on tool identity without cross-referencing an earlier block. `tool_use_id`: the `id` of the matching `tool_use` block.          |
-| `attachment`  | `file_name`: the original file name or path. `media_type`: the attachment’s media type. `size_bytes`: the size of the original file. `text`: the text content of the attachment when available, such as extracted document text, an audio transcript, or link metadata. Raw attachment bytes are never sent.                                                                                          |
+| Block `type` | Fields |
+| ----- | ----- |
+| `text` | `text`: the text content. |
+| `tool_use` | `id`: the identifier the matching tool result references. `tool_name`: the tool’s name. `input`: the arguments the model passed to the tool. `tool_info`: on a tool call frame only (left out elsewhere, never `null`), an object that says who runs or provides the tool; see [The tool call frame](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#the-tool-call-frame). |
+| `tool_result` | `content`: the tool’s output as text, with parts joined by newlines; binary parts such as images are replaced by placeholder markers, and raw bytes are never sent. `is_error`: whether the tool call failed. `tool_name`: the tool’s name, so a policy can condition on tool identity without cross-referencing an earlier block. `tool_use_id`: the `id` of the matching `tool_use` block. |
+| `attachment` | `file_name`: the original file name or path. `media_type`: the attachment’s media type. `size_bytes`: the size of the original file. `text`: the text content of the attachment when available, such as extracted document text, an audio transcript, or link metadata. Raw attachment bytes are never sent. |
 
 Apart from `type`, a `text` block’s `text`, and a `tool_result` block’s `content` and `is_error`, any of these fields can be `null` when the value isn’t known; for example, an image arrives as an `attachment` block with `file_name` and `text` set to `null`.
 
@@ -264,19 +264,19 @@ An optional field that doesn’t apply is left out, never `null`, so a `tool_inf
 
 A platform tool is one that the Claude API itself runs while it serves the request, such as web search or code execution.
 
-| Field          | Present  | Description                                                                                                         |
-| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------- |
-| `type`         | Always   | `"platform"`                                                                                                        |
-| `tool_type`    | Always   | The tool’s versioned type, such as `web_search_20250305`. Match it exactly; don’t parse a name or a date out of it. |
-| `toolset_name` | Optional | The group of tools it belongs to.                                                                                   |
+| Field | Present | Description |
+| ----- | ----- | ----- |
+| `type` | Always | `"platform"` |
+| `tool_type` | Always | The tool’s versioned type, such as `web_search_20250305`. Match it exactly; don’t parse a name or a date out of it. |
+| `toolset_name` | Optional | The group of tools it belongs to. |
 
 ### Application tools
 
 An application tool is one that the Anthropic application making the request provides itself, such as claude.ai’s own tools.
 
-| Field          | Present  | Description                       |
-| -------------- | -------- | --------------------------------- |
-| `type`         | Always   | `"application"`                   |
+| Field | Present | Description |
+| ----- | ----- | ----- |
+| `type` | Always | `"application"` |
 | `toolset_name` | Optional | The group of tools it belongs to. |
 
 A `tool_use` block for a web search tool that claude.ai provides itself:
@@ -301,12 +301,12 @@ claude.ai doesn’t always name this tool `web_search`, so don’t match on the 
 
 A third-party tool is one on a server that Anthropic knows of, such as a claude.ai connector or an MCP server that the request names in `mcp_servers`. This doesn’t mean Anthropic has vetted the server. In voice mode, a call to a claude.ai connector’s tool is `"client"` instead.
 
-| Field             | Present              | Description                                                                                                                                                            |
-| ----------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | Always               | `"third_party"`                                                                                                                                                        |
-| `toolset_name`    | Optional             | For a server in `mcp_servers`, the name the request gives the server. For any other server, such as a claude.ai connector, the server’s name, copied from `tool_name`. |
-| `origin`          | Optional             | The scheme, host, and non-default port of the server’s URL. It can be a private or local address, `localhost` included. An absent `origin` means unknown, not safe.    |
-| `verified_origin` | Whenever `origin` is | `true` only when Anthropic’s servers connect to the server themselves. Treat `false` as an origin that Anthropic hasn’t confirmed.                                     |
+| Field | Present | Description |
+| ----- | ----- | ----- |
+| `type` | Always | `"third_party"` |
+| `toolset_name` | Optional | For a server in `mcp_servers`, the name the request gives the server. For any other server, such as a claude.ai connector, the server’s name, copied from `tool_name`. |
+| `origin` | Optional | The scheme, host, and non-default port of the server’s URL. It can be a private or local address, `localhost` included. An absent `origin` means unknown, not safe. |
+| `verified_origin` | Whenever `origin` is | `true` only when Anthropic’s servers connect to the server themselves. Treat `false` as an origin that Anthropic hasn’t confirmed. |
 
 A `tool_use` block for a tool on an MCP server that the request names `crm` in `mcp_servers`:
 
@@ -358,11 +358,11 @@ A tool on an MCP server that Claude Code connects to directly from the user’s 
 
 A deny stops the call before Claude Code runs it. The exchange between Claude Code and a local server doesn’t pass through Anthropic, so your AI security server sees the tool’s result only when Claude Code sends it back. Its text is then in a `tool_result` block in the next prompt frame.
 
-| Field          | Present  | Description                                                                                                                                    |
-| -------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`         | Always   | `"client"`                                                                                                                                     |
-| `tool_type`    | Optional | The tool’s versioned type, such as `bash_20250124`, when Anthropic defines the tool. Match it exactly; don’t parse a name or a date out of it. |
-| `toolset_name` | Optional | The group of tools it belongs to, such as `browser`.                                                                                           |
+| Field | Present | Description |
+| ----- | ----- | ----- |
+| `type` | Always | `"client"` |
+| `tool_type` | Optional | The tool’s versioned type, such as `bash_20250124`, when Anthropic defines the tool. Match it exactly; don’t parse a name or a date out of it. |
+| `toolset_name` | Optional | The group of tools it belongs to, such as `browser`. |
 
 A `tool_use` block for a tool that the calling application declares:
 
@@ -417,11 +417,11 @@ To deny it:
 }
 ```
 
-| Field          | Constraints                                                     | Semantics                                                                                                                                                                                                                                                                                           |
-| -------------- | --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `action`       | `"allow"` or `"deny"`; required                                 | `allow` lets inference proceed; `deny` rejects it.                                                                                                                                                                                                                                                  |
-| `deny_reason`  | string or null; at most 500 characters, longer values truncated | Shown to the end user when `action` is `deny`; ignored on `allow`.                                                                                                                                                                                                                                  |
-| `reference_id` | string or null; at most 50 characters from `[A-Za-z0-9._:/-]`   | Your own identifier for this evaluation. It’s recorded on the denial’s `inference_hooks_request_denied` [compliance activity](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) and never shown to the end user. Keep it opaque: no request content and no personal data. |
+| Field | Constraints | Semantics |
+| ----- | ----- | ----- |
+| `action` | `"allow"` or `"deny"`; required | `allow` lets inference proceed; `deny` rejects it. |
+| `deny_reason` | string or null; at most 500 characters, longer values truncated | Shown to the end user when `action` is `deny`; ignored on `allow`. |
+| `reference_id` | string or null; at most 50 characters from `[A-Za-z0-9._:/-]` | Your own identifier for this evaluation. It’s recorded on the denial’s `inference_hooks_request_denied` [compliance activity](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) and never shown to the end user. Keep it opaque: no request content and no personal data. |
 
 A deny is never discarded over a formatting problem: an oversize `deny_reason` is truncated, a malformed `reference_id` is silently dropped, and the `action` is still honored.
 
@@ -438,10 +438,10 @@ A tool call frame takes the same verdict body, and every rule in this section ap
 
 Requests are signed according to the [Standard Webhooks](https://www.standardwebhooks.com/) specification, using three headers. Anthropic sends the header names in lowercase, and proxies are free to re-case them, so look them up case-insensitively.
 
-| Header              | Contents                                                                                                                                                                                                         |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `webhook-id`        | Unique identifier for this delivery. Equals the body’s `request_id`. Use it as an idempotency key and as the first component of the signed payload.                                                              |
-| `webhook-timestamp` | Unix time in seconds, as a decimal string, when the request was signed. Reject a timestamp more than 5 minutes from your server’s clock, in either direction.                                                    |
+| Header | Contents |
+| ----- | ----- |
+| `webhook-id` | Unique identifier for this delivery. Equals the body’s `request_id`. Use it as an idempotency key and as the first component of the signed payload. |
+| `webhook-timestamp` | Unix time in seconds, as a decimal string, when the request was signed. Reject a timestamp more than 5 minutes from your server’s clock, in either direction. |
 | `webhook-signature` | One or more space-separated `v1,<base64>` values, each an HMAC-SHA256 over `{webhook-id}.{webhook-timestamp}.{raw body bytes}`. Accept the request if any value matches yours, using a constant-time comparison. |
 
 Two details cause most verification bugs:

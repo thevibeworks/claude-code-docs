@@ -710,7 +710,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `page_age: Optional[str]`
 
-            - `class WebSearchToolRequestErrorParam`
+            - `class WebSearchToolRequestErrorObjectParam`
 
               - `type: Literal["web_search_tool_result_error"]`
 
@@ -3466,7 +3466,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: WebSearchToolResultBlockContent`
 
-        - `class WebSearchToolResultError`
+        - `class WebSearchToolResultErrorObject`
 
           - `type: Literal["web_search_tool_result_error"]`
 
@@ -3618,7 +3618,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: CodeExecutionToolResultBlockContent`
 
-        - `class CodeExecutionToolResultError`
+        - `class CodeExecutionToolResultErrorObject`
 
           - `type: Literal["code_execution_tool_result_error"]`
 
@@ -3692,7 +3692,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: Content`
 
-        - `class BashCodeExecutionToolResultError`
+        - `class BashCodeExecutionToolResultErrorObject`
 
           - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -3742,7 +3742,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: Content`
 
-        - `class TextEditorCodeExecutionToolResultError`
+        - `class TextEditorCodeExecutionToolResultErrorObject`
 
           - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -3820,7 +3820,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `content: Content`
 
-        - `class ToolSearchToolResultError`
+        - `class ToolSearchToolResultErrorObject`
 
           - `type: Literal["tool_search_tool_result_error"]`
 
@@ -4504,6 +4504,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `ImageDimensionsTooLargeError` (HTTP status 400, error code `image_dimensions_too_large`)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `OrganizationOnHoldError` (HTTP status 400, error code `organization_on_hold`)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -4540,6 +4544,26 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `UserProfileRequiredError` (HTTP status 400, error code `user_profile_required`)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `LinkedOrganizationBillingUnavailableError` (HTTP status 402, error code `linked_organization_billing_unavailable`)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `LinkedOrganizationSpendLimitReachedError` (HTTP status 402, error code `linked_organization_spend_limit_reached`)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `UserProfileBillingNotAuthorizedError` (HTTP status 403, error code `user_profile_billing_not_authorized`)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `UserProfileNotBillableError` (HTTP status 403, error code `user_profile_not_billable`)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `ThreadNotFoundError` (HTTP status 404, error code `thread_not_found`)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -4551,6 +4575,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 - `RequestBodyTooLargeAfterDecodingError` (HTTP status 413, error code `request_body_too_large_after_decoding`)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `ContractSpendLimitReachedError` (HTTP status 429, error code `contract_spend_limit_reached`)
+
+  The organization has reached the spend limit of its contract.
 
 - `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
@@ -5338,7 +5366,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `page_age: Optional[str]`
 
-            - `class WebSearchToolRequestErrorParam`
+            - `class WebSearchToolRequestErrorObjectParam`
 
               - `type: Literal["web_search_tool_result_error"]`
 
@@ -8368,7 +8396,7 @@ print(message_tokens_count.input_tokens)
 
             - `page_age: Optional[str]`
 
-          - `class WebSearchToolRequestErrorParam`
+          - `class WebSearchToolRequestErrorObjectParam`
 
             - `type: Literal["web_search_tool_result_error"]`
 
@@ -8819,7 +8847,7 @@ print(message_tokens_count.input_tokens)
 
   - `content: Content`
 
-    - `class BashCodeExecutionToolResultError`
+    - `class BashCodeExecutionToolResultErrorObject`
 
       - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -8926,9 +8954,23 @@ print(message_tokens_count.input_tokens)
 
       - `"1h"`
 
-### Bash Code Execution Tool Result Error
+### Bash Code Execution Tool Result Error Code
 
-- `class BashCodeExecutionToolResultError`
+- `type BashCodeExecutionToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
+
+  - `"invalid_tool_input"`
+
+  - `"unavailable"`
+
+  - `"too_many_requests"`
+
+  - `"execution_time_exceeded"`
+
+  - `"output_file_too_large"`
+
+### Bash Code Execution Tool Result Error Object
+
+- `class BashCodeExecutionToolResultErrorObject`
 
   - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -8945,20 +8987,6 @@ print(message_tokens_count.input_tokens)
     - `"execution_time_exceeded"`
 
     - `"output_file_too_large"`
-
-### Bash Code Execution Tool Result Error Code
-
-- `type BashCodeExecutionToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"too_many_requests"`
-
-  - `"execution_time_exceeded"`
-
-  - `"output_file_too_large"`
 
 ### Bash Code Execution Tool Result Error Param
 
@@ -15578,7 +15606,7 @@ print(message_tokens_count.input_tokens)
 
   - `content: CodeExecutionToolResultBlockContent`
 
-    - `class CodeExecutionToolResultError`
+    - `class CodeExecutionToolResultErrorObject`
 
       - `type: Literal["code_execution_tool_result_error"]`
 
@@ -15648,7 +15676,7 @@ print(message_tokens_count.input_tokens)
 
 - `type CodeExecutionToolResultBlockContent = ...`
 
-  - `class CodeExecutionToolResultError`
+  - `class CodeExecutionToolResultErrorObject`
 
     - `type: Literal["code_execution_tool_result_error"]`
 
@@ -15843,9 +15871,21 @@ print(message_tokens_count.input_tokens)
 
     - `stderr: str`
 
-### Code Execution Tool Result Error
+### Code Execution Tool Result Error Code
 
-- `class CodeExecutionToolResultError`
+- `type CodeExecutionToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
+
+  - `"invalid_tool_input"`
+
+  - `"unavailable"`
+
+  - `"too_many_requests"`
+
+  - `"execution_time_exceeded"`
+
+### Code Execution Tool Result Error Object
+
+- `class CodeExecutionToolResultErrorObject`
 
   - `type: Literal["code_execution_tool_result_error"]`
 
@@ -15860,18 +15900,6 @@ print(message_tokens_count.input_tokens)
     - `"too_many_requests"`
 
     - `"execution_time_exceeded"`
-
-### Code Execution Tool Result Error Code
-
-- `type CodeExecutionToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"too_many_requests"`
-
-  - `"execution_time_exceeded"`
 
 ### Code Execution Tool Result Error Param
 
@@ -18848,7 +18876,7 @@ print(message_tokens_count.input_tokens)
 
     - `content: WebSearchToolResultBlockContent`
 
-      - `class WebSearchToolResultError`
+      - `class WebSearchToolResultErrorObject`
 
         - `type: Literal["web_search_tool_result_error"]`
 
@@ -19000,7 +19028,7 @@ print(message_tokens_count.input_tokens)
 
     - `content: CodeExecutionToolResultBlockContent`
 
-      - `class CodeExecutionToolResultError`
+      - `class CodeExecutionToolResultErrorObject`
 
         - `type: Literal["code_execution_tool_result_error"]`
 
@@ -19074,7 +19102,7 @@ print(message_tokens_count.input_tokens)
 
     - `content: Content`
 
-      - `class BashCodeExecutionToolResultError`
+      - `class BashCodeExecutionToolResultErrorObject`
 
         - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -19124,7 +19152,7 @@ print(message_tokens_count.input_tokens)
 
     - `content: Content`
 
-      - `class TextEditorCodeExecutionToolResultError`
+      - `class TextEditorCodeExecutionToolResultErrorObject`
 
         - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -19202,7 +19230,7 @@ print(message_tokens_count.input_tokens)
 
     - `content: Content`
 
-      - `class ToolSearchToolResultError`
+      - `class ToolSearchToolResultErrorObject`
 
         - `type: Literal["tool_search_tool_result_error"]`
 
@@ -19874,7 +19902,7 @@ print(message_tokens_count.input_tokens)
 
         - `page_age: Optional[str]`
 
-      - `class WebSearchToolRequestErrorParam`
+      - `class WebSearchToolRequestErrorObjectParam`
 
         - `type: Literal["web_search_tool_result_error"]`
 
@@ -21193,6 +21221,20 @@ print(message_tokens_count.input_tokens)
 
       - `"error"`
 
+### Image Dimensions Too Large Error Details
+
+- `class ImageDimensionsTooLargeErrorDetails`
+
+  - `error_code: Literal["image_dimensions_too_large"]`
+
+  - `max_side_length_pixels: int`
+
+    The limit the images exceeded: the largest width or height, in pixels, that an image on this request may have.
+
+  - `paths: List[str]`
+
+    The position of every image over the limit, in the order you sent them, nested blocks included, such as `messages.0.content.1`, or `messages.0.content.1.content.0` for an image in a `tool_result` block.
+
 ### Image Transformations Param
 
 - `class ImageTransformationsParam`
@@ -21655,7 +21697,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: WebSearchToolResultBlockContent`
 
-        - `class WebSearchToolResultError`
+        - `class WebSearchToolResultErrorObject`
 
           - `type: Literal["web_search_tool_result_error"]`
 
@@ -21807,7 +21849,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: CodeExecutionToolResultBlockContent`
 
-        - `class CodeExecutionToolResultError`
+        - `class CodeExecutionToolResultErrorObject`
 
           - `type: Literal["code_execution_tool_result_error"]`
 
@@ -21881,7 +21923,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: Content`
 
-        - `class BashCodeExecutionToolResultError`
+        - `class BashCodeExecutionToolResultErrorObject`
 
           - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -21931,7 +21973,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: Content`
 
-        - `class TextEditorCodeExecutionToolResultError`
+        - `class TextEditorCodeExecutionToolResultErrorObject`
 
           - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -22009,7 +22051,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: Content`
 
-        - `class ToolSearchToolResultError`
+        - `class ToolSearchToolResultErrorObject`
 
           - `type: Literal["tool_search_tool_result_error"]`
 
@@ -23068,7 +23110,7 @@ print(message_tokens_count.input_tokens)
 
           - `page_age: Optional[str]`
 
-        - `class WebSearchToolRequestErrorParam`
+        - `class WebSearchToolRequestErrorObjectParam`
 
           - `type: Literal["web_search_tool_result_error"]`
 
@@ -25751,7 +25793,7 @@ print(message_tokens_count.input_tokens)
 
               - `page_age: Optional[str]`
 
-            - `class WebSearchToolRequestErrorParam`
+            - `class WebSearchToolRequestErrorObjectParam`
 
               - `type: Literal["web_search_tool_result_error"]`
 
@@ -26958,7 +27000,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: WebSearchToolResultBlockContent`
 
-        - `class WebSearchToolResultError`
+        - `class WebSearchToolResultErrorObject`
 
           - `type: Literal["web_search_tool_result_error"]`
 
@@ -27110,7 +27152,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: CodeExecutionToolResultBlockContent`
 
-        - `class CodeExecutionToolResultError`
+        - `class CodeExecutionToolResultErrorObject`
 
           - `type: Literal["code_execution_tool_result_error"]`
 
@@ -27184,7 +27226,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: Content`
 
-        - `class BashCodeExecutionToolResultError`
+        - `class BashCodeExecutionToolResultErrorObject`
 
           - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -27234,7 +27276,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: Content`
 
-        - `class TextEditorCodeExecutionToolResultError`
+        - `class TextEditorCodeExecutionToolResultErrorObject`
 
           - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -27312,7 +27354,7 @@ print(message_tokens_count.input_tokens)
 
       - `content: Content`
 
-        - `class ToolSearchToolResultError`
+        - `class ToolSearchToolResultErrorObject`
 
           - `type: Literal["tool_search_tool_result_error"]`
 
@@ -27934,7 +27976,7 @@ print(message_tokens_count.input_tokens)
 
         - `content: WebSearchToolResultBlockContent`
 
-          - `class WebSearchToolResultError`
+          - `class WebSearchToolResultErrorObject`
 
             - `type: Literal["web_search_tool_result_error"]`
 
@@ -28086,7 +28128,7 @@ print(message_tokens_count.input_tokens)
 
         - `content: CodeExecutionToolResultBlockContent`
 
-          - `class CodeExecutionToolResultError`
+          - `class CodeExecutionToolResultErrorObject`
 
             - `type: Literal["code_execution_tool_result_error"]`
 
@@ -28160,7 +28202,7 @@ print(message_tokens_count.input_tokens)
 
         - `content: Content`
 
-          - `class BashCodeExecutionToolResultError`
+          - `class BashCodeExecutionToolResultErrorObject`
 
             - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -28210,7 +28252,7 @@ print(message_tokens_count.input_tokens)
 
         - `content: Content`
 
-          - `class TextEditorCodeExecutionToolResultError`
+          - `class TextEditorCodeExecutionToolResultErrorObject`
 
             - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -28288,7 +28330,7 @@ print(message_tokens_count.input_tokens)
 
         - `content: Content`
 
-          - `class ToolSearchToolResultError`
+          - `class ToolSearchToolResultErrorObject`
 
             - `type: Literal["tool_search_tool_result_error"]`
 
@@ -29110,7 +29152,7 @@ print(message_tokens_count.input_tokens)
 
           - `content: WebSearchToolResultBlockContent`
 
-            - `class WebSearchToolResultError`
+            - `class WebSearchToolResultErrorObject`
 
               - `type: Literal["web_search_tool_result_error"]`
 
@@ -29262,7 +29304,7 @@ print(message_tokens_count.input_tokens)
 
           - `content: CodeExecutionToolResultBlockContent`
 
-            - `class CodeExecutionToolResultError`
+            - `class CodeExecutionToolResultErrorObject`
 
               - `type: Literal["code_execution_tool_result_error"]`
 
@@ -29336,7 +29378,7 @@ print(message_tokens_count.input_tokens)
 
           - `content: Content`
 
-            - `class BashCodeExecutionToolResultError`
+            - `class BashCodeExecutionToolResultErrorObject`
 
               - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -29386,7 +29428,7 @@ print(message_tokens_count.input_tokens)
 
           - `content: Content`
 
-            - `class TextEditorCodeExecutionToolResultError`
+            - `class TextEditorCodeExecutionToolResultErrorObject`
 
               - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -29464,7 +29506,7 @@ print(message_tokens_count.input_tokens)
 
           - `content: Content`
 
-            - `class ToolSearchToolResultError`
+            - `class ToolSearchToolResultErrorObject`
 
               - `type: Literal["tool_search_tool_result_error"]`
 
@@ -31330,7 +31372,7 @@ print(message_tokens_count.input_tokens)
 
   - `content: Content`
 
-    - `class TextEditorCodeExecutionToolResultError`
+    - `class TextEditorCodeExecutionToolResultErrorObject`
 
       - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -31491,9 +31533,23 @@ print(message_tokens_count.input_tokens)
 
       - `"1h"`
 
-### Text Editor Code Execution Tool Result Error
+### Text Editor Code Execution Tool Result Error Code
 
-- `class TextEditorCodeExecutionToolResultError`
+- `type TextEditorCodeExecutionToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
+
+  - `"invalid_tool_input"`
+
+  - `"unavailable"`
+
+  - `"too_many_requests"`
+
+  - `"execution_time_exceeded"`
+
+  - `"file_not_found"`
+
+### Text Editor Code Execution Tool Result Error Object
+
+- `class TextEditorCodeExecutionToolResultErrorObject`
 
   - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -31512,20 +31568,6 @@ print(message_tokens_count.input_tokens)
     - `"file_not_found"`
 
   - `error_message: Optional[str]`
-
-### Text Editor Code Execution Tool Result Error Code
-
-- `type TextEditorCodeExecutionToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "too_many_requests", 2 more]`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"too_many_requests"`
-
-  - `"execution_time_exceeded"`
-
-  - `"file_not_found"`
 
 ### Text Editor Code Execution Tool Result Error Param
 
@@ -32700,7 +32742,7 @@ print(message_tokens_count.input_tokens)
 
   - `content: Content`
 
-    - `class ToolSearchToolResultError`
+    - `class ToolSearchToolResultErrorObject`
 
       - `type: Literal["tool_search_tool_result_error"]`
 
@@ -32803,9 +32845,21 @@ print(message_tokens_count.input_tokens)
 
     Create a cache control breakpoint at this content block.
 
-### Tool Search Tool Result Error
+### Tool Search Tool Result Error Code
 
-- `class ToolSearchToolResultError`
+- `type ToolSearchToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
+
+  - `"invalid_tool_input"`
+
+  - `"unavailable"`
+
+  - `"too_many_requests"`
+
+  - `"execution_time_exceeded"`
+
+### Tool Search Tool Result Error Object
+
+- `class ToolSearchToolResultErrorObject`
 
   - `type: Literal["tool_search_tool_result_error"]`
 
@@ -32822,18 +32876,6 @@ print(message_tokens_count.input_tokens)
     - `"execution_time_exceeded"`
 
   - `error_message: Optional[str]`
-
-### Tool Search Tool Result Error Code
-
-- `type ToolSearchToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "too_many_requests", "execution_time_exceeded"]`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"too_many_requests"`
-
-  - `"execution_time_exceeded"`
 
 ### Tool Search Tool Result Error Param
 
@@ -37239,7 +37281,7 @@ print(message_tokens_count.input_tokens)
 
             - `page_age: Optional[str]`
 
-          - `class WebSearchToolRequestErrorParam`
+          - `class WebSearchToolRequestErrorObjectParam`
 
             - `type: Literal["web_search_tool_result_error"]`
 
@@ -39611,9 +39653,9 @@ print(message_tokens_count.input_tokens)
 
       minLength: 1, maxLength: 255
 
-### Web Search Tool Request Error
+### Web Search Tool Request Error Object
 
-- `class WebSearchToolRequestErrorParam`
+- `class WebSearchToolRequestErrorObjectParam`
 
   - `type: Literal["web_search_tool_result_error"]`
 
@@ -39669,7 +39711,7 @@ print(message_tokens_count.input_tokens)
 
   - `content: WebSearchToolResultBlockContent`
 
-    - `class WebSearchToolResultError`
+    - `class WebSearchToolResultErrorObject`
 
       - `type: Literal["web_search_tool_result_error"]`
 
@@ -39711,7 +39753,7 @@ print(message_tokens_count.input_tokens)
 
 - `type WebSearchToolResultBlockContent = ...`
 
-  - `class WebSearchToolResultError`
+  - `class WebSearchToolResultErrorObject`
 
     - `type: Literal["web_search_tool_result_error"]`
 
@@ -39765,7 +39807,7 @@ print(message_tokens_count.input_tokens)
 
       - `page_age: Optional[str]`
 
-    - `class WebSearchToolRequestErrorParam`
+    - `class WebSearchToolRequestErrorObjectParam`
 
       - `type: Literal["web_search_tool_result_error"]`
 
@@ -39850,7 +39892,7 @@ print(message_tokens_count.input_tokens)
 
     - `page_age: Optional[str]`
 
-  - `class WebSearchToolRequestErrorParam`
+  - `class WebSearchToolRequestErrorObjectParam`
 
     - `type: Literal["web_search_tool_result_error"]`
 
@@ -39868,9 +39910,25 @@ print(message_tokens_count.input_tokens)
 
       - `"request_too_large"`
 
-### Web Search Tool Result Error
+### Web Search Tool Result Error Code
 
-- `class WebSearchToolResultError`
+- `type WebSearchToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "max_uses_exceeded", 3 more]`
+
+  - `"invalid_tool_input"`
+
+  - `"unavailable"`
+
+  - `"max_uses_exceeded"`
+
+  - `"too_many_requests"`
+
+  - `"query_too_long"`
+
+  - `"request_too_large"`
+
+### Web Search Tool Result Error Object
+
+- `class WebSearchToolResultErrorObject`
 
   - `type: Literal["web_search_tool_result_error"]`
 
@@ -39889,22 +39947,6 @@ print(message_tokens_count.input_tokens)
     - `"query_too_long"`
 
     - `"request_too_large"`
-
-### Web Search Tool Result Error Code
-
-- `type WebSearchToolResultErrorCode = Literal["invalid_tool_input", "unavailable", "max_uses_exceeded", 3 more]`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"max_uses_exceeded"`
-
-  - `"too_many_requests"`
-
-  - `"query_too_long"`
-
-  - `"request_too_large"`
 
 ## Errors
 
@@ -40033,6 +40075,28 @@ HTTP status 400, error code `compaction_tool_changes_mismatch`
   - `details: CompactionToolChangesMismatchErrorDetails`
 
     - `error_code: Literal["compaction_tool_changes_mismatch"]`
+
+### ImageDimensionsTooLargeError
+
+HTTP status 400, error code `image_dimensions_too_large`
+
+- `class ImageDimensionsTooLargeError(BadRequestError)`
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
+  - `error_code: Literal["image_dimensions_too_large"]`
+
+  - `details: ImageDimensionsTooLargeErrorDetails`
+
+    - `error_code: Literal["image_dimensions_too_large"]`
+
+    - `max_side_length_pixels: int`
+
+      The limit the images exceeded: the largest width or height, in pixels, that an image on this request may have.
+
+    - `paths: List[str]`
+
+      The position of every image over the limit, in the order you sent them, nested blocks included, such as `messages.0.content.1`, or `messages.0.content.1.content.0` for an image in a `tool_result` block.
 
 ### ThreadAlreadyContinuedError
 
@@ -40889,7 +40953,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `page_age: Optional[str]`
 
-                - `class WebSearchToolRequestErrorParam`
+                - `class WebSearchToolRequestErrorObjectParam`
 
                   - `type: Literal["web_search_tool_result_error"]`
 
@@ -44525,7 +44589,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: WebSearchToolResultBlockContent`
 
-              - `class WebSearchToolResultError`
+              - `class WebSearchToolResultErrorObject`
 
                 - `type: Literal["web_search_tool_result_error"]`
 
@@ -44677,7 +44741,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: CodeExecutionToolResultBlockContent`
 
-              - `class CodeExecutionToolResultError`
+              - `class CodeExecutionToolResultErrorObject`
 
                 - `type: Literal["code_execution_tool_result_error"]`
 
@@ -44751,7 +44815,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class BashCodeExecutionToolResultError`
+              - `class BashCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["bash_code_execution_tool_result_error"]`
 
@@ -44801,7 +44865,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class TextEditorCodeExecutionToolResultError`
+              - `class TextEditorCodeExecutionToolResultErrorObject`
 
                 - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
@@ -44879,7 +44943,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `content: Content`
 
-              - `class ToolSearchToolResultError`
+              - `class ToolSearchToolResultErrorObject`
 
                 - `type: Literal["tool_search_tool_result_error"]`
 
@@ -45324,7 +45388,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `error: ErrorObject`
 
-          - `class InvalidRequestError`
+          - `class InvalidRequestErrorObject`
 
             - `type: Literal["invalid_request_error"]`
 
@@ -45338,7 +45402,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Invalid request
 
-          - `class AuthenticationError`
+          - `class AuthenticationErrorObject`
 
             - `type: Literal["authentication_error"]`
 
@@ -45352,7 +45416,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Authentication error
 
-          - `class BillingError`
+          - `class BillingErrorObject`
 
             - `type: Literal["billing_error"]`
 
@@ -45366,7 +45430,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Billing error
 
-          - `class PermissionError`
+          - `class PermissionErrorObject`
 
             - `type: Literal["permission_error"]`
 
@@ -45380,7 +45444,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Permission denied
 
-          - `class NotFoundError`
+          - `class NotFoundErrorObject`
 
             - `type: Literal["not_found_error"]`
 
@@ -45394,7 +45458,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Not found
 
-          - `class RateLimitError`
+          - `class RateLimitErrorObject`
 
             - `type: Literal["rate_limit_error"]`
 
@@ -45408,7 +45472,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Rate limited
 
-          - `class GatewayTimeoutError`
+          - `class GatewayTimeoutErrorObject`
 
             - `type: Literal["timeout_error"]`
 
@@ -45436,7 +45500,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               default: Internal server error
 
-          - `class OverloadedError`
+          - `class OverloadedErrorObject`
 
             - `type: Literal["overloaded_error"]`
 

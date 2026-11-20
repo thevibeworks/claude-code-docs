@@ -1310,23 +1310,23 @@ Claude processes images in patches instead of pixels. Each patch is a 28×28-pix
 
 Each model has a maximum native image resolution, expressed as a long-edge limit and a visual-token limit. Images larger than either limit are downscaled before processing; see [How Claude resizes and pads images](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#how-claude-resizes-and-pads-images) for the exact rule. The exception is screenshots and zoom images that you return to the [computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool#handle-coordinate-scaling-for-higher-resolutions) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool#targets-and-coordinates) toolsets: the API rejects a `tool_result` image that exceeds the model’s limits with a validation error instead of downscaling it, so resize those images in your application before returning them. To have any other oversized image rejected with an error instead of downscaled, set the image block’s [`transformations` field](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#oversized-image-error).
 
-| Resolution tier | Models                      | Max long edge | Max visual tokens |
-| --------------- | --------------------------- | ------------- | ----------------- |
-| High-resolution | Claude 4.7 and later models | 2,576 px      | 4,784             |
-| Standard        | All other models            | 1,568 px      | 1,568             |
+| Resolution tier | Models | Max long edge | Max visual tokens |
+| ----- | ----- | ----- | ----- |
+| High-resolution | Claude 4.7 and later models | 2,576 px | 4,784 |
+| Standard | All other models | 1,568 px | 1,568 |
 
 High-resolution support is automatic on the listed models and requires no beta header or client-side opt-in.
 
 The following table shows the downsized resolution and visual-token cost for several image sizes on each tier:
 
-| Image size                     | Standard tier: downsized to | Standard tier: tokens | High-resolution tier: downsized to | High-resolution tier: tokens |
-| ------------------------------ | --------------------------- | --------------------- | ---------------------------------- | ---------------------------- |
-| 200x200 px (0.04 megapixels)   | Not resized                 | 64                    | Not resized                        | 64                           |
-| 1000x1000 px (1 megapixel)     | Not resized                 | 1,296                 | Not resized                        | 1,296                        |
-| 1092x1092 px (1.19 megapixels) | Not resized                 | 1,521                 | Not resized                        | 1,521                        |
-| 1920x1080 px (2.07 megapixels) | 1456x819 px                 | 1,560                 | Not resized                        | 2,691                        |
-| 2000x1500 px (3 megapixels)    | 1269x952 px                 | 1,564                 | Not resized                        | 3,888                        |
-| 3840x2160 px (8.29 megapixels) | 1456x819 px                 | 1,560                 | 2576x1449 px                       | 4,784                        |
+| Image size | Standard tier: downsized to | Standard tier: tokens | High-resolution tier: downsized to | High-resolution tier: tokens |
+| ----- | ----- | ----- | ----- | ----- |
+| 200x200 px (0.04 megapixels) | Not resized | 64 | Not resized | 64 |
+| 1000x1000 px (1 megapixel) | Not resized | 1,296 | Not resized | 1,296 |
+| 1092x1092 px (1.19 megapixels) | Not resized | 1,521 | Not resized | 1,521 |
+| 1920x1080 px (2.07 megapixels) | 1456x819 px | 1,560 | Not resized | 2,691 |
+| 2000x1500 px (3 megapixels) | 1269x952 px | 1,564 | Not resized | 3,888 |
+| 3840x2160 px (8.29 megapixels) | 1456x819 px | 1,560 | 2576x1449 px | 4,784 |
 
 When an image is downsized, Claude scales it to the largest size that fits the tier’s limits while preserving its aspect ratio. This caps the token cost. For the precise rule and a reference implementation, see [How Claude resizes and pads images](https://platform.claude.com/docs/en/build-with-claude/vision-coordinates#how-claude-resizes-and-pads-images).
 
@@ -1437,10 +1437,10 @@ Vision (images) is available on every model.
 
 * Availability: Always on
 
-| Status                | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                        |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Available             | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
-| Available<sup>1</sup> | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Amazon Bedrock (bedrock-runtime)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed)      |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
+| Available<sup>1</sup> | [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Amazon Bedrock (bedrock-runtime)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed) |
 
 1. Only base64 image sources; per-image limit 5 MB (base64-encoded) and a lower total request size.
 
@@ -1448,6 +1448,6 @@ Vision (images) is available on every model.
 
 * Availability: Always on
 
-| Status    | Cloud platforms         |
-| --------- | ----------------------- |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | All supported platforms |

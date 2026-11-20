@@ -61,11 +61,9 @@ On the **Settings** tab, **Who can link** reads **Test users only** for a new ap
 
 Set up how your back end proves to `auth.claude.com` that its requests come from your app. This takes the place of a client secret: Anthropic does not issue client secrets for OAuth apps.
 
-On the app’s **Client authentication** tab, select your **Identity provider** (the issuer that signs your back end’s tokens). To add one, click **Register a new issuer**. Then set a **Subject pattern**, or claim conditions under **Advanced match options**, that those tokens must match. After you save, the tab shows the expected audience. Your client assertion’s `aud` claim must be exactly that value.
+On the app’s **Client authentication** tab, select your **Identity provider**. This is the issuer that signs your back end’s tokens, such as AWS, Google Cloud, or Kubernetes. To add one, click **Register a new issuer** or see [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation). Then, set a **Subject pattern** or claim conditions under **Advanced match options** that those tokens must match. After you save, the tab shows the expected audience. Your client assertion’s `aud` claim must be exactly that value.
 
-<Note>
-  Your app authenticates to the PAR, token, and revocation endpoints with a variation of the `private_key_jwt` method (RFC 7523): with each request, your back end sends a client assertion, a JWT that your identity provider issues. `auth.claude.com` checks the token’s signature with the keys registered for that issuer, and checks it against the subject or claim conditions you set here. For the claims a client assertion must contain, see [Client assertion claims](https://platform.claude.com/docs/en/manage-claude/oauth-apps/oauth-reference#client-assertion-claims).
-</Note>
+Your app authenticates to the PAR, token, and revocation endpoints with a variation of the `private_key_jwt` method (RFC 7523). With each request, your back end sends a client assertion, a JWT that your identity provider issues. `auth.claude.com` checks the token’s signature with the keys registered for that issuer. It also checks the token against the subject or claim conditions you set here. For the claims a client assertion must contain, see [Client assertion claims](https://platform.claude.com/docs/en/manage-claude/oauth-apps/oauth-reference#client-assertion-claims).
 
 ### Step 3: Set up your back end’s identity
 
@@ -109,7 +107,7 @@ The profile ID to send depends on who pays for the request:
 
 You do Steps 4 to 8 for each customer that links their organization. The following Python code snippets require the Anthropic SDK and some standard imports; see [Code snippet initialization](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#code-snippet-initialization). The examples in other languages and the CLI take their credentials from the environment. Ensure `ANTHROPIC_API_KEY` is not set, because your app needs to authenticate with Workload Identity Federation.
 
-Add a “Link your Claude organization” button where your customers manage billing or integrations in your product (for the button’s HTML, colors, and logo, see [Branding samples](https://platform.claude.com/docs/en/manage-claude/oauth-apps/branding-samples#buttons)). Tell them that to link, they must have the Admin or Billing role in their Claude organization.
+Add a **Link your Claude organization** button where your customers manage billing or integrations in your product. For the button’s HTML, colors, and logo, see [Branding samples](https://platform.claude.com/docs/en/manage-claude/oauth-apps/branding-samples). Tell your customers that to link, they must have the Admin or Billing role in their Claude organization.
 
 To go through the steps yourself first, see [Test as a customer](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#test-as-a-customer).
 
@@ -486,9 +484,9 @@ If the user comes back to your product without a callback, start again from Step
 
 Your app is not set up for this request. For a workspace problem, the `error_description` names the cause. For a missing operator service account, it reads only `the client is not registered for this grant`. The refusal doesn’t use up the code, so you can exchange the same code again until it expires. First, check these in the Claude Console:
 
-| Check                                         | Where                                                                                                                                                    | Fix                                                                                                 |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| The app has an operator service account       | **Operator service account** on the app’s **Client authentication** tab                                                                                  | Select one and click **Save**. Step 3 says how to set one up.                                       |
+| Check | Where | Fix |
+| ----- | ----- | ----- |
+| The app has an operator service account | **Operator service account** on the app’s **Client authentication** tab | Select one and click **Save**. Step 3 says how to set one up. |
 | The app’s workspace isn’t missing or archived | [Set up your app](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#settings-for-a-connections-oauth-tokens) | Choose a workspace. While the app has none, the exchange is refused with `unauthorized_client` too. |
 
 A saved service account can take a minute or two to reach `auth.claude.com`, so if the exchange is refused again, wait that long and retry. If the code has expired by then, have the user approve again (Steps 5 to 8). For the causes that `error_description` names for a connection’s tokens, see [Store the tokens](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#keep-the-tokens-from-step-8) and [Refresh the tokens](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#refresh-the-connection).
@@ -1432,11 +1430,11 @@ To read a customer’s link status from your back end, request their user profil
 
 In the response, `connection_status` describes the user profile’s link to your app:
 
-| `connection_status.type` | Meaning                                                                                                                                                                                                                                                                                                    |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `connected`              | At least one connection between the user profile and your app is active.                                                                                                                                                                                                                                   |
-| `disconnected`           | The user profile was linked, and every connection has ended. `last_revoked_at` says when the last one ended. `last_revoked_reason.type` says why, for example `revoked_by_admin` (an administrator of the customer’s organization) or `revoked_by_app_owner` (your organization, including your back end). |
-| `not_connected`          | The user profile has never been linked to your app.                                                                                                                                                                                                                                                        |
+| `connection_status.type` | Meaning |
+| ----- | ----- |
+| `connected` | At least one connection between the user profile and your app is active. |
+| `disconnected` | The user profile was linked, and every connection has ended. `last_revoked_at` says when the last one ended. `last_revoked_reason.type` says why, for example `revoked_by_admin` (an administrator of the customer’s organization) or `revoked_by_app_owner` (your organization, including your back end). |
+| `not_connected` | The user profile has never been linked to your app. |
 
 Treat a `connection_status` of `null`, or a `type` you don’t recognize, as unknown. Treat a reason you don’t recognize as `other`. `oauth_connections.data` lists the connections themselves.
 
@@ -1707,12 +1705,12 @@ To unlink a customer from your back end, send the connection ID that you stored 
 
 To unlink a customer through the Claude API instead, send your app’s client ID in `oauth_app_id` to `POST /v1/user_profiles/{id}/unlink`. This ends the same connections as the revocation endpoint with `user_profile_id`. The two requests differ as follows:
 
-|                    | Revocation endpoint                                                | Unlink                                                                                                                                                                                             |
-| ------------------ | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Host**           | `auth.claude.com`                                                  | `api.anthropic.com`                                                                                                                                                                                |
-| **Authentication** | Your app’s client authentication (Step 2)                          | Your operator service account (Step 3): its access token, or an API key bound to it. The access token must come from a federation rule with the `workspace:developer` scope, which is the default. |
-| **Beta header**    | None                                                               | `user-profiles-search-2026-08-30`                                                                                                                                                                  |
-| **What it ends**   | One connection, or all of your app’s connections on a user profile | All of your app’s connections on a user profile                                                                                                                                                    |
+|  | Revocation endpoint | Unlink |
+| ----- | ----- | ----- |
+| **Host** | `auth.claude.com` | `api.anthropic.com` |
+| **Authentication** | Your app’s client authentication (Step 2) | Your operator service account (Step 3): its access token, or an API key bound to it. The access token must come from a federation rule with the `workspace:developer` scope, which is the default. |
+| **Beta header** | None | `user-profiles-search-2026-08-30` |
+| **What it ends** | One connection, or all of your app’s connections on a user profile | All of your app’s connections on a user profile |
 
 <CodeGroup exclude="shell:CLI, python, typescript, csharp, go, java, php, ruby">
   ```bash cURL
@@ -1792,7 +1790,7 @@ Your user approves on `auth.claude.com` after your app redirects them in Step 6.
 * **Set a monthly spend limit:** The user enters a limit for your app in whole US dollars and clicks **Continue**. The amount field starts empty, so the page doesn’t choose a limit for the user. **Continue without a limit** saves no new limit, and a cap or default that the customer saved earlier still applies. The limit that the user enters is the spend cap that [Spend caps](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#spend-caps) describes. This screen differs while your app is in testing: see [While your app is in testing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#while-your-app-is-in-testing).
 * **The last screen:** This screen lists what your app will be able to do, including the limit that the user chose. The user clicks **Link and authorize**.
 
-The approval page uses whichever Claude account is signed in to the browser and offers only that account’s Claude organizations. That account might not be the one that your user expects, for example a personal account instead of a work account. Your app can’t choose the account. The OpenID Connect parameters `prompt=select_account` and `login_hint` don’t change which account the page uses.
+The approval page uses whichever Claude account is signed in to the browser and offers only that account’s Claude organizations. That account might not be the one that your user expects, for example a personal account instead of a work account. Your app can’t choose the account. The `prompt=select_account` and `login_hint` parameters don’t change which account the page uses.
 
 ### After linking
 
@@ -1831,13 +1829,13 @@ A cap can be higher than the organization’s **Monthly spend limit**, which the
 
 These limits apply whenever someone links your app or changes its cap while the app is in testing, in review, or not approved:
 
-|                                                   | In testing, in review, or not approved | After the app is live |
-| ------------------------------------------------- | -------------------------------------- | --------------------- |
-| A monthly spend limit on the approval page        | Required, $50 USD or less              | Optional              |
-| The amount field on the approval page             | Starts at $50 USD                      | Starts empty          |
-| **Continue without a limit** on the approval page | Not offered                            | Offered               |
-| Removing the cap in the Console                   | Not possible                           | Possible              |
-| The largest cap that a customer can set           | $50 USD                                | No practical maximum  |
+|  | In testing, in review, or not approved | After the app is live |
+| ----- | ----- | ----- |
+| A monthly spend limit on the approval page | Required, $50 USD or less | Optional |
+| The amount field on the approval page | Starts at $50 USD | Starts empty |
+| **Continue without a limit** on the approval page | Not offered | Offered |
+| Removing the cap in the Console | Not possible | Possible |
+| The largest cap that a customer can set | $50 USD | No practical maximum |
 
 Once your app is live, a cap that a customer saved before then stays in place. The customer can then raise or remove it.
 

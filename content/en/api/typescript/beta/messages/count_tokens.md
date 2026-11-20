@@ -945,6 +945,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -1327,7 +1328,7 @@ interface BetaServerToolCaller20260120 {
   tool_id: string; // pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 }
 
-type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestError;
+type BetaWebSearchToolResultBlockParamContent = Array<BetaWebSearchResultBlockParam> | BetaWebSearchToolRequestErrorObject;
 
 interface BetaWebSearchResultBlockParam {
   type: "web_search_result";
@@ -1337,7 +1338,7 @@ interface BetaWebSearchResultBlockParam {
   page_age?: string | null;
 }
 
-interface BetaWebSearchToolRequestError {
+interface BetaWebSearchToolRequestErrorObject {
   type: "web_search_tool_result_error";
   error_code: BetaWebSearchToolResultErrorCode;
 }

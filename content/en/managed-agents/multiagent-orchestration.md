@@ -49,11 +49,11 @@ You decide which of these the agent can use, and the agent determines when to us
 
 With subagents, the agent itself determines what happens next. A [subagent’s thread](https://platform.claude.com/docs/en/managed-agents/session-threads) stays available until you archive it, so the agent can send it follow-up messages. With dynamic workflows, Claude writes a program to orchestrate agents without Claude’s direct involvement. Context and results are passed programmatically from one agent to another, freeing up the main session thread to communicate with the user and check in on one or several running workflows to report on progress. The agent can’t send follow-up messages to a run’s threads, and the server archives each one by the end of its run.
 
-| Approach                                                                                                                               | What happens                                                                                                                                                                                                                                               | Use it when                                                                                                                                                                                     | Consider                                                                                                                                                                                                                                                                                     |
-| -------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Delegate to subagents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#delegate-to-subagents)             | The agent delegates tasks to its subagents. Each subagent works in its own [session thread](https://platform.claude.com/docs/en/managed-agents/session-threads), which you can list and stream.                                                            | The agent should follow up with a subagent after it reports, or it needs specialists that you list, with their own system prompts and tools.                                                    | Delegation is one level deep, and a session can have at most 25 child threads at a time, idle ones included. Advisor threads and a workflow run’s threads don’t count.                                                                                                                       |
-| [Dynamic workflows](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#dynamic-workflows)                     | The agent writes a workflow: a program that runs many agents in phases and combines their results. The server runs it in the background as one workflow run, which you can follow. The workflow defines the agents or picks them from a list you give.     | Most work that needs more than one agent: work with many pieces, parallel work, or a long task that should complete sooner. Examples are audits, migrations, deep research, and cross-checking. | Every agent in a run uses tokens, so set a [session budget](https://platform.claude.com/docs/en/managed-agents/budgets) to cap the session’s spend, runs included. Tell the agent in its system prompt when to use a run. You follow the run by its phases and can read each of its threads. |
-| [Give the session an advisor](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor) | The session’s [primary thread](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#how-it-works) consults an advisor model mid-turn for guidance, such as planning an approach or reviewing work, and keeps doing the work itself. | One agent should do the work, with an advisor model’s judgment at key moments such as planning or a final review.                                                                               | Only the primary thread can consult the advisor, and consultations are billed at the advisor model’s rates.                                                                                                                                                                                  |
+| Approach | What happens | Use it when | Consider |
+| ----- | ----- | ----- | ----- |
+| [Delegate to subagents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#delegate-to-subagents) | The agent delegates tasks to its subagents. Each subagent works in its own [session thread](https://platform.claude.com/docs/en/managed-agents/session-threads), which you can list and stream. | The agent should follow up with a subagent after it reports, or it needs specialists that you list, with their own system prompts and tools. | Delegation is one level deep, and a session can have at most 25 child threads at a time, idle ones included. Advisor threads and a workflow run’s threads don’t count. |
+| [Dynamic workflows](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#dynamic-workflows) | The agent writes a workflow: a program that runs many agents in phases and combines their results. The server runs it in the background as one workflow run, which you can follow. The workflow defines the agents or picks them from a list you give. | Most work that needs more than one agent: work with many pieces, parallel work, or a long task that should complete sooner. Examples are audits, migrations, deep research, and cross-checking. | Every agent in a run uses tokens, so set a [session budget](https://platform.claude.com/docs/en/managed-agents/budgets) to cap the session’s spend, runs included. Tell the agent in its system prompt when to use a run. You follow the run by its phases and can read each of its threads. |
+| [Give the session an advisor](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor) | The session’s [primary thread](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#how-it-works) consults an advisor model mid-turn for guidance, such as planning an approach or reviewing work, and keeps doing the work itself. | One agent should do the work, with an advisor model’s judgment at key moments such as planning or a final review. | Only the primary thread can consult the advisor, and consultations are billed at the advisor model’s rates. |
 
 You set these up in the `multiagent` block of the agent’s definition, which has a `type`. With the `multiagent_20261001` type, an agent can use all three together, and you can turn each one on or off. By default, `subagents` and `workflows` are both enabled. `subagents` and `workflows` each have `inline_agents` enabled, the setting for [agents that the agent or a workflow defines itself](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents):
 
@@ -74,10 +74,10 @@ Every subagent, and every agent in a workflow run, is one of two kinds:
 
 Both kinds work under `subagents` and under `workflows`:
 
-| Kind of agent | Under `subagents`                                                                                       | Under `workflows`                                                                                                            |
-| ------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Predefined    | The agent can delegate to the agents that you list in `subagents.predefined_agents`.                    | A workflow can use the agents that you list in `workflows.predefined_agents`.                                                |
-| Inline        | The agent can define an inline agent when it delegates. `subagents.inline_agents` turns this on or off. | A workflow can define inline agents, and it writes a system prompt for each. `workflows.inline_agents` turns this on or off. |
+| Kind of agent | Under `subagents` | Under `workflows` |
+| ----- | ----- | ----- |
+| Predefined | The agent can delegate to the agents that you list in `subagents.predefined_agents`. | A workflow can use the agents that you list in `workflows.predefined_agents`. |
+| Inline | The agent can define an inline agent when it delegates. `subagents.inline_agents` turns this on or off. | A workflow can define inline agents, and it writes a system prompt for each. `workflows.inline_agents` turns this on or off. |
 
 `subagents.predefined_agents` and `workflows.predefined_agents` are two separate lists. An agent in one list is not added to the other. Both lists are empty by default. An entry of either list takes one of these forms:
 
@@ -1101,11 +1101,11 @@ To let a workflow use agents you’ve already created, list them in `workflows.p
 
 Each setting is enabled or disabled on its own:
 
-| Setting     | What it turns on                                                                  | Agents go in                            | Default  |
-| ----------- | --------------------------------------------------------------------------------- | --------------------------------------- | -------- |
-| `workflows` | Dynamic workflows                                                                 | `workflows.predefined_agents`, up to 20 | Enabled  |
-| `subagents` | Delegating to subagents: the agents you list, and agents the agent defines itself | `subagents.predefined_agents`, up to 20 | Enabled  |
-| `advisor`   | An advisor model                                                                  | None. Set `model`.                      | Disabled |
+| Setting | What it turns on | Agents go in | Default |
+| ----- | ----- | ----- | ----- |
+| `workflows` | Dynamic workflows | `workflows.predefined_agents`, up to 20 | Enabled |
+| `subagents` | Delegating to subagents: the agents you list, and agents the agent defines itself | `subagents.predefined_agents`, up to 20 | Enabled |
+| `advisor` | An advisor model | None. Set `model`. | Disabled |
 
 For what goes in each list, and for how to allow only the agents that you list, see [Predefined and inline agents](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#predefined-and-inline-agents).
 
@@ -1387,9 +1387,9 @@ Multiagent orchestration is in beta on every model.
 
 * Availability: Available
 
-| Status | Cloud platforms         |
-| ------ | ----------------------- |
-| Beta   | All supported platforms |
+| Status | Cloud platforms |
+| ----- | ----- |
+| Beta | All supported platforms |
 
 ### Required beta headers
 
@@ -1403,9 +1403,9 @@ Beta headers allow you to access experimental features and new model capabilitie
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                                                                                                         | HIPAA                                                               |
-| ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| Status  | Not eligible                                                                                                                                                                                                                                                | Not eligible                                                        |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
 | Details | Not eligible for ZDR, except for self-hosted Managed Agents. Sessions are stateful resources; transcripts persist until you delete them. [Learn more](https://platform.claude.com/docs/en/managed-agents/self-hosted-data-and-access#how-long-data-is-kept) | Not eligible for HIPAA. Applies to all Managed Agents sub-features. |
 
 Applicable endpoints:

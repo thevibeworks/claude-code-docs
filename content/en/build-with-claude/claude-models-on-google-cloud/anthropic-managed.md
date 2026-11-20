@@ -79,11 +79,11 @@ If you run into one of the following problems while you set up Claude Models on 
 
 Claude Models on Google Cloud (Anthropic managed) has three predefined IAM roles. Grant roles on the project.
 
-| Role                  | Display name  | What it allows                                                                                                                                                                                                                          |
-| --------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `roles/claude.viewer` | Claude Viewer | Every `get` and `list` permission on workspace resources<br />This role is read-only.                                                                                                                                                   |
-| `roles/claude.user`   | Claude User   | Everything `roles/claude.viewer` allows, plus creating and changing workspace resources<br />This includes sending messages and counting tokens. It also includes managing batches, files, skills, and Claude Managed Agents resources. |
-| `roles/claude.admin`  | Claude Admin  | Everything `roles/claude.user` allows, plus the permissions checked on your Anthropic organization<br />Organization-level routes act on your Anthropic organization as a whole, not on one workspace.                                  |
+| Role | Display name | What it allows |
+| ----- | ----- | ----- |
+| `roles/claude.viewer` | Claude Viewer | Every `get` and `list` permission on workspace resources<br />This role is read-only. |
+| `roles/claude.user` | Claude User | Everything `roles/claude.viewer` allows, plus creating and changing workspace resources<br />This includes sending messages and counting tokens. It also includes managing batches, files, skills, and Claude Managed Agents resources. |
+| `roles/claude.admin` | Claude Admin | Everything `roles/claude.user` allows, plus the permissions checked on your Anthropic organization<br />Organization-level routes act on your Anthropic organization as a whole, not on one workspace. |
 
 For example, the following command lets a service account call Claude Models on Google Cloud (Anthropic managed):
 
@@ -408,26 +408,26 @@ To call the API over raw HTTP, send an access token from Application Default Cre
 
 Claude Models on Google Cloud (Anthropic managed) uses the same model IDs as the Claude API. Available models include the following:
 
-| Model                                                                                                 | Model ID                     |
-| :---------------------------------------------------------------------------------------------------- | :--------------------------- |
-| Claude Fable 5.2                                                                                      | `claude-fable-5-2`           |
-| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842))           | `claude-mythos-5-2`          |
-| Claude Fable 5.1                                                                                      | `claude-fable-5-1`           |
-| Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842))           | `claude-mythos-5-1`          |
-| Claude Fable 5                                                                                        | `claude-fable-5`             |
-| Claude Mythos 5 ([limited availability](https://support.claude.com/en/articles/14604842))             | `claude-mythos-5`            |
-| Claude Opus 5.5                                                                                       | `claude-opus-5-5`            |
-| Claude Opus 5                                                                                         | `claude-opus-5`              |
-| Claude Opus 4.8                                                                                       | `claude-opus-4-8`            |
-| Claude Opus 4.7                                                                                       | `claude-opus-4-7`            |
-| Claude Opus 4.6                                                                                       | `claude-opus-4-6`            |
-| Claude Opus 4.5                                                                                       | `claude-opus-4-5-20251101`   |
-| Claude Sonnet 5.5                                                                                     | `claude-sonnet-5-5`          |
-| Claude Sonnet 5                                                                                       | `claude-sonnet-5`            |
-| Claude Sonnet 4.6                                                                                     | `claude-sonnet-4-6`          |
+| Model | Model ID |
+| :---- | :---- |
+| Claude Fable 5.2 | `claude-fable-5-2` |
+| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842)) | `claude-mythos-5-2` |
+| Claude Fable 5.1 | `claude-fable-5-1` |
+| Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842)) | `claude-mythos-5-1` |
+| Claude Fable 5 | `claude-fable-5` |
+| Claude Mythos 5 ([limited availability](https://support.claude.com/en/articles/14604842)) | `claude-mythos-5` |
+| Claude Opus 5.5 | `claude-opus-5-5` |
+| Claude Opus 5 | `claude-opus-5` |
+| Claude Opus 4.8 | `claude-opus-4-8` |
+| Claude Opus 4.7 | `claude-opus-4-7` |
+| Claude Opus 4.6 | `claude-opus-4-6` |
+| Claude Opus 4.5 | `claude-opus-4-5-20251101` |
+| Claude Sonnet 5.5 | `claude-sonnet-5-5` |
+| Claude Sonnet 5 | `claude-sonnet-5` |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` |
 | Claude Sonnet 4.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | `claude-sonnet-4-5-20250929` |
-| Claude Haiku 5.5                                                                                      | `claude-haiku-5-5`           |
-| Claude Haiku 4.5                                                                                      | `claude-haiku-4-5-20251001`  |
+| Claude Haiku 5.5 | `claude-haiku-5-5` |
+| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` |
 
 Claude Models on Google Cloud (Anthropic managed) follows the Claude API’s lifecycle schedule. For the dates, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations). To compare models, see [Models overview](https://platform.claude.com/docs/en/models/overview).
 
@@ -437,12 +437,12 @@ In Claude Models on Google Cloud (Anthropic managed), a request for a model that
 
 The client for Claude Models on Google Cloud (Anthropic managed) takes the settings in the following table. A value you pass when you create the client wins over the environment variable. To set the project and workspace ID explicitly, pass `project` (go: `Project`; java: `.project()`; csharp: `GoogleCloudClientOptions.Project`; cli: `--google-cloud-project`) and `workspace_id` (typescript, php: `workspaceId`; go: `WorkspaceID`; java: `.workspaceId()`; csharp: `GoogleCloudClientOptions.WorkspaceId`; cli: `--google-cloud-workspace-id`).
 
-| Setting      | Environment variable                                          | If unset                                                                                                                                                                                                                                                                                                                   |
-| ------------ | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Project ID   | `ANTHROPIC_GOOGLE_CLOUD_PROJECT`, then `GOOGLE_CLOUD_PROJECT` | The project that Application Default Credentials reports, when the credential type carries one                                                                                                                                                                                                                             |
-| Workspace ID | `ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID`                         | The client raises an error unless you set the base URL. [Organization-level routes](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles) and [user profile](https://platform.claude.com/docs/en/manage-claude/user-profiles) routes don’t need a workspace ID. |
-| Location     | `ANTHROPIC_GOOGLE_CLOUD_LOCATION`                             | `global`                                                                                                                                                                                                                                                                                                                   |
-| Base URL     | `ANTHROPIC_GOOGLE_CLOUD_BASE_URL`                             | Derived from the project, location, and workspace ID                                                                                                                                                                                                                                                                       |
+| Setting | Environment variable | If unset |
+| ----- | ----- | ----- |
+| Project ID | `ANTHROPIC_GOOGLE_CLOUD_PROJECT`, then `GOOGLE_CLOUD_PROJECT` | The project that Application Default Credentials reports, when the credential type carries one |
+| Workspace ID | `ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID` | The client raises an error unless you set the base URL. [Organization-level routes](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles) and [user profile](https://platform.claude.com/docs/en/manage-claude/user-profiles) routes don’t need a workspace ID. |
+| Location | `ANTHROPIC_GOOGLE_CLOUD_LOCATION` | `global` |
+| Base URL | `ANTHROPIC_GOOGLE_CLOUD_BASE_URL` | Derived from the project, location, and workspace ID |
 
 Leave the location at `global`. The location is separate from where inference runs, so for US-only inference, set `inference_geo: "us"` on each request, as described in [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency#inference-geo).
 

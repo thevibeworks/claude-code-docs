@@ -261,9 +261,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
 ## Domain types
 
-### Beta Managed Agents Agent Archived Run Error
+### Beta Managed Agents Agent Archived Run Error Object
 
-- `class BetaManagedAgentsAgentArchivedRunError`
+- `class BetaManagedAgentsAgentArchivedRunErrorObject`
 
   - `"agent_archived_error" type`
 
@@ -305,9 +305,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     What triggered this run and trigger-specific metadata.
 
-### Beta Managed Agents Environment Archived Run Error
+### Beta Managed Agents Environment Archived Run Error Object
 
-- `class BetaManagedAgentsEnvironmentArchivedRunError`
+- `class BetaManagedAgentsEnvironmentArchivedRunErrorObject`
 
   - `"environment_archived_error" type`
 
@@ -315,9 +315,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Environment Not Found Run Error
+### Beta Managed Agents Environment Not Found Run Error Object
 
-- `class BetaManagedAgentsEnvironmentNotFoundRunError`
+- `class BetaManagedAgentsEnvironmentNotFoundRunErrorObject`
 
   - `"environment_not_found_error" type`
 
@@ -325,9 +325,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents File Not Found Run Error
+### Beta Managed Agents File Not Found Run Error Object
 
-- `class BetaManagedAgentsFileNotFoundRunError`
+- `class BetaManagedAgentsFileNotFoundRunErrorObject`
 
   - `"file_not_found_error" type`
 
@@ -341,9 +341,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
   - `"manual" type`
 
-### Beta Managed Agents MCP Egress Blocked Run Error
+### Beta Managed Agents MCP Egress Blocked Run Error Object
 
-- `class BetaManagedAgentsMCPEgressBlockedRunError`
+- `class BetaManagedAgentsMCPEgressBlockedRunErrorObject`
 
   - `"mcp_egress_blocked_error" type`
 
@@ -351,9 +351,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Memory Store Archived Run Error
+### Beta Managed Agents Memory Store Archived Run Error Object
 
-- `class BetaManagedAgentsMemoryStoreArchivedRunError`
+- `class BetaManagedAgentsMemoryStoreArchivedRunErrorObject`
 
   - `"memory_store_archived_error" type`
 
@@ -361,9 +361,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Organization Disabled Run Error
+### Beta Managed Agents Organization Disabled Run Error Object
 
-- `class BetaManagedAgentsOrganizationDisabledRunError`
+- `class BetaManagedAgentsOrganizationDisabledRunErrorObject`
 
   - `"organization_disabled_error" type`
 
@@ -381,9 +381,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     The UTC instant at which the cron expression matched in the configured timezone, before jitter is applied. At most one run is recorded per (`deployment_id`, `scheduled_at`) pair.
 
-### Beta Managed Agents Self Hosted Resources Unsupported Run Error
+### Beta Managed Agents Self Hosted Resources Unsupported Run Error Object
 
-- `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
+- `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject`
 
   - `"self_hosted_resources_unsupported_error" type`
 
@@ -391,9 +391,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Session Creation Rejected Run Error
+### Beta Managed Agents Session Creation Rejected Run Error Object
 
-- `class BetaManagedAgentsSessionCreationRejectedRunError`
+- `class BetaManagedAgentsSessionCreationRejectedRunErrorObject`
 
   - `"session_creation_rejected_error" type`
 
@@ -401,9 +401,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Session Rate Limited Run Error
+### Beta Managed Agents Session Rate Limited Run Error Object
 
-- `class BetaManagedAgentsSessionRateLimitedRunError`
+- `class BetaManagedAgentsSessionRateLimitedRunErrorObject`
 
   - `"session_rate_limited_error" type`
 
@@ -411,9 +411,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Session Resource Not Found Run Error
+### Beta Managed Agents Session Resource Not Found Run Error Object
 
-- `class BetaManagedAgentsSessionResourceNotFoundRunError`
+- `class BetaManagedAgentsSessionResourceNotFoundRunErrorObject`
 
   - `"session_resource_not_found_error" type`
 
@@ -421,9 +421,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Skill Not Found Run Error
+### Beta Managed Agents Skill Not Found Run Error Object
 
-- `class BetaManagedAgentsSkillNotFoundRunError`
+- `class BetaManagedAgentsSkillNotFoundRunErrorObject`
 
   - `"skill_not_found_error" type`
 
@@ -459,9 +459,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     The run was started manually by creating a session directly against the deployment.
 
-### Beta Managed Agents Unknown Run Error
+### Beta Managed Agents Unknown Run Error Object
 
-- `class BetaManagedAgentsUnknownRunError`
+- `class BetaManagedAgentsUnknownRunErrorObject`
 
   - `"unknown_error" type`
 
@@ -469,9 +469,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Vault Archived Run Error
+### Beta Managed Agents Vault Archived Run Error Object
 
-- `class BetaManagedAgentsVaultArchivedRunError`
+- `class BetaManagedAgentsVaultArchivedRunErrorObject`
 
   - `"vault_archived_error" type`
 
@@ -479,9 +479,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Vault Not Found Run Error
+### Beta Managed Agents Vault Not Found Run Error Object
 
-- `class BetaManagedAgentsVaultNotFoundRunError`
+- `class BetaManagedAgentsVaultNotFoundRunErrorObject`
 
   - `"vault_not_found_error" type`
 
@@ -489,9 +489,9 @@ var_dump($betaManagedAgentsDeploymentRun);
 
     Human-readable error description.
 
-### Beta Managed Agents Workspace Archived Run Error
+### Beta Managed Agents Workspace Archived Run Error Object
 
-- `class BetaManagedAgentsWorkspaceArchivedRunError`
+- `class BetaManagedAgentsWorkspaceArchivedRunErrorObject`
 
   - `"workspace_archived_error" type`
 

@@ -17,11 +17,11 @@ Managed Agents has two parts that you can host:
 
 Self-hosted sandboxes move the first part to you. Self-hosted Managed Agents extends that: you host the service too. Each option’s name says what you host:
 
-| Option                                                                                            | Sandboxes | Service   | Model                                    |
-| ------------------------------------------------------------------------------------------------- | --------- | --------- | ---------------------------------------- |
-| Cloud sandboxes (default)                                                                         | Anthropic | Anthropic | Anthropic                                |
-| [Self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes) | You       | Anthropic | Anthropic                                |
-| Self-hosted Managed Agents                                                                        | You       | You       | Anthropic, or a provider that you choose |
+| Option | Sandboxes | Service | Model |
+| ----- | ----- | ----- | ----- |
+| Cloud sandboxes (default) | Anthropic | Anthropic | Anthropic |
+| [Self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes) | You | Anthropic | Anthropic |
+| Self-hosted Managed Agents | You | You | Anthropic, or a provider that you choose |
 
 On these pages, the hosted service is the service as Anthropic runs it, and your server is the service as you run it, with its own database. Both have the same API, so the SDK and the `ant` CLI work with your server, and the rest of the Managed Agents documentation applies. [Differences from the hosted service](https://platform.claude.com/docs/en/managed-agents/self-hosted/differences) lists the exceptions.
 
@@ -73,11 +73,11 @@ The self-hosted sandboxes [Security model](https://platform.claude.com/docs/en/m
 
 ## The three credentials
 
-| Credential               | Who holds it                                        | What it authenticates                                                                                                                                                                                                 |
-| ------------------------ | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Server API key**       | Your applications, the `ant` CLI, and the admin CLI | Requests to your server. Setup generates this key. It plays the role that a Claude API key plays with the hosted service.                                                                                             |
-| **Inference credential** | The server                                          | The server’s model calls to your inference provider. For example, it can be a Claude API key, your cloud provider’s credential, or the token that your model gateway accepts. Applications and workers don’t need it. |
-| **Environment key**      | Your workers that poll the server                   | One environment’s work queue and that environment’s sessions.                                                                                                                                                         |
+| Credential | Who holds it | What it authenticates |
+| ----- | ----- | ----- |
+| **Server API key** | Your applications, the `ant` CLI, and the admin CLI | Requests to your server. Setup generates this key. It plays the role that a Claude API key plays with the hosted service. |
+| **Inference credential** | The server | The server’s model calls to your inference provider. For example, it can be a Claude API key, your cloud provider’s credential, or the token that your model gateway accepts. Applications and workers don’t need it. |
+| **Environment key** | Your workers that poll the server | One environment’s work queue and that environment’s sessions. |
 
 ## What leaves your network
 

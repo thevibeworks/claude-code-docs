@@ -46,12 +46,12 @@ az keyvault show --name <your-vault-name> \
   --query "{rbac:properties.enableRbacAuthorization, purge:properties.enablePurgeProtection, pub:properties.publicNetworkAccess, net:properties.networkAcls.defaultAction, ipRules:properties.networkAcls.ipRules, uri:properties.vaultUri, tenantId:properties.tenantId}"
 ```
 
-| Field   | Must be                                                                                                                                                  |
-| ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `rbac`  | `true`                                                                                                                                                   |
-| `purge` | `true`. If it’s `false` or `null`, turn on purge protection first. You can’t turn it off again.                                                          |
-| `pub`   | `"Enabled"`. Private endpoints aren’t supported.                                                                                                         |
-| `net`   | `"Allow"`, or `"Deny"` with [Anthropic’s outbound IP addresses](https://platform.claude.com/docs/en/api/ip-addresses#outbound-ip-addresses) in `ipRules` |
+| Field | Must be |
+| ----- | ----- |
+| `rbac` | `true` |
+| `purge` | `true`. If it’s `false` or `null`, turn on purge protection first. You can’t turn it off again. |
+| `pub` | `"Enabled"`. Private endpoints aren’t supported. |
+| `net` | `"Allow"`, or `"Deny"` with [Anthropic’s outbound IP addresses](https://platform.claude.com/docs/en/api/ip-addresses#outbound-ip-addresses) in `ipRules` |
 
 Copy `uri` (the vault URI) and `tenantId`.
 

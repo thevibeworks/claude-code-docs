@@ -408,12 +408,12 @@ Once uploaded, reference the file by passing the `id` from the upload response a
 
 The Files API supports different file types that correspond to different content block types:
 
-| File type                                                                                                                                                                       | MIME type                                            | Content block type | Use case                           |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- | ------------------ | ---------------------------------- |
-| PDF                                                                                                                                                                             | `application/pdf`                                    | `document`         | Text analysis, document processing |
-| Plain text                                                                                                                                                                      | `text/plain`                                         | `document`         | Text analysis, processing          |
-| Images                                                                                                                                                                          | `image/jpeg`, `image/png`, `image/gif`, `image/webp` | `image`            | Image analysis, visual tasks       |
-| Datasets, others (see [Upload and analyze your own files](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files)) | Varies                                               | `container_upload` | Data analysis, visualization       |
+| File type | MIME type | Content block type | Use case |
+| ----- | ----- | ----- | ----- |
+| PDF | `application/pdf` | `document` | Text analysis, document processing |
+| Plain text | `text/plain` | `document` | Text analysis, processing |
+| Images | `image/jpeg`, `image/png`, `image/gif`, `image/webp` | `image` | Image analysis, visual tasks |
+| Datasets, others (see [Upload and analyze your own files](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upload-and-analyze-your-own-files)) | Varies | `container_upload` | Data analysis, visualization |
 
 #### Document blocks
 
@@ -1034,12 +1034,12 @@ If your organization has the [Compliance API](https://platform.claude.com/docs/e
 
 The Files API is out of beta and needs no beta header. Migrating off `files-api-2025-04-14` is optional: requests that send it keep working and keep returning the beta response shapes, so an existing integration keeps working until you change it. Removing the header switches those requests to the shapes documented on this page:
 
-|                                          | With `files-api-2025-04-14`             | Without the header                                                           |
-| ---------------------------------------- | --------------------------------------- | ---------------------------------------------------------------------------- |
-| List response                            | `{ data, has_more, first_id, last_id }` | `{ data, next_page }`; pass `next_page` back as the `page` query parameter   |
-| List cursors                             | `before_id`, `after_id`                 | `page`, or up to 100 `ids[]` (`before_id` and `after_id` return a 400 error) |
-| `expires_at` on file objects             | Not returned                            | Always present; `null` when the file has no expiration                       |
-| `Content-Type` on the uploaded file part | Required                                | Optional; the type is detected when omitted                                  |
+|  | With `files-api-2025-04-14` | Without the header |
+| ----- | ----- | ----- |
+| List response | `{ data, has_more, first_id, last_id }` | `{ data, next_page }`; pass `next_page` back as the `page` query parameter |
+| List cursors | `before_id`, `after_id` | `page`, or up to 100 `ids[]` (`before_id` and `after_id` return a 400 error) |
+| `expires_at` on file objects | Not returned | Always present; `null` when the file has no expiration |
+| `Content-Type` on the uploaded file part | Required | Optional; the type is detected when omitted |
 
 To migrate:
 
@@ -1058,15 +1058,15 @@ Starting with your SDK’s release in the following table, the beta namespace di
 
 The table also gives each SDK’s namespace names and where the beta namespace takes `anthropic-beta` values:
 
-| SDK        | Stable namespace | Beta namespace                                       | Beta namespace changed in | `anthropic-beta` values go in |
-| ---------- | ---------------- | ---------------------------------------------------- | ------------------------- | ----------------------------- |
-| Python     | `client.files`   | `client.beta.files`                                  | 1.2.0                     | `betas`                       |
-| TypeScript | `client.files`   | `client.beta.files`                                  | 0.122.0                   | `betas`                       |
-| C#         | `client.Files`   | `client.Beta.Files`                                  | 12.44.0                   | `Betas`                       |
-| Go         | `client.Files`   | `client.Beta.Files`                                  | 1.68.0                    | `Betas`                       |
-| Java       | `client.files()` | `client.beta().files()`                              | 2.59.0                    | `.addBeta()`                  |
-| PHP        | `$client->files` | `$client->beta->files` (classes in `Anthropic\Beta`) | 0.45.0                    | `betas`                       |
-| Ruby       | `client.files`   | `client.beta.files`                                  | 1.67.0                    | `betas`                       |
+| SDK | Stable namespace | Beta namespace | Beta namespace changed in | `anthropic-beta` values go in |
+| ----- | ----- | ----- | ----- | ----- |
+| Python | `client.files` | `client.beta.files` | 1.2.0 | `betas` |
+| TypeScript | `client.files` | `client.beta.files` | 0.122.0 | `betas` |
+| C# | `client.Files` | `client.Beta.Files` | 12.44.0 | `Betas` |
+| Go | `client.Files` | `client.Beta.Files` | 1.68.0 | `Betas` |
+| Java | `client.files()` | `client.beta().files()` | 2.59.0 | `.addBeta()` |
+| PHP | `$client->files` | `$client->beta->files` (classes in `Anthropic\Beta`) | 0.45.0 | `betas` |
+| Ruby | `client.files` | `client.beta.files` | 1.67.0 | `betas` |
 
 For a Files feature that’s in beta, use the beta namespace and pass the feature’s `anthropic-beta` value as the table shows. For example, under a Managed Agents beta header, `scope_id` limits a file list to the files of one session. To use `scope_id`, see [Listing and downloading session files](https://platform.claude.com/docs/en/managed-agents/files#listing-and-downloading-session-files).
 
@@ -1140,8 +1140,8 @@ The Files API is available on every model.
 * Availability: Available
 * Usage: Refer to an uploaded file by its `file_id` in a `document`, `image` or `container_upload` block.
 
-| Status    | Cloud platforms                                                                                                                                                                                                                                                                                                                                                                                              |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), [Microsoft Foundry (hosted on Anthropic)](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry) |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
@@ -1149,18 +1149,18 @@ The Files API is available on every model.
 * Availability: Available
 * Usage: Mount uploaded files in the session’s sandbox as session resources (read-only, under `/mnt/session/uploads`), or refer to a `file_id` in an `image` or `document` block of a `user.message` event. Files the agent writes to `/mnt/session/outputs/` can be downloaded with the Files API.
 
-| Status    | Cloud platforms         |
-| --------- | ----------------------- |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | All supported platforms |
 
 ### Data handling
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                                                         | HIPAA        |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Status  | Not eligible                                                                                                                                                                | Not eligible |
-| Details | Files retained until explicitly deleted or they reach their configured expiration. [Learn more](https://platform.claude.com/docs/en/build-with-claude/files#data-retention) | —            |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
+| Details | Files retained until explicitly deleted or they reach their configured expiration. [Learn more](https://platform.claude.com/docs/en/build-with-claude/files#data-retention) | — |
 
 Applicable endpoints:
 

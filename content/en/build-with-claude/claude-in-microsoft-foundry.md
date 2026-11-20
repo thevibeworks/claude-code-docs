@@ -12,12 +12,12 @@ Claude is available in Global Standard and US Data Zone Standard deployment type
 
 Claude models in Microsoft Foundry are available in two hosting options. You choose the hosting option when you configure the deployment.
 
-|                      | Hosted on Azure                                                                                                                                        | Hosted on Anthropic                                                                                                                                                                                                                                                                                                                                                    |
-| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Where inference runs | Anthropic-operated service running on Azure infrastructure                                                                                             | Anthropic-operated service running on Anthropic infrastructure                                                                                                                                                                                                                                                                                                         |
-| Model availability   | [Some Opus, Sonnet, and Haiku models](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#api-model-ids-and-deployments) | [All Claude models available on Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#api-model-ids-and-deployments)                                                                                                                                                                                                    |
-| Deployment types     | Global Standard, US Data Zone Standard                                                                                                                 | Global Standard                                                                                                                                                                                                                                                                                                                                                        |
-| Recommended for      | Most workloads                                                                                                                                         | Workloads that need [models hosted only on Anthropic](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#api-model-ids-and-deployments) or [features available only when hosted on Anthropic](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure) |
+|  | Hosted on Azure | Hosted on Anthropic |
+| ----- | ----- | ----- |
+| Where inference runs | Anthropic-operated service running on Azure infrastructure | Anthropic-operated service running on Anthropic infrastructure |
+| Model availability | [Some Opus, Sonnet, and Haiku models](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#api-model-ids-and-deployments) | [All Claude models available on Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#api-model-ids-and-deployments) |
+| Deployment types | Global Standard, US Data Zone Standard | Global Standard |
+| Recommended for | Most workloads | Workloads that need [models hosted only on Anthropic](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#api-model-ids-and-deployments) or [features available only when hosted on Anthropic](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure) |
 
 For deployments hosted on Azure, Anthropic processes prompts and completions on Azure infrastructure and stores retained content there. Retained content includes content flagged by Anthropic’s safety systems for Anthropic to review. Operational data that contains no prompts or completions is stored on Anthropic’s systems outside Azure. Examples include safety classifier scores, identifiers, and usage and billing data.
 
@@ -655,26 +655,26 @@ Lifecycle terms (Deprecated, Retired) are defined in [Model deprecations](https:
 
 The following Claude models are available through Foundry:
 
-| Model                                                                                                 | Default deployment name | Hosted on Azure | Hosted on Anthropic |
-| :---------------------------------------------------------------------------------------------------- | :---------------------- | :-------------: | :-----------------: |
-| Claude Fable 5.2                                                                                      | `claude-fable-5-2`      |                 |          ✓          |
-| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842))           | `claude-mythos-5-2`     |                 |          ✓          |
-| Claude Fable 5.1                                                                                      | `claude-fable-5-1`      |                 |          ✓          |
-| Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842))           | `claude-mythos-5-1`     |                 |          ✓          |
-| Claude Fable 5                                                                                        | `claude-fable-5`        |                 |          ✓          |
-| Claude Mythos 5 ([limited availability](https://support.claude.com/en/articles/14604842))             | `claude-mythos-5`       |                 |          ✓          |
-| Claude Opus 5.5                                                                                       | `claude-opus-5-5`       |        ✓        |          ✓          |
-| Claude Opus 5                                                                                         | `claude-opus-5`         |        ✓        |          ✓          |
-| Claude Opus 4.8                                                                                       | `claude-opus-4-8`       |        ✓        |          ✓          |
-| Claude Opus 4.7                                                                                       | `claude-opus-4-7`       |                 |          ✓          |
-| Claude Opus 4.6                                                                                       | `claude-opus-4-6`       |                 |          ✓          |
-| Claude Opus 4.5                                                                                       | `claude-opus-4-5`       |                 |          ✓          |
-| Claude Sonnet 5.5                                                                                     | `claude-sonnet-5-5`     |        ✓        |          ✓          |
-| Claude Sonnet 5                                                                                       | `claude-sonnet-5`       |        ✓        |          ✓          |
-| Claude Sonnet 4.6                                                                                     | `claude-sonnet-4-6`     |                 |          ✓          |
-| Claude Sonnet 4.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | `claude-sonnet-4-5`     |                 |          ✓          |
-| Claude Haiku 5.5                                                                                      | `claude-haiku-5-5`      |        ✓        |          ✓          |
-| Claude Haiku 4.5                                                                                      | `claude-haiku-4-5`      |        ✓        |          ✓          |
+| Model | Default deployment name | Hosted on Azure | Hosted on Anthropic |
+| :---- | :---- | :---: | :---: |
+| Claude Fable 5.2 | `claude-fable-5-2` |  | ✓ |
+| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842)) | `claude-mythos-5-2` |  | ✓ |
+| Claude Fable 5.1 | `claude-fable-5-1` |  | ✓ |
+| Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842)) | `claude-mythos-5-1` |  | ✓ |
+| Claude Fable 5 | `claude-fable-5` |  | ✓ |
+| Claude Mythos 5 ([limited availability](https://support.claude.com/en/articles/14604842)) | `claude-mythos-5` |  | ✓ |
+| Claude Opus 5.5 | `claude-opus-5-5` | ✓ | ✓ |
+| Claude Opus 5 | `claude-opus-5` | ✓ | ✓ |
+| Claude Opus 4.8 | `claude-opus-4-8` | ✓ | ✓ |
+| Claude Opus 4.7 | `claude-opus-4-7` |  | ✓ |
+| Claude Opus 4.6 | `claude-opus-4-6` |  | ✓ |
+| Claude Opus 4.5 | `claude-opus-4-5` |  | ✓ |
+| Claude Sonnet 5.5 | `claude-sonnet-5-5` | ✓ | ✓ |
+| Claude Sonnet 5 | `claude-sonnet-5` | ✓ | ✓ |
+| Claude Sonnet 4.6 | `claude-sonnet-4-6` |  | ✓ |
+| Claude Sonnet 4.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | `claude-sonnet-4-5` |  | ✓ |
+| Claude Haiku 5.5 | `claude-haiku-5-5` | ✓ | ✓ |
+| Claude Haiku 4.5 | `claude-haiku-4-5` | ✓ | ✓ |
 
 By default, deployment names match the model IDs shown in the preceding table. However, you can create custom deployments with different names in the Foundry portal to manage different configurations, versions, or rate limits. Use the deployment name (not necessarily the model ID) in your API requests.
 

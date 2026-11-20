@@ -92,12 +92,12 @@ Because each request in the batch is processed independently, you can mix differ
 
 A small number of Messages API parameters are **not** supported in batch requests. Including any of these returns a validation error:
 
-| Parameter                                                                                                                              | Why                                                                                                                                                                                                                   |
-| -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `stream: true`                                                                                                                         | Batch results come back as a single file, not a stream.                                                                                                                                                               |
-| `speed` ([Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode))                                                 | Fast mode tunes synchronous latency, which doesn’t apply to asynchronous batch processing.                                                                                                                            |
+| Parameter | Why |
+| ----- | ----- |
+| `stream: true` | Batch results come back as a single file, not a stream. |
+| `speed` ([Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode)) | Fast mode tunes synchronous latency, which doesn’t apply to asynchronous batch processing. |
 | `fallbacks` ([Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback)) | Server-side fallback doesn’t apply to batches. To retry refused requests, see [Refusals in Message Batches](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusals-in-message-batches). |
-| `max_tokens: 0`                                                                                                                        | See [Batch limitations](https://platform.claude.com/docs/en/build-with-claude/batch-processing#batch-limitations).                                                                                                    |
+| `max_tokens: 0` | See [Batch limitations](https://platform.claude.com/docs/en/build-with-claude/batch-processing#batch-limitations). |
 
 <Tip>
   Because batches can take longer than 5 minutes to process, consider using the [1-hour cache duration](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#1-hour-cache-duration) with prompt caching for better cache hit rates when processing batches with shared context.
@@ -107,30 +107,30 @@ A small number of Messages API parameters are **not** supported in batch request
 
 The Batches API offers significant cost savings. All usage is charged at 50 percent of the standard API prices.
 
-| Model                                                                                                                                                                  | Batch input  | Batch output  |
-| :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------- | :------------ |
-| Claude Fable 5.2                                                                                                                                                       | $4 / MTok    | $20 / MTok    |
-| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842))                                                                            | $4 / MTok    | $20 / MTok    |
-| Claude Fable 5.1                                                                                                                                                       | $5 / MTok    | $25 / MTok    |
-| Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842))                                                                            | $5 / MTok    | $25 / MTok    |
-| Claude Fable 5                                                                                                                                                         | $5 / MTok    | $25 / MTok    |
-| Claude Mythos 5 ([limited availability](https://support.claude.com/en/articles/14604842))                                                                              | $5 / MTok    | $25 / MTok    |
-| Claude Opus 5.5                                                                                                                                                        | $2 / MTok    | $10 / MTok    |
-| Claude Opus 5                                                                                                                                                          | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.8                                                                                                                                                        | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.7                                                                                                                                                        | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.6                                                                                                                                                        | $2.50 / MTok | $12.50 / MTok |
-| Claude Opus 4.5                                                                                                                                                        | $2.50 / MTok | $12.50 / MTok |
+| Model | Batch input | Batch output |
+| :---- | :---- | :---- |
+| Claude Fable 5.2 | $4 / MTok | $20 / MTok |
+| Claude Mythos 5.2 ([limited availability](https://support.claude.com/en/articles/14604842)) | $4 / MTok | $20 / MTok |
+| Claude Fable 5.1 | $5 / MTok | $25 / MTok |
+| Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842)) | $5 / MTok | $25 / MTok |
+| Claude Fable 5 | $5 / MTok | $25 / MTok |
+| Claude Mythos 5 ([limited availability](https://support.claude.com/en/articles/14604842)) | $5 / MTok | $25 / MTok |
+| Claude Opus 5.5 | $2 / MTok | $10 / MTok |
+| Claude Opus 5 | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.8 | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.7 | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.6 | $2.50 / MTok | $12.50 / MTok |
+| Claude Opus 4.5 | $2.50 / MTok | $12.50 / MTok |
 | Claude Opus 4.1 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | $7.50 / MTok | $37.50 / MTok |
-| Claude Opus 4 ([retired, except on Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/about-claude/model-deprecations))               | $7.50 / MTok | $37.50 / MTok |
-| Claude Sonnet 5.5                                                                                                                                                      | $1 / MTok    | $5 / MTok     |
-| Claude Sonnet 5                                                                                                                                                        | $1 / MTok    | $5 / MTok     |
-| Claude Sonnet 4.6                                                                                                                                                      | $1.50 / MTok | $7.50 / MTok  |
-| Claude Sonnet 4.5                                                                                                                                                      | $1.50 / MTok | $7.50 / MTok  |
-| Claude Sonnet 4 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | $1.50 / MTok | $7.50 / MTok  |
-| Claude Haiku 5.5 (for prompts up to 100,000 tokens)                                                                                                                    | $0.05 / MTok | $0.25 / MTok  |
-| Claude Haiku 5.5 (for prompts over 100,000 tokens)                                                                                                                     | $0.25 / MTok | $1.25 / MTok  |
-| Claude Haiku 4.5                                                                                                                                                       | $0.50 / MTok | $2.50 / MTok  |
+| Claude Opus 4 ([retired, except on Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | $7.50 / MTok | $37.50 / MTok |
+| Claude Sonnet 5.5 | $1 / MTok | $5 / MTok |
+| Claude Sonnet 5 | $1 / MTok | $5 / MTok |
+| Claude Sonnet 4.6 | $1.50 / MTok | $7.50 / MTok |
+| Claude Sonnet 4.5 | $1.50 / MTok | $7.50 / MTok |
+| Claude Sonnet 4 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | $1.50 / MTok | $7.50 / MTok |
+| Claude Haiku 5.5 (for prompts up to 100,000 tokens) | $0.05 / MTok | $0.25 / MTok |
+| Claude Haiku 5.5 (for prompts over 100,000 tokens) | $0.25 / MTok | $1.25 / MTok |
+| Claude Haiku 4.5 | $0.50 / MTok | $2.50 / MTok |
 
 * **MTok:** Million tokens. $5 / MTok is $5 for every million tokens.
 * **Limited access:** Available only to organizations verified through Anthropic’s verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842). To request access, apply to the program that covers your use case.
@@ -730,12 +730,12 @@ You can list all Message Batches in your Workspace using the [list endpoint](htt
 
 Once batch processing has ended, each Messages request in the batch has a result. There are four result types:
 
-| Result type | Description                                                                                                                                                            |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `succeeded` | Request was successful. Includes the message result.                                                                                                                   |
-| `errored`   | Request encountered an error and a message was not created. Possible errors include invalid requests and internal server errors. You aren’t billed for these requests. |
-| `canceled`  | User canceled the batch before this request could be sent to the model. You aren’t billed for these requests.                                                          |
-| `expired`   | Batch reached its 24-hour expiration before this request could be sent to the model. You aren’t billed for these requests.                                             |
+| Result type | Description |
+| ----- | ----- |
+| `succeeded` | Request was successful. Includes the message result. |
+| `errored` | Request encountered an error and a message was not created. Possible errors include invalid requests and internal server errors. You aren’t billed for these requests. |
+| `canceled` | User canceled the batch before this request could be sent to the model. You aren’t billed for these requests. |
+| `expired` | Batch reached its 24-hour expiration before this request could be sent to the model. You aren’t billed for these requests. |
 
 The batch’s `request_counts` object counts the requests still processing and the requests with each result type.
 
@@ -1895,8 +1895,8 @@ Batch processing is available on every model.
 
 * Availability: Available
 
-| Status    | Cloud platforms                                                                                                                                                                                                                                                                |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Status | Cloud platforms |
+| ----- | ----- |
 | Available | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
@@ -1907,10 +1907,10 @@ Batch processing is available on every model.
 
 [Data handling overview](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)
 
-| Item    | Zero data retention                                                                                                                           | HIPAA        |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| Status  | Not eligible                                                                                                                                  | Not eligible |
-| Details | 29-day retention; async storage required. [Learn more](https://platform.claude.com/docs/en/build-with-claude/batch-processing#data-retention) | —            |
+| Item | Zero data retention | HIPAA |
+| ----- | ----- | ----- |
+| Status | Not eligible | Not eligible |
+| Details | 29-day retention; async storage required. [Learn more](https://platform.claude.com/docs/en/build-with-claude/batch-processing#data-retention) | — |
 
 Applicable endpoints:
 

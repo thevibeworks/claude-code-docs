@@ -71,14 +71,14 @@ You need:
 
 Six read-only endpoints are served under `https://api.anthropic.com/v1/compliance/transparency_log/`:
 
-| Endpoint                                                                                                                      | Returns                                                          |
-| ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| [`GET /checkpoint`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-the-latest-checkpoint)     | The latest signed checkpoint                                     |
-| [`GET /keys`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-the-verifier-keys)               | The verifier key set                                             |
-| [`GET /inclusion`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#fetch-an-inclusion-proof)        | An inclusion proof for one event                                 |
-| [`GET /consistency`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#fetch-a-consistency-proof)     | A consistency proof from a checkpoint you hold to the latest one |
-| [`GET /tile/{level}/{index}`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-a-hash-tile)     | A Merkle hash tile                                               |
-| [`GET /tile/entries/{index}`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-an-entry-bundle) | An entry bundle of leaf bytes                                    |
+| Endpoint | Returns |
+| ----- | ----- |
+| [`GET /checkpoint`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-the-latest-checkpoint) | The latest signed checkpoint |
+| [`GET /keys`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-the-verifier-keys) | The verifier key set |
+| [`GET /inclusion`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#fetch-an-inclusion-proof) | An inclusion proof for one event |
+| [`GET /consistency`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#fetch-a-consistency-proof) | A consistency proof from a checkpoint you hold to the latest one |
+| [`GET /tile/{level}/{index}`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-a-hash-tile) | A Merkle hash tile |
+| [`GET /tile/entries/{index}`](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#read-an-entry-bundle) | An entry bundle of leaf bytes |
 
 Checkpoints, tiles, and entry bundles follow the C2SP tlog-tiles wire format exactly. The two proof endpoints are conveniences: every proof is also computable from tiles, so you never have to trust a proof endpoint’s output. You verify the hashes it returns against a signed checkpoint.
 
@@ -100,14 +100,14 @@ A `404` means there is no log this key can read. An organization outside the key
 
 Errors use the standard Compliance API JSON error envelope on every endpoint, including the text and binary ones. See [Handle Compliance API errors](https://platform.claude.com/docs/en/manage-claude/compliance-errors) for the envelope and the shared error types.
 
-| Status | Meaning on this surface                                                                                                                                                              |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `400`  | `organization_id` is malformed or is omitted with a parent-organization key, the Compliance API is not enabled, a query parameter is unknown, or a per-endpoint validation failed    |
-| `401`  | The API key is missing or not valid                                                                                                                                                  |
-| `403`  | The key lacks the required scope                                                                                                                                                     |
-| `404`  | No log readable by this key, or the per-endpoint “not covered” and “beyond the tree” cases                                                                                           |
-| `429`  | Rate limited. These endpoints share the Compliance API’s per-parent-organization [rate limit](https://platform.claude.com/docs/en/manage-claude/compliance-api). Honor `retry-after` |
-| `503`  | The log is temporarily unavailable. Retry with backoff                                                                                                                               |
+| Status | Meaning on this surface |
+| ----- | ----- |
+| `400` | `organization_id` is malformed or is omitted with a parent-organization key, the Compliance API is not enabled, a query parameter is unknown, or a per-endpoint validation failed |
+| `401` | The API key is missing or not valid |
+| `403` | The key lacks the required scope |
+| `404` | No log readable by this key, or the per-endpoint “not covered” and “beyond the tree” cases |
+| `429` | Rate limited. These endpoints share the Compliance API’s per-parent-organization [rate limit](https://platform.claude.com/docs/en/manage-claude/compliance-api). Honor `retry-after` |
+| `503` | The log is temporarily unavailable. Retry with backoff |
 
 ### Caching
 
@@ -166,16 +166,16 @@ curl --fail-with-body -sS \
 }
 ```
 
-| Field                     | Type   | Description                                                                                                                                                                                                                                                                                              |
-| ------------------------- | ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`                    | string | Always `transparency_log_keys`                                                                                                                                                                                                                                                                           |
-| `origin`                  | string | The origin line every checkpoint of this log carries. Informational: compare checkpoints against the origin you derive yourself, not against this field                                                                                                                                                  |
-| `log_keys`                | array  | The key that signs new checkpoints first, then every other key the log serves, newest first. Never empty                                                                                                                                                                                                 |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `type` | string | Always `transparency_log_keys` |
+| `origin` | string | The origin line every checkpoint of this log carries. Informational: compare checkpoints against the origin you derive yourself, not against this field |
+| `log_keys` | array | The key that signs new checkpoints first, then every other key the log serves, newest first. Never empty |
 | `log_keys[].verifier_key` | string | The key as a C2SP note-verifier string, `<origin>+<key_hash>+<base64 key>`, accepted by tlog-tiles tooling that supports ECDSA note keys (for example, the Go `github.com/transparency-dev/formats` module). The base64 part decodes to the algorithm byte `0x02` followed by the DER-encoded public key |
-| `log_keys[].key_hash`     | string | Eight lowercase hex digits. The 4-byte selector that matches this key to a checkpoint’s signature line. It is the first 4 bytes of `fingerprint` and is not an identity                                                                                                                                  |
-| `log_keys[].fingerprint`  | string | 64 lowercase hex digits: the SHA-256 of the DER `SubjectPublicKeyInfo`                                                                                                                                                                                                                                   |
-| `log_keys[].algorithm`    | string | The key type, currently `ecdsa_p256_sha256`. Values may be added. Skip a key whose algorithm you do not support                                                                                                                                                                                          |
-| `log_keys[].public_key`   | string | The public key as base64 DER `SubjectPublicKeyInfo`                                                                                                                                                                                                                                                      |
+| `log_keys[].key_hash` | string | Eight lowercase hex digits. The 4-byte selector that matches this key to a checkpoint’s signature line. It is the first 4 bytes of `fingerprint` and is not an identity |
+| `log_keys[].fingerprint` | string | 64 lowercase hex digits: the SHA-256 of the DER `SubjectPublicKeyInfo` |
+| `log_keys[].algorithm` | string | The key type, currently `ecdsa_p256_sha256`. Values may be added. Skip a key whose algorithm you do not support |
+| `log_keys[].public_key` | string | The public key as base64 DER `SubjectPublicKeyInfo` |
 
 The `key_hash` covers only the key bytes: it is the first 4 bytes of SHA-256 over the DER `SubjectPublicKeyInfo`, which is the rule the ECDSA note-verifier encoding uses. It is not the name-dependent key ID that the base signed-note format defines for Ed25519 keys, so it does not change with the origin. A valid signature by a key listed in [Published key fingerprints](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#published-key-fingerprints) proves the checkpoint came from Anthropic’s transparency log service. The origin line inside the signed checkpoint is what binds it to your organization. That is why you compare that line against the origin you derive yourself.
 
@@ -189,9 +189,9 @@ Keys can rotate:
 
 Anthropic publishes the fingerprint of every key that signs checkpoints here, outside the API. This lets you check a key you hold locally against a source the serving path cannot alter. The key you hold might come from an earlier `GET /keys` response or from tooling that pins the key.
 
-| Key hash   | SHA-256 fingerprint                                                | Algorithm           | Signing since | Status              |
-| ---------- | ------------------------------------------------------------------ | ------------------- | ------------- | ------------------- |
-| `1dff5fe4` | `1dff5fe420d49743fe444a04fc17f818eea856699dec2ebbc24df15602c74a58` | `ecdsa_p256_sha256` | 2026-08-17    | Current signing key |
+| Key hash | SHA-256 fingerprint | Algorithm | Signing since | Status |
+| ----- | ----- | ----- | ----- | ----- |
+| `1dff5fe4` | `1dff5fe420d49743fe444a04fc17f818eea856699dec2ebbc24df15602c74a58` | `ecdsa_p256_sha256` | 2026-08-17 | Current signing key |
 
 A planned rotation is announced on this page at least 30 days before the new key signs its first checkpoint. During that notice period the new key is listed in `log_keys` and in this table with its switch date. Retired keys stay listed with their service dates. A key that does not appear in this table is not legitimate, whatever `GET /keys` returns. Treat a checkpoint that verifies under no listed key as a verification failure, and report it to your Anthropic account representative or [Anthropic support](https://support.claude.com).
 
@@ -201,10 +201,10 @@ A planned rotation is announced on this page at least 30 days before the new key
 
 `GET /v1/compliance/transparency_log/inclusion?leaf_index={index}`
 
-| Parameter         | Type              | Description                                                                                                                            |
-| ----------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `leaf_index`      | integer, required | The event’s position in the log: the `transparency_log_leaf_index` the Activity Feed served on the event. Must be zero or greater      |
-| `organization_id` | string, optional  | See [Authentication and scoping](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#authentication-and-scoping) |
+| Parameter | Type | Description |
+| ----- | ----- | ----- |
+| `leaf_index` | integer, required | The event’s position in the log: the `transparency_log_leaf_index` the Activity Feed served on the event. Must be zero or greater |
+| `organization_id` | string, optional | See [Authentication and scoping](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#authentication-and-scoping) |
 
 ```bash
 curl --fail-with-body -sS -G \
@@ -227,12 +227,12 @@ curl --fail-with-body -sS -G \
 }
 ```
 
-| Field        | Type             | Description                                                                                |
-| ------------ | ---------------- | ------------------------------------------------------------------------------------------ |
-| `type`       | string           | Always `transparency_log_inclusion_proof`                                                  |
-| `leaf_index` | integer          | The event’s position in the log, echoed from the request                                   |
-| `hashes`     | array of strings | The base64 sibling hashes of the audit path, ordered from the leaf up to the root          |
-| `checkpoint` | string           | The latest signed checkpoint, the one the proof verifies against. It carries the tree size |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `type` | string | Always `transparency_log_inclusion_proof` |
+| `leaf_index` | integer | The event’s position in the log, echoed from the request |
+| `hashes` | array of strings | The base64 sibling hashes of the audit path, ordered from the leaf up to the root |
+| `checkpoint` | string | The latest signed checkpoint, the one the proof verifies against. It carries the tree size |
 
 There is no lookup by activity ID. You always hold the index, because it arrives on the event, and you check the proof against the event bytes you fetched from the feed.
 
@@ -247,10 +247,10 @@ A `leaf_index` that is missing or is not a non-negative integer returns `400`.
 
 `GET /v1/compliance/transparency_log/consistency?from={size}`
 
-| Parameter         | Type              | Description                                                                                                                            |
-| ----------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `from`            | integer, required | The tree size of the earlier checkpoint you hold. Must be at least 1 and at most the latest checkpoint’s tree size                     |
-| `organization_id` | string, optional  | See [Authentication and scoping](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#authentication-and-scoping) |
+| Parameter | Type | Description |
+| ----- | ----- | ----- |
+| `from` | integer, required | The tree size of the earlier checkpoint you hold. Must be at least 1 and at most the latest checkpoint’s tree size |
+| `organization_id` | string, optional | See [Authentication and scoping](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#authentication-and-scoping) |
 
 ```bash
 curl --fail-with-body -sS -G \
@@ -272,11 +272,11 @@ curl --fail-with-body -sS -G \
 }
 ```
 
-| Field        | Type             | Description                                                                          |
-| ------------ | ---------------- | ------------------------------------------------------------------------------------ |
-| `type`       | string           | Always `transparency_log_consistency_proof`                                          |
-| `hashes`     | array of strings | The base64 proof hashes, in RFC 9162 order                                           |
-| `checkpoint` | string           | The latest signed checkpoint, the one the proof extends to. It carries the tree size |
+| Field | Type | Description |
+| ----- | ----- | ----- |
+| `type` | string | Always `transparency_log_consistency_proof` |
+| `hashes` | array of strings | The base64 proof hashes, in RFC 9162 order |
+| `checkpoint` | string | The latest signed checkpoint, the one the proof extends to. It carries the tree size |
 
 * The proof always extends to the latest published checkpoint. This API never serves historical checkpoints: you keep the ones you are served.
 * A `from` equal to the latest checkpoint’s tree size returns the empty proof.
@@ -405,9 +405,9 @@ Verification runs on your own infrastructure. Everything the API returns is untr
 Each `axt-verify` release rebuilds only [leaf versions](https://platform.claude.com/docs/en/manage-claude/access-transparency-log#how-an-event-becomes-a-leaf) that were defined when it was released. Assume that your log can start writing a new version at any time once a release that rebuilds it is published. Install that release as soon as it is published.
 
 | Leaf version | `axt-verify` releases that rebuild it |
-| ------------ | ------------------------------------- |
-| `0x01`       | Every release                         |
-| `0x02`       | `v0.2.0` and later                    |
+| ----- | ----- |
+| `0x01` | Every release |
+| `0x02` | `v0.2.0` and later |
 
 `axt-verify version` prints the release you run. A new installation gets the newest release. If the table’s last row does not include your release, upgrade to a release in that row. If none is published yet, upgrade as soon as one is:
 

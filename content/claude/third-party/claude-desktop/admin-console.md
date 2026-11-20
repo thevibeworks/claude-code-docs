@@ -321,7 +321,7 @@ On a device whose managed profile sets an inference provider or bootstrap keys, 
 
 ### Block other accounts in Claude Desktop
 
-To keep personal accounts and other organizations' accounts out of Claude Desktop without device management, turn on the **Block other accounts after a member signs in** switch. After a user uses Claude Desktop signed in to your organization, the app blocks other accounts for that computer login from its next start. The block also applies on personal devices. A blocked person sees a page that reads "This account is not approved by your enterprise admin" and can only log out.
+To keep personal accounts and other organizations' accounts out of Claude Desktop without device management, turn on the **Block other accounts after a member signs in** switch. After a user uses Claude Desktop signed in to your organization, the app blocks other accounts for that computer login from its next start. The block also applies on personal devices. A blocked person can only log out, as described under [What people see when other accounts are blocked](#what-people-see-when-other-accounts-are-blocked).
 
 > [!WARNING]
 >
@@ -336,23 +336,43 @@ Check what the block covers:
 To turn on the block:
 
 1. Check that devices run Claude Desktop 4.29.0 or later. Devices on the [`staggered` release channel](https://claude.com/docs/third-party/claude-desktop/installation#updates) get releases later.
-   * **Releases 3.6556.1 and 3.6556.2**: the app applies the block but ignores the list, so it also blocks the organizations on it. After an update to 4.29.0 or later, the device allows those organizations from the first app start after a user next uses Claude Desktop there signed in to your organization.
+   * **Releases 3.6556.1 and 3.6556.2**: the app applies the block but ignores the list, so it also blocks the organizations on it. After an update to 4.29.0 or later, the device allows those organizations after it [gets the list](#when-devices-get-a-change-to-the-block).
    * **Releases before 3.6556.1**: the app ignores the block's switch.
 2. In the admin console, go to **Desktop sign-in** on the **Connection** page. Turn on the [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization) switch. Without that switch, the block's switch is unavailable.
-3. If people at your company use other Claude organizations, save the list before you turn on the block. Otherwise, a device can block those organizations until it gets the list and restarts. Click **Edit list** in the **Allowed organizations** row. Add each organization's ID on its own line, below your own organization's ID. Click **Copy list**. Then click **Save**.
+3. If people at your company use other Claude organizations, save the list before you turn on the block. Otherwise, a device can block those organizations until it [gets the list](#when-devices-get-a-change-to-the-block). Click **Edit list** in the **Allowed organizations** row. Add each organization's ID on its own line, below your own organization's ID. Click **Copy list**. Then click **Save**.
 4. Turn on the **Block other accounts after a member signs in** switch. Then click **Block other accounts**.
 5. Set up the block in each Claude Enterprise organization on the list too. Without this step, on devices where only that organization's users use Claude Desktop, the block ends about 30 days after your users last used Claude Desktop there.
    * **With a Connection page**: follow the same steps and paste the same list.
    * **Without a Connection page**: go to **Organization settings > Organization and access**. Under **Security**, click **Edit list** in the **Allowed organizations** row, paste the same list, and click **Save**. Then turn on the switch above that row and confirm.
 
+#### What people see when other accounts are blocked
+
+With the [block](#block-other-accounts-in-claude-desktop) on, people can see these messages in standard Claude Desktop, where users sign in to claude.ai:
+
+* **"This account is not approved by your enterprise admin"**: the account isn't in an allowed organization. The person can only log out.
+* **"Restricted by your admin"**: an organization that isn't allowed is unavailable in the menus that list organizations. Its tooltip starts with these words.
+* **"Couldn't switch to the required organization"**: the person's account was signed in to an organization that isn't allowed, and the app couldn't move it to an allowed organization that the account belongs to. The app tries again on its own. While the app tries, the page reads "Waiting to switch to the required organization". The person can also quit Claude Desktop and open it again, or log out and sign in again.
+* **"Organization not allowed on this computer"**: a Code session or a Cowork task tried to start in an organization that isn't allowed. On Claude Desktop 4.23118.0 and later versions before 6.6395.0, the app shows the general sign-in message "Couldn't verify your sign-in".
+
+To allow an organization, add its ID to the **Allowed organizations** list under **Desktop sign-in** on the **Connection** page. Devices get the new list as described under [When devices get a change to the block](#when-devices-get-a-change-to-the-block).
+
 #### Unblock other accounts in Claude Desktop
 
 Remove the [block](#block-other-accounts-in-claude-desktop) from every device or from one:
 
-* **Every device**: turn off the **Block other accounts after a member signs in** switch under **Desktop sign-in** on the **Connection** page of the admin console. Each device gets the change when a user next uses Claude Desktop there signed in to your organization. The device removes the block at the start after that, so the change can take two restarts. A removed user's device can't get the change, so remove users after their devices get it.
+* **Every device**: turn off the **Block other accounts after a member signs in** switch under **Desktop sign-in** on the **Connection** page of the admin console. Remove users from your organization only after their devices [get the change](#when-devices-get-a-change-to-the-block). A removed user's device can't get it.
 * **One device**: ask the person at the device to sign out of your organization, quit Claude Desktop, and delete the `saved-org-lock.json` file from the [application data directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives). The block returns if a user signs in to your organization there while the switch is on.
 
 The block also ends by itself at the first app start about 30 days after a user last used Claude Desktop on the device signed in to your organization.
+
+#### When devices get a change to the block
+
+A device gets a change to the **Block other accounts after a member signs in** switch or to the **Allowed organizations** list when a user next uses Claude Desktop there signed in to your organization. When the change allows more accounts, the app applies it without a restart. Before Claude Desktop 6.28899.2, standard Claude Desktop applies the change at its next start, and a user might need to quit and open it twice.
+
+To get the change to a device sooner:
+
+* **A user is signed in to your organization there**: ask the user to quit Claude Desktop and open it again. Closing its window isn't enough.
+* **A blocked account is signed in there**: the device doesn't get the change. Ask the person to log out and sign in to your organization. If the person has no account in your organization, follow the **One device** steps under [Unblock other accounts in Claude Desktop](#unblock-other-accounts-in-claude-desktop).
 
 ### Configuration updates
 
@@ -382,6 +402,8 @@ Upload your current configuration, as described under [Start from an existing co
 **2. Finish the configuration before users sign in**
 
 Set every setting you rely on in the console, because the console's configuration replaces the profile's. Add your [plugin marketplaces](#plugin-marketplaces) on the **Plugins** page. To migrate users' work, check that the **Automatically import earlier third-party sessions** switch under **Claude.ai data import** on the **Capabilities** page is on (the default). To skip the migration, turn it off. Devices that already migrated keep their items.
+
+Designs and slide decks [aren't migrated](#what-is-not-migrated), so have users [export the ones they need](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md#use-design-and-slides) to files before you go on.
 
 With a bootstrap server, each telemetry category is off unless the server's response sets its key, [`disableEssentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disableessentialtelemetry) or [`disableNonessentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialtelemetry), to `false`. With the console, both categories are on. To keep them off, turn on the **Block essential telemetry** and **Block nonessential telemetry** switches on the **Telemetry & updates** page before users sign in.
 
@@ -417,7 +439,7 @@ Claude Desktop 5.11492.0 or later migrates these items in the background. [Earli
 
 * Chat, Cowork, and Code sessions, in their custom groups in the sidebar. Cowork sessions keep their connected folders. Cowork and Chat sessions keep their attached files, apart from those under [What is not migrated](#what-is-not-migrated).
 * Cowork projects, with their descriptions, folders, and sidebar pins
-* Artifacts, with their earlier versions
+* Live artifacts (interactive pages), with their earlier versions
 * Memory, unless the user paused it
 * Users' global instructions and **Instructions for Claude**, unless they already set them in your organization
 * Scheduled tasks from Cowork and Code, except one-time tasks whose time has passed. Each task stays on or off as it was. Its **History** lists its earlier runs, which also arrive as ordinary sessions.
@@ -434,6 +456,8 @@ Claude Desktop 5.11492.0 or later migrates these items in the background. [Earli
 With Claude Desktop 5.11492.0 or later, users set up these items again. [Earlier releases leave out more](#devices-that-migrated-on-an-earlier-release):
 
 * **Project links**: add them again on each project's page
+* **[Designs and slide decks](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md)**: before the device moves to the admin console, have users [export the ones they need](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md#use-design-and-slides) to files. The originals stay on the device.
+* **Design systems that users added on the computer**: [add them again](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md#add-a-design-system-on-one-computer)
 * **Project folders in Chat**: Claude can't read a migrated project's folder in Chat until the user [adds the folder to the project again](https://claude.com/docs/third-party/claude-desktop/import.md#make-an-imported-project-folder-readable-in-chat)
 * **Model of scheduled tasks, and the approval mode of some**: each task arrives with **Default model**. A task that ran on **Automatically approve** or in bypass permissions mode arrives on **Automatically approve** if its tab offers that mode when the device migrates. Cowork offers it only where [`autoModeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeenabled) is `true`. Code offers it unless `autoModeEnabled` is `false` or a managed Claude Code setting turns Auto mode off. Any other task arrives without its approval mode. Until the user sets the mode again, a run that needs an approval waits for them.
 * **Sidebar pins of sessions and scheduled tasks**: pin them again

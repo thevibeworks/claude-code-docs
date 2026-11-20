@@ -366,6 +366,7 @@ type AnthropicBeta =
   | "message-threads-2026-08-12"
   | "analytics-usage-cost-2026-08-24"
   | "experimental-claude-tag-2026-10-21"
+  | "ce-claude-code-managed-settings-2026-10-06"
   | "user-profiles-billing-2026-10-01"
   /** @deprecated This value is no longer needed. Remove it from your requests. */
   | "message-batches-2024-09-24"
@@ -2340,7 +2341,7 @@ interface BetaManagedAgentsSessionErrorEvent {
   type: "session.error";
   /** Unique identifier for this event. */
   id: string;
-  error: BetaManagedAgentsUnknownError | BetaManagedAgentsModelOverloadedError | BetaManagedAgentsModelRateLimitedError | BetaManagedAgentsModelRequestFailedError | BetaManagedAgentsMCPConnectionFailedError | BetaManagedAgentsMCPAuthenticationFailedError | BetaManagedAgentsBillingError | BetaManagedAgentsCredentialHostUnreachableError | BetaManagedAgentsToolUseLimitReachedError | BetaManagedAgentsCompactionLimitReachedError | BetaManagedAgentsRepositoryAuthenticationError | BetaManagedAgentsRepositoryForbiddenError | BetaManagedAgentsRepositoryNotFoundError | BetaManagedAgentsRepositoryCheckoutError | BetaManagedAgentsRepositoryCloneError;
+  error: BetaManagedAgentsUnknownErrorObject | BetaManagedAgentsModelOverloadedErrorObject | BetaManagedAgentsModelRateLimitedErrorObject | BetaManagedAgentsModelRequestFailedErrorObject | BetaManagedAgentsMCPConnectionFailedErrorObject | BetaManagedAgentsMCPAuthenticationFailedErrorObject | BetaManagedAgentsBillingErrorObject | BetaManagedAgentsCredentialHostUnreachableErrorObject | BetaManagedAgentsToolUseLimitReachedErrorObject | BetaManagedAgentsCompactionLimitReachedErrorObject | BetaManagedAgentsRepositoryAuthenticationErrorObject | BetaManagedAgentsRepositoryForbiddenErrorObject | BetaManagedAgentsRepositoryNotFoundErrorObject | BetaManagedAgentsRepositoryCheckoutErrorObject | BetaManagedAgentsRepositoryCloneErrorObject;
   /** Timestamp when the error occurred. */
   processed_at: string; // format: date-time
 }
@@ -2695,7 +2696,7 @@ interface BetaManagedAgentsWorkflowRunErrorEvent {
   /** Unique identifier for this event. */
   id: string;
   /** Why the run did not finish, or was not created. */
-  error: BetaManagedAgentsWorkflowRunError;
+  error: BetaManagedAgentsWorkflowRunErrorObject;
   /** Timestamp when this event was processed. */
   processed_at: string; // format: date-time
   /** Identifier of the run that met the error, or `null` when the error kept a run from being created. */
@@ -2863,7 +2864,7 @@ interface BetaManagedAgentsWorkflowRunPhase {
   name: string;
 }
 
-type BetaManagedAgentsWorkflowRunResult = BetaManagedAgentsWorkflowRunResultCompleted | BetaManagedAgentsWorkflowRunResultError | BetaManagedAgentsWorkflowRunResultStopped;
+type BetaManagedAgentsWorkflowRunResult = BetaManagedAgentsWorkflowRunResultCompleted | BetaManagedAgentsWorkflowRunResultErrorObject | BetaManagedAgentsWorkflowRunResultStopped;
 
 /** The run's plan, a program that the agent wrote, finished. This does not say whether the work succeeded. */
 interface BetaManagedAgentsWorkflowRunResultCompleted {
@@ -2871,10 +2872,10 @@ interface BetaManagedAgentsWorkflowRunResultCompleted {
 }
 
 /** The run failed or reached its time limit. */
-interface BetaManagedAgentsWorkflowRunResultError {
+interface BetaManagedAgentsWorkflowRunResultErrorObject {
   type: "error";
   /** Why the run did not finish. */
-  error: BetaManagedAgentsWorkflowRunError;
+  error: BetaManagedAgentsWorkflowRunErrorObject;
 }
 
 /** The agent stopped the run. */
@@ -2882,45 +2883,45 @@ interface BetaManagedAgentsWorkflowRunResultStopped {
   type: "stopped";
 }
 
-type BetaManagedAgentsWorkflowRunError = BetaManagedAgentsTimeoutWorkflowRunError | BetaManagedAgentsProgramWorkflowRunError | BetaManagedAgentsUnknownWorkflowRunError | BetaManagedAgentsThreadLimitWorkflowRunError | BetaManagedAgentsMaxWorkflowRunsWorkflowRunError;
+type BetaManagedAgentsWorkflowRunErrorObject = BetaManagedAgentsTimeoutWorkflowRunErrorObject | BetaManagedAgentsProgramWorkflowRunErrorObject | BetaManagedAgentsUnknownWorkflowRunErrorObject | BetaManagedAgentsThreadLimitWorkflowRunErrorObject | BetaManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject;
 
 /** The run reached its time limit. */
-interface BetaManagedAgentsTimeoutWorkflowRunError {
+interface BetaManagedAgentsTimeoutWorkflowRunErrorObject {
   type: "timeout_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** The plan, a program that the agent wrote, failed, or the server refused it. */
-interface BetaManagedAgentsProgramWorkflowRunError {
+interface BetaManagedAgentsProgramWorkflowRunErrorObject {
   type: "program_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** A failure that has no type of its own. */
-interface BetaManagedAgentsUnknownWorkflowRunError {
+interface BetaManagedAgentsUnknownWorkflowRunErrorObject {
   type: "unknown_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** The run exceeded the limit on the number of threads that a run can create. */
-interface BetaManagedAgentsThreadLimitWorkflowRunError {
+interface BetaManagedAgentsThreadLimitWorkflowRunErrorObject {
   type: "thread_limit_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** No run was created, because the session was at its limit of open workflow runs, which are runs that have not ended. Only `workflow_run.error` carries this type. */
-interface BetaManagedAgentsMaxWorkflowRunsWorkflowRunError {
+interface BetaManagedAgentsMaxWorkflowRunsWorkflowRunErrorObject {
   type: "max_workflow_runs_error";
   /** Short explanation written by the server. It never contains content from the run or its agents. */
   message: string;
 }
 
 /** An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone. */
-interface BetaManagedAgentsUnknownError {
+interface BetaManagedAgentsUnknownErrorObject {
   type: "unknown_error";
   /** Human-readable error description. */
   message: string;
@@ -2929,7 +2930,7 @@ interface BetaManagedAgentsUnknownError {
 }
 
 /** The model is currently overloaded. Emitted after automatic retries are exhausted. */
-interface BetaManagedAgentsModelOverloadedError {
+interface BetaManagedAgentsModelOverloadedErrorObject {
   type: "model_overloaded_error";
   /** Human-readable error description. */
   message: string;
@@ -2938,7 +2939,7 @@ interface BetaManagedAgentsModelOverloadedError {
 }
 
 /** The model request was rate-limited. */
-interface BetaManagedAgentsModelRateLimitedError {
+interface BetaManagedAgentsModelRateLimitedErrorObject {
   type: "model_rate_limited_error";
   /** Human-readable error description. */
   message: string;
@@ -2947,7 +2948,7 @@ interface BetaManagedAgentsModelRateLimitedError {
 }
 
 /** A model request failed for a reason other than overload or rate-limiting. */
-interface BetaManagedAgentsModelRequestFailedError {
+interface BetaManagedAgentsModelRequestFailedErrorObject {
   type: "model_request_failed_error";
   /** Human-readable error description. */
   message: string;
@@ -2956,7 +2957,7 @@ interface BetaManagedAgentsModelRequestFailedError {
 }
 
 /** Failed to connect to an MCP server. */
-interface BetaManagedAgentsMCPConnectionFailedError {
+interface BetaManagedAgentsMCPConnectionFailedErrorObject {
   type: "mcp_connection_failed_error";
   /** Name of the MCP server that failed to connect. */
   mcp_server_name: string;
@@ -2967,7 +2968,7 @@ interface BetaManagedAgentsMCPConnectionFailedError {
 }
 
 /** Authentication to an MCP server failed. */
-interface BetaManagedAgentsMCPAuthenticationFailedError {
+interface BetaManagedAgentsMCPAuthenticationFailedErrorObject {
   type: "mcp_authentication_failed_error";
   /** Name of the MCP server that failed authentication. */
   mcp_server_name: string;
@@ -2978,7 +2979,7 @@ interface BetaManagedAgentsMCPAuthenticationFailedError {
 }
 
 /** The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state. */
-interface BetaManagedAgentsBillingError {
+interface BetaManagedAgentsBillingErrorObject {
   type: "billing_error";
   /** Human-readable error description. */
   message: string;
@@ -2987,7 +2988,7 @@ interface BetaManagedAgentsBillingError {
 }
 
 /** An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit. */
-interface BetaManagedAgentsCredentialHostUnreachableError {
+interface BetaManagedAgentsCredentialHostUnreachableErrorObject {
   type: "credential_host_unreachable_error";
   /** ID of the affected credential. */
   credential_id: string;
@@ -3000,7 +3001,7 @@ interface BetaManagedAgentsCredentialHostUnreachableError {
 }
 
 /** The turn stopped because the agent loop reached its limit on tool-use rounds (one model response that calls tools, plus running those tools, is one round), not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn. */
-interface BetaManagedAgentsToolUseLimitReachedError {
+interface BetaManagedAgentsToolUseLimitReachedErrorObject {
   type: "tool_use_limit_reached_error";
   /** Human-readable error description. */
   message: string;
@@ -3009,7 +3010,7 @@ interface BetaManagedAgentsToolUseLimitReachedError {
 }
 
 /** The turn stopped because the context was compacted the maximum number of times in a row without the model producing a message or a tool call, not because a request failed. The thread goes idle with `stop_reason: retries_exhausted` (a child thread then terminates); the next `user.message` starts a new turn. */
-interface BetaManagedAgentsCompactionLimitReachedError {
+interface BetaManagedAgentsCompactionLimitReachedErrorObject {
   type: "compaction_limit_reached_error";
   /** Human-readable error description. */
   message: string;
@@ -3018,7 +3019,7 @@ interface BetaManagedAgentsCompactionLimitReachedError {
 }
 
 /** The repository host rejected the credentials, or required credentials and received none. */
-interface BetaManagedAgentsRepositoryAuthenticationError {
+interface BetaManagedAgentsRepositoryAuthenticationErrorObject {
   type: "repository_authentication_error";
   /** Human-readable error description. */
   message: string;
@@ -3029,7 +3030,7 @@ interface BetaManagedAgentsRepositoryAuthenticationError {
 }
 
 /** The repository host refused access to the repository. */
-interface BetaManagedAgentsRepositoryForbiddenError {
+interface BetaManagedAgentsRepositoryForbiddenErrorObject {
   type: "repository_forbidden_error";
   /** Human-readable error description. */
   message: string;
@@ -3040,7 +3041,7 @@ interface BetaManagedAgentsRepositoryForbiddenError {
 }
 
 /** The repository host reported the repository as not found. */
-interface BetaManagedAgentsRepositoryNotFoundError {
+interface BetaManagedAgentsRepositoryNotFoundErrorObject {
   type: "repository_not_found_error";
   /** Human-readable error description. */
   message: string;
@@ -3051,7 +3052,7 @@ interface BetaManagedAgentsRepositoryNotFoundError {
 }
 
 /** The requested branch or commit does not exist in the repository. */
-interface BetaManagedAgentsRepositoryCheckoutError {
+interface BetaManagedAgentsRepositoryCheckoutErrorObject {
   type: "repository_checkout_error";
   /** Human-readable error description. */
   message: string;
@@ -3062,7 +3063,7 @@ interface BetaManagedAgentsRepositoryCheckoutError {
 }
 
 /** The repository could not be cloned. */
-interface BetaManagedAgentsRepositoryCloneError {
+interface BetaManagedAgentsRepositoryCloneErrorObject {
   type: "repository_clone_error";
   /** Human-readable error description. */
   message: string;

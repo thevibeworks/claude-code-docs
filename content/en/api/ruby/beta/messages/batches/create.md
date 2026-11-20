@@ -730,7 +730,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `page_age: optional String | nil`
 
-                - `class BetaWebSearchToolRequestError`
+                - `class BetaWebSearchToolRequestErrorObject`
 
                   - `type: :web_search_tool_result_error`
 
@@ -3489,6 +3489,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Declares which organization is billed for this request. `{"type": "billing_policy", "bill_to": "user_profile"}` bills the customer behind the user profile named in the `anthropic-user-profile-id` header, instead of your organization. If that customer has not linked an Anthropic organization to the profile, or has not allowed your organization to bill it, the request is rejected rather than billed to you. Omit the field, or send `"bill_to": "self"` (the default), to be billed as usual.
 
+      Message Batches does not currently support billing the customer behind a user profile. In a batch, omit the field or send `"bill_to": "self"`. A request in a batch that sets `"bill_to": "user_profile"` gets an `errored` result with an `invalid_request_error`, nobody is billed for it, and the batch's other requests run as usual.
+
       - `type: :billing_policy`
 
       - `bill_to: optional BetaBillTo`
@@ -4318,6 +4320,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `:"analytics-usage-cost-2026-08-24"`
 
   - `:"experimental-claude-tag-2026-10-21"`
+
+  - `:"ce-claude-code-managed-settings-2026-10-06"`
 
   - `:"user-profiles-billing-2026-10-01"`
 

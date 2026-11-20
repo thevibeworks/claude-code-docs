@@ -44,13 +44,13 @@ The Claude Code workspace keeps Claude Code traffic separate from your other API
 
 Members can have different roles in each workspace, allowing fine-grained access control.
 
-| Role                        | Permissions                                                                                               |
-| --------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Workspace User              | Use playground only                                                                                       |
+| Role | Permissions |
+| ----- | ----- |
+| Workspace User | Use playground only |
 | Workspace Limited Developer | Create and manage API keys, use the API (with some limits in the Claude Console, listed after this table) |
-| Workspace Developer         | Create and manage API keys, use the API                                                                   |
-| Workspace Admin             | Full control over workspace settings and members                                                          |
-| Workspace Billing           | View workspace billing information (inherited from organization billing role)                             |
+| Workspace Developer | Create and manage API keys, use the API |
+| Workspace Admin | Full control over workspace settings and members |
+| Workspace Billing | View workspace billing information (inherited from organization billing role) |
 
 The following limits apply only to the Claude Console’s interface, not to the API. In the Console, a Workspace Limited Developer cannot:
 
@@ -1225,11 +1225,11 @@ Usage and costs in the Default Workspace are reported under the Default Workspac
 
 Create separate workspaces for development, staging, and production:
 
-| Workspace   | Purpose                                            |
-| ----------- | -------------------------------------------------- |
+| Workspace | Purpose |
+| ----- | ----- |
 | Development | Testing and experimentation with lower rate limits |
-| Staging     | Pre-production testing with production-like limits |
-| Production  | Live traffic with full rate limits and monitoring  |
+| Staging | Pre-production testing with production-like limits |
+| Production | Live traffic with full rate limits and monitoring |
 
 ### Team or department isolation
 

@@ -16,8 +16,8 @@ One more change alters the response shape without failing any request: [text bet
 
 ## New model
 
-| Model             | Claude API ID     | Description                                    |
-| ----------------- | ----------------- | ---------------------------------------------- |
+| Model | Claude API ID | Description |
+| ----- | ----- | ----- |
 | Claude Sonnet 5.5 | claude-sonnet-5-5 | The best combination of speed and intelligence |
 
 [Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) is on by default, and the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) controls thinking depth. Its default on the Claude API is `high`. The tokenizer is the same as Claude Sonnet 5’s, so the same text produces the same token counts. For the context window, output limits, knowledge cutoff, and prices, see the [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview) model page.
@@ -50,13 +50,13 @@ tool_choice: type "tool" and "any" are not supported for this model.
 
 Every thinking block records which model produced it. A conversation that switches models keeps its earlier reasoning only if the model that it switches to can read the earlier model’s thinking blocks:
 
-| Switch                                                                                                            | Keeps its reasoning                                                            |
-| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| To Claude Sonnet 5.5, from Claude Sonnet 5 or earlier, Claude Opus 4.8 or earlier, or Claude Haiku 4.5 or earlier | Yes                                                                            |
-| To Claude Sonnet 5.5, from Claude Haiku 5.5                                                                       | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
-| To Claude Sonnet 5.5, from any other model                                                                        | No                                                                             |
-| From Claude Sonnet 5.5, to Claude Opus 5.5, Claude Fable 5.2, or Claude Mythos 5.2                                | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
-| From Claude Sonnet 5.5, to any other model                                                                        | No                                                                             |
+| Switch | Keeps its reasoning |
+| ----- | ----- |
+| To Claude Sonnet 5.5, from Claude Sonnet 5 or earlier, Claude Opus 4.8 or earlier, or Claude Haiku 4.5 or earlier | Yes |
+| To Claude Sonnet 5.5, from Claude Haiku 5.5 | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
+| To Claude Sonnet 5.5, from any other model | No |
+| From Claude Sonnet 5.5, to Claude Opus 5.5, Claude Fable 5.2, or Claude Mythos 5.2 | Yes, on the Claude API and Claude Models on Google Cloud (Google managed) only |
+| From Claude Sonnet 5.5, to any other model | No |
 
 When a request carries a block the target model can’t read, the API drops it before the model receives it. The request succeeds, and dropped blocks aren’t billed. With the `thinking-binding-controls-2026-08-01` beta header, the API reports the drop in a top-level `input_transformations` array. See [Switch models and back](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#switching-models). For switches that don’t involve Claude Sonnet 5.5, see [Which model switches keep the reasoning on the Claude API](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#which-model-switches-keep-reasoning).
 

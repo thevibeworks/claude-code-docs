@@ -706,7 +706,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `PageAge string Optional`
 
-              - `type WebSearchToolRequestErrorParam`
+              - `type WebSearchToolRequestErrorObjectParam`
 
                 - `Type WebSearchToolResultError`
 
@@ -3196,7 +3196,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Content WebSearchToolResultBlockContentUnion`
 
-        - `type WebSearchToolResultError`
+        - `type WebSearchToolResultErrorObject`
 
           - `Type WebSearchToolResultError`
 
@@ -3348,7 +3348,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Content CodeExecutionToolResultBlockContentUnion`
 
-        - `type CodeExecutionToolResultError`
+        - `type CodeExecutionToolResultErrorObject`
 
           - `Type CodeExecutionToolResultError`
 
@@ -3422,7 +3422,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Content BashCodeExecutionToolResultBlockContentUnion`
 
-        - `type BashCodeExecutionToolResultError`
+        - `type BashCodeExecutionToolResultErrorObject`
 
           - `Type BashCodeExecutionToolResultError`
 
@@ -3472,7 +3472,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Content TextEditorCodeExecutionToolResultBlockContentUnion`
 
-        - `type TextEditorCodeExecutionToolResultError`
+        - `type TextEditorCodeExecutionToolResultErrorObject`
 
           - `Type TextEditorCodeExecutionToolResultError`
 
@@ -3550,7 +3550,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `Content ToolSearchToolResultBlockContentUnion`
 
-        - `type ToolSearchToolResultError`
+        - `type ToolSearchToolResultErrorObject`
 
           - `Type ToolSearchToolResultError`
 
@@ -4232,6 +4232,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   The `compaction` block's `tool_changes` differs from what was returned with the block.
 
+- `ErrorCodeImageDimensionsTooLarge` (HTTP status 400, error code `image_dimensions_too_large`)
+
+  The longest side of one or more images in the request exceeds the image size limit. Scale each image in `paths` so that neither side exceeds `max_side_length_pixels`, or remove it, then retry.
+
 - `ErrorCodeOrganizationOnHold` (HTTP status 400, error code `organization_on_hold`)
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
@@ -4268,6 +4272,26 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 
   A tool change or MCP tool listing references a tool or MCP server that is not defined at that position in the conversation.
 
+- `ErrorCodeUserProfileRequired` (HTTP status 400, error code `user_profile_required`)
+
+  The request sets `billing_policy.bill_to` to `"user_profile"` but names no user profile. Name the profile to bill in the `anthropic-user-profile-id` header.
+
+- `ErrorCodeLinkedOrganizationBillingUnavailable` (HTTP status 402, error code `linked_organization_billing_unavailable`)
+
+  Anthropic cannot currently bill the organization linked to the request's user profile, for a reason that lies with that organization's own account. The response does not say what the reason is.
+
+- `ErrorCodeLinkedOrganizationSpendLimitReached` (HTTP status 402, error code `linked_organization_spend_limit_reached`)
+
+  The organization linked to the request's user profile has reached a spend limit that it set, or lacks credit for the request. The response does not say which applies.
+
+- `ErrorCodeUserProfileBillingNotAuthorized` (HTTP status 403, error code `user_profile_billing_not_authorized`)
+
+  The customer that the request's user profile represents has not authorized the caller to bill them, or the authorization that the request's credential uses has ended. The response does not say which applies.
+
+- `ErrorCodeUserProfileNotBillable` (HTTP status 403, error code `user_profile_not_billable`)
+
+  The request's user profile cannot be billed. The response gives no more specific error code and does not say what the reason is.
+
 - `ErrorCodeThreadNotFound` (HTTP status 404, error code `thread_not_found`)
 
   No usable Thread state was found for `previous_message_id`. Replay the full conversation with `thread: {"type": "create"}` to start a new Thread.
@@ -4279,6 +4303,10 @@ On a streaming call, the errors listed below apply when the API rejects the requ
 - `ErrorCodeRequestBodyTooLargeAfterDecoding` (HTTP status 413, error code `request_body_too_large_after_decoding`)
 
   The compressed request body exceeds the request size limit once decoded.
+
+- `ErrorCodeContractSpendLimitReached` (HTTP status 429, error code `contract_spend_limit_reached`)
+
+  The organization has reached the spend limit of its contract.
 
 - `ErrorCodeEnforcedSpendLimitReached` (HTTP status 429, error code `enforced_spend_limit_reached`)
 

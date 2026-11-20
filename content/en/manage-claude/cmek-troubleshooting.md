@@ -45,11 +45,11 @@ This 503 error means [Anthropic couldn’t reach your key](https://platform.clau
 
 ## Verification fails: AWS KMS
 
-| Cause                                                | Fix                                                                                                                                                                                    |
-| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Wrong organization ID                                | The `org_uuid` condition must list [your Anthropic organization ID](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms#prerequisites), the UUID without the `org_` prefix. |
-| A workspace is missing from the policy               | A `compartment_uuid` condition must [list the compartment ID](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms-workspaces) of each workspace the key is attached to.     |
-| Access granted through IAM instead of the key policy | Anthropic’s role needs access in [the key policy itself](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms#key-policy).                                                   |
+| Cause | Fix |
+| ----- | ----- |
+| Wrong organization ID | The `org_uuid` condition must list [your Anthropic organization ID](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms#prerequisites), the UUID without the `org_` prefix. |
+| A workspace is missing from the policy | A `compartment_uuid` condition must [list the compartment ID](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms-workspaces) of each workspace the key is attached to. |
+| Access granted through IAM instead of the key policy | Anthropic’s role needs access in [the key policy itself](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms#key-policy). |
 
 To print the key policy, run:
 
@@ -83,11 +83,11 @@ If you’re [replacing the policy on a key](https://platform.claude.com/docs/en/
 
 ## Verification fails: Google Cloud KMS
 
-| Cause                             | Fix                                                                                                                                                                                   |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Wrong organization label          | The key needs the [organization label](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms#organization-label), with your Anthropic organization ID in lowercase. |
-| Domain restricted sharing         | This organization policy blocks the grant to Anthropic’s service account. [Add an exception](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms#prerequisites).  |
-| Disabled or destroyed key version | The key’s primary version must be enabled.                                                                                                                                            |
+| Cause | Fix |
+| ----- | ----- |
+| Wrong organization label | The key needs the [organization label](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms#organization-label), with your Anthropic organization ID in lowercase. |
+| Domain restricted sharing | This organization policy blocks the grant to Anthropic’s service account. [Add an exception](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms#prerequisites). |
+| Disabled or destroyed key version | The key’s primary version must be enabled. |
 
 To check the grant, run:
 
@@ -100,24 +100,24 @@ gcloud kms keys get-iam-policy <your-key-name> \
 
 ## Verification fails: Azure Key Vault
 
-| Cause                                     | Fix                                                                                                                                                                  |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Wrong organization tag                    | The key’s current version needs the [organization tag](https://platform.claude.com/docs/en/manage-claude/cmek-azure-key-vault#organization-tag).                     |
-| Role assignment not yet in effect         | A new role assignment can take a few minutes. Wait, then try again.                                                                                                  |
+| Cause | Fix |
+| ----- | ----- |
+| Wrong organization tag | The key’s current version needs the [organization tag](https://platform.claude.com/docs/en/manage-claude/cmek-azure-key-vault#organization-tag). |
+| Role assignment not yet in effect | A new role assignment can take a few minutes. Wait, then try again. |
 | The vault’s network rules block Anthropic | Check the rules against the [vault settings Anthropic needs](https://platform.claude.com/docs/en/manage-claude/cmek-azure-key-vault#check-your-vault-configuration). |
 
 ## Attaching fails on Claude Platform on AWS
 
 Claude Platform on AWS has no **Verify** step, so a problem with the key shows when you attach it.
 
-| Cause                                               | Fix                                                                                                                                                                                                                                                                                                                                                                                             |
-| --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Key policy mismatch                                 | Print the key policy with the [`get-key-policy` command](https://platform.claude.com/docs/en/manage-claude/cmek-troubleshooting#aws-kms) and compare it with the [policy on the setup page](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#prepare-the-key-policy).                                                                                              |
-| The key policy leaves out the workspace             | If your key policy lists workspaces, [add this workspace to each list](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#add-a-workspace). If it doesn’t, check that the [`aws:SourceArn` condition](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#source-arn-condition) matches this workspace’s ARN. Don’t remove that condition. |
-| The key policy has an `aws:SourceAccount` condition | Remove it from both service principal statements and keep `aws:SourceArn`. Anthropic’s calls to your key send only the source ARN.                                                                                                                                                                                                                                                              |
-| Key selected while creating a workspace             | A key policy that lists workspaces can’t list one that doesn’t exist yet. Create the workspace without the key, then [add it to the key policy](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#add-a-workspace).                                                                                                                                                 |
-| Key state or location                               | The key must be enabled, single-Region, and in the same AWS account and region as the workspace.                                                                                                                                                                                                                                                                                                |
-| Missing permissions                                 | The principal you’re signed in as needs `kms:DescribeKey`, `kms:Encrypt`, and `kms:Decrypt` on the key.                                                                                                                                                                                                                                                                                         |
+| Cause | Fix |
+| ----- | ----- |
+| Key policy mismatch | Print the key policy with the [`get-key-policy` command](https://platform.claude.com/docs/en/manage-claude/cmek-troubleshooting#aws-kms) and compare it with the [policy on the setup page](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#prepare-the-key-policy). |
+| The key policy leaves out the workspace | If your key policy lists workspaces, [add this workspace to each list](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#add-a-workspace). If it doesn’t, check that the [`aws:SourceArn` condition](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#source-arn-condition) matches this workspace’s ARN. Don’t remove that condition. |
+| The key policy has an `aws:SourceAccount` condition | Remove it from both service principal statements and keep `aws:SourceArn`. Anthropic’s calls to your key send only the source ARN. |
+| Key selected while creating a workspace | A key policy that lists workspaces can’t list one that doesn’t exist yet. Create the workspace without the key, then [add it to the key policy](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#add-a-workspace). |
+| Key state or location | The key must be enabled, single-Region, and in the same AWS account and region as the workspace. |
+| Missing permissions | The principal you’re signed in as needs `kms:DescribeKey`, `kms:Encrypt`, and `kms:Decrypt` on the key. |
 
 If attaching still fails, find the denied `kms:` event in CloudTrail in the key’s account. It shows the calling principal and, for cryptographic calls, the encryption context. Fix the cause, then click **Save** again.
 

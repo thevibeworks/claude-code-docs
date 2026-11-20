@@ -159,6 +159,8 @@ List Deployment Runs
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -245,7 +247,7 @@ List Deployment Runs
 
     Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
-    - `type BetaManagedAgentsEnvironmentArchivedRunError`
+    - `type BetaManagedAgentsEnvironmentArchivedRunErrorObject`
 
       The deployment's environment was archived.
 
@@ -255,7 +257,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsAgentArchivedRunError`
+    - `type BetaManagedAgentsAgentArchivedRunErrorObject`
 
       The deployment's agent was archived.
 
@@ -265,7 +267,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsEnvironmentNotFoundRunError`
+    - `type BetaManagedAgentsEnvironmentNotFoundRunErrorObject`
 
       The deployment's environment no longer exists.
 
@@ -275,7 +277,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultNotFoundRunError`
+    - `type BetaManagedAgentsVaultNotFoundRunErrorObject`
 
       A vault referenced by the deployment no longer exists.
 
@@ -285,7 +287,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultArchivedRunError`
+    - `type BetaManagedAgentsVaultArchivedRunErrorObject`
 
       A vault referenced by the deployment is archived.
 
@@ -295,7 +297,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsFileNotFoundRunError`
+    - `type BetaManagedAgentsFileNotFoundRunErrorObject`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -305,7 +307,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMemoryStoreArchivedRunError`
+    - `type BetaManagedAgentsMemoryStoreArchivedRunErrorObject`
 
       A memory store referenced by the deployment is archived.
 
@@ -315,7 +317,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSkillNotFoundRunError`
+    - `type BetaManagedAgentsSkillNotFoundRunErrorObject`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -325,7 +327,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionResourceNotFoundRunError`
+    - `type BetaManagedAgentsSessionResourceNotFoundRunErrorObject`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -335,7 +337,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsWorkspaceArchivedRunError`
+    - `type BetaManagedAgentsWorkspaceArchivedRunErrorObject`
 
       The deployment's workspace was archived.
 
@@ -345,7 +347,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsOrganizationDisabledRunError`
+    - `type BetaManagedAgentsOrganizationDisabledRunErrorObject`
 
       The deployment's organization is disabled.
 
@@ -355,7 +357,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionRateLimitedRunError`
+    - `type BetaManagedAgentsSessionRateLimitedRunErrorObject`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -365,7 +367,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionCreationRejectedRunError`
+    - `type BetaManagedAgentsSessionCreationRejectedRunErrorObject`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -375,7 +377,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsUnknownRunError`
+    - `type BetaManagedAgentsUnknownRunErrorObject`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -385,7 +387,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
+    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -395,7 +397,7 @@ List Deployment Runs
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMCPEgressBlockedRunError`
+    - `type BetaManagedAgentsMCPEgressBlockedRunErrorObject`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -598,6 +600,8 @@ Get Deployment Run
 
     - `const AnthropicBetaExperimentalClaudeTag2026_10_21 AnthropicBeta = "experimental-claude-tag-2026-10-21"`
 
+    - `const AnthropicBetaCEClaudeCodeManagedSettings2026_10_06 AnthropicBeta = "ce-claude-code-managed-settings-2026-10-06"`
+
     - `const AnthropicBetaUserProfilesBilling2026_10_01 AnthropicBeta = "user-profiles-billing-2026-10-01"`
 
     - `const AnthropicBetaMessageBatches2024_09_24 AnthropicBeta = "message-batches-2024-09-24"`
@@ -684,7 +688,7 @@ Get Deployment Run
 
     Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
-    - `type BetaManagedAgentsEnvironmentArchivedRunError`
+    - `type BetaManagedAgentsEnvironmentArchivedRunErrorObject`
 
       The deployment's environment was archived.
 
@@ -694,7 +698,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsAgentArchivedRunError`
+    - `type BetaManagedAgentsAgentArchivedRunErrorObject`
 
       The deployment's agent was archived.
 
@@ -704,7 +708,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsEnvironmentNotFoundRunError`
+    - `type BetaManagedAgentsEnvironmentNotFoundRunErrorObject`
 
       The deployment's environment no longer exists.
 
@@ -714,7 +718,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultNotFoundRunError`
+    - `type BetaManagedAgentsVaultNotFoundRunErrorObject`
 
       A vault referenced by the deployment no longer exists.
 
@@ -724,7 +728,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultArchivedRunError`
+    - `type BetaManagedAgentsVaultArchivedRunErrorObject`
 
       A vault referenced by the deployment is archived.
 
@@ -734,7 +738,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsFileNotFoundRunError`
+    - `type BetaManagedAgentsFileNotFoundRunErrorObject`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -744,7 +748,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMemoryStoreArchivedRunError`
+    - `type BetaManagedAgentsMemoryStoreArchivedRunErrorObject`
 
       A memory store referenced by the deployment is archived.
 
@@ -754,7 +758,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSkillNotFoundRunError`
+    - `type BetaManagedAgentsSkillNotFoundRunErrorObject`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -764,7 +768,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionResourceNotFoundRunError`
+    - `type BetaManagedAgentsSessionResourceNotFoundRunErrorObject`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -774,7 +778,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsWorkspaceArchivedRunError`
+    - `type BetaManagedAgentsWorkspaceArchivedRunErrorObject`
 
       The deployment's workspace was archived.
 
@@ -784,7 +788,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsOrganizationDisabledRunError`
+    - `type BetaManagedAgentsOrganizationDisabledRunErrorObject`
 
       The deployment's organization is disabled.
 
@@ -794,7 +798,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionRateLimitedRunError`
+    - `type BetaManagedAgentsSessionRateLimitedRunErrorObject`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -804,7 +808,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionCreationRejectedRunError`
+    - `type BetaManagedAgentsSessionCreationRejectedRunErrorObject`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -814,7 +818,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsUnknownRunError`
+    - `type BetaManagedAgentsUnknownRunErrorObject`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -824,7 +828,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
+    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -834,7 +838,7 @@ Get Deployment Run
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMCPEgressBlockedRunError`
+    - `type BetaManagedAgentsMCPEgressBlockedRunErrorObject`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -926,9 +930,9 @@ func main() {
 
 ## Domain types
 
-### Beta Managed Agents Agent Archived Run Error
+### Beta Managed Agents Agent Archived Run Error Object
 
-- `type BetaManagedAgentsAgentArchivedRunError`
+- `type BetaManagedAgentsAgentArchivedRunErrorObject`
 
   The deployment's agent was archived.
 
@@ -976,7 +980,7 @@ func main() {
 
     Populated on creation failure. Null on success. Exactly one of `session_id` or `error` is non-null.
 
-    - `type BetaManagedAgentsEnvironmentArchivedRunError`
+    - `type BetaManagedAgentsEnvironmentArchivedRunErrorObject`
 
       The deployment's environment was archived.
 
@@ -986,7 +990,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsAgentArchivedRunError`
+    - `type BetaManagedAgentsAgentArchivedRunErrorObject`
 
       The deployment's agent was archived.
 
@@ -996,7 +1000,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsEnvironmentNotFoundRunError`
+    - `type BetaManagedAgentsEnvironmentNotFoundRunErrorObject`
 
       The deployment's environment no longer exists.
 
@@ -1006,7 +1010,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultNotFoundRunError`
+    - `type BetaManagedAgentsVaultNotFoundRunErrorObject`
 
       A vault referenced by the deployment no longer exists.
 
@@ -1016,7 +1020,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsVaultArchivedRunError`
+    - `type BetaManagedAgentsVaultArchivedRunErrorObject`
 
       A vault referenced by the deployment is archived.
 
@@ -1026,7 +1030,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsFileNotFoundRunError`
+    - `type BetaManagedAgentsFileNotFoundRunErrorObject`
 
       A file resource referenced by the deployment no longer exists.
 
@@ -1036,7 +1040,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMemoryStoreArchivedRunError`
+    - `type BetaManagedAgentsMemoryStoreArchivedRunErrorObject`
 
       A memory store referenced by the deployment is archived.
 
@@ -1046,7 +1050,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSkillNotFoundRunError`
+    - `type BetaManagedAgentsSkillNotFoundRunErrorObject`
 
       A skill referenced by the deployment's agent no longer exists.
 
@@ -1056,7 +1060,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionResourceNotFoundRunError`
+    - `type BetaManagedAgentsSessionResourceNotFoundRunErrorObject`
 
       A referenced resource no longer exists and its kind was not reported.
 
@@ -1066,7 +1070,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsWorkspaceArchivedRunError`
+    - `type BetaManagedAgentsWorkspaceArchivedRunErrorObject`
 
       The deployment's workspace was archived.
 
@@ -1076,7 +1080,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsOrganizationDisabledRunError`
+    - `type BetaManagedAgentsOrganizationDisabledRunErrorObject`
 
       The deployment's organization is disabled.
 
@@ -1086,7 +1090,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionRateLimitedRunError`
+    - `type BetaManagedAgentsSessionRateLimitedRunErrorObject`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -1096,7 +1100,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSessionCreationRejectedRunError`
+    - `type BetaManagedAgentsSessionCreationRejectedRunErrorObject`
 
       The session create request was rejected with a non-retryable validation error.
 
@@ -1106,7 +1110,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsUnknownRunError`
+    - `type BetaManagedAgentsUnknownRunErrorObject`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -1116,7 +1120,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
+    - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject`
 
       The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -1126,7 +1130,7 @@ func main() {
 
         Human-readable error description.
 
-    - `type BetaManagedAgentsMCPEgressBlockedRunError`
+    - `type BetaManagedAgentsMCPEgressBlockedRunErrorObject`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -1162,9 +1166,9 @@ func main() {
 
       - `Type Manual`
 
-### Beta Managed Agents Environment Archived Run Error
+### Beta Managed Agents Environment Archived Run Error Object
 
-- `type BetaManagedAgentsEnvironmentArchivedRunError`
+- `type BetaManagedAgentsEnvironmentArchivedRunErrorObject`
 
   The deployment's environment was archived.
 
@@ -1174,9 +1178,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Environment Not Found Run Error
+### Beta Managed Agents Environment Not Found Run Error Object
 
-- `type BetaManagedAgentsEnvironmentNotFoundRunError`
+- `type BetaManagedAgentsEnvironmentNotFoundRunErrorObject`
 
   The deployment's environment no longer exists.
 
@@ -1186,9 +1190,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents File Not Found Run Error
+### Beta Managed Agents File Not Found Run Error Object
 
-- `type BetaManagedAgentsFileNotFoundRunError`
+- `type BetaManagedAgentsFileNotFoundRunErrorObject`
 
   A file resource referenced by the deployment no longer exists.
 
@@ -1206,9 +1210,9 @@ func main() {
 
   - `Type Manual`
 
-### Beta Managed Agents MCP Egress Blocked Run Error
+### Beta Managed Agents MCP Egress Blocked Run Error Object
 
-- `type BetaManagedAgentsMCPEgressBlockedRunError`
+- `type BetaManagedAgentsMCPEgressBlockedRunErrorObject`
 
   An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
@@ -1218,9 +1222,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Memory Store Archived Run Error
+### Beta Managed Agents Memory Store Archived Run Error Object
 
-- `type BetaManagedAgentsMemoryStoreArchivedRunError`
+- `type BetaManagedAgentsMemoryStoreArchivedRunErrorObject`
 
   A memory store referenced by the deployment is archived.
 
@@ -1230,9 +1234,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Organization Disabled Run Error
+### Beta Managed Agents Organization Disabled Run Error Object
 
-- `type BetaManagedAgentsOrganizationDisabledRunError`
+- `type BetaManagedAgentsOrganizationDisabledRunErrorObject`
 
   The deployment's organization is disabled.
 
@@ -1256,9 +1260,9 @@ func main() {
 
     format: date-time
 
-### Beta Managed Agents Self Hosted Resources Unsupported Run Error
+### Beta Managed Agents Self Hosted Resources Unsupported Run Error Object
 
-- `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
+- `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorObject`
 
   The deployment configures resources, but its environment is self-hosted and cannot mount them.
 
@@ -1268,9 +1272,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Session Creation Rejected Run Error
+### Beta Managed Agents Session Creation Rejected Run Error Object
 
-- `type BetaManagedAgentsSessionCreationRejectedRunError`
+- `type BetaManagedAgentsSessionCreationRejectedRunErrorObject`
 
   The session create request was rejected with a non-retryable validation error.
 
@@ -1280,9 +1284,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Session Rate Limited Run Error
+### Beta Managed Agents Session Rate Limited Run Error Object
 
-- `type BetaManagedAgentsSessionRateLimitedRunError`
+- `type BetaManagedAgentsSessionRateLimitedRunErrorObject`
 
   Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
 
@@ -1292,9 +1296,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Session Resource Not Found Run Error
+### Beta Managed Agents Session Resource Not Found Run Error Object
 
-- `type BetaManagedAgentsSessionResourceNotFoundRunError`
+- `type BetaManagedAgentsSessionResourceNotFoundRunErrorObject`
 
   A referenced resource no longer exists and its kind was not reported.
 
@@ -1304,9 +1308,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Skill Not Found Run Error
+### Beta Managed Agents Skill Not Found Run Error Object
 
-- `type BetaManagedAgentsSkillNotFoundRunError`
+- `type BetaManagedAgentsSkillNotFoundRunErrorObject`
 
   A skill referenced by the deployment's agent no longer exists.
 
@@ -1354,9 +1358,9 @@ func main() {
 
     The run was started manually by creating a session directly against the deployment.
 
-### Beta Managed Agents Unknown Run Error
+### Beta Managed Agents Unknown Run Error Object
 
-- `type BetaManagedAgentsUnknownRunError`
+- `type BetaManagedAgentsUnknownRunErrorObject`
 
   An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
 
@@ -1366,9 +1370,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Vault Archived Run Error
+### Beta Managed Agents Vault Archived Run Error Object
 
-- `type BetaManagedAgentsVaultArchivedRunError`
+- `type BetaManagedAgentsVaultArchivedRunErrorObject`
 
   A vault referenced by the deployment is archived.
 
@@ -1378,9 +1382,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Vault Not Found Run Error
+### Beta Managed Agents Vault Not Found Run Error Object
 
-- `type BetaManagedAgentsVaultNotFoundRunError`
+- `type BetaManagedAgentsVaultNotFoundRunErrorObject`
 
   A vault referenced by the deployment no longer exists.
 
@@ -1390,9 +1394,9 @@ func main() {
 
     Human-readable error description.
 
-### Beta Managed Agents Workspace Archived Run Error
+### Beta Managed Agents Workspace Archived Run Error Object
 
-- `type BetaManagedAgentsWorkspaceArchivedRunError`
+- `type BetaManagedAgentsWorkspaceArchivedRunErrorObject`
 
   The deployment's workspace was archived.
 

@@ -15,10 +15,10 @@ Four changes from Claude Fable 5.1 can break your code:
 
 ## Models
 
-| Model             | Claude API ID     | Description                                           | Availability                                                                                                                                                     |
-| ----------------- | ----------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Fable 5.2  | claude-fable-5-2  | For demanding reasoning and long-horizon agentic work | All customers on the Claude API (for other platforms, see [Availability](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#availability)) |
-| Claude Mythos 5.2 | claude-mythos-5-2 | Same capabilities as Claude Fable 5.2                 | Organizations verified through Anthropic’s verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842)      |
+| Model | Claude API ID | Description | Availability |
+| ----- | ----- | ----- | ----- |
+| Claude Fable 5.2 | claude-fable-5-2 | For demanding reasoning and long-horizon agentic work | All customers on the Claude API (for other platforms, see [Availability](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#availability)) |
+| Claude Mythos 5.2 | claude-mythos-5-2 | Same capabilities as Claude Fable 5.2 | Organizations verified through Anthropic’s verification programs, such as the [Cyber Verification Program](https://support.claude.com/en/articles/14604842) |
 
 Claude Fable 5.2 and Claude Mythos 5.2 share these specs:
 
@@ -122,9 +122,9 @@ Claude Fable 5.2 runs safety classifiers, and everything in [Refusals and fallba
 
 Claude Fable 5.2 and Claude Mythos 5.2 share these prices, in USD:
 
-| Base input | 5m cache writes | 1h cache writes | Cache reads  | Output     |
-| ---------- | --------------- | --------------- | ------------ | ---------- |
-| $8 / MTok  | $10 / MTok      | $16 / MTok      | $0.20 / MTok | $40 / MTok |
+| Base input | 5m cache writes | 1h cache writes | Cache reads | Output |
+| ----- | ----- | ----- | ----- | ----- |
+| $8 / MTok | $10 / MTok | $16 / MTok | $0.20 / MTok | $40 / MTok |
 
 Input and output cost less than on Claude Fable 5.1 and Claude Mythos 5.1. Claude Fable 5.1 and Claude Mythos 5.1 cost $10 USD per million input tokens and $50 USD per million output tokens. Cache reads (hits and refreshes) cost 0.025 times the base input price, the same multiplier as on those models. [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) is $4 USD per million input tokens and $20 USD per million output tokens. [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) for Claude Fable 5.2 and Claude Mythos 5.2 costs $16 USD per million input tokens and $80 USD per million output tokens. See [Fast mode pricing](https://platform.claude.com/docs/en/about-claude/pricing#fast-mode-pricing). See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) for data residency and tool pricing.
 

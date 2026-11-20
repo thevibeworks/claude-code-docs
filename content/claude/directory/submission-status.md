@@ -55,7 +55,7 @@ A submission doesn't pass through every status in the table. Anthropic scans eac
 
 Check the status first. **Scanning** and **In review** mean Anthropic acts next and nothing is waiting on you. When you need to reach Anthropic, use the channel for your submission's kind:
 
-* **Plugin bundle**: open the plugin in the developer portal, open its menu, and select **Get help** or **Contact Anthropic**. A plugin that wasn't approved shows **Appeal this decision** on its page. You can also email `directory@anthropic.com`, where replies can be delayed
+* **Plugin bundle**: open the plugin in the developer portal, open its menu, and select **Get help** or **Contact Anthropic**. To dispute a decision, see [Appeal a refusal or a rejection](https://claude.com/docs/plugins/submit.md#appeal-a-refusal-or-a-rejection). You can also email `directory@anthropic.com`, where replies can be delayed
 * **MCP connector**: email `mcp-review@anthropic.com`
 
 Include the listing's name, the organization you submitted from, and the status the portal shows.

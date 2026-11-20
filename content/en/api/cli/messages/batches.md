@@ -708,7 +708,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "web_search_tool_result"`
 
-            - `content: array of WebSearchResultBlockParam or WebSearchToolRequestError`
+            - `content: array of WebSearchResultBlockParam or WebSearchToolRequestErrorObject`
 
               - `web_search_tool_result_block_item: array of WebSearchResultBlockParam`
 
@@ -722,7 +722,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `page_age: optional string`
 
-              - `web_search_tool_request_error: object`
+              - `web_search_tool_request_error_object: object`
 
                 - `type: "web_search_tool_result_error"`
 
@@ -4228,9 +4228,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `server_tool_caller_20260120: object`
 
-            - `content: WebSearchToolResultError or array of WebSearchResultBlock`
+            - `content: WebSearchToolResultErrorObject or array of WebSearchResultBlock`
 
-              - `web_search_tool_result_error: object`
+              - `web_search_tool_result_error_object: object`
 
                 - `type: "web_search_tool_result_error"`
 
@@ -4362,9 +4362,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "code_execution_tool_result"`
 
-            - `content: CodeExecutionToolResultError or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
+            - `content: CodeExecutionToolResultErrorObject or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
 
-              - `code_execution_tool_result_error: object`
+              - `code_execution_tool_result_error_object: object`
 
                 - `type: "code_execution_tool_result_error"`
 
@@ -4424,9 +4424,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "bash_code_execution_tool_result"`
 
-            - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
+            - `content: BashCodeExecutionToolResultErrorObject or BashCodeExecutionResultBlock`
 
-              - `bash_code_execution_tool_result_error: object`
+              - `bash_code_execution_tool_result_error_object: object`
 
                 - `type: "bash_code_execution_tool_result_error"`
 
@@ -4466,9 +4466,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "text_editor_code_execution_tool_result"`
 
-            - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
+            - `content: TextEditorCodeExecutionToolResultErrorObject or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
-              - `text_editor_code_execution_tool_result_error: object`
+              - `text_editor_code_execution_tool_result_error_object: object`
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -4534,9 +4534,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "tool_search_tool_result"`
 
-            - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
+            - `content: ToolSearchToolResultErrorObject or ToolSearchToolSearchResultBlock`
 
-              - `tool_search_tool_result_error: object`
+              - `tool_search_tool_result_error_object: object`
 
                 - `type: "tool_search_tool_result_error"`
 
@@ -4949,9 +4949,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: "error"`
 
-        - `error: InvalidRequestError or AuthenticationError or BillingError or 6 more`
+        - `error: InvalidRequestErrorObject or AuthenticationErrorObject or BillingErrorObject or 6 more`
 
-          - `invalid_request_error: object`
+          - `invalid_request_error_object: object`
 
             - `type: "invalid_request_error"`
 
@@ -4961,7 +4961,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `authentication_error: object`
+          - `authentication_error_object: object`
 
             - `type: "authentication_error"`
 
@@ -4971,7 +4971,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `billing_error: object`
+          - `billing_error_object: object`
 
             - `type: "billing_error"`
 
@@ -4981,7 +4981,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `permission_error: object`
+          - `permission_error_object: object`
 
             - `type: "permission_error"`
 
@@ -4991,7 +4991,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `not_found_error: object`
+          - `not_found_error_object: object`
 
             - `type: "not_found_error"`
 
@@ -5001,7 +5001,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `rate_limit_error: object`
+          - `rate_limit_error_object: object`
 
             - `type: "rate_limit_error"`
 
@@ -5011,7 +5011,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `gateway_timeout_error: object`
+          - `gateway_timeout_error_object: object`
 
             - `type: "timeout_error"`
 
@@ -5031,7 +5031,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `overloaded_error: object`
+          - `overloaded_error_object: object`
 
             - `type: "overloaded_error"`
 
@@ -5206,9 +5206,9 @@ ant messages:batches results \
 
     - `type: "error"`
 
-    - `error: InvalidRequestError or AuthenticationError or BillingError or 6 more`
+    - `error: InvalidRequestErrorObject or AuthenticationErrorObject or BillingErrorObject or 6 more`
 
-      - `invalid_request_error: object`
+      - `invalid_request_error_object: object`
 
         - `type: "invalid_request_error"`
 
@@ -5218,7 +5218,7 @@ ant messages:batches results \
 
           A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-      - `authentication_error: object`
+      - `authentication_error_object: object`
 
         - `type: "authentication_error"`
 
@@ -5228,7 +5228,7 @@ ant messages:batches results \
 
           A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-      - `billing_error: object`
+      - `billing_error_object: object`
 
         - `type: "billing_error"`
 
@@ -5238,7 +5238,7 @@ ant messages:batches results \
 
           A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-      - `permission_error: object`
+      - `permission_error_object: object`
 
         - `type: "permission_error"`
 
@@ -5248,7 +5248,7 @@ ant messages:batches results \
 
           A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-      - `not_found_error: object`
+      - `not_found_error_object: object`
 
         - `type: "not_found_error"`
 
@@ -5258,7 +5258,7 @@ ant messages:batches results \
 
           A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-      - `rate_limit_error: object`
+      - `rate_limit_error_object: object`
 
         - `type: "rate_limit_error"`
 
@@ -5268,7 +5268,7 @@ ant messages:batches results \
 
           A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-      - `gateway_timeout_error: object`
+      - `gateway_timeout_error_object: object`
 
         - `type: "timeout_error"`
 
@@ -5288,7 +5288,7 @@ ant messages:batches results \
 
           A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-      - `overloaded_error: object`
+      - `overloaded_error_object: object`
 
         - `type: "overloaded_error"`
 
@@ -5669,9 +5669,9 @@ ant messages:batches results \
 
               - `server_tool_caller_20260120: object`
 
-            - `content: WebSearchToolResultError or array of WebSearchResultBlock`
+            - `content: WebSearchToolResultErrorObject or array of WebSearchResultBlock`
 
-              - `web_search_tool_result_error: object`
+              - `web_search_tool_result_error_object: object`
 
                 - `type: "web_search_tool_result_error"`
 
@@ -5803,9 +5803,9 @@ ant messages:batches results \
 
             - `type: "code_execution_tool_result"`
 
-            - `content: CodeExecutionToolResultError or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
+            - `content: CodeExecutionToolResultErrorObject or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
 
-              - `code_execution_tool_result_error: object`
+              - `code_execution_tool_result_error_object: object`
 
                 - `type: "code_execution_tool_result_error"`
 
@@ -5865,9 +5865,9 @@ ant messages:batches results \
 
             - `type: "bash_code_execution_tool_result"`
 
-            - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
+            - `content: BashCodeExecutionToolResultErrorObject or BashCodeExecutionResultBlock`
 
-              - `bash_code_execution_tool_result_error: object`
+              - `bash_code_execution_tool_result_error_object: object`
 
                 - `type: "bash_code_execution_tool_result_error"`
 
@@ -5907,9 +5907,9 @@ ant messages:batches results \
 
             - `type: "text_editor_code_execution_tool_result"`
 
-            - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
+            - `content: TextEditorCodeExecutionToolResultErrorObject or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
-              - `text_editor_code_execution_tool_result_error: object`
+              - `text_editor_code_execution_tool_result_error_object: object`
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -5975,9 +5975,9 @@ ant messages:batches results \
 
             - `type: "tool_search_tool_result"`
 
-            - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
+            - `content: ToolSearchToolResultErrorObject or ToolSearchToolSearchResultBlock`
 
-              - `tool_search_tool_result_error: object`
+              - `tool_search_tool_result_error_object: object`
 
                 - `type: "tool_search_tool_result_error"`
 
@@ -6390,9 +6390,9 @@ ant messages:batches results \
 
         - `type: "error"`
 
-        - `error: InvalidRequestError or AuthenticationError or BillingError or 6 more`
+        - `error: InvalidRequestErrorObject or AuthenticationErrorObject or BillingErrorObject or 6 more`
 
-          - `invalid_request_error: object`
+          - `invalid_request_error_object: object`
 
             - `type: "invalid_request_error"`
 
@@ -6402,7 +6402,7 @@ ant messages:batches results \
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `authentication_error: object`
+          - `authentication_error_object: object`
 
             - `type: "authentication_error"`
 
@@ -6412,7 +6412,7 @@ ant messages:batches results \
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `billing_error: object`
+          - `billing_error_object: object`
 
             - `type: "billing_error"`
 
@@ -6422,7 +6422,7 @@ ant messages:batches results \
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `permission_error: object`
+          - `permission_error_object: object`
 
             - `type: "permission_error"`
 
@@ -6432,7 +6432,7 @@ ant messages:batches results \
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `not_found_error: object`
+          - `not_found_error_object: object`
 
             - `type: "not_found_error"`
 
@@ -6442,7 +6442,7 @@ ant messages:batches results \
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `rate_limit_error: object`
+          - `rate_limit_error_object: object`
 
             - `type: "rate_limit_error"`
 
@@ -6452,7 +6452,7 @@ ant messages:batches results \
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `gateway_timeout_error: object`
+          - `gateway_timeout_error_object: object`
 
             - `type: "timeout_error"`
 
@@ -6472,7 +6472,7 @@ ant messages:batches results \
 
               A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-          - `overloaded_error: object`
+          - `overloaded_error_object: object`
 
             - `type: "overloaded_error"`
 
@@ -6877,9 +6877,9 @@ ant messages:batches results \
 
             - `server_tool_caller_20260120: object`
 
-          - `content: WebSearchToolResultError or array of WebSearchResultBlock`
+          - `content: WebSearchToolResultErrorObject or array of WebSearchResultBlock`
 
-            - `web_search_tool_result_error: object`
+            - `web_search_tool_result_error_object: object`
 
               - `type: "web_search_tool_result_error"`
 
@@ -7011,9 +7011,9 @@ ant messages:batches results \
 
           - `type: "code_execution_tool_result"`
 
-          - `content: CodeExecutionToolResultError or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
+          - `content: CodeExecutionToolResultErrorObject or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
 
-            - `code_execution_tool_result_error: object`
+            - `code_execution_tool_result_error_object: object`
 
               - `type: "code_execution_tool_result_error"`
 
@@ -7073,9 +7073,9 @@ ant messages:batches results \
 
           - `type: "bash_code_execution_tool_result"`
 
-          - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
+          - `content: BashCodeExecutionToolResultErrorObject or BashCodeExecutionResultBlock`
 
-            - `bash_code_execution_tool_result_error: object`
+            - `bash_code_execution_tool_result_error_object: object`
 
               - `type: "bash_code_execution_tool_result_error"`
 
@@ -7115,9 +7115,9 @@ ant messages:batches results \
 
           - `type: "text_editor_code_execution_tool_result"`
 
-          - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
+          - `content: TextEditorCodeExecutionToolResultErrorObject or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
-            - `text_editor_code_execution_tool_result_error: object`
+            - `text_editor_code_execution_tool_result_error_object: object`
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -7183,9 +7183,9 @@ ant messages:batches results \
 
           - `type: "tool_search_tool_result"`
 
-          - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
+          - `content: ToolSearchToolResultErrorObject or ToolSearchToolSearchResultBlock`
 
-            - `tool_search_tool_result_error: object`
+            - `tool_search_tool_result_error_object: object`
 
               - `type: "tool_search_tool_result_error"`
 
@@ -7598,9 +7598,9 @@ ant messages:batches results \
 
       - `type: "error"`
 
-      - `error: InvalidRequestError or AuthenticationError or BillingError or 6 more`
+      - `error: InvalidRequestErrorObject or AuthenticationErrorObject or BillingErrorObject or 6 more`
 
-        - `invalid_request_error: object`
+        - `invalid_request_error_object: object`
 
           - `type: "invalid_request_error"`
 
@@ -7610,7 +7610,7 @@ ant messages:batches results \
 
             A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-        - `authentication_error: object`
+        - `authentication_error_object: object`
 
           - `type: "authentication_error"`
 
@@ -7620,7 +7620,7 @@ ant messages:batches results \
 
             A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-        - `billing_error: object`
+        - `billing_error_object: object`
 
           - `type: "billing_error"`
 
@@ -7630,7 +7630,7 @@ ant messages:batches results \
 
             A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-        - `permission_error: object`
+        - `permission_error_object: object`
 
           - `type: "permission_error"`
 
@@ -7640,7 +7640,7 @@ ant messages:batches results \
 
             A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-        - `not_found_error: object`
+        - `not_found_error_object: object`
 
           - `type: "not_found_error"`
 
@@ -7650,7 +7650,7 @@ ant messages:batches results \
 
             A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-        - `rate_limit_error: object`
+        - `rate_limit_error_object: object`
 
           - `type: "rate_limit_error"`
 
@@ -7660,7 +7660,7 @@ ant messages:batches results \
 
             A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-        - `gateway_timeout_error: object`
+        - `gateway_timeout_error_object: object`
 
           - `type: "timeout_error"`
 
@@ -7680,7 +7680,7 @@ ant messages:batches results \
 
             A human-readable explanation of the error. Its wording can change, so don't match on it.
 
-        - `overloaded_error: object`
+        - `overloaded_error_object: object`
 
           - `type: "overloaded_error"`
 
@@ -8047,9 +8047,9 @@ ant messages:batches results \
 
           - `server_tool_caller_20260120: object`
 
-        - `content: WebSearchToolResultError or array of WebSearchResultBlock`
+        - `content: WebSearchToolResultErrorObject or array of WebSearchResultBlock`
 
-          - `web_search_tool_result_error: object`
+          - `web_search_tool_result_error_object: object`
 
             - `type: "web_search_tool_result_error"`
 
@@ -8181,9 +8181,9 @@ ant messages:batches results \
 
         - `type: "code_execution_tool_result"`
 
-        - `content: CodeExecutionToolResultError or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
+        - `content: CodeExecutionToolResultErrorObject or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
 
-          - `code_execution_tool_result_error: object`
+          - `code_execution_tool_result_error_object: object`
 
             - `type: "code_execution_tool_result_error"`
 
@@ -8243,9 +8243,9 @@ ant messages:batches results \
 
         - `type: "bash_code_execution_tool_result"`
 
-        - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
+        - `content: BashCodeExecutionToolResultErrorObject or BashCodeExecutionResultBlock`
 
-          - `bash_code_execution_tool_result_error: object`
+          - `bash_code_execution_tool_result_error_object: object`
 
             - `type: "bash_code_execution_tool_result_error"`
 
@@ -8285,9 +8285,9 @@ ant messages:batches results \
 
         - `type: "text_editor_code_execution_tool_result"`
 
-        - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
+        - `content: TextEditorCodeExecutionToolResultErrorObject or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
-          - `text_editor_code_execution_tool_result_error: object`
+          - `text_editor_code_execution_tool_result_error_object: object`
 
             - `type: "text_editor_code_execution_tool_result_error"`
 
@@ -8353,9 +8353,9 @@ ant messages:batches results \
 
         - `type: "tool_search_tool_result"`
 
-        - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
+        - `content: ToolSearchToolResultErrorObject or ToolSearchToolSearchResultBlock`
 
-          - `tool_search_tool_result_error: object`
+          - `tool_search_tool_result_error_object: object`
 
             - `type: "tool_search_tool_result_error"`
 

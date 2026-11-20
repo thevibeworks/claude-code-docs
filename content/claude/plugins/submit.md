@@ -140,6 +140,15 @@ To fix a version that doesn't pass, first check whether the submission was rejec
   3. Select **Resubmit for review** on the **Review** tab. Resubmitting runs every check again.
 * **If the submission wasn't rejected:** push a fix to the tracked branch, then select **Check for new commits** on the plugin's page. Without that step, the directory finds the new commit at its next scheduled check
 
+### Appeal a refusal or a rejection
+
+A refusal stops one version, and a rejection stops the submission until you resubmit it. If you think the directory got either decision wrong, open the plugin from **Submissions** in the [developer portal](https://claude.ai/directory/manage) and select **Appeal this decision**. Say why the decision should change, write your statement, and select **Send appeal**. Replies show on the appeal's case page.
+
+A member who can edit the plugin can appeal each decision once, and the plugin's page shows the deadline when there is one. If the page doesn't offer an appeal, [contact Anthropic](https://claude.com/docs/directory/submission-status.md#contact-anthropic-about-a-submission).
+
+* **A refused version:** if Anthropic agrees, that version is published. A new commit replaces the version, and the appeal no longer applies
+* **A rejected submission:** appeal before you edit or resubmit the plugin. After either, the rejection can't be appealed
+
 ### Publish a passing version
 
 A version that passes every check isn't live until it's published. When the version passes, select **Publish** on the plugin's page. By default, the portal records this as a request for an Anthropic reviewer, who then publishes the version.

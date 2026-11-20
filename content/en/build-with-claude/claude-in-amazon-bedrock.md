@@ -59,11 +59,11 @@ A bearer token lets you call the endpoint without signing requests with AWS cred
 
 Bearer tokens come in two types:
 
-| Aspect          | Short-term                                                                             | Long-term                                                    |
-| --------------- | -------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| **Lifetime**    | Up to 12 hours, or until the AWS session that generated it ends, whichever comes first | Until its expiration date. If it has none, it never expires. |
-| **Permissions** | Those of the IAM identity that generated it                                            | Those of the IAM user that it belongs to                     |
-| **Notes**       | Works only in the AWS region where you generate it                                     | Recommended by AWS only for exploration                      |
+| Aspect | Short-term | Long-term |
+| ----- | ----- | ----- |
+| **Lifetime** | Up to 12 hours, or until the AWS session that generated it ends, whichever comes first | Until its expiration date. If it has none, it never expires. |
+| **Permissions** | Those of the IAM identity that generated it | Those of the IAM user that it belongs to |
+| **Notes** | Works only in the AWS region where you generate it | Recommended by AWS only for exploration |
 
 For either type, the IAM identity whose permissions the token carries needs the `bedrock-mantle:CallWithBearerToken` and `bedrock-mantle:CreateInference` permissions.
 
@@ -86,10 +86,10 @@ To use a bearer token:
 
 An administrator can stop IAM users from calling Amazon Bedrock with long-term tokens. A token works on both Amazon Bedrock endpoints, and each endpoint has its own IAM action and condition key:
 
-| Endpoint          | Action to deny                       | Condition key                    |
-| ----------------- | ------------------------------------ | -------------------------------- |
-| `bedrock-mantle`  | `bedrock-mantle:CallWithBearerToken` | `bedrock-mantle:bearerTokenType` |
-| `bedrock-runtime` | `bedrock:CallWithBearerToken`        | `bedrock:bearerTokenType`        |
+| Endpoint | Action to deny | Condition key |
+| ----- | ----- | ----- |
+| `bedrock-mantle` | `bedrock-mantle:CallWithBearerToken` | `bedrock-mantle:bearerTokenType` |
+| `bedrock-runtime` | `bedrock:CallWithBearerToken` | `bedrock:bearerTokenType` |
 
 Write a policy with one Deny statement for each endpoint. In each statement, set `Resource` to `*`, and use `StringEquals` to require that the condition key equals `LONG_TERM`.
 
@@ -376,20 +376,20 @@ For credentials, the client uses what you pass when you create it. Otherwise, th
 
 Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. For model capabilities and behaviors, see [Models overview](https://platform.claude.com/docs/en/models/overview). Claude Fable 5.2 and Claude Mythos 5.2 aren’t available in Claude in Amazon Bedrock. Amazon Bedrock serves them on the `bedrock-runtime` endpoint only. For their model IDs, see [API model IDs](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#api-model-ids). To see which endpoint serves each model, see [Endpoint availability by models](https://docs.aws.amazon.com/bedrock/latest/userguide/models-endpoint-availability.html) in the AWS documentation.
 
-| Model                                                                                       | Model ID                      | Access                                                                                              |
-| :------------------------------------------------------------------------------------------ | :---------------------------- | :-------------------------------------------------------------------------------------------------- |
-| Claude Fable 5.1                                                                            | `anthropic.claude-fable-5-1`  | Open                                                                                                |
-| Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842)) | `anthropic.claude-mythos-5-1` | Active (verification required)                                                                      |
-| Claude Fable 5                                                                              | `anthropic.claude-fable-5`    | Open                                                                                                |
-| Claude Mythos 5 ([limited availability](https://support.claude.com/en/articles/14604842))   | `anthropic.claude-mythos-5`   | Active (verification required)                                                                      |
-| Claude Opus 5.5                                                                             | `anthropic.claude-opus-5-5`   | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
-| Claude Opus 5                                                                               | `anthropic.claude-opus-5`     | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
-| Claude Opus 4.8                                                                             | `anthropic.claude-opus-4-8`   | Open                                                                                                |
-| Claude Opus 4.7                                                                             | `anthropic.claude-opus-4-7`   | Open                                                                                                |
-| Claude Sonnet 5.5                                                                           | `anthropic.claude-sonnet-5-5` | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
-| Claude Sonnet 5                                                                             | `anthropic.claude-sonnet-5`   | Open                                                                                                |
-| Claude Haiku 5.5                                                                            | `anthropic.claude-haiku-5-5`  | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
-| Claude Haiku 4.5                                                                            | `anthropic.claude-haiku-4-5`  | Open                                                                                                |
+| Model | Model ID | Access |
+| :---- | :---- | :---- |
+| Claude Fable 5.1 | `anthropic.claude-fable-5-1` | Open |
+| Claude Mythos 5.1 ([limited availability](https://support.claude.com/en/articles/14604842)) | `anthropic.claude-mythos-5-1` | Active (verification required) |
+| Claude Fable 5 | `anthropic.claude-fable-5` | Open |
+| Claude Mythos 5 ([limited availability](https://support.claude.com/en/articles/14604842)) | `anthropic.claude-mythos-5` | Active (verification required) |
+| Claude Opus 5.5 | `anthropic.claude-opus-5-5` | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
+| Claude Opus 5 | `anthropic.claude-opus-5` | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
+| Claude Opus 4.8 | `anthropic.claude-opus-4-8` | Open |
+| Claude Opus 4.7 | `anthropic.claude-opus-4-7` | Open |
+| Claude Sonnet 5.5 | `anthropic.claude-sonnet-5-5` | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
+| Claude Sonnet 5 | `anthropic.claude-sonnet-5` | Open |
+| Claude Haiku 5.5 | `anthropic.claude-haiku-5-5` | [See Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
+| Claude Haiku 4.5 | `anthropic.claude-haiku-4-5` | Open |
 
 Use the latest version of Claude Code with Claude in Amazon Bedrock; run `claude update` to upgrade.
 
@@ -430,35 +430,35 @@ Claude in Amazon Bedrock is available in the following AWS regions. Amazon Bedro
 
 The global endpoint is available for Claude Fable 5.1, Claude Fable 5, Claude Opus 5.5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5.5, Claude Sonnet 5, Claude Haiku 5.5, and Claude Haiku 4.5.
 
-| AWS region       | Location                  | Endpoint types             |
-| ---------------- | ------------------------- | -------------------------- |
-| `af-south-1`     | Africa (Cape Town)        | Global                     |
-| `ap-northeast-1` | Asia Pacific (Tokyo)      | Global, JP, In-region only |
-| `ap-northeast-2` | Asia Pacific (Seoul)      | Global                     |
-| `ap-northeast-3` | Asia Pacific (Osaka)      | Global, JP                 |
-| `ap-south-1`     | Asia Pacific (Mumbai)     | Global                     |
-| `ap-south-2`     | Asia Pacific (Hyderabad)  | Global                     |
-| `ap-southeast-1` | Asia Pacific (Singapore)  | Global                     |
-| `ap-southeast-2` | Asia Pacific (Sydney)     | Global, AU                 |
-| `ap-southeast-3` | Asia Pacific (Jakarta)    | Global                     |
-| `ap-southeast-4` | Asia Pacific (Melbourne)  | Global, AU, In-region only |
-| `ca-central-1`   | Canada (Central)          | Global, US                 |
-| `ca-west-1`      | Canada West (Calgary)     | Global                     |
-| `eu-central-1`   | Europe (Frankfurt)        | Global, EU                 |
-| `eu-central-2`   | Europe (Zurich)           | Global, EU                 |
-| `eu-north-1`     | Europe (Stockholm)        | Global, EU, In-region only |
-| `eu-south-1`     | Europe (Milan)            | Global, EU                 |
-| `eu-south-2`     | Europe (Spain)            | Global, EU                 |
-| `eu-west-1`      | Europe (Ireland)          | Global, EU, In-region only |
-| `eu-west-2`      | Europe (London)           | Global, EU                 |
-| `eu-west-3`      | Europe (Paris)            | Global, EU                 |
-| `il-central-1`   | Israel (Tel Aviv)         | Global                     |
-| `me-central-1`   | Middle East (UAE)         | Global                     |
-| `sa-east-1`      | South America (São Paulo) | Global                     |
-| `us-east-1`      | US East (N. Virginia)     | Global, US, In-region only |
-| `us-east-2`      | US East (Ohio)            | Global, US, In-region only |
-| `us-west-1`      | US West (N. California)   | Global, US                 |
-| `us-west-2`      | US West (Oregon)          | Global, US, In-region only |
+| AWS region | Location | Endpoint types |
+| ----- | ----- | ----- |
+| `af-south-1` | Africa (Cape Town) | Global |
+| `ap-northeast-1` | Asia Pacific (Tokyo) | Global, JP, In-region only |
+| `ap-northeast-2` | Asia Pacific (Seoul) | Global |
+| `ap-northeast-3` | Asia Pacific (Osaka) | Global, JP |
+| `ap-south-1` | Asia Pacific (Mumbai) | Global |
+| `ap-south-2` | Asia Pacific (Hyderabad) | Global |
+| `ap-southeast-1` | Asia Pacific (Singapore) | Global |
+| `ap-southeast-2` | Asia Pacific (Sydney) | Global, AU |
+| `ap-southeast-3` | Asia Pacific (Jakarta) | Global |
+| `ap-southeast-4` | Asia Pacific (Melbourne) | Global, AU, In-region only |
+| `ca-central-1` | Canada (Central) | Global, US |
+| `ca-west-1` | Canada West (Calgary) | Global |
+| `eu-central-1` | Europe (Frankfurt) | Global, EU |
+| `eu-central-2` | Europe (Zurich) | Global, EU |
+| `eu-north-1` | Europe (Stockholm) | Global, EU, In-region only |
+| `eu-south-1` | Europe (Milan) | Global, EU |
+| `eu-south-2` | Europe (Spain) | Global, EU |
+| `eu-west-1` | Europe (Ireland) | Global, EU, In-region only |
+| `eu-west-2` | Europe (London) | Global, EU |
+| `eu-west-3` | Europe (Paris) | Global, EU |
+| `il-central-1` | Israel (Tel Aviv) | Global |
+| `me-central-1` | Middle East (UAE) | Global |
+| `sa-east-1` | South America (São Paulo) | Global |
+| `us-east-1` | US East (N. Virginia) | Global, US, In-region only |
+| `us-east-2` | US East (Ohio) | Global, US, In-region only |
+| `us-west-1` | US West (N. California) | Global, US |
+| `us-west-2` | US West (Oregon) | Global, US, In-region only |
 
 ## Quotas
 

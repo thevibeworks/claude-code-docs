@@ -199,13 +199,13 @@ The `stop_details` object explains the decline:
 * `category` and `explanation` are both `null` when the refusal does not map to a named category. That `null` is a normal, permanent value, not a placeholder.
 * `stop_details` itself is `null` for every stop reason other than `refusal`.
 
-| `category`               | What it means                                                                                                                                                                                                                                                                                                                                                                        | Billed before any output |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------ |
-| `"cyber"`                | The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.                                                                                                                                                                                                                                               | No                       |
-| `"bio"`                  | The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.                                                                                                                                                                                                                                               | Yes                      |
-| `"frontier_llm"`         | The request could help with the development of competing AI models, which is restricted under [Anthropic’s commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.                                                                                                                                         | Yes                      |
-| `"reasoning_extraction"` | The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking). See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks). | Yes                      |
-| `"general_harms"`        | The request falls under a usage-policy area outside the four named categories. Benign work can also trigger this category.                                                                                                                                                                                                                                                           | No                       |
+| `category` | What it means | Billed before any output |
+| ----- | ----- | ----- |
+| `"cyber"` | The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category. | No |
+| `"bio"` | The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category. | Yes |
+| `"frontier_llm"` | The request could help with the development of competing AI models, which is restricted under [Anthropic’s commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category. | Yes |
+| `"reasoning_extraction"` | The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking). See [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks). | Yes |
+| `"general_harms"` | The request falls under a usage-policy area outside the four named categories. Benign work can also trigger this category. | No |
 
 A refusal can arrive before any output, or mid-stream after partial output. In either case, treat any partial output as incomplete and discard it.
 
@@ -220,7 +220,14 @@ A `reasoning_extraction` refusal usually comes from a prompt that asks the model
 
 The wording can sit in a system prompt, a skill, or a tool description, so check those too.
 
-You can still ask Claude to explain its answer. Ask for a short explanation, the evidence behind a result, or a summary of the actions it took. To see how the model reasoned, set `display: "summarized"` and read the [`thinking` blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#summarized-thinking). This category has no recommended fallback model, so change the prompt rather than retry the request. If a reworded request is still declined, [contact support](https://support.claude.com/en/articles/9015913-how-to-get-support) and include the [request ID](https://platform.claude.com/docs/en/api/errors#request-id).
+Models that might return this category include the following:
+
+* Claude Fable 5.2, Claude Fable 5.1, and Claude Fable 5
+* Claude Opus 5.5 and Claude Opus 5
+* Claude Sonnet 5.5
+* Claude Haiku 5.5
+
+You can still ask Claude to explain its answer. Ask for a short explanation, the evidence behind a result, or a summary of the actions it took. To see a summary of the model’s reasoning, set `thinking: {"type": "adaptive", "display": "summarized"}` and read the [`thinking` blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#summarized-thinking). This category has no recommended fallback model, so change the prompt rather than retry the request. If a reworded request is still declined, [contact support](https://support.claude.com/en/articles/9015913-how-to-get-support) and include the [request ID](https://platform.claude.com/docs/en/api/errors#request-id).
 
 ## How refusals are billed
 
@@ -238,11 +245,11 @@ The billed categories may change as Anthropic keeps measuring and refining its s
 
 There are three ways to retry a refused request on another model. The right one depends on where you are running and how much control you need.
 
-| Your situation                                                                  | Use                                                                                                                                                                                                      | Why                                                        |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| Claude API or Claude Models on Google Cloud (Anthropic managed), simplest setup | [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback)                                                                                 | One request, one response. The API handles the retry.      |
-| Any platform, using an Anthropic SDK                                            | [Client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback)                                                         | Configure once on the client. Retries occur automatically. |
-| Raw HTTP or custom retry logic                                                  | [A manual retry](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry) with [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) | Full control. Fallback credit keeps the cost down.         |
+| Your situation | Use | Why |
+| ----- | ----- | ----- |
+| Claude API or Claude Models on Google Cloud (Anthropic managed), simplest setup | [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) | One request, one response. The API handles the retry. |
+| Any platform, using an Anthropic SDK | [Client-side fallback with the SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) | Configure once on the client. Retries occur automatically. |
+| Raw HTTP or custom retry logic | [A manual retry](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#manual-retry) with [fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) | Full control. Fallback credit keeps the cost down. |
 
 Server-side fallback and the SDK middleware apply fallback credit for you. You only need the [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit) page when you build the retry yourself. Claude Haiku 5.5 has neither server-side fallback nor fallback credit, so use the SDK middleware or a manual retry.
 
@@ -717,14 +724,14 @@ The `usage.iterations` array records every attempt. A model that declined appear
 
 On the next turn, send the assistant content back as you received it. After a mid-output fallback, `content` can include block types the declining model produced before the handoff. The following table covers which to keep and which to drop when you echo the turn.
 
-| Block type                                                                             | On the next turn                                                                                                                                                                                                               |
-| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `fallback`                                                                             | Keep it exactly where it appeared. The API uses its position to validate the thinking blocks around it, so a request that echoes thinking blocks from both sides of the boundary is rejected if the block is omitted or moved. |
-| `text`                                                                                 | Keep.                                                                                                                                                                                                                          |
-| Any block after the final `fallback` block                                             | Keep.                                                                                                                                                                                                                          |
-| `thinking`, `redacted_thinking`, or `connector_text` before the final `fallback` block | Drop.                                                                                                                                                                                                                          |
-| Client-side `tool_use` before the final `fallback` block                               | Drop.                                                                                                                                                                                                                          |
-| `server_tool_use` before the final `fallback` block                                    | Keep when paired with its result. Drop when it has no matching result.                                                                                                                                                         |
+| Block type | On the next turn |
+| ----- | ----- |
+| `fallback` | Keep it exactly where it appeared. The API uses its position to validate the thinking blocks around it, so a request that echoes thinking blocks from both sides of the boundary is rejected if the block is omitted or moved. |
+| `text` | Keep. |
+| Any block after the final `fallback` block | Keep. |
+| `thinking`, `redacted_thinking`, or `connector_text` before the final `fallback` block | Drop. |
+| Client-side `tool_use` before the final `fallback` block | Drop. |
+| `server_tool_use` before the final `fallback` block | Keep when paired with its result. Drop when it has no matching result. |
 
 <Note>
   A `connector_text` block carries narration text that some tool-using responses include between tool calls.
@@ -1208,14 +1215,14 @@ Classifier refusals are available or in beta on select models, depending on the 
 
 * Availability: Always on
 
-| Status    | Models                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Status | Models |
+| ----- | ----- |
 | Available | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 
 * Availability: Always on
 
-| Status | Cloud platforms                                                                                                    | Models                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-| ------ | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Beta   | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
+| Status | Cloud platforms | Models |
+| ----- | ----- | ----- |
+| Beta | Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
