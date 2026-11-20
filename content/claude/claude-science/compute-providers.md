@@ -28,7 +28,7 @@ Input files are limited to 1 GiB per submit. For larger inputs, Claude can stage
 
 > [!NOTE]
 >
-> Closing the app doesn't cancel a running Modal job; it continues billing until it finishes or times out.
+> Closing the app doesn't cancel a running Modal job; it continues billing until it finishes or times out. Let running Modal jobs finish before you update. The first start after an update can rebuild the environment Claude Science uses for Modal, and a job ending meanwhile can lose its results if you close the app then or the rebuild exceeds about 10 minutes. Keep the app open until "Setting up environments…" disappears.
 
 Cost controls: there's no spend ceiling. With **Once**, a card asks about each job Claude proposes. After you approve a job with a wider scope, later Modal jobs in that scope can start without a card, on any machine and with any time limit. **Concurrent jobs** (default 10, set on the Modal page under Settings > Compute) caps simultaneous containers that Claude Science on this machine can run. **Default container timeout** is 12 hours (maximum 23), enforced by Modal. Track spend on Modal's dashboard.
 

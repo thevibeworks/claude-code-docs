@@ -8,6 +8,56 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v6.28899.2**
+
+2026-11-19
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`sshHostSandboxUnavailable`](https://claude.com/docs/third-party/claude-desktop/configuration#sshhostsandboxunavailable) · Beta | `enum` | When the sandbox cannot start on an SSH host |
+| [`autoModeRules`](https://claude.com/docs/third-party/claude-desktop/configuration#automoderules) | `object` | Auto mode rules |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "codeSurface": {
+    "sshHostSandboxUnavailable": "<warn|refuse>"
+  },
+  "workspace": {
+    "autoModeRules": {
+      "allow": ["<string>"],
+      "soft_deny": ["<string>"],
+      "hard_deny": ["<string>"],
+      "environment": ["<string>"],
+      "classifyAllShell": "<boolean>"
+    }
+  }
+}
+```
+
+Update all devices before you put `autoModeRules` or `sshHostSandboxUnavailable` in a device profile. Older versions on Linux can refuse a profile with any key they do not know, and older versions on Windows refuse a profile with only such keys. The settings made in Setup then stop applying as well.
+
+In this version too, a profile with either key replaces the settings made in Setup. So put everything the device needs in it, such as its connection to your provider. As with any device profile, a computer's first one also blocks WSL sessions until `disableWslSessions` is set to `false` machine-wide (see that key's help). Where settings were made in Setup, it also cuts off network access for Code's shell commands on macOS and Linux until `coworkEgressAllowedHosts` is set in the profile.
+
+Where a configuration server or the Admin Console sends your settings, set these keys there. In a device profile they are dropped once the served settings apply. Older versions skip a key they do not know in served settings or a local configuration file, and apply the rest. On a Claude apps gateway, set them under these names in a policy's `desktop:` block. Gateways before version 2.1.295 won't start with either key there. Later ones start, warn that they can't check the key, and send it on as written.
+
+**Changed:**
+
+* **Breaking:** `inferenceGatewayAutoModeServerChecks`: now on when unset. On Gateway connections, your gateway's provider runs Auto mode's safety check, and requests carry session details. If no result comes back, Code waits five minutes for someone to pick Continue, then ends the turn. A gateway that refuses these requests with a 401 or 404 fails the turn. After users relaunch, `false` keeps the built-in check until Claude Code drops it. Don't add the key to `gateway.yaml`: a Claude apps gateway won't start. See [what your gateway must pass through](https://claude.com/docs/third-party/claude-desktop/gateway.md#gateway-requirements-for-auto-mode-checks).
+* **Breaking:** `userPluginMarketplacesEnabled`: when off, it now usually also stops plugins kept in skills folders, with their hooks and servers, and `/plugin-authoring`. Plain skills still load.
+* `chatSessionRetentionDays`, `coworkSessionRetentionDays`: turning a connector or tool on or off, renaming, pinning and moving to a project no longer count as activity. Soon after updating, the app can permanently delete sessions kept that way. To keep them, before updating, set all three periods to 3650 days in the configuration that sets them.
+* `allowedWorkspaceFolders`: in local Code sessions Claude can now read plans in Claude Code's `plans` folder, and write them there in Plan mode, even though that folder is outside the listed folders.
+* `blockReadsOutsideWorkingDirectories`: in Code sessions with it on, in Auto and Bypass permissions modes, more shell commands ask first, and a command that changes folder and then deletes everything there, such as `cd build && rm -rf *`, is refused with no prompt.
+* `inferenceStreamIdleTimeoutSec`: now also lengthens the wait for a gateway that sends no keep-alive pings. On the Code tab, values above 900 add nothing.
+* `mcpPersistentAlwaysAllowEnabled`: when `false`, Claude now also asks again before it reads or acts on a private-network site saved for the built-in browser. It can still open that site without asking. `false` also turns off "Allow for all tasks" on tools of a plugin's remote MCP server that Claude Code runs.
+* `managedMcpServers`: a person's MCP server from `claude_desktop_config.json` or an extension now stays off if its name matches a server listed here or in an organization plugin. A similar name counts, such as `Acme-Tools` and `acme_tools`, or `acme` and `acme (prod)`.
+* `egressProxyPacUrl`: in local Code sessions, tools can now skip the proxy for GitHub hosts that the script answers `DIRECT` for. The key's help names them. If the script answers `DIRECT` for all of them, every `github.com` subdomain skips the proxy too. Not on the Claude API or in sessions that a Claude apps gateway manages.
+* `otlpResourceAttributes`: a `service.name` set here now names Code sessions in place of `claude-code-desktop`. Dashboards that filter on the old name stop matching. Cowork and Chat keep `cowork`.
+* `managedMcpServers[].toolPolicy` in a `policy-only` entry, and `orgPluginSettings[].tools[].permission`: `allow` now removes the prompt for a plugin's MCP server that Claude Code runs, only in Chat and in Cowork's Manually approve mode, scheduled tasks included. The plugin must come from `allowedPluginMarketplaces`. Use the server's exact name: `allow` then covers that name in every such plugin, and a `"*"` tool entry also covers write tools. A wildcard `ask` or `blocked` outranks it. An `allow` already set takes effect when you update.
+* `managedMcpServers[].toolPolicy` and `orgPluginSettings[].tools[].permission`: an `allow` on a plugin's MCP server that Claude Code runs can still leave the prompt. If you set `allowedPluginMcpServers` or `deniedPluginMcpServers`, or set `isLocalDevMcpEnabled` to `false`, a computer's own Claude Code managed settings need `"parentSettingsBehavior": "merge"` and no MCP server settings, or the prompt stays. It also stays in tasks that were running when those two lists changed. It stays too while a served change to those two lists, or a served policy that doesn't allow the tool, waits for a relaunch.
+* `mcpScheduledTaskApprovalLifetimeDays`: when set, to any value including 0, a person's "Allow for all tasks" on a tool of a plugin's remote MCP server that Claude Code runs doesn't cover scheduled Cowork tasks. When unset, it does, unless `mcpPersistentAlwaysAllowEnabled` is `false`. A choice made while the key was set still doesn't cover them after you unset it.
+
 **v6.6395.1**
 
 2026-11-18

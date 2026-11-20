@@ -39,10 +39,16 @@ Auto mode in Claude Science checks:
 * Code you've already allowed
 * Calls to remote and directory connectors that would otherwise ask you
 
+In auto mode, Claude can save most source code to your **Read & write** folders without asking, and auto mode doesn't check it. Claude Science can still ask about some files.
+
 Even when auto mode is on, Claude Science still asks permission for:
 
 * Network access
-* Access to files outside the session's workspace folder, other than [what the sandbox's rules let code read or write](https://claude.com/docs/claude-science/core-concepts.md#sandbox)
+* Folder access you haven't granted, except [what sandbox rules let code read or write](https://claude.com/docs/claude-science/core-concepts.md#sandbox)
+* Saving some file types, such as shell scripts and archives, to your folders
+* Deleting files in your folders
 * Remote compute
 * Claude Science's package and environment tools
 * Any tool you set to **Ask each time**
+
+When auto mode is off but [available to you](#what-auto-mode-needs-in-claude-science), Claude Science still checks already-allowed code that uses a saved credential, such as an API key, and asks on a card when unsure. If you don't answer and spend 10 straight minutes in another session, window, or app, or with the session off screen, Claude skips that code. Until you allow one of these cards, later such code in that session can be skipped too. These checks count toward your [usage](https://claude.com/docs/claude-science/overview.md#plans-and-usage).

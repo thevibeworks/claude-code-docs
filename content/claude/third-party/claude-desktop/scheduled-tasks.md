@@ -6,7 +6,7 @@
 
 > What scheduled tasks in Claude Desktop on 3P need in order to run, what users are told when a run is late or fails, and the keys that control them
 
-A scheduled task is a prompt that a user saves with a schedule, such as every weekday at 8:00 AM, on the **Scheduled** page in Cowork or the **Routines** page in Code. Claude Desktop on third-party (3P) runs the prompt in a new session at each scheduled time, even when the user is away.
+A scheduled task is a prompt that a user saves with a schedule, such as every weekday at 8:00 AM, on the **Scheduled** page in Cowork or the **Routines** page in Code. Claude Desktop on third-party (3P) runs the prompt in a new session at each scheduled time, even when the user is away. A recurring task starts up to ten minutes after its scheduled time, unless the user turns on **Run at exact time** for the task on Cowork's **Scheduled** page.
 
 Scheduled tasks run locally, in Claude Desktop on the user's device, which must be awake with the app open. The exception is a deployment that runs every session on a server and none on the device: that server keeps and runs the tasks, and this page doesn't describe them.
 
@@ -35,7 +35,7 @@ Each run is a new session, so an approval for that run alone ends with it. For a
 * **Built-in tools**: a lasting approval can also cover a shell command, a file path, or a website. It has no time limit.
 * **File deletion in Cowork**: the prompt that asks before Claude deletes files in a folder offers **Allow for 30 days**, or for the number of days in your time limit. The approval covers that folder and its subfolders until the date shown. It's offered only for a folder chosen on the task itself, and not when the task's permission mode is [**Automatically approve**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled).
 
-The task's page lists these approvals under **Always allowed**, where the user can remove them.
+The task's page lists these approvals under **Always allowed**, where the user can remove them. An **Allow for all tasks** approval for a [plugin's own server](https://claude.com/docs/third-party/claude-desktop/extensions.md#approvals-that-users-keep-for-a-plugin-server) can also answer a run. The plugin's page lists it, not the task's page.
 
 ## Where users see what ran
 

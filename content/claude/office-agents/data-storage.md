@@ -160,7 +160,7 @@ keeps.
 
 Signing out also asks Anthropic to revoke the Claude account sign-in that the
 task pane holds, including a sign-in to an organization that
-[manages the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console),
+[manages the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console.md),
 so that it cannot be used to get new access tokens. The add-in
 sends this request once and does not try again if it fails. A separate Claude
 sign-in in an Office app with its own storage is not revoked. Signing out does
@@ -245,7 +245,7 @@ The table below gives the result for each case.
 | The same person opens the add-in on a second device | No conversations. Storage is per device and does not sync |
 | A user's organization changes, such as joining or leaving a team plan | Earlier conversations stop appearing. They remain on disk under the previous organization |
 | A deployment moves between a Claude account sign-in and a third-party platform, in either direction, other than the move in the next row | Earlier conversations stop appearing. They remain on disk under the previous identity, and the add-in has no path to reach them |
-| A third-party platform deployment moves to the Enterprise Admin Console | After a member connects, conversations made through that same connection move to their Claude account the next time the add-in loads. Conversations made through any other connection stop appearing and remain on disk. Signing out first, as the [member steps](https://claude.com/docs/office-agents/admin-console#sign-in-as-a-member) ask, deletes all Outlook conversations in the same storage |
+| A third-party platform deployment moves to the Enterprise Admin Console | After a member connects, conversations made through that same connection move to their Claude account the next time the add-in loads. Conversations tied to a Microsoft account wait until Office confirms that account. Conversations made through any other connection stop appearing and remain on disk. Signing out first, as the [member steps](https://claude.com/docs/office-agents/admin-console.md#sign-in-as-a-member) ask, deletes all Outlook conversations in the same storage |
 
 Changing connection mode is an identity change, and the history list follows
 the identity. It deletes nothing in Excel, PowerPoint, or Word. Outlook
@@ -376,16 +376,21 @@ review to the paths that carry content off the endpoint.
 | Telemetry sent to a custom OpenTelemetry collector you configure | A collector set in the claude.ai admin console, in the manifest, in Entra ID claims, or by your bootstrap endpoint receives the full audit trail, including prompt content and tool inputs and outputs. That path skips the allowlist filter by design. A collector named in an administrator-managed settings document, such as the one the Enterprise Admin Console delivers, receives only the kinds of content that document selects, and no conversation or tool content if it selects none. While a custom collector is set, traces and logs go only to that collector, and metrics still go to Anthropic. See [Audit and observability](https://claude.com/docs/office-agents/enterprise-readiness.md#audit-and-observability) |
 
 When you
-[manage the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console),
-members sign in with a Claude account. Feature-flag requests, usage events, and
-the session records that Sentry keeps, which count sessions and crashes, then
-carry the identifiers described for a Claude account sign-in. The identifiers
-on these members' model requests include no account ID and no email address.
-Once a member has connected to your provider, error reports follow the row for
-third-party platform deployments. Before that, they follow the row for a Claude
-account sign-in. Files that these members attach are not uploaded to Anthropic,
-and dictation is not available to them. Your organization's setting that turns
-off third-party analytics does not apply to these members.
+[manage the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console.md),
+members sign in with a Claude account. The following applies to them:
+
+* Feature-flag requests, usage events, and the session records that Sentry
+  keeps, which count sessions and crashes, carry the identifiers described for
+  a Claude account sign-in.
+* The identifiers on these members' model requests include no account ID and no
+  email address.
+* Once a member has connected to your provider, error reports follow the row for
+  third-party platform deployments. Before that, they follow the row for a
+  Claude account sign-in.
+* Files that these members attach are not uploaded to Anthropic, and dictation
+  is not available to them.
+* Your organization's setting that turns off third-party analytics does not
+  apply to these members.
 
 Until September 23, 2026, Anthropic's server sent usage events to Segment, a
 third-party analytics service. These included the text of rating comments and

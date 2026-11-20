@@ -20,7 +20,7 @@ With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified
 
 With no proxy-related configuration, the app follows the operating system's proxy settings, including a PAC (proxy auto-configuration) script or automatic proxy detection if the OS is set up that way. PAC rules are evaluated per request, so different hosts can go to different proxies or connect directly, exactly as the script says.
 
-The agent does not read the OS settings itself. When a session starts, the app asks the OS which proxy applies to your inference endpoint (your gateway URL, or the provider endpoint for Google Cloud's Agent Platform, Amazon Bedrock, and Microsoft Foundry) and hands that one proxy to the agent as `HTTPS_PROXY` and `HTTP_PROXY`, with `NO_PROXY` set to `localhost,127.0.0.1,::1,.local`. The agent then uses that proxy for all of its own traffic. If the OS answer for the inference endpoint is a direct connection, the agent gets no proxy variables and connects directly, unless the OS has named an `http://` or `https://` proxy for that endpoint since Claude Desktop started (see [Troubleshoot](#troubleshoot)).
+The agent does not read the OS settings itself. When a session starts, the app asks the OS which proxy applies to your inference endpoint (your gateway URL, or the provider endpoint for Google Cloud's Agent Platform, Amazon Bedrock, and Microsoft Foundry) and hands that one proxy to the agent as `HTTPS_PROXY` and `HTTP_PROXY`, with `NO_PROXY` set to `localhost,127.0.0.1,::1,.local`. The agent then uses that proxy for its own traffic (see [The agent uses one proxy](#the-agent-uses-one-proxy)). If the OS answer for the inference endpoint is a direct connection, the agent gets no proxy variables and connects directly, unless the OS has named an `http://` or `https://` proxy for that endpoint since Claude Desktop started (see [Troubleshoot](#troubleshoot)).
 
 On macOS and Windows, Cowork's sandboxed shell also follows the OS proxy settings, including a PAC script, which the sandbox evaluates per request itself. On Linux, no proxy settings reach the sandboxed shell and its commands connect directly.
 
@@ -121,7 +121,7 @@ Some traffic doesn't follow the pinned key or the proxy the app resolved, or fol
 
 ### The agent uses one proxy
 
-The agent sends all of its own traffic (inference, its remote MCP connections, and in Code sessions its web fetches and plugin installs) through the one proxy resolved for your inference endpoint. Per-host PAC rules are not re-evaluated inside the agent.
+The agent sends its own traffic (inference, its remote MCP connections, and in Code sessions its web fetches and plugin installs) through the one proxy resolved for your inference endpoint. Per-host PAC rules are not re-evaluated inside the agent. For a local Code session, the app does ask the PAC script about GitHub's hosts, and adds those that the script sends direct to `NO_PROXY`.
 
 This needs attention only when that one proxy is not right for everything the agent reaches: typically some hosts (an internal MCP server, a private package registry, a self-hosted plugin marketplace) must be reached directly while the proxy only carries public traffic, or the reverse. In order of preference:
 

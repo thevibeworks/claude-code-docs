@@ -16,7 +16,7 @@ Claude Code uses a tiered permission system to balance power and safety. The tab
 | :- | :- | :- | :- |
 | Read-only | File reads, Grep | No, within the [working directory and additional directories](#working-directories) | N/A |
 | Bash commands | Shell execution | Yes, except a built-in set of [read-only commands](#read-only-commands) | Permanently per repository and command |
-| File modification | Edit/write files | Yes | Until session end |
+| File modification | Edit/write files | Yes, except files such as Claude Code's own plan and [auto memory](https://code.claude.com/docs/en/memory.md#auto-memory) files | Until session end |
 | Web fetch | WebFetch | Yes, except a built-in set of [preapproved documentation domains](https://code.claude.com/docs/en/tools-reference.md#webfetch-tool-behavior) | Permanently per repository and domain |
 | Web search | WebSearch | Yes | Permanently per repository |
 
@@ -73,7 +73,7 @@ Claude Code supports several permission modes that control how it approves tool 
 
 | Mode | Description |
 | :- | :- |
-| `default` | Prompts for permission on first use of each tool. Labeled Manual in the CLI, the VS Code and JetBrains extensions, and the desktop app, and Claude Code accepts `manual` as an alias |
+| `default` | Prompts before most edits, shell commands, and network requests. Labeled Manual in the CLI, the VS Code and JetBrains extensions, and the desktop app, and Claude Code accepts `manual` as an alias |
 | `acceptEdits` | Automatically accepts file edits and common filesystem commands such as `mkdir`, `touch`, `mv`, and `cp` for paths in the working directory or `additionalDirectories` |
 | `plan` | Claude reads files and runs read-only shell commands to explore but doesn't edit your source files; with [auto mode](https://code.claude.com/docs/en/permission-modes.md#eliminate-prompts-with-auto-mode) available, classifier-approved commands also run. Labeled Plan in the CLI and the VS Code extension |
 | `auto` | Runs without routine prompts; before actions such as shell commands and network requests run, a background [classifier](https://code.claude.com/docs/en/permission-modes.md#eliminate-prompts-with-auto-mode) checks that they align with your request |

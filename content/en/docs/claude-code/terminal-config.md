@@ -53,7 +53,7 @@ Some Claude Code shortcuts use the Option key, such as Option+Enter for a newlin
 >
 > Open Settings → Profiles → Keyboard and check "Use Option as Meta Key".
 >
-> If you accepted Claude Code's first-run terminal setup prompt, this is already done. That prompt runs `/terminal-setup` for you, which enables Option as Meta and turns off the audible bell in your Apple Terminal profile.
+> `/terminal-setup` and the first-run terminal setup prompt enable this setting only on macOS 26 and earlier. Both also turn off your profile's audible bell.
 >
 > In [screen reader mode](https://code.claude.com/docs/en/accessibility.md), `/terminal-setup` leaves the bell setting unchanged so the terminal bell stays audible. If an earlier run turned the bell off, turn it back on under Settings → Profiles → Advanced → "Audible bell".
 

@@ -28,7 +28,7 @@ When the user reopens the session after a quit, Claude Desktop rejoins the engin
 
 On a host that ends a user's processes at logout, the remote server and the engine end with the SSH connection that started them, so a turn in progress doesn't survive a disconnect. Linux hosts where systemd-logind's `KillUserProcesses` setting is `yes` and applies to the SSH user behave this way. To keep remote sessions running through a disconnect on such a host, ask the host's administrator to exempt the SSH user, for example by listing the user under `KillExcludeUsers` in the systemd-logind configuration.
 
-An idle engine stays on the host, with the credential in its environment, until one of these happens:
+An idle engine stays on the host, and keeps the credential, until one of these happens:
 
 * The user archives or deletes the session while Claude Desktop is connected to the host.
 * The user reopens the session and Claude Desktop ends the engine to start a fresh one.
@@ -317,9 +317,9 @@ A profile or policy, even one that holds only this key, also changes how WSL ses
 
 > [!WARNING]
 >
-> A remote session runs Claude Code on the SSH host with your organization's inference credential in its process environment, for as long as that process runs, including while Claude Desktop is closed. Anyone who can read that process's environment on the host, such as the same user account or a root user, can read the credential. List only hosts you trust with it, and prefer a credential that expires (single sign-on, or a credential helper that issues short-lived tokens) over a long-lived key.
+> A remote session runs Claude Code on the SSH host with your organization's inference credential, for as long as that process runs, including while Claude Desktop is closed. The same user account on the host, or a root user, can get the credential. List only hosts you trust with it, and prefer a credential that expires (single sign-on, or a credential helper that issues short-lived tokens) over a long-lived key.
 
-The remote engine uses only the credential Claude Desktop passes in its environment. It ignores credentials already on the host, such as an AWS profile or application default credentials, and Claude Desktop copies no credential files there. Credential kinds that live in a file on the device are refused at session start.
+The remote engine uses the credential that Claude Desktop passes to it. It ignores an AWS profile or application default credentials on the host, and Claude Desktop copies no credential files there. Credential kinds that live in a file on the device are refused at session start.
 
 | Provider | Works on a remote host | Refused at session start |
 | - | - | - |

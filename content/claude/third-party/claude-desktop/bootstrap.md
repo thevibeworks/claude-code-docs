@@ -466,7 +466,7 @@ Since 1.10628.0
 >
 > > [accordion] More detail
 > >
-> > If a callback is rejected for a referrer mismatch, the app log names the rejected host. Add that hostname here.
+> > The app log names a host rejected for a referrer mismatch. Add that hostname here.
 
 ***
 

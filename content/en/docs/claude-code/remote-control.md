@@ -536,7 +536,15 @@ When the program file is gone and Claude Code finds no newer version to run, new
 
 When you resume a conversation with `claude --resume` or `claude --continue`, Claude Code reconnects to the Remote Control session recorded in that conversation. This message means the reconnection failed for a reason that may be temporary, such as a network interruption or a server error, so Claude Code can't confirm whether the remote session still exists.
 
+The full message looks like this:
+
+```text theme={null}
+Couldn't reconnect to your Remote Control session. Retry, or start a fresh session without --resume.
+```
+
 Run `/remote-control` to retry the connection, or start a new session with `claude --remote-control` to create a new Remote Control session. Your local session keeps running without Remote Control in the meantime.
+
+If the server reports that the previous session is gone, you don't see this message. Claude Code starts a new session in its place or shows [`Previous session is unavailable — run /remote-control to start a new one`](#previous-session-is-unavailable).
 
 ### "Previous session is unavailable — run /remote-control to start a new one"
 

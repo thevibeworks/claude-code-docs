@@ -208,7 +208,7 @@ You can stop Claude from replying on its own in any of these ways:
 * **Stop the task in `/tasks`**: Claude stops replying on that artifact until you ask it to resume replies there. Publishing the artifact again doesn't start replies again, and the stop still applies when you resume the session later.
 * **Press `Ctrl+X Ctrl+K` twice within 3 seconds**: the chord that [stops every running background subagent](https://code.claude.com/docs/en/interactive-mode.md#general-controls) also stops Claude from replying on every artifact for the rest of the session. Asking Claude to resume replies doesn't undo this stop.
 
-A watch that Claude Code started on its own can end after the artifact goes several hours without activity. To start the watch again, publish the artifact again or ask Claude to watch it.
+A watch that Claude Code started on its own can end after the artifact goes several hours without activity. You see `Stopped watching Artifact: <name> (idle)`. To start the watch again, publish the artifact again or ask Claude to watch it. If you see `(made room for a newer watch)` in place of `(idle)`, your session reached its limit of 25 watches. Publish again to restart that watch.
 
 If the service that delivers comments becomes unavailable or stops answering, Claude Code keeps trying to reconnect for a while, then stops watching each artifact your session was watching.
 

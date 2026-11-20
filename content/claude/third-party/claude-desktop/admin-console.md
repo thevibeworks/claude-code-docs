@@ -22,7 +22,7 @@ The console works with Claude Desktop on macOS, Windows, and Linux, where the ap
 
 While the app runs, it re-checks the configuration on a timer. When you save a change, the app downloads it at the next check and, for most settings, asks the user to relaunch, as described under [Configuration updates](#configuration-updates).
 
-Users are provisioned a Claude account only to sign in to Claude Desktop and receive their settings.
+Users are provisioned a Claude account only to sign in and receive their settings.
 
 ## Where your data goes
 
@@ -115,7 +115,7 @@ A setting takes effect only on Claude Desktop releases that support it, so a dev
 
 Most of these settings can also differ per group of users, on the **Permission policies** page under **People**, as described under [Per-group permission policies](#per-group-permission-policies).
 
-Claude Code in the terminal follows some of these settings after a developer signs in from their terminal, as described in [Manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md).
+Claude Code in the terminal follows some of these settings after a developer signs in from their terminal, as described in [Manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md). Claude for Microsoft 365 uses some of these settings after a user signs in to your organization from the Office add-in, as described in [Manage Claude for Microsoft 365 from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console.md).
 
 ### Choose how users authenticate to your provider
 
@@ -176,7 +176,7 @@ Policies are ranked in the order shown on the page, and you drag them to change 
 
 * **Most settings, including the model list**: each setting comes from the highest-ranked of the user's policies that sets it, and lower-ranked policies fill in only what the higher ones leave unset.
 * **Managed MCP servers**: these combine, so the user keeps every server that any of their policies selects.
-* **OpenTelemetry settings, token limit, banner, and Claude.ai data import settings**: for each of these, only the highest-ranked policy that sets any part of it applies. That policy supplies the parts it sets. Every other part keeps the organization-wide value, even when a lower-ranked policy sets that part.
+* **OpenTelemetry settings, token limit, banner, Auto mode rules, and Claude.ai data import settings**: for each of these, only the highest-ranked policy that sets any part of it applies. That policy supplies the parts it sets. Every other part keeps the organization-wide value, even when a lower-ranked policy sets that part.
 
 For example, if the Traders policy (ranked first) turns Code off and selects the wiki server, and the Analysts policy (ranked second) sets a token limit and selects the tickets server, a user in both groups has Code off, the Analysts token limit, and both servers. Everything these policies leave unset comes from the organization-wide settings, and a user in no listed group gets the organization-wide settings unchanged. Groups are managed on the **Groups** page under **People**, including groups synced from your identity provider.
 

@@ -66,7 +66,7 @@ Independently of what's sent to Anthropic, you can export session activity to yo
 
 For third-party deployments, the export includes session metadata (event names, durations, token counts, result counts, errors) by default, but not message content. It also identifies the signed-in user; see [User attribution](#user-attribution). Records of skill scans are an exception to leaving out message content. If you turn on [skill scanning](https://claude.com/docs/third-party/claude-desktop/extensions.md#skill-scanning), the export also carries `custom3p_skill_scan_completed` records of scan results, and a record's summary can quote the skill. Claude Desktop sends the summary even when [content capture](#content-capture) (`otlpContentCapture`) is off. See [Monitoring](https://claude.com/docs/cowork/monitoring.md) for the event schema and the [`otlp*` keys](https://claude.com/docs/third-party/claude-desktop/configuration#otlpendpoint) in the configuration reference.
 
-The export carries logs and metrics. Cowork sessions, Code sessions, and the desktop application's own events arrive under the `service.name` values `cowork`, `claude-code-desktop`, and `claude-desktop` respectively. With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a Cowork session started from the home screen also arrives under `cowork`. The export isn't checked against the [agent egress allowlist](#required-egress-paths), so `otlpEndpoint` doesn't need an entry in `coworkEgressAllowedHosts`; your perimeter firewall still needs to allow the host.
+The export carries logs and metrics. Cowork sessions, Code sessions, and the desktop application's own events arrive under the `service.name` values `cowork`, `claude-code-desktop`, and `claude-desktop` respectively. If [`otlpResourceAttributes`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpresourceattributes) sets `service.name`, Code sessions arrive under that name instead. With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a Cowork session started from the home screen also arrives under `cowork`. The export isn't checked against the [agent egress allowlist](#required-egress-paths), so `otlpEndpoint` doesn't need an entry in `coworkEgressAllowedHosts`; your perimeter firewall still needs to allow the host.
 
 For static collector headers, extra resource attributes, and the log level of the desktop application's own event stream, see [`otlpHeaders`, `otlpResourceAttributes`, and `otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpheaders) in the configuration reference.
 
@@ -252,6 +252,8 @@ Without this host reachable, Chat conversations, Cowork tasks, and Code sessions
 ### Inference provider
 
 The host(s) for your configured provider. Conversation content goes to the host whose purpose is model inference.
+
+After a local Code session loses its connection to the model inference host, Claude Desktop sends that host `HEAD` requests with no API key, token, or conversation content. When the host answers, Claude Desktop sends **Try again** in the session, up to three times.
 
 > [tab] Google Cloud's Agent Platform
 >

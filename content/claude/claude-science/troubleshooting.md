@@ -52,7 +52,8 @@ Claude Science sets up Python and R environments on your computer so Claude can 
 A notice such as "2 environments failed" means Claude Science couldn't set up one or more of the environments Claude uses to run code, and it names them. Select **Details** to see each environment's status and, for any that failed, the error.
 
 * If setup failed because of your organization's network, the dialog that **Details** opens links to settings for a package mirror, a CA bundle, or mirror credentials. When you save any of these settings, Claude Science retries the failed setups automatically. See also [Troubleshooting corporate network errors](https://claude.com/docs/claude-science/corporate-networks.md#troubleshooting-corporate-network-errors).
-* To retry the environments that failed, select **Retry builds**.
+* To retry the environments that failed, select **Retry builds**. For the one ending in `-mcp`, which runs the connectors on your computer, restart Claude Science instead.
+* If an environment is marked "Blocked until rebuilt" and the details say package files changed, you can keep its packages: undo the change, if you made one, and restart Claude Science. If it's still blocked a few minutes later, close the sessions that use it and select **Retry builds**. It's rebuilt with only its default packages, so install any others again. Claude Science first tries to save the environment's package list in `~/.claude-science/rebuilt-environments` (`%USERPROFILE%\.claude-science\rebuilt-environments` on Windows). Install only packages you know, because code that ran in the environment can add names to the list.
 
 If the notice reads "Analysis is unavailable" instead, no Python or R code can run until Claude Science restarts. Fix the cause the notice names, then quit and reopen Claude Science. Closing the window or browser tab leaves Claude Science running, so quit it this way:
 
@@ -63,6 +64,81 @@ If the notice reads "Analysis is unavailable" instead, no Python or R code can r
 ### failed to load 5 times in a row — automatic retries are paused
 
 This message appears in **Settings > Connectors** on a Featured connector marked **Failed** (hold the pointer over **Failed**) and on the connector's own page. The connector runs on your computer and failed to start five times in a row, so Claude Science stopped trying. Turn the connector off and on again in **Settings > Connectors**, or restart Claude Science.
+
+## Files in granted folders
+
+Code that Claude runs can read but not change granted folders, even with **Read & write**. On Windows, it can write in folders whose own permissions let all sandboxed apps write (see [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)). Before version 0.1.73, it could write in **Read & write** folders.
+
+### Claude's code can't write in a granted folder
+
+The error can include `Read-only file system` on Linux, `Operation not permitted` on a Mac, or `Access is denied`, `Access to the path`, or `Permission denied` on Windows. Asking for access again doesn't change it. Your local-command connectors can't write there either, with one Windows exception (see [Custom connectors](https://claude.com/docs/claude-science/custom-connectors.md)).
+
+* **To get a result into the folder**: ask Claude to save it there. It saves finished files such as CSVs, PNGs, SVGs, PDFs, and notebooks by itself. In a **Read-only** folder, a card first asks you to choose **Read & write**. Claude makes the file in the session's workspace folder, inside the folder **Settings > Storage > Data location** shows, then copies it to your folder, so a large result needs free space in both. Before a large run, check **Available on disk** in **Settings > Storage > Disk usage**.
+* **To get source code into the folder**, such as a `.py` or `.R` file: ask Claude to save it there. In [auto mode](https://claude.com/docs/claude-science/auto-mode.md), it saves most source code without asking. Otherwise, a card asks first, and nothing is saved if nobody answers within 10 minutes. **Allow in this repo** or **Allow in this folder** lets Claude save most source code there without asking until the session ends or Claude Science restarts.
+* **For a file Claude doesn't save by itself**, such as a shell script or a JSON, `.zip`, or `.rds` file: tell Claude in a message to put it in the folder. If Claude keeps it as an artifact instead, tell it again. A card asks first and shows the file's text, except for an archive, a saved object, or a JSON file over about 65,000 characters. After three such cards, or one you decline or don't answer, Claude can't show another until your next message.
+* **If such a file is too large for a card**: ask Claude to keep it as a downloadable artifact. The limits are about 65,000 characters of text, and 2 GiB for archives, saved objects, and most JSON files. Claude can save a refused long JSON file as CSV or `.jsonl` instead.
+* **Other binary files Claude doesn't save by itself, such as `.xls`, `.psd`, or `.whl`**: ask Claude to keep them as downloadable [artifacts](https://claude.com/docs/claude-science/artifacts.md), which aren't cleared when the session ends.
+* **To get a many-file result into the folder**, such as a Zarr store or genome index: tell Claude in a message to put it there as one archive, such as a `.tar` file. If Claude keeps it as an artifact instead, tell it again. A card asks first. The card can't show what's inside, and Claude can't unpack the archive there, so do that yourself in a terminal outside Claude Science. List it with `tar -tvf`, move it to a new, empty folder, and run `tar -xf` there, because unpacking replaces files with the same names. Saved file by file, the result can be incomplete, because Claude doesn't save some kinds of file.
+* **On a Mac or Linux, Claude can't change some files**, such as executable or read-only ones, or another user's. Ask it to save under another name.
+* **If a save is refused because the file is open in another program**: close it there, such as in LibreOffice, Excel, or Word, and ask again. If it isn't open anywhere, delete the hidden lock file beside it, whose name starts with `.~lock.` or `~$`, or have Claude save under another name. For a database with a `-wal`, `.wal`, `-shm`, or `-journal` file beside it, have Claude use another name.
+* **On Windows, some saves are refused**: for example, over a file with its own permissions or one open in another program. Claude can't change a read-only file either. Download Claude's version from the session, or ask it to save under another name.
+* **To build, or to run a tool that writes beside its input**: ask Claude to copy the needed files to the session's [temporary](#a-file-that-claude-made-is-gone) workspace folder and work there. Do this before a long script run that writes into your granted folder, because the script fails at its first write there and can lose in-memory results.
+* **To commit changes**: see [Git in granted folders](#git-in-granted-folders).
+* **To add packages to an environment there**: see [Environments in granted folders](https://claude.com/docs/claude-science/tools-and-environments.md#environments-in-granted-folders).
+* **To open a SQLite database that won't open there**: ask Claude to copy it and its `-wal` file to the workspace folder. Claude can't replace one in your folder, so have it save changed `.sqlite` or `.duckdb` files under new names.
+
+### A file with `.kept-` in its name
+
+If the chat says a file was replaced and its old version kept, or you find a file such as `data.csv.kept-1a2b3c4d`, the new version has your file's name, and the old one is beside it, with `.kept-` in its name.
+
+Claude Science keeps the old version when another program may be writing your file, when the disk with Claude Science's data folder has less than about 1 GB free and the old version takes up little of the room left on your file's disk, or in a few other cases. With so little room on that folder's disk, check that the new version is complete before removing the old one. On most network drives and Windows drives in WSL, it does this whenever Claude saves over your version, because it can't tell whether another program is writing.
+
+A program that was writing goes on writing to the old version, so close that program before combining the two. Remove old versions yourself when you no longer need them. Until you do, a program that reads every file in your folder, such as a Parquet dataset reader, can take an old version for data without an error. A `.gitignore` line such as `*.csv` doesn't cover them, so add the line `*.kept-*` to keep `git add .` from adding them.
+
+### Nothing saves into granted folders
+
+On a Mac, the notice "Claude can't save files into folders you share with it, and some of its tools won't run, until Apple's Command Line Tools are installed" appears when the tools are missing or broken. Until they work, Claude can't save or change anything in granted folders. You or an administrator can install them in Terminal:
+
+```bash theme={null}
+xcode-select --install
+```
+
+Claude Science needs no restart. Until the tools are installed, ask Claude to keep a result as an [artifact](https://claude.com/docs/claude-science/artifacts.md), and download it. If a message mentions the Xcode license instead, see [Troubleshooting first launch](https://claude.com/docs/claude-science/get-started.md#troubleshooting-first-launch).
+
+On Linux, the same happens without the notice if `/usr/bin/python3` is missing or older than Python 3.8. Install a newer Python 3 with your distribution's package manager, and check `/usr/bin/python3 --version` in a terminal.
+
+### A file that Claude made is gone
+
+Claude Science clears files Claude didn't save into your folder or as an [artifact](https://claude.com/docs/claude-science/artifacts.md). They're in a workspace folder: the session's, cleared about 12 hours after Claude's last reply, even if the session is still open, or a [delegated track](https://claude.com/docs/claude-science/core-concepts.md#delegation)'s own, cleared about 6 hours after the track ends.
+
+From version 0.1.73, a workspace folder is kept up to 7 days after that reply or the track's end if a program is still writing a file in it. At most 50 folders are kept that long too if Claude saved or tried to save into your folders, ran code naming a **Read & write** folder, or asked for **Read & write** access, even if you declined. On a nearly full disk, that can be fewer, or none. If Claude Science's data folder is on a network drive, as on many clusters, only a program still writing from the same computer counts.
+
+If Claude Science isn't running when the time is up, it clears the folder at its next start. To keep a file, have Claude save it as an artifact.
+
+## Git in granted folders
+
+The messages in this section appear when Claude runs git in the sandbox on a Mac or Linux. On Windows, git commands that write in a granted folder fail too, without these messages.
+
+### Git can't write here: .git is read-only in the sandbox
+
+Code that Claude runs can't change git repositories in granted folders (see [Files in granted folders](#files-in-granted-folders)). Write commands such as `git add`, `git commit`, `git checkout`, `git fetch`, `git pull`, `git config`, `git init`, and `git clone` fail.
+
+`git log` still runs. `git status` and `git diff` do too, but some things can stop them or make them list changes nobody made, such as Git LFS files ("clean filter 'lfs' failed") and, on Linux, a checked-out submodule in a **Read & write** folder ("not a git repository") or a credential file git tracks, such as `.env` or `.npmrc` ("unsupported file type" from `git diff`).
+
+None of this changes your files.
+
+Don't run git yourself in a repository Claude made, because git outside the sandbox would run its hooks and settings. Check any `git config` command from Claude first, because a setting such as `core.hooksPath` points your git at programs that run outside the sandbox.
+
+* **To commit changes**: run git yourself in a terminal outside Claude Science. In a **Read-only** folder, ask Claude for a diff, read it all, then `git apply` it at the repository's top. Look closely at scripts, build files, git hooks, and CI settings, which later run outside the sandbox.
+* **To get Git LFS contents**: run `git lfs checkout` or `git lfs pull` yourself in a terminal outside Claude Science. When Claude runs them in a granted folder, they don't bring in the real contents.
+* **To have Claude commit**: have it make a repository in the session's [workspace folder](https://claude.com/docs/claude-science/core-concepts.md#projects-and-sessions) or clone one there from its `https://` address. That folder is [temporary](#a-file-that-claude-made-is-gone), so before it's cleared, have Claude [push to GitHub](#git-and-github) or save the files you want.
+* **After a `git push` from a granted folder**: check the server before pushing again. See [Git and GitHub](#git-and-github).
+
+### transport 'file' not allowed
+
+Git run by Claude can't clone, fetch, pull, or push between local folders. Have Claude use the repository's `https://` address or copy only the files it needs.
+
+`uv` stops with "transport 'file' not allowed" when installing from a git address, even `https://`, because it clones from its cache. Have Claude clone the repository into the session's [workspace folder](https://claude.com/docs/claude-science/core-concepts.md#projects-and-sessions) and install from there.
 
 ## Git and GitHub
 
@@ -76,6 +152,7 @@ Check these limits before you push:
 
 * **A host other than `github.com`**: Claude Science has no built-in sign-in for it
 * **A Git LFS repository**: Claude's commits can store LFS files as ordinary files, and a push from the sandbox may not upload them
+* **A granted folder**: Claude can push existing commits but can't make new ones. See [Git in granted folders](#git-in-granted-folders).
 * **On Linux**: folders such as `.devcontainer` look empty in the sandbox, so git shows their files as deleted. Don't commit those deletions.
 
 For a `github.com` repository that doesn't use Git LFS, follow these steps:
@@ -90,7 +167,7 @@ For a `github.com` repository that doesn't use Git LFS, follow these steps:
 
 3. Select **Allow for this conversation** on the **Run a shell command?** [permission card](https://claude.com/docs/claude-science/core-concepts.md#permission-cards) if it appears, then on the **Credentials** card.
 
-   By default, the approval lasts for the conversation, and commands Claude runs there can use the token without asking again. To revoke the approval, go to **Settings > Permissions**, hold the pointer over each **GitHub** row under **Credentials**, and select **Revoke** (the ×).
+   By default, the approval lasts for the conversation, and Claude's commands there can use the token without another **Credentials** card. With auto mode on or off, a **Run a shell command?** card can still appear if [Claude Science's check](https://claude.com/docs/claude-science/auto-mode.md#what-auto-mode-checks) is unsure about a command that can use the token. Allowing it runs that one command, and the check still reviews the next such command, even after **Allow for this conversation**. To revoke the approval, go to **Settings > Permissions**, hold the pointer over each **GitHub** row under **Credentials**, and select **Revoke** (the ×).
 
 Check GitHub for your commits, because git can print an error even when the push worked.
 

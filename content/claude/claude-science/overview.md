@@ -36,6 +36,8 @@ Researchers in the life sciences also get specialized [Featured connectors](http
 * About 5 GB of free disk space for the runtime and starter environments.
 * On Linux: socat, bubblewrap 0.8.0 or later, and unprivileged user namespaces permitted by the kernel.
 
+For Claude to save to granted folders, a Mac also needs Apple's Command Line Tools, and Linux needs Python 3.8 or later at `/usr/bin/python3`. Windows needs nothing more.
+
 ## Plans and usage
 
 Claude Science is included in Pro, Max, Ultra, Team, and Enterprise plans, with nothing separate to buy. Team and Enterprise Owners control whether Claude Science is available to their members through [an admin setting](https://claude.com/docs/claude-science/enable-claude-science.md). Claude Science isn't available on the Free plan. Scientists at academic and nonprofit research institutions can also get it through the discounted [Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists).
@@ -44,13 +46,26 @@ Your Claude Science usage counts toward the same usage limits as the rest of you
 
 You pay more than your plan's price only in these cases:
 
-* **Usage credits and extra usage.** On Pro, Max, and Ultra plans, you can turn on usage credits in your claude.ai settings to keep working past your limits. You can then turn off usage credits or change your monthly spend limit under **Settings > Usage** in Claude Science. Team plans call the same option extra usage, and your admin turns it on. In Claude Science it appears as **Usage credits**, but only Pro, Max, and Ultra plans can change it there. On Team and Enterprise plans, your admin sets spend limits. Some models need usage credits on some plans, and [Claude pricing](https://claude.com/pricing) lists which models each plan includes.
+* **Usage credits and extra usage.** On Pro, Max, and Ultra plans, you can turn on usage credits in your claude.ai settings to keep working past your limits. You can then turn off usage credits or change your monthly spend limit under **Settings > Usage** in Claude Science. Team plans call the same option extra usage, and your admin turns it on. In Claude Science it appears as **Usage credits**, but only Pro, Max, and Ultra plans can change it there. On Team and Enterprise plans, your admin sets spend limits. Some models [need usage credits on some plans](#models-that-run-on-usage-credits), and [Claude pricing](https://claude.com/pricing) lists which models each plan includes.
 * **Usage-based Enterprise plans.** Instead of fixed usage limits, your organization pays for usage on top of the seat price, within the spend limits your admin sets.
 * **Services you connect with your own account.** Services such as [Modal](https://claude.com/docs/claude-science/compute-providers.md) bill you directly. Anthropic doesn't bill for them.
 
+### Models that run on usage credits
+
+On some plans, such as Pro and standard Team seats, some models run only on usage credits, from the first message, even before you reach a usage limit. See [Claude Fable models on your plan](https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan).
+
+From version 0.1.73, on Pro plans with usage credits turned on, Claude Science asks before sending a session's first message to such a model:
+
+* **Continue with usage credits** sends the message. Your answer lasts five hours in that session, or until Claude Science restarts. Then Claude Science asks again, and the session waits. If nobody answers within about six hours, the run and its kernel end. While the session stays on such a model, a review or subagent on another model still counts toward your usage limits. If you reach a limit after continuing, Claude Science asks whether to keep going on usage credits, but can be 15 minutes late, or later while a review or subagent runs.
+* **Switch models** sends that model nothing. Choose another, then select **Resume**.
+
+Claude Science asks about such a model only before the session's own messages. Other work on such a model uses credits without asking, for example a review or subagent you've set to it in Settings, or an edit or answer you request on selected document text if such a model is your default.
+
+A side chat can't ask. On Pro plans, it sends nothing on such a model unless you chose **Continue with usage credits** in the session it came from and that answer still holds. Message that model there first, or start the side chat on another model.
+
 ### When you reach a usage limit
 
-On plans with usage limits, there's a limit that resets every 5 hours and a weekly limit. As you approach one, Claude Science asks whether the session should continue. For the 5-hour limit, you can choose **Keep going** or hold the session until the limit resets. For the weekly limit, the warning offers only **Keep going**.
+On plans with usage limits, there's a limit that resets every 5 hours and a weekly limit. As you approach one, Claude Science asks whether the session should continue. For the 5-hour limit, you can choose **Keep going** or hold the session until the limit resets. For the weekly limit, the warning offers only **Keep going**. In a session continued on [a model that runs on usage credits](#models-that-run-on-usage-credits), Claude Science doesn't ask as you near a limit, only once you reach one.
 
 * **Without usage credits or extra usage, when the reset is less than 8 hours away.** The session pauses, and the composer shows when it will resume. As long as Claude Science stays open, the session picks up where it left off when the limit resets.
 * **Without usage credits or extra usage, when the reset is more than 8 hours away.** The session pauses for up to 8 hours, then stops and shows when the limit resets. This can happen at a weekly limit. To continue after the reset, select **Resume** or send a message.

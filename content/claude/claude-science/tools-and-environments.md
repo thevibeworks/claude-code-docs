@@ -37,22 +37,25 @@ The sandbox has no root access or system package manager. `apt` and `sudo` aren'
 
 ### Python package sources for starter and task environments
 
-When Claude uses pip to install a Python package into a [starter](#starter-environments) or [task environment](#task-environments), it installs only prebuilt packages (wheels) from PyPI or, if one is set up, your [internal mirror](https://claude.com/docs/claude-science/corporate-networks.md#point-package-installs-at-an-internal-mirror). It doesn't install a package from a git repository, a web address, a local folder, or a local file. If the package, or a package it depends on, has no wheel for your computer and Python version, the install fails. That includes a package published only as source code.
+When Claude uses pip to install a Python package into a [starter](#starter-environments) or [task environment](#task-environments), it installs only prebuilt packages (wheels) from PyPI or, if one is set up, your [internal mirror](https://claude.com/docs/claude-science/corporate-networks.md#point-package-installs-at-an-internal-mirror). It doesn't install a package from a git repository, a web address, a local folder, or a local file. If the package, or a package it depends on, has no wheel for your computer and Python version, the install fails. That includes a package published only as source code. In a Windows starter environment, if only a dependency has no wheel, the package installs without any of its dependencies. Ask Claude to install the others by name.
 
 When the newest version of a package has no wheel for your computer and Python version but an older version does, pip installs the older version. To find out which version you have, ask Claude. If you need the newest version, use one of the ways below.
 
-To use a package Claude can't install this way, ask Claude to install it into the environment with conda if conda-forge has it. Otherwise, ask Claude to install it with pip in a code cell, where it lasts only until the kernel restarts.
+To use a package Claude can't install this way, ask Claude to install it into the environment with conda if conda-forge has it. On macOS and Linux, [starter environments](#starter-environments) refuse some conda packages, such as sphinx and some tensorflow builds, so have Claude install those into a [task environment](#task-environments). If conda-forge doesn't have the package, ask Claude to install it with pip in a code cell, where it lasts only until the kernel restarts.
 
 ### Environments in granted folders
 
-On Linux, a uv, conda, mamba, or pixi environment in a folder you've granted **Read & write** can still be read-only to Claude. This happens when the environment's package files are hard links shared with the tool's package cache, the folder where the tool keeps the packages it has downloaded. A change to those files could also change the cache and other environments that share them.
+Code Claude runs can read granted folders but can't change anything in them, including Python and conda environments from any tool (see [Sandbox](https://claude.com/docs/claude-science/core-concepts.md#sandbox)).
 
-Claude can still run code from the environment but can't add, update, or remove packages in it. The failure shows as `Read-only file system` from pip, uv, and pixi, and as `EnvironmentNotWritableError` from conda. In a uv project, `uv run` and `uv sync` fail the same way whenever they have to update the environment, for example after `pyproject.toml` changes.
+Claude can run code from an environment there unless its Python is somewhere the sandbox can't read, such as `~/.local/share/uv`. Claude can't create environments there or change their packages.
+
+On Linux, pip, uv, and pixi fail with `Read-only file system`, and conda with `EnvironmentNotWritableError`. In a uv project, `uv run` and `uv sync` fail the same way whenever they have to update the environment, for example after `pyproject.toml` changes. To skip that update, ask Claude to use `uv run --no-sync`.
 
 To add packages, choose one of these:
 
-* **In a uv project, ask Claude to use a separate environment.** Have Claude set `UV_PROJECT_ENVIRONMENT` to the full path of a folder in the session's [workspace folder](https://claude.com/docs/claude-science/core-concepts.md#projects-and-sessions) and run uv as usual. The variable has to stay set for later uv commands, including `uv run` and `uv sync`. The separate environment belongs to that session, so another session starts without it. For a change every session keeps, change the environment yourself in a terminal outside Claude Science.
-* **With any of these tools, change the environment yourself.** In a terminal outside Claude Science, use the tool's own commands to add, update, or remove packages.
+* **Ask Claude to use a [task environment](#task-environments) instead.** Packages installed there stay available in every session and project that uses it.
+* **In a uv project, ask Claude to use a separate environment.** Have Claude set `UV_PROJECT_ENVIRONMENT` to the full path of a folder in the session's [workspace folder](https://claude.com/docs/claude-science/core-concepts.md#projects-and-sessions) and install packages there with `uv pip install --python`. The variable must stay set for later uv commands, including `uv run`. `uv add` and `uv remove` still fail because they change project files, and `uv run` can fail in projects that build with setuptools. The separate environment belongs to that session, so another session starts without it. It's cleared with the workspace folder (see [A file that Claude made is gone](https://claude.com/docs/claude-science/troubleshooting.md#a-file-that-claude-made-is-gone)). For a change every session keeps, change the environment yourself in a terminal outside Claude Science.
+* **Change the environment yourself.** In a terminal outside Claude Science, use the tool's own commands to add, update, or remove packages.
 
 ## GPUs
 
@@ -60,7 +63,7 @@ If your Linux machine has NVIDIA GPUs, the sandbox makes them available to code 
 
 > [!NOTE]
 >
-> Turning on the **Host GPU** switch reduces the default sandboxing configuration applied by Claude Science.
+> Turning on the **Host GPU** switch reduces the default sandboxing configuration applied by Claude Science. Code in GPU sessions uses your graphics driver directly.
 
 If Claude Science finds no GPU, Claude notes this when a task needs one and can run the work on the remote compute you've connected. See [Remote compute clusters](https://claude.com/docs/claude-science/remote-compute-clusters.md) and [Compute providers](https://claude.com/docs/claude-science/compute-providers.md). If your machine has an NVIDIA GPU but the **Host GPU** switch isn't in **Settings > Compute**, or Claude says there's no GPU in a session started with the switch on, see [How Claude Science detects a GPU](#how-claude-science-detects-a-gpu).
 
