@@ -10,7 +10,7 @@
 
 The Config page is where you set product behavior, such as session limits, which products members get, and telemetry, for the people you manage. To open it, go to **Settings > Config** in the admin portal. The same page appears at both the tenant and the organization level, with the same list of settings. For the settings themselves, see [Available settings](https://claude.com/docs/government/config/settings.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/S81coeca5-F7xuVX/images/government/videos/admin-06-config-essentials-v4.mp4?fit=max&auto=format&n=S81coeca5-F7xuVX&q=85&s=2f6ce61cb7d50959183f0712ddf67350" aria-label="Video walkthrough: Config essentials" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/HBmvSEDkHlDYEkJ_/images/government/videos/admin-06-config-essentials-v5.mp4?fit=max&auto=format&n=HBmvSEDkHlDYEkJ_&q=85&s=cf0bb864c7d3bd2ce18623170c2e25ec" aria-label="Video walkthrough: Config essentials" />
 
 Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 

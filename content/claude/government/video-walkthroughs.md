@@ -18,7 +18,7 @@ The videos follow the order of a first setup.
 
 How a tenant, its organizations, and their users fit together, how administrators sign in to the web portal, and how to move between the admin, tenant, and account views. Read more: [The three views](https://claude.com/docs/government/overview.md#the-three-views).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/KCl5HZFMS3Q5oYkr/images/government/videos/admin-01-finding-your-way-around-v3.mp4?fit=max&auto=format&n=KCl5HZFMS3Q5oYkr&q=85&s=aedb3d4f109f4e6d0cbbcdaac058b720" aria-label="Video walkthrough: Finding your way around" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/5EEJdCfVLA4TXwAN/images/government/videos/admin-01-finding-your-way-around-v4.mp4?fit=max&auto=format&n=5EEJdCfVLA4TXwAN&q=85&s=7dfd584b37c668da3c017639446819f5" aria-label="Video walkthrough: Finding your way around" />
 
 Video: Finding your way around (2 min 24 s). Narrated with an AI-generated voice, with on-screen captions.
 
@@ -186,7 +186,7 @@ Video: Organization owners: users, seat tiers, and Readiness (1 min 48 s). Narra
 
 Editing settings on the **Config** page for an organization or for one directory group, turning on web search, reviewing the session idle timeout, and locking a value for every organization from the tenant. Read more: [How Config works](https://claude.com/docs/government/config/overview.md).
 
-<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/S81coeca5-F7xuVX/images/government/videos/admin-06-config-essentials-v4.mp4?fit=max&auto=format&n=S81coeca5-F7xuVX&q=85&s=2f6ce61cb7d50959183f0712ddf67350" aria-label="Video walkthrough: Config essentials" />
+<video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/HBmvSEDkHlDYEkJ_/images/government/videos/admin-06-config-essentials-v5.mp4?fit=max&auto=format&n=HBmvSEDkHlDYEkJ_&q=85&s=cf0bb864c7d3bd2ce18623170c2e25ec" aria-label="Video walkthrough: Config essentials" />
 
 Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 

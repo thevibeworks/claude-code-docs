@@ -2868,7 +2868,7 @@ Each entry in `background_tasks` describes one in-flight task and uses these fie
 | `type` | Friendly task-type label such as `shell`, `subagent`, `monitor`, `workflow`, `teammate`, `cloud session`, or `MCP task`. Each label identifies which Claude Code feature created the task. Falls back to the raw discriminant for unrecognized types |
 | `status` | Current task status |
 | `description` | Free-text description, capped at 1000 characters with an in-string `… [+N chars]` marker when clipped |
-| `command` | Shell command line, capped at 1000 characters. Present only for `shell` tasks |
+| `command` | Shell command line, capped at 1000 characters. Present only for `shell` tasks and `monitor` tasks that run a command |
 | `agent_type` | Subagent type name. Present only for `subagent` tasks |
 | `server` | MCP server name. Present only for `monitor` and `MCP task` tasks |
 | `tool` | MCP tool name. Present only for `monitor` and `MCP task` tasks |
@@ -3941,7 +3941,7 @@ An ElicitationResult hook can let the user's response through, change its values
 | Let the response through | No output, with exit code 0 | The user's response, unchanged |
 | Change the submitted values | `"action": "accept"`, with the new values in `content` | `accept` with your `content` in place of the user's values |
 | Block the response | `"action": "decline"` | `decline`, without the user's values |
-| Cancel the request | `"action": "cancel"` | `cancel`, along with the values the user submitted. To withhold them, return `"decline"` |
+| Cancel the request | `"action": "cancel"` | `cancel`. To withhold the values the user submitted, return `"decline"` |
 
 This output changes the response shown under [ElicitationResult input](#elicitationresult-input), so the server receives `alice@example.com` where the user submitted `alice`:
 

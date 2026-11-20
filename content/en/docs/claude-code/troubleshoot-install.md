@@ -815,7 +815,7 @@ When installing Claude Code in a Docker container, installing as root into `/` c
 
 **Solutions:**
 
-1. **Set a working directory** before running the installer. When run from `/`, the installer scans the entire filesystem, which causes excessive memory usage. Setting `WORKDIR` limits the scan to a small directory:
+1. **Set a working directory** before running the installer:
    ```dockerfile theme={null}
    WORKDIR /tmp
    RUN curl -fsSL https://claude.ai/install.sh | bash

@@ -28,7 +28,7 @@ The broker also removes the need for a `localhost` or `127.0.0.1` loopback redir
 | Amazon Bedrock identity provider sign-in (through a proxy) | Set `inferenceIdpAuthFlow` to `broker` | [Amazon Bedrock](https://claude.com/docs/third-party/claude-desktop/bedrock.md#sign-in-with-your-identity-provider) |
 | Managed MCP server | Set `authFlow` to `broker` in the entry's `oauth` object | [Managed MCP servers](https://claude.com/docs/third-party/claude-desktop/extensions.md#managed-mcp-servers-admin) |
 
-For the gateway, Amazon Bedrock, and Workforce Identity flows, the broker is available only when your identity provider is Microsoft Entra ID: the `issuer` in `inferenceGatewayOidc`, `inferenceIdpOidc`, or `inferenceVertexWorkforceOidc` must have the form `https://login.microsoftonline.com/TENANT_ID/v2.0`. For a managed MCP server, the `oauth` object must also set `tenantId`, `clientId`, and `scope`.
+For the gateway, Amazon Bedrock, and Workforce Identity flows, the broker is available only when your identity provider is Microsoft Entra ID: the `issuer` in `inferenceGatewayOidc`, `inferenceIdpOidc`, or `inferenceVertexWorkforceOidc` must have the form `https://login.microsoftonline.com/TENANT_ID/v2.0`. For a managed MCP server, the `oauth` object must also set `tenantId`, `clientId`, and `scope`. For a GCC High or DoD tenant, see [GCC High and DoD tenants](#gcc-high-and-dod-tenants).
 
 The [Microsoft 365 connector](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#how-users-sign-in) also uses the OS broker for its own Entra sign-in. Its broker setup is documented on that page, and its app registration needs the same settings described under [Register the Entra ID application](#register-the-entra-id-application).
 
@@ -37,6 +37,19 @@ The [Microsoft 365 connector](https://claude.com/docs/third-party/claude-desktop
 Brokered sign-in is available on Windows and macOS. Linux has no OS identity broker.
 
 What happens on Linux, or on a Windows or macOS device where the broker is unavailable, depends on the feature. For the inference sign-in flows (Foundry, gateway, Amazon Bedrock, and Workforce Identity), the app shows an error that names the browser flow as the alternative rather than falling back to a browser or device-code flow, because a silent fallback would bypass the device policy the broker was chosen to satisfy. Managed MCP servers and the [Microsoft 365 connector](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#how-users-sign-in) fall back to the system browser instead. To make the Microsoft 365 connector's sign-in fail rather than fall back, set [`microsoftAuthBroker`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `required` (Claude Desktop 1.49585.0 or later).
+
+## GCC High and DoD tenants
+
+Brokered sign-in for Microsoft Foundry, gateway, Amazon Bedrock, Workforce Identity, and managed MCP servers works with commercial and Microsoft 365 GCC tenants only. For these features, Claude Desktop asks the broker to sign in at `login.microsoftonline.com`. GCC High and DoD tenants sign in at `login.microsoftonline.us`. This limit doesn't apply to the local [Microsoft 365 connector](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#set-up-the-local-connector), which signs in at the host that its `azureCloud` setting selects.
+
+For a GCC High or DoD tenant, set up the following features to sign in through the system browser:
+
+* **Managed MCP server**: in the entry's [`oauth` object](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in#oauth-fields), set `authorizationServer` to `["https://login.microsoftonline.us/TENANT_ID/v2.0"]` alongside `clientId` and `scope`. Leave `tenantId` and `authFlow` unset. Register the [loopback redirect URI](https://claude.com/docs/third-party/claude-desktop/extensions.md#oauth-sign-in). If sign-in fails with Microsoft Entra error `AADSTS9010010`, see [Omit the resource parameter](https://claude.com/docs/third-party/claude-desktop/mcp-sign-in.md#omit-the-resource-parameter).
+* **Gateway, Amazon Bedrock, and Workforce Identity**: set the `issuer` in `inferenceGatewayOidc`, `inferenceIdpOidc`, or `inferenceVertexWorkforceOidc` to `https://login.microsoftonline.us/TENANT_ID/v2.0`. Set `inferenceGatewayOidcAuthFlow`, `inferenceIdpAuthFlow`, or `inferenceVertexWorkforceAuthFlow` to `browser`, or leave the key unset. Register the redirect URI `http://127.0.0.1/callback`.
+
+If your Conditional Access policy requires a compliant or managed device, browser sign-in satisfies it only when the browser is [integrated with device identity](#why-use-the-broker).
+
+For Microsoft Foundry, the device-code and browser flows also sign in at `login.microsoftonline.com`, so a different sign-in flow doesn't change the host.
 
 ## Register the Entra ID application
 

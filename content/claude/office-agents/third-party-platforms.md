@@ -531,7 +531,7 @@ If you manage Claude Desktop from the
 [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), you
 can manage Claude for Microsoft 365 there too. For the requirements and the
 steps for admins and members, see
-[Manage Claude for Microsoft 365 from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console).
+[Manage Claude for Microsoft 365 from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console.md).
 
 ## Connection instructions for end users
 
@@ -1175,7 +1175,7 @@ routed and logged.
 Some features work differently through third-party platforms, and
 others aren't available. The third-party platform column also applies
 to members of an organization that
-[manages the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console).
+[manages the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console.md).
 
 | Feature | Claude account | Third-party platform |
 | - | - | - |

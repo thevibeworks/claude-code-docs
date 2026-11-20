@@ -28,6 +28,8 @@ sudo apt-get update && sudo apt-get install -y curl bubblewrap socat
 >
 > The sandbox requires bubblewrap 0.8.0 or later; check with `/usr/bin/bwrap --version`. Ubuntu 24.04 ships a new enough version, and Ubuntu 22.04 doesn't. If Claude Science can't set up the sandbox, it refuses to start rather than run code unsandboxed.
 
+For Claude to save to granted folders, the server also needs Python 3.8 or later at `/usr/bin/python3`. Check with `/usr/bin/python3 --version`.
+
 ## Run Claude Science without administrator access
 
 If you don't have administrator (root or `sudo`) access to a shared server or cluster, choose one of these:

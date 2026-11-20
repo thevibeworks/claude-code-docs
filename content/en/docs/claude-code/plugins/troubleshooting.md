@@ -422,7 +422,13 @@ Update Claude Code, then retry the install. Source types are on the [marketplace
 
 ### `Plugin archive integrity check failed`
 
-You installed a plugin that's distributed as a zip archive, and Claude Code refused it with this line and `The archive was not installed.` The plugin's marketplace entry uses an [`archive` source](https://code.claude.com/docs/en/plugins/marketplace-reference) with a `sha256` pin, and the downloaded file's digest doesn't match the pin.
+You installed a plugin that's distributed as a zip archive, and Claude Code refused it with this line and `The archive was not installed.`
+
+The plugin's marketplace entry uses an [`archive` source](https://code.claude.com/docs/en/plugins/marketplace-reference#archive-plugin-source) with a `sha256` pin, and the digest of the downloaded file doesn't match the pin. Claude Code refuses the install, so nothing changes in the plugin cache. The mismatch has three possible causes:
+
+* The file at the URL changed after the author computed the pin
+* The author entered the wrong digest in the marketplace entry
+* The URL serves a different file than the author pinned
 
 The full message looks like this:
 
@@ -450,9 +456,9 @@ The marketplace's owner has to change the entry:
 
 ### `Marketplace "<name>" is registered from an untrusted source`
 
-A marketplace you added earlier stopped loading, and so did its plugins. This line appears in the `/plugin` **Errors** tab or on the next refresh.
+A marketplace you added earlier stopped loading, and so did its plugins. Running `claude plugin marketplace update <name>` in your shell prints this line.
 
-The marketplace is registered under a name that is [reserved for official Anthropic marketplaces](https://code.claude.com/docs/en/plugins/marketplace-reference.md), but its registered source isn't an `anthropics` GitHub repository. Reserved names are re-checked every time a marketplace loads or refreshes, so the marketplace and the plugins installed from it stop loading.
+The marketplace is registered under a name that is [reserved for official Anthropic marketplaces](https://code.claude.com/docs/en/plugins/marketplace-reference.md#reserved-names), but its registered source isn't an `anthropics` GitHub repository. Reserved names are re-checked every time a marketplace loads or refreshes, so the marketplace and the plugins installed from it stop loading.
 
 The full message names the reserved name and the fix:
 
@@ -460,10 +466,14 @@ The full message names the reserved name and the fix:
 Marketplace "claude-community" is registered from an untrusted source: The name 'claude-community' is reserved for official Anthropic marketplaces. Only repositories from 'github.com/anthropics/' can use this name. To fix it, remove the marketplace and re-add it from the official source.
 ```
 
+For a source other than GitHub or Git, such as a local directory, the reserved-name sentence ends with `can only be used with GitHub sources from the 'anthropics' organization`.
+
 The fix differs for users and publishers:
 
 * **You use the marketplace**: in your shell, run `claude plugin marketplace remove <name>`, then add the marketplace again from the official `github.com/anthropics` repository
 * **You publish a third-party marketplace that used the name before it became reserved**: rename it and ask users to re-add it from your source
+
+`claude plugin marketplace add` runs the same check, and refuses a reserved name with `Failed to add marketplace:` followed by the same reserved-name sentence.
 
 Before v2.1.205, Claude Code checked the name only when you added the marketplace, so an entry registered before its name became reserved kept loading.
 
@@ -879,7 +889,7 @@ Open the [debug log](https://code.claude.com/docs/en/hooks.md#debug-hooks). A ho
 
 ### `Plugin directory does not exist: <path>`
 
-Run `/reload-plugins` at the Claude Code prompt first, even though the message says to reinstall. A plugin's hook fails with `Failed to run: Plugin directory does not exist: <path> (<plugin> — run /plugin to reinstall)`, and the hook doesn't run, when the directory your session loaded the plugin's hooks from is gone from disk. [`Plugin directory not found at path: <path>`](#plugin-directory-not-found-at-path) is a different message, about a marketplace entry.
+Run `/reload-plugins` at the Claude Code prompt first, even if the message says to reinstall. A plugin's hook fails with `Failed to run: Plugin directory does not exist`, and the hook doesn't run, when the directory your session loaded the plugin's hooks from is gone from disk. [`Plugin directory not found at path: <path>`](#plugin-directory-not-found-at-path) is a different message, about a marketplace entry.
 
 The reload loads the plugin's hooks from its current directory. The failure is shown once per session for each hook event and command, so the hook going quiet doesn't confirm the fix. Read the reload's output instead:
 

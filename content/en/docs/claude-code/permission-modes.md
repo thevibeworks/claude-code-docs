@@ -16,14 +16,14 @@ Each mode makes a different tradeoff between convenience and oversight. The tabl
 
 | Mode | What runs without asking | Best for |
 | :- | :- | :- |
-| `default` | Reads only | Reviewing every action yourself, sensitive work |
+| `default` | File reads inside your working directories and other [actions that need no approval](https://code.claude.com/docs/en/tools-reference.md), such as starting a subagent | Sensitive work, unfamiliar code |
 | [`acceptEdits`](#auto-approve-file-edits-with-acceptedits-mode) | Reads, file edits, and common filesystem commands (`mkdir`, `touch`, `mv`, `cp`, etc.) | Iterating on code you're reviewing |
 | [`plan`](#analyze-before-you-edit-with-plan-mode) | Reads, plus classifier-approved commands when [auto mode](#eliminate-prompts-with-auto-mode) is available | Exploring a codebase before changing it |
 | [`auto`](#eliminate-prompts-with-auto-mode) | Everything, with background safety checks | Long tasks, reducing prompt fatigue |
 | [`dontAsk`](#allow-only-pre-approved-tools-with-dontask-mode) | File reads inside your working directories and pre-approved tools; anything that would prompt is denied, though a [mod](https://code.claude.com/docs/en/plugins/mods/overview.md) you installed can still approve some of those calls | Locked-down CI and scripts |
 | [`bypassPermissions`](#skip-all-checks-with-bypasspermissions-mode) | Everything | Isolated containers and VMs only |
 
-The mode that reviews every action is named **Manual** in the CLI, in `claude --help`, in the VS Code and JetBrains extensions, and in the desktop app. Its config value is `default`, which is what hooks and SDK integrations use. The CLI accepts `manual` as an alias wherever you type the value, for example `claude --permission-mode manual` or `"defaultMode": "manual"`.
+The CLI accepts `manual` as an alias for `default` wherever you type the value, for example `claude --permission-mode manual` or `"defaultMode": "manual"`.
 
 Each mode has its own rule for writes to [protected paths](#protected-paths).
 
@@ -51,7 +51,7 @@ Permission modes decide whether Claude asks before an action, and the [Bash sand
 
 | You want to | Start with | Isolation needed | Notes |
 | :- | :- | :- | :- |
-| Review every action yourself | Manual mode: `claude --permission-mode default` | None | Sensitive work, unfamiliar code |
+| Answer permission prompts yourself | Manual mode: `claude --permission-mode default` | None | Sensitive work, unfamiliar code |
 | Iterate locally with fewer prompts, without a classifier | Manual mode plus the Bash sandbox in [auto-allow mode](https://code.claude.com/docs/en/sandboxing.md#sandbox-modes): `claude --permission-mode default`, then run `/sandbox` and select auto-allow | The built-in Bash sandbox, on macOS, Linux, and WSL2 | Deny rules still apply, and ask rules that name a command, such as `Bash(git push *)`, still prompt. [Auto-allow mode](https://code.claude.com/docs/en/sandboxing.md#auto-allow-mode) covers other commands that can prompt. To turn the sandbox on from a settings file instead, set [`sandbox.enabled`](https://code.claude.com/docs/en/settings-reference#sandbox-enabled) and [`sandbox.autoAllowBashIfSandboxed`](https://code.claude.com/docs/en/settings-reference#sandbox-autoallowbashifsandboxed) to `true` |
 | Explore before changing anything | `claude --permission-mode plan` | None | Claude Code blocks edits until you [approve a plan](#review-and-approve-a-plan) |
 | Work hands-off in auto mode | `claude --permission-mode auto`, the [built-in starting permission mode](#which-mode-a-session-starts-in) with v2.1.283 or later | None; a sandbox or container adds defense in depth | Requires a [supported model](#eliminate-prompts-with-auto-mode), and your organization can [turn auto mode off](#eliminate-prompts-with-auto-mode) |

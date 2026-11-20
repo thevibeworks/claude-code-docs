@@ -30,6 +30,8 @@ When the built-in browser is on, Cowork and Code sessions show a **Browser** pan
 
 Before Claude acts on a site, Claude Desktop asks the user to approve it. **Allow once** covers that page, and **Always allow** saves the site on the device until the user revokes it in **Settings**. After a user approves a site, Claude can read and interact with its pages as the user sees them, including pages behind the user's sign-in on that site.
 
+In Cowork sessions, Claude Desktop keeps the password, one-time code, card, and Social Security number fields that it recognizes out of Claude's screenshots and page reads. Requires Claude Desktop 6.28899.2 or later. A script that Claude runs on a page can still read such a field. Where [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled) is available, its safety classifier reviews actions such as clicks, drags, and typing on a site in every permission mode, and can block them.
+
 Pages load directly from the user's device, so your network's proxy, firewall, and DNS filtering apply to them. Sign-ins and cookies from the pane stay in the app's own browser storage on the device, separate from the user's other browsers. Cowork sessions keep them until the user clicks **Clear browsing data** in the pane's menu. Code sessions clear them when the app quits, unless the user sets **Keep cookies** in the pane's menu to **Shared** or **Per session**.
 
 ### Turn on the built-in browser
@@ -49,7 +51,7 @@ If your devices use a [bootstrap server](https://claude.com/docs/third-party/cla
 | Unset or `allow` | Claude can open every site except the entries in [`builtinBrowserBlockedDomains`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserblockeddomains) |
 | `block` | Claude can open only the entries in [`builtinBrowserAllowedDomains`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowseralloweddomains) |
 
-The policy also governs sites that the site safety check flags for confirmation rather than blocks. Under the default `allow` policy, Claude asks the user before each of its actions on such a site. Under `block`, listing the site in `builtinBrowserAllowedDomains` is your organization vouching for it, so Claude works with it without asking before each action. For a site on your private network, Claude Desktop still asks before each action, but in a Code session the user can stop these questions for that site.
+The policy also governs sites that the site safety check flags for confirmation rather than blocks. Under the default `allow` policy, Claude asks the user before each of its actions on such a site. Under `block`, listing the site in `builtinBrowserAllowedDomains` is your organization vouching for it, so Claude works with it without asking before each action. For a site on your private network, Claude Desktop still asks before each action. In a Code session the user can stop these questions for that site, unless [`mcpPersistentAlwaysAllowEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#mcppersistentalwaysallowenabled) is `false`.
 
 For example, this configuration lets Claude open only a documentation site and a wiki:
 

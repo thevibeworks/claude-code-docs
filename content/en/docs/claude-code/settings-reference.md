@@ -1146,7 +1146,7 @@ Set the default [permission mode](https://code.claude.com/docs/en/permission-mod
 
 * **Scope**: [`Any file`](#scopes). `auto` and `bypassPermissions` don't take effect from project or local settings, so set them in `~/.claude/settings.json` instead. Before v2.1.257, `bypassPermissions` took effect from any file. For conversations the VS Code extension starts, Claude Code reads only user, managed, and `--settings` values.
 * **Type**: string, one of:
-  * `"default"`: Claude Code runs only reads without asking
+  * `"default"`: Claude Code runs file reads inside your working directories and [some other actions](https://code.claude.com/docs/en/permission-modes.md#available-modes) without asking
   * `"acceptEdits"`: Claude Code also runs file edits and common filesystem commands such as `mkdir` and `mv` without asking
   * `"plan"`: Claude Code reads and plans but blocks edits until you approve a plan
   * `"auto"`: Claude Code runs without routine prompts; before actions such as shell commands and network requests run, a background classifier checks that they align with your request
@@ -1948,7 +1948,7 @@ A `mask` entry accepts these optional fields. Without `extract` or `decode`, Cla
 | `onExtractNoMatch` | `"warn"`, `"deny"`, or `"error"`; default `"warn"`. On an entry with `decode`, only `"warn"` is accepted | What happens when `extract` matches nothing. `warn` passes the variable through unmasked, `deny` unsets it inside the sandbox, and `error` stops sandbox setup until you fix the configuration. Requires v2.1.224 or later |
 | `decode` | the string `"jwt"` | Verify the whole value is a JWT and replace it with a structurally valid fake token, so code inside the sandbox that decodes the token keeps working; the proxy substitutes the whole real token on egress. A value that doesn't verify passes through unmasked with a warning. Requires v2.1.224 or later |
 | `maskClaims` | array of strings, at least one claim name; requires `decode` | Mask only the named top-level payload claims inside the decoded JWT and rebuild the token around the modified payload, so the other claims stay readable. When no named claim matches, the variable passes through unmasked with a warning. Requires v2.1.224 or later |
-| `injectHosts` | array of strings, each a host that [`sandbox.network.allowedDomains`](#sandbox-network-alloweddomains) also admits | Narrow the hosts where the sandbox proxy substitutes the real value. When unset, the proxy substitutes it on requests to every host in `sandbox.network.allowedDomains`. Write an IPv6 destination as the bare compressed address, such as `"::1"`, not the bracketed form; see [IPv6 destinations in `injectHosts`](https://code.claude.com/docs/en/sandboxing#ipv6-destinations-in-injecthosts) |
+| `injectHosts` | array of strings, each a host that [`sandbox.network.allowedDomains`](#sandbox-network-alloweddomains) also admits | List the hosts where the sandbox proxy substitutes the real value. For most variables with no `injectHosts`, the proxy substitutes the real value on requests to every host in `sandbox.network.allowedDomains`. Write an IPv6 destination as the bare compressed address, such as `"::1"`, not the bracketed form; see [IPv6 destinations in `injectHosts`](https://code.claude.com/docs/en/sandboxing#ipv6-destinations-in-injecthosts) |
 
 This masks only the password inside `DATABASE_URL`, unsets the variable if the pattern matches nothing, and masks a JWT in `SERVICE_JWT` while leaving every claim except `api_key` readable:
 
@@ -2023,7 +2023,7 @@ This links three custom-named variables into one AWS credential for re-signing:
 
 Each named variable must be a whole-value `mask` entry in [`sandbox.credentials.envVars`](#sandbox-credentials-envvars), without `extract` or `decode`, and can fill only one slot across all pairs. These rules also apply:
 
-* The proxy re-signs requests on the hosts listed in the access key ID entry's `injectHosts`
+* The proxy can re-sign requests on the hosts listed in the access key ID entry's `injectHosts`
 * When `sessionTokenVar` is set, the proxy sends the real token as `x-amz-security-token` on re-signed requests
 * Naming any of the conventional variables in a pair replaces the automatic pairing
 
@@ -3568,11 +3568,11 @@ Set the attribution text Claude Code adds to pull request descriptions. Set it t
 
 ### `attribution.sessionUrl`
 
-Choose whether Claude Code appends the claude.ai session link when it commits or opens a pull request from a [cloud](https://code.claude.com/docs/en/claude-code-on-the-web.md) or [Remote Control](https://code.claude.com/docs/en/remote-control.md) session. Claude Code adds the link as a `Claude-Session` trailer on commits and as a link in pull request descriptions. Set it to `false` to omit the link.
+Choose whether Claude Code tells Claude to add the claude.ai session link to commits and pull requests from a [cloud](https://code.claude.com/docs/en/claude-code-on-the-web.md) or [Remote Control](https://code.claude.com/docs/en/remote-control.md) session. The setting covers a `Claude-Session` trailer on commits and a URL in pull request descriptions. Set it to `false` to omit the link.
 
 * **Scope**: [`Any file`](#scopes)
 * **Type**: Boolean
-  * `true`: Claude Code appends the claude.ai session link when it commits or opens a pull request from a cloud or Remote Control session
+  * `true`: Claude Code tells Claude to add the link
   * `false`: Claude Code omits the link
 * **Default**: `true`
 

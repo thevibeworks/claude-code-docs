@@ -20,4 +20,4 @@ Claude reads and writes objects with ordinary code using the provider's Python l
 
 > [!WARNING]
 >
-> Code that Claude writes can use a credential you add here only after you approve a **Credentials** card that names it. By default the approval lasts for the conversation. If a bucket should never be reachable from an analysis session, don't add its credential.
+> Code that Claude writes can use a credential you add here only after you approve a **Credentials** card that names it. By default, approval lasts for the conversation, but Claude Science can still ask about code that uses the credential. See [What auto mode checks](https://claude.com/docs/claude-science/auto-mode.md#what-auto-mode-checks). If a bucket should never be reachable from an analysis session, don't add its credential.
