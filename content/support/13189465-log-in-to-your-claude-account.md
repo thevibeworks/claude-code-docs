@@ -108,6 +108,8 @@ If you are already logged in to Claude for iOS, you can see the email address yo
 
 1. Open Claude for iOS.
 
-2. Click your initials in the top right corner.
+2. Open the side menu.
 
-3. Look for your email address under Settings.
+3. Tap the gear or your initials at the bottom.
+
+4. Look for your email address under Settings.

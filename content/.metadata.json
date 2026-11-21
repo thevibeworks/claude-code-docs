@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-21T17:50:36.148988Z",
+    "fetch_date": "2026-11-21T21:30:54.251982Z",
     "section": "all"
   },
   "items": [
@@ -8003,8 +8003,8 @@
       "url": "https://modelcontextprotocol.io/community/communication",
       "status": "success",
       "path": "mcp/community/communication.md",
-      "sha256": "dac4351cc26ef9659a005574d2248a8d8e9dea729900607c4896f6e788eec82d",
-      "size": 4471
+      "sha256": "723422c0aca424a67b0c26641c6f4d820a25b96bbcf9d8b5600801d29921c0e7",
+      "size": 4523
     },
     {
       "url": "https://modelcontextprotocol.io/community/contributing",
@@ -10691,8 +10691,8 @@
       "url": "https://support.claude.com/en/articles/8230524-delete-or-rename-a-conversation",
       "status": "success",
       "path": "support/8230524-delete-or-rename-a-conversation.md",
-      "sha256": "7a9d32fb1e22c91cf92b6e088a90cbe23d47d05cd01d32307cea646558dfd1e3",
-      "size": 4295
+      "sha256": "f259072ce18ed3f07267479cbac63cab7cb236449f1d69ff90a85cf935bdc809",
+      "size": 4367
     },
     {
       "url": "https://support.claude.com/en/articles/8241126-upload-files-to-claude",
@@ -10754,8 +10754,8 @@
       "url": "https://support.claude.com/en/articles/8325617-cancel-your-pro-max-or-ultra-subscription",
       "status": "success",
       "path": "support/8325617-cancel-your-pro-max-or-ultra-subscription.md",
-      "sha256": "d3f74ce71dc452be258075e3102cc1400759d9e473089051c9bf0cd6aecb2b19",
-      "size": 3790
+      "sha256": "6075312166d6f1cbe3887f7df3404288d68d95f1d5172e0b31697c27982b4723",
+      "size": 3783
     },
     {
       "url": "https://support.claude.com/en/articles/8325618-paid-plan-billing-faqs",
@@ -11706,8 +11706,8 @@
       "url": "https://support.claude.com/en/articles/12138966-release-notes",
       "status": "success",
       "path": "support/12138966-release-notes.md",
-      "sha256": "1a774baa871cafcff2d633a41cf11f4e3c714632577f10adc2860339278d1501",
-      "size": 42917
+      "sha256": "5cde2b80f70122682309d28ef288b1379577d107162b7a4b63c3690bd9b5a625",
+      "size": 43196
     },
     {
       "url": "https://support.claude.com/en/articles/12157520-claude-code-usage-analytics",
@@ -12035,8 +12035,8 @@
       "url": "https://support.claude.com/en/articles/13189465-log-in-to-your-claude-account",
       "status": "success",
       "path": "support/13189465-log-in-to-your-claude-account.md",
-      "sha256": "5c234162d6c9998ce60e36ab7bb4907957b6ed7663df00beb5c6d84c826769e3",
-      "size": 7495
+      "sha256": "2cbd170a9ab86e6d87e56cf95e3510b0d910075ff035ce836c63f6bd3cfc1480",
+      "size": 7519
     },
     {
       "url": "https://support.claude.com/en/articles/13198485-enforce-network-level-access-control-with-tenant-restrictions",

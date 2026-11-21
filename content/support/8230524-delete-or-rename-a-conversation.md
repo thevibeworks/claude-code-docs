@@ -36,7 +36,7 @@ These steps apply to Claude for iOS, listed on the App Store as Claude by Anthro
 
 **To delete or rename an individual conversation:**
 
-1. Open your chat list.
+1. Open your chat list. If you don't see the conversation in the side menu, tap “View all.”
 
 2. Touch and hold the conversation.
 
