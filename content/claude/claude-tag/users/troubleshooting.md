@@ -138,6 +138,8 @@ Each of these Enterprise Grid messages means the channel spans more than one wor
 
 Move the conversation to an internal channel that belongs to a single workspace, or to a DM, and mention Claude there. For a Slack Connect channel, you can also ask your admin to [turn Claude on there](https://claude.com/docs/claude-tag/admins/restrict-access.md#slack-connect-channels).
 
+If a notice only you can see starts "Claude can't work with you in this conversation: it couldn't confirm", ask your admin instead to check the [causes of that notice](https://claude.com/docs/claude-tag/admins/troubleshooting.md#claude-can%E2%80%99t-work-with-you-in-this-conversation).
+
 ### Couldn't check this channel just now
 
 **What you see**

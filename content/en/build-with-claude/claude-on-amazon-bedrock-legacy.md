@@ -753,6 +753,7 @@ For the full feature list with Amazon Bedrock availability, see [Features overvi
 * [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), including the [Bash tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool), [Computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool), [Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool), and [Text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool)
 * [Citations](https://platform.claude.com/docs/en/build-with-claude/citations)
 * [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+* [User profiles for end-customer attribution](https://platform.claude.com/docs/en/manage-claude/user-profiles), with `InvokeModel` on [some models](https://platform.claude.com/docs/en/manage-claude/user-profiles#attribute-requests-on-amazon-bedrock-and-google-cloud) when the profile ID is in the request body
 
 ### Features not supported
 

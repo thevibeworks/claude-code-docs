@@ -56,9 +56,9 @@ The Files API provides a create-once, use-many-times approach for working with f
 
 <Warning id="workspace-scoped-access" title="Uploaded files are accessible to your entire workspace">
   Files are not scoped to an end user, conversation, or session. Any API key with access to a workspace can access any files uploaded to that workspace. Every service account, and every user whose organization role allows API access, can use the Default Workspace in addition to any workspace you add them to, so keep files that must stay separate in their own workspace and access them only with [keys scoped to that workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping). Never accept `file_id` values from end users or other untrusted sources: a user-supplied file ID would let one user of your application read content that another user uploaded. Treat file IDs as server-side references, and keep the mapping between your users and their files in your application.
-
-  If you are building a multitenant application on the Files API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for files, so a workspace for each tenant gives that tenant’s data hard isolation from every other tenant. Each organization can have up to 100 workspaces; contact your account team if you need more.
 </Warning>
+
+If you are building a multitenant application on the Files API, create a separate [workspace](https://platform.claude.com/docs/en/manage-claude/workspaces) for each tenant. The workspace is the isolation boundary for files, so a workspace for each tenant gives that tenant’s data hard isolation from every other tenant. Each organization can have up to 1,000 workspaces by default. Contact your account team if you need more.
 
 ## How to use the Files API
 
