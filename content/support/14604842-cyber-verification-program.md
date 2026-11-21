@@ -234,9 +234,9 @@ You must be an Owner or Primary Owner of a Claude account or an Admin of a Claud
 
 1. Open **[Cyber productization](https://portal.anthropic.com/programs/cyber-productization)** in the Verification Portal.
 
-2. Select “Register an offering” and choose your type.
+2. Select "Register an offering."
 
-3. For a managed service, complete the form, accept the Anthropic Cyber Defender Partner Addendum, and select “Submit for Review.” For a product, describe it in one line, add a name and email, and select “Express interest.”
+3. Complete the form for your managed service or constrained product, confirm the terms, accept the Anthropic Cyber Defender Partner Addendum, and submit. Applications for unconstrained products aren’t available yet.
 
 **Note:** You can’t edit or withdraw this application after you submit it. Repeat these steps for each additional service or product.
 
@@ -246,12 +246,12 @@ You must be an Owner or Primary Owner of a Claude account or an Admin of a Claud
 
 We’ll email you with a decision or a request for more information. To check your status, sign in to the Verification Portal, open Programs, and choose "Cyber Verification Program." If your review takes longer than the target, you don't need to reapply or contact support.
 
-| **Application**    | **Target**                                                                                                                                           |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Defense Access     | Two days                                                                                                                                             |
-| Red Team Access    | Two weeks. Reviews are currently taking longer because of high demand.                                                                               |
-| Specialized Access | No set target. These reviews take longer than Red Team Access because we review every organization in depth in collaboration with the US government. |
-| Managed service    | About one week                                                                                                                                       |
+| **Application**                        | **Target**                                                                                                                                           |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Defense Access                         | Two days                                                                                                                                             |
+| Red Team Access                        | Two weeks. Reviews are currently taking longer because of high demand.                                                                               |
+| Specialized Access                     | No set target. These reviews take longer than Red Team Access because we review every organization in depth in collaboration with the US government. |
+| Managed service or constrained product | About one week                                                                                                                                       |
 
 If you apply for Red Team Access or Specialized Access and qualify for a lower tier, you will receive access to the lower tier while we review the rest of your application.
 
