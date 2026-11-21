@@ -248,6 +248,8 @@ The reply appears only when someone mentions Claude directly, or addresses it in
 
 The channel is shared across more than one Slack workspace in your Enterprise Grid, and those workspaces are paired to different Claude organizations. No single organization's settings cover the channel, so Claude declines regardless of the guest policy or any scope setting. Claude also declines when it can't confirm that the workspaces share one Claude organization.
 
+A workspace that isn't paired to any Claude organization is a different case, covered in [Channels shared with an unpaired workspace](https://claude.com/docs/claude-tag/admins/restrict-access.md#channels-shared-with-an-unpaired-workspace).
+
 Two similar messages come from different situations. [This channel is shared across multiple workspaces](#this-channel-is-shared-across-multiple-workspaces) is the guest case, and [This channel is open to more than one Slack workspace](#this-channel-is-open-to-more-than-one-slack-workspace) is the notice Claude posts on a reply that uses your organization's default settings.
 
 **How to resolve**
@@ -271,6 +273,8 @@ Claude posts the notice about once a month in each such channel, not on every re
 **How to resolve**
 
 Nothing is broken. To use a channel's own repositories, connectors, or instructions, work in a channel that belongs to a single workspace, or add what the channel needs on the **Slack** page. In a single-workspace channel, requests use that channel's own configuration and the notice doesn't appear.
+
+The notice also appears in a [channel shared with an unpaired workspace](https://claude.com/docs/claude-tag/admins/restrict-access.md#channels-shared-with-an-unpaired-workspace), where people from that workspace may be able to use Claude under your organization.
 
 ### Claude isn't available in channels shared across your Enterprise Grid
 
@@ -305,6 +309,34 @@ The channel became shared after this thread's session started, so the session is
 **How to resolve**
 
 Mention Claude in a new thread; new threads start under the channel's current sharing.
+
+### Claude can't work with you in this conversation
+
+**What you see**
+
+In a channel shared across workspaces in your Enterprise Grid, a person mentions Claude and gets a notice only they can see:
+
+> Claude can't work with you in this conversation: it couldn't confirm that your Slack workspace belongs to the Claude organization this conversation uses. If your workspace should have access, ask its admin to check which Claude organization it is connected to.
+
+When Claude couldn't finish checking the sender's workspace, the notice reads instead:
+
+> Claude couldn't check your Slack workspace right now. Please try again in a moment. If this keeps happening, ask an admin of your workspace.
+
+**What it means**
+
+In a channel shared across workspaces in your Grid, Claude [checks which workspaces the sender belongs to](https://claude.com/docs/claude-tag/admins/restrict-access.md#channels-shared-with-an-unpaired-workspace) before it acts on a request. A person's home workspace is the one Slack lists as the workspace on their account. Each of these causes can produce the "Claude can't work with you" notice:
+
+* The sender's home workspace is paired to a different Claude organization.
+* The sender isn't in any of your paired workspaces, and another Claude organization is paired to a workspace in the Grid.
+* The sender isn't in any of your paired workspaces, and Slack doesn't report a home workspace for them.
+
+**How to resolve**
+
+* **"Claude can't work with you", with no other Claude organization paired in the Grid.** Add the sender to a workspace paired to your Claude organization, or [pair their workspace](https://claude.com/docs/claude-tag/admins/workspaces.md#pair-another-workspace) to your organization.
+* **"Claude can't work with you", with another Claude organization paired in the Grid.** Add the sender to a workspace paired to your Claude organization, and use a channel that belongs to that workspace alone.
+* **"Claude couldn't check your Slack workspace".** Have the sender try again. If the notice repeats and the app isn't installed for the entire Slack organization, have a Slack Org Owner or Org Admin [install it across the Grid](https://claude.com/docs/claude-tag/admins/workspaces.md#install-the-app-across-the-grid).
+
+If the fix worked, the sender's next mention doesn't get the notice.
 
 ## Console errors
 

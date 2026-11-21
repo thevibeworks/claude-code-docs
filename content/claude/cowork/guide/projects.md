@@ -51,6 +51,8 @@ Select a project in the sidebar to start a new Cowork session with that project'
 
 A project folder that is reached through a symbolic link isn't mounted if the link sits inside another of the project's folders, or inside a folder that a Cowork task on your task list uses, and leads outside that folder. The session starts without it and the app tells you. Replace it in the project with the actual folder you want.
 
+You can't make hard links in a folder connected to a Cowork session, so `ln` without `-s` fails there. Copy the file instead. `cp -a` on a folder that holds hard-linked files reports an error, and the copy has only one name of each hard-linked file. Extracting an archive that holds hard links does the same. Use `cp -r`.
+
 [Dispatch](https://claude.com/docs/cowork/guide/dispatch.md) can also route background tasks into a project, so long-running work picks up the same folders, instructions, and memory.
 
 When you drag files or folders into a project, individual files are copied into the project's first folder and folders are mounted as additional project folders. A copied file never replaces a file that is already in that folder. A file or folder that is already inside one of the project's folders stays where it is and isn't copied or mounted. If the first folder already has a file with the same name, the copy is saved with a number added to its name, such as `notes (1).txt` for `notes.txt`. If that name and every numbered name up to `notes (19).txt` are already taken, the file isn't copied. Claude reads individual files up to 50 MB.

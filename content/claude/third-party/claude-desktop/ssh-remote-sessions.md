@@ -19,7 +19,7 @@ An SSH remote session is a [Code](https://claude.com/docs/third-party/claude-des
 3. **Run.** The remote server starts the engine on the host with the inference credential and policy from your managed configuration. Every file read, edit, shell command, and git operation runs on the host, in the working directory the user chose there. Claude Desktop connects to [managed MCP servers](https://claude.com/docs/third-party/claude-desktop/extensions.md#managed-mcp-servers-admin) from the device and exposes them to the engine as tools.
 4. **Stream.** Claude's responses and tool output stream back to Claude Desktop. Permission prompts appear in Claude Desktop, and the engine waits on the host until the user answers.
 
-The engine keeps running on the host through a dropped SSH link, device sleep, or the user quitting Claude Desktop. It finishes the current turn, or stops at a permission prompt, then idles until the user reopens the session. While Claude Desktop is closed, no new turns run and the inference credential is not refreshed, so a turn that outlives the credential fails with an authentication error. A restart of the app for an update counts as a quit.
+The engine keeps running on the host through a dropped SSH link, device sleep, or the user quitting Claude Desktop. It finishes the current turn, or stops at a permission prompt, then idles. While Claude Desktop is disconnected or closed, an idle engine can still start a turn by itself, for example when scheduled work comes due (a `/loop` task, say) or when a background command ends. An engine that starts while [`scheduledTasksEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#scheduledtasksenabled) is `false` starts without Claude Code's scheduling tools, so `/loop` can't schedule work there. An engine that already runs keeps those tools until Claude Desktop replaces it. Whatever else can start a turn still can, a background command's end included. While Claude Desktop is disconnected or closed, a credential that it passed is not refreshed, so a turn that outlives that credential, or starts after it expires, can fail with an authentication error. A restart of the app for an update counts as a quit.
 
 When the user reopens the session after a quit, Claude Desktop rejoins the engine or replaces it, unless it refuses to start the session:
 
@@ -127,6 +127,68 @@ With the device's OpenSSH client, the user's first message can wait up to ten se
 
 [`isLocalDevMcpEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#islocaldevmcpenabled), `managedMcpServers`, `allowedPluginMcpServers`, and `deniedPluginMcpServers` decide which of these servers a remote session loads, as they do for a local Code session (see [Applied as managed policy](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy)). If the host has its own Claude Code managed settings, those take precedence over the Claude Code policy these keys produce (see [Managed configuration on the remote host](#managed-configuration-on-the-remote-host)).
 
+### Resume a session that is saved on the host
+
+On Amazon Bedrock, a user can continue in Claude Desktop a Claude Code session that is saved on a Linux or macOS host, such as one that they began in a terminal there. Requires Claude Desktop 6.28899.6 or later. The user takes these steps:
+
+1. In **Code**, the user starts a new session on the SSH host and picks the folder that the earlier session ran in.
+2. Before sending anything, the user types `/resume` in the message box, and selects **Trust workspace** if Claude Desktop asks about the folder. Claude Desktop lists up to 30 sessions that are saved for that folder, by title and time.
+3. The user selects a session. It opens with its earlier messages, and doesn't start yet.
+4. The user sends a message. The engine then starts on the host and resumes the session. It starts with the default model for new Code sessions, unless the user picks a model in the resumed session first. It doesn't go back to the model that the session used before.
+
+If users don't find `/resume`, or it fails, see [Resume is missing or fails on an SSH host](#resume-is-missing-or-fails-on-an-ssh-host).
+
+#### Where resuming a saved session is available
+
+A saved session can be resumed on a Linux or macOS host where the device, the host, and the saved session all use Amazon Bedrock. Check these conditions:
+
+* **The device sends requests straight to Amazon Bedrock.** [`inferenceProvider`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceprovider) is `bedrock` or `mantle`, and [`inferenceBedrockBaseUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencebedrockbaseurl) is unset or names Amazon's own Bedrock endpoint. A VPC endpoint for `bedrock-runtime` counts. One for `bedrock-runtime-fips` or `bedrock-mantle` doesn't. Identity provider sign-in needs a proxy address in that key, so it doesn't qualify. With an address that doesn't count, such as a proxy or gateway, `/resume` is missing from the slash menu, and no message says why. The other conditions don't hide the command.
+* **The credential reaches the host.** The credential kind [works on a remote host](#inference-credentials-on-the-remote-host), or the host starts Claude Code through a launcher. The launcher then supplies the credential, and must be one that the host's managed settings name (see [Resume through a corporate launcher](#resume-through-a-corporate-launcher)).
+* **The host's Claude Code managed settings hold the session to Amazon Bedrock.** A host without managed settings needs nothing. Where a host has them, they must hold an [`allowedProviders`](https://code.claude.com/docs/en/settings-reference#allowedproviders) list with only `bedrock` and `mantle`, or hold no such list and set `"parentSettingsBehavior": "merge"`. Otherwise the user sees `Sessions on this host can't be listed`.
+* **All of the session ran on Amazon Bedrock.** Claude Desktop leaves out a session that holds a reply from another provider, and one that was ever opened under a Claude sign-in.
+
+These keys refuse both the list and the selection:
+
+* **[`isClaudeCodeForDesktopEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#isclaudecodefordesktopenabled)** set to `false`, which hides Code
+* **[`sshHostAllowlist`](https://claude.com/docs/third-party/claude-desktop/configuration#sshhostallowlist)**, for a host that it doesn't allow
+* **[`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders)**, for a folder whose real location on the host is outside the list, and for every folder if the list is empty
+
+#### Resume through a corporate launcher
+
+`/resume` works with a [launcher](https://claude.com/docs/third-party/claude-desktop/code.md#start-code-sessions-through-a-corporate-launcher) that the host's Claude Code managed settings name, where [`claudeCodeProcessWrapperEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#claudecodeprocesswrapperenabled) is `true` on the device. It isn't available on a host whose launcher isn't named there and locates Claude Code itself. Check the launcher against these points:
+
+* **The provider check**: Claude Desktop calls the launcher with `auth status --json` before it lists sessions, when the user selects one, and at the first message, to learn which provider Claude Code on the host uses. The launcher must pass its arguments on, and print no `{` or `}` of its own to standard output. If that call takes longer than 15 seconds or fails at the list, the user sees `Couldn't load sessions from the host`.
+* **Options and variables**: have the launcher pass on every option and every environment variable that it receives, apart from the credential that it sets. Some of them hold the session to Amazon Bedrock, and keep the engine from using a system prompt or tool definitions that the session file records. Claude Desktop can't always tell if a launcher drops them.
+* **The Amazon Bedrock address**: a resumed session doesn't start if the launcher points Amazon Bedrock requests at a proxy or gateway address, for example in `ANTHROPIC_BEDROCK_BASE_URL`. The user sees `Your organization doesn't allow this API key or provider`, though a new session through the same launcher starts.
+* **An expired credential**: if the credential that the launcher supplies has expired, for example because a company sign-in on the host has lapsed, the list and the selection can still work. The first message then fails with the card `Claude Code on <host> has no working credentials`. After signing in again on the host, the user selects **Try again**.
+
+#### What Claude Desktop copies from the host
+
+Resuming a session brings its conversation from the host to the user's device:
+
+* **At the list**: Claude Desktop first runs `claude auth status` on the host, which opens no session. It then checks the 30 newest session files for the folder, and fetches the first and the last 64 KiB of those that ran on Amazon Bedrock.
+* **At the selection**: it copies the whole conversation to the user's device, before the user sends anything, with the conversation's subagent files and every `agent-*.jsonl` file in the same project folder, which it doesn't check. The copy goes to Claude Code's store on the device, as for every SSH session (see [Where data lives](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives)).
+* **Afterward**: the copy follows the host's file. What someone later adds to that conversation in a terminal reaches the device too, unchecked.
+* **On the device**: other Claude Code sessions there can read the copy, in Claude Desktop or in a terminal, under whatever provider or sign-in they use. The conversation can leave Amazon Bedrock that way.
+* **From the first message**: the engine sends the earlier conversation to Amazon Bedrock, tool results included.
+
+The copying stops when the user deletes the session in Claude Desktop. That removes the copy from the device and leaves the host's file, with the turns that Claude Desktop added.
+
+`allowedWorkspaceFolders` applies to the folder that the user picks. A terminal session isn't bound by the list, so file contents from elsewhere on the host can be in a conversation that reaches the device.
+
+#### Security limits of a resumed session
+
+`/resume` has no configuration key of its own. Users get it with the update, [where the conditions hold](#where-resuming-a-saved-session-is-available), on the hosts and folders that `sshHostAllowlist` and `allowedWorkspaceFolders` allow. Review these limits:
+
+* **The Amazon Bedrock check reads the session file.** It holds only as far as that file can be trusted. The check can't tell one AWS account or region from another, so a session from an account with its own retention rules can continue in another account.
+* **Several people on one SSH user see each other's sessions.** If a user selects a colleague's session, Claude Desktop copies it to that user's device and then writes in the colleague's file. Give each person an SSH user of their own.
+* **The engine takes a resumed conversation for its own earlier turns.** It also acts on what the file records, with no prompt, as `claude --resume` does. For example, it arms the session's scheduled prompts. Claude Desktop doesn't vouch for what a session file holds, and a user can select, by its title alone, a conversation that they have never seen.
+* **Claude Desktop checks a session file's owner and mode, and nothing finer, and only where file owners can be told.** There it refuses a session file that another user owns, or that its group or everyone can write, at the selection and again at the first message. Keep `~/.claude` on the host writable by the SSH user alone.
+* **The first message can run in Auto mode on a conversation that the user hasn't read**, and Auto mode is no guard against what the file holds. A resumed session starts in the mode that the new session would have started in, which a saved choice or a setting can decide, not the terminal's, with Accept edits in place of Bypass permissions. The user can change the mode afterward.
+* **Use the session in one place at a time.** It goes on in its own file on the host, as with `claude --resume`. Have users end it where it ran, with `/exit` in a terminal, before they continue it. If it stays open in two places, messages can drop out of the conversation. Claude Desktop warns with `This session may be open somewhere else` when it sees another process on the host, but it doesn't always see one.
+* **Keep the host's conditions in place after a session is resumed.** Claude Desktop checks which provider the host uses up to the first message, and again only if the host's address is edited. Keep [what holds the session to Amazon Bedrock](#where-resuming-a-saved-session-is-available) in any managed settings that the host has or gets, and keep the launcher passing on every option and variable. Without them, a resumed conversation is no longer held to Amazon Bedrock, and no message says so.
+* **An earlier release starts a resumed session without these checks.** Don't move a device back to one once its user has resumed a session this way.
+
 ## Enable SSH remote sessions
 
 Set [`sshHostAllowlist`](https://claude.com/docs/third-party/claude-desktop/configuration#sshhostallowlist) in your managed configuration. It appears in the **Code surface** section of the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) while Code is enabled.
@@ -161,6 +223,8 @@ For example, this key in [Claude Desktop's Linux configuration file](https://cla
 ```
 
 In a `.mobileconfig` or registry policy, write the array as a JSON string as described under [Value types](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types). In a [bootstrap](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) response, the key sits inside the `codeSurface` object.
+
+When a device applies an allowlist that no longer allows a host, Claude Desktop refuses new sessions on that host and new connections to it. It doesn't stop a session that is already running there. After that session's connection drops, Claude Desktop doesn't reconnect, and the engine on the host goes on as it does through any dropped connection (see [How a remote session works](#how-a-remote-session-works)). To end the session, stop its processes on the host.
 
 ### Jump hosts and the allowlist
 
@@ -319,7 +383,7 @@ A profile or policy, even one that holds only this key, also changes how WSL ses
 >
 > A remote session runs Claude Code on the SSH host with your organization's inference credential, for as long as that process runs, including while Claude Desktop is closed. The same user account on the host, or a root user, can get the credential. List only hosts you trust with it, and prefer a credential that expires (single sign-on, or a credential helper that issues short-lived tokens) over a long-lived key.
 
-The remote engine uses the credential that Claude Desktop passes to it. It ignores an AWS profile or application default credentials on the host, and Claude Desktop copies no credential files there. Credential kinds that live in a file on the device are refused at session start.
+Unless the host's [launcher](https://claude.com/docs/third-party/claude-desktop/code.md#start-code-sessions-through-a-corporate-launcher) starts Claude Code, Claude Desktop passes the session's credential to the remote engine. For model requests, the engine then doesn't use these on the host: an AWS profile, SSO cache, or instance or container role; an Azure CLI sign-in or managed identity; or Google application default credentials. Commands, hooks, and local MCP servers that run on the host run as the SSH user, and may be able to use them. Claude Desktop copies no AWS, Azure, or Google credential files to the host. Which credential kinds work on a remote host depends on the provider:
 
 | Provider | Works on a remote host | Refused at session start |
 | - | - | - |
@@ -867,6 +931,50 @@ The sandbox lets shell commands that Claude runs with its Bash tool write in the
 > * **An `allowedWorkspaceFolders` entry with `mode` set to `ro`**: see [Read-only folders on the remote host](#read-only-folders-on-the-remote-host)
 > * **A message with `unable to unlink old`**: see [A git command fails with `unable to unlink old`](https://code.claude.com/docs/en/sandboxing#a-git-command-fails-with-unable-to-unlink-old)
 > * **The other places that the sandbox lets these commands write to**: see [Filesystem isolation](https://code.claude.com/docs/en/sandboxing#filesystem-isolation) and the `allowedWorkspaceFolders` row under [Applied as managed policy](https://claude.com/docs/third-party/claude-desktop/code.md#applied-as-managed-policy)
+
+### Resume is missing or fails on an SSH host
+
+Find what the user sees, on the screen or under **View details** on an error card, when they try to [resume a session that is saved on the host](#resume-a-session-that-is-saved-on-the-host):
+
+| What the user sees | Cause | What to do |
+| - | - | - |
+| `/resume` is missing from the slash menu of a new SSH session. A user who types it anyway sees, for example, `Terminal sessions can only be resumed in a Local environment.` | The feature is off on this device. Its Claude Desktop version is from before the feature, or it isn't set up to send requests straight to Amazon Bedrock | Update Claude Desktop to the [version that `/resume` requires](#resume-a-session-that-is-saved-on-the-host). Then check the first condition under [Where resuming a saved session is available](#where-resuming-a-saved-session-is-available). On a device that doesn't meet it, users can run `claude --resume` in a terminal on the host |
+| `/resume` is missing in an SSH session that has already started | Claude Desktop offers it in a new session, before the first message | Have the user start a new session on the host |
+| `Your organization's settings don't allow resuming sessions from this host or folder.` | `sshHostAllowlist` refuses the host, `allowedWorkspaceFolders` refuses the folder, or the credential kind doesn't [work on a remote host](#inference-credentials-on-the-remote-host) | Change the key or the credential kind, or have the user pick a folder inside the list |
+| `Sessions on this host can't be listed.` | The host doesn't qualify. Check first whether its managed settings lack both `"merge"` and an `allowedProviders` list. Other causes include a Windows host, a launcher that locates Claude Code itself or sets another provider, and a wider `allowedProviders` list on the host | See [Where resuming a saved session is available](#where-resuming-a-saved-session-is-available). To tell the causes apart, see [Find why resume refuses a host](#find-why-resume-refuses-a-host) |
+| `Couldn't load sessions from the host.` | The connection to the host isn't up, or the host gave no usable answer. For example, a launcher was too slow to answer | Have the user select **Try again**. If the message returns and you have a launcher, see [Resume through a corporate launcher](#resume-through-a-corporate-launcher). To tell the causes apart, see [Find why resume refuses a host](#find-why-resume-refuses-a-host) |
+| `Some sessions aren't listed.`, under the list or alone | The folder has more than 30 session files, of which Claude Desktop checks the 30 newest, or some of those didn't run wholly on Amazon Bedrock. The message stands alone where nothing is left to list | Have the user resume the session in a terminal on the host |
+| `Couldn't resume that session.` | No reason is shown. For example, a key refuses the selection, the file is gone, or the host or the session no longer passes the checks | See [Where resuming a saved session is available](#where-resuming-a-saved-session-is-available) |
+| `The host says that another user owns or can change that session's file` | For example, `sudo claude` wrote the file as root, or its mode is `0664` | Check the owner and mode of the session's file, under `~/.claude/projects` on the host |
+| `Claude Code on <host> has no working credentials` | At the first message, Claude Code on the host got no working credential for Amazon Bedrock. For example, a company sign-in behind the launcher's credential has lapsed | Have the user sign in again on the host, then select **Try again** |
+| `Your organization doesn't allow this API key or provider`, at a resumed session's first message | The launcher points Amazon Bedrock requests at a proxy or gateway address. The same happens where `AWS_ENDPOINT_URL`, `AWS_ENDPOINT_URL_BEDROCK`, or `AWS_ENDPOINT_URL_BEDROCK_RUNTIME`, in the SSH user's environment on the host, names an address that isn't an Amazon Bedrock endpoint | See [Resume through a corporate launcher](#resume-through-a-corporate-launcher), or unset the variable. Don't widen `allowedProviders` on the host |
+| `Claude Code wasn't started, because this session's file on the host couldn't be checked, can be changed by another user, or holds a command that would run by itself.` | At the first message, Claude Desktop checks the session's files again, and refuses one that records a deferred tool call. No answer from the host also refuses the start | Check the owner and mode of the session's file, under `~/.claude/projects` on the host |
+| `Claude Code wasn't started, because this session can only continue on Amazon Bedrock.` | The device, the host, or the session file no longer passes the checks | See [Where resuming a saved session is available](#where-resuming-a-saved-session-is-available) |
+| `Claude Code wasn't started, because a check on the host didn't finish.` | Claude Code on the host gave no usable answer | If the message returns and you have a launcher, see [Resume through a corporate launcher](#resume-through-a-corporate-launcher) |
+
+If the list is empty (`No Claude Code sessions found in this folder on the host.`) or lacks a session, check for these causes:
+
+* **This Claude Desktop already has the session for this host**, in the sidebar or archived
+* **The session isn't among the folder's 30 newest session files**: sessions that aren't listed count among the 30, such as those that this Claude Desktop already has. A user who often works in the folder from Claude Desktop can get a short list, or none, though older terminal sessions are saved there. The user then sees `Some sessions aren't listed.`, under the list or alone. Have the user resume such a session in a terminal on the host.
+* **The session was saved for another folder**, a subfolder included: the list goes by the real path of the folder that the user picked, and takes in that folder's Claude Code worktrees
+* **A program started the session**: for example, `claude -p`
+
+#### Find why resume refuses a host
+
+To learn why a host doesn't qualify, open `main.log` in the device's [logs directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives). Find the newest line that contains `[SSH] Whether Claude Code on <host> goes to Amazon Bedrock and is held to it:`. Claude Desktop writes such a line each time it asks Claude Code on a connected Linux or macOS host which provider it uses. The line usually ends in one of these words:
+
+| The line ends in | What it means |
+| - | - |
+| `bound` | The host qualifies |
+| `other_provider` | Claude Code on the host, started through the launcher if there is one, names a provider other than Amazon Bedrock |
+| `no_list_in_force` | No provider list is in force on the host: its managed settings lack both `"parentSettingsBehavior": "merge"` and an `allowedProviders` list, or a launcher doesn't pass on every option |
+| `wider_list_in_force` | The `allowedProviders` list in the host's managed settings holds more than `bedrock` and `mantle` |
+| `launcher_file` | The host has a launcher that locates Claude Code itself |
+| `credential_stays_here` | The credential kind doesn't [work on a remote host](#inference-credentials-on-the-remote-host), and the host's managed settings name no launcher |
+| `timed_out`, `silence` | The host or the launcher took too long to answer |
+| `run_failed`, `not_json`, `too_much` | `claude auth status --json` exited with an error, or printed something other than its answer |
+| `launcher_not_told` | The host's managed settings can't be read, the launcher that they name can't be used, or the host gave no answer about it |
+| `lost`, `no_claude_code`, `launcher_file_not_told` | The connection dropped, or the host didn't say yet which Claude Code or launcher it has. Have the user try again |
 
 ## Related
 

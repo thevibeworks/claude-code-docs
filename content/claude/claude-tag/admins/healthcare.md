@@ -64,7 +64,7 @@ On the same [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-sett
 
 **5. Block channel names that signal PHI**
 
-Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack), open the **Advanced** tab, and under **Channels** add the naming patterns your workspace uses for clinical or patient channels to **Blocked channel patterns**, for example `*-patient-*`. Claude won't read or respond in a matching channel even if someone invites it. See [Block or auto-join channels by name](https://claude.com/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name).
+Go to [**Claude's access > Channels > Slack**](https://claude.ai/admin-settings/claude-tag/channels/slack), open the **Advanced** tab, and under **Channels** add the naming patterns your workspace uses for clinical or patient channels to **Blocked channel patterns**, for example `*-patient-*`. Claude won't read or respond in a matching channel even if someone invites it, except in [some Enterprise Grid setups](https://claude.com/docs/claude-tag/admins/restrict-access.md#blocked-patterns-on-an-enterprise-grid). See [Block or auto-join channels by name](https://claude.com/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name).
 
 Any member of the workspace can still invite `@Claude` to a channel that isn't approved. Claude stays silent there, and an @-mention gets a notice that Claude is disabled in that channel instead of a reply.
 

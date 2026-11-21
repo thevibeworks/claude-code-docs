@@ -83,6 +83,15 @@ Claude answers a one-to-one direct message according to the pairing of the sende
 
 To move the Grid-wide pairing to a different Claude organization, an Owner in the Claude organization that holds it disconnects the Grid first. Disconnecting deletes the Claude-side data listed under [Revoke a pairing](#revoke-a-pairing) for every workspace the Grid-wide pairing covered. Messages Claude already posted stay in Slack.
 
+### Who can use Claude when one workspace in a Grid is paired
+
+Pairing one workspace with its [`workspace_` code](#pair-an-enterprise-grid) decides which Claude organization's settings and billing apply in that workspace's channels. By default, these people in the Grid can use Claude under your organization:
+
+* **Members of the paired workspace.** They can use Claude in channels that belong to that workspace alone, with or without a Claude account. That includes people who also belong to other workspaces in the Grid.
+* **People from unpaired workspaces.** They can reach Claude in a channel shared with your workspace, under the conditions in [Channels shared with an unpaired workspace](https://claude.com/docs/claude-tag/admins/restrict-access.md#channels-shared-with-an-unpaired-workspace).
+
+To limit Claude to people in your Claude organization, [restrict who can use Claude](https://claude.com/docs/claude-tag/admins/restrict-access.md#restrict-who-can-use-claude).
+
 ## Turn Claude Tag on or off and set the version for a scope
 
 Each workspace and channel has its own page with two controls: an enable switch that turns Claude on or off there, and a **Claude Tag version** setting that chooses which version answers while it's on. On the Team plan, a [single switch on the **Slack** page](#turn-claude-tag-on-or-off-on-the-team-plan) replaces them. To open a workspace's or channel's page, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open the **Channels** tab under **Claude's access**, and select the workspace or channel. To find a channel, search for it by name.
@@ -114,6 +123,8 @@ Each of these switches turns Claude off in a different part of Slack. To stop on
 | **Respond in channels** | The same place as **Respond in all channels**, [on the Team plan](#turn-claude-tag-on-or-off-on-the-team-plan) | Claude is off in the channels of every connected workspace |
 | **Enable Claude Tag in this workspace** | The top of the **General** tab on the workspace's page | Claude is off in that workspace's channels, except a channel whose own enable switch is on |
 | **Enable Claude Tag in this channel** | The top of the **General** tab on the channel's page | Claude is off in that channel |
+
+For a channel shared across workspaces in an Enterprise Grid, see [Limit Claude in a channel shared across workspaces](https://claude.com/docs/claude-tag/admins/restrict-access.md#limit-claude-in-a-channel-shared-across-workspaces).
 
 ## Turn Claude Tag on or off on the Team plan
 

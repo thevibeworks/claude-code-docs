@@ -14,7 +14,7 @@ Key characteristics:
 
 * **Workspace identifiers** use the `wrkspc_` prefix (for example, `wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ`).
 
-* **Maximum 100 workspaces** for each organization by default (archived workspaces don’t count). Contact your account team if you need more.
+* **Maximum 1,000 workspaces** for each organization by default (archived workspaces and the Default Workspace don’t count). Creating a workspace at the limit returns a `400` error with the message `Workspace limit reached`. Contact your account team if you need more.
 
 * **Default Workspace** has a `wrkspc_` ID like any other workspace:
 
@@ -1279,7 +1279,7 @@ Create workspaces for specific projects or products to track usage and costs sep
   </Accordion>
 
   <Accordion title="Are there limits on workspaces?">
-    Yes. Each organization can have up to 100 workspaces by default, and archived workspaces don’t count toward this limit. If you need more, contact your account team.
+    Yes. Each organization can have up to 1,000 workspaces by default, and archived workspaces and the Default Workspace don’t count toward this limit. If you need more, contact your account team.
   </Accordion>
 
   <Accordion title="How do organization roles affect workspace access?">

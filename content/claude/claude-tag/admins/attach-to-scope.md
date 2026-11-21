@@ -95,7 +95,7 @@ A channel rule grants its bundle under these conditions:
 * **Workspaces**: a rule for all workspaces, or on the **Slack** page, covers matching channels in every connected workspace. A rule on one workspace covers only that workspace's matching channels.
 * **Channels Claude is already in**: the rule grants the bundle in every matching channel Claude is in under the scope, including channels it was invited to before the rule existed
 * **Joining channels**: only the auto-join patterns, or an invite, add Claude to a channel. The rule itself doesn't.
-* **Blocked patterns**: a channel whose name matches a [blocked pattern](https://claude.com/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name) stays off-limits even when a rule matches it
+* **Blocked patterns**: a channel whose name matches a [blocked pattern](https://claude.com/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name) stays off-limits even when a rule matches it, except in [some Enterprise Grid setups](https://claude.com/docs/claude-tag/admins/restrict-access.md#blocked-patterns-on-an-enterprise-grid)
 * **Channel names, not channel IDs**: a rule matches a channel by its name, not its channel ID. After a channel is renamed, it gets the bundles of rules that match the new name and loses what rules matching only the old name gave it. As with other access changes, this takes full effect in new threads.
 
 A rule's pattern has its own constraints:
@@ -106,7 +106,7 @@ A rule's pattern has its own constraints:
 
 > [!WARNING]
 >
-> A channel rule grants its bundle in every matching channel Claude is in, now or in the future, and anyone who can rename a channel can move it into or out of a pattern. Keep elevated credentials out of broad patterns, and add a [blocked channel pattern](https://claude.com/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name) for name shapes that should never carry access; a blocked channel stays off-limits whatever rules match it.
+> A channel rule grants its bundle in every matching channel Claude is in, now or in the future, and anyone who can rename a channel can move it into or out of a pattern. Keep elevated credentials out of broad patterns, and add a [blocked channel pattern](https://claude.com/docs/claude-tag/admins/restrict-access.md#block-or-auto-join-channels-by-name) for name shapes that should never carry access. A blocked channel stays off-limits whatever rules match it, except in [some Enterprise Grid setups](https://claude.com/docs/claude-tag/admins/restrict-access.md#blocked-patterns-on-an-enterprise-grid).
 
 ### Where rule-attached bundles appear
 
