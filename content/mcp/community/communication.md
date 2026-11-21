@@ -14,7 +14,7 @@ This page sets out the project's communication channels, when a channel may be p
 | - | - |
 | [Discord](https://discord.gg/6CSzBmMkjX) | Real-time coordination among contributors, including working group, interest group and SDK discussion |
 | [Meeting calendar](https://meet.modelcontextprotocol.io/) | Open group and maintainer meetings. For how meetings run, see [Meetings and channels](https://modelcontextprotocol.io/community/working-interest-groups.md#meetings-and-channels) |
-| [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions) | Ideas, feature requests with rationale, questions, roadmap discussion, announcements and releases, and meeting agendas and notes (Meeting Notes category) |
+| [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions) | Meeting agendas and notes, in the Meeting Notes categories, and announcements. Only people with write access to this repository can open a discussion. Ideas, feature requests and questions start on Discord |
 | [GitHub Issues](https://github.com/modelcontextprotocol/modelcontextprotocol/issues) | Reproducible bugs, scoped documentation tasks, and CI and release tasks, filed through the issue forms. [SEPs](https://modelcontextprotocol.io/community/sep-guidelines.md) are pull requests to `seps/`, not issues |
 | [Security advisories](https://modelcontextprotocol.io/community/policies.md#reporting-a-vulnerability) | Vulnerabilities. Never post one in a public channel |
 

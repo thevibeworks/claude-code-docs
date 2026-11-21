@@ -20,7 +20,7 @@ If you signed up for a paid plan on the web version of Claude (**[claude.ai](htt
 
 If you subscribed to a Pro, Max, or Ultra plan via Claude for iOS, your subscription and payment will be handled directly on your iOS device.
 
-To cancel your subscription, click on your initials in the top right corner of Claude for iOS, and then click “Billing” from the menu options. Select “Manage subscription” and follow the prompts for cancellation. If you’ve already removed the app from your device, you can also follow the instructions located in this App Store resource to unsubscribe: **[If you want to cancel a subscription from Apple](https://support.apple.com/en-us/118428)**.
+To cancel your subscription on Claude for iOS, open the side menu, tap the gear or your initials at the bottom, and then tap “Billing.” Select “Manage subscription” and follow the prompts for cancellation. If you’ve already removed the app from your device, you can also follow the instructions located in this App Store resource to unsubscribe: **[If you want to cancel a subscription from Apple](https://support.apple.com/en-us/118428)**.
 
 You may cancel your Pro, Max, or Ultra subscription at any time from the platform you signed up on. To avoid being charged for your next billing period, cancel your subscription at least 24 hours before your next billing date.
 
