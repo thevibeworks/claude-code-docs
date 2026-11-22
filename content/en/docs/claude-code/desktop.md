@@ -518,11 +518,11 @@ The desktop app sends an OS notification when a Code session finishes a task and
 
 ### Ask a side question without derailing the session
 
-A side chat lets you ask Claude a question that uses your session's context but doesn't add anything back to the main conversation. Use it when you want to understand a piece of code, check an assumption, or explore an idea without steering the session off course.
+A side chat lets you ask Claude a question about your session. Claude's answers in a side chat aren't added to the main conversation automatically. Use a side chat to understand a piece of code, check an assumption, or explore an idea.
 
-Press **Cmd+;** on macOS or **Ctrl+;** on Windows to open a side chat, or type `/btw` in the prompt box. The side chat can read everything in the main thread up to that point. When you're done, close the side chat and continue the main session where you left off.
+Press **Cmd+;** on macOS or **Ctrl+;** on Windows to open a side chat, or type `/btw` in the prompt box. The side chat can read everything in the main thread up to that point. When you're done, close the side chat and return to the main session.
 
-Side chats are available in local, SSH, and WSL sessions. The desktop app doesn't save side chats to disk, so you can't return to one after you close the app.
+Side chats are available in local, SSH, and WSL sessions.
 
 ### Watch background tasks
 
@@ -674,7 +674,11 @@ To enable, disable, or uninstall plugins when the **+** menu shows **Plugins**, 
 
 You can scope plugins to your user account, a specific project, or local-only. If your organization manages plugins centrally, those plugins are available in desktop sessions the same way they are in the CLI, except the ones the desktop app [withholds under `disableSideloadFlags`](https://code.claude.com/docs/en/settings-reference#disablesideloadflags).
 
-The plugin browser is not available in cloud sessions, and plugins you install from the desktop app aren't available for cloud sessions. A cloud session also doesn't install plugins that the repository's `.claude/settings.json` declares, as [What carries over from your setup](https://code.claude.com/docs/en/cloud-environments.md#what-carries-over-from-your-setup) explains. Plugins aren't available in WSL sessions. For the full plugin reference including creating your own plugins, see [plugins](https://code.claude.com/docs/en/plugins/overview.md).
+> [!NOTE]
+>
+> The plugin browser is not available in cloud sessions, and plugins you install from the desktop app for your user account or as local-only aren't available there. See [What carries over from your setup](https://code.claude.com/docs/en/cloud-environments.md#what-carries-over-from-your-setup). Plugins aren't available in WSL sessions.
+
+For the full plugin reference including creating your own plugins, see [plugins](https://code.claude.com/docs/en/plugins/overview.md).
 
 ### Configure preview servers
 
@@ -2280,7 +2284,7 @@ Desktop and CLI read the same configuration files, so your setup carries over:
 
 #### MCP servers from the Claude Desktop chat app
 
-The Desktop app loads MCP servers from `claude_desktop_config.json` into local Code tab sessions, alongside servers from `~/.claude.json` and `.mcp.json`. A server you define in `claude_desktop_config.json` is available in both the Desktop chat surface and local Code tab sessions.
+The Desktop app loads MCP servers from `claude_desktop_config.json` into local Code tab sessions, alongside servers from `~/.claude.json` and `.mcp.json`. The servers from `claude_desktop_config.json` also load in a [WSL session](https://code.claude.com/docs/en/desktop-wsl.md), unless the session [lacks connectors](https://code.claude.com/docs/en/desktop-wsl.md#check-for-the-terminal-and-connectors). In a WSL session, those servers run on Windows.
 
 > [!NOTE]
 >
