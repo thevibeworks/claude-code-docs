@@ -205,8 +205,7 @@ The response is the new profile:
   },
   "metadata": {},
   "programs": {
-    "cyber": null,
-    "efs": null
+    "cyber": null
   },
   "created_at": "2026-03-15T10:00:00Z",
   "updated_at": "2026-03-15T10:00:00Z"

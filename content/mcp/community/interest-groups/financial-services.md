@@ -103,7 +103,7 @@ discussion within 48 hours, as required by [MCP meeting governance](https://mode
 entries are published at least seven days ahead, meetings are open to all, and the Code of Conduct and Antitrust Policy apply. This
 Discord-first agenda workflow follows the approaches used by the [Security IG](https://modelcontextprotocol.io/community/interest-groups/security.md) and [Authorization IG](https://modelcontextprotocol.io/community/interest-groups/auth.md).
 
-Discord: [#financial-services-ig](https://discord.gg/6CSzBmMkjX)
+Discord: [#financial-services-ig](https://discord.gg/modelcontextprotocol)
 
 ## Discussion Topics
 

@@ -1056,9 +1056,9 @@ Starting with your SDK’s release in the following table, the beta namespace di
 * It no longer sends `files-api-2025-04-14`.
 * It returns the same shapes as the stable namespace but under `Beta`-prefixed type names.
 
-The table also gives each SDK’s namespace names and where the beta namespace takes `anthropic-beta` values:
+The table also gives each SDK’s namespace names and where the beta namespace takes betas:
 
-| SDK | Stable namespace | Beta namespace | Beta namespace changed in | `anthropic-beta` values go in |
+| SDK | Stable namespace | Beta namespace | Beta namespace changed in | Betas go in |
 | ----- | ----- | ----- | ----- | ----- |
 | Python | `client.files` | `client.beta.files` | 1.2.0 | `betas` |
 | TypeScript | `client.files` | `client.beta.files` | 0.122.0 | `betas` |
@@ -1068,7 +1068,7 @@ The table also gives each SDK’s namespace names and where the beta namespace t
 | PHP | `$client->files` | `$client->beta->files` (classes in `Anthropic\Beta`) | 0.45.0 | `betas` |
 | Ruby | `client.files` | `client.beta.files` | 1.67.0 | `betas` |
 
-For a Files feature that’s in beta, use the beta namespace and pass the feature’s `anthropic-beta` value as the table shows. For example, under a Managed Agents beta header, `scope_id` limits a file list to the files of one session. To use `scope_id`, see [Listing and downloading session files](https://platform.claude.com/docs/en/managed-agents/files#listing-and-downloading-session-files).
+For a Files feature that’s in beta, use the beta namespace and pass the feature’s beta as the table shows. For example, under a Managed Agents beta header, `scope_id` limits a file list to the files of one session. To use `scope_id`, see [Listing and downloading session files](https://platform.claude.com/docs/en/managed-agents/files#listing-and-downloading-session-files).
 
 In releases before your SDK’s release in the table, the beta namespace’s types match the shapes that `files-api-2025-04-14` returns. If you depend on those types, stay on such a release until you migrate off them.
 

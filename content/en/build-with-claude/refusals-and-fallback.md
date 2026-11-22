@@ -9,6 +9,7 @@ featureMetadata:
     - claude-fable-5-1
     - claude-mythos-5-1
     - claude-fable-5
+    - claude-mythos-5
     - claude-opus-5-5
     - claude-opus-5
     - claude-sonnet-5-5
@@ -218,11 +219,12 @@ A `reasoning_extraction` refusal usually comes from a prompt that asks the model
 * The model’s private notes, or a running log of its reasoning
 * Reasoning asked for verbatim or in full
 
-The wording can sit in a system prompt, a skill, or a tool description, so check those too.
+The wording can sit in a system prompt, a skill, or a tool description, so check those too. Earlier assistant turns and examples in the prompt that show reasoning in tags, such as `<thinking>`, might also trigger this refusal.
 
-Models that might return this category include the following:
+These models might return this category:
 
 * Claude Fable 5.2, Claude Fable 5.1, and Claude Fable 5
+* Claude Mythos 5.2, Claude Mythos 5.1, and Claude Mythos 5
 * Claude Opus 5.5 and Claude Opus 5
 * Claude Sonnet 5.5
 * Claude Haiku 5.5
@@ -1217,7 +1219,7 @@ Classifier refusals are available or in beta on select models, depending on the 
 
 | Status | Models |
 | ----- | ----- |
-| Available | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
+| Available | [Claude Fable 5.2](https://platform.claude.com/docs/en/models/fable-5-2/overview), [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview), [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview), [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), [Claude Opus 5.5](https://platform.claude.com/docs/en/models/opus-5-5/overview), [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview), [Claude Sonnet 5.5](https://platform.claude.com/docs/en/models/sonnet-5-5/overview), [Claude Haiku 5.5](https://platform.claude.com/docs/en/models/haiku-5-5/overview) |
 
 #### [Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)
 

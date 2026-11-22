@@ -51,7 +51,7 @@ If the app isn’t yours, start a new conversation and tell its maintainer. If y
     }
     ```
 
-    In the SDK, call the beta Messages method and pass the header value, as [the test program](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/fix-bound-to-a-different-conversation#how-to-tell-whether-your-integration-is-impacted-details) does. If the error [still asks for the header](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/fix-bound-to-a-different-conversation#setting-not-received), the header didn’t arrive.
+    In the SDK, call the beta Messages method and pass the beta, as [the test program](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/fix-bound-to-a-different-conversation#how-to-tell-whether-your-integration-is-impacted-details) does. If the error [still asks for the header](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/fix-bound-to-a-different-conversation#setting-not-received), the header didn’t arrive.
 
     That stops the errors by dropping the invalid thinking, but it [can cost more](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/fix-bound-to-a-different-conversation#drop-block-cost) and can affect output quality and latency. The next request succeeds, and its `input_transformations` array lists each block the API dropped.
 

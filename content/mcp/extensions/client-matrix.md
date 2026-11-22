@@ -43,6 +43,7 @@ This matrix shows which MCP clients support each [official extension](https://mo
 | [MCP Inspector](https://github.com/modelcontextprotocol/inspector) | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/docs/mcp-app-review.md) | | | [Partial](https://github.com/modelcontextprotocol/inspector/blob/main/clients/cli/README.md#skill-verification---verify) | | |
 | [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | | | |
 | [Glean](https://www.glean.com/) | | | | | | |
+| [mcp-use](https://github.com/mcp-use/mcp-use) | | | | | | |
 
 > [!NOTE]
 >

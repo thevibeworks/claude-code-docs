@@ -3324,7 +3324,7 @@ Error responses follow the standard shape documented in [Claude API errors](http
 | 400 | Invalid input, or the operation does not apply to this plugin or marketplace (see each endpoint’s section). Also returned for a query parameter the endpoint does not recognize, and for an organization that is not a Claude Enterprise organization (`this endpoint is not supported for this organization type`). |
 | 401 | Missing `x-api-key` header, or the key is not recognized. |
 | 403 | The key is missing the required scope, or the request uploads to, changes the served version of, or sets the default for a member’s plugin or personal marketplace. (Deleting a member’s plugin is allowed.) |
-| 404 | Resource not found. Also returned when the request omits the `anthropic-beta` value, or the API is not enabled for your organization, so that the endpoints read as nonexistent. |
+| 404 | Resource not found. Also returned when the request omits this API’s beta, or the API is not enabled for your organization, so that the endpoints read as nonexistent. |
 | 409 | A name is taken, a version’s `content_scan` reads `processing`, or a conflicting upload is in progress. |
 | 413 | The request body is over the size limit: 200 MB for an upload, 32 MB for marketplace validation. |
 | 429 | Rate limit exceeded. See [Rate limiting](https://platform.claude.com/docs/en/manage-claude/plugins-api#rate-limiting). |
