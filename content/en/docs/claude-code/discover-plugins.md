@@ -123,7 +123,7 @@ Pick the tab for where you run Claude Code.
 
 > [tab] Cloud session
 >
-> A [cloud session](https://code.claude.com/docs/en/cloud-environments.md), including [the browser at claude.ai/code](https://code.claude.com/docs/en/claude-code-on-the-web.md), has no plugin browser and doesn't load the plugins you installed on your own machine or the ones your repository's `.claude/settings.json` turns on. For plugins your organization distributes through managed settings, see [Manage plugins for your organization](https://code.claude.com/docs/en/plugins/org.md).
+> A [cloud session](https://code.claude.com/docs/en/cloud-environments.md), including [the browser at claude.ai/code](https://code.claude.com/docs/en/claude-code-on-the-web.md), has no plugin browser and doesn't load the plugins you installed at user or local scope. For plugins your organization distributes through managed settings, see [Manage plugins for your organization](https://code.claude.com/docs/en/plugins/org.md).
 >
 > See [which parts of your setup are also available in a cloud session](https://code.claude.com/docs/en/cloud-environments.md#what-carries-over-from-your-setup) for the rest of your setup.
 
@@ -280,7 +280,7 @@ The **Installed** tab in `/plugin` lists your plugins with actions to enable, di
 A plugin's details menu offers **Disable plugin** or **Enable plugin**, **Update now**, and **Uninstall**. Two more items appear for plugins that take settings, and a plugin can show both:
 
 * **Configure options**: shown when the plugin's manifest declares [`userConfig` options](https://code.claude.com/docs/en/plugins/manifest-reference#user-configuration). Opens the dialog for those options
-* **Configure**: shown when the plugin includes a [bundled MCP server](https://code.claude.com/docs/en/plugins/components.md#include-a-packaged-mcpb-server). Sets that server's own `user_config` settings
+* **Configure**: shown when a marketplace plugin includes a [bundled MCP server](https://code.claude.com/docs/en/plugins/components.md#include-a-packaged-mcpb-server). Sets that server's own `user_config` settings
 
 The tab can also show plugins at **Managed** scope. Your organization installed those through [managed settings](https://code.claude.com/docs/en/settings.md#settings-files), and you can't enable, disable, or uninstall them here.
 
