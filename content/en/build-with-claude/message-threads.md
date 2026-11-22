@@ -591,7 +591,7 @@ This example creates a thread on the first turn and continues it on the second. 
 | Group | Fields | Rule |
 | ----- | ----- | ----- |
 | Create-only | `system`, `tools` | Send them on the create request only, with any `cache_control` breakpoints on them. Sending either one on a continue request, even as `null`, returns a 400 error. |
-| Fixed | `model`, `tool_choice`, `thinking`, `mcp_servers` (apart from each server’s authorization token), `context_management`, `output_config`, the `skills` in `container`, the top-level `cache_control`, and the set of `anthropic-beta` values | Send them on every request of the thread, with the same values as on the create request. A different value returns a 400 error with the code `thread_fingerprint_mismatch`, and the error message names the fields that differ. |
+| Fixed | `model`, `tool_choice`, `thinking`, `mcp_servers` (apart from each server’s authorization token), `context_management`, `output_config`, the `skills` in `container`, the top-level `cache_control`, and the set of betas in the `anthropic-beta` header | Send them on every request of the thread, with the same values as on the create request. A different value returns a 400 error with the code `thread_fingerprint_mismatch`, and the error message names the fields that differ. |
 | Free | `max_tokens`, `stop_sequences`, `stream`, `metadata`, `service_tier`, and other fields not named on this page | These can change from turn to turn. |
 
 The API does not store MCP server URLs, MCP authorization tokens, or the container `id`. Send `mcp_servers` and `container` on every request that uses them. An MCP authorization token can change between requests.

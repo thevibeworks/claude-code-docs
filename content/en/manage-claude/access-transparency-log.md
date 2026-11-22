@@ -9,7 +9,7 @@ featureMetadata:
 Learn how to cryptographically verify that no [Access Transparency](https://platform.claude.com/docs/en/manage-claude/access-transparency) event was removed or altered after it was committed to your organization’s transparency log.
 
 <Note>
-  The transparency log is in beta, and its endpoints and response shapes may change during the beta. It is part of Access Transparency, which is available to eligible customers on request and is not self-serve (see [Access Transparency](https://platform.claude.com/docs/en/manage-claude/access-transparency)). Anthropic maintains one for your organization once Access Transparency is enabled. You read it through the Compliance API with the same key and scope you use for the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed).
+  The transparency log is in beta, and its endpoints and response shapes can change during the beta. It is part of Access Transparency, which is available to eligible customers (see [Access Transparency](https://platform.claude.com/docs/en/manage-claude/access-transparency)). Anthropic maintains one for your organization once Access Transparency is enabled. You read it through the Compliance API with the same key and scope you use for the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed).
 
   Your log is created when the first Access Transparency event is recorded for your organization after enablement. Until then, every transparency log endpoint returns `404`.
 

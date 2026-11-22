@@ -194,7 +194,9 @@ API key has expired.
 
 ## 403 Forbidden
 
-The key in `x-api-key` is valid but does not carry a scope the endpoint accepts. The verbatim message lists the scopes the key carries (`Got:`) and the scopes the endpoint accepts (`Needed one of:` on read endpoints, where any one listed scope is sufficient, or `Needed:` on delete endpoints), so you can confirm what the key carries without rechecking Claude Console or claude.ai. On read endpoints the accepted list also includes `read:org_audit`, a read-only audit scope that covers every Compliance API read endpoint; see [Choose scopes for a Claude Enterprise key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#choose-scopes-for-a-claude-enterprise-key). Compliance Access Key scopes are immutable after creation, so each insufficient-scope fix directs you to create a new key rather than edit the existing one. A standalone Claude Console organization (one with no parent organization) cannot create a Compliance Access Key, so fixes that require one do not apply to it; it can query the Activity Feed only.
+The key in `x-api-key` is valid but does not carry a scope the endpoint accepts. The verbatim message lists the scopes the key carries (`Got:`) and the scopes the endpoint accepts (`Needed one of:` on read endpoints, where any one listed scope is sufficient, or `Needed:` on delete endpoints), so you can confirm what the key carries without rechecking Claude Console or claude.ai. On read endpoints, the accepted list also includes `read:org_audit`, a read-only audit scope that covers every Compliance API read endpoint; see [Choose scopes for a Claude Enterprise key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#choose-scopes-for-a-claude-enterprise-key). Compliance Access Key scopes are immutable after creation, so each insufficient-scope fix directs you to create a new key rather than edit the existing one.
+
+A standalone Claude Console organization (one with no parent organization) cannot create a Compliance Access Key, so fixes that require one do not apply to it; it can query the Activity Feed only.
 
 ### Insufficient scope: Activity Feed
 

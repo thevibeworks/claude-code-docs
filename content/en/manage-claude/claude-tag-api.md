@@ -2464,7 +2464,7 @@ Error responses follow the standard shape documented in [Claude API errors](http
 | 400 | Invalid input, or the operation does not apply to this channel, workspace, or Bundle (see each endpoint’s section). |
 | 401 | Missing `x-api-key` header, or the key is not recognized. |
 | 403 | The key is not an organization-level scoped key, is missing the required scope, or your organization cannot make this change. |
-| 404 | Resource not found, or not your organization’s. Also returned when the request omits the `anthropic-beta` value, or the API is not enabled for your organization, so that the endpoints read as nonexistent. |
+| 404 | Resource not found, or not your organization’s. Also returned when the request omits this API’s beta, or the API is not enabled for your organization, so that the endpoints read as nonexistent. |
 | 409 | Something else changed or removed the resource while the request ran. Nothing the request asked for was done: no setting stored, nothing attached, detached, or removed. The one exception is a setup request, which can have set the channel up before its `settings` met the conflict (`slack_channel_set_up_settings_conflict`). Read the resource again and resend the request if it is still needed. |
 | 429 | Rate limit exceeded. See [Rate limiting](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#rate-limiting). |
 | 500 | Internal error. |
@@ -2501,7 +2501,7 @@ When one status has several causes that you would handle differently, the error 
 | `slack_channel_set_up_settings_conflict` | 409 | The request set the channel up, then another change overlapped `settings`. Nothing of `settings` was stored. `details.slack_channel_id` is the channel. See [Set up a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#set-up-a-channel). |
 | `slack_channel_enabled` | 400 | Claude is on in the channel (`enabled` resolves to `true`), so it cannot be removed. Set `enabled` to `false` first. See [Remove a channel](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#remove-a-channel). |
 
-New codes may be added. Treat a code you do not recognize the way you treat its status. A `404` with no `error_code` has one of two causes. Either something the request names was not found (an `id` in the path, or a Slack channel or workspace in the body or the query), or every endpoint reads as nonexistent because the request omits the `anthropic-beta` value or the API is not enabled for your organization. To tell them apart, [list your workspaces](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#list-workspaces) with the same key and headers: that request names nothing, so it returns `404` only in the second case.
+New codes may be added. Treat a code you do not recognize the way you treat its status. A `404` with no `error_code` has one of two causes. Either something the request names was not found (an `id` in the path, or a Slack channel or workspace in the body or the query), or every endpoint reads as nonexistent because the request omits this API’s beta or the API is not enabled for your organization. To tell them apart, [list your workspaces](https://platform.claude.com/docs/en/manage-claude/claude-tag-api#list-workspaces) with the same key and headers: that request names nothing, so it returns `404` only in the second case.
 
 ## Activity Feed events
 

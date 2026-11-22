@@ -561,7 +561,7 @@ Keep the following in mind when working with summarized thinking:
   In rare cases where you need access to full thinking output, [contact Anthropic sales](mailto:sales@anthropic.com).
 </Note>
 
-To see the model’s reasoning, read the `thinking` blocks rather than prompting for reasoning in the response text. Some models might refuse a request that asks for their internal reasoning as part of the response text. The refusal has `stop_details.category: "reasoning_extraction"`. For examples of these models and what to ask for instead, see [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks). For the field reference, see [What a refusal looks like](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response).
+To see a summary of the model’s reasoning, read the `thinking` blocks with `display` set to `"summarized"`, rather than prompting for reasoning in the response text. Some models might refuse a request that asks for their internal reasoning as part of the response text. The refusal has `stop_details.category: "reasoning_extraction"`. For the list of these models and what to ask for instead, see [Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks). For the field reference, see [What a refusal looks like](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#refusal-response).
 
 ### Streaming thinking
 

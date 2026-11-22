@@ -16,7 +16,7 @@ With customer-managed encryption keys (CMEK), your key lives in your key managem
 | ----- | ----- | ----- |
 | Attach the key to a workspace (on Claude Enterprise, add it to the organization) | Your key protects data written [after it takes effect](https://platform.claude.com/docs/en/manage-claude/cmek-how-it-works#when-your-key-takes-effect). On Claude Platform, attaching also locks the workspace’s [data retention setting](https://platform.claude.com/docs/en/manage-claude/cmek-data-retention#data-retention). | No. The key can’t be removed or replaced. |
 | Rotate the key material within the same key | You rotate it in your KMS, on your own schedule. Rotation needs no action in Claude. | Nothing to undo. Keep earlier key versions enabled. |
-| Disable the key, or remove (revoke) Anthropic’s access to it | The change can take up to 1 hour to apply, and requests in flight during that hour might still succeed. After that, Claude can’t read or write the data the key protects, and requests fail. | Re-enable the key or restore Anthropic’s access. [Two limits apply](https://platform.claude.com/docs/en/manage-claude/cmek-key-lifecycle#restore-access). |
+| Disable the key, or remove (revoke) Anthropic’s access to it | The change can take up to 1 hour to apply, and requests in flight during that hour might still succeed. After that, requests fail. Within about an hour of disabling your key, Anthropic can no longer decrypt data your key protects. | Re-enable the key or restore Anthropic’s access. Two limits apply. See [What disabling does, and what comes back](https://platform.claude.com/docs/en/manage-claude/cmek-key-lifecycle#restore-access). |
 | Delete the key in your KMS, schedule it for deletion, or destroy its key material | Anthropic can’t recover the data the key protects. | Not by Anthropic. It keeps no copy of your key. |
 | Delete the key’s record in Claude (**Delete encryption key** in the Claude Console) | You can do this only while no workspace, including an archived one, uses the key. | No. |
 
@@ -25,6 +25,8 @@ With customer-managed encryption keys (CMEK), your key lives in your key managem
 While the key is disabled, Messages API requests in a workspace that uses it return [a 400 error with the code `cmek_key_disabled`](https://platform.claude.com/docs/en/manage-claude/cmek-troubleshooting#cmek-key-disabled).
 
 Re-enabling the key, or restoring Anthropic’s access to it, brings back access to the data the key protects. Two limits apply. Requests that failed while the key was disabled aren’t retried. Disabling the key doesn’t pause retention periods.
+
+On the Claude API, an organization with [organization webhooks](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#encryption-key-events) (beta) can get an event after someone disables a key or removes Anthropic’s access. It gets another when the key works again. For the cases that send no event, see [When an encryption key event might not arrive](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#when-an-encryption-key-event-might-not-arrive).
 
 ## If Anthropic can’t reach your key
 

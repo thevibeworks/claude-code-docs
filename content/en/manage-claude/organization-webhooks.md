@@ -1,7 +1,7 @@
 ---
 title: Organization webhooks
 url: https://platform.claude.com/docs/en/manage-claude/organization-webhooks
-description: Register webhook endpoints for events about enforcement actions on your organization's user profiles.
+description: Register webhook endpoints for events about your organization's user profiles and customer-managed encryption keys, and respond to each event.
 featureMetadata:
   status: beta
   betaHeader: webhooks-2026-10-07
@@ -9,17 +9,21 @@ featureMetadata:
     Claude API: beta
 ---
 
-An organization webhook endpoint receives an event when Anthropic restricts or bans one of your organization’s [user profiles](https://platform.claude.com/docs/en/manage-claude/user-profiles), and when the restriction or ban ends. You manage it with the Admin API under `/v1/organizations/webhooks`.
+An organization webhook endpoint is a URL where Anthropic sends events about your organization, such as an encryption key that stops working. Use this page to choose the events you need, register an endpoint, respond to each event, and catch up when an event doesn’t arrive. You manage endpoints with the Admin API under `/v1/organizations/webhooks`, or [in the Claude Console](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#manage-endpoints) for some event types.
 
 <Note>
-  Event delivery isn’t live: Anthropic doesn’t send the two events, so an endpoint you register receives nothing. You can register endpoints and build your handler from the event format on this page.
+  Delivery of the two [user profile events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#user-profile-events) isn’t live: Anthropic doesn’t send them. You can register endpoints for them and build your handler from the event format on this page.
 </Note>
 
 ## Before you start
 
 You need the following:
 
-* An organization on the Claude API that has organization webhooks turned on and doesn’t have [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled. To request access, contact your Anthropic account team.
+* An organization on the Claude API that has organization webhooks turned on. Without them, [requests return a `404`](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#errors). The first case that fits your organization applies:
+
+  * It has [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled: it can’t use organization webhooks.
+  * It can use [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek): it has organization webhooks.
+  * Any other organization: contact your Anthropic account team to request access.
 
 * One of these credentials:
 
@@ -34,7 +38,16 @@ With an Admin API key, you can make every request in [Manage endpoints](https://
 
 ## Event types
 
-Organization webhook endpoints accept two event types. Both are about [enforcement actions](https://platform.claude.com/docs/en/manage-claude/user-profiles#check-whether-anthropic-has-restricted-or-banned-a-profile) on user profiles.
+An endpoint receives the event types that you list in its [`enabled_events`](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#endpoint-fields) when you [create or update it](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#manage-endpoints). This page covers these groups of event types:
+
+* [User profile events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#user-profile-events): Anthropic restricts or bans one of your [user profiles](https://platform.claude.com/docs/en/manage-claude/user-profiles), or the restriction or ban ends.
+* [Encryption key events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#encryption-key-events): your key management service (KMS) keeps refusing one of your customer-managed encryption keys, or the key works again.
+
+For other event types, see `enabled_events` in the [API reference for creating an endpoint](https://platform.claude.com/docs/en/api/beta/organization/webhooks/create).
+
+## User profile events
+
+The following event types are about [enforcement actions](https://platform.claude.com/docs/en/manage-claude/user-profiles#check-whether-anthropic-has-restricted-or-banned-a-profile) on user profiles. Anthropic doesn’t send them.
 
 | Event | Trigger |
 | ----- | ----- |
@@ -45,13 +58,13 @@ Deleting a profile ends its open actions without a `user_profile.enforcement_act
 
 ### Before your first event
 
-In any request whose `anthropic-beta` header has `user-profiles-2026-09-04` or an earlier value, responses leave out the `enforcement_status` and `enforcement_actions` fields and the `enforcement_status[]` list filter returns a `400`. To get the fields, remove that value from your requests.
+In any request whose `anthropic-beta` header has `user-profiles-2026-09-04` or an earlier user profiles beta, responses leave out the `enforcement_status` and `enforcement_actions` fields. In such a request, the `enforcement_status[]` list filter returns a `400`. To get the fields, remove that beta from your requests.
 
 If an enforcement action opened before Anthropic turned on event delivery for your organization, or before you registered your endpoint, you don’t get a `user_profile.enforcement_action_opened` event for it. The action still appears on the profile. To find these actions, [list your profiles](https://platform.claude.com/docs/en/api/user_profiles/list) with `enforcement_status[]=restricted` and `enforcement_status[]=banned`. A response might return fewer profiles than `limit`, or none, before the list ends, so keep requesting pages until `next_page` is `null`.
 
 ### What an event contains
 
-Events carry IDs, not the action or the profile. `data.id` is the profile’s ID, and `data.enforcement_action_id` is the action’s ID, which starts with `enac_`:
+User profile events carry IDs, not the action or the profile. `data.id` is the profile’s ID, and `data.enforcement_action_id` is the action’s ID, which starts with `enac_`:
 
 ```json
 {
@@ -70,6 +83,84 @@ Events carry IDs, not the action or the profile. `data.id` is the profile’s ID
 To see what changed, [retrieve the profile](https://platform.claude.com/docs/en/api/user_profiles/retrieve) with `GET /v1/user_profiles/{id}` (python, ruby: `client.user_profiles.retrieve()`; typescript: `client.userProfiles.retrieve()`; go: `client.UserProfiles.Get()`; java: `client.userProfiles().retrieve()`; csharp: `client.UserProfiles.Retrieve()`; php: `$client->userProfiles->retrieve()`; cli: `ant user-profiles retrieve`), using `data.id`. Its `enforcement_actions` list shows its open actions. Each action has a `type` (`restriction` or `ban`), an `id`, a `reason`, an `opened_at` time, and an `expires_at` time or `null`. `enforcement_status` summarizes them: `banned` while a ban is open, `restricted` while any other action is open, and `unrestricted` when none is. Treat any other value as `restricted`.
 
 Anthropic sends an event only after the profile shows the change, so the profile you retrieve shows that change or a later one. Events might arrive late or out of order, so use the profile’s current state, not the order events arrive in. After `user_profile.enforcement_action_resolved`, the resolved action is no longer in the list. A `404` means the profile was deleted.
+
+## Encryption key events
+
+These events are about your organization’s [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek) (CMEK). The Admin API calls such a key an external key, so the event types start with `external_key`:
+
+| Event | Trigger |
+| ----- | ----- |
+| `external_key.failed` | Your KMS keeps refusing Anthropic’s use of a key, for example because someone disabled the key or removed Anthropic’s access to it. |
+| `external_key.recovered` | After Anthropic sends `external_key.failed`, the key works again when Anthropic uses it. |
+
+Only a real refusal starts these events. There’s no test event.
+
+When a key fails or recovers, Anthropic usually also emails the members of your organization who can manage encryption keys. The failure email names workspaces that your KMS recently refused, but it might not list all of them.
+
+The event names the key in `data.id`, which starts with `ekey_`:
+
+```json
+{
+  "type": "event",
+  "id": "whe_8c1d5e2a9f4b7036d1e8a5c2f9b40d73",
+  "created_at": "2026-11-20T09:14:07.482913Z",
+  "data": {
+    "type": "external_key.failed",
+    "id": "ekey_011CZkZFr7KpXc4nMgSvQh3w",
+    "organization_id": "org_011CZkZBj9RsYd3wNcHvKq6t"
+  }
+}
+```
+
+* **Time:** `created_at` is when Anthropic first tried to send the event, not when the key failed or recovered. It can include fractional seconds.
+* **Workspaces:** The event doesn’t name a workspace, because several can use one key.
+
+### Respond to an encryption key event
+
+After you return `2xx` for either event, [validate the key](https://platform.claude.com/docs/en/api/organization/external_keys/validate) with `POST /v1/organizations/external_keys/{external_key_id}/validate`. Use `data.id` as the ID, and an Admin API key or an `org:admin` token. What you do next depends on the `status` in the response:
+
+* **`failure`, and the `error` message says to try again:** Do what it says, and validate again.
+* **`failure`, with any other message:** Find the fix in [Troubleshoot CMEK](https://platform.claude.com/docs/en/manage-claude/cmek-troubleshooting).
+* **`success`:** Check each workspace that uses the key, because validation tests one at most. Your KMS might refuse others, as with an [AWS key policy that lists workspaces](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms-workspaces).
+
+To check the workspaces:
+
+1. [List your workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) with `include_default=true`.
+2. Find those with the key’s ID in `external_key_id`.
+3. Send a Messages API request in each one, with an API key that can act in that workspace.
+
+| Result of the request | What it means for the workspace |
+| ----- | ----- |
+| [`cmek_key_disabled`](https://platform.claude.com/docs/en/manage-claude/cmek-troubleshooting#cmek-key-disabled) or [`cmek_key_network_blocked`](https://platform.claude.com/docs/en/manage-claude/cmek-troubleshooting#cmek-key-network-blocked) error | Your KMS refuses Anthropic. |
+| [`cmek_key_unreachable`](https://platform.claude.com/docs/en/manage-claude/cmek-troubleshooting#cmek-key-unreachable) error | Anthropic can’t reach your KMS. |
+| Success | The key works, or it stopped working less than an hour ago. |
+
+[Requests can succeed for up to 1 hour](https://platform.claude.com/docs/en/manage-claude/cmek-key-lifecycle#what-each-action-does) after a key stops working, so if a request succeeds, send it again an hour after `external_key.failed`. An error can last a few minutes after a fix.
+
+After a fix, repeat these checks. Don’t wait for `external_key.recovered`, which might not arrive.
+
+### When encryption key events arrive
+
+If each workspace that uses the key gets about one Messages API request a minute, the events usually arrive at these times. With less traffic, they take longer:
+
+* **`external_key.failed`:** Within 30 minutes of someone disabling the key or removing Anthropic’s access to it. Requests might still succeed when it arrives.
+* **`external_key.recovered`:** About 30 minutes after the key works again.
+
+### When an encryption key event might not arrive
+
+Don’t make these events your only signal. Also, alert on the three `cmek_key` errors from the Messages API, and [catch up on missed events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#catch-up-on-missed-events) at a regular interval.
+
+In these cases, you might miss one or both events:
+
+| Case | What you might miss |
+| ----- | ----- |
+| No request uses the key | `external_key.failed`, because Anthropic sees a refusal only when a request uses the key |
+| No request uses the key within about a day of the last refusal | `external_key.recovered`, because Anthropic stops waiting for a success |
+| Your KMS has an outage or times out | Both events, because an outage isn’t a refusal |
+| Keys at several organizations start to fail at about the same time | Both events and the emails, because the cause might be Anthropic or a cloud provider |
+| [Your Default Workspace’s key](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#if-your-default-workspace-uses-an-encryption-key) fails, and it encrypts a value of your endpoint | Every event until the key works again, including its own `external_key.failed` |
+
+Because you can miss either event, you might receive `external_key.failed` twice in a row, or `external_key.recovered` with no `external_key.failed` before it.
 
 ## Endpoint fields
 
@@ -115,7 +206,7 @@ Return any `2xx` status within 5 seconds, and do slow work afterward. Any other 
 
 * **Duplicates:** An endpoint might receive the same event more than once, with the same event `id` (the same value as the `webhook-id` header). Deduplicate on it.
 
-* **Retries:** If a delivery fails, Anthropic retries it a few times over the next few minutes. If every attempt fails, Anthropic drops the event. To catch up, list your profiles by enforcement status, as in [Before your first event](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#before-your-first-event).
+* **Retries:** If a delivery fails, Anthropic retries it a few times over the next few minutes. If every attempt fails, Anthropic drops the event, so even a short outage of your endpoint can lose events.
 
 * **Automatic disabling:** Anthropic disables an endpoint when:
 
@@ -124,6 +215,19 @@ Return any `2xx` status within 5 seconds, and do slow work afterward. Any other 
   * Its deliveries keep failing.
 
   Anthropic skips events for a disabled endpoint and doesn’t send them later.
+
+### Catch up on missed events
+
+Anthropic doesn’t tell you when it drops an event, disables an endpoint, or skips an event for a disabled endpoint. Catch up at a regular interval, such as once a day, and at these times:
+
+* When you first add event types to an endpoint
+* After an outage of your endpoint
+* After you turn an endpoint back on
+
+Each time, check that your endpoint’s `state` is `enabled`. Then, check the resources behind each group of events that you use:
+
+* **User profiles:** List your profiles by enforcement status, as in [Before your first event](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#before-your-first-event). A profile that’s missing from those lists has no open action.
+* **Encryption keys:** [List your keys](https://platform.claude.com/docs/en/api/organization/external_keys/list), and [validate each one](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#respond-to-an-encryption-key-event). If you received no event for the key, a `success` needs no more checks unless Messages API requests fail.
 
 ## Manage endpoints
 
@@ -244,7 +348,7 @@ With no endpoints, the API returns an empty list:
 
 A list returns up to 20 endpoints by default. Set `limit` to get up to 100. If `has_more` is `true`, pass the response’s `last_id` as `after_id` to get the next page.
 
-This example creates an endpoint that receives both event types:
+This example creates an endpoint for the two user profile events, which Anthropic doesn’t send. To receive other events, such as `external_key.failed` and `external_key.recovered`, list their types in `enabled_events` instead:
 
 <CodeGroup>
   ```bash cURL
@@ -390,15 +494,42 @@ This example creates an endpoint that receives both event types:
 
 The response is the new endpoint, as shown in [Endpoint fields](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#endpoint-fields), plus its `signing_secret`.
 
+If you have the `admin` organization role, you can instead manage endpoints for encryption key events in the Claude Console. Use the **Organization** tab of the [Webhooks](https://platform.claude.com/settings/webhooks) page, which shows the signing secret once, when you create an endpoint or replace its secret.
+
+## If your Default Workspace uses an encryption key
+
+Anthropic stores your organization’s endpoints in your [Default Workspace](https://platform.claude.com/docs/en/manage-claude/workspaces#how-workspaces-work). If that workspace uses a [customer-managed encryption key](https://platform.claude.com/docs/en/manage-claude/cmek), Anthropic encrypts these values with the key:
+
+| Value | Requests that encrypt it |
+| ----- | ----- |
+| `name` and `description` | Create the endpoint, or send any update to it |
+| Signing secret | Create the endpoint, or replace the secret |
+
+Anthropic doesn’t encrypt other fields, such as `url`, with your key.
+
+On an endpoint created before [your key takes effect](https://platform.claude.com/docs/en/manage-claude/cmek-how-it-works#when-your-key-takes-effect), each value stays under Anthropic’s key until one of those requests encrypts it. No field shows which key protects a value. To move an endpoint’s values under your key, update the endpoint and replace its secret.
+
+Once your key encrypts any value of an endpoint, the endpoint depends on the key. While Anthropic can’t use the key, deliveries and requests that need it fail. Requests usually return a `500` error:
+
+| What fails | For which endpoints |
+| ----- | ----- |
+| Deliveries of every event type | Those that depend on the key |
+| Get and delete requests | Those that depend on the key |
+| List requests | All, if any endpoint depends on the key |
+| Create, update, and replace-secret requests | Usually all |
+
+Anthropic drops the events that it can’t deliver, and doesn’t send them later. The endpoints stay enabled, and deliveries resume once Anthropic can use the key. Then, [catch up on missed events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#catch-up-on-missed-events).
+
+If you delete the key in your KMS, all of these failures are permanent, and you can’t create another endpoint. For what else stops Anthropic from using a key, see [What happens when you rotate, disable, or delete your encryption key](https://platform.claude.com/docs/en/manage-claude/cmek-key-lifecycle).
+
 ## Errors
 
 A request returns a `400` if:
 
 * Its `url` doesn’t meet the rules in [Endpoint fields](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#endpoint-fields), or a create request lists no event types. The error message says what’s wrong.
-* Your organization has no default workspace.
-* Organization webhooks aren’t available for your organization because its default workspace uses a [customer-managed encryption key](https://platform.claude.com/docs/en/manage-claude/cmek). The error message says so.
+* Your organization has no Default Workspace.
 * It would give your organization more than 32 organization webhook endpoints.
-* It puts an event type other than the two in [Event types](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#event-types) in `enabled_events`. The error message lists the accepted types.
+* Its `enabled_events` includes an event type that organization webhook endpoints don’t accept. The error message lists the accepted types.
 
 A request returns a `403` if your account’s role doesn’t include the permission the request needs. The error names that permission.
 

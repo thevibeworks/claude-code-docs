@@ -185,7 +185,7 @@ The portal doesn’t send the end customer back to your product, and Anthropic d
 
 Linking doesn’t approve anything by itself. It connects the profile to the end customer’s organization, so that programs the organization is approved for apply to requests that carry the profile’s ID, except Cyber Verification Program access levels, which the end customer turns on for each linked profile in the portal. The profile has no field that says it is linked.
 
-To see which programs apply to a profile, [retrieve the profile](https://platform.claude.com/docs/en/api/user_profiles/retrieve) and read `programs`. It has a key for each program, such as `cyber` and `efs`, and every profile has every key. Each key is one of the following:
+To see which programs apply to a profile, [retrieve the profile](https://platform.claude.com/docs/en/api/user_profiles/retrieve) and read `programs`. It has a key for each program, such as `cyber`, and every profile has every key. Each key is one of the following:
 
 * `null`: Anthropic has no status to report for that program. Every key is `null` if Anthropic hasn’t enabled programs for your organization.
 * An object: Its `status` is `active` when the program applies to the profile, otherwise `pending` or `rejected`.
