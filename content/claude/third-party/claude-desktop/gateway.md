@@ -61,23 +61,31 @@ If you manage this configuration from the Enterprise Admin Console, and develope
 
 **2. Configure your gateway to validate the token**
 
-Tell your gateway to accept the bearer token only if it was issued by your tenant **for this application**. In LiteLLM that looks like:
+Tell your gateway to accept the bearer token only if it was issued by your tenant **for this application**.
+
+In LiteLLM, this setup requires a LiteLLM Enterprise license, a database, and a master key. For the full configuration, see LiteLLM's [JWT-based Auth](https://docs.litellm.ai/docs/proxy/token_auth) guide. Merge these settings into your LiteLLM `config.yaml`:
 
 ```yaml theme={null}
+environment_variables:
+  JWT_PUBLIC_KEY_URL: https://login.microsoftonline.com/YOUR_TENANT_ID/discovery/v2.0/keys
+  JWT_AUDIENCE: YOUR_CLIENT_ID
+  JWT_ISSUER: https://login.microsoftonline.com/YOUR_TENANT_ID/v2.0
+
 general_settings:
+  enable_jwt_auth: true
   litellm_jwtauth:
-    public_key_url: https://login.microsoftonline.com/YOUR_TENANT_ID/discovery/v2.0/keys
-    audience: YOUR_CLIENT_ID
     user_id_jwt_field: oid
 ```
 
-Replace `YOUR_TENANT_ID` and `YOUR_CLIENT_ID` with the values from step 1.
+Replace `YOUR_TENANT_ID` and `YOUR_CLIENT_ID` with the values from step 1. Set `JWT_ISSUER` to the `iss` claim of the token your gateway receives. By default the app sends an ID token, and its `iss` is the **Issuer URL** you enter in the next step.
+
+LiteLLM rejects a user who has no LiteLLM user record. Create each record with the user's `oid` value as its user ID. To create records automatically at first sign-in, see [Map users at the gateway](#map-users-at-the-gateway).
 
 > [!WARNING]
 >
-> The `audience` line is required. Without it, your gateway accepts tokens issued to any application in your tenant, not just this one.
+> The `JWT_AUDIENCE` line is required. Without it, your gateway accepts tokens issued to any application in your tenant, not just this one.
 
-For Kong, Envoy, or Azure API Management, configure the equivalent JWT validation policy with the same JWKS URL and audience.
+For Kong, Envoy, or Azure API Management, configure the equivalent JWT validation policy with the same JWKS URL, audience, and issuer.
 
 **3. Configure in the app**
 
@@ -113,7 +121,7 @@ The [second redirect URI for Claude Code in the terminal](https://claude.com/doc
 >
 > Use the **issuer** value, not the **Metadata URI**. Okta's admin console shows the metadata URI (ending in `/.well-known/openid-configuration`) prominently — that is the discovery document the app fetches *from* the issuer, not the issuer itself. If you are unsure, open the metadata URI in a browser and copy the `"issuer"` field from the JSON response. For a custom Okta authorization server the issuer is `https://YOUR_ORG.okta.com/oauth2/AUTH_SERVER_ID`.
 
-Point your gateway's JWT validation at `https://YOUR_ORG.okta.com/oauth2/v1/keys` with `audience` set to the Okta client ID.
+Point your gateway's JWT validation at `https://YOUR_ORG.okta.com/oauth2/v1/keys`, or for a custom authorization server, at the `jwks_uri` value from its metadata document. Set the audience to the Okta client ID and the issuer to your **Issuer URL**. In LiteLLM, also set `user_id_jwt_field` to `sub`.
 
 #### Map users at the gateway
 
@@ -126,14 +134,17 @@ Key the gateway's user record on the provider's immutable user ID rather than em
 | Entra ID | `oid` |
 | Okta and most other OIDC providers | `sub` |
 
-If your gateway has no existing user records to preserve, the simplest setup is to auto-provision on first sign-in. For LiteLLM, extend the validation block from step 2:
+If your gateway has no existing user records to preserve, the simplest setup is to auto-provision on first sign-in. For LiteLLM, add `user_email_jwt_field` and `user_id_upsert` to the validation block from step 2. With the values from [Using Okta instead](#using-okta-instead), the block looks like this:
 
 ```yaml theme={null}
+environment_variables:
+  JWT_PUBLIC_KEY_URL: https://YOUR_ORG.okta.com/oauth2/v1/keys
+  JWT_AUDIENCE: YOUR_CLIENT_ID
+  JWT_ISSUER: https://YOUR_ORG.okta.com
+
 general_settings:
   enable_jwt_auth: true
   litellm_jwtauth:
-    public_key_url: https://YOUR_ORG.okta.com/oauth2/v1/keys
-    audience: YOUR_CLIENT_ID
     user_id_jwt_field: sub          # use "oid" for Entra ID
     user_email_jwt_field: email
     user_id_upsert: true

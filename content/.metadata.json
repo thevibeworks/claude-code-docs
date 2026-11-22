@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-22T07:46:01.449127Z",
+    "fetch_date": "2026-11-22T18:09:00.598088Z",
     "section": "all"
   },
   "items": [
@@ -12686,8 +12686,8 @@
       "url": "https://support.claude.com/en/articles/15520349-use-claude-cowork-on-web-desktop-and-mobile",
       "status": "success",
       "path": "support/15520349-use-claude-cowork-on-web-desktop-and-mobile.md",
-      "sha256": "89cbf097e9de79be34737321d4640746b8e333326a1a3c72568419907dcc306f",
-      "size": 11160
+      "sha256": "fe3b32d4337d8c335293a040e5057418085b49951a3702038310e3b5089e01c3",
+      "size": 11098
     },
     {
       "url": "https://support.claude.com/en/articles/15537633-auto-connect-your-organization-s-apps-to-claude",
@@ -15185,8 +15185,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/gateway",
       "status": "success",
       "path": "claude/third-party/claude-desktop/gateway.md",
-      "sha256": "335068417261290dfa9296ce25472cce7e58f3323f955e851cc6d9a977ab3d76",
-      "size": 77679
+      "sha256": "01b4f8594cb2b7668971099567bd68b02c30ba07f685bf624f8a3b1f49f0633b",
+      "size": 78826
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/import",
