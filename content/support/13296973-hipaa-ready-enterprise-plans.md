@@ -50,7 +50,7 @@ Eligible Enterprise organizations can enable HIPAA directly from organization se
 
 ### Eligibility
 
-You can enable HIPAA from organization settings if your organization is on an Enterprise plan. Team plans and individual plans (Free, Pro, Max, and Ultra) can't enable HIPAA.
+Your organization must be on an Enterprise plan to enable HIPAA. Some Enterprise organizations can't enable HIPAA from organization settings. If you're the Primary Owner and “Enable” is grayed out, hover over it to see what to do next. If it says to contact Anthropic Support, reach out to request HIPAA. It isn't enabled until you see the checkmark described under Confirmation. Team plans and individual plans (Free, Pro, Max, and Ultra) can't enable HIPAA.
 
 Only the **Primary Owner** of the organization can accept the BAA and enable HIPAA. Other Owners or Admins can't complete this flow on the org's behalf. If you're an admin but not the Primary Owner of the Enterprise organization, ask your Primary Owner to sign in and complete enablement.
 
@@ -72,7 +72,7 @@ You must review the BAA and the Implementation Guide before accepting, as this i
 
 2. Go to **HIPAA Compliance.**
 
-3. Click “Enable” to open the consent flow.
+3. Click “Enable” to open the consent flow. If “Enable” is grayed out, see Eligibility.
 
 4. Download the Business Associate Agreement, review it, then click “Next.”
 

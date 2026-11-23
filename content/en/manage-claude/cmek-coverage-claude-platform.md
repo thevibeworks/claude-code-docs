@@ -25,10 +25,10 @@ This list is not exhaustive. Review it with your team before you set up CMEK.
 
 | Feature | What changes |
 | ----- | ----- |
-| Playground in the Claude Console | Turned off. |
+| Playground in the Claude Console | **History** and **Share** are turned off in a workspace that uses your key. New prompts and responses aren’t saved in the browser. |
 | Structured outputs, including `strict: true` on tools, with Claude Fable or Claude Mythos models | Turned off in CMEK organizations. With other models, data that structured outputs store at rest is [encrypted with your key](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-platform#encrypted-with-your-key). |
 | [Organization webhooks](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#if-your-default-workspace-uses-an-encryption-key) (beta) | Stay available on the Claude API. While Anthropic can’t use your Default Workspace’s key, organization webhook endpoints that depend on the key lose their events. |
-| Zero data retention (ZDR) | A workspace with your key retains data. See [CMEK, data retention, and ZDR](https://platform.claude.com/docs/en/manage-claude/cmek-data-retention). |
+| Zero data retention (ZDR) | You can attach a key only to a workspace with **Standard data retention** (30 days) or one that uses [Enterprise Frontier Safeguards](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/overview) (beta). See [CMEK, data retention, and ZDR](https://platform.claude.com/docs/en/manage-claude/cmek-data-retention). |
 
 ## Encrypted with Anthropic’s key
 

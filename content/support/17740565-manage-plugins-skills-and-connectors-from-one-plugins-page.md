@@ -2,7 +2,7 @@
 
 Plugins, skills, and connectors are coming together in one Plugins experience. This article explains what's changing, which accounts are affected, and what you need to do. Most organizations don't need to do anything.
 
-This change reaches Enterprise plans on November 30, 2026. Free, Pro, Max, Ultra, and Team plans start rolling out on October 29.
+This change starts rolling out to Team plans on November 30, 2026, and reaches Enterprise plans in the following weeks. Free, Pro, Max, and Ultra plans have it now.
 
 ## What's changing
 
@@ -15,6 +15,8 @@ You'll find, add, and manage plugins, skills, and connectors from one place. In 
 - **Your plugins first:** **Your plugins** appear above the plugins you can browse. It includes plugins from your organization and plugins shared with you.
 
 - **Quick filters:** You can narrow the list to skills or connectors. Each card shows which type it is.
+
+- **Categories:** Browse plugins by topic, department, industry, or everyday life.
 
 - **One detail page:** Plugins and connectors open on the same page layout.
 
@@ -34,14 +36,15 @@ Your existing connectors, skills, and plugins stay installed. Removing a plugin 
 
 ## Which accounts are affected
 
-The timing depends on your plan.
+The timing depends on your plan. The new Plugins page is available on the web and in the Claude Desktop app.
 
-| **Plan**                              | **When the change reaches you**                                            |
-| ------------------------------------- | -------------------------------------------------------------------------- |
-| Free, Pro, Max, Ultra, and Team plans | Rolling out gradually starting October 29, generally available November 9. |
-| Enterprise plan                       | On by default starting November 30                                         |
+| **Plan**                        | **When the change reaches you**                |
+| ------------------------------- | ---------------------------------------------- |
+| Free, Pro, Max, and Ultra plans | Available now                                  |
+| Team plans                      | Rolling out gradually starting November 30     |
+| Enterprise plans                | On by default, rolling out in the coming weeks |
 
-The Skills-off rule applies to Team and Enterprise plans starting November 30.
+The change to the Skills-off rule applies to Team and Enterprise plans starting November 30.
 
 ## What you need to do
 

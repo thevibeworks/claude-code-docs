@@ -661,6 +661,26 @@ signature is missing or invalid.
 
       - `String organizationId`
 
+    - `class BetaWebhookExternalStorageFailedEventData`
+
+      - `JsonValue type = "external_storage.failed"`
+
+      - `String id`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `String organizationId`
+
+    - `class BetaWebhookExternalStorageRecoveredEventData`
+
+      - `JsonValue type = "external_storage.recovered"`
+
+      - `String id`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `String organizationId`
+
 ## Example
 
 ```java

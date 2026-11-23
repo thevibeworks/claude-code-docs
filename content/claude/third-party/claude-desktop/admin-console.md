@@ -279,7 +279,7 @@ Open Claude Desktop and sign in on the standard sign-in screen with your work em
 
 **2. Restart when prompted**
 
-The app shows a dialog titled with your organization's name that reads "Your organization's Claude settings have changed. Restart to apply them." You can't dismiss the dialog. Click **Restart**, and the app relaunches in third-party mode with your configuration. An account that also belongs to another Claude organization sees a **Switch and restart** prompt instead, as described under [Users in more than one Claude organization](#users-in-more-than-one-claude-organization).
+The app shows a dialog titled with your organization's name that reads "Your organization's Claude settings have changed. Restart to apply them." You can't dismiss the dialog. Click **Restart**, and the app relaunches in third-party mode with your configuration. An account that also belongs to an organization that doesn't use the admin console sees a **Switch and restart** prompt instead, as described under [Users in more than one Claude organization](#users-in-more-than-one-claude-organization).
 
 **3. Sign in to the inference provider**
 
@@ -307,9 +307,15 @@ Without device management, you can [block other accounts in Claude Desktop](#blo
 
 ### Users in more than one Claude organization
 
-A user's Claude account can belong to your deployment's organization and to other Claude organizations, and the user can move between them in Claude Desktop. When such a user signs in, the app opens in their other organization and asks whether to switch to yours, with **Switch and restart** and **Not now** buttons. A user who chooses **Not now** or presses Esc isn't asked again on that device and can switch later by choosing your organization from the account menu. Each move into or out of your organization restarts the app, because third-party mode runs as a separate app configuration. To go back, the user chooses **Sign out** and signs in to Claude again after the restart. They can instead pick their other organization from the account menu, which also restarts the app and asks them to sign in.
+A user's Claude account can belong to your deployment's organization and to other Claude organizations, and the user can move between them in Claude Desktop. If a user also belongs to an organization that doesn't use the admin console, the app opens there when they sign in. It asks whether to switch to yours, with **Switch and restart** and **Not now** buttons. A user who chooses **Not now** or presses Esc isn't asked again on that device and can switch later by choosing your organization from the account menu. Switching from that organization to yours doesn't ask the user to sign in to Claude again.
 
-To remove **Not now**, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. Members who also belong to another organization then get the prompt the next time Claude Desktop starts or they sign in, and they can't dismiss it. While they are in your organization, the account menu lists another of their organizations only if that organization has the same setting on. Browsers are not affected.
+Users who move between organizations see the following:
+
+* **Restart**: each move into or out of your organization restarts the app, because third-party mode runs as a separate app configuration.
+* **Leaving your organization**: the user chooses **Sign out** and signs in to Claude again after the restart. They can instead pick another organization from the account menu, which also restarts the app and asks them to sign in to Claude. If that organization also uses the admin console, the app restarts again after the sign-in and opens it.
+* **Provider sign-in**: if users [sign in to your inference provider](#choose-how-users-authenticate-to-your-provider) in the app, choosing **Sign out** or another organization ends that sign-in. They sign in to the provider again each time they return to your organization, even if both organizations use the same provider. Quitting and reopening the app doesn't end the sign-in by itself.
+
+To remove **Not now**, turn on **Require this organization in Claude Desktop** under **Desktop sign-in** on the **Connection** page. The prompt then appears the next time Claude Desktop starts or the user signs in, and the user can't dismiss it. While they are in your organization, the account menu lists another of their organizations only if that organization has the same setting on. Browsers are not affected.
 
 On a device whose managed profile sets an inference provider or bootstrap keys, no prompt appears while the app is open on the profile's configuration. If the profile is complete, this setting doesn't remove the profile from the prompt, as described under [Devices with a managed profile](#devices-with-a-managed-profile).
 
@@ -353,6 +359,8 @@ With the [block](#block-other-accounts-in-claude-desktop) on, people can see the
 * **"Restricted by your admin"**: an organization that isn't allowed is unavailable in the menus that list organizations. Its tooltip starts with these words.
 * **"Couldn't switch to the required organization"**: the person's account was signed in to an organization that isn't allowed, and the app couldn't move it to an allowed organization that the account belongs to. The app tries again on its own. While the app tries, the page reads "Waiting to switch to the required organization". The person can also quit Claude Desktop and open it again, or log out and sign in again.
 * **"Organization not allowed on this computer"**: a Code session or a Cowork task tried to start in an organization that isn't allowed. On Claude Desktop 4.23118.0 and later versions before 6.6395.0, the app shows the general sign-in message "Couldn't verify your sign-in".
+
+While Claude Desktop runs on your configuration, people don't see these messages. Instead, the account menu leaves out their other organizations that aren't allowed. With your block on, the menu lists an allowed organization only if that organization has the [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization) switch on in its admin console.
 
 To allow an organization, add its ID to the **Allowed organizations** list under **Desktop sign-in** on the **Connection** page. Devices get the new list as described under [When devices get a change to the block](#when-devices-get-a-change-to-the-block).
 
@@ -553,7 +561,7 @@ If the value lists only other IDs, or the app can't read it, the app uses only t
 
 > [!WARNING]
 >
-> On a device that uses the admin console, adding one of these keys to a profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) changes which settings apply. See [Which settings apply on a device with a managed profile](#which-settings-apply-on-a-device-with-a-managed-profile). With `deploymentMode` set to `3p` or `1p`, or `disableDeploymentModeChooser` set to `true`, the profile becomes the device's whole configuration, and the device stops using the admin console. To require members who also belong to another organization to switch to yours, leave such a profile as it is and turn on [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization).
+> On a device that uses the admin console, adding one of these keys to a profile that sets only [app-behavior keys](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence) changes which settings apply. See [Which settings apply on a device with a managed profile](#which-settings-apply-on-a-device-with-a-managed-profile). With `deploymentMode` set to `3p` or `1p`, or `disableDeploymentModeChooser` set to `true`, the profile becomes the device's whole configuration, and the device stops using the admin console. To keep users from dismissing the **Switch and restart** prompt, leave such a profile as it is and turn on [**Require this organization in Claude Desktop**](#users-in-more-than-one-claude-organization).
 
 ## Remove users or return to MDM
 

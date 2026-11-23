@@ -113,3 +113,9 @@ In the updated Settings layout, your recap is under **Settings > Wellbeing**.
 ### Why does a percentage or stat look off?
 
 Claude generates your recap's summary and topic breakdown from your chat history, so occasional inaccuracies can occur in the proportions or the narrative summary. Use the thumbs feedback on the page to let us know if something looks wrong. If you use more than one Claude account, each account’s recap covers that account only.
+
+### Is my recap in my data export?
+
+Your saved recaps are included, even those that the Reflect page doesn't show, for example with memory off, or from earlier months. Any other recap that the app hides isn't included, for example because a chat that the recap used was deleted, or a newer recap for the same months replaced it. In some cases, a recap of a deleted chat can stay stored for longer, and may appear in your data export until it's removed. For some accounts, a recap that uses Claude Code sessions or Cowork tasks isn't saved, so it isn't included.
+
+Data exports don't include the record of the time you have Claude open, the list of chats that a recap used, or your break reminder and quiet hours settings. You can export your data on the web or Claude Desktop.

@@ -64,7 +64,7 @@ Unknown query parameter: 'created_at[gte]'. Did you mean 'created_at.gte'?
 
 **Cause:** The request included a query parameter that the endpoint does not define; the Compliance API rejects unrecognized parameters rather than ignoring them. The message names the parameter and, for near misses such as bracket notation in place of a dot or a missing `[]` suffix, suggests the defined name.
 
-**Fix:** Use the parameter names shown on the endpoint’s [Compliance API reference](https://platform.claude.com/docs/en/api/compliance) page. Range filters use dot notation (for example, `created_at.gte`), array filters take a `[]` suffix (for example, `activity_types[]`), and the pagination parameters are `after_id`, `before_id`, or `page`, depending on the endpoint.
+**Fix:** Use the parameter names shown on the endpoint’s [Compliance API reference](https://platform.claude.com/docs/en/api/compliance) page. Range filters use dot notation (for example, `created_at.gte`), array filters take a `[]` suffix (for example, `activity_types[]`), and the pagination parameters are `after_id`, `before_id`, or `page`, depending on the endpoint. The [Safety Cases API](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/safety-cases-api) is the exception: its range filters use brackets (for example, `updated_at[gte]`).
 
 ### Invalid parameter value
 
@@ -196,7 +196,7 @@ API key has expired.
 
 The key in `x-api-key` is valid but does not carry a scope the endpoint accepts. The verbatim message lists the scopes the key carries (`Got:`) and the scopes the endpoint accepts (`Needed one of:` on read endpoints, where any one listed scope is sufficient, or `Needed:` on delete endpoints), so you can confirm what the key carries without rechecking Claude Console or claude.ai. On read endpoints, the accepted list also includes `read:org_audit`, a read-only audit scope that covers every Compliance API read endpoint; see [Choose scopes for a Claude Enterprise key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys#choose-scopes-for-a-claude-enterprise-key). Compliance Access Key scopes are immutable after creation, so each insufficient-scope fix directs you to create a new key rather than edit the existing one.
 
-A standalone Claude Console organization (one with no parent organization) cannot create a Compliance Access Key, so fixes that require one do not apply to it; it can query the Activity Feed only.
+A standalone Claude Console organization (one with no parent organization) cannot create a Compliance Access Key, so fixes that require one do not apply to it; it can query the Activity Feed. An Admin API key that you create while the [Safety Cases API](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/safety-cases-api#get-access) is available to your organization also reaches that API. Any other Admin API key gets a 403 error from that API. If that API is available to your organization, create another [Admin API key](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#create-an-admin-api-key).
 
 ### Insufficient scope: Activity Feed
 
@@ -224,7 +224,7 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed one of: ['rea
 **Cause:** A key without `read:compliance_org_data` was used to call an organizations, roles, groups, or effective-settings endpoint, or the Security posture endpoint. There are two common paths to this error:
 
 * A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_org_data` scope.
-* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot read organization metadata.
+* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys cannot read organization metadata.
 
 **Fix:** [Create a new Compliance Access Key](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) with `read:compliance_org_data` selected. Admin API keys cannot read organization metadata; the Compliance Access Key is required.
 
@@ -251,7 +251,7 @@ Missing required scopes. Got: ['read:compliance_activities'] Needed one of: ['re
 **Cause:** A key without `read:compliance_user_data` was used to call a chats, messages, files, projects, sessions, organization users, or group-members endpoint. There are two common paths to this error:
 
 * A Compliance Access Key (`sk-ant-api01-...`) was created without the `read:compliance_user_data` scope.
-* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot be granted `read:compliance_user_data`, so they cannot call the chat, file, project, project attachment, session, user, or group-member endpoints.
+* A Claude Console Admin API key (`sk-ant-admin01-...`) was used. Admin API keys carry only `read:compliance_activities` and cannot be granted `read:compliance_user_data`, so they cannot call the chat, file, project, project attachment, session, user, or group-member endpoints. The exception is the scopes of the [Safety Cases API](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/safety-cases-api#get-access): an Admin API key that you create while that API is available to your organization also carries them.
 
 **Fix:** Use a [Compliance Access Key](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) created in claude.ai with `read:compliance_user_data` selected. If the request really should be Activity Feed only, point the Admin API key at `GET /v1/compliance/activities` instead.
 

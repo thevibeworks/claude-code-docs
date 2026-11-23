@@ -1251,6 +1251,8 @@ Create Session
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -2787,6 +2789,8 @@ List Sessions
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -4243,6 +4247,8 @@ Get Session
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -6279,6 +6285,8 @@ Update Session
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -7730,6 +7738,8 @@ Delete Session
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -7920,6 +7930,8 @@ Archive Session
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -19766,6 +19778,8 @@ List Events
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -23318,6 +23332,8 @@ Send Events
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -23966,6 +23982,8 @@ Stream Events
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -27209,6 +27227,8 @@ Add Session Resource
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -27431,6 +27451,8 @@ List Session Resources
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -27744,6 +27766,8 @@ Get Session Resource
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -28054,6 +28078,8 @@ Update Session Resource
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -28359,6 +28385,8 @@ Delete Session Resource
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -28578,6 +28606,8 @@ List Session Threads
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -29676,6 +29706,8 @@ Get Session Thread
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -30770,6 +30802,8 @@ Archive Session Thread
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -31873,6 +31907,8 @@ List Session Thread Events
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 
@@ -35076,6 +35112,8 @@ Stream Session Thread Events
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 

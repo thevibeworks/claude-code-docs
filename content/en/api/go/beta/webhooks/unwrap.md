@@ -655,6 +655,26 @@ signature is missing or invalid.
 
       - `OrganizationID string`
 
+    - `type BetaWebhookExternalStorageFailedEventData`
+
+      - `Type ExternalStorageFailed`
+
+      - `ID string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `OrganizationID string`
+
+    - `type BetaWebhookExternalStorageRecoveredEventData`
+
+      - `Type ExternalStorageRecovered`
+
+      - `ID string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `OrganizationID string`
+
 ## Example
 
 ```go

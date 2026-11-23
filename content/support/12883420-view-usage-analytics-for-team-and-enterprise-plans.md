@@ -294,17 +294,39 @@ Navigate to **[Analytics > Surveys](https://claude.ai/analytics/surveys)** to as
 
 ## View your own usage as a member
 
-On Enterprise plans with usage-based billing, when your admin turns on individual usage analytics, any member of the organization can see their own usage broken down by product, model, and skill, along with where they stand against any spend limits set for them. Individual usage analytics are available in **[Settings > Usage](https://claude.ai/settings/usage)**.
+If you’re on a usage-based seat on an Enterprise plan, you can go to **[Settings > Usage](https://claude.ai/settings/usage)** in Claude on the web or Claude Desktop to see your own usage. This page shows only your own usage.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533906328/1f5cd0a57def40676410f8f379b4/member-usage-30d-model.png)
+Your organization's admins may also see your usage in analytics and spend reports. Seeing your usage doesn’t change your limits, plan, or billing.
+
+**Settings > Usage** shows:
+
+- Your spend this month, any monthly spend limit set for you, and when it resets
+
+- An hourly view of when you used Claude this week and, if you also used Claude last week, how the two weeks compare
+
+- Your share of requests by product and by model this month
+
+- Your skills ranked by estimated spend
+
+- Your daily spend by product
+
+- The devices signed in to your account (you can sign out of other browsers and apps listed there)
+
+Spend this month and daily spend show your usage as it counts toward your spend limit. They aren’t billed amounts and can differ from your organization’s invoice.
+
+**Note:** Recent usage can take a few hours to appear in the hourly view. The "Spend by skill" section shows the current month through yesterday, and its costs are estimates, not what your organization is billed. Spend by skill and daily spend appear only for organizations on usage-based billing. If your organization has turned off **Member analytics**, you won’t see the hourly view or the breakdowns.
+
+**Note:** This view is for usage-based seats. Seat-based users and users in organizations with FERPA or HIPAA protections see a different **Settings > Usage** page.
 
 ---
 
 ## Turn individual usage analytics on or off
 
-**Note:** Individual usage analytics is available to Enterprise organizations on usage-based billing. The **Member analytics** toggle does not appear for Team plan organizations or for seat-based Enterprise organizations.
+**Note:** The **Member analytics** toggle is available to Enterprise organizations on usage-based billing. It doesn’t appear for Team plan organizations or for seat-based Enterprise organizations.
 
-Owners and Primary Owners control whether members can see this view. The setting applies to the whole organization.
+Owners, Primary Owners, and custom roles with the Billing permission set to "Can manage" can use the Member analytics toggle to control whether members see the hourly view and usage breakdowns in **Settings > Usage**. The setting applies to the whole organization.
+
+To turn individual usage analytics on or off:
 
 1. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
 
@@ -312,7 +334,9 @@ Owners and Primary Owners control whether members can see this view. The setting
 
 3. Switch it on or off.
 
-**Note:** Individual usage analytics is default on since July 11, 2026. If you want to keep member-level visibility off, change the setting.
+When it’s off, users no longer see the hourly view, the comparison with last week, their daily spend, or which products, models, and skills they use. They still see their spend this month, any spend limits, and their signed-in devices.
+
+**Note:** **Member analytics** has been on by default since July 11, 2026. To keep users from seeing these breakdowns, turn the setting off.
 
 ---
 
@@ -320,4 +344,4 @@ Owners and Primary Owners control whether members can see this view. The setting
 
 If you’re on an Enterprise plan and want to pull analytics data into your own dashboards or reporting tools, the Analytics API gives you programmatic access to the same usage and engagement metrics available in the analytics dashboard. To get started, refer to our **[Analytics API docs](https://platform.claude.com/docs/en/manage-claude/analytics-api)**.
 
-**Important**: Only your organization's Primary Owner can enable the Analytics API and create Analytics API keys, from **[Organization settings > API](https://claude.ai/admin-settings/api-access)**: under **APIs**, turn on Analytics API; under **Keys**, click "+Create key" and select the `read:analytics` scope. Owners and Admins don't see the Analytics API on that page at all. That's expected, not a permissions error—ask your Primary Owner to enable it and create the key. If your organization is linked to a parent organization, the parent organization's Primary Owner does this.
+**Important**: Only your organization's Primary Owner can enable the Analytics API and create Analytics API keys, from **[Organization settings > API](https://claude.ai/admin-settings/api-access)**: under **APIs**, turn on Analytics API; under **Keys**, click "+Create key" and select the `read:analytics` scope. Owners and Admins don't see the Analytics API on that page at all. That's expected, not a permissions error—ask your Primary Owner to enable it and create the key.

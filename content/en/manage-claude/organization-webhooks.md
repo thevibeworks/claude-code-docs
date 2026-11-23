@@ -1,7 +1,7 @@
 ---
 title: Organization webhooks
 url: https://platform.claude.com/docs/en/manage-claude/organization-webhooks
-description: Register webhook endpoints for events about your organization's user profiles and customer-managed encryption keys, and respond to each event.
+description: Register webhook endpoints for events about your organization's user profiles, customer-managed encryption keys, and customer-owned storage, and respond to each event.
 featureMetadata:
   status: beta
   betaHeader: webhooks-2026-10-07
@@ -23,7 +23,7 @@ You need the following:
 
   * It has [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled: it can’t use organization webhooks.
   * It can use [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek): it has organization webhooks.
-  * Any other organization: contact your Anthropic account team to request access.
+  * Any other organization, including one that has only [customer-owned storage](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/customer-owned-storage): contact your Anthropic account team to request access.
 
 * One of these credentials:
 
@@ -42,6 +42,7 @@ An endpoint receives the event types that you list in its [`enabled_events`](htt
 
 * [User profile events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#user-profile-events): Anthropic restricts or bans one of your [user profiles](https://platform.claude.com/docs/en/manage-claude/user-profiles), or the restriction or ban ends.
 * [Encryption key events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#encryption-key-events): your key management service (KMS) keeps refusing one of your customer-managed encryption keys, or the key works again.
+* [Customer-owned storage events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#customer-owned-storage-events): one of your buckets fails Anthropic’s daily check, or passes it again.
 
 For other event types, see `enabled_events` in the [API reference for creating an endpoint](https://platform.claude.com/docs/en/api/beta/organization/webhooks/create).
 
@@ -162,6 +163,91 @@ In these cases, you might miss one or both events:
 
 Because you can miss either event, you might receive `external_key.failed` twice in a row, or `external_key.recovered` with no `external_key.failed` before it.
 
+## Customer-owned storage events
+
+These events are about the buckets that you use as [customer-owned storage](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/customer-owned-storage). The Admin API calls such a bucket External Storage, so the event types start with `external_storage`:
+
+| Event | Trigger |
+| ----- | ----- |
+| `external_storage.failed` | A bucket fails [Anthropic’s daily check](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/external-storage-manage#bucket-health). |
+| `external_storage.recovered` | After Anthropic sends `external_storage.failed`, the bucket passes a check again. |
+
+The check covers each bucket that a workspace uses for [Sealed Safety Data](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/customer-owned-storage#what-is-stored). It also covers each bucket in the [`draining` status](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/external-storage-manage?method=api#api-check), which workspaces have stopped using. Don’t rely on these events for a bucket that receives only Transcripts and Safety Cases.
+
+Only the daily check starts these events. There’s no test event.
+
+When a bucket fails or recovers, Anthropic usually also emails the members of your organization whose role lets them manage encryption keys, such as `admin`. You don’t need a key to get these emails.
+
+To receive the events, your organization needs organization webhooks, as [Before you start](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#before-you-begin) describes.
+
+The event names the bucket in `data.id`, which starts with `estrg_`:
+
+```json
+{
+  "type": "event",
+  "id": "whe_2b7e9d4c1a6f8035e2d9b6c3a0f51e84",
+  "created_at": "2026-12-02T06:41:19.305127Z",
+  "data": {
+    "type": "external_storage.failed",
+    "id": "estrg_01SDCCSbTxrXDpWc1phhtcfK",
+    "organization_id": "org_011CZkZBj9RsYd3wNcHvKq6t"
+  }
+}
+```
+
+* **Time:** `created_at` is when Anthropic first tried to send the event, not when the check ran. It can include fractional seconds.
+* **Cause and workspaces:** The event doesn’t say why the bucket failed or which workspaces use it.
+
+### Respond to a storage event
+
+After you return `2xx` for either event, [get the bucket](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/external-storage-manage?method=api#api-check) with `GET /v1/organizations/external_storage/{external_storage_id}`. Use `data.id` as the ID, and an Admin API key or an `org:admin` token. The requests in this section need the `anthropic-beta: efs-2026-10-01` header.
+
+The response isn’t a live test. `status.healthy` says whether the bucket passed the latest check that reached a result, and `status.last_checked_at` says when that check ran.
+
+If `status.healthy` is `false`:
+
+1. Tell your Anthropic account team at once, one time for each failure. Sealed Safety Data that doesn’t reach your bucket might be lost.
+2. Follow [If your bucket stops working](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/external-storage-manage#if-your-bucket-stops-working).
+3. Get the bucket again about a day after `status.last_checked_at`. If `status.healthy` is still `false`, repeat from step 2.
+
+`status.healthy` usually stays `false` until the next check passes. Don’t wait for `external_storage.recovered`, which might not arrive. If writes still work, look for a changed setting, such as [an added lifecycle rule](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/external-storage-manage#what-removes-data), which also fails the check.
+
+If `status.healthy` is `true` after a failure, tell your Anthropic account team that the bucket works again. They can then confirm whether Anthropic needs to recover data from the time it failed.
+
+To see which workspaces a failure affects:
+
+1. [List your workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) with `include_default=true`.
+2. Look for the bucket’s ID in the `external_storage_id` fields under [`inference_data_privacy`](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/external-storage?method=api#api-attach).
+
+### When storage events arrive
+
+The check runs once a day, so an event can arrive a day or more after the change in your bucket:
+
+* **`external_storage.failed`:** Usually about 15 minutes after the check that fails. While the bucket keeps failing, later checks don’t send it again.
+* **`external_storage.recovered`:** Usually within minutes of the next daily check that passes.
+
+### When a storage event might not arrive
+
+Don’t make these events your only signal. Also, [watch for objects arriving in your bucket](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/external-storage-manage#if-your-bucket-stops-working) while you send requests, and [catch up on missed events](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#catch-up-on-missed-events) at a regular interval.
+
+In these cases, you might miss one or both events:
+
+| Case | What you might miss | `status.healthy` |
+| ----- | ----- | ----- |
+| Writes fail and work again between two checks | Both events | Unchanged |
+| Only the IAM roles for Transcripts and Safety Cases fail | Both events | Might not change |
+| The check reaches no result | Both events, until a check reaches a result | Unchanged |
+| The bucket failed before you added these events to an endpoint | `external_storage.failed` | `false` |
+| Buckets at several organizations, yours included, start failing on the same day | Both events and the emails | Usually `false` |
+| [Your Default Workspace’s key](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#if-your-default-workspace-uses-an-encryption-key) fails, and it encrypts a value of your endpoint | Every event until the key works again | Up to date |
+
+Two of these cases need a check of your own:
+
+* **The IAM roles for Transcripts and Safety Cases:** The daily check can pass while they fail, so watch for those objects in your bucket.
+* **A check that reaches no result:** `status.last_checked_at` stops moving. A removed or changed IAM role can cause this, so check the roles that give Anthropic access.
+
+Because you can miss either event, you might receive `external_storage.failed` twice in a row, or `external_storage.recovered` with no `external_storage.failed` before it.
+
 ## Endpoint fields
 
 An organization webhook endpoint has these fields:
@@ -227,7 +313,13 @@ Anthropic doesn’t tell you when it drops an event, disables an endpoint, or sk
 Each time, check that your endpoint’s `state` is `enabled`. Then, check the resources behind each group of events that you use:
 
 * **User profiles:** List your profiles by enforcement status, as in [Before your first event](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#before-your-first-event). A profile that’s missing from those lists has no open action.
+
 * **Encryption keys:** [List your keys](https://platform.claude.com/docs/en/api/organization/external_keys/list), and [validate each one](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#respond-to-an-encryption-key-event). If you received no event for the key, a `success` needs no more checks unless Messages API requests fail.
+
+* **Customer-owned storage:** [List your buckets](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/external-storage-manage?method=api#api-check), and look at each bucket that the daily check covers:
+
+  * If `status.healthy` is `false`, follow [Respond to a storage event](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#respond-to-a-storage-event).
+  * If `status.last_checked_at` is more than 2 days old, tell your Anthropic account team.
 
 ## Manage endpoints
 
@@ -494,7 +586,7 @@ This example creates an endpoint for the two user profile events, which Anthropi
 
 The response is the new endpoint, as shown in [Endpoint fields](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#endpoint-fields), plus its `signing_secret`.
 
-If you have the `admin` organization role, you can instead manage endpoints for encryption key events in the Claude Console. Use the **Organization** tab of the [Webhooks](https://platform.claude.com/settings/webhooks) page, which shows the signing secret once, when you create an endpoint or replace its secret.
+If you have the `admin` organization role, you can instead manage endpoints for encryption key events and customer-owned storage events in the Claude Console. Use the **Organization** tab of the [Webhooks](https://platform.claude.com/settings/webhooks) page, which shows the signing secret once, when you create an endpoint or replace its secret.
 
 ## If your Default Workspace uses an encryption key
 

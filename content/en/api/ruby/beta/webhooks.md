@@ -661,6 +661,26 @@ signature is missing or invalid.
 
       - `organization_id: String`
 
+    - `class BetaWebhookExternalStorageFailedEventData`
+
+      - `type: :"external_storage.failed"`
+
+      - `id: String`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalStorageRecoveredEventData`
+
+      - `type: :"external_storage.recovered"`
+
+      - `id: String`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: String`
+
 ### Example
 
 ```ruby
@@ -1320,6 +1340,26 @@ you have already verified the signature yourself.
       - `id: String`
 
         ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalStorageFailedEventData`
+
+      - `type: :"external_storage.failed"`
+
+      - `id: String`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalStorageRecoveredEventData`
+
+      - `type: :"external_storage.recovered"`
+
+      - `id: String`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
 
       - `organization_id: String`
 
@@ -2211,9 +2251,29 @@ puts(event)
 
       - `organization_id: String`
 
+    - `class BetaWebhookExternalStorageFailedEventData`
+
+      - `type: :"external_storage.failed"`
+
+      - `id: String`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: String`
+
+    - `class BetaWebhookExternalStorageRecoveredEventData`
+
+      - `type: :"external_storage.recovered"`
+
+      - `id: String`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: String`
+
 ### Beta Webhook Event Data
 
-- `type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 46 more`
+- `type BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 48 more`
 
   - `class BetaWebhookSessionCreatedEventData`
 
@@ -2829,6 +2889,26 @@ puts(event)
 
     - `organization_id: String`
 
+  - `class BetaWebhookExternalStorageFailedEventData`
+
+    - `type: :"external_storage.failed"`
+
+    - `id: String`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `organization_id: String`
+
+  - `class BetaWebhookExternalStorageRecoveredEventData`
+
+    - `type: :"external_storage.recovered"`
+
+    - `id: String`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `organization_id: String`
+
 ### Beta Webhook External Key Failed Event Data
 
 - `class BetaWebhookExternalKeyFailedEventData`
@@ -2850,6 +2930,30 @@ puts(event)
   - `id: String`
 
     ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `organization_id: String`
+
+### Beta Webhook External Storage Failed Event Data
+
+- `class BetaWebhookExternalStorageFailedEventData`
+
+  - `type: :"external_storage.failed"`
+
+  - `id: String`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+  - `organization_id: String`
+
+### Beta Webhook External Storage Recovered Event Data
+
+- `class BetaWebhookExternalStorageRecoveredEventData`
+
+  - `type: :"external_storage.recovered"`
+
+  - `id: String`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
 
   - `organization_id: String`
 

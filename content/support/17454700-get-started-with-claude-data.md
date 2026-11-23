@@ -8,7 +8,7 @@ Claude Data is available on Pro, Max, Ultra, Team, and Enterprise plans. Certifi
 
 ## How Claude Data works
 
-Claude writes a SQL query for each chart and runs it against your data source. Each chart shows its query, so you can see exactly what it’s counting, along with when its data was last refreshed.
+Claude writes a query for the data each chart needs and runs it against your data source. Each chart shows its query, so you can see exactly what it’s counting, along with when its data was last refreshed.
 
 Dashboards are one format you can make. You can also ask for:
 
@@ -92,7 +92,7 @@ Your data team can certify queries in directly Claude, or use the definitions it
 
 2. Turn on "Certify query."
 
-3. Add any instructions for Claude, one per line.
+3. Add any instructions for Claude in "Additional context."
 
 4. Click "Test."
 
@@ -100,9 +100,7 @@ Your data team can certify queries in directly Claude, or use the definitions it
 
 The query shows as certified after a check finishes.
 
-**Note:** Editing a certified query removes its certification. To remove a certification yourself, turn off "Certify query" and click "Publish." Dashboards that use that query lose their certified badge.
-
-If your organization stores certified queries in a Git-backed plugin, manage them in GitHub with pull request review instead.
+**Note:** If you have permission to certify, publishing your changes updates the certified query. If you don’t, you can still save your changes, but your version won’t have the certified badge. To remove a certification yourself, turn off "Certify query" and click "Save." Dashboards that use that query lose their certified badge.
 
 ## Share and send your work
 

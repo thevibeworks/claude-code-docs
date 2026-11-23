@@ -125,6 +125,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`

@@ -104,42 +104,98 @@ With [message threads](https://platform.claude.com/docs/en/build-with-claude/mes
 
 ### Prefilling Claude’s response
 
-You can prefill part of Claude’s response in the last position of the input messages list. Use this technique to shape Claude’s response. The following example uses `"max_tokens": 1` to get a single multiple choice answer from Claude.
+A prefill is text that you write in an `assistant` message and put last in `messages`. An `assistant` message anywhere else in `messages` isn’t a prefill. Claude continues the prefilled text, and the response holds only the continuation.
 
-<Note>
-  Claude 4.6 and later models and Claude Mythos Preview do not support assistant message prefill; requests to those models must end with a user message. The following examples use a model that supports prefill.
-</Note>
+Use a prefill to set how a response starts, for example, to start it in a fixed format or to skip a preamble.
+
+Whether the API accepts a prefill depends on the model:
+
+* **Claude 4.5 and earlier models:** The API accepts a prefill unless the model is retired on the platform that you use. All requests to a retired model fail. To check a model’s status, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
+* **All other models:** The API returns a 400 error (see the [Prefill not supported](https://platform.claude.com/docs/en/api/errors#prefill-not-supported) section of the Claude API errors page). Use one of the [alternatives to a prefill](https://platform.claude.com/docs/en/claude_api_primer#alternatives-to-a-prefill) instead.
+
+The following example runs on Claude Opus 4.5 and sets the format of a multiple-choice answer. The prefill, `The answer is (`, ends right before the answer’s letter so that Claude writes the letter first. Because the answer is one letter, the example also sets `max_tokens` to `1`. For a longer answer, set a higher `max_tokens`.
 
 <CodeGroup exclude="shell:cURL, typescript, csharp, go, java, php, ruby">
   ```bash CLI
-  ant messages create <<'YAML'
-  model: claude-sonnet-4-5
-  max_tokens: 1
-  messages:
-    - role: user
-      content: "What is latin for Ant? (A) Apoidea, (B) Rhopalocera, (C) Formicidae"
-    - role: assistant
-      content: "The answer is ("
-  YAML
+  ant messages create \
+    --model claude-opus-4-5-20251101 \
+    --max-tokens 1 \
+    --message '{role: user, content: "What is Latin for ant? (A) Apoidea, (B) Rhopalocera, (C) Formicidae"}' \
+    --message '{role: assistant, content: "The answer is ("}'
   ```
 
   ```python Python
   import anthropic
 
   message = anthropic.Anthropic().messages.create(
-      model="claude-sonnet-4-5",
+      model="claude-opus-4-5-20251101",
       max_tokens=1,
       messages=[
           {
               "role": "user",
-              "content": "What is latin for Ant? (A) Apoidea, (B) Rhopalocera, (C) Formicidae",
+              "content": "What is Latin for ant? (A) Apoidea, (B) Rhopalocera, (C) Formicidae",
           },
           {"role": "assistant", "content": "The answer is ("},
       ],
   )
-  print(message.content[0].text)
+  print(message)
   ```
 </CodeGroup>
+
+```json Output
+{
+  "id": "msg_01Q8Faay6S7QPTvEUUQARt7h",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+    {
+      "type": "text",
+      "text": "C"
+    }
+  ],
+  "model": "claude-opus-4-5-20251101",
+  "stop_reason": "max_tokens",
+  "stop_sequence": null,
+  "usage": {
+    "input_tokens": 42,
+    "output_tokens": 1
+  }
+}
+```
+
+Note two fields in this response:
+
+* **`text`:** The value is `C`. It holds only the continuation, not the prefill.
+* **`stop_reason`:** The value is `max_tokens` because the example ends the response after one token.
+
+To get the full text, `The answer is (C`, join the prefill and the `text` value in your code.
+
+On Claude 4.5 and earlier models, these limits apply to a prefill:
+
+* **Whitespace:** If the prefill ends with whitespace, the API returns a 400 error.
+* **Structured outputs:** If the request also sets `output_config.format`, the API returns a 400 error (see the [Feature compatibility](https://platform.claude.com/docs/en/build-with-claude/structured-outputs#feature-compatibility) section of the Structured outputs page).
+* **[Extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking):** If the request also sets `thinking.type` to `enabled`, the prefill causes no error. The API treats thinking as off, so the response has no `thinking` block.
+
+The `message` in each 400 error says what caused it.
+
+#### Alternatives to a prefill
+
+In place of a prefill, end `messages` with a `user` message. Then, choose an approach by what you want from the response:
+
+* **JSON that follows a schema:** Use [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs), which constrain the response to follow the schema.
+* **Another output format:** Describe the format in the system prompt, which is the request’s [`system` field](https://platform.claude.com/docs/en/api/messages/create#create.system).
+* **No preamble:** Ask in the system prompt for a direct answer.
+
+Unlike a prefill, a system prompt instruction doesn’t guarantee how the response starts, so check the response’s text in your code.
+
+For what to use in place of other common prefills, see the [Migrating away from prefilled responses](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#migrating-away-from-prefilled-responses) section of the Prompting best practices page.
+
+To move the multiple-choice example to a model that doesn’t accept a prefill, follow these steps:
+
+1. Change the model and remove the `assistant` message.
+2. Ask in the system prompt for only the answer’s letter.
+3. Set `max_tokens` high enough for the whole response. On [models with thinking on by default](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking), thinking tokens also count toward `max_tokens`.
+4. Read the letter from the response’s `text` block. This block can follow a `thinking` block. Don’t join the letter to the prefill.
 
 ### Vision
 

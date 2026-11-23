@@ -191,6 +191,8 @@ List Memory Versions
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -552,6 +554,8 @@ Retrieve a Memory Version
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `:"efs-2026-10-01"`
+
   - `:"user-profiles-billing-2026-10-01"`
 
   - `:"message-batches-2024-09-24"`
@@ -896,6 +900,8 @@ Redact a Memory Version
   - `:"experimental-claude-tag-2026-10-21"`
 
   - `:"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `:"efs-2026-10-01"`
 
   - `:"user-profiles-billing-2026-10-01"`
 

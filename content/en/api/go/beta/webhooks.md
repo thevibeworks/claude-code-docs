@@ -657,6 +657,26 @@ signature is missing or invalid.
 
       - `OrganizationID string`
 
+    - `type BetaWebhookExternalStorageFailedEventData`
+
+      - `Type ExternalStorageFailed`
+
+      - `ID string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `OrganizationID string`
+
+    - `type BetaWebhookExternalStorageRecoveredEventData`
+
+      - `Type ExternalStorageRecovered`
+
+      - `ID string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `OrganizationID string`
+
 ### Example
 
 ```go
@@ -1332,6 +1352,26 @@ you have already verified the signature yourself.
       - `ID string`
 
         ID (`ekey_...`) of the external key that stopped working or works again.
+
+      - `OrganizationID string`
+
+    - `type BetaWebhookExternalStorageFailedEventData`
+
+      - `Type ExternalStorageFailed`
+
+      - `ID string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `OrganizationID string`
+
+    - `type BetaWebhookExternalStorageRecoveredEventData`
+
+      - `Type ExternalStorageRecovered`
+
+      - `ID string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
 
       - `OrganizationID string`
 
@@ -2235,6 +2275,26 @@ func main() {
 
       - `OrganizationID string`
 
+    - `type BetaWebhookExternalStorageFailedEventData`
+
+      - `Type ExternalStorageFailed`
+
+      - `ID string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `OrganizationID string`
+
+    - `type BetaWebhookExternalStorageRecoveredEventData`
+
+      - `Type ExternalStorageRecovered`
+
+      - `ID string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `OrganizationID string`
+
 ### Beta Webhook Event Data
 
 - `type BetaWebhookEventDataUnion interface{…}`
@@ -2853,6 +2913,26 @@ func main() {
 
     - `OrganizationID string`
 
+  - `type BetaWebhookExternalStorageFailedEventData`
+
+    - `Type ExternalStorageFailed`
+
+    - `ID string`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `OrganizationID string`
+
+  - `type BetaWebhookExternalStorageRecoveredEventData`
+
+    - `Type ExternalStorageRecovered`
+
+    - `ID string`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `OrganizationID string`
+
 ### Beta Webhook External Key Failed Event Data
 
 - `type BetaWebhookExternalKeyFailedEventData`
@@ -2874,6 +2954,30 @@ func main() {
   - `ID string`
 
     ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `OrganizationID string`
+
+### Beta Webhook External Storage Failed Event Data
+
+- `type BetaWebhookExternalStorageFailedEventData`
+
+  - `Type ExternalStorageFailed`
+
+  - `ID string`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+  - `OrganizationID string`
+
+### Beta Webhook External Storage Recovered Event Data
+
+- `type BetaWebhookExternalStorageRecoveredEventData`
+
+  - `Type ExternalStorageRecovered`
+
+  - `ID string`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
 
   - `OrganizationID string`
 

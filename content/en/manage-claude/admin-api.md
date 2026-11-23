@@ -1767,7 +1767,7 @@ Read the rate limits configured for your organization and its workspaces, and se
 
 ## Compliance API
 
-Retrieve audit and activity data for your organization with the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api). Admin API keys can read only the Activity Feed. For full access, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+Retrieve audit and activity data for your organization with the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api). Admin API keys can read only the Activity Feed. The exception is the [Safety Cases API](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/safety-cases-api#get-access): an Admin API key that you create while that API is available to your organization also reaches it. Through that API, the key can read flagged messages and respond to Safety Cases. For full access, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 
 ## Organization webhooks
 

@@ -53,10 +53,10 @@ Templates are the starting points users pick when they create an artifact.
 
 Certified queries and live sharing have their own settings under **Data** in **Templates**. These settings are hidden when **Data** is off. Both are on by default on Team plans and off by default on Enterprise plans.
 
-| **Setting**           | **What it controls**                                                                                                          |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| **Certified queries** | Whether users can certify queries so Claude reuses them across your organization                                              |
-| **Live sharing**      | Whether a dashboard can show results from its owner’s connection to people in your organization who don’t have that connector |
+| **Setting**           | **What it controls**                                                                                                                              |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Certified queries** | Whether users can certify queries so Claude reuses them across your organization                                                                  |
+| **Live sharing**      | Whether a dashboard can show results from the connection of the editor who shared it to people in your organization who don’t have that connector |
 
 When you turn on **Certified queries**, pick the marketplace and plugin that store your certified queries. If you clear that choice, existing certifications go away. They come back if you select the same plugin again.
 
@@ -156,7 +156,7 @@ It's on by default on Team and Enterprise plans, and it only applies while **Art
 
 ## Let artifacts use connected apps
 
-**Enable artifact connectors** lets users work with artifacts that read from and write to their connected apps. Each user connects their own apps, even in a shared artifact. The exception is a dashboard shared with live sharing, which shows results from its owner’s connection. You can turn this on or off for your whole organization, but you can't limit which apps artifacts can reach.
+**Enable artifact connectors** lets users work with artifacts that read from and write to their connected apps. Each user connects their own apps, even in a shared artifact. The exception is a dashboard shared with live sharing, which shows results from the connection of the editor who shared it. You can turn this on or off for your whole organization, but you can't limit which apps artifacts can reach.
 
 1. Navigate to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
 

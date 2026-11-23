@@ -13,6 +13,8 @@ The gateway must implement the Anthropic [Messages API](https://docs.claude.com/
 * `POST /v1/messages` with [streaming](https://docs.claude.com/en/api/streaming) and [tool use](https://docs.claude.com/en/docs/tool-use) is required.
 * `GET /v1/models` is optional. If the gateway implements it, Claude Desktop on 3P auto-discovers available models; if not, set `inferenceModels` explicitly.
 
+Chat, Cowork, and Code sessions run on Claude Code, which sends their requests to your gateway. For the endpoints Claude Code calls, the headers and body fields to forward, and what breaks when a gateway strips them, see the [Claude Code gateway compatibility guide](https://code.claude.com/docs/en/llm-gateway-protocol). If your gateway forwards to a provider with a different request format, such as Amazon Bedrock, start with [Format mismatch with the upstream](https://code.claude.com/docs/en/llm-gateway-protocol#format-mismatch-with-the-upstream).
+
 The gateway should also preserve [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching). Chat, Cowork, and Code sessions send `cache_control` breakpoints with each turn so that the provider can reuse the tool definitions, system prompt, and earlier turns of the conversation instead of reprocessing them. A gateway that forwards these fields, or translates them for its upstream provider, keeps that behavior. A gateway that strips `cache_control`, or that changes the system prompt or tool list from one request to the next, makes the provider reprocess the whole conversation on every turn at full input-token cost and higher latency. To verify, check the [usage fields](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance) your gateway returns or logs for Claude Desktop traffic: after the first request of a session, `cache_read_input_tokens` should be well above zero on most requests. If it is zero on every request, review the gateway's request transformation and caching settings for the route that serves Claude models.
 
 In Chat and Cowork, the main conversation's breakpoints ask for a one-hour lifetime (`"ttl": "1h"`). In each response's `usage`, return the provider's `cache_creation` object with its `ephemeral_5m_input_tokens` and `ephemeral_1h_input_tokens` fields. Without that object, the [API request event](https://claude.com/docs/cowork/monitoring.md#api-request-event) in your OpenTelemetry export reports `0` for both `cache_creation_5m_tokens` and `cache_creation_1h_tokens`.
@@ -42,6 +44,10 @@ You need three things in place:
 * A way to push managed configuration to user devices (your existing MDM)
 
 #### Set up single sign-on
+
+> [!NOTE]
+>
+> For a Microsoft Entra tenant in GCC High or DoD, register the application at `https://entra.microsoft.us`, and use `login.microsoftonline.us` wherever these steps show `login.microsoftonline.com`. These tenants sign in through the system browser, not the [OS identity broker](https://claude.com/docs/third-party/claude-desktop/entra-broker.md#gcc-high-and-dod-tenants).
 
 **1. Register an application in Entra ID**
 
