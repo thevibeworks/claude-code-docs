@@ -229,6 +229,8 @@ Create a new environment with the specified configuration.
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
+    - `Efs2026_10_01("efs-2026-10-01")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -599,6 +601,8 @@ List environments with pagination support.
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
+    - `Efs2026_10_01("efs-2026-10-01")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -959,6 +963,8 @@ Retrieve a specific environment by ID.
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
+    - `Efs2026_10_01("efs-2026-10-01")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -1431,6 +1437,8 @@ Update an existing environment's configuration.
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
+    - `Efs2026_10_01("efs-2026-10-01")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -1800,6 +1808,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
+    - `Efs2026_10_01("efs-2026-10-01")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -2010,6 +2020,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
+    - `Efs2026_10_01("efs-2026-10-01")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -2945,6 +2957,8 @@ This endpoint accepts a Claude API key. It rejects the environment key and the w
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
+    - `Efs2026_10_01("efs-2026-10-01")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -3253,6 +3267,8 @@ Long poll for work items in the queue.
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
+    - `Efs2026_10_01("efs-2026-10-01")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -3535,6 +3551,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
+    - `Efs2026_10_01("efs-2026-10-01")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -3824,6 +3842,8 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
+    - `Efs2026_10_01("efs-2026-10-01")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -4056,6 +4076,8 @@ Stop a work item, initiating graceful or forced shutdown.
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
+    - `Efs2026_10_01("efs-2026-10-01")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -4363,6 +4385,8 @@ This endpoint accepts the environment key as a bearer token. It rejects a Claude
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
 
+    - `Efs2026_10_01("efs-2026-10-01")`
+
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
     - `MessageBatches2024_09_24("message-batches-2024-09-24")`
@@ -4652,6 +4676,8 @@ This endpoint accepts a Claude API key. It rejects the environment key and the w
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
+    - `Efs2026_10_01("efs-2026-10-01")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 
@@ -4952,6 +4978,8 @@ Get statistics about the work queue for an environment.
     - `ExperimentalClaudeTag2026_10_21("experimental-claude-tag-2026-10-21")`
 
     - `CEClaudeCodeManagedSettings2026_10_06("ce-claude-code-managed-settings-2026-10-06")`
+
+    - `Efs2026_10_01("efs-2026-10-01")`
 
     - `UserProfilesBilling2026_10_01("user-profiles-billing-2026-10-01")`
 

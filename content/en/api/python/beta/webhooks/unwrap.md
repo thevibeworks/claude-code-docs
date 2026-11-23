@@ -659,6 +659,26 @@ signature is missing or invalid.
 
       - `organization_id: str`
 
+    - `class BetaWebhookExternalStorageFailedEventData`
+
+      - `type: Literal["external_storage.failed"]`
+
+      - `id: str`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookExternalStorageRecoveredEventData`
+
+      - `type: Literal["external_storage.recovered"]`
+
+      - `id: str`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: str`
+
 ## Example
 
 ```python

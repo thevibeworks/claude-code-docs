@@ -217,6 +217,10 @@ Each code below is the value of `error.details.error_code` in the response body.
 
   The external key changed while the request was validating it. Send the request again.
 
+- `workspace_created_incomplete` (HTTP status 503)
+
+  The Workspace was created, but some of what the request asked for did not take effect, or may not have. Don't send the create again. The error's `message` says what to do with the Workspace at `workspace_id`.
+
 ## Example
 
 ```bash

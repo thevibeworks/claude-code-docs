@@ -148,7 +148,7 @@ Activity volume is not a completeness check. The `claude_*_viewed` activity type
 
 The content endpoints (chats, files, projects, project attachments, and local and remote session transcripts) serve Claude Enterprise data only. The Activity Feed surfaces administrative and resource events organization-wide. The Compliance API does not include:
 
-* Prompt text or model responses from Claude Console, or from Claude API workloads authenticated with an API key.
+* Prompt text or model responses from Claude Console, or from Claude API workloads authenticated with an API key. The exception is a [flagged message](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/safety-cases-api#read-a-message) that the Safety Cases API returns.
 * On-device activity in local sessions that is never sent to Anthropic, such as local files that Claude did not read.
 * Claude Code usage authenticated with a Claude Console API key, run through any [cloud platform](https://platform.claude.com/docs/en/api/overview#claude-api-vs-cloud-platforms), or run in a [Claude Code cloud session](https://code.claude.com/docs/en/claude-code-on-the-web). A Claude Code cloud session runs on cloud infrastructure instead of the user’s machine.
 * Local sessions from products other than Cowork and Claude Code in organizations with [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled, and local sessions for which [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) is in effect.

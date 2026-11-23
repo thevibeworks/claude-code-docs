@@ -1743,7 +1743,7 @@ stringSince 5.11492.0
 >
 > Use your provider's ID for an Anthropic model. If you set `inferenceModels`, also list the ID there and in any group's model list. If your provider refuses the ID, the built-in safety check blocks every action it reviews.
 >
-> Don't use Claude Opus 5, Sonnet 5.5 or Opus 5.5: they can't do this review. Weaker models may allow what the default would block.
+> Don't use Claude Opus 5, Sonnet 5.5 or Opus 5.5: their IDs are ignored. Weaker models may allow what the default would block.
 
 ***
 

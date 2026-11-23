@@ -6,11 +6,13 @@ description: Why a workspace with a key retains data, what that means for ZDR, a
 
 On Claude Platform, customer-managed encryption keys (CMEK) and [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention) can’t share a workspace. On Claude Enterprise, an organization can use CMEK and Claude Code ZDR together, but it then [can’t turn on Claude Docs or Claude Sheets](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#turned-off-or-changed).
 
+However, on Claude Platform you can attach a key to a workspace that uses [Enterprise Frontier Safeguards](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/overview) (EFS). EFS is ZDR, and the workspace’s Sealed Safety Data is written to storage that you own. EFS is in beta. For the steps, see [Attach a customer-managed key](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/customer-managed-keys#attach-a-customer-managed-key) in the EFS guide.
+
 ## A key needs a workspace that retains data
 
-CMEK encrypts stored data, and under ZDR on Claude Platform, Anthropic doesn’t store your prompts or responses. So you can attach a key only to a workspace with **Standard data retention** (30 days).
+CMEK encrypts stored data, and under ZDR on Claude Platform, Anthropic doesn’t store your prompts or responses. With [Enterprise Frontier Safeguards](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/overview) (EFS), Anthropic encrypts your Sealed Safety Data under your key before writing it to your bucket. So you can attach a key only to a workspace with **Standard data retention** (30 days) or one that uses EFS.
 
-After you attach a key, you can’t turn off data retention for that workspace. To return to ZDR, create a new workspace and move your traffic to it.
+After you attach a key, you can’t turn off data retention for that workspace. To go back to a workspace that doesn’t retain data, create a new one and move your traffic to it.
 
 ## In a ZDR organization
 

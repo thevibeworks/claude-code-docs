@@ -9,7 +9,7 @@ url: https://platform.claude.com/docs/en/api/python/beta
 
 ### Anthropic Beta
 
-- `type AnthropicBetaParam = Union[str, Literal["computer-use-2024-10-22", "computer-use-2025-01-24", "output-128k-2025-02-19", 55 more]]`
+- `type AnthropicBetaParam = Union[str, Literal["computer-use-2024-10-22", "computer-use-2025-01-24", "output-128k-2025-02-19", 56 more]]`
 
   Beta names you can send in the `anthropic-beta` header.
 
@@ -110,6 +110,8 @@ url: https://platform.claude.com/docs/en/api/python/beta
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -789,6 +791,8 @@ The Models API response can be used to determine which models are available for 
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -1305,6 +1309,8 @@ The Models API response can be used to determine information about a specific mo
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -5994,6 +6000,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -14537,6 +14545,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -19021,6 +19031,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -19373,6 +19385,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -19711,6 +19725,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -20045,6 +20061,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -20373,6 +20391,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -20592,6 +20612,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -25784,6 +25806,8 @@ Create Agent
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -26842,6 +26866,8 @@ List Agents
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -27886,6 +27912,8 @@ Get Agent
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -29878,6 +29906,8 @@ Update Agent
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -30913,6 +30943,8 @@ Archive Agent
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -31960,6 +31992,8 @@ List Agent Versions
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -33116,6 +33150,8 @@ Create a new environment with the specified configuration.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -33496,6 +33532,8 @@ List environments with pagination support.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -33861,6 +33899,8 @@ Retrieve a specific environment by ID.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -34340,6 +34380,8 @@ Update an existing environment's configuration.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -34714,6 +34756,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -34927,6 +34971,8 @@ Archive an environment by ID. Archived environments cannot be used to create new
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -35296,6 +35342,8 @@ This endpoint accepts a Claude API key. It rejects the environment key and the w
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -35607,6 +35655,8 @@ Long poll for work items in the queue.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -35892,6 +35942,8 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -36184,6 +36236,8 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -36421,6 +36475,8 @@ Stop a work item, initiating graceful or forced shutdown.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -36731,6 +36787,8 @@ This endpoint accepts the environment key as a bearer token. It rejects a Claude
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -37022,6 +37080,8 @@ This endpoint accepts a Claude API key. It rejects the environment key and the w
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -37324,6 +37384,8 @@ Get statistics about the work queue for an environment.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -38687,6 +38749,8 @@ Create Session
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -40238,6 +40302,8 @@ List Sessions
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -41698,6 +41764,8 @@ Get Session
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -43739,6 +43807,8 @@ Update Session
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -45195,6 +45265,8 @@ Delete Session
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -45390,6 +45462,8 @@ Archive Session
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -46974,6 +47048,8 @@ List Events
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -50533,6 +50609,8 @@ Send Events
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -51194,6 +51272,8 @@ Stream Events
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -54440,6 +54520,8 @@ Add Session Resource
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -54665,6 +54747,8 @@ List Session Resources
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -54984,6 +55068,8 @@ Get Session Resource
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -55297,6 +55383,8 @@ Update Session Resource
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -55605,6 +55693,8 @@ Delete Session Resource
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -55827,6 +55917,8 @@ List Session Threads
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -56931,6 +57023,8 @@ Get Session Thread
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -58028,6 +58122,8 @@ Archive Session Thread
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -59134,6 +59230,8 @@ List Session Thread Events
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -62341,6 +62439,8 @@ Stream Session Thread Events
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -65976,6 +66076,8 @@ Create Deployment
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -66783,6 +66885,8 @@ List Deployments
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -67542,6 +67646,8 @@ Get Deployment
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -68703,6 +68809,8 @@ Update Deployment
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -69458,6 +69566,8 @@ Archive Deployment
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -70215,6 +70325,8 @@ Run Deployment Now
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -70642,6 +70754,8 @@ Pause Deployment
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -71398,6 +71512,8 @@ Unpause Deployment
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -72207,6 +72323,8 @@ List Deployment Runs
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -72638,6 +72756,8 @@ Get Deployment Run
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -73075,6 +73195,8 @@ Create a Vault
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -73318,6 +73440,8 @@ List Vaults
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -73554,6 +73678,8 @@ Retrieve a Vault
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -73798,6 +73924,8 @@ Update a Vault
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -74031,6 +74159,8 @@ Delete a Vault
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -74230,6 +74360,8 @@ Archive a Vault
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -74642,6 +74774,8 @@ Create a Credential
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -75017,6 +75151,8 @@ List Credentials
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -75382,6 +75518,8 @@ Retrieve a Credential
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -75884,6 +76022,8 @@ Update a Credential
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -76245,6 +76385,8 @@ Delete a Credential
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -76449,6 +76591,8 @@ Archive a Credential
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -76811,6 +76955,8 @@ Validate an MCP OAuth Credential
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -77128,6 +77274,8 @@ Create a Memory Store
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -77396,6 +77544,8 @@ List Memory Stores
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -77643,6 +77793,8 @@ Retrieve a Memory Store
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -77912,6 +78064,8 @@ Update a Memory Store
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -78160,6 +78314,8 @@ Delete a Memory Store
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -78361,6 +78517,8 @@ Archive a Memory Store
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -78637,6 +78795,8 @@ Create a Memory
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -78940,6 +79100,8 @@ List Memories
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -79239,6 +79401,8 @@ Retrieve a Memory
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -79545,6 +79709,8 @@ Update a Memory
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -79815,6 +79981,8 @@ Delete a Memory
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -80094,6 +80262,8 @@ List Memory Versions
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -80462,6 +80632,8 @@ Retrieve a Memory Version
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -80809,6 +80981,8 @@ Redact a Memory Version
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -81164,6 +81338,8 @@ Upload File
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -81466,6 +81642,8 @@ List Files
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -81752,6 +81930,8 @@ Download File
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -81964,6 +82144,8 @@ Get File Metadata
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -82247,6 +82429,8 @@ Delete File
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -82480,6 +82664,8 @@ Create Skill
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -82789,6 +82975,8 @@ List Skills
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -83072,6 +83260,8 @@ Get Skill
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -83351,6 +83541,8 @@ Delete Skill
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -83578,6 +83770,8 @@ Create Skill Version
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -83852,6 +84046,8 @@ List Skill Versions
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -84112,6 +84308,8 @@ Download a skill version's content as a zip archive.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -84305,6 +84503,8 @@ Get Skill Version
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -84560,6 +84760,8 @@ Delete Skill Version
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -85323,6 +85525,26 @@ signature is missing or invalid.
 
       - `organization_id: str`
 
+    - `class BetaWebhookExternalStorageFailedEventData`
+
+      - `type: Literal["external_storage.failed"]`
+
+      - `id: str`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookExternalStorageRecoveredEventData`
+
+      - `type: Literal["external_storage.recovered"]`
+
+      - `id: str`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: str`
+
 #### Example
 
 ```python
@@ -85995,6 +86217,26 @@ you have already verified the signature yourself.
 
       - `organization_id: str`
 
+    - `class BetaWebhookExternalStorageFailedEventData`
+
+      - `type: Literal["external_storage.failed"]`
+
+      - `id: str`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: str`
+
+    - `class BetaWebhookExternalStorageRecoveredEventData`
+
+      - `type: Literal["external_storage.recovered"]`
+
+      - `id: str`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: str`
+
 #### Example
 
 ```python
@@ -86221,6 +86463,8 @@ Create User Profile
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -86587,6 +86831,8 @@ List User Profiles
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -86925,6 +87171,8 @@ Get User Profile
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -87357,6 +87605,8 @@ Update User Profile
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -87692,6 +87942,8 @@ Delete User Profile
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -87891,6 +88143,8 @@ Create Enrollment URL
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -88108,6 +88362,8 @@ Create Action URL
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -88420,6 +88676,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -88934,6 +89192,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -89387,6 +89647,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -89836,6 +90098,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -90284,6 +90548,8 @@ See the [Dreams guide](https://platform.claude.com/docs/en/managed-agents/dreams
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -90736,6 +91002,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -90959,6 +91227,8 @@ Fetches a tunnel by ID.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -91196,6 +91466,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -91426,6 +91698,8 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -91652,6 +91926,8 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -91864,6 +92140,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -92079,6 +92357,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -92317,6 +92597,8 @@ Fetches a tunnel certificate by ID.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -92566,6 +92848,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -92808,6 +93092,8 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -94744,6 +95030,8 @@ matched as the JWT's `iss` claim and is not fetched.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -95111,6 +95399,8 @@ Archived issuers are excluded unless `include_archived=true`.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -95458,6 +95748,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -95886,6 +96178,8 @@ session.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -96242,6 +96536,8 @@ issuer cannot be changed), or recreate them against another issuer.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -96687,6 +96983,8 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -97071,6 +97369,8 @@ unless `include_archived=true`.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -97424,6 +97724,8 @@ Retrieve a federation rule by its ID (`fdrl_...`).
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -97867,6 +98169,8 @@ Console session.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -98232,6 +98536,8 @@ other scopes require a Console session.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -98606,6 +98912,8 @@ other scopes require a Console session.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -98851,6 +99159,8 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -99083,6 +99393,8 @@ Console session.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -99864,6 +100176,8 @@ accounts.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -100144,6 +100458,8 @@ archived service accounts.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -100403,6 +100719,8 @@ Retrieve a service account by its ID (`svac_...`).
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -100679,6 +100997,8 @@ interactive credential (a user OAuth token or a Console session).
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -100947,6 +101267,8 @@ those rules first or change their target to another service account.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -101237,6 +101559,8 @@ rejected.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -101499,6 +101823,8 @@ page to recover.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -101743,6 +102069,8 @@ to the implicit `workspace_user` membership. Archived workspaces return
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -101834,6 +102162,2130 @@ print(workspace.service_account_id)
   "service_account_id": "service_account_id",
   "type": "service_account_workspace_member_deleted",
   "workspace_id": "workspace_id"
+}
+```
+
+## Beta › Organization › External Storage
+
+### Create External Storage
+
+`beta.organization.external_storage.create(**kwargs) -> BetaExternalStorage`
+
+**POST** `/v1/organizations/external_storage`
+
+Register a bucket in the organization's own cloud account. It is saved
+as `pending_configuration` and verified when activated.
+
+#### Parameters
+
+- `provider_config: ProviderConfig`
+
+  - `class BetaAWSExternalStorageConfigParam`
+
+    An Amazon S3 bucket.
+
+    - `type: Literal["aws"]`
+
+    - `account_id: str`
+
+      12-digit ID of the AWS account that owns the bucket.
+
+    - `bucket_name: str`
+
+      The bucket's name, without `s3://`: 3 to 63 lower-case letters, digits and hyphens, starting and ending with a letter or digit.
+
+    - `region: str`
+
+      The bucket's AWS region. Activating the storage fails if Anthropic can't use buckets in that region.
+
+  - `class BetaGCPExternalStorageConfigParam`
+
+    A Google Cloud Storage bucket.
+
+    - `type: Literal["gcp"]`
+
+    - `bucket_name: str`
+
+      The bucket's name, without `gs://`: 3 to 63 lower-case letters, digits and hyphens, starting and ending with a letter or digit. It can't start with `goog` or contain `google`.
+
+    - `project_number: str`
+
+      Project number, not project ID, of the Google Cloud project that holds the bucket.
+
+    - `region: str`
+
+      The bucket's Google Cloud region, such as `us-east5`: one of the single regions that the setup guide lists. Dual-regions and multi-regions aren't supported.
+
+- `display_name: Optional[str]`
+
+  Human-friendly display name.
+
+  minLength: 1, maxLength: 255
+
+- `user_profile_id: Optional[str]`
+
+  The user profile to bind the storage to. It can't be changed later. The storage can be attached only to Workspaces with this profile, and the bucket's setup must name the same ID.
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  This endpoint is in beta: requests must send `efs-2026-10-01` in this header.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+#### Returns
+
+- `class BetaExternalStorage`
+
+  A storage bucket in the organization's own cloud account. Anthropic writes
+  inference data to it from each Workspace it is attached to.
+
+  - `type: Literal["external_storage"]`
+
+    default: external_storage
+
+  - `id: str`
+
+    The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+  - `created_at: datetime`
+
+    format: date-time
+
+  - `display_name: Optional[str]`
+
+    Human-friendly display name. Null if none was set.
+
+  - `provider_config: ProviderConfig`
+
+    - `class BetaAWSExternalStorageConfig`
+
+      An Amazon S3 bucket.
+
+      - `type: Literal["aws"]`
+
+        default: aws
+
+      - `account_id: str`
+
+        12-digit ID of the AWS account that owns the bucket.
+
+      - `bucket_name: str`
+
+        The bucket's name, without `s3://`.
+
+      - `region: str`
+
+        The bucket's AWS region.
+
+    - `class BetaGCPExternalStorageConfig`
+
+      A Google Cloud Storage bucket.
+
+      - `type: Literal["gcp"]`
+
+        default: gcp
+
+      - `bucket_name: str`
+
+        The bucket's name, without `gs://`.
+
+      - `project_number: str`
+
+        Number of the Google Cloud project that holds the bucket.
+
+      - `region: str`
+
+        The bucket's Google Cloud region.
+
+  - `setup_template_version: Optional[str]`
+
+    The version of Anthropic's setup template whose IAM role names this storage was found to use at activation. Null if no version was recorded, as for storage not yet activated or not on S3.
+
+  - `status: Status`
+
+    - `class BetaPendingConfigurationExternalStorageStatus`
+
+      The storage isn't verified yet.
+
+      - `type: Literal["pending_configuration"]`
+
+        default: pending_configuration
+
+    - `class BetaAvailableExternalStorageStatus`
+
+      The storage is verified, no Workspace has it attached, and Anthropic doesn't use
+      the bucket.
+
+      - `type: Literal["available"]`
+
+        default: available
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaActiveExternalStorageStatus`
+
+      At least one Workspace has the storage attached.
+
+      - `type: Literal["active"]`
+
+        default: active
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaDrainingExternalStorageStatus`
+
+      No Workspace has the storage attached. A Workspace can attach it again, unless
+      `removal_started` is true.
+
+      - `type: Literal["draining"]`
+
+        default: draining
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+      - `removal_started: bool`
+
+        True once a delete has started removing this storage, which can't be undone. It then can't be attached, and another delete finishes the removal.
+
+        default: false
+
+  - `updated_at: datetime`
+
+    format: date-time
+
+  - `user_profile_id: Optional[str]`
+
+    The user profile the storage is bound to, or null.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
+
+- `BetaGrantRequiredError` (HTTP status 400, error code `grant_required`)
+
+  Anthropic has not approved External Storage for the organization, for the Workspace or, for storage bound to a user profile, for that user profile. Contact your Anthropic account team.
+
+- `BetaOrganizationNotEligibleError` (HTTP status 400, error code `organization_not_eligible`)
+
+  The feature isn't offered to this organization. The error's `message` names the kind of organization or, when it names none, says to contact your Anthropic account team.
+
+- `BetaProviderNotAllowedError` (HTTP status 400, error code `provider_not_allowed`)
+
+  The request can't use External Storage on this cloud provider. The error's message says why.
+
+- `BetaUnsupportedRegionError` (HTTP status 400, error code `unsupported_region`)
+
+  `provider_config.region` is not a region where External Storage is available.
+
+- `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `BetaStorageAlreadyRegisteredError` (HTTP status 409, error code `storage_already_registered`)
+
+  The organization already has External Storage for this bucket that it has not deleted. List the organization's External Storage to find it.
+
+- `BetaAuthorizationCheckUnavailableError` (HTTP status 503, error code `authorization_check_unavailable`)
+
+  One of the organization's approvals from Anthropic could not be read right now, so nothing was done. Retry after the `Retry-After` delay.
+
+#### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+beta_external_storage = client.beta.organization.external_storage.create(
+    provider_config={
+        "account_id": "111122223333",
+        "bucket_name": "acme-safety-retention",
+        "region": "us-east-2",
+        "type": "aws",
+    },
+)
+print(beta_external_storage.id)
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "estrg_01SDCCSbTxrXDpWc1phhtcfK",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "display_name": "display_name",
+  "provider_config": {
+    "account_id": "111122223333",
+    "bucket_name": "acme-safety-retention",
+    "region": "us-east-2",
+    "type": "aws"
+  },
+  "setup_template_version": "2",
+  "status": {
+    "type": "pending_configuration"
+  },
+  "type": "external_storage",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
+}
+```
+
+### List External Storage
+
+`beta.organization.external_storage.list(**kwargs) -> SyncPageCursor[BetaExternalStorage]`
+
+**GET** `/v1/organizations/external_storage`
+
+List the organization's External Storage, newest first.
+
+#### Parameters
+
+- `limit: Optional[int]` (query parameter)
+
+  Number of results per page.
+
+  default: 20, minimum: 1, maximum: 1000
+
+- `page: Optional[str]` (query parameter)
+
+  Opaque cursor from a previous response's `next_page`.
+
+- `user_profile_ids: Optional[Sequence[str]]` (query parameter)
+
+  Returns only External Storage bound to one of these user profile IDs (`uprof_...`). An empty entry matches storage bound to no user profile. At most 10 entries, counting repeats.
+
+  maxItems: 10
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  This endpoint is in beta: requests must send `efs-2026-10-01` in this header.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+#### Returns
+
+- `class BetaExternalStorage`
+
+  A storage bucket in the organization's own cloud account. Anthropic writes
+  inference data to it from each Workspace it is attached to.
+
+  - `type: Literal["external_storage"]`
+
+    default: external_storage
+
+  - `id: str`
+
+    The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+  - `created_at: datetime`
+
+    format: date-time
+
+  - `display_name: Optional[str]`
+
+    Human-friendly display name. Null if none was set.
+
+  - `provider_config: ProviderConfig`
+
+    - `class BetaAWSExternalStorageConfig`
+
+      An Amazon S3 bucket.
+
+      - `type: Literal["aws"]`
+
+        default: aws
+
+      - `account_id: str`
+
+        12-digit ID of the AWS account that owns the bucket.
+
+      - `bucket_name: str`
+
+        The bucket's name, without `s3://`.
+
+      - `region: str`
+
+        The bucket's AWS region.
+
+    - `class BetaGCPExternalStorageConfig`
+
+      A Google Cloud Storage bucket.
+
+      - `type: Literal["gcp"]`
+
+        default: gcp
+
+      - `bucket_name: str`
+
+        The bucket's name, without `gs://`.
+
+      - `project_number: str`
+
+        Number of the Google Cloud project that holds the bucket.
+
+      - `region: str`
+
+        The bucket's Google Cloud region.
+
+  - `setup_template_version: Optional[str]`
+
+    The version of Anthropic's setup template whose IAM role names this storage was found to use at activation. Null if no version was recorded, as for storage not yet activated or not on S3.
+
+  - `status: Status`
+
+    - `class BetaPendingConfigurationExternalStorageStatus`
+
+      The storage isn't verified yet.
+
+      - `type: Literal["pending_configuration"]`
+
+        default: pending_configuration
+
+    - `class BetaAvailableExternalStorageStatus`
+
+      The storage is verified, no Workspace has it attached, and Anthropic doesn't use
+      the bucket.
+
+      - `type: Literal["available"]`
+
+        default: available
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaActiveExternalStorageStatus`
+
+      At least one Workspace has the storage attached.
+
+      - `type: Literal["active"]`
+
+        default: active
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaDrainingExternalStorageStatus`
+
+      No Workspace has the storage attached. A Workspace can attach it again, unless
+      `removal_started` is true.
+
+      - `type: Literal["draining"]`
+
+        default: draining
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+      - `removal_started: bool`
+
+        True once a delete has started removing this storage, which can't be undone. It then can't be attached, and another delete finishes the removal.
+
+        default: false
+
+  - `updated_at: datetime`
+
+    format: date-time
+
+  - `user_profile_id: Optional[str]`
+
+    The user profile the storage is bound to, or null.
+
+#### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+page = client.beta.organization.external_storage.list()
+page = page.data[0]
+print(page.id)
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "estrg_01SDCCSbTxrXDpWc1phhtcfK",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "display_name": "display_name",
+      "provider_config": {
+        "account_id": "111122223333",
+        "bucket_name": "acme-safety-retention",
+        "region": "us-east-2",
+        "type": "aws"
+      },
+      "setup_template_version": "2",
+      "status": {
+        "type": "pending_configuration"
+      },
+      "type": "external_storage",
+      "updated_at": "2024-10-30T23:58:27.427722Z",
+      "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Get External Storage
+
+`beta.organization.external_storage.retrieve(external_storage_id, **kwargs) -> BetaExternalStorage`
+
+**GET** `/v1/organizations/external_storage/{external_storage_id}`
+
+Get one External Storage in the organization.
+
+#### Parameters
+
+- `external_storage_id: str` (path parameter)
+
+  The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  This endpoint is in beta: requests must send `efs-2026-10-01` in this header.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+#### Returns
+
+- `class BetaExternalStorage`
+
+  A storage bucket in the organization's own cloud account. Anthropic writes
+  inference data to it from each Workspace it is attached to.
+
+  - `type: Literal["external_storage"]`
+
+    default: external_storage
+
+  - `id: str`
+
+    The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+  - `created_at: datetime`
+
+    format: date-time
+
+  - `display_name: Optional[str]`
+
+    Human-friendly display name. Null if none was set.
+
+  - `provider_config: ProviderConfig`
+
+    - `class BetaAWSExternalStorageConfig`
+
+      An Amazon S3 bucket.
+
+      - `type: Literal["aws"]`
+
+        default: aws
+
+      - `account_id: str`
+
+        12-digit ID of the AWS account that owns the bucket.
+
+      - `bucket_name: str`
+
+        The bucket's name, without `s3://`.
+
+      - `region: str`
+
+        The bucket's AWS region.
+
+    - `class BetaGCPExternalStorageConfig`
+
+      A Google Cloud Storage bucket.
+
+      - `type: Literal["gcp"]`
+
+        default: gcp
+
+      - `bucket_name: str`
+
+        The bucket's name, without `gs://`.
+
+      - `project_number: str`
+
+        Number of the Google Cloud project that holds the bucket.
+
+      - `region: str`
+
+        The bucket's Google Cloud region.
+
+  - `setup_template_version: Optional[str]`
+
+    The version of Anthropic's setup template whose IAM role names this storage was found to use at activation. Null if no version was recorded, as for storage not yet activated or not on S3.
+
+  - `status: Status`
+
+    - `class BetaPendingConfigurationExternalStorageStatus`
+
+      The storage isn't verified yet.
+
+      - `type: Literal["pending_configuration"]`
+
+        default: pending_configuration
+
+    - `class BetaAvailableExternalStorageStatus`
+
+      The storage is verified, no Workspace has it attached, and Anthropic doesn't use
+      the bucket.
+
+      - `type: Literal["available"]`
+
+        default: available
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaActiveExternalStorageStatus`
+
+      At least one Workspace has the storage attached.
+
+      - `type: Literal["active"]`
+
+        default: active
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaDrainingExternalStorageStatus`
+
+      No Workspace has the storage attached. A Workspace can attach it again, unless
+      `removal_started` is true.
+
+      - `type: Literal["draining"]`
+
+        default: draining
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+      - `removal_started: bool`
+
+        True once a delete has started removing this storage, which can't be undone. It then can't be attached, and another delete finishes the removal.
+
+        default: false
+
+  - `updated_at: datetime`
+
+    format: date-time
+
+  - `user_profile_id: Optional[str]`
+
+    The user profile the storage is bound to, or null.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
+
+- `BetaInvalidStorageARNError` (HTTP status 400, error code `invalid_storage_arn`)
+
+  On Claude Platform on AWS, the External Storage ID in the request is neither a bucket ARN nor an `estrg_` ID, or is the `estrg_` ID of AWS storage. Name AWS storage by its bucket ARN, `arn:<partition>:s3:::<bucket_name>`, which responses return as its `id`.
+
+#### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+beta_external_storage = client.beta.organization.external_storage.retrieve(
+    external_storage_id="external_storage_id",
+)
+print(beta_external_storage.id)
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "estrg_01SDCCSbTxrXDpWc1phhtcfK",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "display_name": "display_name",
+  "provider_config": {
+    "account_id": "111122223333",
+    "bucket_name": "acme-safety-retention",
+    "region": "us-east-2",
+    "type": "aws"
+  },
+  "setup_template_version": "2",
+  "status": {
+    "type": "pending_configuration"
+  },
+  "type": "external_storage",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
+}
+```
+
+### Update External Storage
+
+`beta.organization.external_storage.update(external_storage_id, **kwargs) -> BetaExternalStorage`
+
+**POST** `/v1/organizations/external_storage/{external_storage_id}`
+
+Rename External Storage or clear its name, in any status.
+
+#### Parameters
+
+- `external_storage_id: str` (path parameter)
+
+  The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+- `display_name: Optional[str]`
+
+  Human-friendly display name; null clears it.
+
+  minLength: 1, maxLength: 255
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  This endpoint is in beta: requests must send `efs-2026-10-01` in this header.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+#### Returns
+
+- `class BetaExternalStorage`
+
+  A storage bucket in the organization's own cloud account. Anthropic writes
+  inference data to it from each Workspace it is attached to.
+
+  - `type: Literal["external_storage"]`
+
+    default: external_storage
+
+  - `id: str`
+
+    The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+  - `created_at: datetime`
+
+    format: date-time
+
+  - `display_name: Optional[str]`
+
+    Human-friendly display name. Null if none was set.
+
+  - `provider_config: ProviderConfig`
+
+    - `class BetaAWSExternalStorageConfig`
+
+      An Amazon S3 bucket.
+
+      - `type: Literal["aws"]`
+
+        default: aws
+
+      - `account_id: str`
+
+        12-digit ID of the AWS account that owns the bucket.
+
+      - `bucket_name: str`
+
+        The bucket's name, without `s3://`.
+
+      - `region: str`
+
+        The bucket's AWS region.
+
+    - `class BetaGCPExternalStorageConfig`
+
+      A Google Cloud Storage bucket.
+
+      - `type: Literal["gcp"]`
+
+        default: gcp
+
+      - `bucket_name: str`
+
+        The bucket's name, without `gs://`.
+
+      - `project_number: str`
+
+        Number of the Google Cloud project that holds the bucket.
+
+      - `region: str`
+
+        The bucket's Google Cloud region.
+
+  - `setup_template_version: Optional[str]`
+
+    The version of Anthropic's setup template whose IAM role names this storage was found to use at activation. Null if no version was recorded, as for storage not yet activated or not on S3.
+
+  - `status: Status`
+
+    - `class BetaPendingConfigurationExternalStorageStatus`
+
+      The storage isn't verified yet.
+
+      - `type: Literal["pending_configuration"]`
+
+        default: pending_configuration
+
+    - `class BetaAvailableExternalStorageStatus`
+
+      The storage is verified, no Workspace has it attached, and Anthropic doesn't use
+      the bucket.
+
+      - `type: Literal["available"]`
+
+        default: available
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaActiveExternalStorageStatus`
+
+      At least one Workspace has the storage attached.
+
+      - `type: Literal["active"]`
+
+        default: active
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaDrainingExternalStorageStatus`
+
+      No Workspace has the storage attached. A Workspace can attach it again, unless
+      `removal_started` is true.
+
+      - `type: Literal["draining"]`
+
+        default: draining
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+      - `removal_started: bool`
+
+        True once a delete has started removing this storage, which can't be undone. It then can't be attached, and another delete finishes the removal.
+
+        default: false
+
+  - `updated_at: datetime`
+
+    format: date-time
+
+  - `user_profile_id: Optional[str]`
+
+    The user profile the storage is bound to, or null.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
+
+- `BetaInvalidStorageARNError` (HTTP status 400, error code `invalid_storage_arn`)
+
+  On Claude Platform on AWS, the External Storage ID in the request is neither a bucket ARN nor an `estrg_` ID, or is the `estrg_` ID of AWS storage. Name AWS storage by its bucket ARN, `arn:<partition>:s3:::<bucket_name>`, which responses return as its `id`.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+#### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+beta_external_storage = client.beta.organization.external_storage.update(
+    external_storage_id="external_storage_id",
+    display_name="x",
+)
+print(beta_external_storage.id)
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "estrg_01SDCCSbTxrXDpWc1phhtcfK",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "display_name": "display_name",
+  "provider_config": {
+    "account_id": "111122223333",
+    "bucket_name": "acme-safety-retention",
+    "region": "us-east-2",
+    "type": "aws"
+  },
+  "setup_template_version": "2",
+  "status": {
+    "type": "pending_configuration"
+  },
+  "type": "external_storage",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
+}
+```
+
+### Delete External Storage
+
+`beta.organization.external_storage.delete(external_storage_id, **kwargs) -> BetaDeletedExternalStorage`
+
+**DELETE** `/v1/organizations/external_storage/{external_storage_id}`
+
+Delete External Storage. Storage that is pending configuration, available, or active
+but never attached is deleted at once, unless an Enterprise Frontier Safeguards workspace
+policy lists it. Other storage gets a 400 that says what to do next. On `draining`
+storage that 400 can mean this delete started a removal that can't be undone. To check,
+get the storage: if `status.removal_started` is true, delete it again later to finish.
+
+#### Parameters
+
+- `external_storage_id: str` (path parameter)
+
+  The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  This endpoint is in beta: requests must send `efs-2026-10-01` in this header.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+#### Returns
+
+- `class BetaDeletedExternalStorage`
+
+  - `type: Literal["external_storage_deleted"]`
+
+    default: external_storage_deleted
+
+  - `id: str`
+
+    The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
+
+- `BetaExternalStorageInUseError` (HTTP status 400, error code `external_storage_in_use`)
+
+  The External Storage is `active` or `draining`, so this delete didn't erase it. The message says what to do next. On `draining` storage this delete may have started a removal that can't be undone: get the storage and read `status.removal_started`.
+
+- `BetaExternalStorageInWorkspacePolicyError` (HTTP status 400, error code `external_storage_in_workspace_policy`)
+
+  The External Storage can't be deleted while an Enterprise Frontier Safeguards workspace policy lists it as allowed storage.
+
+- `BetaInvalidStorageARNError` (HTTP status 400, error code `invalid_storage_arn`)
+
+  On Claude Platform on AWS, the External Storage ID in the request is neither a bucket ARN nor an `estrg_` ID, or is the `estrg_` ID of AWS storage. Name AWS storage by its bucket ARN, `arn:<partition>:s3:::<bucket_name>`, which responses return as its `id`.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+#### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+beta_deleted_external_storage = client.beta.organization.external_storage.delete(
+    external_storage_id="external_storage_id",
+)
+print(beta_deleted_external_storage.id)
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "estrg_01SDCCSbTxrXDpWc1phhtcfK",
+  "type": "external_storage_deleted"
+}
+```
+
+### Activate External Storage
+
+`beta.organization.external_storage.activate(external_storage_id, **kwargs) -> BetaExternalStorage`
+
+**POST** `/v1/organizations/external_storage/{external_storage_id}/activate`
+
+Verify pending External Storage and make it available. Storage that is
+already available, active or draining comes back unchanged, without any
+check.
+
+#### Parameters
+
+- `external_storage_id: str` (path parameter)
+
+  The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  This endpoint is in beta: requests must send `efs-2026-10-01` in this header.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+#### Returns
+
+- `class BetaExternalStorage`
+
+  A storage bucket in the organization's own cloud account. Anthropic writes
+  inference data to it from each Workspace it is attached to.
+
+  - `type: Literal["external_storage"]`
+
+    default: external_storage
+
+  - `id: str`
+
+    The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+  - `created_at: datetime`
+
+    format: date-time
+
+  - `display_name: Optional[str]`
+
+    Human-friendly display name. Null if none was set.
+
+  - `provider_config: ProviderConfig`
+
+    - `class BetaAWSExternalStorageConfig`
+
+      An Amazon S3 bucket.
+
+      - `type: Literal["aws"]`
+
+        default: aws
+
+      - `account_id: str`
+
+        12-digit ID of the AWS account that owns the bucket.
+
+      - `bucket_name: str`
+
+        The bucket's name, without `s3://`.
+
+      - `region: str`
+
+        The bucket's AWS region.
+
+    - `class BetaGCPExternalStorageConfig`
+
+      A Google Cloud Storage bucket.
+
+      - `type: Literal["gcp"]`
+
+        default: gcp
+
+      - `bucket_name: str`
+
+        The bucket's name, without `gs://`.
+
+      - `project_number: str`
+
+        Number of the Google Cloud project that holds the bucket.
+
+      - `region: str`
+
+        The bucket's Google Cloud region.
+
+  - `setup_template_version: Optional[str]`
+
+    The version of Anthropic's setup template whose IAM role names this storage was found to use at activation. Null if no version was recorded, as for storage not yet activated or not on S3.
+
+  - `status: Status`
+
+    - `class BetaPendingConfigurationExternalStorageStatus`
+
+      The storage isn't verified yet.
+
+      - `type: Literal["pending_configuration"]`
+
+        default: pending_configuration
+
+    - `class BetaAvailableExternalStorageStatus`
+
+      The storage is verified, no Workspace has it attached, and Anthropic doesn't use
+      the bucket.
+
+      - `type: Literal["available"]`
+
+        default: available
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaActiveExternalStorageStatus`
+
+      At least one Workspace has the storage attached.
+
+      - `type: Literal["active"]`
+
+        default: active
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+    - `class BetaDrainingExternalStorageStatus`
+
+      No Workspace has the storage attached. A Workspace can attach it again, unless
+      `removal_started` is true.
+
+      - `type: Literal["draining"]`
+
+        default: draining
+
+      - `healthy: bool`
+
+        Whether the bucket passed its latest recorded check. It can stay `true` after the bucket stops working, so don't use it for monitoring.
+
+      - `last_checked_at: datetime`
+
+        When the bucket's latest recorded check ran, in RFC 3339.
+
+        format: date-time
+
+      - `removal_started: bool`
+
+        True once a delete has started removing this storage, which can't be undone. It then can't be attached, and another delete finishes the removal.
+
+        default: false
+
+  - `updated_at: datetime`
+
+    format: date-time
+
+  - `user_profile_id: Optional[str]`
+
+    The user profile the storage is bound to, or null.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
+
+- `BetaGrantRequiredError` (HTTP status 400, error code `grant_required`)
+
+  Anthropic has not approved External Storage for the organization, for the Workspace or, for storage bound to a user profile, for that user profile. Contact your Anthropic account team.
+
+- `BetaInvalidStorageARNError` (HTTP status 400, error code `invalid_storage_arn`)
+
+  On Claude Platform on AWS, the External Storage ID in the request is neither a bucket ARN nor an `estrg_` ID, or is the `estrg_` ID of AWS storage. Name AWS storage by its bucket ARN, `arn:<partition>:s3:::<bucket_name>`, which responses return as its `id`.
+
+- `BetaOrganizationNotEligibleError` (HTTP status 400, error code `organization_not_eligible`)
+
+  The feature isn't offered to this organization. The error's `message` names the kind of organization or, when it names none, says to contact your Anthropic account team.
+
+- `BetaProviderNotAllowedError` (HTTP status 400, error code `provider_not_allowed`)
+
+  The request can't use External Storage on this cloud provider. The error's message says why.
+
+- `BetaStorageVerificationFailedError` (HTTP status 400, error code `storage_verification_failed`)
+
+  The External Storage failed verification, so the request changed nothing. `failed_checks` lists what to fix.
+
+- `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `BetaAuthorizationCheckUnavailableError` (HTTP status 503, error code `authorization_check_unavailable`)
+
+  One of the organization's approvals from Anthropic could not be read right now, so nothing was done. Retry after the `Retry-After` delay.
+
+#### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+beta_external_storage = client.beta.organization.external_storage.activate(
+    external_storage_id="external_storage_id",
+)
+print(beta_external_storage.id)
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "estrg_01SDCCSbTxrXDpWc1phhtcfK",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "display_name": "display_name",
+  "provider_config": {
+    "account_id": "111122223333",
+    "bucket_name": "acme-safety-retention",
+    "region": "us-east-2",
+    "type": "aws"
+  },
+  "setup_template_version": "2",
+  "status": {
+    "type": "pending_configuration"
+  },
+  "type": "external_storage",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
 }
 ```
 
@@ -102374,6 +104826,8 @@ Every request must include the beta header `anthropic-beta: admin-user-sign-out-
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -102578,231 +105032,9 @@ List Workspaces
 
   default: 20, minimum: 1, maximum: 1000
 
-#### Returns
-
-- `class BetaWorkspace`
-
-  - `type: Literal["workspace"]`
-
-    Object type.
-
-    For Workspaces, this is always `"workspace"`.
-
-    default: workspace
-
-  - `id: str`
-
-    ID of the Workspace.
-
-  - `archived_at: Optional[datetime]`
-
-    RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
-
-    format: date-time
-
-  - `compartment_id: str`
-
-    Identifier for this Workspace's encryption compartment. When you configure an
-    AWS KMS customer-managed encryption key (CMEK) that isn't bound to a user
-    profile, reference this value in your KMS key-policy condition so the key is
-    scoped to this compartment. On GCP and Azure, Anthropic enforces the compartment
-    binding automatically; you do not need to reference this value in your key
-    configuration. See the CMEK integration guide for the required key
-    configuration; unless your organization is on Claude Platform on AWS, it
-    includes a separate value used during key validation. On Claude Platform on AWS
-    there is no separate validation value: your organization's own key is validated
-    against this Workspace's own value when it is attached, so if its key policy
-    uses the compartment condition, add this value to it before attaching the key.
-
-  - `created_at: datetime`
-
-    RFC 3339 datetime string indicating when the Workspace was created.
-
-    format: date-time
-
-  - `data_residency: BetaDataResidency`
-
-    Data residency configuration.
-
-    - `allowed_inference_geos: Union[List[BetaAllowedInferenceGeo], Literal["unrestricted"]]`
-
-      Permitted inference geo values. 'unrestricted' means all geos are allowed.
-
-      - `List[BetaAllowedInferenceGeo]`
-
-        - `"global"`
-
-        - `"us"`
-
-      - `"unrestricted"`
-
-    - `default_inference_geo: Literal["global", "us"]`
-
-      Default inference geo applied when requests omit the parameter.
-
-      - `"global"`
-
-      - `"us"`
-
-    - `workspace_geo: Literal["us"]`
-
-      Geographic region for workspace data storage. Immutable after creation.
-
-  - `display_color: str`
-
-    Hex color code representing the Workspace in the Anthropic Console.
-
-  - `external_key_id: Optional[str]`
-
-    ID of the customer-managed encryption key (CMEK) configuration to use for this
-    Workspace. Setting this field requires CMEK to be enabled for your
-    organization. When set, data stored for this Workspace is encrypted with the
-    referenced key. Create key configurations with the External Keys API. On
-    Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your
-    organization's own key must be a single-Region key in the same Region as the
-    Workspace. If that key is outside the Workspace's AWS account, it can be attached
-    only by updating an active Workspace. On that platform the key is validated
-    against this Workspace when it is attached, so a key-policy problem is reported
-    as an error on this request. This field is write-once: once a key is attached to
-    a Workspace it cannot be detached or replaced. To rotate key material, rotate
-    the underlying key on your cloud KMS; the `external_key_id` stays the same.
-
-  - `name: str`
-
-    Name of the Workspace.
-
-  - `tags: Dict[str, str]`
-
-    User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
-
-  - `user_profile_id: Optional[str]`
-
-    ID of the user profile attached to the Workspace, or null if it has none. Every inference request through a Workspace that has a user profile must name that profile.
-
-#### Example
-
-```python
-import os
-from anthropic import Anthropic
-
-client = Anthropic(
-    api_key=os.environ.get(
-        "ANTHROPIC_API_KEY"
-    ),  # This is the default and can be omitted
-)
-page = client.beta.organization.workspaces.list()
-page = page.data[0]
-print(page.id)
-```
-
-##### Response (200)
-
-```json
-{
-  "data": [
-    {
-      "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
-      "archived_at": "2024-11-01T23:59:27.427722Z",
-      "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
-      "created_at": "2024-10-30T23:58:27.427722Z",
-      "data_residency": {
-        "allowed_inference_geos": "unrestricted",
-        "default_inference_geo": "global",
-        "workspace_geo": "us"
-      },
-      "display_color": "#6C5BB9",
-      "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
-      "name": "Workspace Name",
-      "tags": {
-        "env": "prod",
-        "team": "platform"
-      },
-      "type": "workspace",
-      "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
-    }
-  ],
-  "first_id": "first_id",
-  "has_more": true,
-  "last_id": "last_id"
-}
-```
-
-### Create Workspace
-
-`beta.organization.workspaces.create(**kwargs) -> BetaWorkspace`
-
-**POST** `/v1/organizations/workspaces`
-
-Create Workspace
-
-#### Parameters
-
-- `name: str`
-
-  Name of the Workspace.
-
-  minLength: 1, maxLength: 255
-
-- `data_residency: Optional[BetaDataResidencyCreateConfigParam]`
-
-  Data residency configuration for the workspace. If omitted, defaults to `workspace_geo: "us"`, `allowed_inference_geos: "unrestricted"`, and `default_inference_geo: "global"`.
-
-  - `allowed_inference_geos: Optional[Union[List[BetaAllowedInferenceGeo], Literal["unrestricted"], null]]`
-
-    Permitted inference geo values. Defaults to 'unrestricted' if omitted, which allows all geos. Use the string 'unrestricted' to allow all geos, or a list of specific geos.
-
-    - `List[BetaAllowedInferenceGeo]`
-
-      - `"global"`
-
-      - `"us"`
-
-    - `"unrestricted"`
-
-  - `default_inference_geo: Optional[Literal["global", "us"]]`
-
-    Default inference geo applied when requests omit the parameter. Defaults to 'global' if omitted. Must be a member of `allowed_inference_geos` unless `allowed_inference_geos` is `"unrestricted"`.
-
-    - `"global"`
-
-    - `"us"`
-
-  - `workspace_geo: Optional[Literal["us"]]`
-
-    Geographic region for workspace data storage. Immutable after creation. Defaults to 'us' if omitted.
-
-- `display_color: Optional[str]`
-
-  Hex color code representing the Workspace in the Anthropic Console.
-
-  maxLength: 7, pattern: ^#[0-9A-Fa-f]{6}$
-
-- `external_key_id: Optional[str]`
-
-  ID of the customer-managed encryption key (CMEK) configuration to use for this
-  Workspace. Setting this field requires CMEK to be enabled for your
-  organization. When set, data stored for this Workspace is encrypted with the
-  referenced key. Create key configurations with the External Keys API. On
-  Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your
-  organization's own key must be a single-Region key in the same Region as the
-  Workspace. If that key is outside the Workspace's AWS account, it can be attached
-  only by updating an active Workspace. On that platform the key is validated
-  against this Workspace when it is attached, so a key-policy problem is reported
-  as an error on this request. This field is write-once: once a key is attached to
-  a Workspace it cannot be detached or replaced. To rotate key material, rotate
-  the underlying key on your cloud KMS; the `external_key_id` stays the same.
-
-- `tags: Optional[Dict[str, str]]`
-
-  User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
-
-- `user_profile_id: Optional[str]`
-
-  ID of a user profile to attach to the Workspace. Every inference request through the Workspace must then name this user profile; the API rejects a request that names none or a different one. The user profile can't be replaced or removed later; only deleting the user profile clears it.
-
 - `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
 
-  Optional header to specify the beta version(s) you want to use.
+  Optional. Send `efs-2026-10-01` in this header to use this endpoint's beta features: additional parameters, accepted values and response fields.
 
   - `str`
 
@@ -102899,6 +105131,8 @@ Create Workspace
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -103043,37 +105277,47 @@ Create Workspace
 
     ID of the user profile attached to the Workspace, or null if it has none. Every inference request through a Workspace that has a user profile must name that profile.
 
-#### Errors
+  - `inference_data_privacy: Optional[BetaInferenceDataPrivacy]`
 
-Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
+    Where the Workspace's retained inference data and transcript copies go, and whether Anthropic's human review applies. Returned only to requests that send the `efs-2026-10-01` `anthropic-beta` value, and each member only to organizations enabled for it.
 
-- `ExternalKeyValidationFailedError` (HTTP status 400, error code `external_key_validation_failed`)
+    - `human_review: Optional[BetaAnthropicHumanReview]`
 
-  The External Key failed Anthropic's validation, so the request was refused. The message gives the reason, if there is one.
+      The Workspace's human review setting. Human review is off only while this is `disabled` and Anthropic's approval stands. If Anthropic withdraws approval, review is back on, though this field still reads `disabled`.
 
-- `ExternalKeyValidationTimedOutError` (HTTP status 400, error code `external_key_validation_timed_out`)
+      - `type: Literal["disabled", "enabled"]`
 
-  Anthropic's validation of the External Key did not finish in time, so the request was refused. Wait a moment, then send the request again.
+        - `"disabled"`
 
-- `KeyProfileMismatchError` (HTTP status 400, error code `key_profile_mismatch`)
+        - `"enabled"`
 
-  After this request, the External Key and the Workspace would not have the same user profile. A key and its Workspace must have the same user profile, or both have none.
+    - `safeguards_storage: Optional[BetaStorageMember]`
 
-- `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
+      Where the data Anthropic's safeguards systems retain for the Workspace goes. `external` sends it to the External Storage that `external_storage_id` names. `internal` means no External Storage: it goes to Anthropic's storage or, on a cloud provider's platform, to that provider's storage. A recent change may not have taken effect yet.
 
-  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+      - `class BetaInternalStorage`
 
-- `WorkspacePolicyViolationError` (HTTP status 400, error code `workspace_policy_violation`)
+        No External Storage for this purpose.
 
-  The request breaks the organization's Workspace Policy. The message says which rule it broke; an organization admin can see and change the policy in the Console.
+        - `type: Literal["internal"]`
 
-- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+          default: internal
 
-  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+      - `class BetaExternalStorageMember`
 
-- `ExternalKeyChangedError` (HTTP status 409, error code `external_key_changed`)
+        The organization's External Storage that `external_storage_id` names.
 
-  The external key changed while the request was validating it. Send the request again.
+        - `type: Literal["external"]`
+
+          default: external
+
+        - `external_storage_id: str`
+
+          The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+    - `transcripts_storage: Optional[BetaStorageMember]`
+
+      Where copies of the Workspace's transcripts and its cases (Anthropic's safety findings about those transcripts) go. `external` sends them to the External Storage that `external_storage_id` names. `internal` means no External Storage, so no copies are made. A recent change may not have taken effect yet.
 
 #### Example
 
@@ -103086,50 +105330,308 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-beta_workspace = client.beta.organization.workspaces.create(
-    name="Workspace Name",
-)
-print(beta_workspace.id)
+page = client.beta.organization.workspaces.list()
+page = page.data[0]
+print(page.id)
 ```
 
 ##### Response (200)
 
 ```json
 {
-  "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
-  "archived_at": "2024-11-01T23:59:27.427722Z",
-  "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
-  "created_at": "2024-10-30T23:58:27.427722Z",
-  "data_residency": {
-    "allowed_inference_geos": "unrestricted",
-    "default_inference_geo": "global",
-    "workspace_geo": "us"
-  },
-  "display_color": "#6C5BB9",
-  "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
-  "name": "Workspace Name",
-  "tags": {
-    "env": "prod",
-    "team": "platform"
-  },
-  "type": "workspace",
-  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
+  "data": [
+    {
+      "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      "archived_at": "2024-11-01T23:59:27.427722Z",
+      "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "data_residency": {
+        "allowed_inference_geos": "unrestricted",
+        "default_inference_geo": "global",
+        "workspace_geo": "us"
+      },
+      "display_color": "#6C5BB9",
+      "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+      "name": "Workspace Name",
+      "tags": {
+        "env": "prod",
+        "team": "platform"
+      },
+      "type": "workspace",
+      "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK",
+      "inference_data_privacy": {
+        "human_review": {
+          "type": "disabled"
+        },
+        "safeguards_storage": {
+          "type": "internal"
+        },
+        "transcripts_storage": {
+          "type": "internal"
+        }
+      }
+    }
+  ],
+  "first_id": "first_id",
+  "has_more": true,
+  "last_id": "last_id"
 }
 ```
 
-### Get Workspace
+### Create Workspace
 
-`beta.organization.workspaces.retrieve(workspace_id) -> BetaWorkspace`
+`beta.organization.workspaces.create(**kwargs) -> BetaWorkspace`
 
-**GET** `/v1/organizations/workspaces/{workspace_id}`
+**POST** `/v1/organizations/workspaces`
 
-Get Workspace
+Create Workspace
 
 #### Parameters
 
-- `workspace_id: str` (path parameter)
+- `name: str`
 
-  ID of the Workspace.
+  Name of the Workspace.
+
+  minLength: 1, maxLength: 255
+
+- `data_residency: Optional[BetaDataResidencyCreateConfigParam]`
+
+  Data residency configuration for the workspace. If omitted, defaults to `workspace_geo: "us"`, `allowed_inference_geos: "unrestricted"`, and `default_inference_geo: "global"`.
+
+  - `allowed_inference_geos: Optional[Union[List[BetaAllowedInferenceGeo], Literal["unrestricted"], null]]`
+
+    Permitted inference geo values. Defaults to 'unrestricted' if omitted, which allows all geos. Use the string 'unrestricted' to allow all geos, or a list of specific geos.
+
+    - `List[BetaAllowedInferenceGeo]`
+
+      - `"global"`
+
+      - `"us"`
+
+    - `"unrestricted"`
+
+  - `default_inference_geo: Optional[Literal["global", "us"]]`
+
+    Default inference geo applied when requests omit the parameter. Defaults to 'global' if omitted. Must be a member of `allowed_inference_geos` unless `allowed_inference_geos` is `"unrestricted"`.
+
+    - `"global"`
+
+    - `"us"`
+
+  - `workspace_geo: Optional[Literal["us"]]`
+
+    Geographic region for workspace data storage. Immutable after creation. Defaults to 'us' if omitted.
+
+- `display_color: Optional[str]`
+
+  Hex color code representing the Workspace in the Anthropic Console.
+
+  maxLength: 7, pattern: ^#[0-9A-Fa-f]{6}$
+
+- `external_key_id: Optional[str]`
+
+  ID of the customer-managed encryption key (CMEK) configuration to use for this
+  Workspace. Setting this field requires CMEK to be enabled for your
+  organization. When set, data stored for this Workspace is encrypted with the
+  referenced key. Create key configurations with the External Keys API. On
+  Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your
+  organization's own key must be a single-Region key in the same Region as the
+  Workspace. If that key is outside the Workspace's AWS account, it can be attached
+  only by updating an active Workspace. On that platform the key is validated
+  against this Workspace when it is attached, so a key-policy problem is reported
+  as an error on this request. This field is write-once: once a key is attached to
+  a Workspace it cannot be detached or replaced. To rotate key material, rotate
+  the underlying key on your cloud KMS; the `external_key_id` stays the same.
+
+- `inference_data_privacy: Optional[BetaInferenceDataPrivacyCreateParam]`
+
+  Where the Workspace's retained inference data and transcript copies go, and whether Anthropic's human review applies. Requires the `efs-2026-10-01` `anthropic-beta` value. When omitted, `safeguards_storage` and `transcripts_storage` are `internal` and `human_review` is `enabled`. Cannot be null. An Admin API key can't set this field, because it doesn't belong to a user or a service account. Use an API key that belongs to one, or an OAuth token.
+
+  - `human_review: Optional[BetaAnthropicHumanReviewParam]`
+
+    Whether Anthropic's human review applies to the Workspace. `disabled` needs Anthropic's approval. When omitted, `enabled`. Cannot be null.
+
+    - `type: Literal["disabled", "enabled"]`
+
+      - `"disabled"`
+
+      - `"enabled"`
+
+  - `safeguards_storage: Optional[BetaStorageMemberParam]`
+
+    Where the data Anthropic's safeguards systems retain for the Workspace goes. `external` sends it, once the attach takes effect, to the External Storage that `external_storage_id` names. `internal` means no External Storage: it goes to Anthropic's storage or, on a cloud provider's platform, to that provider's storage. When omitted, `internal`. Cannot be null.
+
+    - `class BetaInternalStorageParam`
+
+      No External Storage for this purpose.
+
+      - `type: Literal["internal"]`
+
+    - `class BetaExternalStorageMemberParam`
+
+      The organization's External Storage that `external_storage_id` names.
+
+      - `type: Literal["external"]`
+
+      - `external_storage_id: str`
+
+        The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+  - `transcripts_storage: Optional[BetaStorageMemberParam]`
+
+    Where copies of the Workspace's transcripts and its cases (Anthropic's safety findings about those transcripts) go. `external` sends them, once the attach takes effect, to the External Storage that `external_storage_id` names. `internal` means no External Storage, so no copies are made. When omitted, `internal`. Cannot be null.
+
+- `tags: Optional[Dict[str, str]]`
+
+  User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+- `user_profile_id: Optional[str]`
+
+  ID of a user profile to attach to the Workspace. Every inference request through the Workspace must then name this user profile; the API rejects a request that names none or a different one. The user profile can't be replaced or removed later; only deleting the user profile clears it.
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  Optional header to specify the beta version(s) you want to use.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -103232,6 +105734,132 @@ Get Workspace
 
     ID of the user profile attached to the Workspace, or null if it has none. Every inference request through a Workspace that has a user profile must name that profile.
 
+  - `inference_data_privacy: Optional[BetaInferenceDataPrivacy]`
+
+    Where the Workspace's retained inference data and transcript copies go, and whether Anthropic's human review applies. Returned only to requests that send the `efs-2026-10-01` `anthropic-beta` value, and each member only to organizations enabled for it.
+
+    - `human_review: Optional[BetaAnthropicHumanReview]`
+
+      The Workspace's human review setting. Human review is off only while this is `disabled` and Anthropic's approval stands. If Anthropic withdraws approval, review is back on, though this field still reads `disabled`.
+
+      - `type: Literal["disabled", "enabled"]`
+
+        - `"disabled"`
+
+        - `"enabled"`
+
+    - `safeguards_storage: Optional[BetaStorageMember]`
+
+      Where the data Anthropic's safeguards systems retain for the Workspace goes. `external` sends it to the External Storage that `external_storage_id` names. `internal` means no External Storage: it goes to Anthropic's storage or, on a cloud provider's platform, to that provider's storage. A recent change may not have taken effect yet.
+
+      - `class BetaInternalStorage`
+
+        No External Storage for this purpose.
+
+        - `type: Literal["internal"]`
+
+          default: internal
+
+      - `class BetaExternalStorageMember`
+
+        The organization's External Storage that `external_storage_id` names.
+
+        - `type: Literal["external"]`
+
+          default: external
+
+        - `external_storage_id: str`
+
+          The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+    - `transcripts_storage: Optional[BetaStorageMember]`
+
+      Where copies of the Workspace's transcripts and its cases (Anthropic's safety findings about those transcripts) go. `external` sends them to the External Storage that `external_storage_id` names. `internal` means no External Storage, so no copies are made. A recent change may not have taken effect yet.
+
+#### Errors
+
+Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
+
+- `BetaApprovalRequiredError` (HTTP status 400, error code `approval_required`)
+
+  Turning human review off needs Anthropic's approval for the organization, and the organization doesn't have it. Contact Anthropic support to request approval.
+
+- `ExternalKeyValidationFailedError` (HTTP status 400, error code `external_key_validation_failed`)
+
+  The External Key failed Anthropic's validation, so the request was refused. The message gives the reason, if there is one.
+
+- `ExternalKeyValidationTimedOutError` (HTTP status 400, error code `external_key_validation_timed_out`)
+
+  Anthropic's validation of the External Key did not finish in time, so the request was refused. Wait a moment, then send the request again.
+
+- `BetaExternalStorageNotAvailableError` (HTTP status 400, error code `external_storage_not_available`)
+
+  External Storage isn't available for this Workspace, so only `internal` storage is accepted. The error's `message` says why.
+
+- `BetaGrantRequiredError` (HTTP status 400, error code `grant_required`)
+
+  Anthropic has not approved External Storage for the organization, for the Workspace or, for storage bound to a user profile, for that user profile. Contact your Anthropic account team.
+
+- `BetaHumanReviewNotAvailableError` (HTTP status 400, error code `human_review_not_available`)
+
+  Human review can't be set as requested on this Workspace, so the request changed nothing. The error's `message` says what to do instead.
+
+- `BetaHumanReviewOnWithExternalStorageError` (HTTP status 400, error code `human_review_on_with_external_storage`)
+
+  The request would leave the Workspace with `inference_data_privacy.safeguards_storage` set to External Storage and `inference_data_privacy.human_review` enabled. Anthropic doesn't offer human review of data in a customer's own storage. Set `human_review` to `disabled`, or `safeguards_storage` to `internal`.
+
+- `BetaInvalidStorageARNError` (HTTP status 400, error code `invalid_storage_arn`)
+
+  On Claude Platform on AWS, the External Storage ID in the request is neither a bucket ARN nor an `estrg_` ID, or is the `estrg_` ID of AWS storage. Name AWS storage by its bucket ARN, `arn:<partition>:s3:::<bucket_name>`, which responses return as its `id`.
+
+- `KeyProfileMismatchError` (HTTP status 400, error code `key_profile_mismatch`)
+
+  After this request, the External Key and the Workspace would not have the same user profile. A key and its Workspace must have the same user profile, or both have none.
+
+- `BetaOrganizationNotEligibleError` (HTTP status 400, error code `organization_not_eligible`)
+
+  The feature isn't offered to this organization. The error's `message` names the kind of organization or, when it names none, says to contact your Anthropic account team.
+
+- `BetaStorageNotAttachableError` (HTTP status 400, error code `storage_not_attachable`)
+
+  This External Storage can't be attached to the setting named in `field`. The error's `message` says why.
+
+- `StorageProfileMismatchError` (HTTP status 400, error code `storage_profile_mismatch`)
+
+  The Workspace's storage and its user profile don't match: the Workspace and its storage must have the same user profile, or both have none.
+
+- `BetaStorageVerificationFailedError` (HTTP status 400, error code `storage_verification_failed`)
+
+  The External Storage failed verification, so the request changed nothing. `failed_checks` lists what to fix.
+
+- `BetaTranscriptsStorageRequiredError` (HTTP status 400, error code `transcripts_storage_required`)
+
+  In an organization managed through AWS or Google Cloud, the request would leave the Workspace with `inference_data_privacy.human_review` disabled and `inference_data_privacy.transcripts_storage` not set to External Storage. With human review disabled, the organization reviews its own flagged requests, and it receives them only in that storage.
+
+- `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
+
+  The request depends on a user profile that does not exist in the organization or is no longer active. The request either names this user profile by ID, or names a resource, such as an External Key, that is bound to it.
+
+- `WorkspacePolicyViolationError` (HTTP status 400, error code `workspace_policy_violation`)
+
+  The request breaks the organization's Workspace Policy. The message says which rule it broke; an organization admin can see and change the policy in the Console.
+
+- `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
+
+  The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `ExternalKeyChangedError` (HTTP status 409, error code `external_key_changed`)
+
+  The external key changed while the request was validating it. Send the request again.
+
+- `BetaAuthorizationCheckUnavailableError` (HTTP status 503, error code `authorization_check_unavailable`)
+
+  One of the organization's approvals from Anthropic could not be read right now, so nothing was done. Retry after the `Retry-After` delay.
+
+- `WorkspaceCreatedIncompleteError` (HTTP status 503, error code `workspace_created_incomplete`)
+
+  The Workspace was created, but some of what the request asked for did not take effect, or may not have. Don't send the create again. The error's `message` says what to do with the Workspace at `workspace_id`.
+
 #### Example
 
 ```python
@@ -103243,8 +105871,8 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-beta_workspace = client.beta.organization.workspaces.retrieve(
-    "workspace_id",
+beta_workspace = client.beta.organization.workspaces.create(
+    name="Workspace Name",
 )
 print(beta_workspace.id)
 ```
@@ -103270,7 +105898,372 @@ print(beta_workspace.id)
     "team": "platform"
   },
   "type": "workspace",
-  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
+  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK",
+  "inference_data_privacy": {
+    "human_review": {
+      "type": "disabled"
+    },
+    "safeguards_storage": {
+      "type": "internal"
+    },
+    "transcripts_storage": {
+      "type": "internal"
+    }
+  }
+}
+```
+
+### Get Workspace
+
+`beta.organization.workspaces.retrieve(workspace_id, **kwargs) -> BetaWorkspace`
+
+**GET** `/v1/organizations/workspaces/{workspace_id}`
+
+Get Workspace
+
+#### Parameters
+
+- `workspace_id: str` (path parameter)
+
+  ID of the Workspace.
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  Optional. Send `efs-2026-10-01` in this header to use this endpoint's beta features: additional parameters, accepted values and response fields.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+#### Returns
+
+- `class BetaWorkspace`
+
+  - `type: Literal["workspace"]`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
+    default: workspace
+
+  - `id: str`
+
+    ID of the Workspace.
+
+  - `archived_at: Optional[datetime]`
+
+    RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
+
+    format: date-time
+
+  - `compartment_id: str`
+
+    Identifier for this Workspace's encryption compartment. When you configure an
+    AWS KMS customer-managed encryption key (CMEK) that isn't bound to a user
+    profile, reference this value in your KMS key-policy condition so the key is
+    scoped to this compartment. On GCP and Azure, Anthropic enforces the compartment
+    binding automatically; you do not need to reference this value in your key
+    configuration. See the CMEK integration guide for the required key
+    configuration; unless your organization is on Claude Platform on AWS, it
+    includes a separate value used during key validation. On Claude Platform on AWS
+    there is no separate validation value: your organization's own key is validated
+    against this Workspace's own value when it is attached, so if its key policy
+    uses the compartment condition, add this value to it before attaching the key.
+
+  - `created_at: datetime`
+
+    RFC 3339 datetime string indicating when the Workspace was created.
+
+    format: date-time
+
+  - `data_residency: BetaDataResidency`
+
+    Data residency configuration.
+
+    - `allowed_inference_geos: Union[List[BetaAllowedInferenceGeo], Literal["unrestricted"]]`
+
+      Permitted inference geo values. 'unrestricted' means all geos are allowed.
+
+      - `List[BetaAllowedInferenceGeo]`
+
+        - `"global"`
+
+        - `"us"`
+
+      - `"unrestricted"`
+
+    - `default_inference_geo: Literal["global", "us"]`
+
+      Default inference geo applied when requests omit the parameter.
+
+      - `"global"`
+
+      - `"us"`
+
+    - `workspace_geo: Literal["us"]`
+
+      Geographic region for workspace data storage. Immutable after creation.
+
+  - `display_color: str`
+
+    Hex color code representing the Workspace in the Anthropic Console.
+
+  - `external_key_id: Optional[str]`
+
+    ID of the customer-managed encryption key (CMEK) configuration to use for this
+    Workspace. Setting this field requires CMEK to be enabled for your
+    organization. When set, data stored for this Workspace is encrypted with the
+    referenced key. Create key configurations with the External Keys API. On
+    Claude Platform on AWS the value for an AWS KMS key is the key's ARN, and your
+    organization's own key must be a single-Region key in the same Region as the
+    Workspace. If that key is outside the Workspace's AWS account, it can be attached
+    only by updating an active Workspace. On that platform the key is validated
+    against this Workspace when it is attached, so a key-policy problem is reported
+    as an error on this request. This field is write-once: once a key is attached to
+    a Workspace it cannot be detached or replaced. To rotate key material, rotate
+    the underlying key on your cloud KMS; the `external_key_id` stays the same.
+
+  - `name: str`
+
+    Name of the Workspace.
+
+  - `tags: Dict[str, str]`
+
+    User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+  - `user_profile_id: Optional[str]`
+
+    ID of the user profile attached to the Workspace, or null if it has none. Every inference request through a Workspace that has a user profile must name that profile.
+
+  - `inference_data_privacy: Optional[BetaInferenceDataPrivacy]`
+
+    Where the Workspace's retained inference data and transcript copies go, and whether Anthropic's human review applies. Returned only to requests that send the `efs-2026-10-01` `anthropic-beta` value, and each member only to organizations enabled for it.
+
+    - `human_review: Optional[BetaAnthropicHumanReview]`
+
+      The Workspace's human review setting. Human review is off only while this is `disabled` and Anthropic's approval stands. If Anthropic withdraws approval, review is back on, though this field still reads `disabled`.
+
+      - `type: Literal["disabled", "enabled"]`
+
+        - `"disabled"`
+
+        - `"enabled"`
+
+    - `safeguards_storage: Optional[BetaStorageMember]`
+
+      Where the data Anthropic's safeguards systems retain for the Workspace goes. `external` sends it to the External Storage that `external_storage_id` names. `internal` means no External Storage: it goes to Anthropic's storage or, on a cloud provider's platform, to that provider's storage. A recent change may not have taken effect yet.
+
+      - `class BetaInternalStorage`
+
+        No External Storage for this purpose.
+
+        - `type: Literal["internal"]`
+
+          default: internal
+
+      - `class BetaExternalStorageMember`
+
+        The organization's External Storage that `external_storage_id` names.
+
+        - `type: Literal["external"]`
+
+          default: external
+
+        - `external_storage_id: str`
+
+          The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+    - `transcripts_storage: Optional[BetaStorageMember]`
+
+      Where copies of the Workspace's transcripts and its cases (Anthropic's safety findings about those transcripts) go. `external` sends them to the External Storage that `external_storage_id` names. `internal` means no External Storage, so no copies are made. A recent change may not have taken effect yet.
+
+#### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+beta_workspace = client.beta.organization.workspaces.retrieve(
+    workspace_id="workspace_id",
+)
+print(beta_workspace.id)
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "archived_at": "2024-11-01T23:59:27.427722Z",
+  "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "data_residency": {
+    "allowed_inference_geos": "unrestricted",
+    "default_inference_geo": "global",
+    "workspace_geo": "us"
+  },
+  "display_color": "#6C5BB9",
+  "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+  "name": "Workspace Name",
+  "tags": {
+    "env": "prod",
+    "team": "platform"
+  },
+  "type": "workspace",
+  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK",
+  "inference_data_privacy": {
+    "human_review": {
+      "type": "disabled"
+    },
+    "safeguards_storage": {
+      "type": "internal"
+    },
+    "transcripts_storage": {
+      "type": "internal"
+    }
+  }
 }
 ```
 
@@ -103331,6 +106324,44 @@ Update Workspace
   a Workspace it cannot be detached or replaced. To rotate key material, rotate
   the underlying key on your cloud KMS; the `external_key_id` stays the same.
 
+- `inference_data_privacy: Optional[BetaInferenceDataPrivacyUpdateParam]`
+
+  Changes to where the Workspace's retained inference data and transcript copies go, and to whether Anthropic's human review applies. Requires the `efs-2026-10-01` `anthropic-beta` value. An omitted member is unchanged. Cannot be null. An Admin API key can't set this field, because it doesn't belong to a user or a service account. Use an API key that belongs to one, or an OAuth token.
+
+  - `human_review: Optional[BetaAnthropicHumanReviewParam]`
+
+    Whether Anthropic's human review applies to the Workspace from now on. `disabled` needs Anthropic's approval. When omitted, unchanged. Cannot be null.
+
+    - `type: Literal["disabled", "enabled"]`
+
+      - `"disabled"`
+
+      - `"enabled"`
+
+  - `safeguards_storage: Optional[BetaStorageMemberParam]`
+
+    Where the data Anthropic's safeguards systems retain for the Workspace goes once the change takes effect. `external` sends it to the External Storage that `external_storage_id` names. `internal` means no External Storage: it goes to Anthropic's storage or, on a cloud provider's platform, to that provider's storage. When omitted, unchanged. Cannot be null.
+
+    - `class BetaInternalStorageParam`
+
+      No External Storage for this purpose.
+
+      - `type: Literal["internal"]`
+
+    - `class BetaExternalStorageMemberParam`
+
+      The organization's External Storage that `external_storage_id` names.
+
+      - `type: Literal["external"]`
+
+      - `external_storage_id: str`
+
+        The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+  - `transcripts_storage: Optional[BetaStorageMemberParam]`
+
+    Where copies of the Workspace's transcripts and its cases (Anthropic's safety findings about those transcripts) go once the change takes effect. `external` sends them to the External Storage that `external_storage_id` names. `internal` means no External Storage, so no more copies are made. When omitted, unchanged. Cannot be null.
+
 - `name: Optional[str]`
 
   Name of the Workspace.
@@ -103344,6 +106375,150 @@ Update Workspace
 - `user_profile_id: Optional[str]`
 
   ID of a user profile to attach to the Workspace. Every inference request through the Workspace must then name this user profile; the API rejects a request that names none or a different one. Once set, it can't be replaced or removed (sending the same ID again changes nothing); only deleting the user profile clears it. It can't be set on a Workspace whose External Key isn't bound to this user profile. The default Workspace can't have a user profile.
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  Optional. Send `efs-2026-10-01` in this header to use this endpoint's beta features: additional parameters, accepted values and response fields.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -103446,9 +106621,55 @@ Update Workspace
 
     ID of the user profile attached to the Workspace, or null if it has none. Every inference request through a Workspace that has a user profile must name that profile.
 
+  - `inference_data_privacy: Optional[BetaInferenceDataPrivacy]`
+
+    Where the Workspace's retained inference data and transcript copies go, and whether Anthropic's human review applies. Returned only to requests that send the `efs-2026-10-01` `anthropic-beta` value, and each member only to organizations enabled for it.
+
+    - `human_review: Optional[BetaAnthropicHumanReview]`
+
+      The Workspace's human review setting. Human review is off only while this is `disabled` and Anthropic's approval stands. If Anthropic withdraws approval, review is back on, though this field still reads `disabled`.
+
+      - `type: Literal["disabled", "enabled"]`
+
+        - `"disabled"`
+
+        - `"enabled"`
+
+    - `safeguards_storage: Optional[BetaStorageMember]`
+
+      Where the data Anthropic's safeguards systems retain for the Workspace goes. `external` sends it to the External Storage that `external_storage_id` names. `internal` means no External Storage: it goes to Anthropic's storage or, on a cloud provider's platform, to that provider's storage. A recent change may not have taken effect yet.
+
+      - `class BetaInternalStorage`
+
+        No External Storage for this purpose.
+
+        - `type: Literal["internal"]`
+
+          default: internal
+
+      - `class BetaExternalStorageMember`
+
+        The organization's External Storage that `external_storage_id` names.
+
+        - `type: Literal["external"]`
+
+          default: external
+
+        - `external_storage_id: str`
+
+          The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+    - `transcripts_storage: Optional[BetaStorageMember]`
+
+      Where copies of the Workspace's transcripts and its cases (Anthropic's safety findings about those transcripts) go. `external` sends them to the External Storage that `external_storage_id` names. `internal` means no External Storage, so no copies are made. A recent change may not have taken effect yet.
+
 #### Errors
 
 Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
+
+- `BetaApprovalRequiredError` (HTTP status 400, error code `approval_required`)
+
+  Turning human review off needs Anthropic's approval for the organization, and the organization doesn't have it. Contact Anthropic support to request approval.
 
 - `ExternalKeyValidationFailedError` (HTTP status 400, error code `external_key_validation_failed`)
 
@@ -103458,9 +106679,57 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   Anthropic's validation of the External Key did not finish in time, so the request was refused. Wait a moment, then send the request again.
 
+- `BetaExternalStorageNotAvailableError` (HTTP status 400, error code `external_storage_not_available`)
+
+  External Storage isn't available for this Workspace, so only `internal` storage is accepted. The error's `message` says why.
+
+- `BetaGrantRequiredError` (HTTP status 400, error code `grant_required`)
+
+  Anthropic has not approved External Storage for the organization, for the Workspace or, for storage bound to a user profile, for that user profile. Contact your Anthropic account team.
+
+- `BetaHumanReviewNotAvailableError` (HTTP status 400, error code `human_review_not_available`)
+
+  Human review can't be set as requested on this Workspace, so the request changed nothing. The error's `message` says what to do instead.
+
+- `BetaHumanReviewOnWithExternalStorageError` (HTTP status 400, error code `human_review_on_with_external_storage`)
+
+  The request would leave the Workspace with `inference_data_privacy.safeguards_storage` set to External Storage and `inference_data_privacy.human_review` enabled. Anthropic doesn't offer human review of data in a customer's own storage. Set `human_review` to `disabled`, or `safeguards_storage` to `internal`.
+
+- `BetaInvalidStorageARNError` (HTTP status 400, error code `invalid_storage_arn`)
+
+  On Claude Platform on AWS, the External Storage ID in the request is neither a bucket ARN nor an `estrg_` ID, or is the `estrg_` ID of AWS storage. Name AWS storage by its bucket ARN, `arn:<partition>:s3:::<bucket_name>`, which responses return as its `id`.
+
 - `KeyProfileMismatchError` (HTTP status 400, error code `key_profile_mismatch`)
 
   After this request, the External Key and the Workspace would not have the same user profile. A key and its Workspace must have the same user profile, or both have none.
+
+- `BetaOrganizationNotEligibleError` (HTTP status 400, error code `organization_not_eligible`)
+
+  The feature isn't offered to this organization. The error's `message` names the kind of organization or, when it names none, says to contact your Anthropic account team.
+
+- `BetaStorageAttachLimitReachedError` (HTTP status 400, error code `storage_attach_limit_reached`)
+
+  The Workspace has reached its limit of 100 different External Storage resources attached over its lifetime. Detached storage counts toward the limit until it is deleted.
+
+- `BetaStorageNotAttachableError` (HTTP status 400, error code `storage_not_attachable`)
+
+  This External Storage can't be attached to the setting named in `field`. The error's `message` says why.
+
+- `StorageProfileMismatchError` (HTTP status 400, error code `storage_profile_mismatch`)
+
+  The Workspace's storage and its user profile don't match: the Workspace and its storage must have the same user profile, or both have none.
+
+- `BetaStorageProfileStillRequiredError` (HTTP status 400, error code `storage_profile_still_required`)
+
+  This storage is bound to a different user profile from storage the Workspace has attached, or from active or draining storage it once had for safeguards data. Detaching storage the Workspace uses only for transcripts clears this. Detaching safeguards storage doesn't, so use a new Workspace instead.
+
+- `BetaStorageVerificationFailedError` (HTTP status 400, error code `storage_verification_failed`)
+
+  The External Storage failed verification, so the request changed nothing. `failed_checks` lists what to fix.
+
+- `BetaTranscriptsStorageRequiredError` (HTTP status 400, error code `transcripts_storage_required`)
+
+  In an organization managed through AWS or Google Cloud, the request would leave the Workspace with `inference_data_privacy.human_review` disabled and `inference_data_privacy.transcripts_storage` not set to External Storage. With human review disabled, the organization reviews its own flagged requests, and it receives them only in that storage.
 
 - `UserProfileNotFoundError` (HTTP status 400, error code `user_profile_not_found`)
 
@@ -103477,6 +106746,22 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - `ExternalKeyChangedError` (HTTP status 409, error code `external_key_changed`)
 
   The external key changed while the request was validating it. Send the request again.
+
+- `BetaStorageChangedConcurrentlyError` (HTTP status 409, error code `storage_changed_concurrently`)
+
+  Another request changed this storage setting while this one was running, so this request left it as it is. Read the Workspace and send the request again if you still want the change.
+
+- `BetaWorkspaceChangedConcurrentlyError` (HTTP status 409, error code `workspace_changed_concurrently`)
+
+  Another request changed the Workspace, so this request left the setting named in `field` as it is. The error's `message` says which of this request's other changes are in place. Read the Workspace and send the request again if you still want the change.
+
+- `BetaAuthorizationCheckUnavailableError` (HTTP status 503, error code `authorization_check_unavailable`)
+
+  One of the organization's approvals from Anthropic could not be read right now, so nothing was done. Retry after the `Retry-After` delay.
+
+- `ChangeOutcomeUnknownError` (HTTP status 503, error code `change_outcome_unknown`)
+
+  Some of the request's changes may have been saved and others not. Send the same request again to finish it; changes already saved aren't repeated.
 
 #### Example
 
@@ -103516,13 +106801,24 @@ print(beta_workspace.id)
     "team": "platform"
   },
   "type": "workspace",
-  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
+  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK",
+  "inference_data_privacy": {
+    "human_review": {
+      "type": "disabled"
+    },
+    "safeguards_storage": {
+      "type": "internal"
+    },
+    "transcripts_storage": {
+      "type": "internal"
+    }
+  }
 }
 ```
 
 ### Archive Workspace
 
-`beta.organization.workspaces.archive(workspace_id) -> BetaWorkspace`
+`beta.organization.workspaces.archive(workspace_id, **kwargs) -> BetaWorkspace`
 
 **POST** `/v1/organizations/workspaces/{workspace_id}/archive`
 
@@ -103531,6 +106827,150 @@ Archive Workspace
 #### Parameters
 
 - `workspace_id: str` (path parameter)
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  Optional. Send `efs-2026-10-01` in this header to use this endpoint's beta features: additional parameters, accepted values and response fields.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -103633,6 +107073,48 @@ Archive Workspace
 
     ID of the user profile attached to the Workspace, or null if it has none. Every inference request through a Workspace that has a user profile must name that profile.
 
+  - `inference_data_privacy: Optional[BetaInferenceDataPrivacy]`
+
+    Where the Workspace's retained inference data and transcript copies go, and whether Anthropic's human review applies. Returned only to requests that send the `efs-2026-10-01` `anthropic-beta` value, and each member only to organizations enabled for it.
+
+    - `human_review: Optional[BetaAnthropicHumanReview]`
+
+      The Workspace's human review setting. Human review is off only while this is `disabled` and Anthropic's approval stands. If Anthropic withdraws approval, review is back on, though this field still reads `disabled`.
+
+      - `type: Literal["disabled", "enabled"]`
+
+        - `"disabled"`
+
+        - `"enabled"`
+
+    - `safeguards_storage: Optional[BetaStorageMember]`
+
+      Where the data Anthropic's safeguards systems retain for the Workspace goes. `external` sends it to the External Storage that `external_storage_id` names. `internal` means no External Storage: it goes to Anthropic's storage or, on a cloud provider's platform, to that provider's storage. A recent change may not have taken effect yet.
+
+      - `class BetaInternalStorage`
+
+        No External Storage for this purpose.
+
+        - `type: Literal["internal"]`
+
+          default: internal
+
+      - `class BetaExternalStorageMember`
+
+        The organization's External Storage that `external_storage_id` names.
+
+        - `type: Literal["external"]`
+
+          default: external
+
+        - `external_storage_id: str`
+
+          The External Storage ID, which starts with `estrg_`. Through Claude Platform on AWS, storage whose `provider_config.type` is `aws` has its bucket ARN as its ID instead: `arn:<partition>:s3:::<bucket_name>`, where `<partition>` is the partition of the bucket's region.
+
+    - `transcripts_storage: Optional[BetaStorageMember]`
+
+      Where copies of the Workspace's transcripts and its cases (Anthropic's safety findings about those transcripts) go. `external` sends them to the External Storage that `external_storage_id` names. `internal` means no External Storage, so no copies are made. A recent change may not have taken effect yet.
+
 #### Errors
 
 Any method can also return the general [HTTP errors](https://platform.claude.com/docs/en/api/errors?sdk_languages=python).
@@ -103640,6 +107122,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 - `SandboxEgressRestrictedError` (HTTP status 403, error code `sandbox_egress_restricted`)
 
   The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
+
+- `StorageAttachedDuringArchiveError` (HTTP status 409, error code `storage_attached_during_archive`)
+
+  The Workspace was archived, but External Storage was attached to it during the archive and is still attached. To detach it, archive the Workspace again as a caller with the `org:external-storage:use` permission.
 
 #### Example
 
@@ -103653,7 +107139,7 @@ client = Anthropic(
     ),  # This is the default and can be omitted
 )
 beta_workspace = client.beta.organization.workspaces.archive(
-    "workspace_id",
+    workspace_id="workspace_id",
 )
 print(beta_workspace.id)
 ```
@@ -103679,7 +107165,18 @@ print(beta_workspace.id)
     "team": "platform"
   },
   "type": "workspace",
-  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK"
+  "user_profile_id": "uprof_01SDCCSbTxrXDpWc1phhtcfK",
+  "inference_data_privacy": {
+    "human_review": {
+      "type": "disabled"
+    },
+    "safeguards_storage": {
+      "type": "internal"
+    },
+    "transcripts_storage": {
+      "type": "internal"
+    }
+  }
 }
 ```
 
@@ -104798,6 +108295,8 @@ omitted from the results.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -105055,6 +108554,8 @@ accounts cannot be added and are rejected.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -105303,6 +108804,8 @@ account returns 404.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -105556,6 +109059,8 @@ rejected.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -105803,6 +109308,8 @@ membership. Archived workspaces return 400.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -106108,7 +109615,7 @@ print(page.id)
 
 ### Get Compliance Settings
 
-`beta.organization.compliance_settings.retrieve() -> BetaComplianceSettings`
+`beta.organization.compliance_settings.retrieve(**kwargs) -> BetaComplianceSettings`
 
 **GET** `/v1/organizations/compliance_settings`
 
@@ -106118,6 +109625,152 @@ Compliance Settings is a singleton resource: there is exactly one per
 organization, addressed without an identifier. The `state` field reflects
 whether the Compliance API is enabled. An organization with a parent
 organization reads the state inherited from the parent's configuration.
+
+#### Parameters
+
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  Optional. Send `efs-2026-10-01` in this header to use this endpoint's beta features: additional parameters, accepted values and response fields.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
 
 #### Returns
 
@@ -106143,6 +109796,16 @@ organization reads the state inherited from the parent's configuration.
 
         default: disabled
 
+  - `access_transparency: Optional[BetaAccessTransparency]`
+
+    Read-only. Whether Access Transparency is on for the organization. Returned only when the request sends the `anthropic-beta: efs-2026-10-01` header and Access Transparency is available to the organization; otherwise omitted. If the status can't be read, getting Compliance Settings returns an error; an update still saves, but then reports `disabled` whatever the real status, so get the settings again to check it.
+
+    - `type: Literal["disabled", "enabled"]`
+
+      - `"disabled"`
+
+      - `"enabled"`
+
 #### Example
 
 ```python
@@ -106165,7 +109828,10 @@ print(beta_compliance_settings.state)
   "state": {
     "type": "enabled"
   },
-  "type": "compliance_settings"
+  "type": "compliance_settings",
+  "access_transparency": {
+    "type": "disabled"
+  }
 }
 ```
 
@@ -106207,6 +109873,150 @@ compliance settings.
 
     - `type: Literal["disabled"]`
 
+- `betas: Optional[List[AnthropicBetaParam]]` (header parameter)
+
+  Optional. Send `efs-2026-10-01` in this header to use this endpoint's beta features: additional parameters, accepted values and response fields.
+
+  - `str`
+
+  - `"computer-use-2024-10-22"`
+
+  - `"computer-use-2025-01-24"`
+
+  - `"output-128k-2025-02-19"`
+
+  - `"mcp-client-2025-04-04"`
+
+  - `"mcp-client-2025-11-20"`
+
+  - `"dev-full-thinking-2025-05-14"`
+
+  - `"interleaved-thinking-2025-05-14"`
+
+  - `"code-execution-2025-05-22"`
+
+  - `"context-1m-2025-08-07"`
+
+  - `"context-management-2025-06-27"`
+
+  - `"model-context-window-exceeded-2025-08-26"`
+
+  - `"fast-mode-2026-02-01"`
+
+  - `"output-300k-2026-03-24"`
+
+  - `"user-profiles-2026-03-24"`
+
+  - `"user-profiles-2026-08-18"`
+
+  - `"user-profiles-2026-09-04"`
+
+  - `"advisor-tool-2026-03-01"`
+
+  - `"managed-agents-2026-04-01"`
+
+  - `"dreaming-2026-04-21"`
+
+  - `"thinking-token-count-2026-05-13"`
+
+  - `"server-side-fallback-2026-06-01"`
+
+  - `"server-side-fallback-2026-07-01"`
+
+  - `"fallback-credit-2026-06-01"`
+
+  - `"fallback-credit-2026-07-01"`
+
+  - `"agent-memory-2026-07-22"`
+
+  - `"mid-conversation-tool-changes-2026-07-01"`
+
+  - `"compact-2026-01-12"`
+
+  - `"computer-use-2025-11-24"`
+
+  - `"mcp-tunnels-2026-06-22"`
+
+  - `"structured-outputs-2025-11-13"`
+
+  - `"task-budgets-2026-03-13"`
+
+  - `"thinking-display-updates-2026-08-18"`
+
+  - `"mid-conversation-output-config-2026-07-01"`
+
+  - `"thinking-binding-controls-2026-08-01"`
+
+  - `"mid-conversation-system-clear-at-2026-08-21"`
+
+  - `"compact-2026-09-04"`
+
+  - `"inline-tools-2026-09-15"`
+
+  - `"mcp-client-2026-09-15"`
+
+  - `"ce-plugins-2026-09-01"`
+
+  - `"spend-limit-reads-2026-09-26"`
+
+  - `"telemetry-destinations-2026-08-11"`
+
+  - `"webhooks-2026-10-07"`
+
+  - `"admin-user-sign-out-2026-10-08"`
+
+  - `"message-threads-2026-08-12"`
+
+  - `"analytics-usage-cost-2026-08-24"`
+
+  - `"experimental-claude-tag-2026-10-21"`
+
+  - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
+
+  - `"user-profiles-billing-2026-10-01"`
+
+  - `"message-batches-2024-09-24"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"prompt-caching-2024-07-31"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"pdfs-2024-09-25"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-counting-2024-11-01"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"token-efficient-tools-2025-02-19"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"files-api-2025-04-14"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/files#migrate-from-files-api-2025-04-14
+
+  - `"extended-cache-ttl-2025-04-11"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"skills-2025-10-02"`
+
+    **Deprecated**: Sending this value selects the beta response shapes. Removing it moves you to the current shapes, so follow the migration steps: https://platform.claude.com/docs/en/build-with-claude/skills-guide#migrate-from-skills-2025-10-02
+
+  - `"cache-diagnosis-2026-04-07"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
+  - `"ce-user-management-2026-07-13"`
+
+    **Deprecated**: This value is no longer needed. Remove it from your requests.
+
 #### Returns
 
 - `class BetaComplianceSettings`
@@ -106230,6 +110040,16 @@ compliance settings.
       - `type: Literal["disabled"]`
 
         default: disabled
+
+  - `access_transparency: Optional[BetaAccessTransparency]`
+
+    Read-only. Whether Access Transparency is on for the organization. Returned only when the request sends the `anthropic-beta: efs-2026-10-01` header and Access Transparency is available to the organization; otherwise omitted. If the status can't be read, getting Compliance Settings returns an error; an update still saves, but then reports `disabled` whatever the real status, so get the settings again to check it.
+
+    - `type: Literal["disabled", "enabled"]`
+
+      - `"disabled"`
+
+      - `"enabled"`
 
 #### Errors
 
@@ -106263,7 +110083,10 @@ print(beta_compliance_settings.state)
   "state": {
     "type": "enabled"
   },
-  "type": "compliance_settings"
+  "type": "compliance_settings",
+  "access_transparency": {
+    "type": "disabled"
+  }
 }
 ```
 
@@ -108747,6 +112570,8 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -109555,6 +113380,8 @@ API key with the `read:analytics` scope, or an Admin API key.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -111628,6 +115455,8 @@ Anthropic account team.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -112251,6 +116080,8 @@ come in a fixed order that is not creation order.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -115479,6 +119310,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -115936,6 +119769,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -116385,6 +120220,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -116896,6 +120733,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -117334,6 +121173,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -117575,6 +121416,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -117976,6 +121819,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -118339,6 +122184,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -118715,6 +122562,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -118947,6 +122796,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -119252,6 +123103,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -119554,6 +123407,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -119843,6 +123698,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -120143,6 +124000,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -120447,6 +124306,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -120760,6 +124621,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -121089,6 +124952,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -121397,6 +125262,8 @@ Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-0
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -121802,6 +125669,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -122193,6 +126062,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -122574,6 +126445,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -123089,6 +126962,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -123469,6 +127344,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -123664,6 +127541,8 @@ Send one test span, named `anthropic.test`, to the destination with its register
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -123895,6 +127774,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -124119,6 +128000,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -124340,6 +128223,8 @@ See the [OpenTelemetry export guide](https://platform.claude.com/docs/en/manage-
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -124448,13 +128333,17 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
 #### Parameters
 
-- `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "user_profile.enforcement_action_opened", 2 more]]`
+- `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "external_storage.failed", 4 more]]`
 
   The event types to deliver to the endpoint. Must list at least one.
 
   - `"external_key.failed"`
 
   - `"external_key.recovered"`
+
+  - `"external_storage.failed"`
+
+  - `"external_storage.recovered"`
 
   - `"user_profile.enforcement_action_opened"`
 
@@ -124576,6 +128465,8 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -124642,13 +128533,17 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
 
-  - `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "user_profile.enforcement_action_opened", 2 more]]`
+  - `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "external_storage.failed", 4 more]]`
 
     The event types delivered to the endpoint.
 
     - `"external_key.failed"`
 
     - `"external_key.recovered"`
+
+    - `"external_storage.failed"`
+
+    - `"external_storage.recovered"`
 
     - `"user_profile.enforcement_action_opened"`
 
@@ -124859,6 +128754,8 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -124926,13 +128823,17 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
 
-  - `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "user_profile.enforcement_action_opened", 2 more]]`
+  - `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "external_storage.failed", 4 more]]`
 
     The event types delivered to the endpoint.
 
     - `"external_key.failed"`
 
     - `"external_key.recovered"`
+
+    - `"external_storage.failed"`
+
+    - `"external_storage.recovered"`
 
     - `"user_profile.enforcement_action_opened"`
 
@@ -125121,6 +129022,8 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -125188,13 +129091,17 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
 
-  - `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "user_profile.enforcement_action_opened", 2 more]]`
+  - `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "external_storage.failed", 4 more]]`
 
     The event types delivered to the endpoint.
 
     - `"external_key.failed"`
 
     - `"external_key.recovered"`
+
+    - `"external_storage.failed"`
+
+    - `"external_storage.recovered"`
 
     - `"user_profile.enforcement_action_opened"`
 
@@ -125281,13 +129188,17 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   Notes about the endpoint.
 
-- `enabled_events: Optional[List[Literal["external_key.failed", "external_key.recovered", "user_profile.enforcement_action_opened", 2 more]]]`
+- `enabled_events: Optional[List[Literal["external_key.failed", "external_key.recovered", "external_storage.failed", 4 more]]]`
 
   The event types to deliver to the endpoint. Replaces the whole set; an empty list leaves it unchanged.
 
   - `"external_key.failed"`
 
   - `"external_key.recovered"`
+
+  - `"external_storage.failed"`
+
+  - `"external_storage.recovered"`
 
   - `"user_profile.enforcement_action_opened"`
 
@@ -125413,6 +129324,8 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -125480,13 +129393,17 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
     Why Anthropic disabled the endpoint automatically. An empty string when the endpoint is enabled, or when you disabled it.
 
-  - `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "user_profile.enforcement_action_opened", 2 more]]`
+  - `enabled_events: List[Literal["external_key.failed", "external_key.recovered", "external_storage.failed", 4 more]]`
 
     The event types delivered to the endpoint.
 
     - `"external_key.failed"`
 
     - `"external_key.recovered"`
+
+    - `"external_storage.failed"`
+
+    - `"external_storage.recovered"`
 
     - `"user_profile.enforcement_action_opened"`
 
@@ -125668,6 +129585,8 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -125880,6 +129799,8 @@ Every request must include the beta header `anthropic-beta: webhooks-2026-10-07`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -126082,6 +130003,8 @@ Every request must include the beta header `anthropic-beta: ce-claude-code-manag
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -126343,6 +130266,8 @@ A write that returns `503` may have applied. Retrying it is safe.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -126617,6 +130542,8 @@ Every request must include the beta header `anthropic-beta: ce-claude-code-manag
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -126865,6 +130792,8 @@ Every request must include the beta header `anthropic-beta: ce-claude-code-manag
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -127145,6 +131074,8 @@ A write that returns `503` may have applied. Retrying it is safe.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -127441,6 +131372,8 @@ A write that returns `503` may have applied. Retrying it is safe.
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -127660,6 +131593,8 @@ Every request must include the beta header `anthropic-beta: ce-claude-code-manag
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -127883,6 +131818,8 @@ A write that returns `503` may have applied. Retrying it is safe.
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -128206,6 +132143,8 @@ Set a Slack channel up for Claude Tag and return it with its identifier. If the 
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -128708,6 +132647,8 @@ List the set-up Slack channels of one Slack workspace, newest first by `created_
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -129179,6 +133120,8 @@ Get one Slack channel and its settings. By default `settings` holds what the cha
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -129718,6 +133661,8 @@ Change the settings a Slack channel stores. The update is partial: a setting lef
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -130195,6 +134140,8 @@ Remove a Slack channel from Claude Tag. This deletes the channel's stored settin
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -130430,6 +134377,8 @@ List the set-up Slack workspaces the organization owns, newest first by `created
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -130903,6 +134852,8 @@ Get one Slack workspace and its settings. By default `settings` holds what the w
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -131445,6 +135396,8 @@ Change the settings a Slack workspace stores. The update is partial: a setting l
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -131933,6 +135886,8 @@ List the organization's Bundles, newest first by `created_at`. A Bundle that Cla
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -132180,6 +136135,8 @@ Get one Bundle. What the Bundle grants (connectors, repositories and credentials
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -132426,6 +136383,8 @@ Change a Bundle's instructions. The update is partial: a field left out is uncha
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -132693,6 +136652,8 @@ List the Slack channels and Slack workspaces a Bundle is attached to, newest fir
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 
@@ -132976,6 +136937,8 @@ Attach a Bundle to a Slack channel or a Slack workspace. A Bundle attached to a 
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -133236,6 +137199,8 @@ Get one Bundle Target. Returns 404 when `target_id` is the identifier of another
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
 
+  - `"efs-2026-10-01"`
+
   - `"user-profiles-billing-2026-10-01"`
 
   - `"message-batches-2024-09-24"`
@@ -133492,6 +137457,8 @@ Detach a Bundle from a Slack channel or a Slack workspace. A repeated detach ret
   - `"experimental-claude-tag-2026-10-21"`
 
   - `"ce-claude-code-managed-settings-2026-10-06"`
+
+  - `"efs-2026-10-01"`
 
   - `"user-profiles-billing-2026-10-01"`
 

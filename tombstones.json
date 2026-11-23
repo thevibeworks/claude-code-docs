@@ -47,13 +47,61 @@
       "since": "2026-09-25",
       "reason": "moved -> https://claude.com/docs/connectors/getting-started"
     },
+    "https://code.claude.com/docs/en/agent-sdk/slash-commands": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/agent-sdk/skills"
+    },
     "https://code.claude.com/docs/en/claude-tag": {
       "since": "2026-09-30",
       "reason": "moved -> https://claude.com/docs/claude-tag/overview"
     },
+    "https://code.claude.com/docs/en/desktop-changelog": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/desktop"
+    },
+    "https://code.claude.com/docs/en/discover-plugins": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/plugins/install"
+    },
+    "https://code.claude.com/docs/en/iam": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/authentication"
+    },
+    "https://code.claude.com/docs/en/plugin-dependencies": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/plugins/dependencies"
+    },
+    "https://code.claude.com/docs/en/plugin-hints": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/plugins/cli-hints"
+    },
+    "https://code.claude.com/docs/en/plugin-marketplaces": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/plugins/create-marketplace"
+    },
+    "https://code.claude.com/docs/en/plugin-relevance": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/plugins/relevance"
+    },
+    "https://code.claude.com/docs/en/plugins": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/plugins/overview"
+    },
+    "https://code.claude.com/docs/en/plugins-reference": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/plugins/manifest-reference"
+    },
     "https://code.claude.com/docs/en/sdk/migration-guide": {
       "since": "2026-08-25",
       "reason": "soft-404 (HTML shell)"
+    },
+    "https://code.claude.com/docs/en/slash-commands": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/skills"
+    },
+    "https://code.claude.com/docs/en/web-scheduled-tasks": {
+      "since": "2026-11-23",
+      "reason": "moved -> https://code.claude.com/docs/en/routines"
     },
     "https://modelcontextprotocol.io/community/auth/charter": {
       "since": "2026-08-25",

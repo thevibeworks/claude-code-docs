@@ -26,11 +26,14 @@ When more than one credential is configured, the app uses the first one present 
 
 ## Set up AWS
 
-These steps are performed once per AWS organization, regardless of which authentication approach you chose. You need an AWS account with permission to manage Amazon Bedrock model access and IAM Identity Center.
+Perform these steps once, whichever authentication approach you chose. You need an AWS role that can use Amazon Bedrock, can manage IAM Identity Center, and has the AWS Marketplace permissions listed in [AWS's model access documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html#model-access-permissions).
 
 **1. Enable Claude models in Amazon Bedrock**
 
-In the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/), open **Model access** and request access to the Claude models you intend to deploy. Access is granted per region, so enable the models in the same region you will set as `inferenceBedrockRegion`.
+Use [AWS's list of models by region](https://docs.aws.amazon.com/bedrock/latest/userguide/models-region-compatibility.html#model-regions-anthropic) to confirm that AWS offers the Claude models you intend to deploy in the region you plan to set as [`inferenceBedrockRegion`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencebedrockregion). Then enable those models in the AWS account that hosts Amazon Bedrock:
+
+* **Commercial AWS account**: in the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/) for that region, go to the **Model catalog**, select a Claude model, and submit the use case details if AWS asks for them. Then send one request to each model, for example from the console's playground. With that first request, you accept the model's end user license agreement, and AWS enables the model for everyone in the account. Your users don't need the AWS Marketplace permissions.
+* **AWS GovCloud (US) account**: enable the models in the linked commercial AWS account first, then in the GovCloud account, as described in [Access Amazon Bedrock foundation models in AWS GovCloud (US)](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html#model-access-govcloud) in the AWS documentation.
 
 **2. Create an IAM Identity Center permission set**
 
@@ -68,7 +71,7 @@ From the IAM Identity Center **Settings** page, note:
 
 * **AWS access portal URL**: of the form `https://d-xxxxxxxxxx.awsapps.com/start` (or your custom subdomain)
 * **Identity Center region**: the region where Identity Center is enabled, which may differ from your Amazon Bedrock region
-* **AWS account ID**: the 12-digit ID of the account where you enabled Amazon Bedrock
+* **AWS account ID**: the 12-digit ID of the AWS account that you assigned the permission set to
 * **Permission set name**: the name you gave the permission set above
 
 ## Prepare devices
@@ -180,6 +183,8 @@ With AWS set up and devices prepared, open the [in-app configuration window](htt
 | Bedrock service tier | *optional* | *optional* | *optional* |
 
 Under **Models**, add a **Model list** entry using the Amazon Bedrock inference-profile ID (optional for bearer-token or credential-helper auth, which auto-discover models; required otherwise), for example `us.anthropic.claude-sonnet-5`.
+
+In an AWS GovCloud (US) region (`us-gov-*`), use inference-profile IDs that start with `us-gov.` in place of `us.`. To allow the app through your firewall in these regions, see the FIPS endpoints on the **Amazon Bedrock** tab under [Inference provider](https://claude.com/docs/third-party/claude-desktop/telemetry.md#inference-provider).
 
 Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 

@@ -879,6 +879,26 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
 
       - `required string OrganizationID`
 
+    - `class BetaWebhookExternalStorageFailedEventData`
+
+      - `JsonElement Type = "external_storage.failed"`
+
+      - `required string ID`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `required string OrganizationID`
+
+    - `class BetaWebhookExternalStorageRecoveredEventData`
+
+      - `JsonElement Type = "external_storage.recovered"`
+
+      - `required string ID`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `required string OrganizationID`
+
 ### Beta Webhook Event Data
 
 - `class BetaWebhookEventData: union`
@@ -1497,6 +1517,26 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
 
     - `required string OrganizationID`
 
+  - `class BetaWebhookExternalStorageFailedEventData`
+
+    - `JsonElement Type = "external_storage.failed"`
+
+    - `required string ID`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `required string OrganizationID`
+
+  - `class BetaWebhookExternalStorageRecoveredEventData`
+
+    - `JsonElement Type = "external_storage.recovered"`
+
+    - `required string ID`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `required string OrganizationID`
+
 ### Beta Webhook External Key Failed Event Data
 
 - `class BetaWebhookExternalKeyFailedEventData`
@@ -1518,6 +1558,30 @@ url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
   - `required string ID`
 
     ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `required string OrganizationID`
+
+### Beta Webhook External Storage Failed Event Data
+
+- `class BetaWebhookExternalStorageFailedEventData`
+
+  - `JsonElement Type = "external_storage.failed"`
+
+  - `required string ID`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+  - `required string OrganizationID`
+
+### Beta Webhook External Storage Recovered Event Data
+
+- `class BetaWebhookExternalStorageRecoveredEventData`
+
+  - `JsonElement Type = "external_storage.recovered"`
+
+  - `required string ID`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
 
   - `required string OrganizationID`
 

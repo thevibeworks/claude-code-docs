@@ -263,7 +263,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     format: date-time
 
-  - `data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 46 more`
+  - `data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 48 more`
 
     - `beta_webhook_session_created_event_data: object`
 
@@ -879,9 +879,29 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `organization_id: string`
 
+    - `beta_webhook_external_storage_failed_event_data: object`
+
+      - `type: "external_storage.failed"`
+
+      - `id: string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: string`
+
+    - `beta_webhook_external_storage_recovered_event_data: object`
+
+      - `type: "external_storage.recovered"`
+
+      - `id: string`
+
+        ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+      - `organization_id: string`
+
 ### Beta Webhook Event Data
 
-- `beta_webhook_event_data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 46 more`
+- `beta_webhook_event_data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 48 more`
 
   - `beta_webhook_session_created_event_data: object`
 
@@ -1497,6 +1517,26 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `organization_id: string`
 
+  - `beta_webhook_external_storage_failed_event_data: object`
+
+    - `type: "external_storage.failed"`
+
+    - `id: string`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `organization_id: string`
+
+  - `beta_webhook_external_storage_recovered_event_data: object`
+
+    - `type: "external_storage.recovered"`
+
+    - `id: string`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `organization_id: string`
+
 ### Beta Webhook External Key Failed Event Data
 
 - `beta_webhook_external_key_failed_event_data: object`
@@ -1518,6 +1558,30 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
   - `id: string`
 
     ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `organization_id: string`
+
+### Beta Webhook External Storage Failed Event Data
+
+- `beta_webhook_external_storage_failed_event_data: object`
+
+  - `type: "external_storage.failed"`
+
+  - `id: string`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+  - `organization_id: string`
+
+### Beta Webhook External Storage Recovered Event Data
+
+- `beta_webhook_external_storage_recovered_event_data: object`
+
+  - `type: "external_storage.recovered"`
+
+  - `id: string`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
 
   - `organization_id: string`
 

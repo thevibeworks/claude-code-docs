@@ -132,6 +132,10 @@ Each code below is the value of `error.details.error_code` in the response body.
 
   The request came from a Claude sandbox with restricted network access, which is not allowed to make this request. Send it from outside the sandbox, or from a sandbox with unrestricted network access.
 
+- `storage_attached_during_archive` (HTTP status 409)
+
+  The Workspace was archived, but External Storage was attached to it during the archive and is still attached. To detach it, archive the Workspace again as a caller with the `org:external-storage:use` permission.
+
 ## Example
 
 ```bash

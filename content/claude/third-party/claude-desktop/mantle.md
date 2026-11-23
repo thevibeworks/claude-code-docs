@@ -19,7 +19,7 @@ Mantle supports a bearer token only. There is no in-app AWS sign-in or named-pro
 
 ## Set up AWS
 
-Enable Claude models in Amazon Bedrock for the region you will set as `inferenceBedrockRegion`, and obtain a Mantle bearer token for that account. See [Set up AWS](https://claude.com/docs/third-party/claude-desktop/bedrock.md#set-up-aws) on the Amazon Bedrock page for the model-access step; the IAM Identity Center steps there are not needed for Mantle.
+Enable Claude models in your AWS account, and obtain a Mantle bearer token for that account. See [Set up AWS](https://claude.com/docs/third-party/claude-desktop/bedrock.md#set-up-aws) on the Amazon Bedrock page for the step that enables the models; the IAM Identity Center steps there are not needed for Mantle.
 
 ## Prepare devices
 

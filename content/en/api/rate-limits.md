@@ -181,7 +181,7 @@ Each row in the following tables has its own RPM, ITPM, and OTPM limits. Some ro
 
 *<sup>1 Fable rate limit is a total limit that applies to combined traffic across Claude Fable 5.1 and Claude Fable 5. Claude Fable 5.2 has a separate rate limit and is not part of this combined bucket. Claude Mythos 5.2, Claude Mythos 5.1, and Claude Mythos 5 share a separate combined limit.</sup>*
 
-*<sup>2 Opus rate limit is a total limit that applies to combined traffic across Claude Opus 4.8, Opus 4.7, Opus 4.6, and Opus 4.5. Claude Opus 5.5 and Claude Opus 5 each have a separate rate limit and are not part of this combined bucket.</sup>*
+*<sup>2 Opus rate limit is a total limit that applies to combined traffic across Claude Opus 4.8, Opus 4.7, Opus 4.6, and Opus 4.5. Claude Opus 4.5 is deprecated on the Claude API. For other platforms, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations). Claude Opus 5.5 and Claude Opus 5 each have a separate rate limit and are not part of this combined bucket.</sup>*
 
 *<sup>3 Sonnet 4.x rate limit is a total limit that applies to combined traffic across Sonnet 4.6 and Sonnet 4.5 (deprecated; see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations)). Claude Sonnet 5.5 and Claude Sonnet 5 each have a separate rate limit and are not part of this combined bucket.</sup>*
 

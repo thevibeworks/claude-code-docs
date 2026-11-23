@@ -209,7 +209,7 @@ Your chats (now in Cowork), sessions, projects, and scheduled tasks appear. Your
 
 * If a scheduled task asks to use a tool, choose **Allow for all scheduled runs**.
 * If a session or project is missing its folder, your files are still where they were. Attach the folder again. If Claude refuses it, ask your IT team which folders are allowed, and move the files there.
-* Turn on [memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c9b905eb3f) in your settings. **Notes from Cowork** shows only while it's on.
+* Turn on [memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c9b905eb3f) in your settings. You can add **Notes from Cowork** to your memory only while memory is on.
 * In **Settings > Import**, click **Add instructions** for each set of instructions listed, **Add to memory** until **Notes from Cowork** disappears, and **Import…** if a skill is missing from **Customize > Skills**. Claude may leave out notes on how it should respond, so add those to your [instructions](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features).
 * Set up remote connectors and any missing plugin marketplaces again, install the plugins you want in **Customize > Plugins**, and add any keys or sign-ins your plugins and extensions need.
 

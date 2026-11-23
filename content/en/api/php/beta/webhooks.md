@@ -993,6 +993,26 @@ var_dump($event);
 
     - `string organizationID`
 
+  - `class BetaWebhookExternalStorageFailedEventData`
+
+    - `"external_storage.failed" type`
+
+    - `string id`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `string organizationID`
+
+  - `class BetaWebhookExternalStorageRecoveredEventData`
+
+    - `"external_storage.recovered" type`
+
+    - `string id`
+
+      ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+    - `string organizationID`
+
 ### Beta Webhook External Key Failed Event Data
 
 - `class BetaWebhookExternalKeyFailedEventData`
@@ -1014,6 +1034,30 @@ var_dump($event);
   - `string id`
 
     ID (`ekey_...`) of the external key that stopped working or works again.
+
+  - `string organizationID`
+
+### Beta Webhook External Storage Failed Event Data
+
+- `class BetaWebhookExternalStorageFailedEventData`
+
+  - `"external_storage.failed" type`
+
+  - `string id`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
+
+  - `string organizationID`
+
+### Beta Webhook External Storage Recovered Event Data
+
+- `class BetaWebhookExternalStorageRecoveredEventData`
+
+  - `"external_storage.recovered" type`
+
+  - `string id`
+
+    ID (`estrg_...`) of the External Storage whose bucket failed Anthropic's check or passes it again.
 
   - `string organizationID`
 

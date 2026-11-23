@@ -84,7 +84,7 @@ Current and recently retired models are listed in the following table with their
 | claude-opus-4-8 | Active | N/A | Not sooner than May 28, 2027 |
 | claude-opus-4-7 | Active | N/A | Not sooner than April 16, 2027 |
 | claude-opus-4-6 | Active | N/A | Not sooner than February 5, 2027 |
-| claude-opus-4-5-20251101 | Active | N/A | Not sooner than November 24, 2026 |
+| claude-opus-4-5-20251101 | Deprecated | November 23, 2026 | January 22, 2027 |
 | claude-opus-4-1-20250805 | Retired | June 5, 2026 | August 5, 2026 |
 | claude-opus-4-20250514 | Retired | April 14, 2026 | June 15, 2026 |
 | claude-sonnet-5-5 | Active | N/A | Not sooner than September 28, 2027 |
@@ -101,6 +101,20 @@ Current and recently retired models are listed in the following table with their
 ## Deprecation history
 
 All deprecations are listed in the following sections, with the most recent announcements first.
+
+### 2026-11-23: Claude Opus 4.5 model
+
+On November 23, 2026, Anthropic notified developers using Claude Opus 4.5 of its upcoming retirement on the Claude API.
+
+| Retirement date | Deprecated model | Recommended replacement |
+| ----- | ----- | ----- |
+| January 22, 2027 | `claude-opus-4-5-20251101` | `claude-opus-5-5` |
+
+This retirement includes `claude-opus-4-5`, the same model’s ID without a date.
+
+To migrate, see [Migrating from Claude Opus 4.5 or earlier](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-45) in the Claude Opus 5.5 migration guide.
+
+If you use Claude Code or a platform other than the Claude API, see [Overview](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview) for which dates apply. For what to change, see [Migrating to replacements](https://platform.claude.com/docs/en/about-claude/model-deprecations#migrating-to-replacements).
 
 ### 2026-09-30: Claude Sonnet 4.5 model
 
