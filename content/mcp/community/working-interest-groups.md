@@ -26,6 +26,7 @@ In the usual path an interest group frames a problem, and a working group solves
 Working groups:
 
 * [MCP Apps](https://modelcontextprotocol.io/community/working-groups/apps.md)
+* [Core Primitives](https://modelcontextprotocol.io/community/working-groups/core-primitives.md)
 * [File Uploads](https://modelcontextprotocol.io/community/working-groups/file-uploads.md)
 * [Filesystems](https://modelcontextprotocol.io/community/working-groups/filesystems.md)
 * [Governance](https://modelcontextprotocol.io/community/working-groups/governance.md)

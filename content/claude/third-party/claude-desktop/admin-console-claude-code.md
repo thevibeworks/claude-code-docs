@@ -49,6 +49,7 @@ Ensure that:
 * You saved the **Connection** page under **Organization settings > Desktop 3P**
 * Your developers are members of your organization, like your Claude Desktop users
 * Your developers have Claude Code 2.1.330 or later, and the same version of the VS Code extension. Earlier versions either ignore the console or drop more of the computer's settings after a sign-in.
+* Developers on Claude Code's [`stable` release channel](https://code.claude.com/docs/en/setup#configure-release-channel) switch to `latest`, unless `stable` has reached that version. `stable` is about a week behind `latest`. Homebrew's `claude-code` cask and the apt, dnf, and apk install commands in Claude Code's docs use `stable`.
 * Your developers have access to your provider. The sign-in tells Claude Code where to send requests, but it doesn't give the developer access. With a cloud provider, each developer needs cloud credentials. With a gateway, each developer must be able to sign in to it.
 * If your **Connection** page uses a helper script, you [installed it for Claude Code in the terminal](https://claude.com/docs/third-party/claude-desktop/credential-helper.md#install-the-helper-for-claude-code-in-the-terminal). A script that works in Claude Desktop can fail in the terminal.
 * The developer's terminal can reach `api.anthropic.com` and `platform.claude.com`
@@ -190,7 +191,7 @@ You can start from this text:
 ```text wrap theme={null}
 We now manage Claude Code from our admin console. Please sign in on each computer you use.
 
-1. Install or update the claude command to 2.1.330 or later. If you use the VS Code extension, update it too.
+1. Install or update the claude command to 2.1.330 or later. If the update stops at an earlier version, switch to the latest release channel (https://code.claude.com/docs/en/setup#configure-release-channel). If you use the VS Code extension, update it too.
 2. <How to get credentials for our provider. How to set our proxy or certificate, if you need one.>
 3. In your terminal, run: claude auth login
 4. The browser may ask you to sign in with your email. Select <organization name> and click Authorize. If the browser shows a code, paste it into the terminal.
@@ -299,7 +300,7 @@ To require the sign-in, first turn on sign-in from Claude Code. If you removed y
 
 * **`forceLoginOrgUUID`**: makes the computer follow your console and refuse other organizations, as described in [Keep managed settings beside the console](#keep-managed-settings-beside-the-console). By itself, it doesn't require the sign-in. A developer who isn't signed in can still start a session on a cloud provider. Ask developers to remove their Anthropic API keys first, because Claude Code doesn't start a session that has one.
 * **`enforceAnthropicSignIn`**: a session on a cloud provider or a gateway starts only if the developer is signed in to your organization. Write `true` without quotation marks, or Claude Code doesn't start.
-* **`requiredMinimumVersion`**: blocks earlier versions, including the ones that ignore `enforceAnthropicSignIn`
+* **`requiredMinimumVersion`**: blocks earlier versions, including the ones that ignore `enforceAnthropicSignIn`. Developers on Claude Code's [`stable` release channel](https://code.claude.com/docs/en/setup#configure-release-channel) can't start Claude Code until that channel reaches this version. Move them to `latest` before you deploy this key.
 
 If you set a retention period under `HKCU` on Windows, add it to this file as `cleanupPeriodDays`. Claude Code ignores `HKCU` once the computer has managed settings.
 

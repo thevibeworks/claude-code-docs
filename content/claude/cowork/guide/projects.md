@@ -51,7 +51,7 @@ Select a project in the sidebar to start a new Cowork session with that project'
 
 A project folder that is reached through a symbolic link isn't mounted if the link sits inside another of the project's folders, or inside a folder that a Cowork task on your task list uses, and leads outside that folder. The session starts without it and the app tells you. Replace it in the project with the actual folder you want.
 
-You can't make hard links in a folder connected to a Cowork session, so `ln` without `-s` fails there. Copy the file instead. `cp -a` on a folder that holds hard-linked files reports an error, and the copy has only one name of each hard-linked file. Extracting an archive that holds hard links does the same. Use `cp -r`.
+You can't make hard links in a folder connected to a Cowork session, so `ln` without `-s` fails there. Copy the file instead. `cp -a` on a folder that holds hard-linked files reports an error, and the copy has only one name of each hard-linked file. Extracting an archive that holds hard links does the same. Use `cp -r`. If your organization deploys Claude Desktop with its own model provider, these limits apply only to a connected folder that holds credentials, shell startup files, or Claude's own data, as your home folder does. In other connected folders, hard links work.
 
 [Dispatch](https://claude.com/docs/cowork/guide/dispatch.md) can also route background tasks into a project, so long-running work picks up the same folders, instructions, and memory.
 
