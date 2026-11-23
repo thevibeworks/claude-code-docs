@@ -59,6 +59,10 @@ The logs directory contains `main.log` (application and configuration-validation
 
 Separately from the application-data directory, Claude Desktop writes live artifacts (interactive pages) and scheduled-task results to `~/Claude/` in your home directory, or `~/Documents/Claude/` on legacy installs. This folder is intended for you to browse directly and is not removed when you delete the application-data directory. To back up a user's data, copy every location listed under [Copy the data to the new device](#copy-the-data-to-the-new-device).
 
+### Virtual desktops
+
+On Windows virtual desktops that reset when users sign out, keep each user's whole Windows profile, including `%LOCALAPPDATA%`, from one sign-in to the next, for example with a profile container. Roaming profiles alone aren't enough, because by default they leave out `%LOCALAPPDATA%`. FSLogix profile containers aren't enough where the data is at the `Packages` path above, for example on Windows 10 or Windows Server 2022, because FSLogix doesn't keep the package's `LocalCache` folder. Users lose data that isn't kept, such as chats, Cowork tasks, memory, designs, and slide decks.
+
 ### Data shared with standard Claude Desktop
 
 Unless you [restrict a device to one deployment mode](https://claude.com/docs/third-party/claude-desktop/mdm.md#restrict-a-device-to-one-deployment-mode), a user can switch, in the same OS user account, between Claude Desktop on 3P and standard Claude Desktop, where users sign in to claude.ai. On a device where you haven't turned on the [migration to Claude Enterprise](https://claude.com/docs/third-party/claude-desktop/move-to-claude-enterprise.md), the two modes handle the user's data as follows:
