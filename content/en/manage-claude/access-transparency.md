@@ -73,7 +73,7 @@ The approval doesn’t change your Compliance API setting. Anthropic records Acc
 1. [Turn on the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api).
 2. Read the [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) with a [Compliance Access Key or an Admin API key](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#which-key-do-you-need). Create an Admin API key after you turn on the Compliance API, because a key created earlier can’t read the feed.
 
-On Claude Platform on AWS, ask your Anthropic account representative to turn on the Compliance API. Then read the feed with the [`ListComplianceActivities` IAM action](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#compliance).
+On Claude Platform on AWS, sign in to the Claude Console from the AWS Console with the Admin role. Turn on the **Compliance API** toggle on the [Compliance](https://platform.claude.com/settings/security) page. Then, read the feed. Your IAM policy must allow `UpdateComplianceSettings` for the toggle and [`ListComplianceActivities`](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#compliance) for the feed. The `AnthropicFullAccess` policy includes both.
 
 Not every organization that uses CMEK has Access Transparency. For example, it might not be enabled in these cases:
 
@@ -216,7 +216,7 @@ Access Transparency applies from the time it is enabled for your organization. C
 
 ### Automated processing does not generate access events
 
-`anthropic_access` events record human access only. Anthropic’s automated safety systems and classifiers continue to process your content as part of normal operation, and that processing does not generate `anthropic_access` events. The one event automated processing can initiate is a `cmek_preserve` preservation record (see [CMEK content preservation](https://platform.claude.com/docs/en/manage-claude/access-transparency#cmek-content-preservation)). An empty feed means no human at Anthropic has viewed your content; it does not mean your content was not processed by automated systems.
+`anthropic_access` events record human access only. Anthropic’s automated safety systems and classifiers continue to process your content as part of normal operation, and that processing does not generate `anthropic_access` events. The one event automated processing can initiate is a `cmek_preserve` preservation record (see [CMEK content preservation](https://platform.claude.com/docs/en/manage-claude/access-transparency#cmek-content-preservation)). An empty feed means no human at Anthropic has viewed your covered content; it does not mean your content was not processed by automated systems.
 
 ### Access Transparency does not change what Anthropic can access
 

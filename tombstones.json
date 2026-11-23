@@ -1583,6 +1583,10 @@
       "since": "2026-11-11",
       "reason": "moved -> https://support.claude.com/en/articles/17454700-get-started-with-claude-data"
     },
+    "https://support.claude.com/en/articles/17889756-anthropic-ipo-international-retail-brokers-and-selling-agents": {
+      "since": "2026-11-23",
+      "reason": "HTTP 404"
+    },
     "https://support.claude.com/en/articles/18324088-redeem-the-mac-mini-and-claude-team-offer-through-cdw": {
       "since": "2026-11-11",
       "reason": "HTTP 404"

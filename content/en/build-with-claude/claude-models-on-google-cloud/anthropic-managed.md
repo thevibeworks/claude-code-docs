@@ -665,11 +665,11 @@ The usage and cost endpoints use the [base URL without the workspace](https://pl
 
 While the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) is off, it doesn’t record activity events. You can’t recover those events later. For what else the setting changes, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 
-To turn the Compliance API on or off for the Anthropic organization that setup creates, follow these steps:
+To change the Compliance API setting for the Anthropic organization that setup creates, follow these steps:
 
 1. [Open the Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console).
 2. Go to [Compliance in the Claude Console](https://platform.claude.com/settings/security) (`platform.claude.com/settings/security`).
-3. Turn the **Compliance API** toggle on or off.
+3. Use the **Compliance API** toggle.
 
 #### Customer-managed encryption keys
 

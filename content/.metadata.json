@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-23T08:36:00.118297Z",
+    "fetch_date": "2026-11-23T16:39:40.444527Z",
     "section": "all"
   },
   "items": [
@@ -695,8 +695,8 @@
       "url": "https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed",
       "status": "success",
       "path": "en/build-with-claude/claude-models-on-google-cloud/anthropic-managed.md",
-      "sha256": "f390ec4819ab7f87368a929bde2819843f556261109030198612e2ab6162aee4",
-      "size": 65538
+      "sha256": "37aa2b03429bc0b6265ea538f8e3033e9d10856229946d9e1d511ffdbf15c6ef",
+      "size": 65527
     },
     {
       "url": "https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed",
@@ -1311,8 +1311,8 @@
       "url": "https://platform.claude.com/docs/en/manage-claude/access-transparency",
       "status": "success",
       "path": "en/manage-claude/access-transparency.md",
-      "sha256": "a214252fb5f28dc29a486fdf5f4da57598f7c8ca89be56f8fdff6ec6dc85b3cb",
-      "size": 24043
+      "sha256": "fa33657e23332c792360abc6ad48b940dd46bf8e32229133e2c2a101fedf3483",
+      "size": 24277
     },
     {
       "url": "https://platform.claude.com/docs/en/manage-claude/access-transparency-log",
@@ -8119,6 +8119,13 @@
       "size": 8904
     },
     {
+      "url": "https://modelcontextprotocol.io/community/working-groups/core-primitives",
+      "status": "success",
+      "path": "mcp/community/working-groups/core-primitives.md",
+      "sha256": "d7cd636f21c05c6e87d9112ccc21c43f9bbc545218ad7ddf8fab2f29dc23eba7",
+      "size": 5099
+    },
+    {
       "url": "https://modelcontextprotocol.io/community/working-groups/file-uploads",
       "status": "success",
       "path": "mcp/community/working-groups/file-uploads.md",
@@ -8164,8 +8171,8 @@
       "url": "https://modelcontextprotocol.io/community/working-groups/overview",
       "status": "success",
       "path": "mcp/community/working-groups/overview.md",
-      "sha256": "b85cb017f310a67f4622b78cbed238ef540bfd19f414324b942fb4a46a85afd2",
-      "size": 5491
+      "sha256": "269675795010cce2627549a756c90807c83a0bf8468cc204c94a254a77c18a00",
+      "size": 5508
     },
     {
       "url": "https://modelcontextprotocol.io/community/working-groups/progressive-disclosure",
@@ -8220,8 +8227,8 @@
       "url": "https://modelcontextprotocol.io/community/working-interest-groups",
       "status": "success",
       "path": "mcp/community/working-interest-groups.md",
-      "sha256": "82ab721dab7f7737daed82829a7aef160ebef15c719c60971eea75b19f24d9e3",
-      "size": 15569
+      "sha256": "062ad02f8f3d0c8915ac090e667c3efb3e45f845b75e6d3a7000beac441d431b",
+      "size": 15666
     },
     {
       "url": "https://modelcontextprotocol.io/development/roadmap",
@@ -13110,13 +13117,6 @@
       "size": 4713
     },
     {
-      "url": "https://support.claude.com/en/articles/17889756-anthropic-ipo-international-retail-brokers-and-selling-agents",
-      "status": "success",
-      "path": "support/17889756-anthropic-ipo-international-retail-brokers-and-selling-agents.md",
-      "sha256": "38e3d4adce18f7b2ae5cd71609e68ceb06bfac162cb4657de62598aa60628a43",
-      "size": 17137
-    },
-    {
       "url": "https://support.claude.com/en/articles/18185620-use-personal-finance-in-claude",
       "status": "success",
       "path": "support/18185620-use-personal-finance-in-claude.md",
@@ -14422,8 +14422,8 @@
       "url": "https://claude.com/docs/cowork/guide/projects",
       "status": "success",
       "path": "claude/cowork/guide/projects.md",
-      "sha256": "2f5642dc9ca387c177b117b493a15aa1d6c3b1df58ba735e0153b88241ff26e9",
-      "size": 5337
+      "sha256": "d2608233a10ea11960ce9b984d00d17210d9a2459ff3776dd92320def9dd62f0",
+      "size": 5594
     },
     {
       "url": "https://claude.com/docs/cowork/guide/renamed-folders",
@@ -15017,8 +15017,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code",
       "status": "success",
       "path": "claude/third-party/claude-desktop/admin-console-claude-code.md",
-      "sha256": "f02ba22a4f06f57fdf9589e2818c8e7e731959055e57cf6c584181c786dd5bce",
-      "size": 27325
+      "sha256": "9f36bf8eb64383bdb31694c112f581c8fb35e97350f4085326912692a5dbec45",
+      "size": 28043
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference",
@@ -15073,8 +15073,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/code",
       "status": "success",
       "path": "claude/third-party/claude-desktop/code.md",
-      "sha256": "5fb9e7109a59f005b47acf6adc95093d65087c698a453ae708939fce69e51c98",
-      "size": 58150
+      "sha256": "cac317f3eba2b0a2e923dd1581b479a904b15a5b6635dbb7f0bba12112017a34",
+      "size": 58714
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/configuration",
@@ -26665,7 +26665,7 @@
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/.claude-plugin/marketplace.json",
       "status": "success",
       "path": "github/claude-plugins-official/.claude-plugin/marketplace.json",
-      "sha256": "1fb25d00a9393bfa420887238551e2e85c89e7ccf89190498118ce64758cf6a9",
+      "sha256": "606df73fc8275809e423bda2dd7064a5add6238ed5705891f2949bcba0bac773",
       "size": 191682
     },
     {
@@ -32549,7 +32549,12 @@
       "size": 2548
     }
   ],
-  "failures": [],
+  "failures": [
+    {
+      "url": "https://support.claude.com/en/articles/17889756-anthropic-ipo-international-retail-brokers-and-selling-agents",
+      "error": "HTTP 404"
+    }
+  ],
   "dead": [
     {
       "url": "https://code.claude.com/docs/en/claude-tag",
@@ -33841,11 +33846,11 @@
     }
   ],
   "summary": {
-    "total": 4971,
+    "total": 4972,
     "downloaded": 4649,
     "skipped": 0,
     "failed": 0,
-    "dead": 322,
+    "dead": 323,
     "success_rate": 100.0
   }
 }
