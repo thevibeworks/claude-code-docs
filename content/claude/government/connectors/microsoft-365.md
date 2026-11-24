@@ -142,14 +142,14 @@ Write permissions let Claude take actions in Microsoft 365 on the member's behal
 | Permission | What it lets Claude do |
 | - | - |
 | `Mail.Send` | Send mail, send drafts, and forward mail on the member's behalf. Forwarding and sending drafts also use a mail read permission (any of `Mail.Read`, `Mail.Read.Shared`, or `Mail.ReadWrite`) for pre-send checks. |
-| `Mail.ReadWrite` | Create, edit, and delete drafts; trash, restore, and delete messages; apply and remove labels on messages |
+| `Mail.ReadWrite` | Create, edit, and delete drafts; trash, restore, and delete messages; apply and remove categories on messages |
 | `Calendars.ReadWrite` | Create, update, delete, and respond to calendar events |
 | `Files.ReadWrite.All` | Create, edit, rename, move, copy, and delete files and folders the member can edit in OneDrive and SharePoint |
 | `Sites.ReadWrite.All` | Additional SharePoint write access beyond files. No Claude action requires this permission; `Files.ReadWrite.All` covers file actions in both OneDrive and SharePoint. |
 | `ChatMessage.Send` | Send messages in the member's existing Teams chats |
 | `ChannelMessage.Send` | Post messages to Teams channels |
 | `Chat.Create` | Start new Teams chats |
-| `MailboxSettings.ReadWrite` | Create and delete the member's mail rules, manage labels, and configure automatic replies |
+| `MailboxSettings.ReadWrite` | Create and delete the member's mail rules, manage categories, and configure automatic replies |
 
 > [!NOTE]
 >

@@ -8,6 +8,10 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/user_profiles/updat
 - Signature: `client.beta.userProfiles.update(userProfileID: string, params: UserProfileUpdateParams, options?: RequestOptions): BetaUserProfile`
 - Endpoint: `POST /v1/user_profiles/{user_profile_id}`
 
+Change the details of a user profile, leaving the fields that you don't send as they are.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript#update-a-profile) for how each field is updated.
+
 ## Example request
 
 ```ts

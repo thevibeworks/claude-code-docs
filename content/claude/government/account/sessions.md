@@ -8,7 +8,7 @@
 
 > **Who this is for:** Anyone with a Claude for Government account.
 
-A session is created each time you sign in, whether that is in a web browser or in one of the Claude applications. The **Sessions** tab lists your active sessions and lets you sign out of any of them remotely.
+A session is created each time you sign in, whether that is in a web browser or in one of the Claude applications. The **Sessions** tab in the [web portal](https://claude.com/docs/government/account/overview.md) lists your active sessions and lets you sign out of any of them remotely.
 
 ## What each row shows
 
@@ -24,9 +24,13 @@ The list does not include IP addresses, locations, device names, or browser deta
 
 ## How long sessions last
 
-Sessions expire after a period of inactivity, and using a session extends it. Your agency or organization sets the idle timeout, which is 24 hours unless they have changed it. After about that long without use, that browser tab or application prompts you to sign in again the next time it tries to do anything.
+A session expires after a period of inactivity, and the browser tab or application then prompts you to sign in again. Your agency or organization can change that period with the [**Session idle timeout**](https://claude.com/docs/government/config/settings.md#session-idle-timeout) setting.
 
-Your agency or organization can set a maximum session length in addition to the idle timeout. When a session reaches that length, it expires even if you have been using it the whole time, and the browser tab or application prompts you to sign in again. Sessions that expire either way drop off this list automatically.
+Your agency or organization can set a [maximum session length](https://claude.com/docs/government/config/settings.md#maximum-session-length) in addition to the idle timeout. When a session reaches that length, it expires even if you have been using it the whole time, and the browser tab or application prompts you to sign in again. Sessions that expire either way drop off this list automatically.
+
+The web portal warns you before your browser session expires, so that you don't lose unsaved changes. If the idle timeout is near, select **Stay signed in** to keep working. If the maximum session length is near, the warning has no such button, so save your changes before the session ends. After it ends, select **Reload** and sign in to get back to the page you were on.
+
+If neither limit ends your session first, Claude Desktop asks you to sign in again once 30 days have passed since you last signed in to it on that computer.
 
 Sessions can also end early, for example in these ways:
 
@@ -47,7 +51,7 @@ Neither of these affects the session you are currently using, and there is no co
 
 ### What actually happens when you sign out another session
 
-The other browser or application is not sent a live message, but the very next thing it tries to do (load a page, send a message, or refresh) will be refused and it will be returned to the sign-in screen. A request that was already in flight at the instant you revoked may finish, but nothing new can start.
+The other browser or application is not sent a live message, but it is refused the next time it tries to use that session and asks for a new sign-in. A request that was already in flight at the instant you revoked may finish, but nothing new can start.
 
 Signing out another session from this page does not touch your agency's single sign-on session, so if the person at that other computer tries to sign back in, the identity provider may still let them straight through without re-entering a password. If that is a concern (for example, you left a shared computer signed in), sign the session out here first, then contact your agency's identity team to end the single sign-on session.
 

@@ -32,7 +32,7 @@ The API docs requirement applies only to custom query tools. Purpose-built tools
 
 ### Provide tool annotations
 
-Every tool must include a `title` and the applicable hint: `readOnlyHint: true` for read-only tools, and `destructiveHint: true` for tools that modify or delete data. These determine auto-permissions in Claude. Read-only tools can run without per-call confirmation, and destructive tools always prompt.
+Every tool must include a `title` and the applicable hint: `readOnlyHint: true` for read-only tools, and `destructiveHint: true` for tools that modify or delete data. Claude can use these hints to decide when to ask the user for confirmation. Read-only tools can run without per-call confirmation, and destructive tools can require it. Whether they do can depend on the user's settings, the organization's settings, and the conversation's permission setting.
 
 ### Keep tool names short
 
@@ -81,7 +81,7 @@ Design tools that produce diagrams, charts, or UI mockups are allowed.
 
 Alongside the server itself, a submission carries links and terms acknowledgments that reviewers check:
 
-* **Allowed link URIs**: recommended if your server calls `ui/open-link`. Declared HTTPS origins and custom URI schemes open without a confirmation prompt, and anything else still prompts the user. See [Allowed link URIs](https://claude.com/docs/connectors/building/submission.md#allowed-link-uris)
+* **Allowed link URIs**: recommended if your server calls `ui/open-link`. Declared HTTPS origins open without a confirmation prompt, as do declared custom URI schemes outside Claude Desktop. Other web links still prompt the user. See [Allowed link URIs](https://claude.com/docs/connectors/building/submission.md#allowed-link-uris)
 * **Public documentation**: required by your publish date. A blog post or help-center article is sufficient, and you can share docs privately with Anthropic during review
 
 ## Test before you submit

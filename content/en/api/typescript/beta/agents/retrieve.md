@@ -308,9 +308,15 @@ type BetaManagedAgentsModel =
   | "claude-sonnet-4-6"
   | "claude-haiku-4-5"
   | "claude-haiku-4-5-20251001"
-  /** Powerful intelligence for long-running agents and coding */
+  /**
+   * Powerful intelligence for long-running agents and coding
+   * @deprecated Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+   */
   | "claude-opus-4-5"
-  /** Powerful intelligence for long-running agents and coding */
+  /**
+   * Powerful intelligence for long-running agents and coding
+   * @deprecated Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+   */
   | "claude-opus-4-5-20251101"
   /**
    * High-performance model for agents and coding

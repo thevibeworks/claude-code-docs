@@ -6,6 +6,89 @@
 
 > Release notes for Claude Desktop
 
+**v7.37095.0**
+
+2026-11-24
+
+Bundled Claude Code version: 2.1.331.
+
+For administrators of SSH hosts: SSH helper version edb2ad3a106edb03d3c0ac4bde42f95ac690d975. SSH host launcher contracts: 1 (sessions), 2 (plugin commands).
+
+**General**
+
+* Changed how plugin hooks run on macOS in Cowork and Chat, and in the Code tab of third-party deployments. Some hooks can now block actions that they didn't block before. Test your plugins' hooks on one Mac with this version before other computers update.
+* Changed Python desktop extensions to keep packages and downloaded Python in Claude's data folder, so the app downloads these files again after this update. A computer that can't reach a package index or Python downloads can fail to install, reinstall or start such an extension until it reaches them.
+* Removed picture-in-picture for videos in pages shown in the app, including the built-in browser.
+* Fixed Cowork failing to start on Windows when FSLogix profile rules exclude the app's download folders.
+* Fixed updates asking standard users for an administrator password on Macs where Claude was installed from the PKG of version 5.1231.0 or later. In third-party deployments, this needs the PKG of this release or a later one.
+* Fixed tool calls to local MCP servers set up in the app failing with "Request timed out" after 60 seconds in Code, in Cowork and, in third-party deployments, in Chat. In Cowork and Chat, a call can now run for up to 3 minutes by default.
+* Fixed unsaved work, such as an edit in the Files pane, being lost without a warning when quitting while Claude works, relaunching to update, or reloading the window.
+* Fixed an open incognito chat being lost when Claude restarted by itself to install an update. The update now waits, for up to 72 hours by default, and Claude asks before it quits.
+* Fixed an imported session losing its files for good when the app quit while copying them from another Claude install or profile on this computer. The next import now copies that session again with its files. An automatic import does this at the next launch.
+* Fixed the Mac app freezing when a network share that holds an open project folder stopped responding, or crashing when that share disconnected. Also fixed a freeze of several minutes when a share disconnected while the Code tab was listing a folder on it.
+* Fixed Chat and Cowork showing a generic error on Windows when security software blocks Claude Code.
+* Fixed having to sign in again on Windows after restarting to update soon after signing in.
+* Fixed typing in another app going nowhere on Windows after Claude updated itself while minimized.
+* Fixed the app showing no message when an update that you started from a button in the app failed to download.
+* Fixed files with the same name, dragged in together on macOS, all attaching with one file's content.
+* Fixed Claude quitting on macOS when you pressed Cmd+Z in Quick Entry after pressing Esc or sending a message.
+
+**Code**
+
+* Added a warning before deleting a session that has no folder, naming the files that would be lost with it.
+* Changed the Claude Code version that SSH hosts need to 2.1.331. If you install Claude Code on your SSH hosts yourself, or serve it from your own mirror, add 2.1.331 before computers update. Until you do, updated computers might not start or reach SSH sessions on those hosts.
+* Changed the SSH helper version that SSH hosts need (shown above). If you install the helper on your SSH hosts yourself, or serve it from your own mirror, add the new version before computers update. Until you do, updated computers might not start or reach SSH sessions on those hosts.
+* Changed `disableRemotePreviewScripts` and `disableBrowserExternalNavigation` in Claude Code's managed settings to also cover the Files pane, which shows SSH and WSL `.html` files as code where either is `true`. In a new settings file, add `"parentSettingsBehavior": "merge"` to keep Desktop's policy.
+* Changed Code sessions where `syncClaudeAiSkills` or `syncClaudeAiPlugins` is `false` in Claude Code's managed settings. They usually start without the skills or plugins that key syncs, including required plugins and their hooks. Third-party deployments don't get this content.
+* Changed local Code sessions to save no file snapshots where `fileCheckpointingEnabled` is `false` in Claude Code's managed settings. Rewind then restores only the conversation.
+* Fixed a session reopening empty or on the earlier conversation, or a new fork going missing, when the app crashed or was force-quit right after a first message, a message sent after `/clear` or a rewind, Undo rewind, or a fork.
+* Fixed some cases of Rewind undoing another chat's edits in the same folder: a side chat now rewinds only its conversation, and the main session restores no files while a side chat is working. A second rewind or message edit in a row now says that it leaves your files as they are.
+* Fixed Stash and Discard in the "Uncommitted changes" dialog deleting ignored files that had taken the place of a committed file or folder, and Stash undoing edits to files marked assume-unchanged without saving those edits. The dialog now stops and names the files.
+* Fixed open files becoming read-only, and unsaved edits unsavable, after choosing a folder for a session that started without one.
+* Fixed local worktree sessions started from another branch comparing with, and opening their pull requests against, the default branch. The fix needs that branch to be on GitHub and a signed-in `gh`.
+* Fixed some local worktree sessions opened from a repository subfolder running Claude at the repository root instead of in that subfolder. Claude now asks before it reads or edits files outside the subfolder. This fix doesn't apply to third-party deployments.
+* Fixed some SSH connections failing with "Claude Code won't start" where Claude Code on the host is slow to start the first time, and the SSH sign-in dialog closing before the sign-in had been tried.
+* Fixed some SSH sessions in the Mac and Linux apps stopping to wait for you after a short network drop while you were away, on hosts that allow one session per connection and ask you to sign in yourself.
+* Fixed an idle Terminal tab ending the whole SSH session on some Linux hosts that log out idle terminals. The fix applies in the Mac and Linux apps when the app can sign in again directly and without a prompt, so not through a jump host or `ProxyCommand`.
+* Fixed clicks in the iOS Simulator pane doing nothing when the mouse was still moving as you let go, and Claude's first tap being lost or delayed after Claude launched an app on a simulator whose pane was not open yet.
+
+**Cowork**
+
+* Changed shell commands to refuse new hard links in connected folders. `ln`, `cp -l` and `git clone --local` fail in those folders. `cp -a`, `rsync -H`, `tar x` and a `mv` into one of those folders report an error and bring only one name of each hard-linked file. Copy a file instead of linking it.
+* Fixed a file on a mapped network drive or an exFAT or FAT32 disk being deleted on Windows when Claude saved over it while another program or task had it open.
+* Fixed automatic cleanup that could delete working files of another account's tasks on the same computer when Cowork's workspace disk ran low. Also fixed Free up space and retention periods leaving part of a task's files behind when deleting the task. Files left by earlier deletes stay.
+* Fixed an issue that could leave the task list empty after launch or an account switch, or make deleting a task fail.
+* Fixed earlier messages disappearing from long tasks on your computer after you edit a message or restart from one. This fix doesn't apply to third-party deployments.
+* Fixed a task's commands failing after Cowork's workspace stopped unexpectedly, such as after the app was force quit on Windows. The next command now usually starts the workspace again.
+* Fixed parts of a command's output going missing on Windows and Linux while the app was busy.
+* Fixed the workspace being deleted and downloaded again when Claude's data folder is reached through a junction, symbolic link or disk mounted in a folder. The workspace still can't start on such a computer, so the error now names the folder that must be a regular folder.
+* Fixed "Reinstall workspace" ending running tasks without asking. The app now offers to wait for Claude, as it does when you quit.
+* Fixed the file preview in tasks on your computer showing "Not found" for a PDF, HTML or SVG file after you attached the file to the task. On Windows, the preview now also opens these file types from a mapped network drive.
+
+**3P**
+
+* Added Design and Slides (beta): people can make designs and slide decks with Claude and edit them in the app. Both are off by default. To turn them on, set `artifactsEnabled` and also `artifactsDesignEnabled`, `artifactsSlidesEnabled` or both.
+* Added design systems (beta) for Design and Slides: Claude uses your brand's colors, type and logos. People add their own design systems in Settings. To offer design system plugins to everyone, list the plugins in `artifactsDesignSystemPlugins`.
+* Added Code sessions over SSH to Linux and macOS hosts where you use Bedrock with a named AWS profile. Claude Code signs in with the host's own profile of that name, and this computer's AWS credentials are not sent. `sshHostAllowlist` limits which hosts people can open.
+* Added Code sessions with no folder: the app makes a private folder. When a person deletes the session, the app deletes that folder and its files, usually a week or more later, even if `codeSessionRetentionDays` is shorter. When that setting deletes the session, the app usually deletes them at once.
+* Added `CLAUDE_CODE_DISABLE_SHIP`, which the app sets to keep Claude Code 2.1.331's new `/ship` and `/steward` commands off. If your own launcher starts Claude Code and clears or filters the environment, make the launcher export `CLAUDE_CODE_DISABLE_SHIP=1` after it clears or filters.
+* Added connectors, your own MCP servers and some of the app's own tools to Code sessions in WSL. The connectors, servers and tools run on Windows, not in the WSL distribution, under the same MCP settings and tool policy as in a local session.
+* Added messages from Claude in the middle of a Cowork task, on supported models. Claude doesn't send these messages where `otlpContentCapture` includes `userPrompts`, `assistantResponses` or `toolDetails`.
+* Added a one-line file with each release's bundled Claude Code version, from 6.28899.2 on, so that administrators of SSH hosts can read it from a script: `https://downloads.claude.ai/releases/win32/x64/<desktop-version>/claude_code_version`. Every platform's file says the same.
+* Changed local Code sessions to update plugins automatically from marketplaces that have auto-update on in Claude Code. Updated hooks and MCP servers run from the next session without asking. A withdrawn plugin can be removed with its saved data. `allowedPluginMarketplaces` entries aren't affected.
+* Changed local Code sessions to request Anthropic's plugin list from `api.anthropic.com` within ten minutes of starting. To stop that request and automatic plugin updates, set `disableAutoUpdates` or `disableNonessentialTelemetry` to `true`, or `userPluginMarketplacesEnabled` to `false`.
+* Changed how Claude Code on Windows, outside WSL, reads `HKLM\SOFTWARE\Policies\ClaudeCode`. Like `managed-settings.json`, it can replace some Desktop managed settings; `"parentSettingsBehavior": "merge"` in each one you have usually prevents that. Claude Code won't start on invalid JSON in that key.
+* Changed SSH sessions from Mac and Linux computers on Bedrock, Vertex AI, Foundry or a gateway: most plugins' hooks now run on Mac and Linux hosts as the SSH user, but aren't guaranteed to run. This doesn't apply with the Enterprise Admin Console or a Claude apps gateway that serves `code:` settings.
+* Changed SSH plugin hooks: to stop them on an SSH host, set `allowManagedHooksOnly` to `true` in Claude Code's managed settings on that host. In a new settings file, add `"parentSettingsBehavior": "merge"` to keep Desktop's policy.
+* Changed SSH plugin hooks: `allowManagedHooksOnly` set to `true` in Claude Code's managed settings on a person's computer keeps plugins' `hooks` folders off SSH hosts and stops those hooks on the computer. In a new settings file, add `"parentSettingsBehavior": "merge"` to keep Desktop's policy.
+* Changed where Claude keeps the data of a new Claude profile on Windows 10 (21H2 and later) and Windows Server 2022, except in the Microsoft Store version: in `%LOCALAPPDATA%\Claude-3p`, outside the app package. Existing Claude profiles stay where they are.
+* Changed live artifacts to ask for approval at each MCP tool call when `mcpPersistentAlwaysAllowEnabled` is `false`, unless you provide the server (`managedMcpServers` or an organization plugin) and set the tool to `allow`.
+* Changed macOS updates to install with no administrator prompt for standard users, where Claude was installed from the PKG of this release or a later one. To stop updates, set `disableAutoUpdates`. Where a configuration server is in use, that server must send the key too.
+* Changed Cowork and Chat: when a plugin in the system `org-plugins` directory and a person's own plugin have the same name, the app loads only the plugin in the `org-plugins` directory.
+* Fixed Claude being unable to open attachments and files it had created in chats and tasks started before an update, where a Claude profile is kept inside the app package, as existing Claude profiles on Windows Server 2022 are.
+* Fixed Claude staying closed after an update on Windows Server. Starting with the next update, it opens again by itself through a short-lived Task Scheduler task.
+* Fixed Chat and Cowork showing "Something went wrong" when a usage, spend or token limit stopped a reply. Limit and billing errors no longer offer Go back, which cleared the interrupted reply.
+
 **v6.28899.6**
 
 2026-11-20
@@ -1687,7 +1770,7 @@ Microsoft has released a Windows update that fixes the issue where Cowork could 
 * Added a deprecation notice in the Setup window under any managed-configuration setting that is scheduled to stop being accepted, naming the date and what to use instead.
 * Added organization-set session retention. `chatSessionRetentionDays`, `coworkSessionRetentionDays`, and `codeSessionRetentionDays` each delete that surface's idle sessions from the device, along with their files, after the set number of days (1 to 3650) without activity; unset deletes nothing. `sessionRetentionHold` suspends all automatic deletion for the users it is set for, as a legal hold. Projects, Spaces, and memory stay, and a Code session's uncommitted work stays on disk.
 * Changed app launch to open the home composer on the last-used Chat or Cowork mode instead of always opening Cowork first.
-* Changed hooks from organization plugins to also run in Chat, matching Cowork and Code.
+* Changed hooks from organization plugins to also run in Chat, as in Cowork.
 * Deprecated an undocumented client-certificate fallback setting that releases from 1.49585.0 on no longer read, since the app now presents TLS client certificates natively. Deployments that still set it keep working unchanged, but their users see an in-app deprecation warning from November 3, 2026, and the setting stops being accepted on November 17, 2026; remove it once every device is on 1.49585.0 or later.
 * Improved the connection test against gateways that require a TLS client certificate the device does not have: the result now says the device did not present a certificate the gateway accepts, so the connection could not be tested, instead of reporting the model as rejected.
 * Fixed Claude Code's own settings on the device (a user's or project's settings file, or a `managed-settings.json`) being able to turn OpenTelemetry trace export back on after an administrator configured a collector with traces off; with `otlpEndpoint` set, Cowork and Code sessions now export traces only when `otlpTracesEnabled` is `true`.
@@ -1870,7 +1953,7 @@ A Windows update released September 8, 2026 (including KB5124008) stops Cowork f
 
 **3P**
 
-* Added support in Chat for skills from organization-provided plugins, and Chat-only users can now see and manage those plugins under Customize, matching Cowork and Code.
+* Added support in Chat for skills from organization-provided plugins, and Chat-only users can now see and manage those plugins under Customize, as in Cowork.
 * Fixed advanced file analysis in Chat failing with "Workspace unavailable" for users whose organization enables `chatAdvancedFileAnalysisEnabled` but turns Cowork off with `coworkTabEnabled: false`.
 * Fixed managed OAuth connectors showing a connection error instead of prompting to sign in when the app starts without a usable sign-in (expired with no refresh token, or never signed in on this machine), including servers added by URL alone, where Connect could fail instead of opening the sign-in page.
 * Fixed organization-configured URL plugin marketplaces failing to install or load plugins with "marketplace entry path does not stay inside the marketplace directory".

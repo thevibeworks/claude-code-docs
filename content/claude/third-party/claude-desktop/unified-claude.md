@@ -6,7 +6,7 @@
 
 > Unified Claude combines Chat and Cowork into one experience, with Cowork's agentic capabilities.
 
-Unified Claude combines Chat and Cowork into one experience in Claude Desktop 3P. Users get a single Claude interface for both quick chats and longer agentic tasks. [Code](https://claude.com/docs/third-party/claude-desktop/code.md) stays separate. Unified Claude is [on by default](#enabling-unified-claude) in current versions of Claude Desktop.
+Unified Claude combines Chat and Cowork into one experience in Claude Desktop on third-party (3P). Users get a single Claude interface for both quick chats and longer agentic tasks. [Code](https://claude.com/docs/third-party/claude-desktop/code.md) stays separate. Unified Claude is [on by default](#enabling-unified-claude) in current versions of Claude Desktop.
 
 ## What users see with Unified Claude
 

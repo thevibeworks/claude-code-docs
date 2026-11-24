@@ -31,7 +31,7 @@ The Authorization Interest Group is the single chartered venue for MCP authoriza
 
 ### Out of Scope
 
-* **Accepting SEPs or extensions**: the IG gives feedback and signals support; sponsorship and acceptance follow the [SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md) and remain with Maintainers and Core Maintainers
+* **Accepting SEPs or extensions**: the IG gives feedback and signals support. SEP sponsorship follows the [SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md), and acceptance remains with Maintainers and Core Maintainers
 * **Authentication of end users to MCP clients**: how a host application authenticates its own users is a host concern, not a protocol concern
 * **Transport security (TLS, mTLS, certificate handling)**: belongs to the Transports WG
 * **Server identity, provenance, and trust signalling**: belongs to the Server Card / Registry efforts
@@ -89,7 +89,7 @@ Two standing questions are asked of every problem pitch before anyone invests in
 * **Is this a problem worth solving?** Is there real deployment demand, and is the gap in the protocol rather than in one product?
 * **Does it belong here?** Is the right home the core specification, an official extension in ext-auth, an unofficial extension, or an upstream standards body?
 
-When the answer to both is yes, the proposer drafts a SEP or ext-auth pull request through the normal [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md), finds a sponsor, and returns to the call to present progress and demos as the draft matures. The IG does not charter a sub-group, channel, or meeting series per topic. Contributors who already meet separately on a topic are welcome to keep doing so, and bring outcomes back to the call as agenda slots. A separate [Working Group](https://modelcontextprotocol.io/community/working-interest-groups.md) can still be proposed through the standard process when a deliverable genuinely needs its own decision rights, but that is the exception rather than the default path.
+When the answer to both is yes, the proposer drafts a SEP or ext-auth pull request through the normal [SEP process](https://modelcontextprotocol.io/community/sep-guidelines.md), gets sponsorship as the [SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md#sponsors) describe, and returns to the call to present progress and demos as the draft matures. The IG does not charter a sub-group, channel, or meeting series per topic. Contributors who already meet separately on a topic are welcome to keep doing so, and bring outcomes back to the call as agenda slots. A separate [Working Group](https://modelcontextprotocol.io/community/working-interest-groups.md) can still be proposed through the standard process when a deliverable genuinely needs its own decision rights, but that is the exception rather than the default path.
 
 ## Deliverables & Success Metrics
 
@@ -113,6 +113,7 @@ The following Discord channels previously hosted authorization sub-groups. They 
 
 | Date | Change |
 | - | - |
+| 2026-11-10 | SEP sponsorship statements defer to the [SEP guidelines](https://modelcontextprotocol.io/community/sep-guidelines.md) |
 | 2026-08-17 | Re-charter: single venue and channel for authorization work; agenda-driven calls; SEP feedback in scope; `#auth-wg-*` channels and the Enterprise-Managed Authorization IG folded in |
 | 2026-06-02 | Initial charter |
 

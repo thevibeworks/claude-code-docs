@@ -10,7 +10,7 @@ A global entry point is a mark on one of your connector's tools. After you mark 
 
 This page is for developers of a remote connector whose MCP App already renders in Claude. Check which organizations, connectors, and users can use entry points before you build:
 
-* **Organizations**: a limited set of organizations has access, so [check whether your organization has access](#check-whether-your-organization-has-access-to-entry-points)
+* **Organizations**: [check whether your organization has access](#check-whether-your-organization-has-access-to-entry-points)
 * **Connectors**: [Verified](https://claude.com/docs/connectors/verification.md#verified) directory connectors and [custom connectors](https://claude.com/docs/connectors/verification.md#custom) can have entry points. Connectors installed from a Community listing can't.
 * **Users**: a user needs the unified Claude experience, which combines chat and Cowork
 
@@ -54,7 +54,7 @@ To test the mark, follow these steps:
 1. [Refresh the tools list](#refresh-the-tools-list-after-you-change-an-entry-point) for your connector
 2. Open the [**Artifacts**](https://claude.ai/artifacts) page in Claude on the web
 
-A listed app appears as its own tile, or as an item in the list that opens from the page's connectors tile.
+A listed app appears as its own tile. If you mark many tools on one connector, some of its apps may not get a tile, even if they meet every condition.
 
 If your app isn't listed, check the [conditions for showing an app](#conditions-for-showing-an-app-on-the-artifacts-page).
 
@@ -72,7 +72,7 @@ A view is one rendered instance of your app's UI in Claude. When a user opens yo
 * **Icon**: Claude can show an [icon that you declare](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines.md#declare-an-app-icon-for-claude) on the app's tile and over the open view
 * **Display mode**: on the web, Claude shows the view full screen when the view supports `fullscreen`, so include `fullscreen` if you declare [`availableDisplayModes`](https://claude.com/docs/connectors/building/mcp-apps/design-guidelines#declare-supported-display-modes).
   * Without `fullscreen`, the view appears in the conversation.
-* **Approval**: if the tool's permission is **Needs approval**, Claude asks the user for approval before the view opens. If the conversation's permission setting is **Auto**, Claude can open the view without asking.
+* **Approval**: Claude can ask the user for approval before the view opens, so don't count on the view being the first thing that the user sees. Whether it asks can depend on the [tool's permission](https://claude.com/docs/connectors/getting-started.md#manage-or-disconnect-a-connector), such as **Needs approval**, and on the conversation's permission setting.
 
 ### Set the title, name, and description of the marked tool
 
@@ -125,8 +125,8 @@ Claude can still list an app whose tool is set to **Needs approval**.
 To check your own organization, follow these steps:
 
 1. [Refresh the tools list](#refresh-the-tools-list-after-you-change-an-entry-point), then reload Claude on the web
-2. If your app isn't listed and meets all the other [conditions](#conditions-for-showing-an-app-on-the-artifacts-page), your organization may not have access
-3. Keep your app working without an entry point, and test again later
+2. If none of your apps is listed and they meet all the other [conditions](#conditions-for-showing-an-app-on-the-artifacts-page), your organization may not have access
+3. Keep your app working without an entry point
 
 ### Entry points that appear while you test and stay hidden for other people
 

@@ -10,7 +10,7 @@ What an individual can see and do in their Team or Enterprise plan account is di
 
 - Your organization's Primary Owner can be a service account that isn't tied to an individual user.
 
-- If you're unsure of your organization's Primary Owner, you can check by going to **[Settings > Account](https://claude.ai/settings/account)**.
+- If you're unsure of your organization's Primary Owner, you can usually check in **[Settings > Account](https://claude.ai/settings/account)**. If your organization has set an internal help contact, Settings > Account shows that contact instead, and you can ask them who your Primary Owner is. Setting a help contact doesn't change who the Primary Owner is.
 
 **About custom roles (Enterprise plans only):** Enterprise plans support custom roles, which let you control feature access at the group level. Members with roles set to “Custom” have no default permissions—their access is determined entirely by the custom roles assigned to their groups. Because these members have no built-in permissions, they don't appear in the tables below.
 

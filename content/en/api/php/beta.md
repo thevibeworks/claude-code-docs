@@ -2265,6 +2265,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
+- `WorkspaceHumanReviewDisabledException` (HTTP status 400, error code `workspace_human_review_disabled`)
+
+  The request's Workspace has Human Review turned off, and this operation is not available there. Use a Workspace with Human Review on.
+
 - `EnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
   The organization has crossed the monthly API usage threshold of its API tier.
@@ -12736,15 +12740,22 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->create(
-  agent: 'string',
-  environmentID: 'x',
+  agent: [
+    'id' => 'agent_011CZkYpogX7uDKUyvBTophP', 'type' => 'agent', 'version' => 0
+  ],
+  environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   initialEvents: [
     [
-      'content' => [['text' => 'Where is my order #1234?', 'type' => 'text']],
+      'content' => [
+        [
+          'text' => 'Compile yesterday\'s orders into report.md.',
+          'type' => 'text',
+        ],
+      ],
       'type' => 'user.message',
     ],
   ],
-  name: 'x',
+  name: 'Daily order report',
   budget: [
     'maxListCost' => ['amount' => '2500', 'currency' => BetaCurrency::USD],
     'type' => 'limit',
@@ -19160,13 +19171,17 @@ var_dump($event);
 
 ## Beta › User Profiles
 
+Register the end customers that your platform serves, so each request can name who it's for. To get started, see the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=php).
+
 ### Create User Profile
 
 `$client->beta->userProfiles->create(?AccessType accessType, ?string externalID, ?BetaUserProfileExternalUserDetailsParams externalUserDetails, ?\Datetime externalUserOnboardedAt, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas, ?string workspaceID): BetaUserProfile`
 
 **POST** `/v1/user_profiles`
 
-Create User Profile
+Register one of your end customers and get the ID to send on the requests you make for them.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=php#create-a-profile-for-each-end-customer) for what to send.
 
 #### Parameters
 
@@ -19322,7 +19337,9 @@ var_dump($betaUserProfile);
 
 **GET** `/v1/user_profiles`
 
-List User Profiles
+List the user profiles in your organization, newest first by default.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=php) for how to set up and manage profiles.
 
 #### Parameters
 
@@ -19467,7 +19484,9 @@ var_dump($page);
 
 **GET** `/v1/user_profiles/{user_profile_id}`
 
-Get User Profile
+Get a user profile by ID to check the details stored for it.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=php) for how to set up and manage profiles.
 
 #### Parameters
 
@@ -19590,7 +19609,9 @@ var_dump($betaUserProfile);
 
 **POST** `/v1/user_profiles/{user_profile_id}`
 
-Update User Profile
+Change the details of a user profile, leaving the fields that you don't send as they are.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=php#update-a-profile) for how each field is updated.
 
 #### Parameters
 
@@ -19751,7 +19772,9 @@ var_dump($betaUserProfile);
 
 **DELETE** `/v1/user_profiles/{user_profile_id}`
 
-Delete User Profile
+Delete a user profile, for example when the end customer closes their account.
+
+Stop sending the profile's ID first. See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=php#delete-a-profile) for what happens after a delete.
 
 #### Parameters
 
@@ -19817,7 +19840,9 @@ var_dump($betaDeletedUserProfile);
 
 **POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
-Create Enrollment URL
+Create a link that sends the profile's end customer to the Verification Portal from Claude Platform on AWS.
+
+On the Claude API, create an action URL instead. See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=php) for when to create the link and what the end customer sees.
 
 #### Parameters
 
@@ -19893,7 +19918,9 @@ var_dump($betaUserProfileEnrollmentURL);
 
 **POST** `/v1/user_profiles/{user_profile_id}/action_urls`
 
-Create Action URL
+Create a link that sends the profile's end customer to the Verification Portal.
+
+See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=php) for when to create the link and what the end customer sees.
 
 #### Parameters
 
@@ -22905,8 +22932,8 @@ $betaFederationIssuer = $client
   ->federation
   ->issuers
   ->create(
-  issuerURL: 'x',
-  name: 'x',
+  issuerURL: 'https://token.actions.githubusercontent.com',
+  name: 'github-actions',
   checkJTI: true,
   jwks: [
     'type' => 'discovery',
@@ -23749,15 +23776,20 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaFederationRule = $client->beta->organization->federation->rules->create(
-  issuerID: 'issuer_id',
+  issuerID: 'fdis_01SDCCSbTxrXDpWc1phhtcfK',
   match: [
     'audience' => 'audience',
-    'claims' => ['foo' => 'string'],
+    'claims' => [
+      'event_name' => 'push',
+      'ref' => 'refs/heads/main',
+      'repository_id' => '123456789',
+      'repository_owner_id' => '987654321',
+    ],
     'condition' => 'condition',
     'subjectPrefix' => 'subject_prefix',
   ],
-  name: 'x',
-  oauthScope: 'x',
+  name: 'prod-deploy-pipeline',
+  oauthScope: 'workspace:developer',
   target: [
     'serviceAccountID' => 'svac_01SDCCSbTxrXDpWc1phhtcfK',
     'type' => 'service_account',
@@ -23767,7 +23799,7 @@ $betaFederationRule = $client->beta->organization->federation->rules->create(
   attributes: ['foo' => 'string'],
   description: 'description',
   tokenLifetimeSeconds: 60,
-  workspaceID: 'workspace_id',
+  workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
   betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
@@ -24680,7 +24712,7 @@ $betaFederationRuleWorkspace = $client
   ->workspaces
   ->add(
   'federation_rule_id',
-  workspaceID: 'workspace_id',
+  workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
   betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 
@@ -29288,7 +29320,7 @@ $betaServiceAccountWorkspaceMember = $client
   ->serviceAccounts
   ->add(
   'workspace_id',
-  serviceAccountID: 'service_account_id',
+  serviceAccountID: 'svac_01SDCCSbTxrXDpWc1phhtcfK',
   workspaceRole: NoBillingWorkspaceRole::WORKSPACE_ADMIN,
   betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
@@ -31331,6 +31363,12 @@ bucket; every combination is returned across pages. With no `group_by[]`
 and no `time_bucket_width`, a single row aggregates the whole range.
 Includes all usage, whether or not it is attributable to a seat user.
 Requires an API key with the `read:analytics` scope, or an Admin API key.
+This endpoint is in beta and is not available to organizations with HIPAA
+readiness enabled: their API requests return a 400 error. A parent
+organization's report across its child organizations leaves out the child
+organizations that have HIPAA readiness enabled. If the parent has child
+organizations and all of them have HIPAA readiness enabled, the request
+returns a 400 error.
 
 #### Parameters
 
@@ -31348,11 +31386,11 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `agentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Platform organizations only.
+  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values.
 
 - `apiKeyIDs?: optional list<string>` (query parameter)
 
-  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Platform organizations only.
+  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`.
 
 - `claudeTagCategories?: optional list<AnalyticsClaudeTagCategory>` (query parameter)
 
@@ -31368,7 +31406,7 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `deploymentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Platform organizations only.
+  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values.
 
 - `endingAt?: optional \Datetime` (query parameter)
 
@@ -31376,7 +31414,7 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `environmentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Platform organizations only.
+  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values.
 
 - `excludeDeletedUsers?: optional bool` (query parameter)
 
@@ -31412,7 +31450,7 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `organizationIDs?: optional list<string>` (query parameter)
 
-  Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values.
+  Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. The report leaves out child organizations with HIPAA readiness enabled, and naming one returns a 400 error. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values.
 
 - `page?: optional string` (query parameter)
 
@@ -31428,11 +31466,11 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `serviceTiers?: optional list<AnalyticsServiceTier>` (query parameter)
 
-  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization.
+  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values.
 
 - `sessionIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Platform organizations only.
+  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values.
 
 - `slackChannelIDs?: optional list<string>` (query parameter)
 
@@ -31448,11 +31486,11 @@ Requires an API key with the `read:analytics` scope, or an Admin API key.
 
 - `userProfileIDs?: optional list<string>` (query parameter)
 
-  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Platform organizations only.
+  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values.
 
 - `workspaceIDs?: optional list<string>` (query parameter)
 
-  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization.
+  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -31611,7 +31649,13 @@ cost in the range, ranked by spend or ordered by time bucket; every
 combination is returned across pages. With no `group_by[]` and no
 `time_bucket_width`, a single row aggregates the whole range. Includes
 all cost, whether or not it is attributable to a seat user. Requires an
-API key with the `read:analytics` scope, or an Admin API key.
+API key with the `read:analytics` scope, or an Admin API key. This
+endpoint is in beta and is not available to organizations with HIPAA
+readiness enabled: their API requests return a 400 error. A parent
+organization's report across its child organizations leaves out the child
+organizations that have HIPAA readiness enabled. If the parent has child
+organizations and all of them have HIPAA readiness enabled, the request
+returns a 400 error.
 
 #### Parameters
 
@@ -31629,11 +31673,11 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `agentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Platform organizations only.
+  Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values.
 
 - `apiKeyIDs?: optional list<string>` (query parameter)
 
-  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Platform organizations only.
+  Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`.
 
 - `claudeTagCategories?: optional list<AnalyticsClaudeTagCategory>` (query parameter)
 
@@ -31649,7 +31693,7 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `deploymentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Platform organizations only.
+  Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values.
 
 - `endingAt?: optional \Datetime` (query parameter)
 
@@ -31657,7 +31701,7 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `environmentIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Platform organizations only.
+  Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values.
 
 - `excludeDeletedUsers?: optional bool` (query parameter)
 
@@ -31693,7 +31737,7 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `organizationIDs?: optional list<string>` (query parameter)
 
-  Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values.
+  Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. The report leaves out child organizations with HIPAA readiness enabled, and naming one returns a 400 error. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values.
 
 - `page?: optional string` (query parameter)
 
@@ -31709,11 +31753,11 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `serviceTiers?: optional list<AnalyticsServiceTier>` (query parameter)
 
-  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization.
+  Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values.
 
 - `sessionIDs?: optional list<string>` (query parameter)
 
-  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Platform organizations only.
+  Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values.
 
 - `slackChannelIDs?: optional list<string>` (query parameter)
 
@@ -31729,11 +31773,11 @@ API key with the `read:analytics` scope, or an Admin API key.
 
 - `userProfileIDs?: optional list<string>` (query parameter)
 
-  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Platform organizations only.
+  Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values.
 
 - `workspaceIDs?: optional list<string>` (query parameter)
 
-  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization.
+  Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values.
 
 - `betas?: optional list<AnthropicBeta>` (header parameter)
 
@@ -35501,7 +35545,8 @@ marketplaces.
 
 Plugins in members' personal marketplaces are listed with the same detail as the
 organization's own, and their files can be downloaded through the version archive
-endpoint, which records each such download on the Compliance API activity feed.
+endpoint. Those downloads can be recorded on the Compliance API activity feed; the
+version archive endpoint says when.
 
 **Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
 
@@ -36289,9 +36334,9 @@ var_dump($betaPluginVersion);
 
 **GET** `/v1/organizations/plugins/{plugin_id}/versions/{version}/content`
 
-Download one version's `.zip` archive, exactly as stored. Each download of a
-Plugin from a member's personal plugin marketplace is recorded on the Compliance API
-activity feed.
+Download one version's `.zip` archive, exactly as stored. Downloads of Plugins from
+members' personal plugin marketplaces can be recorded on the Compliance API activity
+feed.
 
 The response body is the archive (`Content-Type: application/zip`), sent as an
 attachment whose filename is derived from the Plugin's name; name saved files from
@@ -36304,9 +36349,11 @@ Every read scope above (`read:plugins`, `read:org_audit`, and
 marketplaces, including files that claude.ai's admin settings do not show, and a
 `read:org_audit` or `read:compliance_org_data` key created for all of your parent
 organization's linked organizations can do this in any organization under it that has
-access to this API, by passing `organization_id`. Each such download records a
-`claude_plugin_archive_accessed` event on the Compliance API activity feed,
-identifying the key, the plugin, the version, and the member. Downloads of
+access to this API, by passing `organization_id`. The Compliance API activity feed can
+record such a download as a `claude_plugin_archive_accessed` event, which identifies
+the key, the plugin, the version, and the member. It does so only while activity
+events are captured for the plugin's organization, and a record is not guaranteed even
+then. The files are served whether or not the download is recorded. Downloads of
 organization-owned plugins are not recorded.
 
 Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
@@ -36728,10 +36775,9 @@ var_dump($betaDeletedPluginInstallationSetting);
 List the shares the owner of a member-owned Plugin has given — to every member of
 the organization, to an RBAC Group, or to one member — most recently granted first.
 
-Shares are read-only in this API: members give and withdraw them in claude.ai, and
-who gave a share is recorded on the Compliance API activity feed rather than on the
-share. An organization-owned Plugin has installation settings instead, so this path
-returns 404 for one.
+Shares are read-only in this API: members give and withdraw them in claude.ai. The
+Plugin's `owner` gave each share listed. An organization-owned Plugin has installation
+settings instead of shares, so this path returns 404 for one.
 
 **Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
 
@@ -37622,7 +37668,7 @@ $betaTelemetryDestination = $client
   ->organization
   ->telemetryDestinations
   ->create(
-  endpointURL: 'x',
+  endpointURL: 'https://gateway.example.com',
   workspaces: ['type' => 'all'],
   displayName: 'display_name',
   headers: ['foo' => 'string'],
@@ -40056,7 +40102,7 @@ $betaClaudeTagSlackChannel = $client
   ->claudeTag
   ->slackChannels
   ->create(
-  slack: ['channelID' => 'xx', 'workspaceID' => 'xx'],
+  slack: ['channelID' => 'C0456EFGH', 'workspaceID' => 'T0123ABCD'],
   settings: [
     'enabled' => true,
     'environmentID' => 'x',
@@ -40090,8 +40136,8 @@ var_dump($betaClaudeTagSlackChannel);
     }
   },
   "slack": {
-    "channel_id": "xx",
-    "workspace_id": "xx"
+    "channel_id": "C0456EFGH",
+    "workspace_id": "T0123ABCD"
   },
   "sources": {
     "enabled": {
@@ -40255,8 +40301,8 @@ var_dump($page);
         }
       },
       "slack": {
-        "channel_id": "xx",
-        "workspace_id": "xx"
+        "channel_id": "C0456EFGH",
+        "workspace_id": "T0123ABCD"
       },
       "sources": {
         "enabled": {
@@ -40411,8 +40457,8 @@ var_dump($betaClaudeTagSlackChannel);
     }
   },
   "slack": {
-    "channel_id": "xx",
-    "workspace_id": "xx"
+    "channel_id": "C0456EFGH",
+    "workspace_id": "T0123ABCD"
   },
   "sources": {
     "enabled": {
@@ -40583,8 +40629,8 @@ var_dump($betaClaudeTagSlackChannel);
     }
   },
   "slack": {
-    "channel_id": "xx",
-    "workspace_id": "xx"
+    "channel_id": "C0456EFGH",
+    "workspace_id": "T0123ABCD"
   },
   "sources": {
     "enabled": {
@@ -41748,7 +41794,10 @@ $betaClaudeTagBundleTarget = $client
   ->targets
   ->create(
   'capp_011CZkZjLP1cWxj5EtMmdgbq',
-  target: ['slackChannelID' => 'xxxxxxxx', 'type' => 'slack_channel'],
+  target: [
+    'slackChannelID' => 'slch_01SvpyRQK3nN6eH9uhRA7n1q',
+    'type' => 'slack_channel',
+  ],
   betas: [AnthropicBeta::COMPUTER_USE_2024_10_22],
 );
 

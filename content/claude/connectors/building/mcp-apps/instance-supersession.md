@@ -6,7 +6,7 @@
 
 > Keep only the newest copy of an MCP App widget active when Claude calls its tool more than once in a conversation, using a server key and BroadcastChannel.
 
-Each time Claude calls a tool that renders an MCP App, Claude mounts a separate iframe in the conversation. No host API unmounts earlier instances when a newer one appears, so by default several live copies of the same widget stay in the conversation. Each copy independently pushes [model-context updates](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#updatemodelcontext), the data a widget feeds into Claude's context for the next turn, and [messages](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#sendmessage) to Claude.
+Each time Claude calls a tool that renders an MCP App, Claude mounts a separate iframe in the conversation. No host API unmounts earlier instances when a newer one appears, so by default several live copies of the same widget stay in the conversation. Each copy independently sends [messages](https://claude.com/docs/connectors/building/mcp-apps/send-messages.md) and [model-context updates](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#updatemodelcontext), the data a widget makes available for Claude to read through a tool call, not with the user's message.
 
 This page is for MCP App developers whose widget represents a single piece of state, such as a shopping cart or a dashboard, where only the most recent instance should remain interactive. It shows how to use [`BroadcastChannel`](https://developer.mozilla.org/docs/Web/API/BroadcastChannel) so earlier instances disable themselves: [mint an election key on the server](#mint-the-election-key-on-the-server), [run the election in the widget](#run-the-election-in-the-widget), then [handle the production edge cases](#handle-production-edge-cases).
 
@@ -18,9 +18,9 @@ Claude serves all widget iframes from a single connector from the same sandbox o
 
 The supersession pattern uses that shared `BroadcastChannel` to elect the newest instance:
 
-1. **The server stamps each tool result with an election key**: it returns a `{createdAt, seq}` pair in [`structuredContent`](https://modelcontextprotocol.io/specification/latest/server/tools#structured-content), the typed JSON payload slot of an MCP tool result. `createdAt` is server wall-clock time and `seq` is a monotonic counter. Tool results are stored in the conversation transcript, so every device and every remount of the widget sees the same key.
-2. **Each widget announces its key on a shared channel**: shortly after `connect()` resolves, the host delivers the tool result that mounted this widget, including its `structuredContent`, through the SDK's [`toolresult` event](https://modelcontextprotocol.github.io/ext-apps/api/types/app.AppEventMap.html). The widget reads its key from that event, opens a `BroadcastChannel`, and broadcasts the key.
-3. **Any widget that sees a younger sibling marks itself superseded**: it greys out its UI, disables its buttons, and short-circuits all calls that mutate model context or inject messages.
+1. **The server stamps each tool result with an election key**: it returns a `{createdAt, seq}` pair in [`structuredContent`](https://modelcontextprotocol.io/specification/latest/server/tools#structured-content), the typed JSON payload slot of an MCP tool result. `createdAt` is server wall-clock time and `seq` is a monotonic counter. Tool results are stored in the conversation transcript.
+2. **A widget announces its key on a shared channel**: shortly after `connect()` resolves, the host delivers the tool result that mounted this widget, through the SDK's [`toolresult` event](https://modelcontextprotocol.github.io/ext-apps/api/types/app.AppEventMap.html). The widget opens a `BroadcastChannel` and, if that event carries its key, broadcasts the key.
+3. **A widget that sees a younger sibling marks itself superseded**: it greys out its UI, disables its buttons, and short-circuits all calls that mutate model context or inject messages.
 
 ## Mint the election key on the server
 
@@ -47,8 +47,7 @@ registerAppTool(
     const createdAt = Date.now();
     return {
       content: [{ type: "text", text: `Cart rendered with ${list.length} item(s).` }],
-      // The election key travels with the tool result in the transcript,
-      // so rehydrated widgets on any device recover the same ordering.
+      // The election key travels with the tool result in the transcript.
       structuredContent: { items: list, seq, createdAt },
     };
   },
@@ -57,7 +56,7 @@ registerAppTool(
 
 ### Understand why the key comes from the server
 
-Client mount time doesn't reflect tool-call order. When a user reopens a stored conversation, Claude lazy-mounts widget cells as they scroll into view, so an older widget can mount after a newer one and would rank as newest in an election based on client timestamps. The server-minted key is written into the transcript at tool-call time and is identical everywhere.
+Client mount time doesn't reflect tool-call order. When a user reopens a stored conversation, Claude lazy-mounts widget cells as they scroll into view, so an older widget can mount after a newer one and would rank as newest in an election based on client timestamps. The server-minted key is written into the transcript at tool-call time.
 
 ## Run the election in the widget
 
@@ -95,6 +94,8 @@ await app.connect();
 const hostContext = app.getHostContext();
 const instanceId = hostContext?.toolInfo?.id ?? crypto.randomUUID();
 ```
+
+If the event carries no key, this listener doesn't call `announce()`, and the widget stays live when a newer copy appears.
 
 ### Broadcast and compare on a shared channel
 
@@ -235,7 +236,7 @@ function isYounger(other: { orderKey: number; seq?: number; instanceId: string; 
 
 On claude.ai on the web, [`hostContext.toolInfo.id`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiHostContext.html#toolinfo) is the stable tool-use ID, so you can persist the resolved server key to `localStorage` keyed by that ID and reuse it on the next mount without waiting for the `toolresult` event again.
 
-Treat the `localStorage` cache as an optimization rather than a correctness guarantee. On Claude iOS, `toolInfo.id` is `undefined` when a stored conversation is rehydrated, so there is no stable per-instance cache key. Detect that case and skip the cache; the server key from the `toolresult` event is the only ordering source that works on every platform.
+Treat the `localStorage` cache as an optimization rather than a correctness guarantee. On Claude iOS, `toolInfo.id` is `undefined` when a stored conversation is rehydrated, so there is no stable per-instance cache key. Detect that case and skip the cache.
 
 ### If you bypass the SDK `App` class
 

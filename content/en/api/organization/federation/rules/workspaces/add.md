@@ -88,7 +88,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
     -H 'anthropic-version: 2026-10-21' \
     -H "Authorization: Bearer $ANTHROPIC_API_KEY" \
     -d '{
-          "workspace_id": "workspace_id"
+          "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
         }'
 ```
 

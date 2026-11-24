@@ -10,9 +10,14 @@ You can save a file, such as a CSV file or an image, from your [MCP App](https:/
 
 Your app's UI runs in Claude in a sandboxed frame, where no download starts from an `<a download>` link, a `blob:` URL, or a `data:` URL. Send each export through [`app.downloadFile`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#downloadfile) instead.
 
+This page is for developers whose MCP App already renders in Claude.
+
 > [!NOTE]
 >
-> This page is for developers whose MCP App already renders in Claude. If you don't have an MCP App yet, start with [Add an interactive UI to your MCP server](https://claude.com/docs/connectors/building/mcp-apps/quickstart.md).
+> These cases are covered on other pages:
+>
+> * **Building your first MCP App**: see [Add an interactive UI to your MCP server](https://claude.com/docs/connectors/building/mcp-apps/quickstart.md)
+> * **Returning a file to Claude from a tool**: see [Support file uploads and downloads](https://claude.com/docs/connectors/building/files.md)
 
 ## Send a file from a view
 
@@ -115,7 +120,7 @@ You can't tell from the result which of these cases occurred:
 * Claude closed the **Download file** dialog
 * Claude couldn't start the download
 
-If no dialog appeared, check the [file types that Claude refuses](#file-types-that-claude-refuses). If the promise rejects and you receive no result, catch the error and [find its cause](#troubleshoot-a-rejected-download-request).
+If no dialog appeared, check the [file types that Claude refuses](#file-types-that-claude-refuses). Claude can also refuse a request while an approval request is waiting. If the promise rejects and you receive no result, catch the error and [find its cause](#troubleshoot-a-rejected-download-request).
 
 ## File types that Claude refuses
 

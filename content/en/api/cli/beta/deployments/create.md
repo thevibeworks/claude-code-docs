@@ -1091,10 +1091,10 @@ Create Deployment
 
 ```bash
 ant beta:deployments create \
-  --agent string \
-  --environment-id x \
-  --initial-event '{content: [{text: "Where is my order #1234?", type: text}], type: user.message}' \
-  --name x
+  --agent '{id: agent_011CZkYpogX7uDKUyvBTophP, type: agent}' \
+  --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
+  --initial-event '{content: [{text: Compile yesterday'\''s orders into report.md., type: text}], type: user.message}' \
+  --name 'Daily order report'
 ```
 
 ### Response (200)

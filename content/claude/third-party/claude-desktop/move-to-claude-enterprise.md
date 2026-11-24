@@ -25,7 +25,7 @@ The migration never changes or deletes the Claude (third-party) data. Nothing mi
 
 **Migrated after one step:**
 
-* Skills, and plugins users uploaded, after the [skills settings](#before-you-begin)
+* Skills, and plugins users uploaded, after you turn on the [skills settings](#before-you-begin)
 * Plugin marketplaces users added over HTTPS from github.com, gitlab.com, bitbucket.org, or a GitHub Enterprise host your organization connected to Claude, after the [skills settings](#before-you-begin). Claude must be able to access the repository. Users then install the plugins they want in **Customize > Plugins**.
 * Personal instructions the account doesn't have yet, after **Add instructions** in **Settings > Import**
 * Cowork [memory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#memory), after the [memory settings](#before-you-begin) and **Add to memory** in **Settings > Import**. Claude saves what's useful to the user's memory, in its own words.
@@ -62,7 +62,7 @@ Special cases:
 
 ### Check the `allowedWorkspaceFolders` list
 
-Unlike most cloud provider keys, [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) also applies in Claude Enterprise, and it limits which folders the migration brings. This holds for a list in the policy or profile itself. A list that only your bootstrap server sends doesn't reach Claude Enterprise until you copy it into the policy or profile.
+Unlike most cloud provider keys, [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-desktop/configuration#allowedworkspacefolders) also applies in Claude Enterprise, and it limits which folders the migration brings. This applies to a list in the policy or profile itself. A list that only your bootstrap server sends doesn't reach Claude Enterprise until you copy it into the policy or profile.
 
 Cowork sessions in Claude Enterprise open without folders that are outside the list. The migration handles those folders this way:
 
@@ -72,6 +72,8 @@ Cowork sessions in Claude Enterprise open without folders that are outside the l
 * **Scheduled tasks and Code sessions** keep their folders, but can't work in a folder that is outside the list
 
 The files stay where they were. Changing or removing the list later doesn't bring back the folders that the migration left out, so users have to attach them again.
+
+When the migration leaves folders out, `gaps` in the [status file](#check-whether-a-computer-has-finished-migrating) lists `sessions`, `projects`, or both. Claude also writes a warning with the words `left one or more folders unconnected` to `main.log`. The warning counts the folders but doesn't name them. A migration that ran on a release before Claude Desktop 7.37095.0 didn't write these `gaps` entries or this warning, so an empty `gaps` from that migration doesn't show that every folder arrived.
 
 Before the configuration change, make the list cover the folders that hold users' work, but don't list a home folder:
 
@@ -111,9 +113,9 @@ Remove `requireCoworkFullVmSandbox`, unless your organization needs Cowork to ru
 
 For either option, copy the **Organization ID** from [**Organization settings > Organization and access**](https://claude.ai/admin-settings/organization). Set `importThirdPartyHistoryIntoOrgUUID` to this ID without braces, and in the registry or a profile without quotation marks. To keep Claude on these computers from using another organization or a personal account, where nothing migrates, you can also set `forceLoginOrgUUID` to the same ID. The app then blocks Claude accounts that aren't in that organization.
 
-If you keep the cloud provider keys and users click **Sign in with Claude Console**, also add the ID of each Claude Console organization that you allow, as described under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
+If you keep the cloud provider keys and users click **Sign in with Claude Console**, also add to `forceLoginOrgUUID` the ID of each Claude Console organization that you allow, as described under [Keep a device on its managed profile](https://claude.com/docs/third-party/claude-desktop/admin-console.md#keep-a-device-on-its-managed-profile).
 
-On Windows, in an elevated PowerShell window:
+On Windows, run these commands in an elevated PowerShell window:
 
 ```powershell theme={null}
 reg add "HKLM\SOFTWARE\Policies\Claude" /v importThirdPartyHistoryIntoOrgUUID /t REG_SZ /d "YOUR-ORGANIZATION-UUID" /f
@@ -121,7 +123,7 @@ reg add "HKLM\SOFTWARE\Policies\Claude" /v importThirdPartyHistoryIntoOrgUUID /t
 reg add "HKLM\SOFTWARE\Policies\Claude" /v forceLoginOrgUUID /t REG_SZ /d "YOUR-ORGANIZATION-UUID" /f
 ```
 
-On macOS, in a custom settings payload for the preference domain `com.anthropic.claudefordesktop`:
+On macOS, add these keys to a custom settings payload for the preference domain `com.anthropic.claudefordesktop`:
 
 ```xml theme={null}
 <key>importThirdPartyHistoryIntoOrgUUID</key>
@@ -153,7 +155,7 @@ To roll everyone back, restore your earlier configuration. If users could switch
 Claude shows no error on screen when nothing migrates. The app's `main.log` usually gives the reason. Check for each of these causes:
 
 * `importThirdPartyHistoryIntoOrgUUID` didn't arrive as a device policy.
-* Claude opened with your cloud provider instead of asking the user to sign in to Claude Enterprise. If you removed the cloud provider keys, one remains. If you kept them, the user didn't click **Or sign in with Claude.ai** yet.
+* Claude opened with your cloud provider instead of asking the user to sign in to Claude Enterprise. If you removed the cloud provider keys, one of them is still set. If you kept them, the user didn't click **Or sign in with Claude.ai** yet.
 * The user signed in to another organization.
 * Cowork runs only in its VM sandbox in Claude Enterprise, so the migration waits. Claude doesn't show **Settings > Import**, and writes `Cowork is not in host-loop mode` to `main.log` each time it opens. If [`requireCoworkFullVmSandbox`](https://claude.com/docs/third-party/claude-desktop/configuration#requirecoworkfullvmsandbox) is in the policy or profile, remove it as described under the special cases in [Before you begin](#before-you-begin), then have the user quit Claude fully and open it again. If the key isn't there, ask your Anthropic account team.
 * If you kept the cloud provider keys and the welcome screen doesn't show **Or sign in with Claude.ai**, `disableDeploymentModeChooser` is still set or `deploymentMode` is `3p`. Remove both keys from the policy or profile, and `disableDeploymentModeChooser` from what your bootstrap server returns.

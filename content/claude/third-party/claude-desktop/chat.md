@@ -48,9 +48,9 @@ Apart from reading [the folders added to a project](#project-folders-in-chat), i
 * **Run in auto mode.** Chat conversations always run in the default permission mode. Auto mode and other reduced-supervision modes are rejected for Chat regardless of `autoModeEnabled`.
 * **Create or run scheduled tasks**, or list the ones that exist.
 * **Escalate into an agentic session.** The tools that launch Code sessions or dispatch background agent tasks are removed. When a request needs capabilities Chat doesn't have, Claude says so and suggests starting the task in Cowork instead.
-* **Read other conversations.** Claude has no tools that list sessions or read other sessions' transcripts, so it can't search or quote your other chats, Cowork sessions, or Code sessions.
+* **Read other conversations.** Claude has no tools that list sessions or read other sessions' transcripts, so Claude can't search or quote the user's other chats, Cowork sessions, or Code sessions.
 
-The app enforces these restrictions on Claude, not only in the UI. Some of them don't bind a plugin that the conversation loads: its [hooks and mods](https://claude.com/docs/third-party/claude-desktop/data-storage.md#chat-conversations) run on the device as the user.
+The app enforces these restrictions on Claude, not only in the UI. Some of them don't apply to a plugin that the conversation loads: its [hooks and mods](https://claude.com/docs/third-party/claude-desktop/data-storage.md#chat-conversations) run on the device as the user.
 
 ## Advanced file analysis
 
@@ -60,13 +60,13 @@ On a device that can run Cowork's virtual machine, [Unified Claude](https://clau
 
 The execution environment is intentionally narrower than the Cowork sandbox:
 
-* Code runs in the same isolated local VM that Cowork uses. For Chat, the VM starts only when analysis is coming: on the first analysis call, or at the start of a turn with files attached.
+* Code runs in the same isolated local VM that Cowork uses. For Chat, the VM starts only on the first analysis call, or at the start of a turn with files attached.
 * Commands in the sandbox can reach the hosts in `coworkEgressAllowedHosts`. See [Sandbox network access](#sandbox-network-access).
 * The only conversation data the sandbox sees is the conversation's attached files (read-only), its scratch directory (writable), its own transcript and saved tool results, such as connector results (read-only), and, for a conversation inside a project, that project's memory (read-only), plus read-only reference material bundled by the app. The sandbox sees no user folders except, for a conversation inside a project, [the project's folders](#project-folders-in-chat) (read-only), and no other sessions' working directories or transcripts.
 * The sandbox doesn't see project folders in a conversation that starts while a rule for `"Read"`, `"Grep"`, or `"Glob"` is set in `disabledBuiltinTools`, in `builtinToolPolicy` with a value other than `"allow"`, or as a deny or ask rule in Claude Code's own managed settings on the device.
-* Each command runs independently; results land in the scratch directory, where Claude can offer them to the user as downloads or artifacts.
+* Each command runs independently; results are written to the scratch directory, where Claude can offer them to the user as downloads or artifacts.
 
-The data flow end to end: an attached file is copied into the conversation's local uploads directory, mounted read-only into the sandbox when analysis runs, and any outputs are written to the conversation's scratch directory on local disk. File content leaves the device by the same routes as the rest of the conversation, listed under [Chat conversations](https://claude.com/docs/third-party/claude-desktop/data-storage.md#chat-conversations).
+An attached file is copied into the conversation's local uploads directory, and mounted read-only into the sandbox when analysis runs. Any outputs are written to the conversation's scratch directory on local disk. File content leaves the device by the same routes as the rest of the conversation, listed under [Chat conversations](https://claude.com/docs/third-party/claude-desktop/data-storage.md#chat-conversations).
 
 ### Sandbox network access
 

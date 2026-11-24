@@ -7,7 +7,9 @@ url: https://platform.claude.com/docs/en/api/user_profiles/list
 
 **GET** `/v1/user_profiles`
 
-List User Profiles
+List the user profiles in your organization, newest first by default.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=http) for how to set up and manage profiles.
 
 ## Query parameters
 

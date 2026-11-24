@@ -9,7 +9,9 @@ url: https://platform.claude.com/docs/en/api/php/beta/user_profiles/create_enrol
 
 **POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
-Create Enrollment URL
+Create a link that sends the profile's end customer to the Verification Portal from Claude Platform on AWS.
+
+On the Claude API, create an action URL instead. See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=php) for when to create the link and what the end customer sees.
 
 ## Parameters
 

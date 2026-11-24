@@ -5,13 +5,17 @@ url: https://platform.claude.com/docs/en/api/python/beta/user_profiles
 
 # User Profiles
 
+Register the end customers that your platform serves, so each request can name who it's for. To get started, see the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=python).
+
 ## Create User Profile
 
 `beta.user_profiles.create(**kwargs) -> BetaUserProfile`
 
 **POST** `/v1/user_profiles`
 
-Create User Profile
+Register one of your end customers and get the ID to send on the requests you make for them.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=python#create-a-profile-for-each-end-customer) for what to send.
 
 ### Parameters
 
@@ -438,7 +442,9 @@ print(beta_user_profile.id)
 
 **GET** `/v1/user_profiles`
 
-List User Profiles
+List the user profiles in your organization, newest first by default.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=python) for how to set up and manage profiles.
 
 ### Parameters
 
@@ -811,7 +817,9 @@ print(page.id)
 
 **GET** `/v1/user_profiles/{user_profile_id}`
 
-Get User Profile
+Get a user profile by ID to check the details stored for it.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=python) for how to set up and manage profiles.
 
 ### Parameters
 
@@ -1148,7 +1156,9 @@ print(beta_user_profile.id)
 
 **POST** `/v1/user_profiles/{user_profile_id}`
 
-Update User Profile
+Change the details of a user profile, leaving the fields that you don't send as they are.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=python#update-a-profile) for how each field is updated.
 
 ### Parameters
 
@@ -1581,7 +1591,9 @@ print(beta_user_profile.id)
 
 **DELETE** `/v1/user_profiles/{user_profile_id}`
 
-Delete User Profile
+Delete a user profile, for example when the end customer closes their account.
+
+Stop sending the profile's ID first. See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=python#delete-a-profile) for what happens after a delete.
 
 ### Parameters
 
@@ -1783,7 +1795,9 @@ print(beta_deleted_user_profile.id)
 
 **POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
-Create Enrollment URL
+Create a link that sends the profile's end customer to the Verification Portal from Claude Platform on AWS.
+
+On the Claude API, create an action URL instead. See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=python) for when to create the link and what the end customer sees.
 
 ### Parameters
 
@@ -2290,7 +2304,9 @@ print(beta_user_profile_enrollment_url.expires_at)
 
 **POST** `/v1/user_profiles/{user_profile_id}/action_urls`
 
-Create Action URL
+Create a link that sends the profile's end customer to the Verification Portal.
+
+See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=python) for when to create the link and what the end customer sees.
 
 #### Parameters
 

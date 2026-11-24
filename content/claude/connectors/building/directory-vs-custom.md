@@ -6,7 +6,7 @@
 
 > Compare directory-listed and custom connectors: Anthropic review, in-product discovery, install links, Suggested Connectors, and per-tenant URL listings.
 
-A directory connector is an MCP server listed in Anthropic's directory after review, and a custom connector is one that a user or an organization Owner adds to Claude by entering its URL. Both run on the same MCP infrastructure: the runtime, transport, authentication, and tool-calling code paths are identical. The difference is review, discoverability, and distribution.
+A directory connector is an MCP server listed in Anthropic's directory after review, and a custom connector is one that a user or an organization Owner adds to Claude by entering its URL. Both run on the same MCP infrastructure, with the same transport and authentication. They differ in review, discoverability, distribution, and some features, such as [file transfers](https://claude.com/docs/connectors/building/files.md).
 
 This page is for developers deciding whether to list a server in the directory, distribute it as a custom connector, or do both. It compares the two, shows the install link each one gets, and covers listing patterns for enterprise and multi-tenant servers.
 
@@ -16,18 +16,19 @@ This page is for developers deciding whether to list a server in the directory, 
 
 ## Compare directory and custom connectors
 
-Directory and custom connectors differ only in what surrounds the runtime: who reviews the server, how users find it, and which Anthropic-side features it can use.
+Directory and custom connectors differ in what surrounds the runtime: who reviews the server, how users find it, and which Anthropic-side features it can use.
 
 | | Directory connector | Custom connector |
 | - | - | - |
-| **Runtime** | Same | Same |
+| **Runtime** | Same | Same, but plan for an MCP App's views to [lose some device features](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md#device-features-in-views-that-embed-sites) |
 | **Anthropic review** | Yes | No |
 | **In-product discovery** | Browse, search, Suggested Connectors | None |
 | **Distribution** | [Directory link](#share-an-install-link) | [Install link](#share-an-install-link) or manual URL entry |
 | **Anthropic-held client credentials** | Available | Not available |
-| **[External link](https://claude.com/docs/connectors/building/mcp-apps/external-links.md) confirmation** | Can allowlist destinations to skip the modal | Always shows the modal |
+| **[External link](https://claude.com/docs/connectors/building/mcp-apps/external-links.md) confirmation** | Can allowlist destinations to skip the modal | Can't allowlist destinations |
 | **[Websites embedded](https://claude.com/docs/connectors/building/mcp-apps/embedded-sites.md) in an MCP App** | Load only if the listing is Verified and allows their origins | Where available, load only after the person allows them in a conversation |
-| **[Entry points](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md) for an MCP App** | Only under a Verified listing | No listing needed |
+| **[Entry points](https://claude.com/docs/connectors/building/mcp-apps/entry-points.md) for an MCP App** | Where available, only under a Verified listing | Where available, no listing needed |
+| **[File transfers](https://claude.com/docs/connectors/building/files.md)** | In beta, for a listing that meets the [requirements](https://claude.com/docs/connectors/building/files.md#requirements-for-file-transfers) | Not available |
 | **Appears as** | Named card with logo | **Custom** |
 
 ## Share an install link
@@ -100,7 +101,7 @@ A supported pattern is to list a connector in the directory with safe, broadly a
 
 ### Per-tenant URLs
 
-If your server URL varies per tenant, such as `{tenant}.mcp.example.com`, submit one directory listing with a URL pattern. Each user enters their own URL when they connect. A listing with a URL pattern can be published only once it has the **Verified** label. See [Servers with per-customer URLs](https://claude.com/docs/connectors/building/authentication.md#servers-with-per-customer-urls) for how this choice limits your authentication options.
+If your server URL varies per tenant, such as `{tenant}.mcp.example.com`, submit one directory listing with a URL pattern. Each user enters their own URL when they connect. A listing with a URL pattern can be published only once it has the **Verified** label. See [Servers with per-customer URLs](https://claude.com/docs/connectors/building/authentication.md#servers-with-per-customer-urls) for how this choice limits your authentication options. Claude [doesn't transfer files](https://claude.com/docs/connectors/building/files.md#requirements-for-file-transfers) for a listing with a URL pattern.
 
 ## Next steps
 

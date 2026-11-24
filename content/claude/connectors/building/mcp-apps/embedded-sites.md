@@ -171,7 +171,7 @@ For custom connectors, embedded sites are available to a [limited set of organiz
 5. Ask Claude to open the view, and name your connector in the message
 6. Allow the origins. Claude lists them in one of these places:
    * In the approval request for the tool that opens the view.
-   * In a review that you open from a line beside the view. If the permission setting in the message box is **Auto**, Claude can open the view without asking, so use the review.
+   * In a review that you open from a line beside the view. Use the review if no approval request lists them.
 7. Confirm that the site renders in the view
 
 After you allow the origins, each one appears in `app.getHostCapabilities()?.sandbox?.csp?.frameDomains`. A view that opened before you allowed them receives an empty list.
@@ -221,12 +221,16 @@ Claude passes no session to the site, and a call to `document.requestStorageAcce
 To sign a user in, pass a token from your server to the site through the view:
 
 1. On your server, add a tool that returns a short-lived, single-use token
-2. Set the tool's `_meta.ui.visibility` to `["app"]`, so that Claude can't call the tool
+2. Set the tool's `_meta.ui.visibility` to `["app"]`, which tells clients not to offer the tool to the model
 3. In the view's script, call the tool with [`app.callServerTool()`](https://modelcontextprotocol.github.io/ext-apps/api/classes/app.App.html#callservertool)
 4. From the view, send the token to the frame with `postMessage`, and set the target origin to the site's exact origin
 5. On the site, exchange the token for a session
 
-If your sign-in pages can be framed, you can show a sign-in form inside the frame instead.
+> [!WARNING]
+>
+> Don't rely on `visibility` to keep the token secret, in any client. A client can still let the model call the tool. The token can then enter the conversation, and anyone who gets it from there can exchange it for a session until it expires.
+
+If your sign-in pages [can be framed](#allow-claude-to-frame-your-site), you can show a sign-in form inside the frame instead, so that no token passes through a tool.
 
 ## Device features in views that embed sites
 
@@ -235,7 +239,7 @@ A view can't use the camera, the microphone, location, or clipboard write when C
 Plan for other views to lose the same features, including views that embed nothing:
 
 * **Directory connector**: when the listing allows an origin, plan for the connector's other views to lose them
-* **Custom connector**: where [embedded sites are available for custom connectors](#availability-of-embedded-sites-for-custom-connectors), plan for every view of the connector to lose them
+* **Custom connector**: plan for every view of the connector to lose them
 
 To see which features Claude granted a view, read `app.getHostCapabilities()?.sandbox?.permissions` in the view's script after `app.connect()` resolves. Each key is a granted feature. Claude on mobile doesn't report these features.
 

@@ -50,9 +50,9 @@ Avoid these patterns:
 
 > [!NOTE]
 >
-> The [side panel](#side-panel) is available to a limited set of organizations, and not in every conversation. Where it isn't available, a fullscreen request opens your app full screen if Claude offers that mode. To check, see [Show your MCP App in the side panel or full screen](https://claude.com/docs/connectors/building/mcp-apps/display-modes.md).
+> The [side panel](#side-panel) isn't available in every organization or conversation. Where it isn't available, a fullscreen request opens your app full screen if Claude offers that mode. To check, see [Show your MCP App in the side panel or full screen](https://claude.com/docs/connectors/building/mcp-apps/display-modes.md).
 
-An MCP App appears inline in the conversation as a card or a carousel, in a side panel beside the conversation, or full screen. Each placement suits different content and carries its own constraints on desktop and on mobile. To declare and request display modes in code, see [Show your MCP App in the side panel or full screen](https://claude.com/docs/connectors/building/mcp-apps/display-modes.md).
+An MCP App appears inline in the conversation as a card or a carousel, in a side panel beside the conversation, or full screen. Each placement suits different content and carries its own constraints. To declare and request display modes in code, see [Show your MCP App in the side panel or full screen](https://claude.com/docs/connectors/building/mcp-apps/display-modes.md).
 
 ### Inline card
 
@@ -174,7 +174,7 @@ Declare which modes your app supports through `appCapabilities.availableDisplayM
 
 ### Content security policy
 
-All external origins are blocked by default. Declare the origins each `ui://` resource needs through `_meta.ui.csp`:
+All external origins are blocked by default. Declare the origins each `ui://` resource needs through `_meta.ui.csp`. Put it on the content item that your `resources/read` handler returns, with the rest of the resource's `_meta.ui`. This `_meta` object declares one origin of each kind:
 
 ```json theme={null}
 {

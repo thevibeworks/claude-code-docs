@@ -16,7 +16,7 @@ A view is one rendered instance of your app's UI in Claude. On the web and in Cl
 
 Claude reports the display mode `inline` for a view in the conversation. It reports `fullscreen` for a view in the side panel and for a view that is full screen.
 
-The side panel is available to a limited set of organizations, and not in every conversation, so [check whether your organization has the side panel](#check-whether-your-organization-has-the-side-panel). Outside that section, assume that the conversation has the side panel.
+The side panel isn't available in every organization or conversation, so [check whether your organization has the side panel](#check-whether-your-organization-has-the-side-panel). Outside that section, assume that the conversation has the side panel.
 
 > [!NOTE]
 >
@@ -35,6 +35,7 @@ In the view's script, pass the list of modes as `availableDisplayModes` in the s
 * **`fullscreen` without `inline`**: a card appears in the conversation in place of the view.
   * When the user opens the view from the card, it opens in the side panel, or full screen where the panel can't open.
   * When Claude calls the tool, Claude also tries to open the view in the side panel without a click.
+  * Behind its card, the view can stop running, such as when the user hasn't seen it yet or after it requests `inline`. When it loads again, it starts from your HTML.
 
 If you list a value that the [MCP Apps SDK](https://modelcontextprotocol.github.io/ext-apps/api/index.html) doesn't define, such as `sidebar`, [the view doesn't start](#invalid-params-error-when-a-view-starts-or-requests-a-mode).
 
@@ -120,7 +121,7 @@ To find out whether Claude granted the request, compare the returned `mode` with
 | You request `fullscreen` from the side panel | `fullscreen` | The view stays in the side panel |
 | You request a value that the SDK doesn't define | None | The promise rejects with an invalid params error |
 
-To return the view to the conversation, request `inline`. If Claude refuses a request, check [what a request needs](#the-returned-mode-differs-from-the-mode-that-you-requested).
+To return a view that supports `inline` to the conversation, request `inline`. If Claude refuses a request, check [what a request needs](#the-returned-mode-differs-from-the-mode-that-you-requested).
 
 ## Lay out a view by the size that Claude reports
 
@@ -150,7 +151,7 @@ To check your access to the side panel, use a view that supports `fullscreen`:
 2. Open your app in a conversation that has the [unified Claude experience](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude), which combines chat and Cowork. If the message box offers a choice of **Chat** or **Cowork**, your account doesn't have it.
 3. Look for the expand button, an icon that Claude shows above an inline view. A user clicks it to open the view in the side panel, or full screen where the panel can't open.
 
-If Claude shows no expand button, your organization may not have access. Keep your app working without the side panel, and test again later.
+If Claude shows no expand button, your organization may not have access. Keep your app working without the side panel.
 
 ### Views in a conversation without the side panel
 
@@ -168,9 +169,9 @@ Claude opens a new view for each new tool call. If the new view supports `fullsc
   * The 15 seconds include reading the `ui://` resource and loading the view.
   * A view that starts later appears in the conversation, behind the full-screen view.
 * **The open view is in the side panel**: the new view replaces it if both views came from the same connector
-* **The new view lists `fullscreen` but not `inline`**: the new view opens in place of anything that the side panel shows
+* **The new view lists `fullscreen` but not `inline`**: if the side panel shows something else, such as a file or another connector's view, the new view waits behind its card in the conversation
 
-The replaced view returns to the conversation, and its `displayMode` becomes `inline`. To stop that view from acting on outdated data, see [Supersede older widget instances](https://claude.com/docs/connectors/building/mcp-apps/instance-supersession.md).
+A replaced view that supports `inline` returns to the conversation, and its `displayMode` becomes `inline`. To stop a replaced view from acting on outdated data, see [Supersede older widget instances](https://claude.com/docs/connectors/building/mcp-apps/instance-supersession.md).
 
 ## Troubleshoot display modes
 

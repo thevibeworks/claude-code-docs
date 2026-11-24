@@ -107,7 +107,7 @@ These hosts are included automatically in the **Egress** section of the in-app c
 
 * **All four keys required.** A partial set does not enable in-app sign-in. If `inferenceCredentialKind` is set to `interactive`, the app treats the configuration as invalid, logs an error that names the missing keys, and does not connect until they are supplied. If `inferenceCredentialKind` is not set, the app uses whichever other credential the configuration provides, or reports that no credential is configured.
 * **One account and role per deployment.** Every user in a given managed configuration signs in to the same AWS account and assumes the same permission set. To give different groups different Amazon Bedrock permissions, deploy distinct configuration profiles with different `inferenceBedrockSsoRoleName` values.
-* **Mid-session credential refresh.** The app checks the AWS credentials' expiry before each turn and silently mints new ones from the stored IAM Identity Center token when they are close to expiring.
+* **Mid-session credential refresh.** The app checks the AWS credentials' expiry before each turn. When the credentials are close to expiring, the app silently exchanges the stored IAM Identity Center token for new AWS credentials.
 * **Connection probe.** The in-app **Test connection** button completes the AWS sign-in if needed, then sends a short test request to a model from your **Models** list through the app's Claude Code runtime. Add at least one model first, because this credential type cannot discover models automatically. If the app has not yet finished downloading its Claude Code runtime, the test reports that it cannot run; wait a moment and try again. Named-profile mode behaves the same way.
 
 ### Named profile
@@ -135,6 +135,8 @@ To run the login command, the app locates the AWS CLI by searching the launch en
 
 If your AWS configuration files are not at the default location, set `inferenceBedrockAwsDir` to the directory that contains them.
 
+In [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#amazon-bedrock-with-a-named-profile), Claude Code signs in on the host, not on the device. Each host needs a profile of the same name, and users sign in to it there if it needs a sign-in.
+
 ### Sign in with your identity provider
 
 Use this approach when a proxy in front of Amazon Bedrock validates tokens from your OpenID Connect identity provider, such as Microsoft Entra ID or Okta. Each user signs in with the identity provider, and Claude Desktop sends the user's token as `Authorization: Bearer` on every inference request to the proxy at `inferenceBedrockBaseUrl`. The proxy calls Amazon Bedrock with its own AWS credentials. Claude Code sessions started from the app use the same token (`AWS_BEARER_TOKEN_BEDROCK`) and proxy URL. Requires Claude Desktop 2.7032.0 or later.
@@ -161,7 +163,7 @@ Set `inferenceCredentialKind` to `external-idp` (in the in-app configuration win
 Notes:
 
 * `inferenceBedrockBaseUrl` (your proxy) is required: Amazon Bedrock endpoints, including VPC endpoints, reject identity-provider tokens. Without a proxy, use [in-app AWS sign-in](#in-app-aws-sign-in).
-* No model discovery: list the model IDs in `inferenceModels`.
+* The app doesn't discover models with this approach, so list the model IDs in `inferenceModels`.
 * The proxy receives the OIDC ID token by default and must check that its `aud` is your `clientId`; for a proxy that validates OAuth access tokens, set `bearerTokenType` and `scopes` in [`inferenceIdpOidc`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceidpoidc).
 
 ## Configure the app
@@ -212,7 +214,7 @@ Origin-pinned (A URL that a bootstrap server delivers must share the origin of b
 
 Since 1.2581.0
 
-**Bedrock base URL.** For VPC endpoints or gateway proxies. Enter https\:// and the host, with no path.
+**Bedrock base URL.** Bedrock: https\:// and the host of a VPC endpoint or gateway proxy, no path. Bedrock Mantle: the full SDK base URL with the /anthropic path.
 
 ***
 
@@ -292,6 +294,15 @@ Since 1.2581.0
 
 **AWS profile name.** AWS named profile to use for Bedrock inference credentials.
 
+> [accordion] More detail
+>
+> Code sessions over SSH to a Linux or macOS host sign in with the profile of this name on that host. This computer's AWS credentials are not sent.
+>
+> * **Set up:** each user needs it on each such host.
+> * **Permissions:** give it Bedrock access only. Claude's `aws` commands there use it too.
+> * **Launcher:** with `claudeCodeProcessWrapperEnabled` on, a host's launcher leads.
+> * **Unset, or files outside the home:** see `inferenceBedrockAwsDir`.
+
 ***
 
 #### `inferenceBedrockAwsDir`
@@ -303,6 +314,10 @@ Consent required (A value that a bootstrap server delivers applies only after th
 Since 1.2581.0
 
 **AWS config directory.** Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set.
+
+> [accordion] More detail
+>
+> Code sessions over SSH read the AWS files from the same folder under the user's home folder on the host. If it is not inside the home folder on this computer, they need a launcher. With `inferenceBedrockProfile` unset, the `default` profile is used, but never from `~/.aws`: there a launcher is needed too. Use regular files, not links, in a folder of their own, and keep any `credential_process` program where the user cannot write.
 
 ***
 
@@ -318,7 +333,7 @@ Since 1.13576.0
 
 ***
 
-Set `inferenceModels` to a list of Amazon Bedrock inference-profile IDs, for example `us.anthropic.claude-sonnet-5`. When using a bearer token or credential helper, Claude Desktop auto-discovers available Claude models from your account if this is unset; otherwise the list is required. Application-inference-profile ARNs and provisioned-throughput ARNs are also accepted; pair them with a [`labelOverride`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodels) so the picker shows a readable name instead of the raw ARN. See the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemodels).
+Set `inferenceModels` to a list of Amazon Bedrock inference-profile IDs, for example `us.anthropic.claude-sonnet-5`. With a bearer token or credential helper, Claude Desktop auto-discovers available Claude models from your account if `inferenceModels` is unset. With the other credential types, the list is required. Application-inference-profile ARNs and provisioned-throughput ARNs are also accepted; pair them with a [`labelOverride`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodels) so the picker shows a readable name instead of the raw ARN. See the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencemodels).
 
 ## What users experience
 
@@ -326,7 +341,7 @@ Set `inferenceModels` to a list of Amazon Bedrock inference-profile IDs, for exa
 | - | - | - |
 | Bearer token | The app shows a welcome screen, and the user clicks its button to continue. | Never, until you rotate the key in the managed profile. |
 | In-app AWS sign-in | The app shows a **Sign in with AWS** page; the user approves in the browser, and the app returns to Cowork. | When the IAM Identity Center access portal session expires (defaults to 8 hours; configurable up to 90 days). The app prompts in-app; no terminal needed. |
-| Named profile | The same welcome screen if the AWS SSO cache is fresh; otherwise the app prompts in-app and runs `aws sso login` for you, which opens the browser. | When the IAM Identity Center session expires, the app prompts in-app and re-runs `aws sso login`. |
+| Named profile | The same welcome screen if the AWS SSO cache is fresh; otherwise the app prompts in-app and runs `aws sso login` for the user, which opens the browser. | When the IAM Identity Center session expires, the app prompts in-app and re-runs `aws sso login`. |
 | Identity provider sign-in | The app shows a sign-in page; the user signs in at your identity provider. | When the token expires, the app renews it silently; it prompts again only if the renewal fails or [`inferenceSessionLifetimeSec`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencesessionlifetimesec) elapses. |
 
 For in-app AWS sign-in, the browser flow runs on the host (outside the Cowork sandbox), so it uses the user's existing identity-provider session and any security keys or passkeys configured on the device. The **AWS access portal session duration** setting (IAM Identity Center → **Settings** → **Authentication**) controls how long users stay signed in across app restarts. To force a user to sign in again sooner, delete their active session from the IAM Identity Center console.

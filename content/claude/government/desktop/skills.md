@@ -26,6 +26,6 @@ Open a skill you created to delete it. Skills you create are stored on your devi
 
 ## Skills for administrators
 
-The admin portal does not have a skills view or per-skill controls, so there is no setting that allows, blocks, or distributes a skill on its own. [**Let members create skills**](https://claude.com/docs/government/config/settings.md#let-members-create-skills) controls whether members can create or upload skills of their own.
+To distribute a skill to the members you manage, upload it in the admin portal, on its own or in a plugin, as described under [Distribute skills](https://claude.com/docs/government/config/plugins-and-connectors.md#distribute-skills). Either way, members get the skill in a plugin, so to change or retire the skill, [update or remove the plugin](https://claude.com/docs/government/config/plugins-and-connectors.md#update-or-remove-a-plugin).
 
-To distribute skills to the members you manage, bundle them in a plugin, as described under [Package a skill as a plugin](https://claude.com/docs/government/config/plugins-and-connectors.md#package-a-skill-as-a-plugin). A skill you distribute this way is managed through the plugin that carries it, so to change or retire the skill, [update or remove the plugin](https://claude.com/docs/government/config/plugins-and-connectors.md#update-or-remove-a-plugin).
+[**Let members create skills**](https://claude.com/docs/government/config/settings.md#let-members-create-skills) controls whether members can create or upload skills of their own.

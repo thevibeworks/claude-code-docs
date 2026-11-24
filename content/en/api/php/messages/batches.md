@@ -103,6 +103,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
+- `WorkspaceHumanReviewDisabledException` (HTTP status 400, error code `workspace_human_review_disabled`)
+
+  The request's Workspace has Human Review turned off, and this operation is not available there. Use a Workspace with Human Review on.
+
 - `EnforcedSpendLimitReachedException` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
   The organization has crossed the monthly API usage threshold of its API tier.

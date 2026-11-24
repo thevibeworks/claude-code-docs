@@ -7,7 +7,9 @@ url: https://platform.claude.com/docs/en/api/user_profiles/retrieve
 
 **GET** `/v1/user_profiles/{user_profile_id}`
 
-Get User Profile
+Get a user profile by ID to check the details stored for it.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=http) for how to set up and manage profiles.
 
 ## Path parameters
 

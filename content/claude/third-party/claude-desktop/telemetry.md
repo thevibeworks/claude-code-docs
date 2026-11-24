@@ -16,7 +16,7 @@ To find out whether a managed profile's keys apply on a device that uses the [En
 
 On a device that gets its configuration from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), essential and non-essential telemetry are each off unless the server's response sets the category's key to `false`.
 
-On a deployment that runs every session on a server and none on the device, `disableEssentialTelemetry` and `disableNonessentialTelemetry` don't apply. The app sends Anthropic no crash, error, or performance reports and no product analytics. Where that server sends Anthropic a usage report and accepts them, the app hands it counts of its starts and failures, and the totals go into that report.
+On a deployment that runs every session on a server and none on the device, `disableEssentialTelemetry` and `disableNonessentialTelemetry` don't apply. The app sends Anthropic no crash, error, or performance reports and no product analytics. Where that server sends Anthropic a usage report and accepts counts from the app, the app gives the server counts of the app's starts and failures, and the totals go into that report.
 
 ### Essential telemetry
 
@@ -38,7 +38,7 @@ Product-usage analytics: feature adoption, session counts, UI interactions. Used
 
 | Setting | Default | Effect when `true` |
 | - | - | - |
-| `disableNonessentialTelemetry` | `false` (`true` with a bootstrap server) | No product analytics leave the device. |
+| `disableNonessentialTelemetry` | `false` (`true` with a bootstrap server) | No product analytics leave the device. [Automatic plugin updates](https://claude.com/docs/third-party/claude-desktop/extensions.md#automatic-plugin-updates-in-local-code-sessions) in local Code sessions stop, unless a user sets Claude Code's `FORCE_AUTOUPDATE_PLUGINS` variable. |
 
 Claude Code's usage telemetry is part of this category and goes to `api.anthropic.com`. While this category is on, allow that host at the perimeter, as listed under [Non-essential telemetry](#non-essential-telemetry-disablenonessentialtelemetry-false). Claude Code sends this telemetry from outside the agent's sandbox, so the host needs no entry in `coworkEgressAllowedHosts`.
 
@@ -56,7 +56,7 @@ The app checks Anthropic's update feed and downloads new builds.
 
 | Setting | Default | Effect when `true` |
 | - | - | - |
-| `disableAutoUpdates` | `false` | The app never checks for or downloads updates. Your IT team must redistribute new builds. |
+| `disableAutoUpdates` | `false` | The app never checks for or downloads updates. Your IT team must redistribute new builds. [Automatic plugin updates](https://claude.com/docs/third-party/claude-desktop/extensions.md#automatic-plugin-updates-in-local-code-sessions) in local Code sessions stop, unless a user sets Claude Code's `FORCE_AUTOUPDATE_PLUGINS` variable. |
 
 On Linux, installing the `claude-desktop` package adds Anthropic's apt repository. `apt upgrade` then installs new versions from `downloads.claude.ai`, and so do unattended upgrades on devices that have them turned on, whatever the value of `disableAutoUpdates`. To keep Linux devices on the versions you distribute, add the line `CLAUDE_DESKTOP_ADD_REPO=false` to `/etc/default/claude-desktop`, creating the file if it doesn't exist, before you install the package. On a device that already has the package, also delete `/etc/apt/sources.list.d/claude-desktop.list`.
 
@@ -66,7 +66,7 @@ Independently of what's sent to Anthropic, you can export session activity to yo
 
 For third-party deployments, the export includes session metadata (event names, durations, token counts, result counts, errors) by default, but not message content. It also identifies the signed-in user; see [User attribution](#user-attribution). Records of skill scans are an exception to leaving out message content. If you turn on [skill scanning](https://claude.com/docs/third-party/claude-desktop/extensions.md#skill-scanning), the export also carries `custom3p_skill_scan_completed` records of scan results, and a record's summary can quote the skill. Claude Desktop sends the summary even when [content capture](#content-capture) (`otlpContentCapture`) is off. See [Monitoring](https://claude.com/docs/cowork/monitoring.md) for the event schema and the [`otlp*` keys](https://claude.com/docs/third-party/claude-desktop/configuration#otlpendpoint) in the configuration reference.
 
-The export carries logs and metrics. Cowork sessions, Code sessions, and the desktop application's own events arrive under the `service.name` values `cowork`, `claude-code-desktop`, and `claude-desktop` respectively. If [`otlpResourceAttributes`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpresourceattributes) sets `service.name`, Code sessions arrive under that name instead. With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a Cowork session started from the home screen also arrives under `cowork`. The export isn't checked against the [agent egress allowlist](#required-egress-paths), so `otlpEndpoint` doesn't need an entry in `coworkEgressAllowedHosts`; your perimeter firewall still needs to allow the host.
+The export carries logs and metrics. Cowork sessions, Code sessions, and the desktop application's own events arrive under the `service.name` values `cowork`, `claude-code-desktop`, and `claude-desktop` respectively. If [`otlpResourceAttributes`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpresourceattributes) sets `service.name`, Code sessions arrive under that name instead. With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a Cowork session started from the home screen also arrives under `cowork`. If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md), signed-in terminals also export to your collector, under `claude-code` or the `service.name` that you set. The export isn't checked against the [agent egress allowlist](#required-egress-paths), so `otlpEndpoint` doesn't need an entry in `coworkEgressAllowedHosts`; your perimeter firewall still needs to allow the host.
 
 For static collector headers, extra resource attributes, and the log level of the desktop application's own event stream, see [`otlpHeaders`, `otlpResourceAttributes`, and `otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpheaders) in the configuration reference.
 
@@ -89,7 +89,7 @@ The receiver must implement the OpenTelemetry protocol (OTLP) over HTTP in both 
 
 [`otlpHeaders`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpheaders) is a JSON object that maps each header name to its value, for example `{"X-Scope-OrgID":"tenant-a","X-Tenant":"agency"}`. Write the object as a JSON string, as described under [Value types](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types).
 
-The app reads both keys at launch, so users must restart it after a change. If the collector refuses requests or cannot be reached, the app keeps working, shows no error, and drops the affected telemetry batches. Check the collector's own request logs to confirm data is arriving.
+The app reads `otlpEndpoint` and `otlpHeaders` at launch, so users must restart the app after a change. If the collector refuses requests or cannot be reached, the app keeps working, shows no error, and drops the affected telemetry batches. Check the collector's own request logs to confirm data is arriving.
 
 To send a credential to your collector, use one of these keys:
 
@@ -105,7 +105,7 @@ Every record sent to your collector carries the user's identity as two resource 
 * `enduser.id`: the signed-in user's identity. With a sign-in that carries identity claims (for example, Workforce Identity Federation or Google sign-in on Google Cloud's Agent Platform), this is the identity from the provider's claims, normally the user's email address. Some credential methods carry no identity claims, such as a static key, a credential helper, an application default credentials file, [in-app AWS sign-in](https://claude.com/docs/third-party/claude-desktop/bedrock.md#in-app-aws-sign-in), or a [named AWS profile](https://claude.com/docs/third-party/claude-desktop/bedrock.md#named-profile). With one of those, on a device managed from the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md), it is the email address of the user's Claude account. On other devices, it is the operating-system login name.
 * `process.owner`: the operating-system login name.
 
-`enduser.id` is the same identity the app shows in the sidebar and account menu, and is controlled by the [`endUserAttribution`](https://claude.com/docs/third-party/claude-desktop/configuration#enduserattribution) key: set it to `false` to remove the identity from both the app and the export. `process.owner` is not gated by that key and is always present. A static value set under [`otlpResourceAttributes`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpresourceattributes) overrides either attribute: a static `enduser.id` takes precedence over the signed-in identity and survives `endUserAttribution: false`, and a static `process.owner` replaces the login name.
+`enduser.id` is the same identity the app shows in the sidebar and account menu, and is controlled by the [`endUserAttribution`](https://claude.com/docs/third-party/claude-desktop/configuration#enduserattribution) key: set it to `false` to remove the identity from both the app and the export. `process.owner` is not controlled by that key and is always present. A static value set under [`otlpResourceAttributes`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpresourceattributes) overrides either attribute: a static `enduser.id` takes precedence over the signed-in identity and is still sent when `endUserAttribution` is `false`, and a static `process.owner` replaces the login name.
 
 These attributes are attached only to the OpenTelemetry export; the Anthropic-bound telemetry does not carry them.
 
@@ -117,7 +117,7 @@ The `otlpProtocol` key selects the transport for the telemetry export to your co
 * Cowork and [Chat](https://claude.com/docs/third-party/claude-desktop/chat.md) sessions export over the protocol as configured, except that when `otlpProtocol` is `grpc` they export over `http/protobuf` instead on Windows, and on other platforms whenever the Claude Code engine is given an HTTP proxy (from the operating system's proxy settings, a [pinned proxy](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#pin-a-proxy-from-managed-configuration), or `HTTPS_PROXY`/`HTTP_PROXY` in a Claude Code settings file).
 * The desktop application's own event stream (`claude-desktop`) always exports over `http/json`, whatever `otlpProtocol` is set to.
 
-These substitutions change the protocol only, not the endpoint. If `otlpProtocol` is `grpc` and `otlpEndpoint` is your collector's OTLP/gRPC receiver (conventionally port 4317), a stream that exports over HTTP never reaches the collector. To receive all three streams with one collector, set `otlpProtocol` to `http/protobuf` and point `otlpEndpoint` at the collector's OTLP/HTTP receiver (conventionally port 4318).
+These substitutions change the protocol only, not the endpoint. If `otlpProtocol` is `grpc` and `otlpEndpoint` is your collector's OTLP/gRPC receiver (conventionally port 4317), a stream that exports over HTTP never reaches the collector. To receive all three streams with one collector, set `otlpProtocol` to `http/protobuf` and set `otlpEndpoint` to the address of the collector's OTLP/HTTP receiver (conventionally port 4318).
 
 ### Content capture
 
@@ -142,7 +142,7 @@ Check these points before you deploy the setting:
 * **Where to set it**: in the highest-priority Claude Code managed settings on the device, not in a per-user Windows registry policy. See **More detail** under [`otlpContentCapture`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpcontentcapture).
 * **No Claude Code managed settings on the device yet**: also set `parentSettingsBehavior` to `"merge"` in the settings you create, or Claude Code can drop the restrictions that Claude Desktop passes to it
 * **Background agents in Code sessions**: when an agent that Claude runs in the background finishes, Claude Code passes the agent's final response back to the conversation as a prompt. With the variable set to `0`, the `user_prompt` event for that prompt holds `<REDACTED>` in place of the text. The prompt's trace span does the same when [traces](#traces-beta) are on. Before Claude Desktop 5.11492.5, your collector can receive the text in the event and on the span. Cowork and Chat sessions don't run agents in the background.
-* **Agents in Auto mode**: in [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), an agent hands its final response back as a tool input, whether it runs in the foreground or the background. With `toolDetails` listed, the [`tool_result`](https://claude.com/docs/cowork/monitoring#tool-result-event) event for that call holds the response, whole or in part, even with the variable set to `0`. New Code sessions start in **Auto mode** by default, and Cowork shows the mode as **Automatically approve**.
+* **Agents in Auto mode**: in [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled), an agent passes its final response back as a tool input, whether it runs in the foreground or the background. With `toolDetails` listed, the [`tool_result`](https://claude.com/docs/cowork/monitoring#tool-result-event) event for that call holds the response, whole or in part, even with the variable set to `0`. New Code sessions start in **Auto mode** by default, and Cowork shows the mode as **Automatically approve**.
 * **Other text that Claude writes**: the variable doesn't redact other text from Claude. For example, with `toolDetails` listed, a `tool_result` event holds the input that Claude wrote for the tool, whole or in part. Some of Claude's text also arrives as a prompt in a `user_prompt` event, such as a message that Claude sends from one Code session to another.
 
 Conversation titles arrive on the desktop application's own stream (`claude-desktop`) as a `desktop_session_title_set` event that carries each Cowork and Code session's title and the Claude Code `session.id` to join on. The event is exported only when [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) is `info` or `debug`, and the title text is included only when `otlpContentCapture` includes `userPrompts`.
@@ -168,9 +168,9 @@ Before you raise the limit, make sure that both of these are true:
 
 The export doesn't include traces unless you set `otlpTracesEnabled` to `true`. Cowork and Code sessions then record a trace for each user interaction, with spans for model requests and tool executions, and every event emitted during a span carries that span's `trace_id` and `span_id`.
 
-Traces use the same `otlpEndpoint` and `otlpProtocol` as the rest of the export, including the gRPC fallbacks described in [Exporter protocol](#exporter-protocol). Span and span-event content is gated by the same `otlpContentCapture` categories as events: with no categories enabled, traces carry metadata only (timing, tool names, durations, token counts).
+Traces use the same `otlpEndpoint` and `otlpProtocol` as the rest of the export, including the gRPC fallbacks described in [Exporter protocol](#exporter-protocol). Span and span-event content is controlled by the same `otlpContentCapture` categories as events: with no categories enabled, traces carry metadata only (timing, tool names, durations, token counts).
 
-Two scope notes:
+Trace export has these limits:
 
 * The metrics in this export don't carry trace context, so trace-based correlation covers traces and events. Correlate metrics with a session via the `session.id` attribute.
 * Trace export uses Claude Code's session-tracing beta, and the span structure may change while the feature is in beta.
@@ -179,20 +179,20 @@ With `otlpEndpoint` set, `otlpTracesEnabled` alone decides whether Cowork and Co
 
 ### EDR install events
 
-If you [run an EDR sensor in Cowork](https://support.claude.com/en/articles/17828685-run-your-endpoint-detection-and-response-edr-sensor-in-claude-cowork), each start of the Cowork workspace VM reports the result of the install to your collector on the `claude-desktop` stream. A start sends at most one record, either of these:
+If you [run an EDR sensor in Cowork](https://support.claude.com/en/articles/17828685-run-your-endpoint-detection-and-response-edr-sensor-in-claude-cowork), Claude Desktop reports the result of the install to your collector at each start of the Cowork workspace VM, on the `claude-desktop` stream. Claude Desktop sends at most one record for a start, either of these:
 
 | Event | Severity | Sent when |
 | - | - | - |
 | `lam_vm_edr_extension_install_completed` | `info` | The VM reports that the package's `install.sh` exited with code 0, and Claude Desktop accepts the report. |
 | `lam_vm_edr_extension_install_failed` | `error` | The run ended any other way. A cause that lasts is reported again at every start. |
 
-Your collector receives both at every [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) except `off`, including the default, `error`. A collector pipeline that keeps only `error` records drops the install event, so filter on the event name instead.
+Your collector receives both at every [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) except `off`, including the default, `error`. A collector pipeline that keeps only `error` records drops the completed event, so filter on the event name instead.
 
-Before Claude Desktop 5.1231.0, the install event needs `info` or `debug`.
+Before Claude Desktop 5.1231.0, the completed event needs `info` or `debug`.
 
 Read these events as a report from the VM, not as proof that a sensor is protecting a device:
 
-* An install event means only that the script exited 0 at that start. It says nothing about what the script did or whether the sensor still runs.
+* A completed event means only that the script exited 0 at that start. It says nothing about what the script did or whether the sensor still runs.
 * The VM reports most of these fields about itself, and root in the VM can report anything.
 * A missing record proves nothing. Claude Desktop sends each batch once and drops it if your collector doesn't accept it, and a record can be lost when the app quits.
 * Claude Desktop sends no record if the VM fails to start, if `coworkEDRIntegration` isn't set, or if its name is misspelled in the managed configuration.
@@ -213,7 +213,7 @@ Each record carries the identity described in [User attribution](#user-attributi
 | `edr_malformed_check` | Failed | For `malformed_status`, which check the VM's answer failed. |
 | `duration_ms` | Both | How long the run took, in milliseconds. A failed event has it only for `script_failed` and `unknown`. |
 | `guest_reported` | Both | `false` for `switched_off` and `refused_host`, which Claude Desktop or its Windows VM service decides. `true` for every other result, including `unknown` when the VM never answered. |
-| `test_hooks_latched` | Both | Should be `false`. If it is `true` on an install event from a released build, treat that install as unconfirmed and check how the app was started. |
+| `test_hooks_latched` | Both | Should be `false`. If it is `true` on a completed event from a released build, treat that install as unconfirmed and check how the app was started. |
 
 `edr_outcome_kind` has these values:
 
@@ -238,7 +238,7 @@ Claude Desktop on 3P has **two** independent network boundaries:
 >
 > The **Egress** section of the in-app configuration window is the authoritative source for your deployment. It computes the exact allowlist from your current settings, updates as you change them, and can export the list as a text file for your firewall team. Use these tables as a static reference, and defer to the configuration window for the precise set your build requires.
 
-Traffic to the hosts that these tables spell out, such as `downloads.claude.ai`, is HTTPS on port 443. A URL that you configure, such as `inferenceGatewayBaseUrl` or `otlpEndpoint`, can name another port, and `otlpEndpoint` can use plain `http://`. The list that the configuration window exports shows such an entry as `host:port`. Allowlist by hostname (SNI); path-level rules aren't required.
+Traffic to the hosts that these tables spell out, such as `downloads.claude.ai`, is HTTPS on port 443, unless a row says otherwise. A URL that you configure, such as `inferenceGatewayBaseUrl` or `otlpEndpoint`, can name another port, and `otlpEndpoint` can use plain `http://`. The list that the configuration window exports shows such an entry as `host:port`. Allowlist HTTPS traffic by hostname (SNI); path-level rules aren't required.
 
 ### Always required
 
@@ -302,7 +302,7 @@ After a local Code session loses its connection to the model inference host, Cla
 > | Host | Purpose |
 > | - | - |
 > | `api.anthropic.com` | Model inference; token exchange, renewal, and revocation for browser sign-in |
-> | `platform.claude.com` | Browser sign-in page. Dialed only when no static key or credential helper is configured. Browser sign-in also needs the hosts that serve the browser check on the sign-in and approval pages, listed under [Optional features](#optional-features). |
+> | `platform.claude.com` | Browser sign-in page. Contacted only when no static key or credential helper is configured. Browser sign-in also needs the hosts that serve the browser check on the sign-in and approval pages, listed under [Optional features](#optional-features). |
 
 ### Auto-updates (`disableAutoUpdates: false`)
 
@@ -335,7 +335,7 @@ With [`updateViaUpdatesHost`](https://claude.com/docs/third-party/claude-desktop
 | Host | Purpose |
 | - | - |
 | `claude.ai` | Analytics events |
-| `api.anthropic.com` | Claude Code usage telemetry and, on Gateway and Claude API only, Anthropic’s list of MCP servers, which Claude Code reads when it starts |
+| `api.anthropic.com` | Claude Code usage telemetry, Anthropic’s list of plugins, which Claude Code checks for plugin updates, and, on Gateway and Claude API only, Anthropic’s list of MCP servers, which Claude Code reads when it starts |
 
 ### Non-essential services (`disableNonessentialServices: false`)
 
@@ -363,6 +363,7 @@ With [`updateViaUpdatesHost`](https://claude.com/docs/third-party/claude-desktop
 | Hosts of each entry in `managedMcpServers` (server URL, plus `oauth.authorizationServer` and `login.microsoftonline.com` if configured) | Managed MCP servers are configured |
 | Search provider host of a built-in `websearch` server (`api.search.brave.com`, `api.tavily.com`, `api.exa.ai`, or the host of your `customUrl`) | [Built-in web search](https://claude.com/docs/third-party/claude-desktop/web-tools.md#built-in-web-search) is configured |
 | Hosts in `coworkEgressAllowedHosts` | Sandbox web access is configured |
+| Host of each plugin marketplace that has auto-update on, and the hosts that its plugins come from, such as `github.com` | You want [automatic plugin updates](https://claude.com/docs/third-party/claude-desktop/extensions.md#automatic-plugin-updates-in-local-code-sessions) in local Code sessions to work. Claude Code reaches a Git host over HTTPS where the marketplace's or the plugin's address starts with `https://`, and over SSH (port 22) where the address starts with `git@`. A plugin that a marketplace lists only by a GitHub `owner/repo` name updates only over SSH, so that plugin needs port 22 to `github.com` and a device with SSH set up for GitHub. Allow these hosts even when the in-app Egress list doesn't show them. If a host is blocked, sessions still start and a plugin that Claude Code can't fetch stays at its installed version |
 | `api.anthropic.com` | [Code](https://claude.com/docs/third-party/claude-desktop/code.md) sessions can use Web Fetch and [`skipWebFetchPreflight`](https://claude.com/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) is not `true` (Claude Code's Web Fetch [domain check](https://claude.com/docs/third-party/claude-desktop/web-tools.md#web-fetch)) |
 | `hcaptcha.com`, `*.hcaptcha.com` | Users sign in with **Sign in with Claude Console** (the [Claude API](https://claude.com/docs/third-party/claude-desktop/claude-api.md) with no static key or credential helper). The Claude Console sign-in and approval pages open in the user's default browser and run a browser check from these hosts. Allow them even when the in-app Egress list doesn't show them. If they're blocked, signing in or approving can fail with a message that the browser couldn't be verified |
 | `claude.ai`, `hcaptcha.com`, `*.hcaptcha.com`, `api.anthropic.com`, `storage.googleapis.com` | [Import from claude.ai](https://claude.com/docs/third-party/claude-desktop/import.md) is enabled (`claudeAiImport` with `enabled` set to `true`). Used only while a user signs in to claude.ai and fetches an export in the import wizard; importing a downloaded export file needs none of them. The two `hcaptcha.com` entries serve the browser check on the claude.ai sign-in and approval pages |
@@ -376,7 +377,7 @@ Each connection in the following table has a managed-configuration key that turn
 | Connection | What it carries | Key that turns it off |
 | - | - | - |
 | Crash, error, and performance reporting | Diagnostic metadata, never prompt or response content. See [Essential telemetry](#essential-telemetry). | [`disableEssentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disableessentialtelemetry) set to `true` |
-| Product analytics | Feature adoption, session counts, and UI interactions, plus Claude Code usage telemetry. No prompt or response content. See [Non-essential telemetry](#non-essential-telemetry). | [`disableNonessentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialtelemetry) set to `true` |
+| Product analytics | Feature adoption, session counts, and UI interactions, plus Claude Code usage telemetry. No prompt or response content. The same key stops the requests for Anthropic's list of plugins that Claude Code makes for automatic plugin updates in local Code sessions. See [Non-essential telemetry](#non-essential-telemetry). | [`disableNonessentialTelemetry`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialtelemetry) set to `true` |
 | Connector favicons, artifact previews, and MCP App widgets | Icon fetches, and the sandboxed iframe pages that render previews and widgets. Some of these requests go to third-party hosts rather than to Anthropic, such as the icon fetches to `www.google.com` and `*.gstatic.com`. See [Non-essential services](#non-essential-services) and, for each host, [Required egress paths](#required-egress-paths). | [`disableNonessentialServices`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialservices) set to `true` |
 | Auto-updates | Requests to Anthropic's update feed, and downloads of new builds. On Linux, `apt` downloads new versions from `downloads.claude.ai`. See [Auto-updates](#auto-updates). | [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates) set to `true`. On Linux, also keep Anthropic's apt repository off the device, as described under [Auto-updates](#auto-updates). |
 | Model catalog | The signed model catalog that labels the model picker, fetched from `downloads.claude.ai` at launch and then every 5 to 15 minutes, including on devices installed with the offline installer. A blocked catalog request affects nothing else. | [`modelCatalogEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogenabled) set to `false`, or [`modelCatalogUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#modelcatalogurl) set to a mirror inside your network |

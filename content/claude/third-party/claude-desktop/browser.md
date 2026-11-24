@@ -18,7 +18,7 @@ When Claude in Chrome is on, Claude can open and work in tabs in the user's brow
 
 In **Organization settings** on claude.ai, open the **Claude in Chrome** page and turn on the **Enable for your team** switch. On the same page, choose whether Claude in Chrome works on every site except the ones you block, or only on the sites you allow. Then add sites with the **Add websites** button. These site permissions are the same ones the built-in browser uses for your organization.
 
-Claude in Chrome also needs the **Allow local MCP servers** switch on the **Connectors** page under **Desktop 3P** in **Organization settings** to stay on. While that switch is off, Claude Desktop doesn't connect to Claude in Chrome.
+Claude in Chrome also needs the **Allow local MCP servers** switch to stay on. To check the switch, go to the **Connectors** page under **Desktop 3P** in **Organization settings**. While that switch is off, Claude Desktop doesn't connect to Claude in Chrome.
 
 ### Set up Claude in Chrome on a device
 
@@ -28,7 +28,7 @@ Users install [Claude in Chrome](https://claude.com/chrome) from the Chrome Web 
 
 When the built-in browser is on, Cowork and Code sessions show a **Browser** pane where users can open and sign in to any site. Except in an [SSH remote session](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md), Claude can use the pane to open pages, read them, click, type, fill in forms, take screenshots, and run JavaScript on a page.
 
-Before Claude acts on a site, Claude Desktop asks the user to approve it. **Allow once** covers that page, and **Always allow** saves the site on the device until the user revokes it in **Settings**. After a user approves a site, Claude can read and interact with its pages as the user sees them, including pages behind the user's sign-in on that site.
+Before Claude acts on a site, Claude Desktop asks the user to approve the site. **Allow once** covers that page, and **Always allow** saves the site on the device until the user revokes it in **Settings**. After a user approves a site, Claude can read and interact with its pages as the user sees them, including pages behind the user's sign-in on that site.
 
 In Cowork sessions, Claude Desktop keeps the password, one-time code, card, and Social Security number fields that it recognizes out of Claude's screenshots and page reads. Requires Claude Desktop 6.28899.2 or later. A script that Claude runs on a page can still read such a field. Where [**Auto mode**](https://claude.com/docs/third-party/claude-desktop/configuration.md#automodeenabled) is available, its safety classifier reviews actions such as clicks, drags, and typing on a site in every permission mode, and can block them.
 
@@ -36,7 +36,7 @@ Pages load directly from the user's device, so your network's proxy, firewall, a
 
 ### Turn on the built-in browser
 
-The built-in browser is off by default. Set [`builtinBrowserEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserenabled) to `true` in your managed configuration, under **Built-in browser** in the **Capabilities** section of the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md). The change takes effect after Claude Desktop restarts.
+The built-in browser is off by default. Set [`builtinBrowserEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#builtinbrowserenabled) to `true` in your managed configuration. In the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md), the setting is under **Built-in browser** in the **Capabilities** section. The change takes effect after Claude Desktop restarts.
 
 Also allow `releases.claude.com` through your firewall, because Claude Desktop contacts it for the [site safety check](#site-safety-check). If the app can't complete a check, users can keep browsing the site, but Claude can't read or act on it.
 
@@ -69,7 +69,7 @@ The site policy restricts Claude, not the user. A user can still type a blocked 
 
 If [`coworkEgressAllowedHosts`](https://claude.com/docs/third-party/claude-desktop/configuration#coworkegressallowedhosts) lists specific hosts, Claude can open only sites on that list in the built-in browser, even when the browser's own site lists allow more.
 
-The example is plain JSON, which is the form a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) response and the Linux managed file use. For a macOS profile or the Windows registry, encode the same values as the [Value types](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types) section describes.
+The example configuration in this section is plain JSON, which is the form a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) response and the Linux managed file use. For a macOS profile or the Windows registry, encode the same values as the [Value types](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types) section describes.
 
 ### Manage the built-in browser from the Enterprise Admin Console
 

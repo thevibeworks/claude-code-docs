@@ -1142,22 +1142,22 @@ interface BetaManagedAgentsSessionUsageSnapshot {
   /** Tokens used to create prompt cache entries, broken down by cache TTL. */
   cache_creation?: BetaManagedAgentsCacheCreationUsage;
   /** Total tokens read from prompt cache. */
-  cache_read_input_tokens?: number; // format: int32
+  cache_read_input_tokens?: number; // format: int64
   /** Total input tokens consumed across all turns. */
-  input_tokens?: number; // format: int32
+  input_tokens?: number; // format: int64
   /** Cumulative list cost of the session across all turns, priced at public list rates. */
   list_cost?: BetaMonetaryAmount;
   /** Total output tokens generated across all turns. */
-  output_tokens?: number; // format: int32
+  output_tokens?: number; // format: int64
   /** Cumulative server-executed tool usage across all turns. */
   server_tool_use?: BetaManagedAgentsServerToolUsage;
 }
 
 interface BetaManagedAgentsCacheCreationUsage {
   /** Tokens used to create 1-hour ephemeral cache entries. */
-  ephemeral_1h_input_tokens?: number; // format: int32
+  ephemeral_1h_input_tokens?: number; // format: int64
   /** Tokens used to create 5-minute ephemeral cache entries. */
-  ephemeral_5m_input_tokens?: number; // format: int32
+  ephemeral_5m_input_tokens?: number; // format: int64
 }
 
 interface BetaManagedAgentsServerToolUsage {
@@ -1367,9 +1367,15 @@ type BetaManagedAgentsModel =
   | "claude-sonnet-4-6"
   | "claude-haiku-4-5"
   | "claude-haiku-4-5-20251001"
-  /** Powerful intelligence for long-running agents and coding */
+  /**
+   * Powerful intelligence for long-running agents and coding
+   * @deprecated Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+   */
   | "claude-opus-4-5"
-  /** Powerful intelligence for long-running agents and coding */
+  /**
+   * Powerful intelligence for long-running agents and coding
+   * @deprecated Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+   */
   | "claude-opus-4-5-20251101"
   /**
    * High-performance model for agents and coding

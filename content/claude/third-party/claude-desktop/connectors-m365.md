@@ -185,8 +185,8 @@ Microsoft Entra can record consent for a single user instead of the whole tenant
 Keep the limit in place after you create the grants:
 
 * **Fix a failed write action with a per-user grant**: add the missing scope to that user's grant. The admin consent link and the **Grant admin consent for \{your organization}** button on the **M365 MCP Server for Claude** app's **Permissions** page approve the write scopes for every user, even when a permission error points you to them.
-* **Revoke again after tenant-wide consent**: if you use either control to approve a permission Anthropic adds later, repeat [Revoke write scopes on the remote connector](#revoke-write-scopes-on-the-remote-connector) afterward
-* **Script changes to who has write actions**: each grant covers one user and can't target a group. Create a grant when a user gains write actions, and delete it with Microsoft Graph or PowerShell when they lose them.
+* **Revoke again after tenant-wide consent**: if you use the admin consent link or the **Grant admin consent for \{your organization}** button to approve a permission that Anthropic adds later, repeat [Revoke write scopes on the remote connector](#revoke-write-scopes-on-the-remote-connector) afterward.
+* **Use a script to change who has write actions**: each grant covers one user and can't target a group. Create a grant when a user gains write actions, and delete it with Microsoft Graph or PowerShell when they lose them.
 
 #### Require assignment on the connector app
 
@@ -247,7 +247,7 @@ To choose between the two connectors, see the [comparison table](#choose-a-conne
 
 > [!WARNING]
 >
-> Do not reuse the desktop client app you registered for the remote connector. That app is consented only for the connector's own scope, so its tokens can reach nothing but the connector service. The local-mode app needs Microsoft Graph permissions directly, and adding those to the remote connector app's client ID would let any token minted for it read Microsoft 365 data directly, tenant-wide. Register a separate app dedicated to local mode.
+> Do not reuse the desktop client app you registered for the remote connector. That app is consented only for the connector's own scope, so its tokens can reach nothing but the connector service. The local-mode app needs Microsoft Graph permissions directly, and adding those to the remote connector app's client ID would let any token issued for that client ID read Microsoft 365 data directly, tenant-wide. Register a separate app dedicated to local mode.
 
 1. In **Entra admin center → App registrations → New registration**, set **Name** to `Claude Desktop M365 Local` (or your preferred name) and set **Supported account types** to *Accounts in this organizational directory only*.
 2. Under **Authentication**, open the **Redirect URI configuration** tab and select **Add redirect URI** (on older versions of the portal, select **+ Add a platform** instead). Choose the **Mobile and desktop applications** card (the Windows, UWP, and Console card, not the iOS / macOS card, which takes a bundle ID rather than a redirect URI). Leave the suggested redirect URIs unchecked, enter `http://localhost` in the **Custom redirect URIs** box, and select **Configure**. This is the standard loopback redirect for desktop apps: during browser sign-in, Microsoft Entra redirects to a listener on the device itself, so the response never leaves the machine. For brokered sign-in on managed devices, also add the per-platform broker redirect URI shown under [How users sign in](#how-users-sign-in). Add it to the same platform by selecting **Edit** on the **Mobile and desktop applications** section that appears on the Authentication page, rather than adding another platform, and select **Save** at the top when you finish (on older versions of the portal, add the broker URI via the **Add URI** row inside the platform section instead). After you save, Microsoft Entra may display the `msauth` URI under a separate **iOS / macOS** section. That placement is expected.
@@ -285,12 +285,12 @@ If you manage configuration through JSON or a plist directly, add an entry to [`
 | `clientId` | Yes | The Application (client) ID of the local-mode app from step 1. |
 | `tenantId` | Yes | Your Directory (tenant) ID. |
 | `azureCloud` | No | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for GCC High and DoD. |
-| `continuousAccessEvaluation` | No | `enabled` (default) or `disabled`. When enabled, the connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours and stop working within minutes after an administrator revokes the user's sessions or disables the account in Entra, and, where your tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, when the token is used from outside that network. `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts, and an already-issued token stays in use until it expires (select **Disconnect**, then **Connect**, to sign in again immediately). Requires Claude Desktop 1.49585.0 or later; earlier versions ignore the field and request standard one-hour tokens. |
+| `continuousAccessEvaluation` | No | `enabled` (default) or `disabled`. When enabled, the connector requests Continuous Access Evaluation-capable Microsoft Graph tokens, which live up to about 28 hours. These tokens stop working within minutes after an administrator revokes the user's sessions or disables the account in Entra. Where your tenant enforces an IP named-location or Global Secure Access compliant-network Conditional Access policy, they also stop working when they are used from outside that network. `disabled` keeps standard one-hour tokens. A change applies to tokens issued after the connector next starts, and an already-issued token stays in use until it expires (select **Disconnect**, then **Connect**, to sign in again immediately). Requires Claude Desktop 1.49585.0 or later; earlier versions ignore the field and request standard one-hour tokens. |
 | `scope` | No | Space-separated delegated Graph scopes to request instead of the default read set. The app rejects an entry that has a `scopes` array, so write the scopes as one string. See [Configure scopes](#configure-scopes). |
 | `sensitivityLabels` | No | The Microsoft Purview sensitivity labels that the connector blocks. See [Block content by sensitivity label](#block-content-by-sensitivity-label). |
 | `toolPolicy` | No | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers). |
 
-The server ships inside the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.
+The server is part of the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.
 
 **3. Allow the required network hosts for local mode**
 
@@ -321,7 +321,7 @@ With no `scope` field, the connector requests the standard read set at sign-in:
 | `OnlineMeetings.Read` | Read the user's online meetings |
 | `offline_access` | Refresh tokens without re-prompting |
 
-To request a different set, list scopes in the entry's `scope` field. The connector then requests exactly that list (plus `User.Read` and `offline_access`, which are always included). Use the list to narrow the read surface, to add the optional read scopes, or to add [write scopes](#grant-write-scopes). Whatever you list must also be consented on the app registration from step 1; keep the two lists in sync.
+To request a different set, list scopes in the entry's `scope` field. The connector then requests exactly that list (plus `User.Read` and `offline_access`, which are always included). Use the list to request fewer read scopes, to add the optional read scopes, or to add [write scopes](#grant-write-scopes). Whatever you list must also be consented on the app registration from step 1; keep the two lists in sync.
 
 Six optional read scopes are not in the standard set:
 
@@ -339,7 +339,7 @@ The `scope` field accepts only scopes the connector can use. An entry containing
 
 > [!NOTE]
 >
-> Narrowing or removing `scope` shrinks what the connector requests at the next sign-in, but it does not narrow tokens already obtainable for the registration: Microsoft Entra issues tokens carrying every scope previously consented for the app, regardless of what is requested. To revoke access, remove the consent in Entra under **Enterprise applications → your app → Permissions**.
+> Narrowing or removing `scope` shrinks what the connector requests at the next sign-in, but it does not narrow the tokens that the registration can already obtain: Microsoft Entra issues tokens carrying every scope previously consented for the app, regardless of what is requested. To revoke access, remove the consent in Entra under **Enterprise applications → your app → Permissions**.
 
 The connector provides these read and search tools:
 
@@ -366,10 +366,10 @@ With only read scopes granted, the connector is read-only. To let Claude take ac
 | Scope | What it enables |
 | - | - |
 | `Mail.Send` | Send mail, send drafts, and forward mail |
-| `Mail.ReadWrite` | Create, update, and delete drafts; trash, untrash, and delete messages; apply and remove labels on messages |
+| `Mail.ReadWrite` | Create, update, and delete drafts; trash, untrash, and delete messages; apply and remove categories on messages |
 | `Calendars.ReadWrite` | Create, update, delete, and respond to calendar events |
 | `Files.ReadWrite.All` | Create, update, rename, move, copy, and delete files and folders the user can edit in OneDrive and SharePoint |
-| `MailboxSettings.ReadWrite` | Create and delete mail filters, manage labels, and configure automatic replies |
+| `MailboxSettings.ReadWrite` | Create and delete mail filters, manage categories, and configure automatic replies |
 | `ChatMessage.Send` | Post messages in existing Teams chats |
 | `ChannelMessage.Send` | Post and reply to messages in Teams channels |
 | `Chat.Create` | Start 1:1 and group Teams chats |
@@ -380,7 +380,7 @@ By default, each call that Claude makes to a write tool needs approval. Administ
 
 ### Block content by sensitivity label
 
-You can keep Claude from reading or changing content that carries certain Microsoft Purview sensitivity labels. You add the labels to the local connector's configuration. The connector then checks the label of a file or email before it gives the item to Claude or changes it, and blocks the request if the label is on your list.
+You can keep Claude from reading or changing content that carries certain Microsoft Purview sensitivity labels. You add the labels to the local connector's configuration. The connector then checks the label of a file or email before the connector gives the item to Claude or changes the item, and blocks the request if the label is on your list.
 
 The connector blocks this content when it carries a listed label:
 
@@ -440,7 +440,7 @@ If the list isn't valid, the connector stays turned off until you fix it. If the
 The list doesn't block the following:
 
 * **Other file types**: such as text files, images, and archives, whether they're in SharePoint or OneDrive or attached to an email that isn't blocked
-* **Other Microsoft 365 content**: Teams messages, SharePoint site pages, meeting transcripts, and calendar events, even for an invitation that is blocked as an email
+* **Other Microsoft 365 content**: Teams messages, SharePoint site pages, meeting transcripts, and calendar events. A calendar event isn't blocked even when its invitation is blocked as an email.
 * **Quoted email**: a reply or forward that quotes a blocked email, unless it carries a listed label itself
 * **Names**: Claude can still see file and attachment names in listings, and file names and email headers, such as the subject and sender, in search results
 * **Files inside a folder**: when Claude moves, copies, or deletes a folder, the files inside aren't checked
@@ -498,13 +498,13 @@ After a brokered attempt falls back to the system browser, the connector stays o
 
 The connector's Entra tokens are stored on the device, encrypted by Claude Desktop using the operating system's secure storage. Each configured entry has its own token store, and tokens persist across app restarts so users are not asked to sign in again each session.
 
-Selecting **Disconnect** next to the connector signs the user out and deletes its stored tokens. Where the user signed in through the broker, the device's work or school account itself is managed by the operating system and remains after Disconnect; remove the account in Windows Settings (**Accounts → Access work or school**) or macOS Company Portal, or revoke the user's sessions in Entra, to end access entirely. With `continuousAccessEvaluation` at its default of `enabled` on Claude Desktop 1.49585.0 or later, Microsoft Graph rejects the connector's current access token within minutes of the revocation. With `continuousAccessEvaluation` set to `disabled`, or on earlier app versions, revocation takes effect once the current one-hour access token expires.
+Selecting **Disconnect** next to the connector signs the user out and deletes its stored tokens. Where the user signed in through the broker, the device's work or school account itself is managed by the operating system and remains after Disconnect. In that case, to end access entirely, remove the account in Windows Settings (**Accounts → Access work or school**) or macOS Company Portal, or revoke the user's sessions in Entra. With `continuousAccessEvaluation` at its default of `enabled` on Claude Desktop 1.49585.0 or later, Microsoft Graph rejects the connector's current access token within minutes of the revocation. With `continuousAccessEvaluation` set to `disabled`, or on earlier app versions, revocation takes effect once the current one-hour access token expires.
 
 ### Audit local connector tool calls
 
 Claude Desktop records each approved tool call to the local Microsoft 365 connector as a `builtin_m365_call` event, and sends it to your [OTLP collector](https://claude.com/docs/third-party/claude-desktop/telemetry.md#sending-telemetry-to-your-own-collector) under the `service.name` value `claude-desktop`. To receive the event, set [`otlpDesktopLogLevel`](https://claude.com/docs/third-party/claude-desktop/configuration#otlpdesktoploglevel) to `info` or `debug` (the default is `error`), then in your collector keep the log records whose body is `builtin_m365_call`. Each record identifies the user as described under [User attribution](https://claude.com/docs/third-party/claude-desktop/telemetry.md#user-attribution).
 
-Whatever [`otlpContentCapture`](https://claude.com/docs/third-party/claude-desktop/telemetry#content-capture) is set to, the event carries the tool's name but not its arguments or the text of its result. Its attributes include:
+Whatever [`otlpContentCapture`](https://claude.com/docs/third-party/claude-desktop/telemetry#content-capture) is set to, the event carries the tool's name but not its arguments or the text of its result. The event's attributes include:
 
 * **`m365_tool`**: the tool's name, such as `outlook_email_search`
 * **`status`**: `ok`, `error`, or `cancelled`, or, when no tool ran, `user_disconnected` (the user isn't signed in to the connector) or `respawn_failed` (the app couldn't start or reach the connector)

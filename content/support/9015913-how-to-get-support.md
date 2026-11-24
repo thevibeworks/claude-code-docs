@@ -86,6 +86,8 @@ Support is asynchronous. After your request reaches our team, a specialist inves
 
 You’ll chat with Fin, an AI support agent, to help answer your questions.
 
+On Team and Enterprise plans, for help with access, seats, or features your organization manages, such as turning on a feature or adding a seat, contact your organization first. Settings > Account usually shows whom to ask: your organization's internal help contact if your Owners have named one, otherwise your Primary Owner.
+
 ### Team plans and Console organizations
 
 Human specialist support is not directly available for your account seat type. If Fin can't find a resolution and you need to escalate to our human team of specialists, your account's Primary Owner, Owner, or Console Admin can reach out on your behalf.

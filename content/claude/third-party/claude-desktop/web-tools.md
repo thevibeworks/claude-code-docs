@@ -58,7 +58,7 @@ You can add it from the [in-app configuration window](https://claude.com/docs/th
 
 The Web search server in the Connectors section of the in-app configuration window, with the search provider menu open.
 
-In the exported configuration, set `provider` to a hosted search vendor (`brave`, `tavily`, or `exa`) for the lowest setup, or to `custom` with `customUrl` to point at a search server you run.
+In the exported configuration, set `provider` to a hosted search vendor (`brave`, `tavily`, or `exa`), which needs the least setup, or to `custom` with `customUrl` set to the address of a search server that you run.
 
 Hosted vendor:
 
@@ -148,13 +148,13 @@ Wildcards match one or more leading subdomain labels (`*.example.com` matches `a
 
 The same allowlist governs other in-sandbox network activity (for example, `curl` or `pip install` from the agent's shell), not just the Web Fetch tool. A command-line tool that a [plugin](https://claude.com/docs/third-party/claude-desktop/extensions.md#controlling-user-extensions) adds to the Cowork sandbox can also reach the hosts its plugin declares, whatever the list holds. Claude Desktop's own connections for inference, sign-in, model discovery, telemetry export, and MCP servers aren't checked against it and need no entry.
 
-If a shell command or a Claude Code [HTTP hook](https://code.claude.com/docs/en/hooks#http-hook-fields) calls your gateway, inference provider, OTLP collector, or `api.anthropic.com`, add that host. Earlier versions of Claude Desktop added some of these hosts automatically, so when you update, add the ones the agent calls.
+If a shell command or a Claude Code [HTTP hook](https://code.claude.com/docs/en/hooks#http-hook-fields) calls your gateway, inference provider, OTLP collector, or `api.anthropic.com`, add that host to `coworkEgressAllowedHosts`. Earlier versions of Claude Desktop added some of these hosts automatically, so when you update, add the hosts that the agent calls.
 
 In [Code](https://claude.com/docs/third-party/claude-desktop/code.md) sessions, Claude Code's Web Fetch tool also asks `api.anthropic.com` whether each domain is on Anthropic's blocklist before fetching, and refuses the fetch if that lookup cannot complete. If your devices cannot reach `api.anthropic.com`, or you do not want fetched hostnames sent there, set [`skipWebFetchPreflight`](https://claude.com/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight) to `true`. The key requires Claude Desktop 1.37937.0 or later. Cowork sessions do not perform this lookup.
 
 ### How the egress allowlist applies in Code sessions
 
-In [Code](https://claude.com/docs/third-party/claude-desktop/code.md) sessions, the key reaches Claude Code's own Web Fetch tool and shell sandbox as managed settings, unless [Claude Code managed settings that you deploy separately](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) take precedence:
+In [Code](https://claude.com/docs/third-party/claude-desktop/code.md) sessions, `coworkEgressAllowedHosts` reaches Claude Code's own Web Fetch tool and shell sandbox as managed settings, unless [Claude Code managed settings that you deploy separately](https://claude.com/docs/third-party/claude-desktop/code.md#interaction-with-claude-code%E2%80%99s-own-managed-settings) take precedence:
 
 * **Web Fetch**: each host you list becomes a Claude Code `WebFetch` allow rule. The key doesn't block a fetch to another host. In Auto mode, which new Code sessions start in by default, and in bypass permissions mode, Claude Code doesn't ask the user before that fetch. For the other modes, see [WebFetch tool behavior](https://code.claude.com/docs/en/tools-reference#webfetch-tool-behavior).
 * **Web Fetch controls**: to require approval for every fetch that Claude makes, set `WebFetch` to `"ask"` in [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy), which also applies in Cowork and Chat. To remove the tool, see [Disabling web tools](#disabling-web-tools).
@@ -172,7 +172,7 @@ When you deliver configuration through the Enterprise Admin Console, a bootstrap
 >
 > On a device whose only configuration is the local configuration file, including a file that you copy to the device with a script, an unset key doesn't turn on the sandbox by itself. Unless [`blockReadsOutsideWorkingDirectories`](https://claude.com/docs/third-party/claude-desktop/configuration#blockreadsoutsideworkingdirectories) is `true`, Claude Desktop doesn't limit the hosts that shell commands in Code sessions reach. Enrolling the device in MDM doesn't change that. What counts is a [managed source](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#where-claude-desktop-reads-configuration-on-a-device) for Claude Desktop itself.
 >
-> To turn the sandbox on with no host allowed, set `coworkEgressAllowedHosts` to `[]` in the file. The device's user can edit the file, so to hold the setting, deliver the configuration from a managed source.
+> To turn the sandbox on with no host allowed, set `coworkEgressAllowedHosts` to `[]` in the file. The device's user can edit the file, so to keep the user from changing the setting, deliver the configuration from a managed source.
 
 For what a list of hosts does, see [How the egress allowlist applies in Code sessions](#how-the-egress-allowlist-applies-in-code-sessions). To change the list, open the in-app configuration window, go to **Capabilities**, edit **Allowed egress hosts**, click **Apply Changes**, and then click **Save & Restart**. Removing the last host leaves **Allow none** selected, which allows no host. To unset the key again, select **Not set** once the list is empty.
 
@@ -196,13 +196,13 @@ Each user can make Web Search or Web Fetch stricter for themselves than your con
 * **Always ask**: Claude asks the user before each call to the tool, including in Auto mode, which Cowork shows as **Automatically approve**
 * **Blocked**: new sessions don't include the tool
 
-A session that's already running can keep its earlier setting until it next starts. When a [scheduled Cowork task](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md) runs on its schedule in **Automatically approve**, Claude Desktop declines a call to a tool that's at **Always ask** by the user's choice alone, and the run continues without that step.
+A session that's already running can keep its earlier setting until the session next starts. When a [scheduled Cowork task](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md) runs on its schedule in **Automatically approve**, Claude Desktop declines a call to a tool that the user, and not your configuration, set to **Always ask**, and the run continues without that step.
 
 Your configuration sets the minimum for each tool:
 
 * **`WebSearch` or `WebFetch` set to `"ask"` in [`builtinToolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#builtintoolpolicy)**: the user selects **Always ask** or **Blocked**, next to the line **Restricted by your admin**
 * **`WebSearch` or `WebFetch` listed in [`disabledBuiltinTools`](https://claude.com/docs/third-party/claude-desktop/configuration#disabledbuiltintools)**: the tool has no row, so the user has nothing to set
 
-The **Web search** row appears where your provider or gateway runs Web Search and `disabledBuiltinTools` doesn't list it, and controls that tool. When you configure the [built-in web search](#built-in-web-search), that server has a row of its own in both places, and users control search from that row.
+The **Web search** row appears where your provider or gateway runs Web Search and `disabledBuiltinTools` doesn't list it, and controls that tool. When you configure the [built-in web search](#built-in-web-search), that server has a row of its own under **Customize > Connectors** and under **Connectors** in the **+** menu, and users control search from that row.
 
 A user's setting is a preference that the user can change back at any time. **Blocked** removes that tool, and shell commands and browser tools still reach what your configuration allows. To enforce a restriction for everyone, see [Disabling web tools](#disabling-web-tools).

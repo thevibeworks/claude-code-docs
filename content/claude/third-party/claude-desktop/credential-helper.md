@@ -6,7 +6,7 @@
 
 > Supply Claude Desktop on 3P with a short-lived inference token by running an executable you provide
 
-A credential helper is an executable on the user's machine that prints an inference token to stdout. Claude Desktop on 3P runs it whenever it needs a credential for the configured inference provider, caches the result for a configurable time, and re-runs it when the credential expires. Use a helper when your token comes from an internal secret broker, a CLI, or an SSO flow that the built-in interactive sign-in options don't cover.
+A credential helper is an executable on the user's machine that prints an inference token to stdout. Claude Desktop on 3P runs the helper whenever the app needs a credential for the configured inference provider, caches the result for a configurable time, and re-runs the helper when the credential expires. Use a helper when your token comes from an internal secret broker, a CLI, or an SSO flow that the built-in interactive sign-in options don't cover.
 
 Configure the helper with the `inferenceCredentialHelper` key; see the [Configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) for the full list of helper-related keys.
 
@@ -64,7 +64,7 @@ Claude Desktop sets the `CLAUDE_HELPER_CONTEXT` environment variable on every in
 | `setup-test` | The in-app configuration window's connection test. |
 | `background` | A background probe or health check. |
 
-A well-behaved helper should attempt its silent path (cached token, refresh-token grant) for any value other than `interactive`, and exit non-zero rather than block on user input when that path is exhausted. Claude Desktop treats a non-zero exit as a refresh failure and surfaces it to the user.
+A well-behaved helper should attempt its silent path (cached token, refresh-token grant) for any value other than `interactive`, and exit non-zero rather than block on user input when the silent path fails. Claude Desktop treats a non-zero exit as a refresh failure and shows the failure to the user.
 
 The legacy variable `CLAUDE_HELPER_MANUAL_RUN=1` is also set when `CLAUDE_HELPER_CONTEXT` is `setup-test`, for scripts written before the context variable existed. New scripts should branch on `CLAUDE_HELPER_CONTEXT` instead.
 
@@ -76,17 +76,17 @@ The helper runs with a `PATH` that includes the user's login-shell `PATH` and st
 
 ## Timeouts and caching
 
-The helper's output is cached for `inferenceCredentialHelperTtlSec` seconds (default 3600). Claude Desktop checks the cached credential's expiry before each turn and, when it has expired or is about to, re-runs the helper transparently before sending the turn, with no sign-in prompt and no app relaunch. With a TTL of 120 seconds or less, Claude Desktop skips the per-turn check; the helper then re-runs at the next session start, or mid-session when the provider rejects the credential (see [Turn off mid-session re-runs](#turn-off-mid-session-re-runs)).
+The helper's output is cached for `inferenceCredentialHelperTtlSec` seconds (default 3600). Claude Desktop checks the cached credential's expiry before each turn. When the credential has expired or is about to expire, Claude Desktop re-runs the helper before sending the turn, with no sign-in prompt and no app relaunch. With a TTL of 120 seconds or less, Claude Desktop skips the per-turn check; the helper then re-runs at the next session start, or mid-session when the provider rejects the credential (see [Turn off mid-session re-runs](#turn-off-mid-session-re-runs)).
 
-Each run is bounded by `inferenceCredentialHelperTimeoutSec` seconds (default 60, maximum 600). When Claude Desktop re-runs the helper to recover a session mid-turn (`CLAUDE_HELPER_CONTEXT=mid-session-refresh`), the timeout is additionally clamped to 20 seconds so a slow helper can't stall the turn. A helper's silent path should comfortably finish within that window.
+Each run is bounded by `inferenceCredentialHelperTimeoutSec` seconds (default 60, maximum 600). When Claude Desktop re-runs the helper to recover a session mid-turn (`CLAUDE_HELPER_CONTEXT=mid-session-refresh`), the timeout is also capped at 20 seconds so a slow helper can't stall the turn. A helper's silent path should comfortably finish within that window.
 
 ## Turn off mid-session re-runs
 
-By default, when a running session's credential is rejected, Claude Desktop re-runs the helper with `CLAUDE_HELPER_CONTEXT=mid-session-refresh` to recover without interrupting the user. If your helper can't run safely outside the `interactive` context, set `inferenceCredentialHelperSilentRefreshEnabled` to `false`. Claude Desktop then keeps the cached credential until the next session start and surfaces an expiry prompt instead of re-running the helper mid-session.
+By default, when a running session's credential is rejected, Claude Desktop re-runs the helper with `CLAUDE_HELPER_CONTEXT=mid-session-refresh` to recover without interrupting the user. If your helper can't run safely outside the `interactive` context, set `inferenceCredentialHelperSilentRefreshEnabled` to `false`. Claude Desktop then keeps the cached credential until the next session start and shows an expiry prompt instead of re-running the helper mid-session.
 
 ## Install the helper for Claude Code in the terminal
 
-If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md), Claude Code can also run the **Helper script** on your **Connection** page. Claude Code checks the script before it runs it:
+If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md), Claude Code can also run the **Helper script** on your **Connection** page and the **OTLP headers helper script** on your **Telemetry & updates** page. Claude Code checks each script before it runs it:
 
 * **On macOS and Linux**: the script runs only if the developer's account can't change any of these: the script, the interpreter on its `#!` line, any file that an argument names, and every folder above those files. For example, make them all owned by root with mode `755`. Start the script with the full path of its interpreter, such as `#!/bin/bash`, not `#!/usr/bin/env`. The script doesn't run when Claude Code runs as root.
 * **On Windows**: install the script, and any file that an argument names, under `C:\Program Files`, not `C:\Program Files (x86)`. Give the full path of each file. Claude Code checks only where the files are, so keep that folder's default permissions.
@@ -94,3 +94,5 @@ If you [manage Claude Code in the terminal from the Enterprise Admin Console](ht
 Claude Code doesn't check the programs that your script starts, or code that its interpreter loads from the developer's folders.
 
 Your **Helper script** doesn't run on a managed computer that sets its own credential for your cloud provider, such as `AWS_PROFILE`. When that happens, a cloud provider needs the developer's own credentials, and Claude Code in the terminal doesn't use your gateway. To see why, the developer runs `/status` in Claude Code.
+
+If your **OTLP headers helper script** doesn't run, Claude Code sends telemetry without its headers. To see why, the developer runs `/status` in Claude Code.

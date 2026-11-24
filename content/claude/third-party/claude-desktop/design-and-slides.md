@@ -10,7 +10,7 @@
 >
 > Design and Slides are in beta. They're off by default.
 
-Design and Slides let users of [Claude Desktop on third-party (3P)](https://claude.com/docs/third-party/claude-desktop/overview.md) ask Claude for a design, such as a wireframe, or a slide deck, and directly edit the result in the artifact. With design systems, you can provide brand and style templates that Claude follows when it creates designs and slides. Both require Claude Desktop 4.16336.0 or later.
+Design and Slides let users of [Claude Desktop on third-party (3P)](https://claude.com/docs/third-party/claude-desktop/overview.md) ask Claude for a slide deck or a design, such as a wireframe, and directly edit the result in the artifact. With design systems, you can provide brand and style templates that Claude follows when it creates designs and slides. Design and Slides require Claude Desktop 4.16336.0 or later.
 
 ## Turn on Design and Slides
 
@@ -41,18 +41,18 @@ The other two keys work only while `artifactsEnabled` is `true`. `artifactsEnabl
 
 ## Use Design and Slides
 
-Design and Slides work in [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md), which is on by default. All of a user's designs and decks are listed under **Artifacts** in the sidebar. To export one, users open it, click its title, and click **Export**. To delete one, they right-click it in the list and click **Delete**. You don't need to allow any hosts for Design and Slides, other than your plugin marketplace if you provide design systems, and they work with [`disableNonessentialServices`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialservices) on.
+Design and Slides work in [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md), which is on by default. All of a user's designs and decks are listed under **Artifacts** in the sidebar. To export one, users open it, click its title, and click **Export**. To delete one, they right-click it in the list and click **Delete**. You don't need to allow any hosts for Design and Slides, other than your plugin marketplace if you provide design systems, and Design and Slides work with [`disableNonessentialServices`](https://claude.com/docs/third-party/claude-desktop/configuration#disablenonessentialservices) on.
 
 Claude's design and deck tools aren't available in Code sessions or in runs of [scheduled tasks](https://claude.com/docs/third-party/claude-desktop/scheduled-tasks.md).
 
 These restrictions apply to Design and Slides in Claude Desktop on 3P:
 
 * **Sharing with other users**: not available.
-* **Comments**: not available. Users can ask Claude for a change or make the edit themselves.
-* **Export**: designs export to HTML, PDF, and PNG. Decks export to PowerPoint, PDF, and HTML. In Claude Desktop 6.28899.2 or later, users can also export a slide as PNG. Users can't export a design to PowerPoint, or send designs and decks to Google Slides, other tools, or Claude Code.
+* **Comments**: users can comment on designs and decks. They can also send a comment to Claude, with **Send to Claude** or `@claude`. The comment goes to the chat or Cowork task that the design or deck was last open beside, or else to the chat or task that made the design or deck. If each of those is a Cowork task that is archived or deleted, or if the design or deck never had a chat or task, a comment sent from the design's or deck's own page starts a new Cowork task, unless Cowork is off. Claude's comment tools show Claude only the comment threads sent to Claude. Claude can reply to those threads and mark them as resolved without asking the user.
+* **Export**: designs export to HTML, PDF, and PNG, and **Entire project (.zip)** exports a design's pages, files, and uploads. Decks export to PowerPoint, PDF, and HTML. In Claude Desktop 6.28899.2 or later, users can also export a slide as PNG. Users can't export a design to PowerPoint, or send designs and decks to Google Slides, other tools, or Claude Code.
 * **Connectors**: designs and decks can't use connectors.
 * **Web content**: designs and decks don't load images, fonts, or scripts from the web in Claude Desktop. Their exported HTML files can, when someone opens them in a browser.
-* **Migration**: the [migration to Claude Enterprise](https://claude.com/docs/third-party/claude-desktop/move-to-claude-enterprise.md), the [automatic import of earlier third-party sessions](https://claude.com/docs/third-party/claude-desktop/import.md#automatic-import-of-earlier-third-party-sessions), and a [Claude Desktop export](https://claude.com/docs/third-party/claude-desktop/import.md#what-a-claude-desktop-export-moves) leave out designs, decks, and design systems that users added on the computer. Before you migrate, have users export the designs and decks they need to files. The originals stay on the computer. To move them to a new device, [copy the data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device).
+* **Migration**: the [migration to Claude Enterprise](https://claude.com/docs/third-party/claude-desktop/move-to-claude-enterprise.md) and a [Claude Desktop export](https://claude.com/docs/third-party/claude-desktop/import.md#what-a-claude-desktop-export-moves) leave out designs, decks, and the design systems that users added on the computer. Before you move to Claude Enterprise, have users export to files the designs and decks that they need. The originals stay on the computer. To move them to a new device, [copy the data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#copy-the-data-to-the-new-device). In Claude Desktop 7.37095.0 or later, the [automatic import of earlier third-party sessions](https://claude.com/docs/third-party/claude-desktop/import.md#automatic-import-of-earlier-third-party-sessions) includes designs and decks, but not the design systems that users added on the computer.
 
 ## Design systems
 
@@ -78,14 +78,14 @@ A design system has these files. To change them later, edit them yourself or ask
 
 | File or folder | What it holds |
 | - | - |
-| `README.md` | Your brand in words: voice, look, and the rules that always apply. Claude reads all of it every time, so keep it short. Claude finds your other files through it, so name each one by its path. You can also use this file to point Claude at skills that you want Claude to follow, but Claude may not always use them, so write the rules that matter most here. |
+| `README.md` | Your brand in words: voice, look, and the rules that always apply. Claude reads all of it every time, so keep it short. Claude finds your other files through it, so name each one by its path. You can also use this file to list skills that you want Claude to follow, but Claude may not always use them, so write the rules that matter most here. |
 | `tokens.json` | Your exact colors, text styles, spacing, and corner radius. Give each a name and a note on when to use it. |
 | `tokens.css` | The same values as a stylesheet, which also loads your fonts in designs. If you edit `tokens.json`, make the same change here. |
 | `fonts/` | Font files: `.woff2`, `.woff`, `.ttf`, or `.otf`. Include only fonts whose license lets you share them. |
 | `assets/` | Logos, icons, and pictures, with one folder for each group. Leave out design source files such as `.ai`, `.psd`, and `.tiff`. |
 | `components/` | Optional: interface parts, such as buttons, as code. |
 
-To create a design system by hand instead of with the skill, write a `README.md`, a `tokens.json`, and a `tokens.css`. Below is an example `tokens.json`. Keep its structure, use each name only once, and write colors as hex, `rgb()`, `hsl()`, or `oklch()`.
+To create a design system yourself instead of with the skill, write a `README.md`, a `tokens.json`, and a `tokens.css`. Below is an example `tokens.json`. Keep its structure, use each name only once, and write colors as hex, `rgb()`, `hsl()`, or `oklch()`.
 
 > [accordion] Example tokens.json
 >
@@ -249,7 +249,7 @@ If you don't use Git, a marketplace can also be a [file on a web server](https:/
 
 ### Choose which plugins are design systems
 
-Write each design system as `plugin@marketplace`, using both names from marketplace.json. The first one in the list is your organization's default. In the marketplace entry, set `ref` to a full 40-character commit, not a branch or tag. For the other fields, see [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin).
+Write each design system as `plugin@marketplace`, using both names from marketplace.json. The first design system that you list is your organization's default. In the marketplace entry, set `ref` to a full 40-character commit, not a branch or tag. For the other fields, see [Plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#plugin-marketplaces-admin).
 
 In the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md):
 

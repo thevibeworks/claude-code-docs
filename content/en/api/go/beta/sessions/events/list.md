@@ -2131,9 +2131,13 @@ List Events
 
           - `const BetaManagedAgentsModelClaudeOpus4_5 BetaManagedAgentsModel = "claude-opus-4-5"`
 
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             Powerful intelligence for long-running agents and coding
 
           - `const BetaManagedAgentsModelClaudeOpus4_5_20251101 BetaManagedAgentsModel = "claude-opus-4-5-20251101"`
+
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             Powerful intelligence for long-running agents and coding
 
@@ -2969,25 +2973,25 @@ List Events
 
           Tokens used to create 1-hour ephemeral cache entries.
 
-          format: int32
+          format: int64
 
         - `Ephemeral5mInputTokens int64 Optional`
 
           Tokens used to create 5-minute ephemeral cache entries.
 
-          format: int32
+          format: int64
 
       - `CacheReadInputTokens int64 Optional`
 
         Total tokens read from prompt cache.
 
-        format: int32
+        format: int64
 
       - `InputTokens int64 Optional`
 
         Total input tokens consumed across all turns.
 
-        format: int32
+        format: int64
 
       - `ListCost BetaMonetaryAmount Optional`
 
@@ -2997,7 +3001,7 @@ List Events
 
         Total output tokens generated across all turns.
 
-        format: int32
+        format: int64
 
       - `ServerToolUse BetaManagedAgentsServerToolUsage Optional`
 
