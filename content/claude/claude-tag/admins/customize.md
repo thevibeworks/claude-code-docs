@@ -35,7 +35,7 @@ Access and organization-wide behavior are set at [`claude.ai/admin-settings/clau
 | Auto mode allow rules | Actions pre-approved in a scope's sessions that Claude's permission checker would otherwise flag or stop | [Auto mode allow rules](#auto-mode-allow-rules) |
 | Environment | Which cloud environment a scope's sessions run in | [Configure the environment for a scope](#configure-the-environment-for-a-scope) |
 | Enable Claude Tag | Turns Claude on or off in a scope. On the **Slack** page, the switch is labeled **Respond in all channels** or **Respond in channels** | [Turn Claude Tag on or off and set the version for a scope](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
-| Claude Tag version | Which generation answers in a scope (**New** or **Legacy**) | [Turn Claude Tag on or off and set the version for a scope](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
+| Claude Tag version | Sets the version for a scope: **New**, or **Inherit** on a workspace or channel. **Legacy (disabled)** can't be selected, and where a scope is still set to it, a channel mention gets [a notice or no reply](https://claude.com/docs/claude-tag/admins/restrict-access.md#migrate-from-the-earlier-claude-in-slack) instead of an answer | [Turn Claude Tag on or off and set the version for a scope](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) |
 
 ### Claude Tag connectors are separate from personal connectors
 

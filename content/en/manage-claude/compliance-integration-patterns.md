@@ -20,6 +20,8 @@ This page assumes you have read the following pages:
 * [Retrieve and delete chats, files, and projects](https://platform.claude.com/docs/en/manage-claude/compliance-content-data), which defines the chat, file, and project endpoints and the `deleted_at` semantics referenced in [Plan content retention](https://platform.claude.com/docs/en/manage-claude/compliance-integration-patterns#plan-content-retention).
 * [Retrieve session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions), which defines the local and remote session endpoints.
 
+For the base URL and credentials on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), see [How the Compliance API works](https://platform.claude.com/docs/en/manage-claude/compliance-api#how-the-compliance-api-works).
+
 ## Choose a feed-consumption pattern
 
 The Activity Feed supports two consumption patterns: periodic window polling bounded by `created_at.gte` and `created_at.lt`, and cursor-driven incremental reads that persist a cursor from one response and pass it on the next request. Both return identical `Activity` objects; the difference is the state your client persists between calls.

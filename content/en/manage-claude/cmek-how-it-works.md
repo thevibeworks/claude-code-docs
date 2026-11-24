@@ -18,11 +18,22 @@ Anthropic keeps no copy of your key. See [What each action does](https://platfor
 
 ## What one key protects
 
-On Claude Platform and Claude Platform on AWS, a key protects a workspace, and one key can serve several. On Claude Enterprise, a key protects the whole organization, which can have only one key. [Which data your key protects](https://platform.claude.com/docs/en/manage-claude/cmek#what-cmek-protects) depends on your product.
+What one key protects depends on your product:
 
-On Claude Platform and Claude Enterprise, your key carries your Anthropic organization ID, which ties the key to your organization. Depending on your KMS, the ID goes in a key policy condition, a label, or a tag. A key without the ID fails verification. A key shared between organizations carries each ID.
+* **Claude Platform, Claude Platform on AWS, and Claude Models on Google Cloud (Anthropic managed):** A key protects a workspace, and one key can serve several workspaces.
+* **Claude Enterprise:** A key protects the whole organization, which can have only one key.
+
+[Which data your key protects](https://platform.claude.com/docs/en/manage-claude/cmek#what-cmek-protects) also depends on your product.
 
 An AWS KMS key policy can [name workspaces](https://platform.claude.com/docs/en/manage-claude/cmek-aws-kms-workspaces) by their compartment IDs. A compartment ID is the UUID Anthropic gives each workspace for encryption, not the workspace ID that starts with `wrkspc_`.
+
+## How your key is tied to your organization
+
+Your key carries your Anthropic organization ID, which ties the key to your organization. Depending on your KMS, the ID goes in a key policy condition, a label, or a tag. [Your setup page](https://platform.claude.com/docs/en/manage-claude/cmek#set-it-up) shows where. On Claude Platform and Claude Enterprise, a key shared between organizations carries each organization’s ID.
+
+A key without the ID fails Anthropic’s check when you click **Verify** (**Add** on Claude Enterprise).
+
+On Claude Platform on AWS, the [key policy](https://platform.claude.com/docs/en/manage-claude/cmek-claude-platform-on-aws#prepare-the-key-policy) names your AWS account instead of your organization ID.
 
 ## Where your key lives
 

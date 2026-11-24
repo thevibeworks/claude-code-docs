@@ -35,7 +35,7 @@ The Claude Code Analytics API and the Claude Enterprise Analytics API both appea
 
 ## Get access to the Claude Code Analytics API
 
-The Claude Code Analytics API is available to every organization with access to the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), and is free to use.
+The Claude Code Analytics API is free for Claude Console organizations on the Claude API. Your organization needs [access to the Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api#availability), and an organization admin creates the key.
 
 <Steps>
   <Step title="Create an Admin API key">

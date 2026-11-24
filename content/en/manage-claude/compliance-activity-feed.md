@@ -49,6 +49,8 @@ curl --fail-with-body -sS \
 }
 ```
 
+On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), use the platform’s base URL and credentials instead of a key. See [How the Compliance API works](https://platform.claude.com/docs/en/manage-claude/compliance-api#how-the-compliance-api-works).
+
 ## Filter activities
 
 Filter by organization, actor, activity type, or a `created_at` time window using the dotted sub-parameters `created_at.gte`, `.gt`, `.lte`, and `.lt`. See the [API reference](https://platform.claude.com/docs/en/api/compliance/activities/list) for each parameter’s type and accepted values.

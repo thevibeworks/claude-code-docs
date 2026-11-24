@@ -26,7 +26,7 @@ Both connectors provide the same read and search tools; they differ in data path
 | Device-based Conditional Access | Not supported (the server-side exchange has no device identity) | Supported on managed Windows and Mac devices through brokered sign-in |
 | Write actions | Available with [write scopes on the Anthropic connector app](#control-write-actions-on-the-remote-connector) | Available with [write scopes](#grant-write-scopes) |
 | US Government clouds | Separate connector deployment; contact your Anthropic representative | Built in; set `azureCloud` for GCC High and DoD |
-| Blocking by Microsoft Purview sensitivity label | The label list doesn't apply to remote connector entries | [List the labels to block](#block-content-by-sensitivity-label) in the connector's configuration |
+| Blocking by Microsoft Purview sensitivity label | Follows the labels that a Claude Enterprise organization blocks for your tenant (beta). The label list on this page doesn't apply. See [Block files and email from Claude by sensitivity label](https://support.claude.com/en/articles/18549037) | [List the labels to block](#block-content-by-sensitivity-label) in the connector's configuration |
 
 ## Remote connector
 
@@ -444,7 +444,9 @@ The list doesn't block the following:
 * **Quoted email**: a reply or forward that quotes a blocked email, unless it carries a listed label itself
 * **Names**: Claude can still see file and attachment names in listings, and file names and email headers, such as the subject and sender, in search results
 * **Files inside a folder**: when Claude moves, copies, or deletes a folder, the files inside aren't checked
-* **Other routes to Claude**: files users upload, folders on the device, other connectors, and the remote Microsoft 365 connector
+* **Other routes to Claude**: files users upload, folders on the device, and other connectors
+* **The remote Microsoft 365 connector**: if a Claude Enterprise organization has connected your tenant, a remote connector entry follows the labels that organization blocks (beta). See [Block files and email from Claude by sensitivity label](https://support.claude.com/en/articles/18549037)
+* **Claude for Excel, PowerPoint, Word, and Outlook**: see [Block documents and email by sensitivity label](https://claude.com/docs/office-agents/sensitivity-labels.md)
 * **Devices without a device-management profile**: the user can edit the configuration and remove the list
 
 When enabled, Claude is restricted from reaching files with specific Purview labels, even if the user has access to them normally. Not all files or surfaces are covered, so this setting should not replace your organization's own access controls.

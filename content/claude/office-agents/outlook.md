@@ -358,7 +358,10 @@ This needs a one-time grant for your whole tenant, separate from the
 Integrated apps deployment. A Global Administrator or a Cloud Application
 Administrator can give it.
 
-Have one of them open the following admin consent link in a
+If your organization blocks sensitivity labels, people see "Can't check this
+email's label" on received email until consent is granted.
+
+Have one of these administrators open the following admin consent link in a
 browser where they are signed in to your Microsoft 365 tenant.
 
 ```
@@ -789,6 +792,12 @@ you have open, check the causes below.
 * **A content blocker**: some content blockers, such as ad blockers, have
   the same effect, even in a current browser. Turn off the content blocker,
   then reload the page or restart Outlook, and try again.
+
+### Outlook shows "Claude is unavailable for this email" or "Can't check this email's label"
+
+Your organization blocks sensitivity labels, and the email has a blocked
+label or Claude could not check its label. See
+[Block documents and email by sensitivity label](https://claude.com/docs/office-agents/sensitivity-labels.md).
 
 ### Messages fail or the model menu is missing on a third-party platform
 

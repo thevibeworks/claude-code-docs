@@ -130,19 +130,6 @@ DM work runs under your credentials, so most of it is attributed to you and can 
 
 Use channels for shared work and DMs for personal tasks, or for data you'd rather access under your own authenticated identity than a shared channel credential.
 
-### Claude Tag versus Claude Code in Slack
-
-A one-to-one DM with Claude Tag runs under your own account, which is also how [Claude Code in Slack](https://code.claude.com/docs/en/slack) works, routing a coding @-mention to a Claude Code session on the web under the requester's own account. The two can look identical. The table shows how to tell them apart.
-
-| | Claude Tag in a channel | Claude Code in Slack |
-| :- | :- | :- |
-| **Runs under** | The agent identity an admin provisioned | Your own Claude account, linked in the Claude app |
-| **GitHub** | The Claude GitHub App; pull requests belong to the app | Your GitHub connection on claude.ai/code; pull requests open under your account |
-| **Access** | The access an admin applied to the channel | Your personal connectors |
-| **Billing** | The organization | Your seat |
-
-If `@Claude` in your workspace opens pull requests as you, you're seeing Claude Code in Slack, not a Claude Tag session.
-
 ## Group DMs
 
 In a group DM that includes Claude, Claude acts with its own service accounts, using the connections an admin set for the workspace and the organization. The work bills to the organization. Claude can also use the connectors on your claude.ai account for a task you ask for, after you allow it, as described in [Personal connectors in a channel](#personal-connectors-in-a-channel).

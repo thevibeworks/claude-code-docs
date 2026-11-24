@@ -93,6 +93,15 @@ ant messages create \
   --message '{role: user, content: "Hello, Claude"}'
 ```
 
+## Claude Models on Google Cloud (Anthropic managed)
+
+To call [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), the CLI uses Google Application Default Credentials instead of `ant auth login` or an API key. To set up the CLI, follow these steps:
+
+1. **Set up the credentials:** See [Authentication on Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication).
+2. **Set your project ID and workspace ID:** Pass `--google-cloud-project` and `--google-cloud-workspace-id`, or set `ANTHROPIC_GOOGLE_CLOUD_PROJECT` and `ANTHROPIC_GOOGLE_CLOUD_WORKSPACE_ID`. For the other settings and their defaults, see [Project, location, and workspace resolution](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#project-location-and-workspace-resolution).
+3. **Leave competing settings unset:** An API key, an authentication token, a configuration profile, or Anthropic’s federation variables can take precedence over these settings. Before you run a command, check [which settings to leave unset](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#credential-precedence).
+4. **Confirm that the CLI uses these settings:** Run `ant auth status` and check that the `Google Cloud` row is marked `(active)`. If you set them with flags, pass the same flags to `ant auth status`.
+
 ## Check authentication status
 
 `ant auth status` prints the credential source the CLI selected (API key environment variable, OAuth login, federation, Google Cloud, or profile), the active profile, the workspace the active token is bound to, and the configuration directory paths. Use it to diagnose why a workload picked the wrong credential or workspace.

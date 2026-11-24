@@ -289,6 +289,15 @@ enabled, Claude for PowerPoint sessions are included in the Compliance
 API. This coverage requires no additional setup: the same Compliance
 Access Keys apply.
 
+## Sensitivity labels
+
+Your organization can block Microsoft Purview sensitivity labels in Claude.
+This feature is in beta on Enterprise plans. With blocking on, Claude does
+not work with a presentation that has a blocked label, and does not upload
+an attached file that has one. If Claude cannot read a presentation's
+label, it does not work with the presentation either. See
+[Block documents and email by sensitivity label](https://claude.com/docs/office-agents/sensitivity-labels.md).
+
 ## Current limitations
 
 Claude for PowerPoint is not recommended for:

@@ -94,7 +94,7 @@ To limit Claude to people in your Claude organization, [restrict who can use Cla
 
 ## Turn Claude Tag on or off and set the version for a scope
 
-Each workspace and channel has its own page with two controls: an enable switch that turns Claude on or off there, and a **Claude Tag version** setting that chooses which version answers while it's on. On the Team plan, a [single switch on the **Slack** page](#turn-claude-tag-on-or-off-on-the-team-plan) replaces them. To open a workspace's or channel's page, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open the **Channels** tab under **Claude's access**, and select the workspace or channel. To find a channel, search for it by name.
+Each workspace and channel has its own page with two controls: an enable switch that turns Claude on or off there, and a **Claude Tag version** setting. On the Team plan, a [single switch on the **Slack** page](#turn-claude-tag-on-or-off-on-the-team-plan) replaces them. To open a workspace's or channel's page, go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open the **Channels** tab under **Claude's access**, and select the workspace or channel. To find a channel, search for it by name.
 
 The enable switch, **Enable Claude Tag in this workspace** or **Enable Claude Tag in this channel**, sits at the top of the page's **General** tab. While the switch is off, Claude doesn't respond to @-mentions there. One-to-one direct messages from members who have connected a Claude account are unaffected. Turning the switch on routes the workspace or channel to **New**. To make it follow its parent again, click **Use inherited setting** under the switch.
 
@@ -103,12 +103,10 @@ The **Claude Tag version** setting is on the page's **Advanced** tab and is unav
 | Label | Effect |
 | :- | :- |
 | **New** | Claude Tag. Bundles, skills, and custom instructions apply |
-| **Legacy (disabled)** | The earlier per-user Claude in Slack. In channels it replies only with a retirement notice. The option is listed only on a scope that's still set to it on its own page; see [Migrate from the earlier app](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) |
+| **Legacy (disabled)** | The earlier per-user Claude in Slack. In channels a mention gets [a notice or no reply](https://claude.com/docs/claude-tag/admins/restrict-access.md#migrate-from-the-earlier-claude-in-slack) instead of an answer. The option is listed only on a scope that's still set to it on its own page; see [Migrate from the earlier app](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) |
 | **Inherit** | Use the parent's value. Not shown on the **Slack** page |
 
 Turning off **Respond in all channels** doesn't stop Claude in a workspace or channel whose own enable switch is on. On the Enterprise plan, launching setup for a single workspace turns on that workspace's enable switch, so Claude keeps responding in that workspace. The switch is at the top of the **General** tab on the **Slack** page, which sets the default for every workspace and channel. Direct messages from members who have connected a Claude account are unaffected.
-
-Both versions answer through the same @Claude app, so turning off a workspace's or channel's enable switch silences the Legacy version there too.
 
 Switching a workspace or channel between **New** and **Inherit** is reversible; see [Migrate from the earlier app](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md).
 

@@ -63,18 +63,12 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
 
 ### Prerequisites
 
+These steps use the Claude API and the `ant` worker. For what changes on a cloud platform, see [Worker authentication on cloud platforms](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#worker-authentication-on-cloud-platforms).
+
 * **An agent:** If you don’t have one, complete [Get started with Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/quickstart) first and note the agent ID.
 * **A Linux or macOS host:** The host needs `/bin/bash` at that exact path. The worker needs only outbound HTTPS.
 * **A Claude API key:** You use it from your own machine to create sessions and read queue stats. Keep it off the worker host, where agent tool calls could read it.
 * **The `ant` CLI or the SDK on your own machine:** The stats and session steps in this quickstart run there, not on the worker host. Install the CLI the same way that you install it on the worker host in [Run your first session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-your-first-session), or install the SDK as [SDKs, CLI, and libraries](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) describes.
-
-<Note>
-  On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), the worker authenticates with AWS IAM (SigV4) or an [API key generated in the AWS Console](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication), not an environment key. Attach the [`AnthropicSelfHostedEnvironmentAccess`](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#managed-policies) managed policy to the IAM principal your worker runs as. Environment keys generated in the Claude Console don’t work with the Claude Platform on AWS endpoint.
-
-  On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), the prebuilt workers in the `ant` CLI and the Python, TypeScript, and Go SDKs are not available. See the [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported) section of that page. Implement your own worker that calls the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work) directly.
-
-  That worker authenticates with [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication), not an environment key. Environment keys generated in the Claude Console don’t work with the Claude Models on Google Cloud (Anthropic managed) endpoint. Grant the Google Cloud identity that your worker uses `roles/claude.user` or `roles/claude.admin` on the project. Both roles include [`environments.processWork`](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions#environments), which the worker needs to poll for and manage work items. They also include the session and skill permissions that the worker needs to run a session.
-</Note>
 
 <Note>
   On macOS, the worker’s bash tool runs the system Bash 3.2 at `/bin/bash`, even if you install a newer Bash with Homebrew. To use memory stores on macOS, first [prepare the macOS host](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-memory#prepare-a-macos-host).
@@ -590,6 +584,30 @@ This quickstart runs one always-on worker with the `ant` CLI, sends it a session
     The file describes your own host’s kernel, so the agent’s tool calls ran there. To follow the agent’s work in real time, see [Session event stream](https://platform.claude.com/docs/en/managed-agents/events-and-streaming).
   </Step>
 </Steps>
+
+## Worker authentication on cloud platforms
+
+If you use Managed Agents through one of the following cloud platforms, your worker authenticates with that platform’s credentials. Environment keys generated in the Claude Console don’t work there. The calls you make from your own machine also use the platform’s credentials instead of a Claude API key. For how those calls change, see [Making requests on Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests) or [Making requests on Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#making-requests).
+
+### Claude Platform on AWS
+
+On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), the worker authenticates with AWS IAM (SigV4) or an [API key generated in the AWS Console](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#api-key-authentication).
+
+Attach the [`AnthropicSelfHostedEnvironmentAccess`](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#managed-policies) managed policy to the IAM principal your worker runs as. That principal also needs two AWS Security Token Service (AWS STS) actions: `sts:GetWebIdentityToken` and `sts:TagGetWebIdentityToken`. Grant both in a policy of your own, as shown in [IAM policies](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#iam-policies).
+
+### Claude Models on Google Cloud (Anthropic managed)
+
+On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), you write your own worker instead of running a prebuilt one. Your worker calls the [Environments Work endpoints](https://platform.claude.com/docs/en/api/beta/environments/work) directly and authenticates with [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication).
+
+Grant the worker’s Google Cloud identity `roles/claude.user` on the project. That role includes every permission that a worker needs. For the permission that each call needs, see [IAM permissions for environments](https://platform.claude.com/docs/en/api/claude-models-on-google-cloud-anthropic-managed-iam-permissions#environments). Keep the worker’s credentials out of reach of tool calls, as [Worker credentials on cloud platforms](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-security#worker-credentials-on-cloud-platforms) describes.
+
+To follow [Run your first session](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#run-your-first-session) with your own worker, make these changes:
+
+* Skip “Generate an environment key,” “Install the ant CLI,” and “Start the worker.” Start your own worker instead, and give it the environment ID.
+* Give your worker an ID that no other worker uses. Have it send that same ID in the `Anthropic-Worker-ID` header each time it [polls for work](https://platform.claude.com/docs/en/api/beta/environments/work/poll). The step “Verify the worker is connected” counts only workers that send this header.
+* In the last step, look for the file in your worker’s working directory.
+
+You still need the `ant` CLI or the SDK on your own machine, as [Prerequisites](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#prerequisites) describes.
 
 ## Session resources
 

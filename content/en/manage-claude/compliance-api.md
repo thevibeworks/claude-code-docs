@@ -51,7 +51,11 @@ A successful response returns a JSON object containing `data` (an array of `Acti
 
 ## How the Compliance API works
 
-Every endpoint lives under `/v1/compliance/*` on `https://api.anthropic.com`, authenticates through the `x-api-key` header, and takes the [`anthropic-version`](https://platform.claude.com/docs/en/api/versioning) header on every request. To provision a key, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+Every endpoint lives under `/v1/compliance/*` and takes the `anthropic-version` header ([API versions](https://platform.claude.com/docs/en/api/versioning)) on every request. How you send a request depends on your organization:
+
+* **Organizations with a Compliance Access Key or an Admin API key:** Send requests to `https://api.anthropic.com` and pass the key in the `x-api-key` header. To provision a key, see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+* **Claude Models on Google Cloud (Anthropic managed) organizations:** You don’t create these keys. To read the Activity Feed, use the organization-level base URL and the platform’s credentials. See [Making requests on Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests).
+* **Claude Platform on AWS organizations:** You don’t create these keys. To read the Activity Feed, use the platform’s base URL and credentials. See [Making requests on Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#making-requests).
 
 The Activity Feed (`GET /v1/compliance/activities`) is available to any key that carries the `read:compliance_activities` scope; see [Query the Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) for filters, pagination, and the full `Activity` object. The remaining endpoints require a Compliance Access Key carrying the relevant scope. The exception is the [Safety Cases API](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/safety-cases-api#get-access): an Admin API key that you create while that API is available to your organization also reaches it.
 

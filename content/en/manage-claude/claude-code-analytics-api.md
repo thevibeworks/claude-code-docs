@@ -270,7 +270,7 @@ This API only tracks Claude Code usage on the Claude API.
 
 ### What does it cost to use this API?
 
-The Claude Code Analytics API is free to use for all organizations with access to the Admin API.
+Calls to the Claude Code Analytics API are free.
 
 ### How do you calculate tool acceptance rates?
 

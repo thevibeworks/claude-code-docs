@@ -12,11 +12,19 @@ The API follows a predictable HTTP error code format:
 
 * 401 - `authentication_error`: There’s an issue with your [API key](https://platform.claude.com/docs/en/get-api-key) (for example, it’s malformed, revoked, or expired; see [Key expiration](https://platform.claude.com/docs/en/manage-claude/authentication#key-expiration)). On Claude Platform on AWS, this can also indicate a problem with your AWS credentials or SigV4 signature.
 
+  On Claude Models on Google Cloud (Anthropic managed), a 401 can mean a problem with your [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication).
+
   A 401 whose message begins `CORS requests are not allowed for this Organization` is not a problem with your API key. The request included an `Origin` header, which browsers add, and your organization cannot call the Claude API directly from a browser. The message continues `because of custom retention settings` or `because of its settings`. The first appears only for data retention arrangements such as zero data retention (ZDR); the second is the general case, which includes the Compliance API. No change to the browser request fixes it, so send the request from your own back end; see [Browser-based applications](https://platform.claude.com/docs/en/manage-claude/authentication#browser-based-applications).
 
 * 402 - `billing_error`: There’s an issue with your billing or payment information. Check your payment details in the [Claude Console](https://platform.claude.com), or in AWS Marketplace if you’re using Claude Platform on AWS.
 
 * 403 - `permission_error`: Your API key does not have permission to use the specified resource. Check your organization’s access and workspace settings in the [Claude Console](https://platform.claude.com).
+
+  On Claude Models on Google Cloud (Anthropic managed), Google Cloud checks each request before forwarding it to Anthropic. To fix a 403, do the following:
+
+  * Check that `claude.googleapis.com` is enabled on your project.
+  * Check that the caller’s [IAM role](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles) allows the request.
+  * If the 403 says `Permission 'UNKNOWN' denied`, check the request’s path. Google Cloud doesn’t offer that route, so no IAM role fixes it.
 
 * 404 - `not_found_error`: The requested resource was not found. Check the endpoint path and any resource IDs in the request URL.
 

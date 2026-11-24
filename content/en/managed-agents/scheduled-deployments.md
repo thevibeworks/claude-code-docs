@@ -57,6 +57,8 @@ When creating a deployment, you pass the [session configurations](https://platfo
   * **Caller permissions:** The IAM principal that sets the role on the agent needs `iam:PassRole` on that role. The role must be in the same AWS account. No [managed policy](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#managed-policies) grants `iam:PassRole`.
 </Note>
 
+The following example creates a deployment:
+
 <CodeGroup defaultLanguage="CLI">
   ```bash cURL
   curl --fail-with-body -sS "https://api.anthropic.com/v1/deployments?beta=true" \
@@ -754,6 +756,8 @@ Each lifecycle change emits a [webhook event](https://platform.claude.com/docs/e
   client.beta.deployments.archive(deployment.id)
   ```
 </CodeGroup>
+
+On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#claude-managed-agents), a deployment keeps running after you revoke its creator’s Google Cloud access. To stop it, pause or archive it.
 
 ### Failure behavior
 

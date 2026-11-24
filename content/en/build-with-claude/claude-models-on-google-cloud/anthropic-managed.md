@@ -24,7 +24,7 @@ If you have an existing discount, contact your Anthropic or Google Cloud account
     2. Click **Subscribe** and complete the purchase flow.
     3. Return to the listing and click **Manage on Console**. This opens the Claude page in the Google Cloud console.
 
-    To return to the Claude page later, select your project in the Google Cloud console. Then go to **Agent Platform > Models > Claude Platform** and select **Anthropic managed**.
+    To return later, open the [Claude page in the Google Cloud console](https://console.cloud.google.com/agent-platform/claude-platform). Select your project. Then, select **Anthropic managed**.
   </Step>
 
   <Step title="Enable the services">
@@ -406,7 +406,7 @@ To call the API over raw HTTP, send an access token from Application Default Cre
 
 ### API model IDs
 
-Claude Models on Google Cloud (Anthropic managed) uses the same model IDs as the Claude API. Available models include the following:
+Claude Models on Google Cloud (Anthropic managed) uses the same model IDs as the Claude API. It offers the following models:
 
 | Model | Model ID |
 | :---- | :---- |
@@ -431,7 +431,7 @@ Claude Models on Google Cloud (Anthropic managed) uses the same model IDs as the
 
 Claude Models on Google Cloud (Anthropic managed) follows the Claude API’s lifecycle schedule. For the dates, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations). To compare models, see [Models overview](https://platform.claude.com/docs/en/models/overview).
 
-In Claude Models on Google Cloud (Anthropic managed), a request for a model that isn’t available to your Anthropic organization returns an error. The error message reads `Model {model} is not available for this organization's inference configuration.`
+A request for a model that your Anthropic organization doesn’t have access to returns a [404 `not_found_error`](https://platform.claude.com/docs/en/api/errors#http-errors).
 
 ## Project, location, and workspace resolution
 
@@ -533,7 +533,8 @@ The following sections list features that are available on Claude Models on Goog
 
 * **[Messages API features](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#messages-api-features):** Model capabilities, tools, context management, files, and skills
 * **[Claude Managed Agents features](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#claude-managed-agents):** Agents, sessions, sandboxes, and scheduled deployments
-* **[Administration and compliance](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#administration-and-compliance):** Workspaces, user profiles, usage and cost reports, the Compliance API setting, encryption keys, and Zero Data Retention
+* **[Claude Code](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#claude-code):** Setup and feature availability
+* **[Administration and compliance](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#administration-and-compliance):** Workspaces, user profiles, usage and cost reports, rate limits, the Compliance API setting and Activity Feed, encryption keys, and zero data retention
 
 For features that aren’t supported, see the [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#features-not-supported) section. If none of these sections lists a feature that you need, ask your Anthropic account representative whether it’s available.
 
@@ -648,19 +649,25 @@ To stop a running session, follow these steps:
 
 When you remove a user or rotate a service account, review the sessions and deployments that identity created.
 
+### Claude Code
+
+You can use Claude Code with your Google Cloud project. For setup steps and feature availability, see [Claude Code with Claude Models on Google Cloud (Anthropic managed)](https://code.claude.com/docs/en/claude-models-on-google-cloud-anthropic-managed).
+
 ### Administration and compliance
 
 The following are also available on Claude Models on Google Cloud (Anthropic managed):
 
-* [Workspaces](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#workspaces)
+* [Workspaces](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#workspaces), in the Claude Console and through the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api#cloud-platforms)
 * [User profiles for end-customer attribution](https://platform.claude.com/docs/en/manage-claude/user-profiles)
 * [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api) (beta)
 * [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api) (legacy), usage endpoint only
+* [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api), for reading limits
 * [Compliance API setting](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#compliance-api) in the Claude Console
+* [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) through the API (see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access))
 * [Customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek) (CMEK), with Google Cloud KMS keys
-* [Zero Data Retention](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#data-retention) (ZDR), on request
+* [Zero data retention](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#data-retention) (ZDR), on request
 
-The usage and cost endpoints use the [base URL without the workspace](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests). Of the three predefined [IAM roles](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles), only `roles/claude.admin` allows these calls.
+The workspace, usage, cost, and rate limit endpoints and the Activity Feed use the [base URL without the workspace](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests). Of the three predefined [IAM roles](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles), only `roles/claude.admin` allows the usage and cost calls.
 
 #### Compliance API
 
@@ -705,6 +712,8 @@ Context window sizes on Claude Models on Google Cloud (Anthropic managed) are th
 Anthropic manages rate limits for Claude Models on Google Cloud (Anthropic managed). For how rate limits are measured and reported, see [Rate limits](https://platform.claude.com/docs/en/api/rate-limits).
 
 To see your organization’s rate limits, [open the Claude Console](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console) and go to [Rate limits in the Claude Console](https://platform.claude.com/usage/limits) (`platform.claude.com/usage/limits`). The badge on that page shows **Custom tier** for every organization on Claude Models on Google Cloud (Anthropic managed), whatever its [usage tier](https://platform.claude.com/docs/en/api/rate-limits#about-rate-limits).
+
+To read your limits from code, use the [Rate Limits API](https://platform.claude.com/docs/en/manage-claude/rate-limits-api).
 
 To request higher limits, use the form in the Claude Console:
 
@@ -752,7 +761,9 @@ A ZDR arrangement on another Anthropic organization doesn’t carry over to your
 
 ### Monitoring and logging
 
-[Cloud Audit Logs](https://cloud.google.com/logging/docs/audit) records API activity for Claude Models on Google Cloud (Anthropic managed) in your project. The entries appear under the `claude.googleapis.com` service. Each API route belongs to one of two log types:
+[Cloud Audit Logs](https://cloud.google.com/logging/docs/audit) records API activity for Claude Models on Google Cloud (Anthropic managed) in your project. The entries appear under the `claude.googleapis.com` service. They cover only requests that pass through that service. They show when someone opens the Claude Console (in the Admin Activity logs), but they can miss what happens after that. To record changes made in the Claude Console, [turn on the Compliance API](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#compliance-api) and read its [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed).
+
+Each API route belongs to one of two log types:
 
 * **Data Access logs:** These cover most routes, including messages, batches, files, skills, models, and Claude Managed Agents resources such as credential vaults. These logs are off by default.
 * **Admin Activity logs:** These cover the encryption key routes and some other [organization-level routes](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles) that the IAM permissions page doesn’t list. Admin Activity logs are always on.

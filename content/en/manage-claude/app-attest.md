@@ -12,7 +12,7 @@ Apps use App Attest through the [Claude for Foundation Models](https://github.co
 
 Each installation of your app uses Apple’s [App Attest](https://developer.apple.com/documentation/devicecheck/establishing-your-app-s-integrity) service to prove that it is a genuine, unmodified build of the app you registered. Anthropic then issues the device a short-lived access token that bills usage to your workspace. The app ships no API key, and there is no proxy for you to operate.
 
-App Attest authentication is available only when your app calls the Claude API directly. It is not available through Amazon Bedrock, Google Cloud, or Microsoft Foundry.
+App Attest authentication is available only when your app sends its requests to the Claude API at `api.anthropic.com`.
 
 The first time your app uses Claude on a device, the app requests a challenge from Anthropic, attests the device with Apple’s `DCAppAttestService`, and exchanges the verified attestation for an access token. The Claude for Foundation Models package runs this flow automatically and requests new tokens as they expire; there is no attestation code for you to write.
 

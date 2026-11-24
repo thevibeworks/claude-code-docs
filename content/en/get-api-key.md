@@ -34,6 +34,8 @@ You can also create a **workspace key**, a legacy key without an owner: it belon
 
 If the **Create key** button on the API keys page is disabled, your role might not allow you to create keys there. Ask an organization admin to change your role, or to create a service account key for your workload.
 
+These steps are for the Claude API. If you use Claude through a [cloud platform](https://platform.claude.com/docs/en/api/overview#claude-api-vs-cloud-platforms), follow that platform’s authentication steps instead.
+
 ## Use your API key
 
 Set the key as an environment variable:

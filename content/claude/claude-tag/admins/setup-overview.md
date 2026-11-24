@@ -41,7 +41,7 @@ When you've launched, [give Claude access to your tools](#give-claude-access-to-
 
 > [!NOTE]
 >
-> If your team already uses the earlier Claude in Slack, the same steps apply and your existing app stays; see [Migrate from the earlier app](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) for what changes.
+> If your team already used the earlier Claude in Slack, the same steps apply and your existing app stays; see [Migrate from the earlier app](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) for what changes.
 
 ## Pair your Slack workspace
 
@@ -59,7 +59,7 @@ On Slack Enterprise Grid, installing takes two Slack actions. See [Set up Claude
 
 **Where:** Slack, in the workspace you just installed the app in.
 
-Open any channel and add Claude to it with `/invite @Claude`. Claude posts a short welcome message when it joins. Then send `@Claude connect` as a new message with no other text. Claude replies in the channel with a message only you can see, containing the pairing code:
+Open any channel and add Claude to it with `/invite @Claude`. Then send `@Claude connect` as a new message with no other text. Claude replies in the channel with a message only you can see, containing the pairing code:
 
 > Connect **this workspace** (Acme) to your Claude organization for billing: have a Claude **organization admin** redeem this code in Claude admin settings. The code works once and expires in 15 minutes.
 >
