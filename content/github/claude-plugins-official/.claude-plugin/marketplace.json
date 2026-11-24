@@ -555,10 +555,10 @@
       "category": "database",
       "source": {
         "source": "url",
-        "url": "https://github.com/gemini-cli-extensions/bigquery-data-analytics.git",
-        "sha": "6f9b35627d208b03e840271f6522a28f76e7f8df"
+        "url": "https://github.com/GoogleCloudPlatform/bigquery-data-analytics-plugin.git",
+        "sha": "93e87e9c8145a4c728d44c2959d4eba596f81e92"
       },
-      "homepage": "https://github.com/gemini-cli-extensions/bigquery-data-analytics"
+      "homepage": "https://github.com/GoogleCloudPlatform/bigquery-data-analytics-plugin"
     },
     {
       "name": "boltz",
@@ -902,7 +902,7 @@
     },
     {
       "name": "claude-security",
-      "description": "Deep vulnerability scanning of your own code, run entirely inside your Claude Code session at a chosen effort tier, with every finding challenged before it is reported and the verification tally computed in code. Turns surviving findings into targeted patches, each verified by a panel of agents, that you apply when you choose.",
+      "description": "Find and fix vulnerabilities before attackers exploit them. A team of agents maps your code, hunts for exploitable flaws and challenges every finding, so you spend your time on real bugs. Get patches analyzed by a panel of agents, and apply them when you choose. Triage other scanners' results, build a threat model, review pull requests with a GitHub Action, and see your hosted Claude Security findings.",
       "author": {
         "name": "Anthropic",
         "email": "support@anthropic.com"

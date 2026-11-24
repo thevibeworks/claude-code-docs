@@ -9,7 +9,9 @@ url: https://platform.claude.com/docs/en/api/cli/beta/user_profiles/update
 
 **POST** `/v1/user_profiles/{user_profile_id}`
 
-Update User Profile
+Change the details of a user profile, leaving the fields that you don't send as they are.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=cli#update-a-profile) for how each field is updated.
 
 ## Parameters
 

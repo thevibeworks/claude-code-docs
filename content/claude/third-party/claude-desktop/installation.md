@@ -27,7 +27,7 @@ Check these on Windows devices before rollout:
 * **Apps from outside the Microsoft Store**: make sure Windows policy allows trusted app packages to install from outside the Microsoft Store. If your security baseline configures **Allow all trusted apps to install** (the `ApplicationManagement/AllowAllTrustedApps` policy), set it to enabled. Windows Developer Mode isn't required. If provisioning the `.msix` package fails with error `0x80073CFF`, check this policy.
 * **Log on as a service**: Cowork's virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Virtual Machines` group, and that group needs the **Log on as a service** user right. If your organization assigns that right through Group Policy or MDM, see [Windows security policy blocks the Cowork workspace](#windows-security-policy-blocks-the-cowork-workspace).
 * **Hooks**: a [hook](https://code.claude.com/docs/en/hooks) command written for Bash needs Git for Windows on the device. If your Windows devices have hooks in plugins or in Claude Code managed settings, see [Hooks on Windows devices without Git for Windows](https://claude.com/docs/third-party/claude-desktop/extensions.md#hooks-on-windows-devices-without-git-for-windows).
-* **Virtual desktops**: on virtual desktop infrastructure, Windows itself runs in a virtual machine, so Cowork's virtual machine starts only where the hosting platform exposes nested virtualization to that virtual machine. Run the [readiness check](#check-device-readiness) on one desktop in each pool. On desktops that reset when users sign out, also [keep each user's Windows profile](https://claude.com/docs/third-party/claude-desktop/data-storage.md#virtual-desktops).
+* **Virtual desktops**: on virtual desktop infrastructure, Windows itself runs in a virtual machine, so Cowork's virtual machine starts only where the hosting platform exposes nested virtualization to the virtual machine that runs Windows. Run the [readiness check](#check-device-readiness) on one desktop in each pool. On desktops that reset when users sign out, also [keep each user's Windows profile](https://claude.com/docs/third-party/claude-desktop/data-storage.md#virtual-desktops).
 
 With [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) on, a message sent from the home screen starts a Cowork session on a device that can run Cowork. On a device that can't run Cowork's virtual machine, the message starts a Chat conversation.
 
@@ -122,7 +122,7 @@ When the configuration works on a single machine, roll it out to the fleet with 
 
 ## Verifying the deployment
 
-On any configured device, open Claude Desktop, go to **Help → Troubleshooting → Generate Diagnostic Report**, and click **Export to file**. In the saved `.zip` file, `managed-config.txt` shows where the configuration was read from and each key's configured or default value, with secret values redacted and anything it could not parse listed under `Parse errors`. `provider-status.txt` shows whether the provider settings are complete and valid, and `deployment-mode.txt` shows whether the app is running in third-party mode.
+On any configured device, open Claude Desktop, go to **Help → Troubleshooting → Generate Diagnostic Report**, and click **Export to file**. In the saved `.zip` file, `managed-config.txt` shows where the configuration was read from and each key's configured or default value, with secret values redacted and anything that the app could not parse listed under `Parse errors`. `provider-status.txt` shows whether the provider settings are complete and valid, and `deployment-mode.txt` shows whether the app is running in third-party mode.
 
 Also confirm that the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md) (**Developer → Configure Third-Party Inference…**) opens read-only on a managed device. If your profile deliberately sets only the [app-behavior keys and the keys treated like them](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence), an editable window is expected.
 
@@ -132,7 +132,7 @@ Check for misspelled keys too:
 * **Windows**: even a misspelled value under `HKLM\SOFTWARE\Policies\Claude` counts as machine policy and locks the window, so compare each key's value in `managed-config.txt` with the value you set.
 * **Linux**: a misspelled key appears under `Parse errors` in `managed-config.txt` as an unrecognized key. For what the app then does, see [Keys that an earlier version does not recognize](https://claude.com/docs/third-party/claude-desktop/mdm.md#keys-that-an-earlier-version-does-not-recognize).
 
-If the app shows the standard claude.ai sign-in screen instead of Cowork, the configuration was not read. Common causes:
+If the app shows the standard claude.ai sign-in screen instead of Cowork, the configuration was not read. Check for these common causes:
 
 * `inferenceProvider` is missing or its name is misspelled, or its value in the local configuration file or in Windows policy under `HKCU` isn't one the app recognizes
 * The configuration was applied while the app was running (fully quit and relaunch)
@@ -158,7 +158,7 @@ Claude Desktop downloads the VM workspace bundle that Cowork uses and the Claude
 
 If an earlier attempt was only interrupted, another attempt is enough. To start another attempt, have the user do one of these for the download that failed:
 
-* **Workspace**: start or open a Cowork task, or click **Retry** on the **Couldn't download Claude's workspace** message. Where Cowork is on, the app also tries this download after a restart, unless [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates) is `true`.
+* **Workspace**: start or open a Cowork task, or click **Retry** on the **Couldn't download Claude's workspace** message. If Cowork is on, the app also tries this download after a restart, unless [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates) is `true`.
 * **Claude CLI binary**: start a new conversation or task. The app also tries this download after a restart, unless [`isClaudeCodeForDesktopEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#isclaudecodefordesktopenabled) is `false`, which turns Code off. Claude Desktop 4.23118.0 or later also tries this download when the user clicks **Import** in the import wizard.
 
 When the same message returns on every attempt, the usual cause is a proxy, secure web gateway, or web filter between the device and `downloads.claude.ai`. Such equipment can block the app's requests, cut off the transfer partway (the workspace bundle is more than 1 GB), or return its own page in place of the file. Less often, security software on the device locks or quarantines the downloaded files.
@@ -181,7 +181,7 @@ The virtual machine runs under an account in the built-in `NT VIRTUAL MACHINE\Vi
 
 Run these checks on an affected device, or before rollout on a device that your policy applies to:
 
-* **Readiness check**: run the [readiness check](#check-device-readiness) on a device that has Virtual Machine Platform enabled. When the group lacks the right or is denied it, the **VM service logon right** line reads "SeServiceLogonRight not granted to S-1-5-83-0" or "SeDenyServiceLogonRight is set for S-1-5-83-0".
+* **Readiness check**: run the [readiness check](#check-device-readiness) as an administrator on a device that has Virtual Machine Platform enabled. When the group lacks the right or is denied it, the **VM service logon right** line reads "SeServiceLogonRight not granted to S-1-5-83-0" or "SeDenyServiceLogonRight is set for S-1-5-83-0".
 * **Policy that sets the right**: in an elevated Command Prompt, run `gpresult /scope computer /h gpresult.html`, then open `gpresult.html` from the current folder. Use the report to find which Group Policy Object sets **Log on as a service** for the device.
 * **Rights on the device**: in an elevated Command Prompt, run `secedit /export /cfg user-rights.inf /areas USER_RIGHTS`, then open `user-rights.inf` from the current folder. If a policy defines **Log on as a service**, the `SeServiceLogonRight` line must include `S-1-5-83-0`. If the file has a `SeDenyServiceLogonRight` line, that line must not include `S-1-5-83-0`.
 
@@ -195,7 +195,7 @@ To apply a Group Policy change on a device, run `gpupdate /force` in a Command P
 
 ### Claude keeps crashing after a new version is installed
 
-On macOS, Claude Desktop can show **Claude keeps crashing** after a new version is installed while the app is open. Have the user click **Restart Claude**, not **Reload**, and the app reopens on the new version. Try the reinstall or the **Disable Hardware Acceleration** step that the screen suggests only if the screen comes back after the restart. To avoid the screen, see [Restart open apps after you install a new version](#restart-open-apps-after-you-install-a-new-version).
+On macOS, Claude Desktop can show **Claude keeps crashing** after a new version is installed while the app is open. Have the user click **Restart Claude**, not **Reload**, and the app reopens on the new version. If the screen comes back after the restart, and only then, try the reinstall or the **Disable Hardware Acceleration** step that the screen suggests. To avoid the screen, see [Restart open apps after you install a new version](#restart-open-apps-after-you-install-a-new-version).
 
 ## Endpoint security software
 
@@ -238,6 +238,8 @@ For AppLocker, allowlist by publisher rather than path. Publisher rules match th
 * **Path**: the folder's path changes with each update
 * **File hash**: each release, including a hotfix, signs the programs again, so a file's SHA-256 hash changes even when the program itself doesn't
 
+In Claude Desktop 7.37095.0 or later, on Windows 10 version 21H2 or later and on Windows Server 2022, except with the Microsoft Store package, the app runs `claude-make-data-folder.exe` to create the [application-data directory](https://claude.com/docs/third-party/claude-desktop/data-storage.md#where-data-lives) for a user who has no data yet. `claude-make-data-folder.exe` is in the installed app's `resources` folder, and its publisher is `Anthropic, PBC`. If your endpoint security software blocks it, the app still opens and keeps that user's data inside the app package, under `%LOCALAPPDATA%\Packages\Claude_pzs8sxrjxfjjc\`. Allowing the program later doesn't move that data.
+
 ## Offline installation
 
 Standard installs fetch two large runtime components from `downloads.claude.ai`: the VM workspace bundle that Cowork uses, and the Claude CLI binary. For networks that cannot reach `downloads.claude.ai`, Anthropic publishes an offline installer variant with both components built into the installer package and verified against checksums compiled into the application, so sessions can start without any connection to Anthropic. The offline installers are several gigabytes larger than the standard ones.
@@ -270,7 +272,7 @@ Get-AppxProvisionedPackage -Online | Where-Object DisplayName -eq 'Claude'
 
 * **One installed package, provisioned, an older `Version` than your offline package**: remove nothing. Have each signed-in user select **☰ > File > Exit** in Claude Desktop. [Back up each user's data](#back-up-user-data-before-a-package-change). Then run `Add-AppxProvisionedPackage -Online -PackagePath <path to offline .msix> -SkipLicense`. Users get the new version after they next sign in to Windows.
 * **One installed package, the same `Version`**: follow [Replace a package when the versions match](#replace-a-package-when-the-versions-match). `Add-AppxProvisionedPackage` alone fails with error `0x80073CFB` ("The provided package is already installed") and removes the standard package's provisioning. If the package is provisioned, Anthropic's [`Install-Claude.ps1`](https://downloads.claude.ai/releases/enterprise/intune/Claude-Intune-README.md) prints "Nothing to do.", exits with code 0, and leaves the standard package in place.
-* **More than one installed package**: have each user sign out of Windows, sign in, start Claude Desktop, and select **☰ > File > Exit**. Then list again.
+* **More than one installed package**: have each user sign out of Windows, sign in, start Claude Desktop, and select **☰ > File > Exit**. Then list the packages again.
 * **Anything else, or still more than one**: remove nothing and contact your Anthropic representative.
 
 #### Back up user data before a package change
@@ -357,14 +359,14 @@ Users get the app after they next sign in to Windows. Have a user without admini
 With the offline installer, neither the device nor the host needs to reach `downloads.claude.ai` to set up a Linux host for an [SSH remote session](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md). The installed Claude Desktop package then includes copies of the two programs that Claude Desktop [puts on a host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#host-requirements), the remote server and the Claude Code engine. Claude Desktop uses those copies without a setting.
 
 * **Linux hosts**: both programs are included for x64 and arm64, with glibc or musl. Claude Desktop uploads them over the SSH connection. Expect an upload for each user account on a host and each Claude Desktop version, of about 3 MB for the remote server and 100 MB for the engine.
-* **macOS and Windows hosts**: neither program is included. Where `downloads.claude.ai` is blocked, the session fails with a message that the installer doesn't include the programs, so connect to Linux hosts only.
+* **macOS and Windows hosts**: neither program is included. If `downloads.claude.ai` is blocked, the session fails with a message that the installer doesn't include the programs, so connect to Linux hosts only.
 * **Updates of both programs**: the Claude Desktop version determines the version of both programs. With [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates) set, both programs change on your hosts only when you distribute a new installer. Claude Desktop also starts the engine with [`DISABLE_AUTOUPDATER`](https://code.claude.com/docs/en/env-vars) set to `1`, which turns off the engine's background updates.
 
 The host still has to reach your inference endpoint and, if configured, your OTLP collector. See [Host requirements](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#host-requirements).
 
 ## Updates
 
-By default, on macOS and Windows, Claude Desktop downloads updates from Anthropic's update server automatically. It then restarts itself to install the update after 10 minutes with no Claude window in use and no task running. It also waits for an export or import that someone started. On macOS it reopens by itself; on Windows, it may stay closed until someone opens it. On Linux, new versions arrive [through apt](https://claude.com/docs/third-party/claude-desktop/telemetry.md#auto-updates), whatever the value of `disableAutoUpdates`.
+By default, on macOS and Windows, Claude Desktop downloads updates from Anthropic's update server automatically. It then restarts itself to install the update after 10 minutes with no Claude window in use and no task running. It also waits while an export or import that someone started is still running. On macOS it reopens by itself; on Windows, it may stay closed until someone opens it. On Linux, new versions arrive [through apt](https://claude.com/docs/third-party/claude-desktop/telemetry.md#auto-updates), whatever the value of `disableAutoUpdates`.
 
 If the update still isn't installed 72 hours after the download, the app restarts itself, waiting for 10 minutes of user inactivity before doing so. This enforcement is always on and offers no in-app prompt to defer the restart; the `autoUpdaterEnforcementHours` key tunes the 72-hour window rather than enabling it. The hours count only while the app is open and the computer is awake. With or without the key, the restart waits while Claude is working on a task or the update server gives no answer.
 
@@ -391,6 +393,18 @@ App versions from before `releaseChannel` existed may reject a Windows or Linux 
 
 See [Telemetry and egress](https://claude.com/docs/third-party/claude-desktop/telemetry.md) for the network paths the updater uses.
 
+### Update Claude Desktop on Macs with standard user accounts
+
+On a Mac where you installed the `.pkg` of Claude Desktop 7.37095.0 or later, a user with a standard account gets automatic updates with no administrator prompt.
+
+macOS asks a standard user for an administrator's name and password before an update installs in these cases:
+
+* **Macs where the app came from an earlier `.pkg`, or is in `/Applications` from the `.dmg`**: deploy the [latest `.pkg`](https://claude.ai/api/desktop/darwin/universal/pkg/latest/redirect) with your MDM, without repackaging it, while Claude Desktop isn't running.
+* **Macs that several people use**: after an update installs for one standard user, macOS asks the Mac's other standard users before the next update installs. After an update installs for an administrator, or after an administrator enters their name and password at that prompt, macOS asks every standard user. To avoid the prompt on such a Mac, stop automatic updates and deploy each version yourself.
+* **Macs with a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) or the [admin console](https://claude.com/docs/third-party/claude-desktop/admin-console.md)**: until the app has downloaded the server's or console's configuration once for a user, macOS can ask that user. For example, macOS can ask before the user's first sign-in.
+
+To stop automatic updates, set [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates) to `true` where you would set [`releaseChannel`](#updates). In the admin console, turn on the **Block auto-updates** switch on the **Telemetry & updates** page.
+
 ### Restart open apps after you install a new version
 
 When you install new versions with your own tools, an install can land while Claude Desktop is open. If you set [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates), the open app finds the newer version on the device and shows **Relaunch to update** in the sidebar. Clicking **Relaunch to update** moves the person to the newer version.
@@ -407,8 +421,8 @@ The hours count only while the app is open and the computer is awake, and they s
 
 On Windows, the restart covers installs from the `.msix` package. Claude Desktop closes and switches to the newest version on the device, and Windows may then open it. If the configuration that turns on the restart also reaches Windows devices, plan for the following:
 
-* **Claude Desktop can stay closed**: where Windows doesn't open it, scheduled tasks and other background work stop until someone opens Claude Desktop. Opened more than five minutes after it closed, it starts on its default page instead of the page it was showing.
-* **Windows can refuse the switch**: Claude Desktop comes back on the version it had and shows **Relaunch to update** again. It doesn't try again by itself until Claude Desktop next starts, such as after someone quits and reopens it, or until you install a newer version.
+* **Claude Desktop can stay closed**: if Windows doesn't open Claude Desktop, scheduled tasks and other background work stop until someone opens it. When Claude Desktop opens more than five minutes after it closed, it starts on its default page instead of the page that it was showing.
+* **Windows can refuse the switch**: Claude Desktop comes back on the version it had and shows **Relaunch to update** again. Claude Desktop doesn't try the switch again by itself until it next starts, such as after someone quits and reopens it, or until you install a newer version.
 * **Other people use the same computer**: the switch can end the Cowork tasks of anyone else signed in to it, and the newest version on the device can be one that was installed for someone else.
 
 Set the restart keys in the same place as `disableAutoUpdates`, such as the same MDM profile or configuration file. If an MDM profile sets only the restart keys, devices ignore a `disableAutoUpdates` value from any other source, such as a configuration file or a bootstrap server. See [Update keys and managed precedence](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence).

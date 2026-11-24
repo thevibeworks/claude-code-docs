@@ -164,6 +164,68 @@ It's on by default on Team and Enterprise plans, and it only applies while **Art
 
 ---
 
+## Control installing artifacts as apps (beta)
+
+You can control apps in two places: organization settings and device policy (MDM). Where they differ, the stricter one applies. When you turn a setting off, apps that are open will close and the programs they started will stop, except in the cases under **Limits** below. Installed apps and the permissions people gave stay, and work again if you turn the setting back on.
+
+### Organization settings (Team and Enterprise plans)
+
+Go to **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. If these settings aren't there yet, the beta hasn't reached your organization.
+
+| **Setting**                     | **What it allows**                                                                                                                                | **Team default** | **Enterprise default** |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ---------------------- |
+| **Install as app**              | Users can install artifacts as apps. Requires **Artifacts**.                                                                                      | On               | Off                    |
+| **App permissions**             | Apps can ask for notifications, keyboard shortcuts, a menu bar or system tray item, and floating over other windows. Requires **Install as app**. | On               | Off                    |
+| **Full access to the computer** | Apps can ask to run programs and to read, change, or delete files without asking each time. Requires **Install as app**.                          | Off              | Off                    |
+
+- A change takes up to about an hour.
+
+- These settings apply only while your organization is selected in Claude. To cover personal accounts on company computers too, use device policy.
+
+- Organizations with customer-managed encryption keys (CMEK) or organization-wide zero data retention (ZDR) start with all three settings off. Zero data retention, organization-wide or for Claude Code, doesn't cover these apps.
+
+- Organizations with HIPAA-ready configurations or a hybrid deployment can't turn them on.
+
+- K-12 organizations can't turn on **Full access to the computer**, and some start with all three settings off.
+
+### Device policy (MDM)
+
+Set a key to `false` (macOS) or DWORD `0` (Windows). The keys apply to every account on the computer, and can only turn features off.
+
+| **Key**                           | **Turns off**                   |
+| --------------------------------- | ------------------------------- |
+| `isArtifactAppsEnabled`           | Installed apps                  |
+| `isArtifactAppPermissionsEnabled` | App permissions and full access |
+| `isArtifactAppFullAccessEnabled`  | Full access                     |
+
+- **macOS:** Use the domain `com.anthropic.claudefordesktop` in a computer-level profile. If a computer-level and a user-level profile both set a key, the computer-level value applies.
+
+- **Windows:** Use `HKLM\SOFTWARE\Policies\Claude`. Once `HKLM` holds a Claude value, Claude ignores values under `HKCU`, so keep all your Claude keys in `HKLM`.
+
+- The keys need Claude Desktop 6.6395.1 or later on macOS, and 6.6395.0 or later on Windows. Update before you add them: on Windows, an older version that doesn't know them can turn off computer use.
+
+- Turning a key off takes up to about five minutes. Turning it back on needs a restart of Claude Desktop.
+
+- Setting any key marks the computer as managed. Among other changes, this hides the **Release channel** setting, and turns off some features, such as WSL sessions, unless you allow them.
+
+Learn more about **[Enterprise configuration for Claude Desktop](https://support.claude.com/en/articles/12622667-enterprise-configuration-for-claude-desktop)**.
+
+### Limits
+
+- A computer that's offline can keep its last organization setting.
+
+- A program that an app started can keep running if it separated itself from the app, or when the user selects another organization.
+
+- On Enterprise plans, there's no separate capability for apps. Users in custom roles without the Artifacts capability can't use them.
+
+- Opening an app and access checks are logged as artifact views in the **[Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**. Installs, permission answers, what an app does on the computer, and changes to these three settings aren't logged.
+
+- An app owned by another of a user's organizations can't get app permissions or full access until the user selects that organization and installs the app again. App permissions allowed earlier can stay until the app's next version.
+
+- If you limit sign-in to listed organizations (`forceLoginOrgUUID`), an app that was installed before still opens.
+
+---
+
 ## Limit access to specific groups on Enterprise plans
 
 On Enterprise plans, custom roles let you turn a feature on for specific groups instead of your whole organization. The organization setting is the main switch, and custom roles are the per-user switches underneath it. If a feature is off at the organization level, no custom role can grant access to it.

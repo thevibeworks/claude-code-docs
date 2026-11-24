@@ -4,6 +4,8 @@ Choose which members of your organization can open tickets with Anthropic's huma
 
 Available on the Enterprise plan, and configurable by Primary Owners and Owners.
 
+Support contacts control who can reach Anthropic's human support team. To tell members whom inside your organization to contact for help with Claude, use the internal help contact setting (see **[Set an internal help contact for your organization](https://support.claude.com/en/articles/18559929-set-an-internal-help-contact-for-your-organization)**).
+
 ## How support routing works
 
 When support contacts are turned on, members of designated groups can reach human support. Everyone else in your organization gets AI support, which handles most questions instantly.

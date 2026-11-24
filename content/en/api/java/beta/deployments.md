@@ -1070,6 +1070,7 @@ import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
 import com.anthropic.models.beta.deployments.BetaManagedAgentsDeployment;
 import com.anthropic.models.beta.deployments.DeploymentCreateParams;
+import com.anthropic.models.beta.sessions.BetaManagedAgentsAgentParams;
 import com.anthropic.models.beta.sessions.events.BetaManagedAgentsUserMessageEventParams;
 import java.util.List;
 
@@ -1080,10 +1081,10 @@ public final class Main {
         AnthropicClient client = AnthropicOkHttpClient.fromEnv();
 
         DeploymentCreateParams params = DeploymentCreateParams.builder()
-            .agent("string")
-            .environmentId("x")
-            .addUserMessageInitialEvent(List.of(BetaManagedAgentsUserMessageEventParams.Content.ofText("Where is my order #1234?")))
-            .name("x")
+            .agent(BetaManagedAgentsAgentParams.of("agent_011CZkYpogX7uDKUyvBTophP"))
+            .environmentId("env_011CZkZ9X2dpNyB7HsEFoRfW")
+            .addUserMessageInitialEvent(List.of(BetaManagedAgentsUserMessageEventParams.Content.ofText("Compile yesterday's orders into report.md.")))
+            .name("Daily order report")
             .build();
         BetaManagedAgentsDeployment betaManagedAgentsDeployment = client.beta().deployments().create(params);
     }

@@ -6,13 +6,13 @@
 
 > Declare allowed link destinations so ui/open-link requests from your directory connector's MCP App open without Claude's confirmation modal.
 
-When your MCP App sends a `ui/open-link` request, Claude shows an **Open external link** confirmation modal before navigating. The modal protects users from being silently redirected by an embedded app.
+When your MCP App sends a `ui/open-link` request for a web URL, Claude shows an **Open external link** confirmation modal before navigating. The modal protects users from being silently redirected by an embedded app.
 
-If your connector is published in the [Connectors Directory](https://claude.com/docs/connectors/directory.md), you can declare a set of trusted destinations that open immediately without the modal. Custom connectors and locally configured servers always show it. To skip the modal for a directory connector, [allowlist your destinations](#allowlist-link-destinations) and send each request after a [real user gesture](#user-activation-requirement), then [design your app](#design-for-the-modal) for the cases where the modal still appears.
+If your connector is published in the [Connectors Directory](https://claude.com/docs/connectors/directory.md), you can declare a set of trusted destinations that open immediately without the modal. Custom connectors and locally configured servers can't declare them. To skip the modal for a directory connector, [allowlist your destinations](#allowlist-link-destinations) and send each request after a [real user gesture](#user-activation-requirement), then [design your app](#design-for-the-modal) for the cases where the modal still appears.
 
 ## Default link behavior
 
-A `ui/open-link` request displays a confirmation modal showing the destination URL. If the user confirms, the link opens in a new tab. If they dismiss the modal, the request resolves as cancelled.
+A `ui/open-link` request for a web URL displays a confirmation modal showing the destination URL. If the user confirms, the link opens in a new tab. On the web and in Claude Desktop, if they dismiss the modal, the result has `isError: true`. There, while an approval request is waiting, Claude can also refuse a `ui/open-link` request without showing the modal, with the same result.
 
 ## Allowlist link destinations
 
@@ -23,7 +23,7 @@ Each entry must be an HTTPS origin or a custom URI scheme:
 | Entry shape | Example | Matches |
 | - | - | - |
 | HTTPS origin | `https://docs.example.com` | Any `https://` URL whose hostname is exactly `docs.example.com`, case-insensitive. Subdomains don't match implicitly, so list each one you need. Port isn't compared. |
-| Custom URI scheme | `example-app` or `example-app:` | Any URL with the scheme `example-app:`, typically a deep link into your native mobile or desktop app. |
+| Custom URI scheme | `example-app` or `example-app:` | Any URL with the scheme `example-app:`, typically a deep link into your native mobile or desktop app, though Claude Desktop doesn't open these links. |
 
 Entries that don't fit one of these shapes are ignored. This includes bare hostnames such as `example.com`, `http://` origins, and malformed values.
 
@@ -41,7 +41,7 @@ These destinations open immediately:
 
 * `https://example.com/pricing`
 * `https://docs.example.com/getting-started?ref=claude`
-* `example-app://open/project/123`
+* `example-app://open/project/123`, except in Claude Desktop
 
 These destinations still show the confirmation modal:
 
@@ -57,7 +57,7 @@ A custom-scheme entry must name a scheme your application registers and owns. En
 
 Claude bypasses the modal only when the `ui/open-link` request follows a real user gesture in your app, such as a button click.
 
-If your app sends `ui/open-link` without a preceding gesture, for example programmatically, on a timer, or after the browser's activation window has expired, Claude shows the modal so the user's confirmation click supplies the gesture the browser requires to open a new tab.
+If your app sends `ui/open-link` without a preceding gesture, for example programmatically, on a timer, or after the browser's activation window has expired, Claude doesn't bypass the modal, whose confirmation click supplies the gesture the browser requires to open a new tab.
 
 > [!NOTE]
 >
@@ -67,9 +67,9 @@ If your app sends `ui/open-link` without a preceding gesture, for example progra
 
 Even with an allowlist configured, the modal still appears in some cases, so your app should remain usable when it does:
 
-* Custom and local connectors always show the modal, and your app may run outside the directory during development or in self-hosted deployments
-* Destinations not on your allowlist, or added since your last published directory update, show the modal
-* Requests without user activation show the modal
+* Custom and local connectors can't declare an allowlist, and your app may run outside the directory during development or in self-hosted deployments
+* Web destinations not on your allowlist, or added since your last published directory update, show the modal
+* Requests without user activation don't bypass the modal
 
 Provide enough context in your UI that the destination URL shown in the modal is recognizable to the user.
 

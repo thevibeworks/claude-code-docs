@@ -8,6 +8,52 @@
 
 For changes to the apps themselves, see the [Claude Desktop changelog](https://claude.com/docs/cowork/changelog.md), its [configuration changelog](https://claude.com/docs/third-party/claude-desktop/configuration-changelog.md), and the [Claude Code changelog](https://code.claude.com/docs/en/changelog).
 
+**2026.11.24.1**
+
+* (breaking) Changed the old Compliance API address of Claude for Government Web to return a `410` error in place of an empty list of events. If your SIEM or log tool still calls it, move the tool to the current [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) with a new key.
+* (breaking) Changed [**Block automatic updates**](https://claude.com/docs/government/config/settings.md#block-automatic-updates) to also cover the Claude Code command-line tool, in organizations whose **Config** page has a **Claude Code** section. Where the setting is on, `claude update` and `claude install` now install nothing, so [distribute new versions with a package manager](https://claude.com/docs/government/deploy-claude-code/configure.md).
+* (breaking) Changed the Claude Code command-line tool for organizations whose **Config** page has no **Claude Code** section. After sign-in, it no longer contacts `api.anthropic.com` before it fetches a web page. It also stops running [helper commands such as `proxyAuthHelper`](https://claude.com/docs/government/deploy-claude-code/configure#things-to-know), and ignores keys such as `permissions.defaultMode`, `modelPicker`, and `policyHelper` in your devices' managed settings.
+* Changed the default [**Session idle timeout**](https://claude.com/docs/government/config/settings.md#session-idle-timeout) from 24 hours to 12 hours. An existing tenant that was on the default keeps 24 hours as a saved value until an administrator changes it or selects **Reset to default**, which now gives 12 hours. The Compliance API shows that saved value as a change by Anthropic.
+* Added a [warning before a browser session ends](https://claude.com/docs/government/account/sessions.md#how-long-sessions-last) in the Admin Console and account pages, with a **Stay signed in** button when the idle timeout is near. Signing in again now returns you to the same page.
+* Changed the **Config** page to show the Design and Slides settings together in a new **Artifact types** group, under **Product availability**.
+* Added [**Block nonessential services**](https://claude.com/docs/government/config/settings.md), a Config page setting that is off by default: when it is on, Claude Desktop goes without optional features such as connector widgets, connector and website icons, and some file previews.
+* Added [skill uploads](https://claude.com/docs/government/config/plugins-and-connectors.md) to the **Plugins** card: an administrator can add one skill from a `.skill` file or a zip of its folder.
+* Added **Deactivate** and **Reactivate** to the menu on each card of the [**Users**](https://claude.com/docs/government/org-admin/users.md#deactivated-users) page, for accounts that your directory doesn't manage.
+* Added [emails from Anthropic](https://claude.com/docs/government/tenant-admin/admins.md) to administrators about service incidents and product updates, with **Claude for Government** as the sender.
+* Added emails to [tenant administrators](https://claude.com/docs/government/tenant-admin/admins.md) when directory sync (SCIM) changes the address of a tenant administrator or Primary Owner, or turns a tenant administrator's account off or on.
+* Added a **Needs replacing** mark on the [**Identity and access**](https://claude.com/docs/government/tenant-admin/identity-and-access.md#connect-your-directory) page for SCIM tokens whose creator is no longer an active tenant administrator.
+* Changed the [**User email addresses**](https://claude.com/docs/government/org-admin/users.md#copy-user-email-addresses) page for an organization or tenant with more than 5,000 addresses: long lists now have an **Open** link to a plain text page in place of **Copy** buttons.
+* Changed several refused sign-ins that showed raw error text in the browser: each now shows a page, or the sign-in form with a message, that says what to do next.
+* Changed a setting that Claude for Government sends to Claude Desktop 7.37095.0 or later, so an app that is open during this release may ask once for a restart.
+* Improved keyboard use of the Admin Console: keyboard focus is easier to see. In Windows contrast themes, the console also shows which option, tab, or menu row is selected and whether a switch is on, and text boxes on the sign-in pages show focus.
+* Improved two messages in the Admin Console: a setup step that waits on Anthropic now says how to follow up, and the **Seats** page points to the **Billing** page when a seat tier is full.
+
+**2026.11.19.1**
+
+* (breaking) Changed the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md#query-parameters) to honor the `order` parameter, which it ignored before. With `order=asc`, events come oldest first and `after_id` pages toward newer events. A value other than `asc` or `desc` returns a `400`.
+* (breaking) Removed a few undocumented admin routes. The Admin Console and the documented APIs work as before. If a script that calls an undocumented route stops working, contact your Anthropic representative.
+* Fixed two problems with project files in the import from Claude for Government Web: some files with the same or similar names were left out, and Claude couldn't open some Word and PDF documents. In imports from now on, a file with a clashing name gets a number, such as `notes-2.md`, and a document that the web app kept only as text arrives as a text file, such as `Policy.docx.txt`.
+* Fixed **This page couldn't load** for administrators of a tenant that has no organization yet: they now see the tenant portal.
+* Fixed members being told that a model isn't available to them when Claude for Government briefly couldn't check their seat tier: they now get a temporary error that their app retries.
+* Fixed lists on the **Config** page adding a removed entry back on **Save changes** when its text was still in the entry box.
+* Fixed a held Enter on a **Remove** button removing several entries from Claude Code's connector, plugin source, and hook lists on the **Config** page.
+* Fixed Compliance API requests failing with `cursor not found` when `before_id` or `after_id` names an event that is no longer stored or is outside the request's time range.
+* Fixed the confirmation for a sign-in rule change wrongly saying that moving people revokes their API keys. [Admin API keys](https://claude.com/docs/government/org-admin/admin-api-keys.md) aren't tied to the person who created them, so they keep working.
+* Changed connecting single sign-on for the first time: your tenant now needs at least one tenant administrator whose address is at a verified domain. Once single sign-on is connected, the last such administrator can't be removed.
+* Changed [emailed sign-in links](https://claude.com/docs/government/tenant-admin/identity-and-access.md#emailed-sign-in-link) for agencies that didn't [move from the web app](https://claude.com/docs/government/moving-from-web.md): a tenant administrator whose address isn't at a verified domain can now request a link until single sign-on is connected, instead of losing that option once a domain is verified.
+* Changed the subject of the sign-in link email to end with your tenant's name.
+* Changed the tenant portal's **Admins** page: tenant administrators can now make any active member a tenant administrator without first making them an Owner.
+* Removed the [lock](https://claude.com/docs/government/config/overview.md#locks) option from an organization's group settings on the **Config** page, except on the **Allowed connectors**, **Approved plugin sources**, and **Blocked plugin sources** lists. Values and locks that you already saved stay as they are, and you can still remove a saved lock.
+* Added a limit on plugin uploads sent at the same time: past it, an upload is refused right away and can be tried again.
+* Changed the [Compliance API](https://claude.com/docs/government/org-admin/compliance-api.md) so that a request no longer needs a lower time bound: without one, it covers the 30 days the API serves.
+* Added a way to [add a tenant administrator by email address](https://claude.com/docs/government/tenant-admin/admins.md#adding-a-tenant-administrator) until single sign-on is connected.
+* Added an email that tells a tenant's administrators when one of them adds or removes a tenant administrator.
+* Added limits on how often tenant administrators can be added or removed: past a limit, nothing changes and the **Admins** page says when to try again.
+* Added a warning, before you remove someone's Primary Owner role, that routing rules can then move them to another organization.
+* Added diagonal lines to output tokens in the **Token usage** chart on the **Analytics** page, so that input and output tokens can be told apart without relying on color.
+* Improved the [**Readiness**](https://claude.com/docs/government/org-admin/readiness.md) page: each step under **Also review** now says why it is listed, and the page flags a product whose settings leave members nothing to use, and a seat tier whose members have no model to pick.
+* Improved search on the **Config** page: it also finds a setting by its choices and by related terms.
+
 **2026.11.17.1**
 
 * (breaking) Changed the Code tab in Claude Desktop to need [version 3.1623.4](https://claude.com/docs/cowork/changelog.md#v3-1623-4) or later: on an older version, members see **This version of Claude Desktop is too old for the Code tab** until they update the app. Chat and Cowork aren't affected.

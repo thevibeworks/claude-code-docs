@@ -8,6 +8,40 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+**v7.37095.0**
+
+2026-11-24
+
+| MDM key | Type | Description |
+| - | - | - |
+| [`artifactsEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#artifactsenabled) · Beta | `boolean` | Allow Artifacts |
+| [`artifactsDesignSystemPlugins`](https://claude.com/docs/third-party/claude-desktop/configuration#artifactsdesignsystemplugins) · Beta | `string[]` | Design systems |
+| [`artifactsDesignEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#artifactsdesignenabled) · Beta | `boolean` | Allow Design |
+| [`artifactsSlidesEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#artifactsslidesenabled) · Beta | `boolean` | Allow Slides |
+
+**JSON (e.g. for non-MDM users or Bootstrap):**
+
+```json theme={null}
+{
+  "artifacts": {
+    "enabled": "<boolean>",
+    "designSystemPlugins": ["<string>"],
+    "design": {
+      "enabled": "<boolean>"
+    },
+    "slides": {
+      "enabled": "<boolean>"
+    }
+  }
+}
+```
+
+These four keys are new to the configuration reference. Versions from 4.16336.0 already read `artifactsEnabled`, `artifactsDesignEnabled` and `artifactsSlidesEnabled`, and versions from 5.11492.0 already read `artifactsDesignSystemPlugins`.
+
+**Changed:**
+
+* `disableAutoUpdates`, `disableNonessentialTelemetry` and `userPluginMarketplacesEnabled`: local Code sessions now update plugins automatically from marketplaces that have auto-update on in Claude Code. Each of these keys also stops those updates, unless Claude Code's own settings allow them: either of the first two when it is `true`, the third when it is `false`.
+
 **v6.28899.6**
 
 2026-11-20

@@ -1140,15 +1140,21 @@ type Model =
   | "claude-sonnet-4-6"
   | "claude-haiku-4-5"
   | "claude-haiku-4-5-20251001"
-  /** Powerful intelligence for long-running agents and coding */
-  | "claude-opus-4-5"
-  /** Powerful intelligence for long-running agents and coding */
-  | "claude-opus-4-5-20251101"
   /**
    * New class of intelligence, strongest in coding and cybersecurity
    * @deprecated Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
    */
   | "claude-mythos-preview"
+  /**
+   * Powerful intelligence for long-running agents and coding
+   * @deprecated Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+   */
+  | "claude-opus-4-5"
+  /**
+   * Powerful intelligence for long-running agents and coding
+   * @deprecated Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+   */
+  | "claude-opus-4-5-20251101"
   /**
    * High-performance model for agents and coding
    * @deprecated Will reach end-of-life on November 30, 2026. Please migrate to claude-sonnet-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
@@ -4432,6 +4438,10 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 
   Anthropic has disabled the organization for trust and safety reasons. An organization disabled for any other reason, such as billing, does not get this code. `appeal_url`, when present, is where the organization can appeal.
 
+- `WorkspaceHumanReviewDisabledError` (HTTP status 400, error code `workspace_human_review_disabled`)
+
+  The request's Workspace has Human Review turned off, and this operation is not available there. Use a Workspace with Human Review on.
+
 - `EnforcedSpendLimitReachedError` (HTTP status 429, error code `enforced_spend_limit_reached`)
 
   The organization has crossed the monthly API usage threshold of its API tier.
@@ -5272,9 +5282,15 @@ type BetaManagedAgentsModel =
   | "claude-sonnet-4-6"
   | "claude-haiku-4-5"
   | "claude-haiku-4-5-20251001"
-  /** Powerful intelligence for long-running agents and coding */
+  /**
+   * Powerful intelligence for long-running agents and coding
+   * @deprecated Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+   */
   | "claude-opus-4-5"
-  /** Powerful intelligence for long-running agents and coding */
+  /**
+   * Powerful intelligence for long-running agents and coding
+   * @deprecated Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+   */
   | "claude-opus-4-5-20251101"
   /**
    * High-performance model for agents and coding
@@ -8217,13 +8233,13 @@ interface BetaManagedAgentsSessionUsage {
   /** Tokens used to create prompt cache entries, broken down by cache TTL. */
   cache_creation?: BetaManagedAgentsCacheCreationUsage;
   /** Total tokens read from prompt cache. */
-  cache_read_input_tokens?: number; // format: int32
+  cache_read_input_tokens?: number; // format: int64
   /** Total input tokens consumed across all turns. */
-  input_tokens?: number; // format: int32
+  input_tokens?: number; // format: int64
   /** Cumulative list cost of the session across all turns, priced at public list rates. Absent until cost tracking is available for the session. */
   list_cost?: BetaMonetaryAmount | null; // beta header: managed-agents-2026-04-01
   /** Total output tokens generated across all turns. */
-  output_tokens?: number; // format: int32
+  output_tokens?: number; // format: int64
   /** Cumulative server-executed tool usage across all turns. Absent until server-tool tracking is available for the session. */
   server_tool_use?: BetaManagedAgentsServerToolUsage | null; // beta header: managed-agents-2026-04-01
 }
@@ -8351,9 +8367,9 @@ interface BetaManagedAgentsMemoryStoreResource {
 
 interface BetaManagedAgentsCacheCreationUsage {
   /** Tokens used to create 1-hour ephemeral cache entries. */
-  ephemeral_1h_input_tokens?: number; // format: int32
+  ephemeral_1h_input_tokens?: number; // format: int64
   /** Tokens used to create 5-minute ephemeral cache entries. */
-  ephemeral_5m_input_tokens?: number; // format: int32
+  ephemeral_5m_input_tokens?: number; // format: int64
 }
 
 interface BetaManagedAgentsServerToolUsage {
@@ -10026,13 +10042,13 @@ interface BetaManagedAgentsSessionUsageSnapshot {
   /** Tokens used to create prompt cache entries, broken down by cache TTL. */
   cache_creation?: BetaManagedAgentsCacheCreationUsage;
   /** Total tokens read from prompt cache. */
-  cache_read_input_tokens?: number; // format: int32
+  cache_read_input_tokens?: number; // format: int64
   /** Total input tokens consumed across all turns. */
-  input_tokens?: number; // format: int32
+  input_tokens?: number; // format: int64
   /** Cumulative list cost of the session across all turns, priced at public list rates. */
   list_cost?: BetaMonetaryAmount;
   /** Total output tokens generated across all turns. */
-  output_tokens?: number; // format: int32
+  output_tokens?: number; // format: int64
   /** Cumulative server-executed tool usage across all turns. */
   server_tool_use?: BetaManagedAgentsServerToolUsage;
 }
@@ -10993,13 +11009,13 @@ interface BetaManagedAgentsSessionThreadUsage {
   /** Tokens used to create prompt cache entries, broken down by cache TTL. */
   cache_creation?: BetaManagedAgentsCacheCreationUsage;
   /** Total tokens read from prompt cache. */
-  cache_read_input_tokens?: number; // format: int32
+  cache_read_input_tokens?: number; // format: int64
   /** Total input tokens consumed across all turns. */
-  input_tokens?: number; // format: int32
+  input_tokens?: number; // format: int64
   /** Cumulative list cost of this thread across all turns, priced at public list rates. Absent until cost tracking is available for the thread. Each figure is rounded to the nearest cent independently and the session's aggregate `usage.list_cost` additionally includes session runtime, so per-thread costs do not sum exactly to the session figure; the session figure is authoritative and is what a budget is enforced against. */
   list_cost?: BetaMonetaryAmount | null; // beta header: managed-agents-2026-04-01
   /** Total output tokens generated across all turns. */
-  output_tokens?: number; // format: int32
+  output_tokens?: number; // format: int64
   /** Cumulative server-executed tool usage across all turns of this thread. Absent until server-tool tracking is available for the thread. */
   server_tool_use?: BetaManagedAgentsServerToolUsage | null; // beta header: managed-agents-2026-04-01
 }
@@ -11378,12 +11394,15 @@ const client = new Anthropic({
 });
 
 const betaManagedAgentsDeployment = await client.beta.deployments.create({
-  agent: "string",
-  environment_id: "x",
+  agent: { id: "agent_011CZkYpogX7uDKUyvBTophP", type: "agent" },
+  environment_id: "env_011CZkZ9X2dpNyB7HsEFoRfW",
   initial_events: [
-    { content: [{ text: "Where is my order #1234?", type: "text" }], type: "user.message" }
+    {
+      content: [{ text: "Compile yesterday's orders into report.md.", type: "text" }],
+      type: "user.message"
+    }
   ],
-  name: "x"
+  name: "Daily order report"
 });
 
 console.log(betaManagedAgentsDeployment.id);
@@ -16385,10 +16404,16 @@ body: string;
 
 ## Beta › User Profiles
 
+Register the end customers that your platform serves, so each request can name who it's for. To get started, see the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript).
+
 ### Create User Profile
 
 - Signature: `client.beta.userProfiles.create(params: UserProfileCreateParams, options?: RequestOptions): BetaUserProfile`
 - Endpoint: `POST /v1/user_profiles`
+
+Register one of your end customers and get the ID to send on the requests you make for them.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript#create-a-profile-for-each-end-customer) for what to send.
 
 #### Example request
 
@@ -16553,6 +16578,10 @@ interface BetaUserProfileExternalUserDetails {
 - Signature: `client.beta.userProfiles.list(params?: UserProfileListParams, options?: RequestOptions): PageCursor<BetaUserProfile>`
 - Endpoint: `GET /v1/user_profiles`
 
+List the user profiles in your organization, newest first by default.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript) for how to set up and manage profiles.
+
 #### Example request
 
 ```ts
@@ -16635,6 +16664,10 @@ interface UserProfileListParams {
 - Signature: `client.beta.userProfiles.retrieve(userProfileID: string, params?: UserProfileRetrieveParams, options?: RequestOptions): BetaUserProfile`
 - Endpoint: `GET /v1/user_profiles/{user_profile_id}`
 
+Get a user profile by ID to check the details stored for it.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript) for how to set up and manage profiles.
+
 #### Example request
 
 ```ts
@@ -16699,6 +16732,10 @@ interface UserProfileRetrieveParams {
 
 - Signature: `client.beta.userProfiles.update(userProfileID: string, params: UserProfileUpdateParams, options?: RequestOptions): BetaUserProfile`
 - Endpoint: `POST /v1/user_profiles/{user_profile_id}`
+
+Change the details of a user profile, leaving the fields that you don't send as they are.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript#update-a-profile) for how each field is updated.
 
 #### Example request
 
@@ -16782,6 +16819,10 @@ interface UserProfileUpdateParams {
 - Signature: `client.beta.userProfiles.delete(userProfileID: string, params?: UserProfileDeleteParams, options?: RequestOptions): BetaDeletedUserProfile`
 - Endpoint: `DELETE /v1/user_profiles/{user_profile_id}`
 
+Delete a user profile, for example when the end customer closes their account.
+
+Stop sending the profile's ID first. See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript#delete-a-profile) for what happens after a delete.
+
 #### Example request
 
 ```ts
@@ -16836,6 +16877,10 @@ interface BetaDeletedUserProfile {
 
 - Signature: `client.beta.userProfiles.createEnrollmentURL(userProfileID: string, params?: UserProfileCreateEnrollmentURLParams, options?: RequestOptions): BetaUserProfileEnrollmentURL`
 - Endpoint: `POST /v1/user_profiles/{user_profile_id}/enrollment_url`
+
+Create a link that sends the profile's end customer to the Verification Portal from Claude Platform on AWS.
+
+On the Claude API, create an action URL instead. See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=typescript) for when to create the link and what the end customer sees.
 
 #### Example request
 
@@ -16897,6 +16942,10 @@ interface BetaUserProfileEnrollmentURL {
 
 - Signature: `client.beta.userProfiles.actionURLs.create(userProfileID: string, params: ActionURLCreateParams, options?: RequestOptions): BetaUserProfileActionURL`
 - Endpoint: `POST /v1/user_profiles/{user_profile_id}/action_urls`
+
+Create a link that sends the profile's end customer to the Verification Portal.
+
+See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=typescript) for when to create the link and what the end customer sees.
 
 #### Example request
 
@@ -18951,8 +19000,8 @@ const client = new Anthropic({
 });
 
 const betaFederationIssuer = await client.beta.organization.federation.issuers.create({
-  issuer_url: "x",
-  name: "x"
+  issuer_url: "https://token.actions.githubusercontent.com",
+  name: "github-actions"
 });
 
 console.log(betaFederationIssuer.id);
@@ -19443,10 +19492,10 @@ const client = new Anthropic({
 });
 
 const betaFederationRule = await client.beta.organization.federation.rules.create({
-  issuer_id: "issuer_id",
+  issuer_id: "fdis_01SDCCSbTxrXDpWc1phhtcfK",
   match: {},
-  name: "x",
-  oauth_scope: "x",
+  name: "prod-deploy-pipeline",
+  oauth_scope: "workspace:developer",
   target: { service_account_id: "svac_01SDCCSbTxrXDpWc1phhtcfK", type: "service_account" }
 });
 
@@ -20020,7 +20069,7 @@ const client = new Anthropic({
 
 const betaFederationRuleWorkspace =
   await client.beta.organization.federation.rules.workspaces.add("federation_rule_id", {
-    workspace_id: "workspace_id"
+    workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
   });
 
 console.log(betaFederationRuleWorkspace.created_by_actor_id);
@@ -22183,7 +22232,7 @@ interface BetaDataResidency {
 }
 
 interface BetaInferenceDataPrivacy {
-  /** The Workspace's human review setting. Human review is off only while this is `disabled` and Anthropic's approval stands. If Anthropic withdraws approval, review is back on, though this field still reads `disabled`. */
+  /** The Workspace's human review setting. Human review is off only while this is `disabled` and Anthropic's approval stands. */
   human_review?: BetaAnthropicHumanReview;
   /** Where the data Anthropic's safeguards systems retain for the Workspace goes. `external` sends it to the External Storage that `external_storage_id` names. `internal` means no External Storage: it goes to Anthropic's storage or, on a cloud provider's platform, to that provider's storage. A recent change may not have taken effect yet. */
   safeguards_storage?: BetaStorageMember;
@@ -23431,7 +23480,7 @@ const client = new Anthropic({
 
 const betaServiceAccountWorkspaceMember =
   await client.beta.organization.workspaces.serviceAccounts.add("workspace_id", {
-    service_account_id: "service_account_id",
+    service_account_id: "svac_01SDCCSbTxrXDpWc1phhtcfK",
     workspace_role: "workspace_admin"
   });
 
@@ -25444,6 +25493,12 @@ bucket; every combination is returned across pages. With no `group_by[]`
 and no `time_bucket_width`, a single row aggregates the whole range.
 Includes all usage, whether or not it is attributable to a seat user.
 Requires an API key with the `read:analytics` scope, or an Admin API key.
+This endpoint is in beta and is not available to organizations with HIPAA
+readiness enabled: their API requests return a 400 error. A parent
+organization's report across its child organizations leaves out the child
+organizations that have HIPAA readiness enabled. If the parent has child
+organizations and all of them have HIPAA readiness enabled, the request
+returns a 400 error.
 
 #### Example request
 
@@ -25530,9 +25585,9 @@ interface UsageListParams {
   actor_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** Filter to usage attributed to specific kinds of identity. Use `group_by[]=actor_type` to break out per-kind values. */
   actor_types?: Array<BetaAnalyticsActorType> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
-  /** Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Platform organizations only. */
+  /** Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. */
   agent_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
-  /** Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Platform organizations only. */
+  /** Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. */
   api_key_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. Use `group_by[]=claude_tag_category` to break out per-category values. */
   claude_tag_categories?: Array<BetaAnalyticsClaudeTagCategory> | null; // query parameter, maxItems: 100
@@ -25540,11 +25595,11 @@ interface UsageListParams {
   claude_tag_user_ids?: Array<string> | null; // query parameter, maxItems: 100
   /** Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values. */
   context_windows?: Array<BetaAnalyticsContextWindow> | null; // query parameter, maxItems: 100
-  /** Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Platform organizations only. */
+  /** Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. */
   deployment_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** End of range, exclusive. Required when `time_bucket_width` is set. Without `time_bucket_width`, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days. */
   ending_at?: string | null; // query parameter, format: date-time
-  /** Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Platform organizations only. */
+  /** Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. */
   environment_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** If true, omit rows whose `actor` is a `user_actor` with `deleted: true`. Requires `group_by[]=actor`. Rows for other actor types, and rows whose `actor` is null, are always kept. A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual. */
   exclude_deleted_users?: boolean; // query parameter
@@ -25560,7 +25615,7 @@ interface UsageListParams {
   order?: BetaAnalyticsUsageCostSortOrder; // query parameter
   /** Row order. A metric ranks rows by that metric in the `order` direction. `time` orders rows by time bucket in the `order` direction (newest first by default) and, within a bucket, by `total_tokens`, highest first. `time` takes effect only with `time_bucket_width`; without it, `time` is the same as `total_tokens`. Defaults to `total_tokens`. */
   order_by?: BetaAnalyticsUsageOrderBy; // query parameter
-  /** Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values. */
+  /** Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. The report leaves out child organizations with HIPAA readiness enabled, and naming one returns a 400 error. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values. */
   organization_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** Opaque cursor from a previous response's `next_page` field. */
   page?: string | null; // query parameter
@@ -25568,9 +25623,9 @@ interface UsageListParams {
   products?: Array<BetaAnalyticsUsageCostProductFilter> | null; // query parameter, maxItems: 100
   /** Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches. */
   rbac_group_ids?: Array<string> | null; // query parameter, maxItems: 100
-  /** Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization. */
+  /** Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. */
   service_tiers?: Array<BetaAnalyticsServiceTier> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
-  /** Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Platform organizations only. */
+  /** Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. */
   session_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values. */
   slack_channel_ids?: Array<string> | null; // query parameter, maxItems: 100
@@ -25578,9 +25633,9 @@ interface UsageListParams {
   speeds?: Array<BetaAnalyticsSpeed> | null; // query parameter, maxItems: 100
   /** Time-bucket granularity. When set, rows are returned per time bucket (one per bucket and dimension combination with usage) and each row's `starting_at` and `ending_at` are that bucket's bounds; the time bucket counts toward `limit`. `ending_at` is required when `time_bucket_width` is set, and with `time_bucket_width="1m"` the range may span at most 24 hours. When omitted, each row aggregates the requested range with `starting_at` and `ending_at` each rounded down to the hour. */
   time_bucket_width?: BetaAnalyticsTimeBucketWidth | null; // query parameter
-  /** Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Platform organizations only. */
+  /** Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. */
   user_profile_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
-  /** Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization. */
+  /** Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. */
   workspace_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** This endpoint is in beta: requests must send `analytics-usage-cost-2026-08-24` in this header. */
   betas?: Array<AnthropicBeta>; // header parameter
@@ -25656,7 +25711,7 @@ interface BetaAnalyticsUsageGroup {
   product: string | null;
   /** RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`. */
   rbac_group_id: string | null;
-  /** Service tier the usage was served at. Populated only when `service_tier` is in `group_by[]`; null for usage with no service tier (for example, code execution) and for Claude Enterprise usage. */
+  /** Service tier the usage was served at. Populated only when `service_tier` is in `group_by[]`; null for usage with no service tier (for example, code execution). */
   service_tier: BetaAnalyticsServiceTier | null; // beta header: analytics-usage-cost-2026-08-24
   /** Claude Managed Agents session that incurred the usage. Populated only when `session_id` is in `group_by[]`; null for usage outside a managed session. */
   session_id: string | null; // beta header: analytics-usage-cost-2026-08-24
@@ -25664,9 +25719,9 @@ interface BetaAnalyticsUsageGroup {
   slack_channel_id: string | null;
   /** Inference speed mode of the usage or cost: `fast` or `standard`. Null unless `speed` is in `group_by[]`. */
   speed: BetaAnalyticsSpeed | null;
-  /** User profile the usage was attributed to, as a tagged `uprof_` ID. Populated only when `user_profile_id` is in `group_by[]`; null for usage that named no profile and for Claude Enterprise usage. */
+  /** User profile the usage was attributed to, as a tagged `uprof_` ID. Populated only when `user_profile_id` is in `group_by[]`; null for usage that named no profile. */
   user_profile_id: string | null; // beta header: analytics-usage-cost-2026-08-24
-  /** Workspace the usage occurred in, as a tagged workspace ID, including the organization's default workspace. Populated only when `workspace_id` is in `group_by[]`; null for Claude Enterprise usage. */
+  /** Workspace the usage occurred in, as a tagged workspace ID, including a Claude Platform organization's default workspace. Populated only when `workspace_id` is in `group_by[]`; null for usage in a Claude Enterprise organization's default workspace, which is its only workspace. */
   workspace_id: string | null; // beta header: analytics-usage-cost-2026-08-24
 }
 
@@ -25774,7 +25829,13 @@ cost in the range, ranked by spend or ordered by time bucket; every
 combination is returned across pages. With no `group_by[]` and no
 `time_bucket_width`, a single row aggregates the whole range. Includes
 all cost, whether or not it is attributable to a seat user. Requires an
-API key with the `read:analytics` scope, or an Admin API key.
+API key with the `read:analytics` scope, or an Admin API key. This
+endpoint is in beta and is not available to organizations with HIPAA
+readiness enabled: their API requests return a 400 error. A parent
+organization's report across its child organizations leaves out the child
+organizations that have HIPAA readiness enabled. If the parent has child
+organizations and all of them have HIPAA readiness enabled, the request
+returns a 400 error.
 
 #### Example request
 
@@ -25855,9 +25916,9 @@ interface CostListParams {
   actor_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** Filter to usage attributed to specific kinds of identity. Use `group_by[]=actor_type` to break out per-kind values. */
   actor_types?: Array<BetaAnalyticsActorType> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
-  /** Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. Claude Platform organizations only. */
+  /** Filter to usage incurred by sessions of specific Claude Managed Agents agents. Use `group_by[]=agent_id` to break out per-agent values. */
   agent_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
-  /** Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. Claude Platform organizations only. */
+  /** Filter to usage authenticated by specific API keys, by tagged API key ID (`apikey_...`), whichever identity the usage is attributed to. Include an empty entry (`api_key_ids[]=`) to also match usage that no API key authenticated. Use `group_by[]=api_key_id` to break out per-key values; usage without a key has a null `api_key_id`. */
   api_key_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** Filter to Claude Tag (Claude in Slack) usage in specific spend categories. Usage with no category never matches. Use `group_by[]=claude_tag_category` to break out per-category values. */
   claude_tag_categories?: Array<BetaAnalyticsClaudeTagCategory> | null; // query parameter, maxItems: 100
@@ -25865,11 +25926,11 @@ interface CostListParams {
   claude_tag_user_ids?: Array<string> | null; // query parameter, maxItems: 100
   /** Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values. */
   context_windows?: Array<BetaAnalyticsContextWindow> | null; // query parameter, maxItems: 100
-  /** Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. Claude Platform organizations only. */
+  /** Filter to usage incurred by Claude Managed Agents sessions that specific deployments started. Use `group_by[]=deployment_id` to break out per-deployment values. */
   deployment_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** End of range, exclusive. Required when `time_bucket_width` is set. Without `time_bucket_width`, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days. */
   ending_at?: string | null; // query parameter, format: date-time
-  /** Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. Claude Platform organizations only. */
+  /** Filter to usage incurred by Claude Managed Agents sessions that ran in specific environments. Use `group_by[]=environment_id` to break out per-environment values. */
   environment_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** If true, omit rows whose `actor` is a `user_actor` with `deleted: true`. Requires `group_by[]=actor`. Rows for other actor types, and rows whose `actor` is null, are always kept. A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual. */
   exclude_deleted_users?: boolean; // query parameter
@@ -25885,7 +25946,7 @@ interface CostListParams {
   order?: BetaAnalyticsUsageCostSortOrder; // query parameter
   /** Row order. A metric ranks rows by that metric in the `order` direction. `time` orders rows by time bucket in the `order` direction (newest first by default) and, within a bucket, by `amount`, highest first. `time` takes effect only with `time_bucket_width`; without it, `time` is the same as `amount`. Defaults to `amount`. */
   order_by?: BetaAnalyticsCostOrderBy; // query parameter
-  /** Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values. */
+  /** Filter a parent organization's report to specific child organizations, by organization UUID or `org_` ID; an ID that is not one of its child organizations matches nothing. The report leaves out child organizations with HIPAA readiness enabled, and naming one returns a 400 error. Requires an API key created at the parent organization level. Use `group_by[]=organization_id` to break out per-organization values. */
   organization_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** Opaque cursor from a previous response's `next_page` field. */
   page?: string | null; // query parameter
@@ -25893,9 +25954,9 @@ interface CostListParams {
   products?: Array<BetaAnalyticsUsageCostProductFilter> | null; // query parameter, maxItems: 100
   /** Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches. */
   rbac_group_ids?: Array<string> | null; // query parameter, maxItems: 100
-  /** Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization. */
+  /** Filter to specific service tiers. Use `group_by[]=service_tier` to break out per-tier values. */
   service_tiers?: Array<BetaAnalyticsServiceTier> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
-  /** Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. Claude Platform organizations only. */
+  /** Filter to usage incurred by specific Claude Managed Agents sessions, by tagged session ID (`sesn_...`). Use `group_by[]=session_id` to break out per-session values. */
   session_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values. */
   slack_channel_ids?: Array<string> | null; // query parameter, maxItems: 100
@@ -25903,9 +25964,9 @@ interface CostListParams {
   speeds?: Array<BetaAnalyticsSpeed> | null; // query parameter, maxItems: 100
   /** Time-bucket granularity. When set, rows are returned per time bucket (one per bucket and dimension combination with usage) and each row's `starting_at` and `ending_at` are that bucket's bounds; the time bucket counts toward `limit`. `ending_at` is required when `time_bucket_width` is set, and with `time_bucket_width="1m"` the range may span at most 24 hours. When omitted, each row aggregates the requested range with `starting_at` and `ending_at` each rounded down to the hour. */
   time_bucket_width?: BetaAnalyticsTimeBucketWidth | null; // query parameter
-  /** Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. Claude Platform organizations only. */
+  /** Filter to usage attributed to specific user profiles, by tagged user profile ID (`uprof_...`). Use `group_by[]=user_profile_id` to break out per-profile values. */
   user_profile_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
-  /** Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. Claude Platform organizations only; matches nothing for a Claude Enterprise organization. */
+  /** Filter to usage in specific workspaces, by tagged workspace ID (`wrkspc_...`). Use `group_by[]=workspace_id` to break out per-workspace values. */
   workspace_ids?: Array<string> | null; // query parameter, maxItems: 100, beta header: analytics-usage-cost-2026-08-24
   /** This endpoint is in beta: requests must send `analytics-usage-cost-2026-08-24` in this header. */
   betas?: Array<AnthropicBeta>; // header parameter
@@ -25976,7 +26037,7 @@ interface BetaAnalyticsCostGroup {
   product: string | null;
   /** RBAC group (team) the usage is attributed to, in the public tagged `rbac_group_...` spelling — the same spelling the activity resources use for this key, so the same team has one id across resources and it round-trips as an `rbac_group_ids[]` filter value. Populated only when `rbac_group_id` is in `group_by[]`. Any-membership semantics: a user in several groups contributes their full usage to each of those groups' rows, so the named-group rows overlap and their sum can exceed the org total. A null value is the single unassigned row: users in no group on that (UTC) day. For the true org total, run the same query without `group_by[]`. */
   rbac_group_id: string | null;
-  /** Service tier the usage was served at. Populated only when `service_tier` is in `group_by[]`; null for usage with no service tier (for example, code execution) and for Claude Enterprise usage. */
+  /** Service tier the usage was served at. Populated only when `service_tier` is in `group_by[]`; null for usage with no service tier (for example, code execution). */
   service_tier: BetaAnalyticsServiceTier | null; // beta header: analytics-usage-cost-2026-08-24
   /** Claude Managed Agents session that incurred the usage. Populated only when `session_id` is in `group_by[]`; null for usage outside a managed session. */
   session_id: string | null; // beta header: analytics-usage-cost-2026-08-24
@@ -25986,9 +26047,9 @@ interface BetaAnalyticsCostGroup {
   speed: BetaAnalyticsSpeed | null;
   /** Token type when `cost_type` is `tokens`; null otherwise. */
   token_type: BetaAnalyticsTokenType | null;
-  /** User profile the usage was attributed to, as a tagged `uprof_` ID. Populated only when `user_profile_id` is in `group_by[]`; null for usage that named no profile and for Claude Enterprise usage. */
+  /** User profile the usage was attributed to, as a tagged `uprof_` ID. Populated only when `user_profile_id` is in `group_by[]`; null for usage that named no profile. */
   user_profile_id: string | null; // beta header: analytics-usage-cost-2026-08-24
-  /** Workspace the usage occurred in, as a tagged workspace ID, including the organization's default workspace. Populated only when `workspace_id` is in `group_by[]`; null for Claude Enterprise usage. */
+  /** Workspace the usage occurred in, as a tagged workspace ID, including a Claude Platform organization's default workspace. Populated only when `workspace_id` is in `group_by[]`; null for usage in a Claude Enterprise organization's default workspace, which is its only workspace. */
   workspace_id: string | null; // beta header: analytics-usage-cost-2026-08-24
 }
 
@@ -28870,7 +28931,8 @@ marketplaces.
 
 Plugins in members' personal marketplaces are listed with the same detail as the
 organization's own, and their files can be downloaded through the version archive
-endpoint, which records each such download on the Compliance API activity feed.
+endpoint. Those downloads can be recorded on the Compliance API activity feed; the
+version archive endpoint says when.
 
 **Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
 
@@ -29378,9 +29440,9 @@ interface VersionRetrieveParams {
 - Endpoint: `GET /v1/organizations/plugins/{plugin_id}/versions/{version}/content`
 - Beta header: `anthropic-beta: ce-plugins-2026-09-01`
 
-Download one version's `.zip` archive, exactly as stored. Each download of a
-Plugin from a member's personal plugin marketplace is recorded on the Compliance API
-activity feed.
+Download one version's `.zip` archive, exactly as stored. Downloads of Plugins from
+members' personal plugin marketplaces can be recorded on the Compliance API activity
+feed.
 
 The response body is the archive (`Content-Type: application/zip`), sent as an
 attachment whose filename is derived from the Plugin's name; name saved files from
@@ -29393,9 +29455,11 @@ Every read scope above (`read:plugins`, `read:org_audit`, and
 marketplaces, including files that claude.ai's admin settings do not show, and a
 `read:org_audit` or `read:compliance_org_data` key created for all of your parent
 organization's linked organizations can do this in any organization under it that has
-access to this API, by passing `organization_id`. Each such download records a
-`claude_plugin_archive_accessed` event on the Compliance API activity feed,
-identifying the key, the plugin, the version, and the member. Downloads of
+access to this API, by passing `organization_id`. The Compliance API activity feed can
+record such a download as a `claude_plugin_archive_accessed` event, which identifies
+the key, the plugin, the version, and the member. It does so only while activity
+events are captured for the plugin's organization, and a record is not guaranteed even
+then. The files are served whether or not the download is recorded. Downloads of
 organization-owned plugins are not recorded.
 
 Every request must include the beta header `anthropic-beta: ce-plugins-2026-09-01`. A request without it returns `404`, exactly as if the endpoint did not exist. The Plugins API is in beta and is available to Claude Enterprise organizations only. It is not available to Claude Platform (Claude Console) organizations, or to organizations with HIPAA readiness enabled.
@@ -29756,10 +29820,9 @@ Any method can also return the general [HTTP errors](https://platform.claude.com
 List the shares the owner of a member-owned Plugin has given — to every member of
 the organization, to an RBAC Group, or to one member — most recently granted first.
 
-Shares are read-only in this API: members give and withdraw them in claude.ai, and
-who gave a share is recorded on the Compliance API activity feed rather than on the
-share. An organization-owned Plugin has installation settings instead, so this path
-returns 404 for one.
+Shares are read-only in this API: members give and withdraw them in claude.ai. The
+Plugin's `owner` gave each share listed. An organization-owned Plugin has installation
+settings instead of shares, so this path returns 404 for one.
 
 **Accepted credentials:** an Admin API key with the `read:plugins` or `read:org_audit` scope, or a Compliance Access Key with the `read:compliance_org_data` scope.
 
@@ -29823,7 +29886,7 @@ interface ShareListParams {
 #### Returns
 
 ```ts
-/** One share the owner of a member-owned Plugin has given. Shares are read-only in this API and have no ID of their own; who gave a share is recorded on the Compliance API activity feed, not here. */
+/** One share the owner of a member-owned Plugin has given. Shares are read-only in this API and have no ID of their own. The Plugin's `owner` is the member who gave the share. */
 interface BetaPluginShare {
   /** Always `plugin_share`. */
   type: "plugin_share";
@@ -30351,7 +30414,7 @@ const client = new Anthropic({
 });
 
 const betaTelemetryDestination = await client.beta.organization.telemetryDestinations.create({
-  endpoint_url: "x",
+  endpoint_url: "https://gateway.example.com",
   workspaces: { type: "all" }
 });
 
@@ -32349,7 +32412,7 @@ const client = new Anthropic({
 
 const betaClaudeTagSlackChannel =
   await client.beta.organization.claudeTag.slackChannels.create({
-    slack: { channel_id: "xx", workspace_id: "xx" }
+    slack: { channel_id: "C0456EFGH", workspace_id: "T0123ABCD" }
   });
 
 console.log(betaClaudeTagSlackChannel.id);
@@ -32374,8 +32437,8 @@ console.log(betaClaudeTagSlackChannel.id);
     }
   },
   "slack": {
-    "channel_id": "xx",
-    "workspace_id": "xx"
+    "channel_id": "C0456EFGH",
+    "workspace_id": "T0123ABCD"
   },
   "sources": {
     "enabled": {
@@ -32661,8 +32724,8 @@ for await (const betaClaudeTagSlackChannel of client.beta.organization.claudeTag
         }
       },
       "slack": {
-        "channel_id": "xx",
-        "workspace_id": "xx"
+        "channel_id": "C0456EFGH",
+        "workspace_id": "T0123ABCD"
       },
       "sources": {
         "enabled": {
@@ -32783,8 +32846,8 @@ console.log(betaClaudeTagSlackChannel.id);
     }
   },
   "slack": {
-    "channel_id": "xx",
-    "workspace_id": "xx"
+    "channel_id": "C0456EFGH",
+    "workspace_id": "T0123ABCD"
   },
   "sources": {
     "enabled": {
@@ -32898,8 +32961,8 @@ console.log(betaClaudeTagSlackChannel.id);
     }
   },
   "slack": {
-    "channel_id": "xx",
-    "workspace_id": "xx"
+    "channel_id": "C0456EFGH",
+    "workspace_id": "T0123ABCD"
   },
   "sources": {
     "enabled": {
@@ -33855,7 +33918,7 @@ const client = new Anthropic({
 const betaClaudeTagBundleTarget =
   await client.beta.organization.claudeTag.bundles.targets.create(
     "capp_011CZkZjLP1cWxj5EtMmdgbq",
-    { target: { slack_channel_id: "xxxxxxxx", type: "slack_channel" } }
+    { target: { slack_channel_id: "slch_01SvpyRQK3nN6eH9uhRA7n1q", type: "slack_channel" } }
   );
 
 console.log(betaClaudeTagBundleTarget);

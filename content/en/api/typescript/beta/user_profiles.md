@@ -5,10 +5,16 @@ url: https://platform.claude.com/docs/en/api/typescript/beta/user_profiles
 
 # User Profiles
 
+Register the end customers that your platform serves, so each request can name who it's for. To get started, see the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript).
+
 ## Create User Profile
 
 - Signature: `client.beta.userProfiles.create(params: UserProfileCreateParams, options?: RequestOptions): BetaUserProfile`
 - Endpoint: `POST /v1/user_profiles`
+
+Register one of your end customers and get the ID to send on the requests you make for them.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript#create-a-profile-for-each-end-customer) for what to send.
 
 ### Example request
 
@@ -249,6 +255,10 @@ interface BetaUserProfileExternalUserDetails {
 - Signature: `client.beta.userProfiles.list(params?: UserProfileListParams, options?: RequestOptions): PageCursor<BetaUserProfile>`
 - Endpoint: `GET /v1/user_profiles`
 
+List the user profiles in your organization, newest first by default.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript) for how to set up and manage profiles.
+
 ### Example request
 
 ```ts
@@ -331,6 +341,10 @@ interface UserProfileListParams {
 - Signature: `client.beta.userProfiles.retrieve(userProfileID: string, params?: UserProfileRetrieveParams, options?: RequestOptions): BetaUserProfile`
 - Endpoint: `GET /v1/user_profiles/{user_profile_id}`
 
+Get a user profile by ID to check the details stored for it.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript) for how to set up and manage profiles.
+
 ### Example request
 
 ```ts
@@ -395,6 +409,10 @@ interface UserProfileRetrieveParams {
 
 - Signature: `client.beta.userProfiles.update(userProfileID: string, params: UserProfileUpdateParams, options?: RequestOptions): BetaUserProfile`
 - Endpoint: `POST /v1/user_profiles/{user_profile_id}`
+
+Change the details of a user profile, leaving the fields that you don't send as they are.
+
+See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript#update-a-profile) for how each field is updated.
 
 ### Example request
 
@@ -478,6 +496,10 @@ interface UserProfileUpdateParams {
 - Signature: `client.beta.userProfiles.delete(userProfileID: string, params?: UserProfileDeleteParams, options?: RequestOptions): BetaDeletedUserProfile`
 - Endpoint: `DELETE /v1/user_profiles/{user_profile_id}`
 
+Delete a user profile, for example when the end customer closes their account.
+
+Stop sending the profile's ID first. See the [User profiles guide](https://platform.claude.com/docs/en/manage-claude/user-profiles?sdk_languages=typescript#delete-a-profile) for what happens after a delete.
+
 ### Example request
 
 ```ts
@@ -532,6 +554,10 @@ interface BetaDeletedUserProfile {
 
 - Signature: `client.beta.userProfiles.createEnrollmentURL(userProfileID: string, params?: UserProfileCreateEnrollmentURLParams, options?: RequestOptions): BetaUserProfileEnrollmentURL`
 - Endpoint: `POST /v1/user_profiles/{user_profile_id}/enrollment_url`
+
+Create a link that sends the profile's end customer to the Verification Portal from Claude Platform on AWS.
+
+On the Claude API, create an action URL instead. See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=typescript) for when to create the link and what the end customer sees.
 
 ### Example request
 
@@ -593,6 +619,10 @@ interface BetaUserProfileEnrollmentURL {
 
 - Signature: `client.beta.userProfiles.actionURLs.create(userProfileID: string, params: ActionURLCreateParams, options?: RequestOptions): BetaUserProfileActionURL`
 - Endpoint: `POST /v1/user_profiles/{user_profile_id}/action_urls`
+
+Create a link that sends the profile's end customer to the Verification Portal.
+
+See [Send an end customer a link to the Verification Portal](https://platform.claude.com/docs/en/manage-claude/user-profiles-verification-portal?sdk_languages=typescript) for when to create the link and what the end customer sees.
 
 #### Example request
 

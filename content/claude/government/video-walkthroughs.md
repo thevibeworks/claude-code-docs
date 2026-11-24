@@ -190,6 +190,10 @@ Editing settings on the **Config** page for an organization or for one directory
 
 Video: Config essentials (2 min 23 s). Narrated with an AI-generated voice, with on-screen captions.
 
+> [!NOTE]
+>
+> This video gives 24 hours as the default [**Session idle timeout**](https://claude.com/docs/government/config/settings.md#session-idle-timeout). The default is now 12 hours.
+
 > [accordion] Transcript
 >
 > Config sets product behavior for the people you manage. The tenant and each organization share the same page, and each level starts from the one above it.
@@ -293,6 +297,10 @@ What a correctly managed device shows, and the usual causes of an empty model pi
 <video controls preload="metadata" playsInline src="https://mintcdn.com/claude-ai/f0r7JXkdrdWXuNu4/images/government/videos/admin-10-verify-a-managed-device-and-spot-common-failures-v2.mp4?fit=max&auto=format&n=f0r7JXkdrdWXuNu4&q=85&s=03c3b66f877fa1a3e80ce7a23b1176e8" aria-label="Video walkthrough: Verify a managed device and spot common failures" />
 
 Video: Verify a managed device and spot common failures (1 min 40 s). Narrated with an AI-generated voice, with on-screen captions.
+
+> [!NOTE]
+>
+> This video gives 24 hours as the default [**Session idle timeout**](https://claude.com/docs/government/config/settings.md#session-idle-timeout). The default is now 12 hours.
 
 > [accordion] Transcript
 >

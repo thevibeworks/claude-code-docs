@@ -22,7 +22,7 @@ Start at the section that matches where you are:
 
 * **Scoping an app, or extending one that already renders in Claude**: see [what an MCP App can do in Claude](#what-an-mcp-app-can-do-in-claude), such as open in the side panel, embed your website, or give Claude tools to call
 * **New to MCP Apps**: [try an example in Claude Desktop](#try-an-example-mcp-app-in-claude-desktop) to see how an MCP App looks and behaves
-* **Ready to build**: [build your own MCP App](#build-your-own-mcp-app) from a quickstart, an example implementation, or the MCP Apps skills for AI coding agents
+* **Ready to build**: [build your own MCP App](#build-your-own-mcp-app) from a quickstart, an example implementation, or the MCP Apps skills for AI coding agents. First, [check what a capability requires](#check-what-a-capability-requires).
 
 ## What an MCP App can do in Claude
 
@@ -37,7 +37,7 @@ Start at the section that matches where you are:
 
 Check requirements such as these before you build:
 
-* **Organization access**: before you build on a capability such as the side panel, entry points, or app tools, check whether your organization has access by following the steps on that capability's page
+* **Organization access**: the side panel, entry points, app tools, and embedded websites in custom connectors aren't available in every organization. Before you build on one, check whether your organization has access by following the steps on that capability's page. Test with the [unified Claude experience](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude), which combines chat and Cowork. Having that experience doesn't mean that your organization has access.
 * **Remote server**: app tools, entry points, and embedded websites need a connector that's backed by a [remote server](https://claude.com/docs/connectors/building/index.md#choose-where-the-server-runs)
 * **Verified listing**: for a directory connector, entry points and embedded websites are available only under a [Verified](https://claude.com/docs/connectors/verification.md#verified) listing.
   * People who install your connector from a [Community](https://claude.com/docs/connectors/verification.md#community) listing don't get either one, even if both worked while you tested with a custom connector.
@@ -126,7 +126,7 @@ Save the file and restart the desktop app to connect the server.
 
 Once the server is connected, prompt Claude to use it. For example, with the customer segmentation server connected, ask Claude to show you recent customer data.
 
-Claude asks for permission to display the app. Click **Allow once**, or **Always allow** for a server you trust, and the MCP App renders inline in the conversation. If the permission setting in the message box is **Auto**, Claude can display the app without asking.
+If Claude asks for permission to display the app, click **Allow once**, or **Always allow** for a server you trust. The MCP App renders inline in the conversation.
 
 If the tool runs but no app appears, [Troubleshoot MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/troubleshooting.md#tool-call-appears-but-the-app-is-invisible) lists what to check.
 
@@ -148,7 +148,7 @@ An MCP App can run in Claude and in other hosts that support MCP Apps from one c
 
 ### Set `ui.domain` for Claude
 
-Each host defines its own format for the [`Resource._meta.ui.domain`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiResourceMeta.html#domain) field, the sandbox origin your app is served from.
+Each host defines its own format for the [`Resource._meta.ui.domain`](https://modelcontextprotocol.github.io/ext-apps/api/interfaces/app.McpUiResourceMeta.html#domain) field, the sandbox origin your app is served from. Put the field on the content item that your `resources/read` handler returns, with the rest of the resource's `_meta.ui`.
 
 For Claude, the value is the first 32 hex characters of the SHA-256 of your server URL, followed by `.claudemcpcontent.com`. Compute it with this command, replacing `https://example.com/mcp` with your server URL:
 

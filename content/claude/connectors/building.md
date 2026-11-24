@@ -62,7 +62,7 @@ Claude doesn't yet support these MCP features, so don't build a feature that dep
 
 * Resource subscriptions
 * Sampling
-* Advanced or draft capabilities
+* Advanced or draft capabilities, apart from [file transfers](https://claude.com/docs/connectors/building/files.md), which are in beta
 
 If you plan to list the server in the directory, [Design tools that pass review](https://claude.com/docs/connectors/building/review-criteria.md#design-tools-that-pass-review) covers how to name, describe, and annotate tools.
 
@@ -74,6 +74,14 @@ Keep tool results and tool call durations within these limits. They differ betwe
 | - | - | - |
 | Maximum tool result size | \~150,000 characters | 25,000 tokens, configurable with `MAX_MCP_OUTPUT_TOKENS` |
 | Tool call timeout | 240 seconds per tool call | Configurable with `MCP_TOOL_TIMEOUT` |
+
+If a tool starts a job that can outlast the timeout, such as a report export, see [MCP tasks for server authors](https://code.claude.com/docs/en/mcp#mcp-tasks-for-server-authors) for how to accept the job and report its result later. [MCP tasks in cloud sessions and claude.ai chats](https://code.claude.com/docs/en/mcp#mcp-tasks-in-the-cloud) lists where a connector call can become a task.
+
+Once your server advertises file transfers, also follow the [limits on file transfers](https://claude.com/docs/connectors/building/files.md#limits-on-file-transfers).
+
+### Decide whether to support file uploads and downloads
+
+File transfers, which are in beta, let a tool receive a user's file from Claude or return a file to Claude, with the bytes outside the tool call and its result. To build them, see [Support file uploads and downloads](https://claude.com/docs/connectors/building/files.md).
 
 ### Decide whether to add interactive UI
 

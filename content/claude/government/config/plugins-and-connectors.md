@@ -4,11 +4,11 @@
 
 # Manage plugins and connectors
 
-> Upload plugins in Claude for Government: archive rules, size limits, skills packaged as plugins, the Runs code marker, install behavior, updates, and removal.
+> Upload plugins and skills in Claude for Government: archive rules, size limits, the Runs code marker, install behavior, updates, and removal.
 
 > **Who this is for:** Tenant administrators and organization owners who deliver plugins and connectors to the members they manage.
 
-You add plugins on the **Plugins** card and connectors on the **Connectors** card, under **Settings > Config** in the admin portal. The cards themselves are listed under [Integrations](https://claude.com/docs/government/config/settings.md#integrations) in Available settings.
+You add plugins and skills on the **Plugins** card and connectors on the **Connectors** card, under **Settings > Config** in the admin portal. The cards themselves are listed under [Integrations](https://claude.com/docs/government/config/settings.md#integrations) in Available settings.
 
 ## Plugins versus connectors
 
@@ -18,9 +18,9 @@ A plugin is a package that changes how Claude works. It can add skills, slash co
 
 ## Plugin archive formats
 
-On the **Config** page, open the **Plugins** card, click **Add plugins**, and drop the zip. The preview shows the plugin's name, version, description, and any [**Runs code**](#plugins-that-run-code) marker. For one plugin, choose its [install behavior](#install-behavior). The add button saves at once.
+On the **Config** page, open the **Plugins** card, click **Add plugins**, and drop the file. The preview shows the plugin's name, version, description, and any [**Runs code**](#plugins-that-run-code) marker. For a skill or a single plugin package, choose its [install behavior](#install-behavior) and click **Add plugin**. Added plugins are saved at once.
 
-The **Plugins** card accepts a single `.zip` file. The file can be one plugin package or a marketplace archive that holds several plugins, such as the downloaded ZIP of a repository that publishes a set of plugins. A single plugin package can be up to 10 MB, and a marketplace archive can be up to 15 MB. A plugin package can hold up to 50 MB of uncompressed content, whether you upload it on its own or inside a marketplace archive.
+The **Plugins** card accepts a single `.zip` or `.skill` file. The file can be [one skill](#distribute-skills), one plugin package, or a marketplace archive that holds several plugins, such as the downloaded ZIP of a repository that publishes a set of plugins. A skill or a single plugin package can be up to 10 MB, and a marketplace archive can be up to 15 MB. A plugin package can hold up to 50 MB of uncompressed content, whether you upload it on its own or inside a marketplace archive.
 
 From a marketplace archive you select which plugins to add:
 
@@ -38,9 +38,21 @@ A plugin package is laid out around a manifest at `.claude-plugin/plugin.json`. 
 * **Names**: File and folder names must be ASCII. Nothing in the package may start with a dot apart from `.claude-plugin/` and a root `.mcp.json`: repository files such as `.github/` or `.gitattributes` must be left out, while `.gitignore`, `.DS_Store`, and Apple's `__MACOSX/` folders are dropped for you.
 * **Zip paths**: Paths inside the zip must use forward slashes. File Explorer's **Compress to ZIP file** writes them, while Windows PowerShell 5.1's `Compress-Archive` can write backslash paths, which the upload rejects. A zip that wraps everything in one top folder, which is what zipping the plugin folder or downloading a repository as a ZIP produces, works, as long as the plugin holds no other dot-prefixed files.
 
-### Package a skill as a plugin
+### Distribute skills
 
-To distribute skills to members, bundle them in a plugin. The smallest valid package is the manifest plus your skill folder under `skills/`:
+To distribute one skill, go to **Settings > Config**, open the **Plugins** card, click **Add plugins**, and drop the skill's `.skill` file or a zip of its folder. In the preview, choose an [install behavior](#install-behavior) and click **Add plugin**. Claude for Government adds the skill as a plugin with the `name` from its `SKILL.md`.
+
+When you add a skill on its own, the upload rejects content such as the following, and the **Add plugins** dialog says what to change:
+
+* Files outside a plugin package's [accepted text formats](#what-a-plugin-archive-can-contain), such as `.py` or `.sh` scripts
+* [Frontmatter fields](https://code.claude.com/docs/en/skills#frontmatter-reference) such as `hooks` and `allowed-tools`
+* [`!` commands](https://code.claude.com/docs/en/skills#inject-dynamic-context) in `SKILL.md`
+
+To change a `.skill` file, unzip it, edit the files, and zip the folder that holds `SKILL.md`.
+
+For a plugin package, the upload checks packaging, not skill content. Read each skill before you add it, on its own or in a plugin.
+
+To distribute several skills together, bundle them in a plugin. The smallest valid package is the manifest plus your skill folder under `skills/`:
 
 ```text theme={null}
 acme-skills.zip
@@ -52,11 +64,9 @@ acme-skills.zip
         └── palette.csv
 ```
 
-Here `plugin.json` can be `{"name": "acme-skills", "version": "1.0.0", "description": "Agency writing skills"}`. Inside `skills/`, each skill is one folder holding a `SKILL.md` whose frontmatter carries a `description` and a `name` that matches the folder name, with any reference files beside it. One plugin can carry several skills, one folder per skill. The [skill authoring guide](https://claude.com/docs/skills/how-to.md) covers the format, but an upload that contains the scripts or binary assets it describes is rejected. [What a plugin archive can contain](#what-a-plugin-archive-can-contain) has the full rules.
+Here `plugin.json` can be `{"name": "acme-skills", "version": "1.0.0", "description": "Agency writing skills"}`. Inside `skills/`, each skill is one folder holding a `SKILL.md` whose frontmatter carries a `description` and a `name` that matches the folder name, with any reference files beside it. The [skill authoring guide](https://claude.com/docs/skills/how-to.md) covers the format, but an upload that contains the scripts or binary assets it describes is rejected. [What a plugin archive can contain](#what-a-plugin-archive-can-contain) has the full rules.
 
-A bare skill archive, such as a zip of the skill folder alone or a `.skill` file from [Claude Desktop](https://claude.com/docs/government/desktop/skills.md), which is a zip of the bare skill folder, is not a plugin: add the manifest and move the folder under `skills/` to convert it.
-
-The upload checks packaging, not skill content. After [adding the plugin](#plugin-archive-formats), open Claude Desktop as a member: install the plugin if you chose [**Members choose**](#install-behavior), then give Claude a task the skill should match and confirm Claude picks it up.
+After [adding a skill or plugin](#plugin-archive-formats), open Claude Desktop as a member. If you chose [**Members choose**](#install-behavior), install the plugin that holds the skill. Then give Claude a task that the skill should match, and confirm that Claude uses the skill.
 
 ## Plugins that run code
 
@@ -81,5 +91,7 @@ A tenant administrator can lock the plugin list, under **Advanced: raw configura
 ## Update or remove a plugin
 
 To update a plugin, go to **Settings > Config**, open the **Plugins** card, click **Add plugins**, and upload the new version's archive. An archive whose manifest `name` matches a plugin you already added replaces that plugin, whatever the two versions say, and members who have the plugin receive the new version automatically. Give each upload a new `version`, so that older Claude Desktop versions pick it up. To refresh the plugins you added from a marketplace archive, upload a new version of it with the same **Tag**, which the preview fills in from the marketplace's name. Plugins under that tag that the new archive lacks are removed unless you choose in the preview to keep them.
+
+To update a skill that you added on its own, [upload the changed file](#distribute-skills) with the same `name` in `SKILL.md`. The upload replaces the plugin that holds the skill and sets a new version for you.
 
 To remove a plugin, click its remove icon and save the change. Claude for Government stops delivering the plugin, and Claude Desktop removes it for members who have it the next time it [syncs your organization's plugin list](#install-behavior). After that sync the plugin's hooks no longer run. A new chat cannot use the plugin's skills or commands, but a chat the member was using at the time can still use them. Claude Desktop versions earlier than 1.46388.1 keep the plugin, hooks included, until the member removes it.

@@ -1080,19 +1080,21 @@ func main() {
 	)
 	betaManagedAgentsDeployment, err := client.Beta.Deployments.New(context.TODO(), anthropic.BetaDeploymentNewParams{
 		Agent: anthropic.BetaDeploymentNewParamsAgentUnion{
-			OfString: anthropic.String("string"),
+			OfBetaManagedAgentsAgents: &anthropic.BetaManagedAgentsAgentParams{
+				ID: "agent_011CZkYpogX7uDKUyvBTophP",
+			},
 		},
-		EnvironmentID: "x",
+		EnvironmentID: "env_011CZkZ9X2dpNyB7HsEFoRfW",
 		InitialEvents: []anthropic.BetaManagedAgentsDeploymentInitialEventParamsUnion{{
 			OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
 				Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{{
 					OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-						Text: "Where is my order #1234?",
+						Text: "Compile yesterday's orders into report.md.",
 					},
 				}},
 			},
 		}},
-		Name: "x",
+		Name: "Daily order report",
 	})
 	if err != nil {
 		panic(err.Error())

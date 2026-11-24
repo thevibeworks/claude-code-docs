@@ -61,7 +61,7 @@ Open the **Authentication** blade, select **Add a platform**, and choose **Mobil
 http://127.0.0.1/callback
 ```
 
-A few details that matter here: use `127.0.0.1` (not `localhost`), include the `/callback` path, and add it under the **Mobile and desktop applications** platform specifically. That platform is the only one Entra allows to use any local port, which the app needs because it picks a free port at sign-in time. You do not need a client secret or any additional API permissions.
+A few details that matter here: use `127.0.0.1` (not `localhost`), include the `/callback` path, and add the URI under the **Mobile and desktop applications** platform specifically. That platform is the only one Entra allows to use any local port, which the app needs because it picks a free port at sign-in time. You do not need a client secret or any additional API permissions.
 
 If you manage this configuration from the Enterprise Admin Console, and developers also sign in to the gateway from Claude Code in the terminal, add a second redirect URI. See [Register the redirect URI for the terminal](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md#prepare-your-gateway).
 
@@ -127,7 +127,7 @@ The [second redirect URI for Claude Code in the terminal](https://claude.com/doc
 >
 > Use the **issuer** value, not the **Metadata URI**. Okta's admin console shows the metadata URI (ending in `/.well-known/openid-configuration`) prominently — that is the discovery document the app fetches *from* the issuer, not the issuer itself. If you are unsure, open the metadata URI in a browser and copy the `"issuer"` field from the JSON response. For a custom Okta authorization server the issuer is `https://YOUR_ORG.okta.com/oauth2/AUTH_SERVER_ID`.
 
-Point your gateway's JWT validation at `https://YOUR_ORG.okta.com/oauth2/v1/keys`, or for a custom authorization server, at the `jwks_uri` value from its metadata document. Set the audience to the Okta client ID and the issuer to your **Issuer URL**. In LiteLLM, also set `user_id_jwt_field` to `sub`.
+In your gateway's JWT validation, set the JWKS URL to `https://YOUR_ORG.okta.com/oauth2/v1/keys`, or for a custom authorization server, to the `jwks_uri` value from its metadata document. Set the audience to the Okta client ID and the issuer to your **Issuer URL**. In LiteLLM, also set `user_id_jwt_field` to `sub`.
 
 #### Map users at the gateway
 
@@ -168,7 +168,7 @@ Silent token refresh requires a refresh token from your identity provider, which
 
 **Authorization servers that reject `offline_access`.** Standard OIDC providers (Entra ID, Okta, Auth0) accept `offline_access` and require it to issue a refresh token, so keep the automatic append. If your authorization server rejects `offline_access` with an `invalid_scope` error, set `appendOfflineAccess` to `false` and include your provider's own refresh-token scope in `scopes`.
 
-Refresh tokens govern whether users are re-prompted to sign in, not how long a sign-in may stay valid. To cap the sign-in lifetime under your identity provider's session policy, set [`inferenceSessionLifetimeSec`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencesessionlifetimesec); Claude Desktop shows a re-authenticate banner before the session expires.
+Refresh tokens govern whether users are re-prompted to sign in, not how long a sign-in may stay valid. To limit how long a sign-in stays valid, in line with your identity provider's session policy, set [`inferenceSessionLifetimeSec`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencesessionlifetimesec); Claude Desktop shows a re-authenticate banner before the session expires.
 
 ## Configure the app
 
@@ -221,7 +221,7 @@ One of: `bearer` (default), `x-api-key`
 >
 > **Deprecated**
 >
-> * `inferenceGatewayAuthScheme: "sso"`; use inferenceCredentialKind: "interactive". The original spelling will keep working; no end date has been set.
+> * `inferenceGatewayAuthScheme: "sso"`; use inferenceCredentialKind: "interactive". The original value will keep working, and no end date has been set.
 
 ***
 
@@ -237,12 +237,12 @@ One of: `browser`, `broker`
 >
 > **Deprecated**
 >
-> * Use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set.
+> * Use inferenceIdpAuthFlow together with inferenceIdpOidc once every desktop in the fleet is on a release that reads them. The original key will keep working, and no end date has been set.
 
 > [accordion] More detail
 >
 > * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
-> * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies requiring a compliant or managed device, or token protection.
+> * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access device and token-protection policies.
 >
 > `broker` needs Microsoft Entra ID, with the `issuer` in `inferenceGatewayOidc` set to `https://login.microsoftonline.com/{tenant-id}/v2.0`. Add the redirect URIs from [Register the Entra ID application](https://claude.com/docs/third-party/claude-desktop/entra-broker.md#register-the-entra-id-application).
 
@@ -262,7 +262,7 @@ Since 1.6889.0
 >
 > **Deprecated**
 >
-> * Use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original spelling will keep working; no end date has been set.
+> * Use inferenceIdpOidc with inferenceCredentialKind: "external-idp" once every desktop in the fleet is on a release that reads them. The original key will keep working, and no end date has been set.
 
 > [accordion] More detail
 >
@@ -304,7 +304,7 @@ Since 1.6889.0
 >
 > **scopes** `string`
 >
-> Space-separated scopes. Access-token mode needs the gateway or proxy API scope, and adds offline\_access unless Append offline\_access is off.
+> Space-separated. Access-token mode: add the gateway or proxy API scope, and the app adds offline\_access unless Append offline\_access is off.
 >
 > > [accordion] More detail
 > >
@@ -324,7 +324,7 @@ Since 1.6889.0
 >
 > > [accordion] More detail
 > >
-> > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. Changing it signs users in again.
+> > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. After you change it, users must sign in again.
 > >
 > > For AD FS, enter one of the relying-party trust's identifiers. A value with no scheme is sent as `https://<value>`, so a plain name or GUID does not match. Add an `https://…` or `urn:…` identifier to the trust and enter that.
 >
@@ -344,7 +344,7 @@ Since 1.6889.0
 >
 > > [accordion] More detail
 > >
-> > The app log names a host rejected for a referrer mismatch. Add that hostname here.
+> > If the app rejects the sign-in callback because of its referrer, the app log names the rejected host. Add that hostname here.
 
 ***
 
@@ -359,7 +359,7 @@ One of: `browser`, `broker`
 > [accordion] More detail
 >
 > * **`browser`:** register the redirect URI `http://127.0.0.1:<port>/callback` with your identity provider (for Entra, `http://127.0.0.1/callback`).
-> * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access policies requiring a compliant or managed device, or token protection.
+> * **`broker`:** uses Web Account Manager on Windows or Company Portal on macOS, and does not work on Linux. It can satisfy Conditional Access device and token-protection policies.
 >
 > `broker` needs Microsoft Entra ID, with the `issuer` in `inferenceIdpOidc` set to `https://login.microsoftonline.com/{tenant-id}/v2.0`. Add the redirect URIs from [Register the Entra ID application](https://claude.com/docs/third-party/claude-desktop/entra-broker.md#register-the-entra-id-application).
 
@@ -415,7 +415,7 @@ Since 2.7032.0
 >
 > **scopes** `string`
 >
-> Space-separated scopes. Access-token mode needs the gateway or proxy API scope, and adds offline\_access unless Append offline\_access is off.
+> Space-separated. Access-token mode: add the gateway or proxy API scope, and the app adds offline\_access unless Append offline\_access is off.
 >
 > > [accordion] More detail
 > >
@@ -435,7 +435,7 @@ Since 2.7032.0
 >
 > > [accordion] More detail
 > >
-> > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. Changing it signs users in again.
+> > Use it only with `bearerTokenType` set to `access_token`, and only if your identity provider supports RFC 8707. After you change it, users must sign in again.
 > >
 > > For AD FS, enter one of the relying-party trust's identifiers. A value with no scheme is sent as `https://<value>`, so a plain name or GUID does not match. Add an `https://…` or `urn:…` identifier to the trust and enter that.
 >
@@ -455,7 +455,7 @@ Since 2.7032.0
 >
 > > [accordion] More detail
 > >
-> > The app log names a host rejected for a referrer mismatch. Add that hostname here.
+> > If the app rejects the sign-in callback because of its referrer, the app log names the rejected host. Add that hostname here.
 
 ***
 
@@ -467,7 +467,7 @@ integerRange: 300–1,800Since 1.44121.1
 
 > [accordion] More detail
 >
-> With pings arriving (SSE `ping` events or `:` comment lines), sessions accept at least about five minutes of them, then wait this many seconds more. With no pings, each attempt at a silent response fails a minute or so after this many seconds. An attempt with no response headers fails after 15 minutes at most. On the Code tab, 16 minutes of silence ends the session, so values above 900 add nothing there.
+> While pings arrive (SSE `ping` events or `:` comment lines), sessions wait at least about five minutes, then this many seconds more. With no pings, each attempt fails a minute or so after this many seconds of silence. An attempt with no response headers fails after 15 minutes at most. On the Code tab, 16 minutes of silence ends the session, so a value above 900 has no further effect on that tab.
 >
 > While this key is set, it takes priority over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` in Claude Code's managed settings for sessions the app starts.
 
@@ -497,7 +497,7 @@ To send additional HTTP headers on every inference request (tenant routing, org 
 
 Single sign-on is enabled by setting `inferenceCredentialKind` to `interactive` **and** supplying `inferenceGatewayOidc`. `interactive` alone (without `inferenceGatewayOidc`) selects a different mode where the gateway itself acts as the authorization server.
 
-From Claude Desktop 2.7032.0, `inferenceCredentialKind: "external-idp"` with [`inferenceIdpOidc`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceidpoidc) and `inferenceIdpAuthFlow`, the keys [Amazon Bedrock identity provider sign-in](https://claude.com/docs/third-party/claude-desktop/bedrock.md#sign-in-with-your-identity-provider) uses, is an equivalent spelling of this configuration; `interactive` with `inferenceGatewayOidc` keeps working, so keep it until every device runs 2.7032.0 or later.
+From Claude Desktop 2.7032.0, you can write this configuration in another, equivalent way: `inferenceCredentialKind: "external-idp"` with [`inferenceIdpOidc`](https://claude.com/docs/third-party/claude-desktop/configuration#inferenceidpoidc) and `inferenceIdpAuthFlow`. [Amazon Bedrock identity provider sign-in](https://claude.com/docs/third-party/claude-desktop/bedrock.md#sign-in-with-your-identity-provider) uses the same keys. `interactive` with `inferenceGatewayOidc` keeps working, so keep that form until every device runs 2.7032.0 or later.
 
 For the fields of [`inferenceGatewayOidc`](#inferencegatewayoidc), and for [`inferenceGatewayOidcAuthFlow`](#inferencegatewayoidcauthflow), which can run the sign-in through the [OS identity broker](https://claude.com/docs/third-party/claude-desktop/entra-broker.md), see their entries under [Configuration keys](#configuration-keys).
 
@@ -553,7 +553,7 @@ A session assumes a 200K-token window for a model ID that it doesn't recognize, 
 If the model behind the ID accepts more than 200K tokens, declare its window:
 
 * **In your configuration**, for a model that accepts 1M-token requests: [set a larger context window for the model](https://claude.com/docs/third-party/claude-desktop/models.md#set-a-larger-context-window-for-a-model).
-* **On each device**, for a window other than 1M tokens: set [`CLAUDE_CODE_MAX_CONTEXT_TOKENS`](https://code.claude.com/docs/en/model-config#which-ids-claude_code_max_context_tokens-applies-to) to the window in tokens, such as `500000`, in the `env` block of [Claude Code managed settings](https://code.claude.com/docs/en/settings#settings-files). It changes the window only where a session would assume 200K tokens for an ID that it doesn't recognize. It does that for every such ID on the device, so use the smallest window among the models behind them. If the device already has Claude Code managed settings, add the variable to those settings and leave [`parentSettingsBehavior`](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) as it is, set or unset. If the device has none yet, also set `parentSettingsBehavior` to `"merge"` in the settings that you create.
+* **On each device**, for a window other than 1M tokens: set [`CLAUDE_CODE_MAX_CONTEXT_TOKENS`](https://code.claude.com/docs/en/model-config#which-ids-claude_code_max_context_tokens-applies-to) to the window in tokens, such as `500000`, in the `env` block of [Claude Code managed settings](https://code.claude.com/docs/en/settings#settings-files). The variable changes the window only where a session would assume 200K tokens for an ID that the session doesn't recognize. The variable does that for every ID of that kind on the device, so use the smallest window among the models behind those IDs. If the device already has Claude Code managed settings, add the variable to those settings and leave [`parentSettingsBehavior`](https://claude.com/docs/third-party/claude-desktop/code#interaction-with-claude-code%E2%80%99s-own-managed-settings) as it is, set or unset. If the device has none yet, also set `parentSettingsBehavior` to `"merge"` in the settings that you create.
 
 A [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) doesn't accept `inferenceModels` in its policy's `desktop` block, so you can't set `behavesAs` or `prefer1m` on a model there. For the gateway's own ways to offer the 1M context window, see [Extended context in Claude Desktop](https://code.claude.com/docs/en/claude-apps-gateway-config#extended-context-in-claude-desktop) in the Claude Code documentation.
 
@@ -609,7 +609,9 @@ For the provider's review, your gateway needs to pass these parts of each Auto m
 | The `safeguard_results` field | The `delta` object of the `message_delta` streaming event |
 | The `id` of each `tool_use` content block | The `content_block_start` streaming events |
 
-The provider behind your gateway also needs to run the review for the model that a session uses. The [test](#test-auto-mode-checks-on-one-device) shows whether it does for the model you test with.
+Have your gateway accept unknown keys anywhere in the `safeguards` field and pass them through. The field's contents can change between Claude Desktop versions.
+
+The provider behind your gateway also needs to run the review for the model that a session uses. To check that the provider does, [test each model](#test-auto-mode-checks-on-one-device).
 
 > [!WARNING]
 >
@@ -626,7 +628,7 @@ In sessions that ask the provider for the review, users see one of the following
 
 * **A card or notice, and the built-in safety check takes over**: no result comes back, or the provider answers that it doesn't run the review or has turned the review off. The same happens when the request gets one of these errors and then succeeds when the session sends it again without asking for the review: `400`, `403`, `422`, or a `500` or `502` whose response has no `request-id` header. Code shows a card titled **Auto mode switched to its built-in safety check for this session**, and Cowork shows the same words as a notice. In Code, the turn continues once the user selects **Continue**. If nobody answers the card within five minutes, the turn ends, and the action that waited reads `Stopped` and doesn't run.
 * **Nothing, and work continues**: the `tool_use` IDs are rewritten, or the provider answers that it couldn't run the review this time. The built-in safety check reviews actions.
-* **Actions don't run**: the `safeguard_results` field arrives in a form the session can't read. Actions that need a review read `Blocked` in Code and, after the turn, `Failed` in Cowork. The turn can stop with a card titled `Auto mode’s safety check was unavailable` in Code, and with a notice that begins `Auto mode is unavailable` in Cowork. [Turn the setting off](#turn-off-server-side-auto-mode-checks).
+* **Actions don't run**: the `safeguard_results` field arrives in a form the session can't read. Actions that need a review show as `Blocked`. The turn can stop with a card titled `Auto mode’s safety check was unavailable` in Code, and with a notice that begins `Auto mode is unavailable` in Cowork. As a temporary measure, [turn off **Server-side Auto mode checks**](#turn-off-server-side-auto-mode-checks).
 * **Every Auto mode turn fails**: each request that asks for the review gets an error, and the session doesn't send it again without asking for the review. This happens after every other error, such as `401`, `404`, or `413`. This includes a `500` or `502` whose response has a `request-id` header, which the session treats as the provider's own error. See [Troubleshoot](#troubleshoot).
 
 To find out which of these a user saw, have the user go to **Help > Troubleshooting > Generate Diagnostic Report** and select **Export to file** right after it happens. If Code shows the card, the user selects **Continue** first. Read the report as described in [Test Auto mode checks on one device](#test-auto-mode-checks-on-one-device). A Code session on an SSH host doesn't write its Auto mode lines to this report.
@@ -659,13 +661,13 @@ A `requested` line means that the session asked for the review. The lines after 
 | - | - | - |
 | `verdict` | Your gateway passes the review through. | Repeat the test with each model that your users can select. If a `no_verdict` line also appears, follow its row first. |
 | `no_verdict`, `server_no_result` | No result came back. Part of the review was dropped on the way, or the provider returned none. | Compare what the gateway sent upstream and returned to the client with [the requirements](#gateway-requirements-for-auto-mode-checks). If it passed everything through, follow the `server_unsupported` row. |
-| `no_verdict`, `server_unsupported` | The provider doesn't run the review for this model or key. | Use a provider and model that run the review, or [turn the setting off](#turn-off-server-side-auto-mode-checks). |
+| `no_verdict`, `server_unsupported` | The provider doesn't run the review for this model or key. | Use a provider and model that run the review, or, as a temporary measure, [turn off **Server-side Auto mode checks**](#turn-off-server-side-auto-mode-checks). |
 | `no_verdict`, `other_tool_use_ids` | Verdicts came back under IDs that none of the response's actions has. | Return the provider's `tool_use` IDs unchanged. |
-| `no_verdict`, `server_unrecognized_result` | The session can't read the `safeguard_results` field. | [Turn the setting off](#turn-off-server-side-auto-mode-checks), because actions that need a review don't run. Then compare what your gateway returned to the client with [the requirements](#gateway-requirements-for-auto-mode-checks). |
-| `not_requested`, `beta_rejected` | Your gateway, or the provider behind it, returned a `400`, `403`, `422`, `500`, or `502` to an earlier request that asked for the review, so the session stopped asking. | Check your gateway's logs for which of the two refused the request. For your gateway, accept the header value and the field. For the provider, follow the `server_unsupported` row. |
+| `no_verdict`, `server_unrecognized_result` | The session can't read the `safeguard_results` field. | As a temporary measure, [turn off **Server-side Auto mode checks**](#turn-off-server-side-auto-mode-checks), because actions that need a review don't run. Then compare what your gateway returned to the client with [the requirements](#gateway-requirements-for-auto-mode-checks). |
+| `not_requested`, `beta_rejected` | Your gateway, or the provider behind it, returned a `400`, `403`, `422`, `500`, or `502` to an earlier request that asked for the review, so the session stopped asking. | Check your gateway's logs for which of the two refused the request. If your gateway refused the request, have your gateway accept [the `dangerous-tool-use-2026-09-03` value and the `safeguards` field](#gateway-requirements-for-auto-mode-checks). For the provider, follow the `server_unsupported` row. |
 | `not_requested`, `betas_disabled`, `switch` is `off` | **Server-side Auto mode checks** is off for this device, because you turned it off, because Claude Desktop can't read the key's value, or because the key isn't set and the device has an earlier version of Claude Desktop, where the setting is off by default. | [Turn the setting on for the device](#test-auto-mode-checks-on-one-device). On an earlier version, you can update Claude Desktop instead. |
 | `not_requested`, `betas_disabled`, `switch` is `on` | The device's own Claude Code managed settings or a compliance policy turn experimental betas off, which takes priority. | If a `requested` line follows, ignore this line. If none follows, check whether the device's [Claude Code managed settings](https://code.claude.com/docs/en/managed-settings) set `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS`. |
-| Only `requested`, and Claude's actions read `Blocked`, or `Failed` with an error that names auto mode | The session couldn't read the verdicts, or the response ended before they arrived. | If the log also holds `cli_stream_failed` lines, see the streaming requirement in [Context window and compaction](#context-window-and-compaction). Otherwise, follow the `server_unrecognized_result` row. |
+| Only `requested`, and Claude's actions show as `Blocked` | The session couldn't read the verdicts, or the response ended before they arrived. | If the log also holds `cli_stream_failed` lines, see the streaming requirement in [Context window and compaction](#context-window-and-compaction). Otherwise, follow the `server_unrecognized_result` row. |
 | Only `requested`, and the turn failed with an error that doesn't name Auto mode | The request that asked for the review got an error. | See [Troubleshoot](#troubleshoot). |
 | Only `requested`, and the turn finished | No action in the turn got a verdict. | Check your gateway's logs for errors on the requests that asked for the review. If you find a `500` or `502`, follow the `beta_rejected` row. If there are no errors, start a new session, and ask for an action that Auto mode reviews. |
 | No `cli_api_auto_mode_server_check` line | The session recorded nothing about the review. | Check that the session ran in **Auto mode**, then update Claude Desktop. |
@@ -674,11 +676,11 @@ For any other line, or if these steps don't help, share the report with your Ant
 
 #### Turn off server-side Auto mode checks
 
-Set [`inferenceGatewayAutoModeServerChecks`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencegatewayautomodeserverchecks) to `false` to have Claude Code's built-in safety check review Auto mode's actions. If you leave the key out, the setting is on, so set it to `false`, except on devices that a [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) configures. The setting is temporary. It goes away when Claude Code drops its built-in safety check, so use it only while you bring your gateway up to [the requirements](#gateway-requirements-for-auto-mode-checks).
+Set [`inferenceGatewayAutoModeServerChecks`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencegatewayautomodeserverchecks) to `false` to have Claude Code's built-in safety check review Auto mode's actions. If you leave the key out, the setting is on, so set it to `false`, except on devices that a [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) configures. The setting is temporary. It lasts until Claude Code removes its built-in safety check, so use it only until your gateway meets [the requirements](#gateway-requirements-for-auto-mode-checks).
 
 Set the key in whichever of these holds the device's gateway settings:
 
-* **A managed profile that doesn't set `bootstrapUrl`**: add the key to the profile that already holds your gateway settings. On devices whose gateway settings were made in the in-app configuration window, don't add the key to a profile that lacks those settings. Otherwise, [the managed configuration takes effect](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device), and Claude Desktop ignores the gateway settings made in the window. To write the key in your profile's format, use the **Export** menu in the in-app configuration window.
+* **A managed profile that doesn't set `bootstrapUrl`**: add the key to the profile that already holds your gateway settings. On devices whose gateway settings were made in the in-app configuration window, don't add the key to a profile that lacks those settings. If you do add it, [the managed configuration takes effect](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#which-configuration-source-applies-on-a-device), and Claude Desktop ignores the gateway settings made in the window. To write the key in your profile's format, use the **Export** menu in the in-app configuration window.
 * **A [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md) that you host, other than a Claude apps gateway**: return the key in the response.
 * **The [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#apply-locally-or-export-for-a-fleet)**: turn off the **Server-side Auto mode checks** toggle under **Connection**. The window stores the toggle only after you change it, so if the toggle already shows off, turn it on and then off. Then use the **Export** menu for a profile to deploy, or click **Apply Changes** on a device that takes its settings from the window.
 * **The [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#configure-claude-desktop)**: open **Organization settings** and go to the **Connection** page under **Desktop 3P**. If the **Server-side Auto mode checks** switch is off and its row shows **Reset to default**, the console already stores the setting as off. Otherwise, turn off the switch, or turn it on and then off if it already shows off. Then click **Save changes**.
@@ -730,7 +732,7 @@ With these status codes, users can see a general error or a card about a differe
 
 ### Warn users before the spend limit
 
-To tell users where they stand before your gateway blocks them, show one line of text in one of these places:
+To tell users how close they are to the limit before your gateway blocks them, show one line of text in one of these places:
 
 * **Across the top of the app window**: set the [`banner`](https://claude.com/docs/third-party/claude-desktop/configuration#banner) configuration key to show a one-line notice. If you serve configuration per user, for example from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), each user's notice can show their own figure, such as "You have used 82% of your monthly budget."
 * **Above the message box**: set up a [status line](https://claude.com/docs/third-party/claude-desktop/status-line.md). Claude Desktop runs a program that you install on the user's device and shows the line it prints.
@@ -756,7 +758,7 @@ A [Claude apps gateway](https://code.claude.com/docs/en/claude-apps-gateway) is 
 >
 > Google Workspace can be used as the identity provider, but in the default `id_token` mode Google does not issue a fresh ID token on background refresh, so users are prompted to sign in again roughly once an hour. Setting `bearerTokenType` to `access_token` avoids this. Entra ID and Okta are not affected in either mode.
 
-**`Auto mode’s safety check was unavailable` or `Auto mode is unavailable`, after actions that read `Blocked` or `Failed`.** The session can't read the verdicts of the provider's [Auto mode review](#auto-mode-checks). Follow the `server_unrecognized_result` row under [Auto mode check results in the diagnostic report](#auto-mode-check-results-in-the-diagnostic-report). If Code shows `Connection problem` cards instead, or Cowork shows `API Error: Connection lost mid-response` first, the responses end before the verdicts arrive. See the streaming requirement in [Context window and compaction](#context-window-and-compaction).
+**`Auto mode’s safety check was unavailable` or `Auto mode is unavailable`, after actions that show as `Blocked`.** The session can't read the verdicts of the provider's [Auto mode review](#auto-mode-checks). Follow the `server_unrecognized_result` row under [Auto mode check results in the diagnostic report](#auto-mode-check-results-in-the-diagnostic-report). If Code shows `Connection problem` cards instead, or Cowork shows `API Error: Connection lost mid-response` first, the responses end before the verdicts arrive. See the streaming requirement in [Context window and compaction](#context-window-and-compaction).
 
 **Every Auto mode turn fails, and new sessions in Manual mode work.** Your gateway, or the provider behind it, rejects the requests that ask for the provider's [Auto mode review](#auto-mode-checks). The built-in safety check doesn't take over after such errors, as described in [What users see when no Auto mode verdict arrives](#what-users-see-when-no-auto-mode-verdict-arrives). For example, users see these messages, which don't name Auto mode or **Server-side Auto mode checks**:
 
@@ -770,7 +772,7 @@ Until the gateway meets [the requirements](#gateway-requirements-for-auto-mode-c
 * Set `inferenceGatewayAutoModeServerChecks` to `false`, as described in [Turn off server-side Auto mode checks](#turn-off-server-side-auto-mode-checks).
 * Have users start new sessions in **Manual** mode, which Cowork shows as **Manually approve**. In a Code session where turns already failed, switching to **Manual** mode may not stop the failures, because the session keeps sending [the review's `anthropic-beta` value](#gateway-requirements-for-auto-mode-checks). **Plan** mode doesn't stop them: while Auto mode is available, Code sessions in **Plan** mode ask for the review too, and Claude can enter **Plan** mode on its own.
 
-**`Automatically approve isn’t available for this task. Switched to Manually approve.` or `Couldn’t switch to Automatically approve.`** Claude Code can't run Auto mode for the Cowork task, for example because the task's model [doesn't support it](https://code.claude.com/docs/en/permission-modes#eliminate-prompts-with-auto-mode). Have the user pick a model that does, and then pick **Automatically approve**. A scheduled task keeps its stored mode, so each run on a model that doesn't support Auto mode switches again.
+**`Automatically approve isn’t available for this task. Switched to Manually approve.` or `Couldn’t switch to Automatically approve.`** Claude Code can't run Auto mode for the Cowork task, for example because the task's model [doesn't support it](https://code.claude.com/docs/en/permission-modes#eliminate-prompts-with-auto-mode). Have the user pick a model that does, and then pick **Automatically approve**. A scheduled task keeps its stored mode, so each run on a model that doesn't support Auto mode switches to **Manually approve** again.
 
 **Model picker is empty or missing models.** Check your gateway's `GET /v1/models` response and your `inferenceModels` list (see [Models](#models)). When `/v1/models` is unreachable or returns an error, the picker falls back to the `inferenceModels` list; if that list is empty, so is the picker.
 
@@ -794,7 +796,7 @@ If the output doesn't include the intermediate certificate that issued the gatew
 After you fix the cause, the user's next message in the same session also retries compaction. The error the summary request returned is in the gateway's logs as the response to the session's last `POST /v1/messages` request before the failure. Match it to a cause as follows.
 
 * **A timeout, `504`, or `524`**: a proxy or load balancer on the route closed the summary response before it finished. See the streaming requirement in [Context window and compaction](#context-window-and-compaction).
-* **`401`, `402`, or `403`**: the gateway credential expired, or the gateway's quota for the user is spent. Have the user sign in again or issue a new key, or raise the quota.
+* **`401`, `402`, or `403`**: the gateway credential expired, or the gateway's quota for the user is spent. For an expired credential, have the user sign in again, or issue a new key. For a spent quota, raise the quota.
 * **`API returned an empty or malformed response`**: after certain streaming failures, such as a stream that stops partway, Claude Code sends the summary request again with the `stream` field set to `false`. This message means that the non-streaming request got a success status but a body that wasn't a Messages API response, for example an empty body, an HTML page, a stream of server-sent events, or JSON in another format. Find that request in the gateway's logs and check what the gateway returned for it. If the request isn't in the logs, something in front of the gateway, such as a proxy, firewall, or sign-in page, answered it.
 * **`400` with your gateway's own error text**: the gateway rejected the summary request itself, for example on a request-size or token limit of its own. Raise or remove that limit for these requests.
 

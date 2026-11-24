@@ -2133,9 +2133,13 @@ List Events
 
           - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             Powerful intelligence for long-running agents and coding
 
           - `CLAUDE_OPUS_4_5_20251101("claude-opus-4-5-20251101")`
+
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             Powerful intelligence for long-running agents and coding
 
@@ -2967,39 +2971,39 @@ List Events
 
         Tokens used to create prompt cache entries, broken down by cache TTL.
 
-        - `Optional<Integer> ephemeral1hInputTokens`
+        - `Optional<Long> ephemeral1hInputTokens`
 
           Tokens used to create 1-hour ephemeral cache entries.
 
-          format: int32
+          format: int64
 
-        - `Optional<Integer> ephemeral5mInputTokens`
+        - `Optional<Long> ephemeral5mInputTokens`
 
           Tokens used to create 5-minute ephemeral cache entries.
 
-          format: int32
+          format: int64
 
-      - `Optional<Integer> cacheReadInputTokens`
+      - `Optional<Long> cacheReadInputTokens`
 
         Total tokens read from prompt cache.
 
-        format: int32
+        format: int64
 
-      - `Optional<Integer> inputTokens`
+      - `Optional<Long> inputTokens`
 
         Total input tokens consumed across all turns.
 
-        format: int32
+        format: int64
 
       - `Optional<BetaMonetaryAmount> listCost`
 
         Cumulative list cost of the session across all turns, priced at public list rates.
 
-      - `Optional<Integer> outputTokens`
+      - `Optional<Long> outputTokens`
 
         Total output tokens generated across all turns.
 
-        format: int32
+        format: int64
 
       - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
@@ -6357,9 +6361,13 @@ Stream Events
 
           - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             Powerful intelligence for long-running agents and coding
 
           - `CLAUDE_OPUS_4_5_20251101("claude-opus-4-5-20251101")`
+
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             Powerful intelligence for long-running agents and coding
 
@@ -7241,39 +7249,39 @@ Stream Events
 
         Tokens used to create prompt cache entries, broken down by cache TTL.
 
-        - `Optional<Integer> ephemeral1hInputTokens`
+        - `Optional<Long> ephemeral1hInputTokens`
 
           Tokens used to create 1-hour ephemeral cache entries.
 
-          format: int32
+          format: int64
 
-        - `Optional<Integer> ephemeral5mInputTokens`
+        - `Optional<Long> ephemeral5mInputTokens`
 
           Tokens used to create 5-minute ephemeral cache entries.
 
-          format: int32
+          format: int64
 
-      - `Optional<Integer> cacheReadInputTokens`
+      - `Optional<Long> cacheReadInputTokens`
 
         Total tokens read from prompt cache.
 
-        format: int32
+        format: int64
 
-      - `Optional<Integer> inputTokens`
+      - `Optional<Long> inputTokens`
 
         Total input tokens consumed across all turns.
 
-        format: int32
+        format: int64
 
       - `Optional<BetaMonetaryAmount> listCost`
 
         Cumulative list cost of the session across all turns, priced at public list rates.
 
-      - `Optional<Integer> outputTokens`
+      - `Optional<Long> outputTokens`
 
         Total output tokens generated across all turns.
 
-        format: int32
+        format: int64
 
       - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
@@ -12835,9 +12843,13 @@ public final class Main {
 
           - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             Powerful intelligence for long-running agents and coding
 
           - `CLAUDE_OPUS_4_5_20251101("claude-opus-4-5-20251101")`
+
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             Powerful intelligence for long-running agents and coding
 
@@ -13669,39 +13681,39 @@ public final class Main {
 
         Tokens used to create prompt cache entries, broken down by cache TTL.
 
-        - `Optional<Integer> ephemeral1hInputTokens`
+        - `Optional<Long> ephemeral1hInputTokens`
 
           Tokens used to create 1-hour ephemeral cache entries.
 
-          format: int32
+          format: int64
 
-        - `Optional<Integer> ephemeral5mInputTokens`
+        - `Optional<Long> ephemeral5mInputTokens`
 
           Tokens used to create 5-minute ephemeral cache entries.
 
-          format: int32
+          format: int64
 
-      - `Optional<Integer> cacheReadInputTokens`
+      - `Optional<Long> cacheReadInputTokens`
 
         Total tokens read from prompt cache.
 
-        format: int32
+        format: int64
 
-      - `Optional<Integer> inputTokens`
+      - `Optional<Long> inputTokens`
 
         Total input tokens consumed across all turns.
 
-        format: int32
+        format: int64
 
       - `Optional<BetaMonetaryAmount> listCost`
 
         Cumulative list cost of the session across all turns, priced at public list rates.
 
-      - `Optional<Integer> outputTokens`
+      - `Optional<Long> outputTokens`
 
         Total output tokens generated across all turns.
 
-        format: int32
+        format: int64
 
       - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
@@ -14463,29 +14475,29 @@ public final class Main {
 
     Tokens used to create prompt cache entries, broken down by cache TTL.
 
-    - `Optional<Integer> ephemeral1hInputTokens`
+    - `Optional<Long> ephemeral1hInputTokens`
 
       Tokens used to create 1-hour ephemeral cache entries.
 
-      format: int32
+      format: int64
 
-    - `Optional<Integer> ephemeral5mInputTokens`
+    - `Optional<Long> ephemeral5mInputTokens`
 
       Tokens used to create 5-minute ephemeral cache entries.
 
-      format: int32
+      format: int64
 
-  - `Optional<Integer> cacheReadInputTokens`
+  - `Optional<Long> cacheReadInputTokens`
 
     Total tokens read from prompt cache.
 
-    format: int32
+    format: int64
 
-  - `Optional<Integer> inputTokens`
+  - `Optional<Long> inputTokens`
 
     Total input tokens consumed across all turns.
 
-    format: int32
+    format: int64
 
   - `Optional<BetaMonetaryAmount> listCost`
 
@@ -14501,11 +14513,11 @@ public final class Main {
 
       Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-  - `Optional<Integer> outputTokens`
+  - `Optional<Long> outputTokens`
 
     Total output tokens generated across all turns.
 
-    format: int32
+    format: int64
 
   - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
@@ -16613,9 +16625,13 @@ public final class Main {
 
           - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             Powerful intelligence for long-running agents and coding
 
           - `CLAUDE_OPUS_4_5_20251101("claude-opus-4-5-20251101")`
+
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             Powerful intelligence for long-running agents and coding
 
@@ -17497,39 +17513,39 @@ public final class Main {
 
         Tokens used to create prompt cache entries, broken down by cache TTL.
 
-        - `Optional<Integer> ephemeral1hInputTokens`
+        - `Optional<Long> ephemeral1hInputTokens`
 
           Tokens used to create 1-hour ephemeral cache entries.
 
-          format: int32
+          format: int64
 
-        - `Optional<Integer> ephemeral5mInputTokens`
+        - `Optional<Long> ephemeral5mInputTokens`
 
           Tokens used to create 5-minute ephemeral cache entries.
 
-          format: int32
+          format: int64
 
-      - `Optional<Integer> cacheReadInputTokens`
+      - `Optional<Long> cacheReadInputTokens`
 
         Total tokens read from prompt cache.
 
-        format: int32
+        format: int64
 
-      - `Optional<Integer> inputTokens`
+      - `Optional<Long> inputTokens`
 
         Total input tokens consumed across all turns.
 
-        format: int32
+        format: int64
 
       - `Optional<BetaMonetaryAmount> listCost`
 
         Cumulative list cost of the session across all turns, priced at public list rates.
 
-      - `Optional<Integer> outputTokens`
+      - `Optional<Long> outputTokens`
 
         Total output tokens generated across all turns.
 
-        format: int32
+        format: int64
 
       - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 

@@ -21,7 +21,7 @@ Claude Code works the same way. A developer signs in to your organization from C
 
 Signing in is each developer's choice. If a developer doesn't sign in, or signs in with other credentials, your settings aren't applied. The console can't require the sign-in. A small managed settings file on the developer's computer can, but that file also stops Claude Desktop from working on that computer. See [Require the sign-in with managed settings](#require-the-sign-in-with-managed-settings).
 
-While a terminal uses your connection, model requests and their content go from the developer's terminal to your provider or gateway. Claude Code contacts Anthropic for the sign-in, for your settings, and for a few other things, such as telemetry. For details, see [Where data goes](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#where-data-goes).
+While a terminal uses your connection, model requests and their content go from the developer's terminal to your provider or gateway. If you set an OpenTelemetry collector, the terminal also sends it telemetry, with the content that you selected. Claude Code contacts Anthropic for the sign-in, for your settings, and for a few other things, such as its own telemetry. For details, see [Where data goes](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#where-data-goes).
 
 ## Which settings take priority
 
@@ -48,11 +48,11 @@ Ensure that:
 * You're an Owner or Primary Owner of the organization
 * You saved the **Connection** page under **Organization settings > Desktop 3P**
 * Your developers are members of your organization, like your Claude Desktop users
-* Your developers have Claude Code 2.1.330 or later, and the same version of the VS Code extension. Earlier versions either ignore the console or drop more of the computer's settings after a sign-in.
+* Your developers have Claude Code 2.1.331 or later, and the same version of the VS Code extension. Earlier versions ignore the console or follow only part of it.
 * Developers on Claude Code's [`stable` release channel](https://code.claude.com/docs/en/setup#configure-release-channel) switch to `latest`, unless `stable` has reached that version. `stable` is about a week behind `latest`. Homebrew's `claude-code` cask and the apt, dnf, and apk install commands in Claude Code's docs use `stable`.
 * Your developers have access to your provider. The sign-in tells Claude Code where to send requests, but it doesn't give the developer access. With a cloud provider, each developer needs cloud credentials. With a gateway, each developer must be able to sign in to it.
-* If your **Connection** page uses a helper script, you [installed it for Claude Code in the terminal](https://claude.com/docs/third-party/claude-desktop/credential-helper.md#install-the-helper-for-claude-code-in-the-terminal). A script that works in Claude Desktop can fail in the terminal.
-* The developer's terminal can reach `api.anthropic.com` and `platform.claude.com`
+* If you use a **Helper script** on the **Connection** page or an **OTLP headers helper script** on the **Telemetry & updates** page, you [installed it for Claude Code in the terminal](https://claude.com/docs/third-party/claude-desktop/credential-helper.md#install-the-helper-for-claude-code-in-the-terminal). A script that works in Claude Desktop can fail in the terminal.
+* The developer's terminal can reach `api.anthropic.com`, `platform.claude.com`, and your OpenTelemetry collector, if you set one
 * The developer's browser can reach `claude.com`, `claude.ai`, `platform.claude.com`, `hcaptcha.com`, `*.hcaptcha.com`, and, if your organization uses single sign-on, `sso.claude.com`
 
 Then follow these steps in order:
@@ -70,14 +70,15 @@ Then follow these steps in order:
 
 Claude Code follows some of the fields on the **Desktop 3P** pages. The values that you saved for Claude Desktop also apply in the terminal. Go to **Organization settings > Desktop 3P**, and check that each value also works for developers.
 
-These fields can change what developers can do:
+These fields can change what developers can do, or what you collect from them:
 
+* **OTLP endpoint**, on the **Telemetry & updates** page: if you filled this in, terminals also send OpenTelemetry data to your collector. This includes what you selected under **Content capture**, such as prompts and responses. A different collector that the computer's managed settings name [stops getting that data](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#managed-settings-beside-the-console). Claude Code doesn't ask developers first, so [tell them](#send-developers-the-sign-in-instructions). To exclude terminals, add `"env": {"CLAUDE_CODE_ENABLE_TELEMETRY": "0"}` to your [JSON on the **Claude Code** page](#add-claude-code-settings-as-json). This also stops export to a collector that the computer's managed settings name.
 * **Allowed egress hosts**, on the **Capabilities** page: if you filled this in, Claude's shell commands run in a sandbox on macOS, Linux, and WSL2. A command that needs a host outside your list, such as a package install, fails. A list that has a `*` entry has no effect in the terminal.
 * **Built-in tool policy**, on the **Capabilities** page: if you set an entry to `ask`, Claude Code asks the developer before each call that matches it. In a script that runs `claude -p`, nobody can answer, so Claude Code refuses the call.
 * **Allowed plugin MCP servers**, on the **Connectors** page: if you filled this in, Claude Code ignores the MCP servers that developers or their projects set up themselves
 * **Block nonessential telemetry**, on the **Telemetry & updates** page: if this is on, Claude Code turns off its automatic updates
 * **Model list**, on the **Connection** page: developers can pick only the models on your list
-* **Bedrock base URL**, or the same field for another cloud provider, on the **Connection** page: if you filled this in, Claude Code in the terminal uses the provider set on the computer instead of your connection, and it doesn't start without one. You can't stop deploying managed settings, so [keep them beside the console](#keep-managed-settings-beside-the-console).
+* **Bedrock base URL**, or the same field for another cloud provider, on the **Connection** page: if you filled this in, Claude Code in the terminal uses the provider set on the computer instead of your connection, and it doesn't start without one. In that case, you can't stop deploying managed settings, so [keep them beside the console](#keep-managed-settings-beside-the-console).
 
 For the full list of fields that Claude Code follows, see [Console settings that Claude Code follows](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#console-settings-that-claude-code-follows).
 
@@ -103,7 +104,7 @@ The JSON doesn't apply to Code sessions in Claude Desktop. Those sessions follow
 
 ## Prepare your gateway
 
-Skip this section if your **Connection** uses a direct cloud provider rather than a gateway.
+Skip this section if your **Connection** page uses a direct cloud provider rather than a gateway.
 
 **1. Register the redirect URI**
 
@@ -132,6 +133,7 @@ Go through your `managed-settings.json`, MDM profile, or registry policy, and pu
 * **The sandbox and the hosts it allows**: use **Allowed egress hosts** on the **Capabilities** page. The sandbox settings in the JSON work only if this field lists hosts, with no `*` entry.
 * **Restrictions**: copy them into the [JSON on the **Claude Code** page](#add-claude-code-settings-as-json). Examples are `permissions.deny`, `permissions.ask`, `deniedModels`, `deniedMcpServers`, and `sandbox.filesystem.denyRead`. For the rest, see [Settings that Claude Code applies](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#settings-that-claude-code-applies). The JSON applies to every developer. For settings that differ by team, use a group's policy.
 * **`apiKeyHelper`**: use the **Helper script** on the **Connection** page. It takes the path to a program, not a shell command. You still need to [install that program on each computer](https://claude.com/docs/third-party/claude-desktop/credential-helper.md#install-the-helper-for-claude-code-in-the-terminal).
+* **OpenTelemetry export (`CLAUDE_CODE_ENABLE_TELEMETRY` and the `OTEL_` variables)**: use **OTLP endpoint** and the other OTLP fields on the **Telemetry & updates** page. If you [keep managed settings beside the console](#keep-managed-settings-beside-the-console), leave these variables in them until each computer has Claude Code 2.1.331. Earlier versions export only where these variables say.
 
 The fields on the **Desktop 3P** pages also apply to Claude Desktop, so check that each value works there too.
 
@@ -151,12 +153,11 @@ These need managed settings on the computer. If you can't do without one, [keep 
 
 * **Requiring the sign-in**: a managed settings file applies to every session on the computer. Console settings apply only while the developer is signed in, and a sign-in lasts about a month. Without a file, a developer can sign in to another organization, or not sign in at all. See [Require the sign-in with managed settings](#require-the-sign-in-with-managed-settings).
 * **Hooks, and the plugins and MCP servers that you install for developers**: the console can't install them in the terminal
-* **OpenTelemetry export (`CLAUDE_CODE_ENABLE_TELEMETRY` and the `OTEL_` variables)**: the console can't turn it on in the terminal, so your collector stops getting data from Claude Code. The console's OpenTelemetry fields export from Claude Desktop only.
 * **`requiredMinimumVersion`, `cleanupPeriodDays`, `allowedProviders`, and the managed `CLAUDE.md` text**: the console has no place for these. Claude Code also ignores anything else that isn't on [the JSON's list](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#settings-that-claude-code-applies).
 * **`strictKnownMarketplaces`, `allowManagedPermissionRulesOnly`, `sandbox.filesystem.allowManagedReadPathsOnly`, and Auto mode's deny rules (`autoMode`)**: Claude Code ignores these in the JSON
 * **A private address for your provider, such as a VPC endpoint**: your connection overrides it, even if you keep managed settings, so requests go to the provider's default address. To keep it, also fill in **Bedrock base URL**, or the same field for another cloud provider, on the **Connection** page. Claude Code in the terminal then uses the provider set on each computer, not your connection, so each computer must keep managed settings that set your provider and the private address.
 
-In Code sessions in Claude Desktop, the file's rules stop applying too, unless a field on the **Desktop 3P** pages sets them.
+After you remove the managed settings from a computer, their rules also stop applying in Code sessions in Claude Desktop, unless a field on the **Desktop 3P** pages sets them.
 
 ## Turn on sign-in from Claude Code
 
@@ -184,6 +185,7 @@ Send each developer a message with these items.
 * The name of the organization to select in the browser
 * How to get credentials for your provider, or how to sign in to your gateway
 * How to set a proxy or a certificate, if your managed settings used to set one
+* What your OpenTelemetry collector gets from their sessions, if you set one
 * The sign-in steps, and what the sign-in changes
 
 You can start from this text:
@@ -191,7 +193,7 @@ You can start from this text:
 ```text wrap theme={null}
 We now manage Claude Code from our admin console. Please sign in on each computer you use.
 
-1. Install or update the claude command to 2.1.330 or later. If the update stops at an earlier version, switch to the latest release channel (https://code.claude.com/docs/en/setup#configure-release-channel). If you use the VS Code extension, update it too.
+1. Install or update the claude command to 2.1.331 or later. If the update stops at an earlier version, switch to the latest release channel (https://code.claude.com/docs/en/setup#configure-release-channel). If you use the VS Code extension, update it too.
 2. <How to get credentials for our provider. How to set our proxy or certificate, if you need one.>
 3. In your terminal, run: claude auth login
 4. The browser may ask you to sign in with your email. Select <organization name> and click Authorize. If the browser shows a code, paste it into the terminal.
@@ -200,6 +202,8 @@ We now manage Claude Code from our admin console. Please sign in on each compute
 7. <If our gateway has its own sign-in:> In Claude Code, run /login and follow the steps.
 
 While you're signed in, every Claude Code session on this computer uses our provider and settings, in any project, in the terminal and in VS Code. Remote Control, cloud sessions, voice mode, and connectors from your claude.ai account aren't available.
+
+<If we set an OpenTelemetry collector:> Claude Code also sends telemetry about your sessions to us. It includes your computer user name and usage figures such as token counts. <If End-user attribution is on:> It also includes your sign-in name or email. <If we capture content:> It also includes your prompts, Claude's responses, and tool inputs and outputs. We choose what it includes. To see where it goes and what it includes, run /status in Claude Code and read the Telemetry row.
 
 The sign-in lasts about a month. When you see "no usable organization sign-in", run claude auth login again.
 ```
@@ -212,7 +216,7 @@ Developers may also see these, or ask you about them:
 * **Select login method**: the developer selects **Your organization** if it's listed, and otherwise **Claude account with subscription**. Then they select your organization in the browser again.
 * **`Could not load AWS credentials`, or the same for Google Cloud or Azure**: the developer has no working credentials for your cloud provider
 * **A gateway that has its own sign-in**: the developer signs in a second time, with `/login` in Claude Code. Until they do, Claude Code refuses each prompt and tells them what to do.
-* **How to get their own account back**: the developer runs `claude auth login` and selects their own account. To sign out of everything, they run `claude auth logout`.
+* **How to get their own account back**: the developer runs `claude auth login` and selects their own account. To sign out of everything, they run `claude auth logout`. Developers who use VS Code run these commands in a terminal.
 
 ## Check that your settings apply
 
@@ -221,13 +225,14 @@ Ask one developer to start `claude` and run `/status` in Claude Code. Check thes
 * **Setting sources**: the row includes `Enterprise managed settings (remote)`. That's Claude Code's name for your console settings.
 * **API provider**, if you use a cloud provider: the row names your provider and ends with `(chosen by your organization)`
 * **Anthropic base URL**, if you use a gateway: the row shows your gateway's address, and no row says that your connection `isn't used`
+* **Telemetry**, if you filled in **OTLP endpoint**: the row shows your collector's host with `(set by your organization)` and the content that Claude Code sends
 * **Managed settings (remote)**: this row appears only if Claude Code has something to tell you. It gives the cause of any problem, and it names the settings in your JSON that Claude Code ignored.
 
 The console doesn't list the developers who signed in from Claude Code, and the **Desktop usage** page doesn't show sessions in the terminal or in VS Code.
 
 ## When setting changes take effect
 
-Claude Code downloads your current settings every time it starts. An open session checks again every hour and applies most changes without a restart. A change to your connection or your **Model list** applies the next time the developer starts Claude Code.
+Claude Code downloads your current settings every time it starts. An open session checks again every hour and applies most changes without a restart. A change to your connection, your **Model list**, or your OpenTelemetry export applies the next time the developer starts Claude Code.
 
 While a developer is signed in, Claude Code doesn't start if it can't reach Anthropic to download your settings.
 
@@ -257,7 +262,7 @@ Keep the computer's managed settings only if you need something that the console
 
 **1. Check what changes**
 
-While a developer is signed in, your connection replaces the computer's, restrictions from both sides add up, and some managed settings stop applying. Read [Managed settings beside the console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#managed-settings-beside-the-console). Fix the conflicts that it lists, and move the settings that stop applying [into the console](#where-each-setting-goes).
+While a developer is signed in, your connection replaces the computer's connection, the computer's restrictions apply together with your console's restrictions, and some managed settings stop applying. Read [Managed settings beside the console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#managed-settings-beside-the-console). Fix the conflicts that it lists, and move the settings that stop applying [into the console](#where-each-setting-goes).
 
 **2. Ask developers to remove their Anthropic API keys**
 
@@ -286,7 +291,7 @@ The console alone can't require the sign-in. The console settings that Claude Co
 > * **`enforceAnthropicSignIn`**: Claude Code also refuses the sessions that Claude Desktop starts, even when the developer is signed in. This stops Code sessions, Cowork, Chat, and scheduled tasks.
 > * **`requiredMinimumVersion`**: Claude Desktop runs its own copy of Claude Code, which updates only with Claude Desktop. While that copy is older than the minimum, none of Claude Desktop's sessions start.
 >
-> On those computers, deploy `forceLoginOrgUUID` without those keys, and put `"parentSettingsBehavior": "merge"` next to it. That refuses other organizations, but it doesn't require the sign-in. Without `parentSettingsBehavior`, Claude Code ignores the settings that Claude Desktop passes to its sessions, including the sandbox for Code sessions.
+> On those computers, deploy `forceLoginOrgUUID` without those keys, and put `"parentSettingsBehavior": "merge"` next to it. The computer then refuses other organizations, but it doesn't require the sign-in. Without `parentSettingsBehavior`, Claude Code ignores the settings that Claude Desktop passes to its sessions, including the sandbox for Code sessions.
 
 To require the sign-in, first turn on sign-in from Claude Code. If you removed your managed settings, you then deploy one small file, the only one that you still deploy. If you kept them, you add the keys to them. These are the keys:
 
@@ -294,7 +299,7 @@ To require the sign-in, first turn on sign-in from Claude Code. If you removed y
 {
   "forceLoginOrgUUID": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
   "enforceAnthropicSignIn": true,
-  "requiredMinimumVersion": "2.1.330"
+  "requiredMinimumVersion": "2.1.331"
 }
 ```
 
@@ -304,6 +309,6 @@ To require the sign-in, first turn on sign-in from Claude Code. If you removed y
 
 If you set a retention period under `HKCU` on Windows, add it to this file as `cleanupPeriodDays`. Claude Code ignores `HKCU` once the computer has managed settings.
 
-To test it, ask a developer who isn't signed in to run `claude`. Claude Code prints a message, `This computer's managed settings require a sign-in to Anthropic`, and exits. If Claude Code starts instead, check that its version is 2.1.330 or later, and that developers' accounts can read the file.
+To test it, ask a developer who isn't signed in to run `claude`. Claude Code prints a message, `This computer's managed settings require a sign-in to Anthropic`, and exits. If Claude Code starts instead, check that its version is 2.1.331 or later, and that developers' accounts can read the file.
 
 For other ways around your settings, see [Security considerations](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#security-considerations).

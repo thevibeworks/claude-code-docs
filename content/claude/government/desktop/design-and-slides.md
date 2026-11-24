@@ -22,6 +22,7 @@ Start from one of these places:
 
 * **The Artifacts page**: click **Artifacts** in the sidebar. Under **Make something new**, click the **Design** or **Slides** card. A blank design or deck opens beside a message box, where you tell Claude what to make.
 * **The home screen**: in the message box, type `/design` or `/slides`, then what you want, and send the message.
+* **An open chat or task, or a project's page**: in Claude Desktop 7.37095.0 or later, type `/design` or `/slides` in the message box of that chat, task, or page, then what you want, and send the message.
 
 You see the card and the command for each one your administrators turned on.
 
@@ -51,7 +52,7 @@ When you delete the conversation where you made a design or deck, the title of t
 ## Turn on Design and Slides
 
 1. As a tenant administrator or organization owner, go to **Settings > Config** in the admin portal.
-2. Under **Product availability**, expand [**Design in Claude Desktop**](https://claude.com/docs/government/config/settings.md#design-in-claude-desktop) or [**Slides in Claude Desktop**](https://claude.com/docs/government/config/settings.md#slides-in-claude-desktop), turn on its switch, and click **Save changes**.
+2. Under **Product availability > Artifact types**, expand [**Design**](https://claude.com/docs/government/config/settings.md#design-in-claude-desktop) or [**Slides**](https://claude.com/docs/government/config/settings.md#slides-in-claude-desktop), turn on its switch, and click **Save changes**.
 3. To turn on both, repeat step 2 for the other setting.
 
 Members get the change when they [restart Claude Desktop](https://claude.com/docs/government/config/overview.md#when-changes-take-effect). To turn a switch on for some members only, see [Turn a feature on for one group](https://claude.com/docs/government/config/overview.md#turn-a-feature-on-for-one-group).

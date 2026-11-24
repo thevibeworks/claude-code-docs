@@ -26,7 +26,7 @@ These differ from regular chats in several ways:
 
   - Incognito chats will not be included in future memory entries.
 
-- Incognito chats aren't included in **[your monthly recap](https://support.claude.com/en/articles/15672559)**.
+- **[Your monthly recap](https://support.claude.com/en/articles/15672559)** is designed to leave out incognito chats. If you have the monthly recap, we still record the time you have Claude open, in incognito chats too.
 
 ---
 

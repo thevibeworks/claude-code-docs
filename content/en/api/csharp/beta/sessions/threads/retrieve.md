@@ -285,9 +285,13 @@ Get Session Thread
 
           - `ClaudeOpus4_5("claude-opus-4-5")`
 
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
             Powerful intelligence for long-running agents and coding
 
           - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
+
+            **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             Powerful intelligence for long-running agents and coding
 
@@ -947,29 +951,29 @@ Get Session Thread
 
       Tokens used to create prompt cache entries, broken down by cache TTL.
 
-      - `int Ephemeral1hInputTokens`
+      - `long Ephemeral1hInputTokens`
 
         Tokens used to create 1-hour ephemeral cache entries.
 
-        format: int32
+        format: int64
 
-      - `int Ephemeral5mInputTokens`
+      - `long Ephemeral5mInputTokens`
 
         Tokens used to create 5-minute ephemeral cache entries.
 
-        format: int32
+        format: int64
 
-    - `int CacheReadInputTokens`
+    - `long CacheReadInputTokens`
 
       Total tokens read from prompt cache.
 
-      format: int32
+      format: int64
 
-    - `int InputTokens`
+    - `long InputTokens`
 
       Total input tokens consumed across all turns.
 
-      format: int32
+      format: int64
 
     - `BetaMonetaryAmount? ListCost`
 
@@ -985,11 +989,11 @@ Get Session Thread
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-    - `int OutputTokens`
+    - `long OutputTokens`
 
       Total output tokens generated across all turns.
 
-      format: int32
+      format: int64
 
     - `BetaManagedAgentsServerToolUsage? ServerToolUse`
 

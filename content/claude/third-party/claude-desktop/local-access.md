@@ -18,14 +18,14 @@ Set [`allowedWorkspaceFolders`](https://claude.com/docs/third-party/claude-deskt
 | `["~/Documents/Claude", "/Volumes/Shared/Projects"]` | Users may attach only folders **inside** one of the listed roots. |
 | `[]` | No folders may be attached. The agent can still create files in its own sandbox scratch space, but cannot read or write the user's filesystem. |
 
-A leading `~` expands to the user's home directory, so a single profile can express per-user roots like `~/Documents/Claude` across the fleet. A path may also reference one of a fixed set of environment-variable tokens, such as `%OneDrive%` or `%USERNAME%`, listed in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#allowedworkspacefolders). An entry that references any other `%VAR%`, or one that is unset on the device, adds no folder.
+A leading `~` expands to the user's home directory, so a single profile can express per-user roots like `~/Documents/Claude` across the fleet. A path may also reference one of a fixed set of environment-variable tokens, such as `%OneDrive%` or `%USERNAME%`, listed in the [configuration reference](https://claude.com/docs/third-party/claude-desktop/configuration.md#allowedworkspacefolders). An entry that references any other `%VAR%`, or a variable that is unset on the device, adds no folder.
 
 Each entry is either a plain path string or an object with these fields:
 
 | Field | Description |
 | - | - |
 | `path` | The folder path (required). Subfolders are included. |
-| `mode` | `rw` (the default) or `ro`. The agent can view and search a read-only folder but cannot modify it in Cowork. In Code sessions other than SSH remote sessions, read-only applies to Claude's file tools only, and shell commands don't enforce it. For SSH remote sessions, see [Read-only folders on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#read-only-folders-on-the-remote-host). |
+| `mode` | `rw` (the default) or `ro`. The agent can view and search a read-only folder but cannot modify it in Cowork. In Code sessions other than SSH remote sessions, read-only applies to Claude's file tools only, and isn't enforced for shell commands. For SSH remote sessions, see [Read-only folders on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#read-only-folders-on-the-remote-host). |
 | `isDefaultSelected` | When `true`, the folder appears already selected on the new-task page and skips the trust prompt. Users can remove it. |
 
 For example, `[{"path": "~/Documents/Claude"}, {"path": "/Volumes/Shared/Reference", "mode": "ro"}]` lets users work in their own folder and consult the shared reference folder without changing it.
@@ -53,7 +53,7 @@ What the agent can do on the network drive depends on whether the drive was mapp
 * **Mapped and reachable at sandbox start:** the sandbox mounts the attached folder alongside local folders. File tools and shell commands both work.
 * **Mapped later, or unreachable at sandbox start:** file tools still work, but shell commands cannot reach the drive. Copy the relevant files to a local folder before running a script or build against them.
 
-The sandbox can stay running between sessions. A drive the user maps while the sandbox is already up falls into the second case until the sandbox next restarts.
+The sandbox can stay running between sessions. A drive the user maps while the sandbox is already up falls into the second case until the sandbox next restarts. For an attached folder below a DFS link, file tools still work but shell commands can't reach the folder, even if the drive was mapped before the sandbox started. Copy the relevant files to a local folder before running a script or build against them.
 
 The agent cannot attach a network-drive path on its own; only the user can, through the folder picker. This is a security boundary.
 
@@ -65,6 +65,6 @@ Users can attach a folder on a removable drive, such as a USB stick or an SD car
 
 ## WSL
 
-You do not need Windows Subsystem for Linux (WSL) to run Claude Desktop or Cowork. On Windows, Cowork's sandbox runs on the operating system's built-in virtualization, which the [readiness check](https://claude.com/docs/third-party/claude-desktop/installation.md#check-device-readiness) verifies. There is no installation path inside WSL, so run the Windows app and work with WSL files from there.
+You do not need Windows Subsystem for Linux (WSL) to run Claude Desktop or Cowork. On Windows, Cowork's sandbox runs on the operating system's built-in virtualization, which the [readiness check](https://claude.com/docs/third-party/claude-desktop/installation.md#check-device-readiness) verifies. There is no installation path inside WSL, so run the Windows app and work with WSL files from the Windows app.
 
 Windows exposes a WSL distribution's filesystem as a UNC path (`\\wsl$\<distro>` or `\\wsl.localhost\<distro>`). Like any other raw UNC path, these cannot be attached as workspace folders directly. To attach files that live inside WSL as a workspace folder, map the share to a drive letter and attach the mapped drive, or copy the files to a local Windows folder. [Network drives on Windows](#network-drives-on-windows) describes what the agent can do on a mapped drive.

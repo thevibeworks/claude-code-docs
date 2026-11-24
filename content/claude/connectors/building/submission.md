@@ -91,14 +91,14 @@ The privacy policy must cover:
 
 ### Allowed link URIs
 
-If your connector uses the `ui/open-link` capability to open URLs in the user's browser or native apps, provide the list of link targets your server will request. Claude uses this list to suppress the **Open external link** confirmation prompt for destinations you've declared. Links to any other destination still work, but users are asked to confirm before the link opens.
+If your connector uses the `ui/open-link` capability to open URLs in the user's browser or native apps, provide the list of link targets your server will request. Claude uses this list to suppress the **Open external link** confirmation prompt for destinations you've declared. Links to any other web destination still work, but users are asked to confirm before the link opens.
 
-The allowed link URIs list is optional. If you omit it, your connector functions normally, and users see a confirmation prompt each time it opens a link.
+The allowed link URIs list is optional. If you omit it, users see a confirmation prompt each time your connector opens a web link.
 
 Provide each entry in one of these forms:
 
 * **HTTPS origin**: `https://example.com`. Only the scheme and hostname are matched, and paths, ports, and query strings are ignored. Subdomains aren't implied, so list each one, such as `https://app.example.com` and `https://docs.example.com`
-* **Custom URI scheme**: `myapp:` for deep links into a native app you own. Only the scheme is matched
+* **Custom URI scheme**: `myapp:` for deep links into a native app you own. Only the scheme is matched. Claude Desktop doesn't open these links
 
 Every origin and scheme you list must be owned by you, the submitting organization. You may not list third-party domains or URI schemes registered to apps you don't publish. Entries you don't own are removed during review. [Open external links from MCP Apps](https://claude.com/docs/connectors/building/mcp-apps/external-links.md) explains how Claude matches entries and when the prompt still appears.
 

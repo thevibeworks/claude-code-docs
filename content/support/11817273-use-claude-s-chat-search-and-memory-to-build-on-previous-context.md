@@ -330,7 +330,7 @@ If you want to disable Claude’s memory, click the toggle to see two options:
 
 - **Reset memory:** Permanently deletes all memories including project memories. Once you select this option and click “Reset memory,” this cannot be undone. Upon re-enabling the feature, you’ll start from scratch and Claude will not have its previous memory.
 
-**Note:** Pausing or resetting memory also hides your monthly recap, since Claude builds the recap from the same chat history. Learn more about **[the monthly recap](https://support.claude.com/en/articles/15672559)**.
+**Note:** Turning memory off also hides your monthly recap. Learn more about **[the monthly recap](https://support.claude.com/en/articles/15672559)**.
 
 ### What does Claude remember?
 

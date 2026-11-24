@@ -12,7 +12,7 @@ To share a chat:
 
 Once a chat has been shared, anyone with the link can view the chat snapshot. The chat snapshot includes all messages that were sent prior to sharing the chat, including any artifacts. All messages sent after sharing a chat will remain private by default. However, if you unshare the chat and share it again, the snapshot will be updated to include any new messages.
 
-**Note:** Users on Team and Enterprise plans can only share chats with other members of the same organization, not publicly. Read more here: **[Project visibility and sharing](https://support.claude.com/en/articles/9519189-project-visibility-and-sharing)**.
+**Note:** Users on Team and Enterprise plans can't share chats publicly. By default, they can share only with other members of the same organization. An admin can also allow them to invite specific people outside it. Learn more in **[Share a chat with specific people](https://support.claude.com/en/articles/16762496-share-a-chat-with-specific-people#h_c3551baed0)** and **[Project visibility and sharing](https://support.claude.com/en/articles/9519189-project-visibility-and-sharing)**.
 
 ### Share chats with files or MCP integrations
 

@@ -8,7 +8,7 @@
 
 With an app tool, Claude can change what your [MCP App](https://claude.com/docs/connectors/building/mcp-apps/getting-started.md) shows while a user has it open. For example, in a shopping list app, a user asks Claude to add milk, and milk appears in the list on screen.
 
-This page is for developers whose MCP App already renders in Claude. App tools are available to a limited set of organizations, and not in every conversation, so [check whether your organization has access](#check-whether-your-organization-has-access-to-app-tools).
+This page is for developers whose MCP App already renders in Claude. App tools aren't available in every organization or conversation, so [check whether your organization has access](#check-whether-your-organization-has-access-to-app-tools).
 
 > [!NOTE]
 >
@@ -126,7 +126,7 @@ To confirm that Claude can find and call your tool, test it in Claude on the web
 
 1. [Add your server to Claude as a custom connector](https://claude.com/docs/connectors/building/testing.md#test-in-claude-as-a-custom-connector)
 2. Start a new conversation with the [unified Claude experience](https://support.claude.com/en/articles/16761823-claude-cowork-and-chat-are-one-claude), which combines chat and Cowork. If the message box offers a choice of **Chat** or **Cowork**, your account doesn't have it.
-3. Set the permission setting in the message box to **Manual**. In **Auto**, Claude can use a tool without asking.
+3. Set the permission setting in the message box to **Manual**
 4. Ask Claude to open the app, and name your connector in the message
 5. In a second message, ask for a change, such as adding milk to the list.
 
@@ -134,11 +134,11 @@ Claude asks you to approve the **Add item** tool, and after you allow it, milk a
 
 ### Check whether your organization has access to app tools
 
-App tools are available to a limited set of organizations, so the account that you test with may not have them. To check your access, follow these steps:
+The account that you test with may not have app tools. To check your access, follow these steps:
 
 1. [Test a tool in Claude](#test-an-app-tool-in-claude)
 2. If Claude doesn't ask you to approve the tool and doesn't run it, rule out the causes under [Claude finds no tools in the view](#claude-finds-no-tools-in-the-view)
-3. If none of those causes applies, your organization may not have access. Keep your app working without app tools, and test again later.
+3. If none of those causes applies, your organization may not have access. Keep your app working without app tools.
 
 In an organization without app tools, the rest of the view continues to work.
 
@@ -156,7 +156,7 @@ A conversation can hold two views of your app, and each of Claude's calls reache
 
 ### Approval before an app tool runs
 
-Claude asks the user to approve a tool before the tool runs, unless the user's saved choice, such as **Always allow**, or the conversation's permission setting already applies to the call.
+Claude asks the user to approve an app tool before the tool runs, unless the user's saved choice, such as **Always allow**, already applies to the call.
 
 * **What the prompt names**: the connector and the tool's `title`. If you set no `title`, the user sees the `name`.
 * **What else the user can read**: the values that Claude is sending, your `description`, and the tool's inputs

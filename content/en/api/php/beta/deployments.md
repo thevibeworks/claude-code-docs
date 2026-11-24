@@ -149,15 +149,22 @@ use Anthropic\Beta\AnthropicBeta;
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->create(
-  agent: 'string',
-  environmentID: 'x',
+  agent: [
+    'id' => 'agent_011CZkYpogX7uDKUyvBTophP', 'type' => 'agent', 'version' => 0
+  ],
+  environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   initialEvents: [
     [
-      'content' => [['text' => 'Where is my order #1234?', 'type' => 'text']],
+      'content' => [
+        [
+          'text' => 'Compile yesterday\'s orders into report.md.',
+          'type' => 'text',
+        ],
+      ],
       'type' => 'user.message',
     ],
   ],
-  name: 'x',
+  name: 'Daily order report',
   budget: [
     'maxListCost' => ['amount' => '2500', 'currency' => BetaCurrency::USD],
     'type' => 'limit',

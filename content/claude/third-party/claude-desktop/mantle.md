@@ -69,7 +69,7 @@ Origin-pinned (A URL that a bootstrap server delivers must share the origin of b
 
 Since 1.2581.0
 
-**Bedrock base URL.** For VPC endpoints or gateway proxies. Enter https\:// and the host, with no path.
+**Bedrock base URL.** Bedrock: https\:// and the host of a VPC endpoint or gateway proxy, no path. Bedrock Mantle: the full SDK base URL with the /anthropic path.
 
 ***
 
@@ -149,6 +149,15 @@ Since 1.2581.0
 
 **AWS profile name.** AWS named profile to use for Bedrock inference credentials.
 
+> [accordion] More detail
+>
+> Code sessions over SSH to a Linux or macOS host sign in with the profile of this name on that host. This computer's AWS credentials are not sent.
+>
+> * **Set up:** each user needs it on each such host.
+> * **Permissions:** give it Bedrock access only. Claude's `aws` commands there use it too.
+> * **Launcher:** with `claudeCodeProcessWrapperEnabled` on, a host's launcher leads.
+> * **Unset, or files outside the home:** see `inferenceBedrockAwsDir`.
+
 ***
 
 #### `inferenceBedrockAwsDir`
@@ -160,6 +169,10 @@ Consent required (A value that a bootstrap server delivers applies only after th
 Since 1.2581.0
 
 **AWS config directory.** Folder with AWS config/credentials. Defaults to \~/.aws when no bearer token is set.
+
+> [accordion] More detail
+>
+> Code sessions over SSH read the AWS files from the same folder under the user's home folder on the host. If it is not inside the home folder on this computer, they need a launcher. With `inferenceBedrockProfile` unset, the `default` profile is used, but never from `~/.aws`: there a launcher is needed too. Use regular files, not links, in a folder of their own, and keep any `credential_process` program where the user cannot write.
 
 ***
 

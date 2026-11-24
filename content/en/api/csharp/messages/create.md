@@ -3666,19 +3666,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `ClaudeHaiku4_5_20251001("claude-haiku-4-5-20251001")`
 
-    - `ClaudeOpus4_5("claude-opus-4-5")`
-
-      Powerful intelligence for long-running agents and coding
-
-    - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
-
-      Powerful intelligence for long-running agents and coding
-
     - `ClaudeMythosPreview("claude-mythos-preview")`
 
       **Deprecated**: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
       New class of intelligence, strongest in coding and cybersecurity
+
+    - `ClaudeOpus4_5("claude-opus-4-5")`
+
+      **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      Powerful intelligence for long-running agents and coding
+
+    - `ClaudeOpus4_5_20251101("claude-opus-4-5-20251101")`
+
+      **Deprecated**: Will reach end-of-life on January 22, 2027. Please migrate to claude-opus-5-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
+
+      Powerful intelligence for long-running agents and coding
 
     - `ClaudeSonnet4_5("claude-sonnet-4-5")`
 

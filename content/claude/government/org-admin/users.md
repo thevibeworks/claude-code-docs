@@ -4,7 +4,7 @@
 
 # Users
 
-> Find a user, change their role or seat tier, sign them out everywhere, check and reset their usage limits, and see what each organization role can do.
+> Find a user, change their role or seat tier, sign them out everywhere, deactivate or reactivate them, reset their usage limits, and see what each role can do.
 
 > **Who this is for:** Organization owners who need to manage individual users' roles, seat tiers, and usage limits.
 
@@ -62,9 +62,15 @@ The **…** menu on each card has **Sign out everywhere**, which ends every sess
 
 ## Deactivated users
 
-Accounts are deactivated through your directory's SCIM provisioning rather than from this page. A deactivated user cannot sign in. Deactivating a user releases their [seat](https://claude.com/docs/government/org-admin/seats.md). Reactivating them brings the account back if a seat is free for them, as described under [What your directory controls](https://claude.com/docs/government/org-admin/provisioning.md#what-your-directory-controls).
+To end a user's access, first end their sign-in at your identity provider. Then select **Deactivate** in the **…** menu on their card. This signs the account out everywhere, refuses sign-in to it, and releases its [seat](https://claude.com/docs/government/org-admin/seats.md). Any [admin API key](https://claude.com/docs/government/org-admin/admin-api-keys.md#rotate-or-revoke-a-key) they could have seen keeps working until you revoke it. If your directory lists the person, deactivate or remove them there too, because an active entry with the same email address can give them access again.
 
-Deactivated users keep their role. Deactivating a user leaves their Claude Desktop conversations and projects on the devices they used. To remove them, see [Removing data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#removing-data) in the Claude Desktop documentation.
+**Deactivate** is off for a Primary Owner until their [role is changed](#change-a-role), and for a tenant administrator until their [admin access is removed](https://claude.com/docs/government/tenant-admin/admins.md#removing-a-tenant-administrator).
+
+To reactivate an account, turn on **Show deactivated** under **Filters** and select **Reactivate** in the **…** menu on their card. The account keeps its role but not its [seat tier](#assigning-a-seat-tier).
+
+If the menu says **Managed by your identity provider**, deactivate or reactivate the user [in the directory](https://claude.com/docs/government/org-admin/provisioning.md#what-your-directory-controls) instead.
+
+Deactivating a user leaves their Claude Desktop conversations and projects on the devices they used. To remove them, see [Removing data](https://claude.com/docs/third-party/claude-desktop/data-storage.md#removing-data) in the Claude Desktop documentation.
 
 ## Copy user email addresses
 
