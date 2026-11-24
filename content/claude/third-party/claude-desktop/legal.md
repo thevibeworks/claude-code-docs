@@ -57,7 +57,7 @@ Security architecture, threat-model, and data-flow documentation for Claude Desk
 
 ### Security vulnerability reporting
 
-Anthropic manages our security program through HackerOne. [Use this form to report vulnerabilities](https://hackerone.com/4f1f16ba-10d3-4d09-9ecc-c721aad90f24/embedded_submissions/new).
+Anthropic manages its security program through HackerOne. [Use this form to report vulnerabilities](https://hackerone.com/4f1f16ba-10d3-4d09-9ecc-c721aad90f24/embedded_submissions/new).
 
 ***
 

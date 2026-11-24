@@ -268,6 +268,8 @@ The following remain available only to Owners and Primary Owners, even for membe
 
 - **Compliance and security keys.** Compliance API settings and security-key administration remain Owner-only.
 
+- **Sensitivity labels.** Connecting a Microsoft Entra tenant and choosing labels to block remain Owner-only. The Privacy permission doesn't cover them.
+
 - **Organization-level capability settings.** Which capabilities are enabled at the organization level is governed separately and isn't part of admin permissions.
 
 ### What members see when admin permissions are restricted

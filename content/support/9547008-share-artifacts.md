@@ -87,7 +87,7 @@ On Team and Enterprise plans, if you type the address of someone in your organiz
 
 People you invite from outside your organization with "Can edit" access can invite others, the same as people in your organization who can edit the artifact. The artifact’s owner is notified of any sharing changes. Parts of the artifact that use Claude or your connectors don't work for them. Docs are different: people you invite to a doc can ask their own Claude to work on it. Learn more about **[how people you invite can use Claude in a doc](https://support.claude.com/en/articles/16923645)**. People with "Can edit" access can't delete the artifact, and they can upload only images and videos to it.
 
-People you invite with “Commenter” or "Can edit" access can comment, but they can't mention people, and they don’t get email notifications about comments. They can’t ask Claude in a comment, except in a doc, where people with "Can edit" access can. They can't comment on an artifact that's also shared with "Anyone with the link."
+People you invite with “Commenter” or "Can edit" access can comment, but they can't mention people, and they don’t get email notifications about comments. They can’t ask Claude in a comment, except in a doc, where people with "Can edit" access can. They can't comment on a sheet, or on any artifact that's also shared with "Anyone with the link."
 
 ### Manage people you've invited
 
@@ -117,7 +117,7 @@ If someone didn't get an invitation email because they didn't have a Claude acco
 
 ## Who can open a shared artifact
 
-- **Who needs a Claude account:** To open an artifact shared with them or with your organization, people sign in to Claude. Most artifacts shared with "Anyone with the link" open without a Claude account or sign-in. Docs open only for people signed in to Claude, who can only view them. Some other artifacts show part or all of their content only after the visitor signs in. Legacy artifacts have their own rules, described in **[Publish or share a legacy artifact](#h_a5750b9176)**.
+- **Who needs a Claude account:** To open an artifact shared with them or with your organization, people sign in to Claude. Most artifacts shared with "Anyone with the link" open without a Claude account or sign-in. Docs and sheets open only for people signed in to Claude, who can only view them. Some other artifacts show part or all of their content only after the visitor signs in. Legacy artifacts have their own rules, described in **[Publish or share a legacy artifact](#h_a5750b9176)**.
 
 - **Everyone in your organization:** Only people signed in to your organization can open it.
 

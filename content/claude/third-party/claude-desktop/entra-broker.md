@@ -84,11 +84,11 @@ Claude Code in the terminal doesn't use the broker. If you let it sign in to you
 
 ## Allow browser sign-in where your gateway uses the Entra broker
 
-If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md), Claude Code in the terminal can't use the OS identity broker. If your gateway's sign-in flow is `broker`, Claude Code can't use your gateway, and after a developer signs in, it doesn't start unless their computer sets a provider itself. You can turn on a switch so that Claude Code signs in with the browser instead, while Claude Desktop still uses the broker. The switch changes the following:
+Claude Code in the terminal can't use the OS identity broker. If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md) and your gateway's sign-in flow is `broker`, Claude Code can't use your gateway. In that case, after a developer signs in to your organization, Claude Code doesn't start unless the developer's computer sets a provider itself. You can turn on a switch so that Claude Code signs in with the browser instead, while Claude Desktop still uses the broker. The switch changes the following:
 
 * **Provider settings**: the next time a signed-in developer starts Claude Code, your gateway replaces their own provider settings and `apiKeyHelper`
 * **Gateway sign-in**: the developer approves the gateway's address and then signs in to the gateway, with `/login` in Claude Code. Until then, Claude Code refuses each prompt.
-* **Stored sign-in**: the browser sign-in stays on the developer's computer, with a refresh token if Entra returns one. On Linux and Windows, the sign-in is in the plain file `.credentials.json`. Some Windows computers use Windows Credential Manager instead.
+* **Stored sign-in**: the browser sign-in stays on the developer's computer, with a refresh token if Entra returns one. On Linux and Windows, the sign-in is in the unencrypted file `.credentials.json`. Some Windows computers use Windows Credential Manager instead.
 
 **1. Add the redirect URI**
 
@@ -96,7 +96,7 @@ In your Entra app registration, add `http://127.0.0.1/gateway-sign-in/callback` 
 
 **2. Check consent and Conditional Access**
 
-If your tenant requires it, grant consent for `offline_access`. If your Conditional Access policies check the device, set up developers' browsers to identify it, as described in [Why use the broker](#why-use-the-broker). A browser can't meet a policy that requires token protection.
+If your tenant requires it, grant consent for `offline_access`. If your Conditional Access policies check the device, set up developers' browsers to identify the device, as described in [Why use the broker](#why-use-the-broker). A browser can't meet a policy that requires token protection.
 
 **3. Turn on both switches**
 
@@ -104,7 +104,7 @@ Go to **Organization settings > Products > Claude Code**, and turn on the **Allo
 
 To store no refresh token, fill in **Scopes** without `offline_access`. If **Bearer token** is **Access token**, also turn off **Append offline\_access**. Developers then sign in again each time the token expires. **Scopes** also applies to Claude Desktop.
 
-If you turn the browser sign-in switch off, the change applies the next time each developer starts Claude Code. It revokes nothing. The token stays on the computer until the developer runs `claude auth logout` in their terminal. To stop the stored refresh tokens from working, revoke the developers' sessions in Entra. This also ends their other Microsoft sign-ins, and Claude Desktop asks them to sign in again.
+If you turn the browser sign-in switch off, the change applies the next time each developer starts Claude Code. Turning the switch off revokes nothing. The token stays on the computer until the developer runs `claude auth logout` in their terminal. To stop the stored refresh tokens from working, revoke the developers' sessions in Entra. Revoking the sessions also ends the developers' other Microsoft sign-ins, and Claude Desktop asks the developers to sign in again.
 
 ## Troubleshoot
 

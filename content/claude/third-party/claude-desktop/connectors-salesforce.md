@@ -71,7 +71,7 @@ Either way the marketplace stays **available**, and each user installs the plugi
 }
 ```
 
-Keep the name exactly as shown. The Salesforce plugin defines an MCP server with this name, and Claude Desktop matches your entry to it by name and connects it with your client ID. Without the entry, users get the plugin's skills but not its Salesforce tools.
+Keep the name exactly as shown. The Salesforce plugin defines an MCP server with this name, and Claude Desktop matches your entry to that server by name and connects the server with your client ID. Without the entry, users get the plugin's skills but not its Salesforce tools.
 
 Enter exactly one URL as the authorization server. To send users to your org's My Domain login page instead of the shared Salesforce login page, enter that URL, for example `["https://yourorg.my.salesforce.com"]`.
 

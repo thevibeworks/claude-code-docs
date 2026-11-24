@@ -36,7 +36,7 @@ expense-reports/
 
 Selected file
 
-The manifest identifies the plugin to every app and to Anthropic's directory. Without any `plugin.json`, the directory accepts only a folder whose `skills/` directory holds at least one `<name>/SKILL.md`, and lists that plugin for Claude Code only, not for claude.ai or Cowork. To publish the plugin in Anthropic's directory you also need [a README and a license](https://claude.com/docs/plugins/pre-submission-checklist.md#readme-and-license); select those files in the tree to see what each needs.
+The manifest identifies the plugin to every app and to Anthropic's directory. The directory accepts a plugin only with its manifest at `.claude-plugin/plugin.json`. To publish the plugin in Anthropic's directory you also need [a README and a license](https://claude.com/docs/plugins/pre-submission-checklist.md#readme-and-license); select those files in the tree to see what each needs.
 
 Its `name` is the plugin's permanent identity: people install and refer to the plugin by this value, so make it specific to your product and never change it after release. Change `displayName` when you want a different label.
 

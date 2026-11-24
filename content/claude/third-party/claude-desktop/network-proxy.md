@@ -27,7 +27,7 @@ On macOS and Windows, Cowork's sandboxed shell also follows the OS proxy setting
 A few limits apply to the agent regardless of how the proxy is chosen:
 
 * Only `http://` and `https://` proxies are handed to the agent. If the OS or PAC answer is a SOCKS proxy, the app skips it, and the agent connects directly or through the last `http://` or `https://` proxy named for the inference endpoint since Claude Desktop started.
-* There is no interactive proxy sign-in. If your proxy requires a username and password, neither the app, the agent, nor the built-in GitHub connector's server can prompt for them and requests fail. The connector's server gets the proxy's address and no credential, so a proxy that signs devices in with NTLM or Kerberos refuses it too. Run a local forwarding proxy that authenticates upstream on the device (for example, Cntlm or Px) and point the OS or the pinned key at it.
+* There is no interactive proxy sign-in. If your proxy requires a username and password, neither the app, the agent, nor the built-in GitHub connector's server can prompt for them and requests fail. The connector's server gets the proxy's address and no credential, so a proxy that signs devices in with NTLM or Kerberos refuses it too. On the device, run a local forwarding proxy that authenticates to your proxy (for example, Cntlm or Px), and point the OS proxy settings or the `egressProxyUrl` key at that local proxy.
 * If your proxy intercepts TLS, see [TLS-intercepting proxies](#tls-intercepting-proxies) below.
 
 ### PAC script for the sandboxed shell
@@ -54,9 +54,9 @@ If you want the app, the agent, and (on macOS and Windows) Cowork's sandboxed sh
 
 Both keys are read once at launch; a change takes effect the next time the app starts. While either key is set, the OS proxy settings are ignored for the app, the agent, and (on macOS and Windows) Cowork's sandboxed shell. SOCKS URLs and URLs with embedded credentials (`user:password@`) are rejected.
 
-If you point the key at a local forwarding proxy on the device, give it as `http://127.0.0.1:<port>`. An `https://` loopback proxy cannot pass TLS verification from inside Cowork's sandboxed shell, so the shell's commands fail to connect. The app logs a warning at sandbox start when it sees that combination.
+If you point `egressProxyUrl` at a local forwarding proxy on the device, write the proxy's address as `http://127.0.0.1:<port>`. An `https://` loopback proxy cannot pass TLS verification from inside Cowork's sandboxed shell, so the shell's commands fail to connect. The app logs a warning at sandbox start when it sees that combination.
 
-These keys are read from an MDM profile, registry policy, or local configuration file only; they are ignored if returned from a bootstrap server. They also follow the same precedence rule as the update keys: when an MDM profile or registry policy sets any key in that group, values for these keys in a local configuration file are ignored. See [Update keys and managed precedence](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence).
+The app reads `egressProxyUrl` and `egressProxyPacUrl` only from an MDM profile, registry policy, or local configuration file, and ignores them in a bootstrap server's response. These keys also belong to the same group of app-behavior keys as the update keys. When an MDM profile or registry policy sets any key in that group, the app ignores values for these two keys in a local configuration file. See [Update keys and managed precedence](https://claude.com/docs/third-party/claude-desktop/mdm.md#update-keys-and-managed-precedence).
 
 On Linux, or wherever you deploy the local configuration file, the key sits alongside your other settings:
 
@@ -68,7 +68,7 @@ On Linux, or wherever you deploy the local configuration file, the key sits alon
 
 In a macOS configuration profile the same key is a `<key>egressProxyUrl</key><string>http://proxy.example.com:8080</string>` pair in the `com.anthropic.claudefordesktop` payload. On Windows it is a `REG_SZ` value named `egressProxyUrl` under `HKLM\SOFTWARE\Policies\Claude`, or under `HKCU\SOFTWARE\Policies\Claude` if the rest of your registry policy is there. The app [ignores `HKCU` policy when machine policy is present](https://claude.com/docs/third-party/claude-desktop/mdm#4-deploy-the-configuration). See [Value types](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types) and [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) for the surrounding profile and registry structure.
 
-Three behaviors to plan for:
+Plan for these behaviors:
 
 * If the pinned proxy is unreachable, requests fail. The app does not fall back to a direct connection.
 * If a pinned PAC script cannot be downloaded, the app connects directly and the agent gets no proxy. Cowork's sandboxed shell gets its own copy of the script through a separate download when the sandbox starts. If that download fails or returns something other than a PAC script, such as a sign-in page, the shell connects directly. The download isn't tried again until the sandbox next starts, so quit and reopen Claude Desktop on the affected device once the script is reachable. Combine the key with network-layer egress rules if a silent fallback to direct is not acceptable (see the warning below).
@@ -76,7 +76,7 @@ Three behaviors to plan for:
 
 ## What is and is not routed
 
-"App proxy" means the pinned key if one is set, otherwise the OS settings, with PAC rules applied per request.
+"The pinned key" means `egressProxyUrl` or `egressProxyPacUrl`, described under [Pin a proxy from managed configuration](#pin-a-proxy-from-managed-configuration). "App proxy" means the proxy from the pinned key if one is set, and otherwise the proxy from the OS proxy settings, with PAC rules applied per request.
 
 | Traffic | Proxy it follows |
 | - | - |
@@ -94,7 +94,7 @@ Three behaviors to plan for:
 | Commands in Cowork's sandboxed shell on macOS and Windows | The pinned key if one is set (a pinned PAC script is evaluated per request inside the sandbox), otherwise the OS proxy settings |
 | Commands in Cowork's sandboxed shell on Linux | None; commands connect directly |
 | The agent in an [SSH remote Code session](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md) | None from the device: not the pinned key, the OS proxy settings, or proxy variables from Claude Code managed settings on the device. The host's own network route applies, with any Claude Code managed settings on the host. See [Inference credentials on the remote host](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#inference-credentials-on-the-remote-host). |
-| App update check and download | On macOS and Windows, both: the app contacts the update hosts through the app proxy, and the platform's updater follows the OS proxy settings. Allow the [update hosts](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths) on both. To keep updates off a direct path, set the OS proxy on the device, or distribute updates yourself with [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates). On Linux, your package manager's own proxy configuration. |
+| App update check and download | On macOS and Windows, both the app proxy and the OS proxy settings: the app contacts the update hosts through the app proxy, and the platform's updater follows the OS proxy settings. Allow the [update hosts](https://claude.com/docs/third-party/claude-desktop/telemetry.md#required-egress-paths) on both. To keep updates off a direct path, set the OS proxy on the device, or distribute updates yourself with [`disableAutoUpdates`](https://claude.com/docs/third-party/claude-desktop/configuration#disableautoupdates). On Linux, your package manager's own proxy configuration. |
 | `credentialHelper` scripts for [plugin marketplaces](https://claude.com/docs/third-party/claude-desktop/extensions.md#how-a-marketplace-credential-helper-runs) | App proxy, resolved for the marketplace's host and passed to the script as `HTTPS_PROXY` and `HTTP_PROXY` |
 | `inferenceCredentialHelper`, `bootstrapHeadersHelper`, and helper scripts in `managedMcpServers` entries | None injected; the script runs with the app's environment. If it needs a proxy, set one inside the script. |
 | [Brokered Microsoft Entra sign-in](https://claude.com/docs/third-party/claude-desktop/entra-broker.md) (Company Portal on macOS, Web Account Manager on Windows) | The OS proxy settings, which Company Portal and Web Account Manager follow. Set them through the MDM that manages the device. |
@@ -112,18 +112,18 @@ Some traffic doesn't follow the pinned key or the proxy the app resolved, or fol
 
 > [!WARNING]
 >
-> A proxy setting is routing, not enforcement. Nothing on this page prevents a process on the device from connecting directly if the network permits it. If you need a guarantee that traffic leaves only through your proxy, block direct egress at the firewall or secure web gateway and allow only the proxy. The inverse also holds: on an open network, a misconfigured or unreachable PAC script can quietly result in direct connections.
+> A proxy setting is routing, not enforcement. Nothing on this page prevents a process on the device from connecting directly if the network permits it. If you need a guarantee that traffic leaves only through your proxy, block direct egress at the firewall or secure web gateway and allow only the proxy. On an open network, a misconfigured or unreachable PAC script can quietly result in direct connections.
 
 ### The agent uses one proxy
 
-The agent sends its own traffic (inference, its remote MCP connections, and in Code sessions its web fetches and plugin installs) through the one proxy resolved for your inference endpoint. Per-host PAC rules are not re-evaluated inside the agent. For a local Code session, the app does ask the PAC script about GitHub's hosts, and adds those that the script sends direct to `NO_PROXY`.
+The agent sends its own traffic (inference, its remote MCP connections, and in Code sessions its web fetches and plugin installs) through the one proxy resolved for your inference endpoint. Per-host PAC rules are not re-evaluated inside the agent. For a local Code session, the app does ask the PAC script about GitHub's hosts. The app then adds to `NO_PROXY` GitHub hosts that the script sends direct, by the rule in the [`egressProxyPacUrl`](https://claude.com/docs/third-party/claude-desktop/configuration#egressproxypacurl) entry.
 
-This needs attention only when that one proxy is not right for everything the agent reaches: typically some hosts (an internal MCP server, a private package registry, a self-hosted plugin marketplace) must be reached directly while the proxy only carries public traffic, or the reverse. In order of preference:
+This needs attention only when that one proxy is not right for everything the agent reaches: typically some hosts (an internal MCP server, a private package registry, a self-hosted plugin marketplace) must be reached directly while the proxy only carries public traffic, or the reverse. Choose from these options, in order of preference:
 
 1. Let the proxy these devices use carry both kinds of traffic. Nothing else needs configuring.
 2. Otherwise, list the domains that must connect directly in `NO_PROXY` through Claude Code managed settings (see the next section), using leading-dot suffixes such as `.example.corp`, and accept that everything not listed goes to the proxy.
 
-The inverse edge case: if your PAC script returns `DIRECT` for the inference endpoint (common when the gateway is on your internal network), the agent gets no proxy at all, even for hosts the script would proxy. If the agent's other traffic must go through a proxy in that layout, set `HTTPS_PROXY` and a `NO_PROXY` entry for the gateway's domain through Claude Code managed settings.
+In the inverse case, your PAC script returns `DIRECT` for the inference endpoint (common when the gateway is on your internal network). The agent then gets no proxy at all, even for hosts the script would proxy. If the agent's other traffic must go through a proxy in that layout, set `HTTPS_PROXY` and a `NO_PROXY` entry for the gateway's domain through Claude Code managed settings.
 
 ## Interaction with Claude Code managed settings
 
@@ -134,7 +134,7 @@ The inverse edge case: if your PAC script returns `DIRECT` for the inference end
 In Claude Code [managed settings](https://code.claude.com/docs/en/settings#settings-files) on the device (a `managed-settings.json` file or an OS-level Claude Code policy), you can set `HTTPS_PROXY`, `HTTP_PROXY`, or `NO_PROXY` in the `env` block. Those values apply to the agent in Chat, Cowork, and Code sessions and take precedence over what the app would have supplied. Precedence is per variable:
 
 * A managed `HTTPS_PROXY` replaces the app's proxy, and the app's loopback `NO_PROXY` entries stay in place.
-* A managed `NO_PROXY` replaces the app's list. When the app is also supplying the proxy, the loopback entries are appended.
+* A managed `NO_PROXY` replaces the app's list. When the app is also supplying the proxy, the app appends its loopback entries to the managed value.
 
 See Claude Code's [network configuration](https://code.claude.com/docs/en/network-config) page for the variables themselves.
 
@@ -158,9 +158,9 @@ The example also sets `parentSettingsBehavior` to `"merge"`. Without `"merge"`, 
 * A bare hostname matches that host exactly. To cover a domain and its subdomains, use a leading dot: `.example.corp` matches `example.corp` and `api.example.corp`.
 * IP addresses match literally. CIDR ranges such as `10.0.0.0/8` are not supported.
 * `host:port` entries match that host on that port only.
-* `*` disables the proxy entirely, and only when it is the whole value; it is not a wildcard inside a list.
+* `*` disables the proxy entirely, but only when `*` is the whole value. Inside a list, `*` is not a wildcard.
 
-These settings reach the agent process only. The app itself and Cowork's sandboxed shell keep the proxy behavior described above, and the other paths listed under [Traffic that bypasses the app proxy](#traffic-that-bypasses-the-app-proxy) are likewise unaffected by Claude Code managed settings.
+The proxy variables in Claude Code managed settings reach the agent process only. The app itself and Cowork's sandboxed shell keep the proxy behavior described above, and the other paths listed under [Traffic that bypasses the app proxy](#traffic-that-bypasses-the-app-proxy) are likewise unaffected by Claude Code managed settings.
 
 ## TLS-intercepting proxies
 

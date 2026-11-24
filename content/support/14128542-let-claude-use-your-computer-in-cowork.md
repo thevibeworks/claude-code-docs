@@ -196,4 +196,4 @@ To start using computer use:
 
 5. Ask Claude to do something that involves an app on your computer. Claude will ask for permission to access the app before proceeding.
 
-If something doesn’t work as expected, use the in-app feedback button or reach out to <usersafety@anthropic.com>.
+If something doesn’t work as expected, use the in-app feedback button.

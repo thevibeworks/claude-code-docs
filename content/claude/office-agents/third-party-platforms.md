@@ -1294,9 +1294,11 @@ model" or "Model unavailable". Check the cause for your connection path.
 
 Connecting doesn't show that Outlook will work: a model that Outlook doesn't
 support, such as Claude Sonnet 4.6, is enough to connect. If you use Outlook
-and enter a model ID, enter the ID of a model that Outlook supports. The
-example on that screen might not be one. If the add-in connects and Outlook
-has no model menu or its messages fail, see
+and enter a model ID, enter the ID of a model that Outlook supports and your
+gateway serves. The example that Outlook shows on the "Enter model name"
+screen is a supported model.
+
+If the add-in connects and Outlook has no model menu or its messages fail, see
 [Outlook messages fail or the model menu is missing](#outlook-messages-fail-or-the-model-menu-is-missing).
 
 ### Outlook messages fail or the model menu is missing
@@ -1332,19 +1334,38 @@ error in the chat pane depends on the HTTP status it returns.
 | 400 | Starts with "Something went wrong with your request." |
 | 401 | Starts with "Authentication failed." and tells the user to sign out and sign back in. Some gateways return this status when a key or team isn't allowed to call the model. Signing out doesn't help then, and it deletes saved Outlook conversations. |
 | 403 | Starts with "Access denied." On a gateway, the gateway's own message can follow. |
-| 404 | Names the model and says that it "isn't available in your organization's Claude setup." Settings has no model choice, so ask your IT team. |
+| 404 | Names the model and says that it "isn't available in your organization's Claude setup. Ask your administrator to enable it." |
 
-Other statuses, and some gateway messages, show other errors. If your
-gateway or Foundry resource doesn't serve the ID on the `model` line, or
-doesn't allow the user's token to call it, follow the steps for your
+Other statuses, and some gateway messages, show other errors.
+
+Outlook can add this sentence to the 400, 401, and 403 errors in the table:
+"If this keeps happening, tell your administrator that Claude for Outlook
+needs Opus 4.7 or later, or Sonnet 5 or later." All four errors in the table
+can also have a Learn more link, which opens
+[Model availability](https://claude.com/docs/office-agents/outlook.md#model-availability).
+
+The sentence or the link means that Outlook has a list of model IDs for the
+connection and accepts none of them. The list holds the Claude models that
+your gateway lists or the ID entered on the "Enter model name" screen. On
+Foundry direct, it holds the deployments that have a default name. This can
+happen even if you serve a supported model, because Outlook reads the model
+family and version from the ID. An error without the sentence or the link can
+have the same cause.
+
+If your gateway or Foundry resource doesn't serve the ID on the `model` line,
+or doesn't allow the user's token to call it, follow the steps for your
 connection path. They can also bring back the model menu when messages work
 without it.
 
 On Foundry direct and on gateways that use the `anthropic` format, the menu
-can also appear while the selected model fails, with the same errors. Choose
-another model in the menu. On Foundry direct, the menu shows what the add-in
-found when the user signed in, so a deployment removed since then stays in
-it until the user signs in again.
+can also appear while the selected model fails. The errors then start the
+same way, without the added sentence or the Learn more link. If the menu
+holds more than one model, the 404 error ends with "or choose another in the
+model menu." Choose another model in the menu.
+
+On Foundry direct, the menu shows what the add-in found when the user signed
+in, so a deployment removed since then stays in it until the user signs in
+again.
 
 #### Fix a gateway that uses the `anthropic` format
 

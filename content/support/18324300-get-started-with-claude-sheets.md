@@ -16,7 +16,7 @@ Every sheet you create is saved in the **Artifacts** tab. Learn more about **[ar
 
 Claude Sheets puts a spreadsheet inside Claude. Claude for Excel and Claude for Google Workspace bring Claude to the files you already keep in those apps.
 
-Use Claude Sheets for a light, shared sheet that you build with Claude. When your file already lives in Excel or Google Sheets, or you need the full set of features in those apps, use Claude for Excel or Claude for Google Workspace, or export your sheet.
+Use Claude Sheets for trackers, budgets, plans, and models that you and your team build and update with Claude. If your file has to stay in Excel or Google Sheets, use Claude for Excel or Claude for Google Workspace there. You can also import the file into Claude Sheets, and export it as .xlsx.
 
 ## Create a sheet
 
@@ -48,13 +48,61 @@ Say what the sheet is for and what you want to track. If you already have the nu
 
 - **Ask about a range:** Select cells and ask Claude about them, like “Why is this total higher than last month?”
 
-- **Edit directly:** Type in cells, write formulas, and format your data yourself.
+- **Edit directly:** Type in cells, write formulas, and format your data yourself. Claude Sheets includes over 250 functions.
 
 - **Comment:** Add comments on cells for your team.
 
+## Edit your sheet yourself
+
+You can do everyday spreadsheet work without asking Claude:
+
+- **Sort:** Right-click a cell and open the sort menu. To sort by several columns, select “Custom sort.” You can sort for yourself or for all users of the sheet.
+
+- **Filter:** Right-click a cell in a table and select “Filter.” You can filter for yourself or for all users of the sheet.
+
+- **Find and replace:** Press Ctrl+H (Cmd+Shift+H on Mac) to find and replace text in the current tab or in the selected cells. Formula results, dropdowns, and checkboxes can’t be changed this way.
+
+- **Charts:** Select cells with numbers, then select “Insert chart” in the toolbar, or right-click and select “Make chart.” Pick a chart type to add it to your sheet.
+
+- **Conditional formatting:** Select cells, then select “Conditional formatting” in the toolbar or the right-click menu to color cells by a rule.
+
+- **People:** On Team and Enterprise plans, type @ in a cell, then select a person from your organization. A cell can hold several people: click the cell to add more.
+
+- **Dropdowns, checkboxes, and dates:** Right-click a cell, select “Insert,” then select “Dropdown,” “Checkbox,” or “Date.” Double-click a date to change it in a date picker, unless a formula calculates it.
+
+- **Rows and columns:** Right-click a row number or column letter to freeze, group, move, or resize it. To merge cells, select them, right-click, and select “Merge cells.”
+
+- **Number formats:** Select “Number format” in the toolbar to show numbers as currency, percentages, dates, and more.
+
+- **Tables:** When Claude Sheets recognizes a block of cells with a header row as a table, it gives the block a table look and keeps the header in view as you scroll.
+
+- **Cell history:** Right-click a cell and select “View history” to see recent edits to that cell or its row, who made them, and when.
+
+- **Keyboard shortcuts:** With a cell selected, press Ctrl+/ (Cmd+/ on Mac) to see the full list.
+
+## Ask Claude from inside the sheet
+
+If you can edit a sheet, you don’t need the chat for every change:
+
+- **Write a formula in plain words:** Type = in a cell and describe what you want, then select “Write this formula.” Select “Keep” or “Discard” when you see the result. For something simple, like “=sum B2 to B5,” the formula may appear right away, and you can select it.
+
+- **Fix an error:** Select a cell that shows an error, then select “Fix with Claude.” Select “Keep” or “Discard” when you see the fix. If you see “Ask Claude to fix” instead, it opens the chat.
+
+- **Describe a chart:** Select your data, select “Insert chart,” describe the chart you want, and select “Make this chart.”
+
+- **Describe a rule:** Select “Conditional formatting,” type a rule like “red if over budget,” and select “Write rules.”
+
+- **Describe a filter:** Right-click a cell in a table, select “Filter,” and type which rows to show, like “overdue” or “top 10 by revenue.”
+
+- **Ask about cells:** Select cells, right-click, and select “Ask Claude.”
+
+- **Send a comment to Claude:** When you write a comment, make sure “Send to Claude” is checked.
+
+**Note:** When Claude does the work, it counts toward usage limits. On Team and Enterprise plans, an admin can turn off Sheets in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**. Some options, including comments, aren’t available to people from outside your organization.
+
 ## Undo Claude’s changes
 
-Version history shows earlier versions of a sheet and can restore an earlier version, which also removes edits made after it.
+When Claude finishes, a card says what Claude updated. If it shows “Undo,” select it to take back only that change. The card goes away a few seconds after you’re back in the sheet, or as soon as you work in the cells. After that, use **Version history** to restore an earlier version, which also removes edits made after it.
 
 ## Import and export
 
@@ -72,7 +120,7 @@ Pasting from Excel or Google Sheets is also available. To download a sheet, expo
 
 ## Share a sheet
 
-Sheets start private to you. To share one, open it and click "Share." People you share it with who have "Can edit" access can work on it alongside you and Claude. Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
+Sheets start private to you. To share one, open it and click "Share." People you share it with who have “Can edit” access can work on it alongside you and Claude. People from outside your organization can’t add comments. With “Anyone with the link,” the sheet opens only for people signed in to Claude, who can only view it. Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
 
 ## Usage
 
@@ -88,16 +136,16 @@ Turn Claude Sheets on or off in **[Organization settings > Artifacts](https://cl
 
 Claude Sheets is in beta and covers common spreadsheet work. We’re adding more over time.
 
-- **Size:** A sheet can hold at least 200,000 filled cells.
+- **Size:** A sheet can hold over 500,000 filled cells.
 
 - **Charts:** Bar, line, and pie charts are available, as well as a wide range of other chart types Claude can generate.
 
-- **Features not available yet:** Pivot tables, protected ranges, shared filter views, multi-select dropdowns, and PDF export.
+- **Features not available yet:** Multi-select dropdowns, and PDF export.
 
 - **Excel features not supported:** Macros, VBA, Power Query, DAX, and print layout.
 
 - **Live data:** Sheets can’t pull live data from connected apps, and docs, decks, and dashboards can’t use a sheet as a data source.
 
-- **Platforms:** Web and desktop are supported, with limited access on mobile.
+- **Platforms:** Web, desktop, Claude for iOS, and Claude for Android.
 
-- **Data controls:** Claude Sheets is a beta product, so HIPAA and ZDR are not yet supported.
+- **Data controls:** Claude Sheets is a beta product. It isn’t yet available to organizations with HIPAA-ready configurations or with zero data retention for Claude Code. Sheets aren’t covered by zero data retention.

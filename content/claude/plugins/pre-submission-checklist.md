@@ -83,7 +83,7 @@ The repository and folder layout checks cover the plugin's location in the repos
 
 | What to do | [Result if you don't](#read-a-validation-result) | Title in the report, if it has one |
 | - | - | - |
-| Submit a folder that contains `.claude-plugin/plugin.json` | Blocks, except that a folder with no `plugin.json` anywhere and at least one `skills/<name>/SKILL.md` passes with a note and is listed for Claude Code only | |
+| Submit a folder that contains `.claude-plugin/plugin.json` | Blocks | **No plugin.json** |
 | Submit one plugin at a time. In a [marketplace repository](https://code.claude.com/docs/en/plugins/create-marketplace) with several plugins, validate and submit each plugin folder on its own. | Blocks | **Pick one plugin first**, when you select **Submit for review** |
 | Keep every file that a hook, an MCP server command, or a script uses inside the plugin folder, and point every component path in `plugin.json` inside it | Blocks for a `plugin.json` path that points outside the plugin folder, and for a path in a command or script that climbs out of it with `..` | **Path climbs out of the plugin** for a `plugin.json` path with `..`. **Command reaches above the plugin folder** for a path in a command or script. |
 | Commit regular files and folders for everything the plugin loads, not symbolic links, Git submodules, or Git LFS pointer files | Blocks where the plugin loads the entry. Warning elsewhere. | |

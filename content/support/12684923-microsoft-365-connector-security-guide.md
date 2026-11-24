@@ -71,7 +71,7 @@ To stop members from connecting a work Microsoft 365 account to a Claude account
 
 - Users can't access other users' private files or emails. Users can search shared mailboxes they've been granted delegate access to in Microsoft 365, including full access and folder-level delegation. Shared mailbox access remains read-only, via the `Mail.Read.Shared` permission. Email search doesn't reach a user's separate Online Archive (In-Place Archive) mailbox.
 
-- Delegated permissions inherently respect Microsoft 365 data loss prevention (DLP) policies.
+- Delegated permissions mean Claude acts with the user's own access. The connector doesn't evaluate your Microsoft Purview data loss prevention (DLP) policies itself.
 
 **6. Token management**
 
@@ -82,6 +82,24 @@ To stop members from connecting a work Microsoft 365 account to a Claude account
 - Admins or users can revoke access anytime via Microsoft Entra ID.
 
 - The Microsoft 365 Connector doesn’t see or store passwords.
+
+**7. Sensitivity labels (beta, Enterprise plans)**
+
+Owners and Primary Owners can connect a Microsoft Entra tenant and choose Microsoft Purview sensitivity labels to block. The connector then checks SharePoint and OneDrive files, email, and email attachments before it gives Claude the content:
+
+- **Read and change:** the connector refuses a file or email with a blocked label, and one whose label it can't determine. It refuses to replace the content of a file when Microsoft reports any label.
+
+- **Search:** results leave out blocked items only when Microsoft's search index holds the label. Until then, a search can return a blocked file's name, or a blocked email's subject, sender, recipients, and date.
+
+- **Lists:** mail folder lists leave out blocked email, and email whose label the connector can't determine. SharePoint and OneDrive folder lists still show a blocked file's name, size, modified time, and link.
+
+- **Where the check runs:** for a SharePoint or OneDrive file, the connector reads the label before it downloads the file. Microsoft's search results can include a short excerpt of a file. The connector removes it before Claude sees it. For an email or an attachment, the connector's server retrieves the item to read its label, then withholds it from Claude if it's blocked or its label can't be determined.
+
+- **Scope:** labels are blocked for everyone who connects with a work or school account from the tenant. They aren't blocked for people who connect from another tenant or with a personal account.
+
+- **Not checked and not blocked:** file types other than Office, PDF, and MP4 (such as text files, images, and archives), image and text attachments on email that isn't blocked, calendar events, Teams messages, meeting transcripts, SharePoint pages and lists, files inside a folder that Claude moves, copies, or deletes, quoted text in replies, and content Claude creates.
+
+- See **[Block files and email from Claude by sensitivity label](https://support.claude.com/en/articles/18549037-block-files-and-email-from-claude-by-sensitivity-label)**.
 
 ### Security architecture summary
 
@@ -321,6 +339,10 @@ Requested as part of the updated consent set; used only when write tools are ena
 
 - **[People.Read](https://learn.microsoft.com/en-us/graph/permissions-reference#peopleread)**: Find people in the organization to start a chat with
 
+**Sensitivity label setup**
+
+Connecting a tenant for sensitivity labels is a separate sign-in for a Microsoft Entra administrator. It uses `openid`, `profile`, [`User.Read`](https://learn.microsoft.com/en-us/graph/permissions-reference#userread), and `SensitivityLabel.Read`, to check the administrator's role and read the tenant's list of labels. It doesn't read files or email. The connector's own label checks need no permissions beyond the ones in this list.
+
 ### Current limitations
 
 - **Teams write access is limited to messaging**: Claude can send a chat message, post or reply in a channel, or start a new chat, but can't modify Teams settings, memberships, or permissions. All write tools require an admin to enable them.
@@ -367,7 +389,7 @@ Learn more about **[personal Microsoft accounts](https://support.claude.com/en/a
 
 **Do you have audit logging for compliance?**
 
-Yes. All Graph API calls made by the connector are logged in your organization's Microsoft 365 audit log, which you can access through the M365 Compliance Center. These logs show the timestamp, user, operation performed, and resource accessed, with retention periods matching your Microsoft 365 audit policy. Additionally, Anthropic logs authentication and tool execution events.
+Yes. All Graph API calls made by the connector are logged in your organization's Microsoft 365 audit log, which you can access through the M365 Compliance Center. These logs show the timestamp, user, operation performed, and resource accessed, with retention periods matching your Microsoft 365 audit policy. Additionally, Anthropic logs authentication and tool execution events. Content that label blocking refuses isn't recorded as a separate event in Claude's audit logs. For Enterprise organizations, connecting or disconnecting a Microsoft Entra tenant and changing blocked labels are recorded in your organization's audit logs.
 
 **Can we revoke access if we discover unauthorized usage?**
 
@@ -426,3 +448,5 @@ Anthropic has the following certifications:
 - **[Overview of Microsoft Graph permissions: Delegated permissions](https://learn.microsoft.com/en-us/graph/permissions-overview?tabs=http#delegated-permissions)**
 
 - **[Microsoft 365 connector for Claude: architecture and data flows (Anthropic Trust Center)](https://trust.anthropic.com/resources?s=z7e632bdv3hjh3j4bufuzn&name=microsoft-365-connector-for-claude:-architecture-and-data-flows)**
+
+- **[Block files and email from Claude by sensitivity label](https://support.claude.com/en/articles/18549037-block-files-and-email-from-claude-by-sensitivity-label)**
