@@ -24,9 +24,9 @@ A built-in entry names the bundled server in a `server` field, in place of the `
 
 ## How built-in servers behave
 
-All built-in servers share the same model:
+All built-in servers work the same way:
 
 * **Managed configuration only.** A built-in server activates only from a `managedMcpServers` entry. Users cannot add one themselves and cannot remove one you deploy.
 * **Sign-in on the device.** Where the server needs user credentials (Microsoft 365 and GitHub), the user signs in from the app, and tokens are stored encrypted on the device. **Disconnect** in connector settings signs the user out. The web search server has no user sign-in; you supply the search key in the entry.
-* **Tool approvals.** Each entry accepts the same per-tool [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) as any managed server. Without a policy, each call that Claude makes to a built-in write tool needs approval, and a small set of irreversible actions (sending mail or merging a pull request, for example) stays at ask or stricter no matter what the policy says.
+* **Tool approvals.** Each entry accepts the same per-tool [`toolPolicy`](https://claude.com/docs/third-party/claude-desktop/configuration#managedmcpservers) as any managed server. Without a policy, each call that Claude makes to a built-in write tool needs approval, and a small set of irreversible actions (sending mail or merging a pull request, for example) stays at the `ask` setting or a stricter one, no matter what the policy says.
 * **Versioned with the app.** Each built-in server requires a Claude Desktop version that includes it. On older versions, the server is missing from the **Add server** menu, **Test this connection** reports that it is not included, and a deployed entry is dropped. The fix is to upgrade Claude Desktop.

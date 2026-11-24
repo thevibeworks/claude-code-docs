@@ -134,7 +134,7 @@ Some artifacts can't leave your organization even with these settings on:
 
 Other artifacts, including docs and artifacts that use connected apps or ask Claude questions, can leave your organization when these settings allow it:
 
-- **By link:** When **External sharing** is on, or you've allowed it for that artifact, anyone with the link can open it. Most artifacts shared this way open without a Claude account or sign-in. Docs open only for people signed in to Claude, who can only view them. Legacy artifacts shared from a chat also need a Claude account, and some other artifacts show part or all of their content only after the visitor signs in. Connected apps and Claude features don't work for people who open the link from outside your organization or without signing in.
+- **By link:** When **External sharing** is on, or you've allowed it for that artifact, anyone with the link can open it. Most artifacts shared this way open without a Claude account or sign-in. Docs and sheets open only for people signed in to Claude, who can only view them. Legacy artifacts shared from a chat also need a Claude account, and some other artifacts show part or all of their content only after the visitor signs in. Connected apps and Claude features don't work for people who open the link from outside your organization or without signing in.
 
 - **By email invitation:** When **Email invitations outside your organization** is on, people you invite sign in to Claude with the invited address. This setting is on by default on Team plans and off by default on Enterprise plans. Some organizations can't invite people outside the organization, including those with HIPAA-ready configurations, CMEK, education or K-12 terms, zero data retention with redaction, or a hybrid deployment.
 
@@ -281,7 +281,7 @@ When an artifact is shared with a group, access follows current group membership
 
 ## Third-party platform availability
 
-Artifacts are available in Claude on web and desktop, in Claude Code, and at claude.ai/design for standalone Claude Design until it closes. In Claude for iOS and Claude for Android, users can ask for an artifact, view the result, and edit docs, decks, and designs. Artifacts aren't available through third-party cloud platforms.
+Artifacts are available in Claude on web and desktop, in Claude Code, and at claude.ai/design for standalone Claude Design until it closes. In Claude for iOS and Claude for Android, users can ask for an artifact, view the result, and edit docs, decks, designs, and sheets. Artifacts aren't available through third-party cloud platforms.
 
 ---
 

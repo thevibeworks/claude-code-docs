@@ -111,14 +111,14 @@ Send members these steps. Replace `<organization name>` with the
 organization's name as shown on claude.ai.
 
 A member whose add-in is already connected logs out first. Logging out
-[deletes their saved Outlook conversations](https://claude.com/docs/office-agents/data-storage.md#outlook-data-deleted-when-a-sign-in-ends).
+[deletes their saved Outlook conversations and writing style](https://claude.com/docs/office-agents/data-storage.md#outlook-data-deleted-when-a-sign-in-ends).
 
 You can start from this text:
 
 ```text wrap theme={null}
 Please sign in to <organization name> from the Claude add-in in Excel, PowerPoint, Word, or Outlook.
 
-1. Open the add-in. If it's already connected, select "Logout" from the "More options" menu, then "Sign out" if asked. Logging out deletes your saved Outlook conversations.
+1. Open the add-in. If it's already connected, select "Logout" from the "More options" menu, then "Sign out" if asked. Logging out deletes your saved Outlook conversations and writing style.
 2. Select "Log in". In the browser, select "Connect". If asked, pick the organization marked "Enterprise 3P".
 3. Check that the page shows "Authorizing for" with <organization name>. Only then select "Authorize".
    - If it shows something else, select "Switch organization", pick <organization name>, and select "Authorize".
@@ -136,11 +136,20 @@ supported MCP servers. The
 [collector](https://claude.com/docs/office-agents/opentelemetry.md#endpoint-requirements) and the
 servers must allow CORS too.
 
+The add-in doesn't use a server's "Default state". A server set to "Off" works
+like any other, and members can switch it off in the
+["Connectors" menu](https://claude.com/docs/office-agents/connectors-and-skills.md#connectors).
+
+To withhold a server from everyone, remove it in the console. To withhold it
+from a group, leave it out of the server list in that group's permission
+policy. Either step also withholds the server in Claude Desktop.
+
 * **When changes take effect**: a change usually reaches an add-in that's
   online within about 10 minutes. If it doesn't, ask the member to restart
   the Office app.
 * **After you change the connection**: ask members to select "Logout" and
-  sign in again. Logging out deletes their saved Outlook conversations.
+  sign in again. Logging out deletes their saved Outlook conversations and
+  writing style.
   A new gateway address or header applies without logging out if their
   token still works.
 * **To turn off sign-in**: turn off the switch and select "Save changes".

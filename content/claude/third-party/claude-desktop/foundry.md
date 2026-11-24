@@ -27,7 +27,7 @@ This page walks an IT administrator through a Microsoft Foundry deployment: crea
 
 ## Set up Azure
 
-These steps are performed once per Azure subscription. You need permission to create resources and, for in-app sign-in, to register an application in Microsoft Entra ID.
+Complete these steps once per Azure subscription. You need permission to create resources and, for in-app sign-in, to register an application in Microsoft Entra ID.
 
 **1. Create a Microsoft Foundry resource**
 
@@ -77,19 +77,19 @@ On success, the app returns to Cowork. For the device-code and browser flows the
 
 If the app can no longer renew the credential silently, it shows a **Sign in again** prompt; clicking it reopens the configured sign-in flow. For the device-code and browser flows this happens when the stored refresh token expires or is revoked. For the broker flow it happens when the broker can no longer renew the token silently.
 
-`inferenceFoundryTenantId`, `inferenceFoundryClientId`, and `inferenceFoundryAuthFlow` can be set through the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#choose-how-users-authenticate-to-your-provider), an MDM profile, or a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md). When a bootstrap server delivers `inferenceFoundryResource`, `inferenceFoundryTenantId`, or `inferenceFoundryClientId`, the values are among the [keys that require user consent](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent), so users may see a one-time approval dialog depending on how `bootstrapUrl` reached the device.
+`inferenceFoundryTenantId`, `inferenceFoundryClientId`, and `inferenceFoundryAuthFlow` can be set through the [Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console.md#choose-how-users-authenticate-to-your-provider), an MDM profile, or a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md). When a bootstrap server delivers `inferenceFoundryResource`, `inferenceFoundryTenantId`, or `inferenceFoundryClientId`, these keys are among the [keys that require user consent](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent), so users may see a one-time approval dialog depending on how `bootstrapUrl` reached the device.
 
 #### Allow network egress
 
-The sign-in flow reaches `login.microsoftonline.com` in addition to your Microsoft Foundry endpoint. Both hosts are included automatically in the **Egress** section of the in-app configuration window when these keys are set. When you [route requests through a gateway](#route-requests-through-a-gateway), the gateway's host replaces the resource host there.
+The sign-in flow reaches `login.microsoftonline.com` in addition to your Microsoft Foundry endpoint. Both hosts are included automatically in the **Egress** section of the in-app configuration window when `inferenceFoundryResource` and `inferenceFoundryTenantId` are set. When you [route requests through a gateway](#route-requests-through-a-gateway), the gateway's host replaces the resource host in the **Egress** section.
 
 ### Route requests through a gateway
 
-To send Microsoft Foundry traffic through a gateway or proxy you operate, such as Azure API Management in front of the resource, set `inferenceFoundryBaseUrl` (**Azure AI Foundry base URL**) to the gateway's base URL including any path, for example `https://llm-gateway.example.com/foundry`. It replaces the default `https://<resource-name>.services.ai.azure.com/anthropic` endpoint in Chat, Cowork, and Code, and it takes the same value as Claude Code's `ANTHROPIC_FOUNDRY_BASE_URL`, so one value serves both. `inferenceFoundryResource` is still required. The value must use `https`; from an MDM profile or the local configuration file it may instead be `http` for a proxy listening on the device's own loopback address (a bootstrap server response cannot deliver a loopback value).
+To send Microsoft Foundry traffic through a gateway or proxy you operate, such as Azure API Management in front of the resource, set `inferenceFoundryBaseUrl` (**Azure AI Foundry base URL**) to the gateway's base URL including any path, for example `https://llm-gateway.example.com/foundry`. The gateway's base URL replaces the default `https://<resource-name>.services.ai.azure.com/anthropic` endpoint in Chat, Cowork, and Code. `inferenceFoundryBaseUrl` takes the same value as Claude Code's `ANTHROPIC_FOUNDRY_BASE_URL`, so you can use one value for both settings. `inferenceFoundryResource` is still required. The value must use `https`, except that a value from an MDM profile or the local configuration file may use `http` for a proxy that listens on the device's own loopback address. A bootstrap server response cannot deliver a loopback value.
 
-The app sends the gateway the same credential it would send Microsoft Foundry: the API key, the credential helper's output, or with in-app sign-in each user's Entra ID token issued for the Azure Cognitive Services audience. A gateway that validates tokens must therefore accept that audience. If you want users to sign in against your own API's app registration instead, for example to map app roles to gateway policy, use the [gateway provider](https://claude.com/docs/third-party/claude-desktop/gateway.md) with its Entra ID sign-in rather than the Microsoft Foundry provider.
+The app sends the gateway the same credential it would send Microsoft Foundry: the API key, the credential helper's output, or, with in-app sign-in, each user's Entra ID token issued for the Azure Cognitive Services audience. A gateway that validates tokens must therefore accept that audience. If you want users to sign in against your own API's app registration instead, for example to map app roles to gateway policy, use the [gateway provider](https://claude.com/docs/third-party/claude-desktop/gateway.md) with its Entra ID sign-in rather than the Microsoft Foundry provider.
 
-This key works from an MDM profile, the local configuration file, and a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md), where it is one of the [keys that require user consent](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent). The Claude add-in for Microsoft 365 does not apply it yet and keeps calling the resource endpoint directly; if the add-in must also go through your gateway, configure the add-in's own gateway mode.
+You can set `inferenceFoundryBaseUrl` in an MDM profile, in the local configuration file, or from a [bootstrap server](https://claude.com/docs/third-party/claude-desktop/bootstrap.md). From a bootstrap server, `inferenceFoundryBaseUrl` is one of the [keys that require user consent](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent). The Claude add-in for Microsoft 365 does not apply `inferenceFoundryBaseUrl` yet and keeps calling the resource endpoint directly; if the add-in must also go through your gateway, configure the add-in's own gateway mode.
 
 ## Configure the app
 
@@ -204,7 +204,7 @@ If sign-in fails at the token step, confirm the **Azure Cognitive Services** per
 
 If sign-in fails with error code `AADSTS650057`, the **user\_impersonation** permission is missing from the app registration. Add it under **API permissions**.
 
-If sign-in fails with error code `AADSTS65001`, the permission has not been consented. Select **Grant admin consent** on the **API permissions** page, or have the user accept the consent prompt if your tenant allows user consent.
+If sign-in fails with error code `AADSTS65001`, neither an administrator nor the user has consented to the **user\_impersonation** permission. Select **Grant admin consent** on the **API permissions** page, or have the user accept the consent prompt if your tenant allows user consent.
 
 If browser-flow sign-in fails in the browser with error code `AADSTS50011`, the redirect URI is missing from the app registration or does not match. Add `http://127.0.0.1/callback` under **Authentication → Mobile and desktop applications**, using the literal address `127.0.0.1`, not `localhost`.
 

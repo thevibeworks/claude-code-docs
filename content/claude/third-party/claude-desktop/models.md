@@ -21,15 +21,15 @@ Each entry is either a model ID string or an object. In an object, `name` holds 
 * `prefer1m: true`, with `supports1m: true`, shows the model as one entry. New conversations with it use the 1M context window. To do this for every entry that sets `supports1m`, set [`modelPrefer1mContext`](https://claude.com/docs/third-party/claude-desktop/configuration#modelprefer1mcontext) to `true`. When discovery fills the picker from a gateway, that key applies to every model the gateway [marks as supporting 1M](https://claude.com/docs/third-party/claude-desktop/gateway.md#models).
 * `behavesAs` names the Claude model behind an ID that Claude Desktop can't identify, such as a gateway routing alias. The picker then shows that model's **Effort** control. See [Map an unrecognized model ID to a Claude model](#map-an-unrecognized-model-id-to-a-claude-model).
 
-On any provider, a Chat conversation, Cowork session, or Code session on an entry without `supports1m` assumes a context window from the model ID:
+On any provider, a Chat conversation, Cowork session, or Code session on an entry without `supports1m` assumes a context window that depends on the model ID:
 
-* **An ID recognized as a model with a native 1M context window**, such as `us.anthropic.claude-opus-5`: you don't need `supports1m` or `prefer1m`. Setting them doesn't change the assumed window. For earlier Claude Desktop versions, see [Context window and compaction](https://claude.com/docs/third-party/claude-desktop/gateway.md#context-window-and-compaction) on the LLM gateway page. To check a model, see [Extended context](https://code.claude.com/docs/en/model-config#extended-context) in the Claude Code documentation, which lists the models that run with the 1M window by default.
+* **An ID recognized as a model with a native 1M context window**, such as `us.anthropic.claude-opus-5`: you don't need `supports1m` or `prefer1m`. Setting them doesn't change the assumed window. For Claude Desktop versions earlier than 2.19675.0, see [Context window and compaction](https://claude.com/docs/third-party/claude-desktop/gateway.md#context-window-and-compaction) on the LLM gateway page. To check whether a model has a native 1M context window, see [Extended context](https://code.claude.com/docs/en/model-config#extended-context) in the Claude Code documentation, which lists the models that run with the 1M window by default.
 * **An ID for a model without a native 1M context window, or an unrecognized ID whose entry doesn't set `behavesAs`**, such as `us.anthropic.claude-opus-4-6-v1` or a gateway routing alias: the assumed window is 200K tokens. If your deployment accepts 1M-token requests for the model, [set a larger context window for it](#set-a-larger-context-window-for-a-model).
-* **An unrecognized ID whose entry sets [`behavesAs`](#map-an-unrecognized-model-id-to-a-claude-model)**, through an LLM gateway: the assumed window is the window of the model that `behavesAs` names.
+* **An unrecognized ID whose entry sets [`behavesAs`](#map-an-unrecognized-model-id-to-a-claude-model)**, when sessions reach the model through an LLM gateway: the assumed window is the window of the model that `behavesAs` names.
 
 ### Set a larger context window for a model
 
-A session compacts a long conversation to fit the context window that it assumes for the model, even when your provider accepts more. If your deployment accepts 1M-token requests for a model that sessions assume 200K tokens for, declare that on the model's `inferenceModels` entry:
+A session compacts a long conversation to fit the context window that it assumes for the model, even when your provider accepts more. If your deployment accepts 1M-token requests for a model that sessions assume 200K tokens for, declare the larger window on the model's `inferenceModels` entry:
 
 * **A gateway routing alias for a Claude model with a native 1M context window**, such as Claude Sonnet 5: set [`behavesAs`](#map-an-unrecognized-model-id-to-a-claude-model) to that model's ID. New sessions on the alias assume that model's window.
 * **Any other model that your deployment serves with a 1M context window**: set `supports1m` and `prefer1m`. New Chat conversations, Cowork sessions, and Code sessions on the model request the 1M context window from your provider. With `supports1m` alone, only sessions that a user starts on the **1M context window** entry get the larger window.
@@ -72,7 +72,7 @@ In Code sessions, the cap also limits Claude Code's own effort settings, such as
 
 [`defaultModelEffort`](https://claude.com/docs/third-party/claude-desktop/configuration#defaultmodeleffort) sets the effort level the default model starts at, in place of its recommended level. Other models keep their recommended level. If you set a level the default model doesn't offer, or one above its `maxEffort`, the default model starts at the nearest lower level it offers.
 
-In Code, the `CLAUDE_CODE_EFFORT_LEVEL` environment variable or `effortLevel` in Claude Code's settings takes priority.
+In Code, the `CLAUDE_CODE_EFFORT_LEVEL` environment variable or `effortLevel` in Claude Code's settings takes priority over `defaultModelEffort`.
 
 `defaultModelEffort` also applies when [model discovery](https://claude.com/docs/third-party/claude-desktop/configuration.md#modeldiscoveryenabled) fills the picker instead of an `inferenceModels` list.
 
@@ -104,7 +104,7 @@ Without `behavesAs`, users can't change an unrecognized model's effort level. It
 
 ## Start every conversation on the default model
 
-Set [`alwaysStartWithDefaultModel`](https://claude.com/docs/third-party/claude-desktop/configuration#alwaysstartwithdefaultmodel) to `true` to start every new Chat conversation, Cowork session, and Code session on the [default model](#model-list-and-default-model) at its [starting effort level](#effort-levels), not on the user's last choice. When the user picks a model or effort level, it applies only for that conversation or session.
+Set [`alwaysStartWithDefaultModel`](https://claude.com/docs/third-party/claude-desktop/configuration#alwaysstartwithdefaultmodel) to `true` to start every new Chat conversation, Cowork session, and Code session on the [default model](#model-list-and-default-model) at its [starting effort level](#effort-levels), not on the user's last choice. When the user picks a model or effort level, the choice applies only to that conversation or session.
 
 If you leave `alwaysStartWithDefaultModel` unset, the default model and its starting effort level apply until a user picks a different model or effort level. Claude Desktop remembers that choice and starts the user's new conversations and sessions from it.
 

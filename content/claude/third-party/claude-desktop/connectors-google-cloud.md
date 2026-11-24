@@ -65,7 +65,7 @@ Each user opens **Customize → Connectors** in Claude Desktop, clicks **Connect
 
 ## Other Google servers
 
-Google's other remote MCP servers take the same **Client ID**, **Client secret**, and **Authorization server** values. For the [Google Workspace servers](https://developers.google.com/workspace/guides/configure-mcp-servers) (Gmail, Drive, Calendar, Docs, Sheets, Slides, and Chat), that guide lists each server's URL and prerequisites, including a Google Cloud project enrolled in Google's [Workspace Developer Preview Program](https://developers.google.com/workspace/preview).
+Google's other remote MCP servers take the same **Client ID**, **Client secret**, and **Authorization server** values. For the [Google Workspace servers](https://developers.google.com/workspace/guides/configure-mcp-servers) (Gmail, Drive, Calendar, Docs, Sheets, Slides, and Chat), the linked Google guide lists each server's URL and prerequisites, including a Google Cloud project enrolled in Google's [Workspace Developer Preview Program](https://developers.google.com/workspace/preview).
 
 ## Troubleshoot sign-in errors
 

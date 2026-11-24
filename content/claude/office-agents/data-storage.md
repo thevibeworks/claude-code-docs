@@ -4,7 +4,7 @@
 
 # Data storage and retention
 
-> Where Claude for M365 stores chat history, skills, and credentials on each user's device, why reinstalling or switching add-ins keeps that data, and how long it is kept.
+> Where Claude for M365 stores chat history, skills, and credentials on each user's device, why reinstalling or switching add-ins keeps that data, how long it is kept, and why the add-in asks users to sign in again.
 
 Claude for M365 stores chat history, uploaded skills, connector registrations,
 and sign-in credentials on each user's own device, in the browser storage of
@@ -184,6 +184,40 @@ treat it as you would any other shared secret.
 > folder as a secret. It also holds the connector tokens from
 > `claude-mcp-gateways`, so deleting only its local storage folder does not
 > remove every credential. A rebuilt machine signs in again regardless.
+
+## When users have to sign in again
+
+A sign-in with a claude.ai account, including one to an organization that
+[manages the add-in from the Enterprise Admin Console](https://claude.com/docs/office-agents/admin-console.md),
+expires 27 to 30 days after the user signed in, however often they use the
+add-in. Users then sign in again. A sign-in can end sooner, for example when it
+is revoked, or when the user signs out in a task pane that shares the same
+storage.
+
+If the add-in asks users to sign in with their Claude account each time they
+open it or their browser, the browser or device is probably not keeping the
+storage that holds the sign-in. Check for these causes:
+
+* Blocked third-party storage: in Office on the web, where browsers treat the
+  add-in's [storage as third-party](#where-the-data-sits-on-macos), a browser
+  setting or policy that blocks third-party cookies or site data is likely to
+  stop the add-in from saving the sign-in.
+* Safari: in Office on the web, Safari is likely to drop the sign-in each time
+  it quits, because it keeps an embedded site's storage only until then.
+* Private browsing: in Office on the web, closing a private window is likely to
+  remove the sign-in.
+* Clearing on exit: a browser setting or policy that clears site data, or that
+  uses temporary profiles, is likely to remove it each time the browser closes.
+* Profile cleanup: on desktop, a virtual desktop that does not keep the user
+  profile, or cleanup that deletes Office's add-in storage, is likely to remove
+  it.
+
+To keep the sign-in in Office on the web, use a normal window in a browser
+other than Safari, with a profile that keeps site data and allows it for
+embedded sites.
+
+An Office app or Office account with
+[storage of its own](#sign-in-and-credentials) needs its own sign-in.
 
 ## Where the data sits on Windows
 

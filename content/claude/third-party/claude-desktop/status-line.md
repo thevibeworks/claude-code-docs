@@ -61,7 +61,7 @@ Add the key to the same [configuration source](https://claude.com/docs/third-par
 * **macOS profile or Windows registry**: write the value as a [JSON string](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types-in-a-profile-or-registry-policy)
 * **Bootstrap server**: the key applies after the user approves it in a dialog, unless the device [trusts the server's values without prompting](https://claude.com/docs/third-party/claude-desktop/bootstrap.md#keys-that-require-user-consent)
 
-If one configuration serves several operating systems, such as a bootstrap server's response, add `platformOverrides` with a `command` under `win32` (Windows), `darwin` (macOS), or `linux`. In a macOS profile, a Windows registry policy, or the [Linux configuration file](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#the-linux-configuration-file), set only `command`. Versions before 4.16336.0 reject the whole key and show no status line, so add `platformOverrides` only after every device has updated. The top-level `command` is required and runs on any system you don't list:
+If one configuration serves several operating systems, such as a bootstrap server's response, add `platformOverrides` with a `command` under `win32` (Windows), `darwin` (macOS), or `linux`. In a macOS profile, a Windows registry policy, or the [Linux configuration file](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#the-linux-configuration-file), set only `command`. Versions before 4.16336.0 reject the whole key when it contains `platformOverrides`, and show no status line, so add `platformOverrides` only after every device has updated. The top-level `command` is required and runs on any system you don't list:
 
 ```json theme={null}
 {
@@ -84,7 +84,7 @@ On Claude Desktop 4.16336.0 or later, if [`inferenceModelPricingEnabled`](https:
 
 Claude Desktop starts the status line program with no arguments and no window, as the user who runs Claude Desktop.
 
-* **File type**: on macOS and Linux, an executable file, such as a compiled program or a script that starts with `#!`. Claude Desktop doesn't check the interpreter that a `#!` line names, so install it where users can't change it too. Python also runs code from the user's folders unless you start it with `-I`, for example `#!/usr/bin/python3 -I`. On Windows, an `.exe` file or a `.ps1`, `.cmd`, or `.bat` script.
+* **File type**: on macOS and Linux, an executable file, such as a compiled program or a script that starts with `#!`. Claude Desktop doesn't check the interpreter that a `#!` line names, so also install that interpreter where users can't change it. Python also runs code from the user's folders unless you start it with `-I`, for example `#!/usr/bin/python3 -I`. On Windows, an `.exe` file or a `.ps1`, `.cmd`, or `.bat` script.
 
 * **Input**: one line of JSON on standard input, with the session ID, the model, and the [session cost](#session-cost-in-the-status-line-input). A field with no value is left out, so handle a missing `model` or `cost`. Later versions can add fields, so ignore any that the program doesn't use. Don't build a file path from these values.
 
@@ -107,12 +107,12 @@ Claude Desktop starts the status line program with no arguments and no window, a
 `cost.total_cost_usd` is the session's estimated cost so far. Claude Desktop sends it only while [`inferenceModelPricingEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricingenabled) is on and the session has an estimate. The value is a number in US dollars with up to six decimal places and no exponent. It's for display only and can differ from your provider's bill.
 
 * **Source**: Claude Desktop's own sum for the session, added up on the user's device. It covers Cowork, Chat, and Code sessions, including [Code sessions over SSH](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md). With no status line set, the built-in "Session cost (estimate)" line above the message box shows the same sum.
-* **Models with no price**: a model ID that can't be matched to a Claude model, such as an opaque gateway alias, adds nothing. After you give that ID a rate in [`inferenceModelPricing`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricing), only its later usage counts. The input doesn't show that the sum is partial.
+* **Models with no price**: a model ID that can't be matched to a Claude model, such as an opaque gateway alias, adds nothing to the sum. After you give that ID a rate in [`inferenceModelPricing`](https://claude.com/docs/third-party/claude-desktop/configuration#inferencemodelpricing), only its later usage counts. The input doesn't show that the sum is partial.
 * **Missing `cost`**: don't show \$0. Check for each of these causes:
   * `inferenceModelPricingEnabled` is off
-  * The session has no priced estimate yet, such as before Claude Desktop records its first turn's cost or when it has used only models with no price
+  * The session has no priced estimate yet, such as before Claude Desktop records the cost of the session's first turn or when the session has used only models with no price
   * Claude Desktop [couldn't read its usage ledger](#troubleshoot-a-missing-status-line), the local record of these estimates
-* **Scripts written for Claude Code**: [Claude Code's status line](https://code.claude.com/docs/en/statusline) always sends `cost`, among many other fields. Claude Desktop sends only the fields in the [sample input](#write-the-status-line-program), so check a script that you carry over for other fields and for a fallback to 0. Claude Desktop's sum can also differ from Claude Code's total, for example after `/clear`.
+* **Scripts written for Claude Code**: [Claude Code's status line](https://code.claude.com/docs/en/statusline) always sends `cost`, among many other fields. Claude Desktop sends only the fields in the [sample input](#write-the-status-line-program), so check whether a script that you carry over reads other fields or falls back to 0 when `cost` is missing. Claude Desktop's sum can also differ from Claude Code's total, for example after `/clear`.
 
 This macOS and Linux script prints the cost. While `cost` is missing it prints nothing, so no line shows:
 
@@ -130,7 +130,7 @@ printf 'Session cost (estimate): $%.2f\n' "$cost"
 
 A `.ps1` script runs in Windows PowerShell, not PowerShell 7.
 
-* **Execution policy**: if Group Policy allows only signed scripts, sign the `.ps1` script with a certificate that each device trusts, and add it to each device's Trusted Publishers store. If Group Policy turns scripts off, use a `.cmd` or `.exe` file.
+* **Execution policy**: if Group Policy allows only signed scripts, sign the `.ps1` script with a certificate that each device trusts, and add that certificate to each device's Trusted Publishers store. If Group Policy turns scripts off, use a `.cmd` or `.exe` file.
 * **Encoding**: a script must print UTF-8, or characters outside ASCII can show as "�" or "?". In a `.ps1` script, set UTF-8 output in the first statement, as the [Windows sample](#sample-status-line-programs) does, and save the file as UTF-8 with BOM. In a `.cmd` or `.bat` script, put `chcp 65001 >nul` right after `@echo off`, and save the file as UTF-8 without BOM.
 
 ### Sample status line programs

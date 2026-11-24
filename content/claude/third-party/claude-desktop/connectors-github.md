@@ -40,7 +40,7 @@ Check the endpoint URL, the supported authentication methods, and the token scop
 
 ## Local connector
 
-Claude Desktop includes a built-in copy of github-mcp-server and runs it as a local process when a `managedMcpServers` entry sets `server` to `github`. The server calls github.com, your GitHub Enterprise Cloud tenant on `ghe.com`, or your GitHub Enterprise Server instance, from the device. Behind a proxy, the server's calls follow the proxy that the app resolves for the host that serves the GitHub API. See [What is and is not routed](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#what-is-and-is-not-routed).
+Claude Desktop includes a built-in copy of github-mcp-server and runs it as a local process when a `managedMcpServers` entry sets `server` to `github`. The server calls github.com, your GitHub Enterprise Cloud tenant on `ghe.com`, or your GitHub Enterprise Server instance, from the device. Behind a proxy, the server's calls go through the proxy that the app resolves for the host that serves the GitHub API. See [What is and is not routed](https://claude.com/docs/third-party/claude-desktop/network-proxy.md#what-is-and-is-not-routed).
 
 Users sign in to GitHub from the app through the OAuth device flow, so there are no personal access tokens to issue, distribute, or rotate. You register one OAuth app in your GitHub organization and ship its client ID in the entry; each user then authorizes their own sign-in.
 
@@ -55,7 +55,7 @@ In your GitHub organization, open **Settings → Developer settings → OAuth Ap
 3. After registering, select **Enable Device Flow** on the app's settings page and save. Sign-in fails without it.
 4. Note the app's **Client ID**. Do not create a client secret; the device flow does not use one, and Claude Desktop never asks for it.
 
-A GitHub App works in place of an OAuth app: put its client ID in the same field. Its permissions come from the app registration itself (the entry's `scope` field is ignored), it must be installed where users need access, and its user tokens expire after about eight hours, so users sign in again more often than with an OAuth app.
+A GitHub App works in place of an OAuth app: put its client ID in the entry's `clientId` field. Its permissions come from the app registration itself (the entry's `scope` field is ignored), it must be installed where users need access, and its user tokens expire after about eight hours, so users sign in again more often than with an OAuth app.
 
 **2. Add the managed entry**
 
@@ -97,14 +97,14 @@ GitHub Enterprise Server deployments need access to the instance's own host inst
 
 ### How users sign in
 
-The first time a user opens the GitHub connector, Claude Desktop shows a short code and opens GitHub's device-authorization page in the system browser. The user enters the code, reviews the requested access, and approves it. The resulting token is stored encrypted on the device and reused until it is revoked, it expires, or the entry's identity fields change; **Disconnect** in connector settings deletes it.
+The first time a user opens the GitHub connector, Claude Desktop shows a short code and opens GitHub's device-authorization page in the system browser. The user enters the code, reviews the requested access, and approves it. The resulting token is stored encrypted on the device and reused until it is revoked, it expires, or you change the entry's `name`, `host`, `clientId`, or `scope`; **Disconnect** in connector settings deletes it.
 
 ### Control what Claude can do
 
-Three levers narrow the local connector, from coarsest to finest:
+These fields of the entry limit what Claude can do through the local connector, from the broadest to the most specific:
 
 * **`readOnly`** removes every write tool from the server. Claude never sees them.
 * **`toolsets`** selects which github-mcp-server tool groups are registered, so you can expose repositories and pull requests without, for example, the Actions tools.
-* **`toolPolicy`** locks the approval state per tool. Without a policy, each call that Claude makes to a write tool needs approval. A few irreversible GitHub actions (merging a pull request, pushing commits, or triggering a workflow, for example) stay at ask or stricter no matter what the policy says.
+* **`toolPolicy`** locks the approval state per tool. Without a policy, each call that Claude makes to a write tool needs approval. A few irreversible GitHub actions (merging a pull request, pushing commits, or triggering a workflow, for example) stay at the `ask` setting or a stricter one, no matter what the policy says.
 
 The default `repo` OAuth scope grants read and write access to repositories the user can reach, so pair a broad scope with `readOnly` or a restrictive `toolPolicy` rather than relying on the scope alone to keep sessions read-only. A narrower `scope` list, or a GitHub App with minimal permissions, limits what the token itself can do.

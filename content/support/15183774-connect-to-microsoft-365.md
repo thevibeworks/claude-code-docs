@@ -150,6 +150,10 @@ On Team and Enterprise plans, Claude asks each time for these tools, unless your
 
 Only ones you're a member of. Claude mirrors your Microsoft 365 permissions, so if you can see a private channel, Claude can search it; if you're not a member, it can't.
 
+**Why can't Claude open a file or email I can open?**
+
+Your organization may block some Microsoft Purview sensitivity labels in Claude (beta, Enterprise plans). The connector then refuses a file or email with a blocked label, or one whose label can't be determined, even when you can open it in Microsoft 365. Mail folder lists leave these emails out. Learn more in **[Block files and email from Claude by sensitivity label](https://support.claude.com/en/articles/18549037-block-files-and-email-from-claude-by-sensitivity-label)**.
+
 **What if I try to connect before my admin has set things up?**
 
 You'll see an error indicating that an administrator must grant app permissions before you can connect. Ask your organization’s Microsoft Entra Global Administrator to complete consent. If you're on a Team or Enterprise plan, your Claude organization owner also needs to enable Microsoft 365 in organization settings.
@@ -338,7 +342,11 @@ Microsoft 365 stays under your control once connected. A few things to keep in m
 
 3. Recently uploaded files may take time to become searchable.
 
-4. With a work or school account, try specifying the SharePoint site or library name in your prompt.
+4. With a work or school account:
+
+  1. Your organization may block the document's sensitivity label (beta, Enterprise plans), which can leave it out of search results. See **Why can't Claude open a file or email I can open?** in **[Frequently asked questions](#h_7d17060986)**.
+
+  2. Try specifying the SharePoint site or library name in your prompt.
 
 5. Search by exact file name or unique keywords from the document.
 

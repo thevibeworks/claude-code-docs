@@ -336,6 +336,8 @@ The Microsoft 365 connector searches SharePoint across the entire tenant using t
 
 - **Permission inheritance:** Claude mirrors each user's existing Microsoft 365 permissions. Members can't access anything through Claude that they couldn't already see directly in Microsoft 365.
 
+- **Sensitivity labels (beta, Enterprise plans):** Owners and Primary Owners can choose Microsoft Purview sensitivity labels to block. Learn more in **[Block files and email from Claude by sensitivity label](https://support.claude.com/en/articles/18549037-block-files-and-email-from-claude-by-sensitivity-label)**.
+
 - **On your request.** Claude accesses Microsoft 365 when you ask, or when a scheduled task you set up needs it.
 
 - **Revocable access:** Members can disconnect their own integration through **[Customize > Connectors](https://claude.ai/customize/connectors)**. Team and Enterprise plan Owners can also remove the connector for the entire organization in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**.
@@ -409,6 +411,10 @@ isDocument=true"},"size":100,"sortProperties":
   1. If a Word, Excel, PowerPoint, or PDF file you expected appears only in the first search, your search index isn’t marking it as a document. Open a case with Microsoft Support and share both searches.
 
   2. If the file doesn’t appear in either search, this isn’t the cause.
+
+### Claude can't open a file or email, or leaves email out of a list
+
+If your organization blocks sensitivity labels (beta, Enterprise plans), the connector refuses content with a blocked label, and content whose label it can't determine, such as a password-protected file. Mail folder lists leave these emails out. Members can still open the content in Microsoft 365. An Owner or Primary Owner can check which labels are blocked in **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)** under **Blocked sensitivity labels**.
 
 ### Conditional Access is blocking the connection
 
