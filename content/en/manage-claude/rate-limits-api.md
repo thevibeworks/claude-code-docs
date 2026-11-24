@@ -155,6 +155,8 @@ List the rate limits configured for your organization:
   ```
 </CodeGroup>
 
+On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed), you can call the endpoints that read limits. Use the platform’s base URL and credentials instead of `https://api.anthropic.com` and an Admin API key. See the Admin API page’s [Cloud platforms](https://platform.claude.com/docs/en/manage-claude/admin-api#cloud-platforms) section.
+
 ## Organization rate limits
 
 The `/v1/organizations/rate_limits` endpoint returns the rate limits applied at the organization level for the Messages API and its supporting resources. Limits for other products, such as [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview), are not included.

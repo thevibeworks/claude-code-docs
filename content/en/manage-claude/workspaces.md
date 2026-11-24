@@ -68,6 +68,21 @@ The following limits apply only to the Claude Console’s interface, not to the 
   The Workspace Billing role cannot be manually assigned. It’s inherited from having the organization billing role.
 </Note>
 
+### Access on cloud platforms
+
+On the following platforms, your cloud provider’s identity and access management (IAM) controls who can call the API in a workspace. You don’t assign members or [workspace roles](https://platform.claude.com/docs/en/manage-claude/workspaces#workspace-roles-and-permissions), even in the Claude Console.
+
+* **Claude Platform on AWS:** A request names its workspace in the `anthropic-workspace-id` header. IAM policies that name the workspace’s [Amazon Resource Name (ARN)](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#workspace-scoping) grant or deny access to that workspace.
+
+  * If you use a workspace for each of your customers, these policies can limit each IAM principal to one customer’s workspace.
+  * A Claude Console session covers the whole organization, and some Console pages [bypass IAM checks](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#console-access).
+
+* **Claude Models on Google Cloud (Anthropic managed):** A request names its workspace in the [base URL](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests). You grant [IAM roles](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#iam-roles) on your Google Cloud project, so a role applies to every workspace in that project.
+
+  * Workspaces in that project keep resources apart, but they don’t limit who can read, use, or manage those resources.
+  * When people or services must not reach certain resources, keep those resources in a separate project. Each project has its own Anthropic organization, so repeat the [account setup](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#set-up-your-account) in each project, starting from step 2 (enabling the services).
+  * If you use a workspace for each of your customers, separation depends on your application sending the right workspace ID.
+
 ## Managing workspaces
 
 <Note>
@@ -154,6 +169,8 @@ Programmatically manage workspaces using the [Admin API](https://platform.claude
 <Note>
   Admin API endpoints accept an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an `org:admin` OAuth token, or a personal or service account key that isn’t scoped to a specific workspace. Keys scoped to a single workspace, including [workspace keys](https://platform.claude.com/docs/en/manage-claude/workspaces#api-keys-and-resource-scoping), don’t work there. See [Admin API authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication).
 </Note>
+
+On Claude Models on Google Cloud (Anthropic managed) and Claude Platform on AWS, use the platform’s base URL and credentials instead. See the Admin API page’s [Cloud platforms](https://platform.claude.com/docs/en/manage-claude/admin-api#cloud-platforms) section.
 
 The following examples read the Admin API key from the `ANTHROPIC_API_KEY` environment variable. The SDK exposes these endpoints under `client.organization.workspaces` (csharp, go: `client.Organization.Workspaces`; java: `client.organization().workspaces()`; php: `$client->organization->workspaces`).
 
@@ -846,11 +863,15 @@ Apart from organization-level requests, such as Admin API requests, every reques
 * A **workspace key** (a legacy key without an owner) belongs to the workspace it was created in and always runs there.
 * A **personal key** or **service account key** acts as its user or service account. A single-workspace key always runs in the workspace chosen when it was created. A key that isn’t scoped to a workspace runs in the workspace named by each request’s `anthropic-workspace-id` header. Accounts must have access to the workspace to use it.
 
+On Claude Models on Google Cloud (Anthropic managed) and Claude Platform on AWS, these key types don’t apply. The request names the workspace, as [Access on cloud platforms](https://platform.claude.com/docs/en/manage-claude/workspaces#access-on-cloud-platforms) describes.
+
 Resources scoped to workspaces include:
 
 * **Files** created through the [Files API](https://platform.claude.com/docs/en/build-with-claude/files)
 * **Message Batches** created through the [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 * **Skills** created through the [Skills API](https://platform.claude.com/docs/en/build-with-claude/skills-guide)
+
+[Prompt caches](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) are also isolated by workspace on the Claude API and on [some cloud platforms](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#cache-storage-and-sharing).
 
 Some resources are managed differently:
 
@@ -863,10 +884,6 @@ Some resources are managed differently:
 * **Workspaces** themselves and **organization members** are managed at the organization level through the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api), using an Admin API key, an `org:admin` OAuth token, or a personal or service account key that isn’t scoped to a specific workspace.
 
 To look up your organization’s workspace IDs, call the [List Workspaces](https://platform.claude.com/docs/en/api/organization/workspaces/list) endpoint (pass `include_default=true` to include the Default Workspace) or find them on the [Workspaces](https://platform.claude.com/settings/workspaces) page in the Claude Console.
-
-<Note>
-  [Prompt caches](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) are also isolated by workspace on the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). On Claude Models on Google Cloud (Google managed) and Amazon Bedrock, prompt caches are isolated by organization.
-</Note>
 
 ## Identify the workspace behind an API response
 
@@ -1050,7 +1067,7 @@ Workspace limits can keep a workspace below your organization’s limits, but th
 * **Rate limits:** Limit requests per minute, input tokens per minute, or output tokens per minute. To set these, go to [Rate limits in the Claude Console](https://platform.claude.com/usage/limits), select the workspace from the **Workspace** dropdown menu, and click **Edit** next to a model.
 
 <Note>
-  - On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), you cannot set spend limits on the Default Workspace.
+  - A spend limit on the default workspace is not available on [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed) or [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
   - If not set, workspace limits match the organization’s limits.
   - Organization-wide limits always apply, even if workspace limits add up to more.
 </Note>
@@ -1238,6 +1255,8 @@ Assign workspaces to different teams for cost allocation and access control:
 * **Engineering team** with developer access
 * **Data science team** with their own API keys
 * **Support team** with limited access for customer tools
+
+These examples rely on [workspace roles](https://platform.claude.com/docs/en/manage-claude/workspaces#workspace-roles-and-permissions) and API keys, which work differently on Claude Models on Google Cloud (Anthropic managed) and Claude Platform on AWS. Before you plan your workspaces, read [Access on cloud platforms](https://platform.claude.com/docs/en/manage-claude/workspaces#access-on-cloud-platforms).
 
 ### Project-based organization
 

@@ -4,13 +4,11 @@ url: https://platform.claude.com/docs/en/api/ip-addresses
 description: Anthropic services use fixed IP addresses for both inbound and outbound connections. You can use these addresses to configure your firewall rules for secure access to the Claude API and Claude Console. These addresses will not change without notice.
 ---
 
-<Note>
-  **[Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws):** The inbound endpoint (`aws-external-anthropic.{region}.api.aws`) resolves to AWS IP ranges. Outbound tool calls (MCP connector, web search, and web fetch) originate from the Anthropic ranges listed on this page. See the [AWS IP address ranges](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ip-ranges.html) for inbound allowlisting.
-</Note>
-
 ## Inbound IP addresses
 
-These are the IP addresses where Anthropic services receive incoming connections.
+These are the IP addresses where Anthropic services receive incoming connections, such as your API requests. If your firewall restricts outgoing traffic, allow it to these addresses.
+
+If you use Claude Models on Google Cloud (Anthropic managed) or Claude Platform on AWS, these addresses don’t apply to your API requests. See the [Cloud platforms](https://platform.claude.com/docs/en/api/ip-addresses#cloud-platforms) section.
 
 ### IPv4
 
@@ -43,3 +41,10 @@ The following IP addresses are no longer in use by Anthropic. If you have previo
 34.162.142.92/32
 34.162.183.95/32
 ```
+
+## Cloud platforms
+
+On the following platforms, your API requests go to the cloud provider’s endpoint, not to Anthropic’s inbound IP addresses:
+
+* **[Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws):** The endpoint (`aws-external-anthropic.{region}.api.aws`) resolves to [AWS IP address ranges](https://docs.aws.amazon.com/vpc/latest/userguide/aws-ip-ranges.html).
+* **[Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed):** Requests go to Google Cloud’s gateway at `claude.googleapis.com`, which forwards them to Anthropic.

@@ -199,23 +199,42 @@ Most servers that use bearer tokens reject a value without the `Bearer ` scheme.
 
 You can turn each connector on or off for a single conversation. Click the **+** button in your chat interface and find the connector under **Connectors** or **Plugins**, then turn it on or off for that conversation.
 
-### Edit or remove a connector
+### Remove a connector
 
-You can edit a connector's name or URL, or remove the connector:
+Where you remove a custom connector depends on your plan:
+
+* **Free, Pro, Max, and Ultra**: you remove the connector from your own account in [your connectors](https://claude.ai/customize/connectors/yours)
+* **Team and Enterprise**: an Owner removes the organization's connector in **Organization settings > Connectors**, which removes it for everyone in the organization. On Enterprise plans, a member whose custom role includes managing the organization's libraries can remove it too
+
+To remove a connector from your own account on a Free, Pro, Max, or Ultra plan:
 
 **1. Open your connectors**
 
-Go to [your connectors](https://claude.ai/customize/connectors/yours). If you're a Team or Enterprise Owner, go to **Organization settings > Connectors** instead.
+Go to [your connectors](https://claude.ai/customize/connectors/yours).
 
-**2. Remove or open the menu**
+**2. Open the connector's menu**
 
-Click **Remove**, or select the three-dot menu.
+Select the connector, then open its three-dot menu.
 
-**3. Follow the prompts**
+**3. Remove the connector**
 
-Follow the prompts.
+Select **Remove**, then confirm.
 
-You can't change authentication settings after you add a connector. That covers OAuth credentials and request headers. To change them, remove the connector and add it again with the new details. Members then need to reconnect.
+To remove the organization's connector on a Team or Enterprise plan:
+
+**1. Open organization connectors**
+
+Go to [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors).
+
+**2. Open the connector's menu**
+
+Open the three-dot menu on the connector's row.
+
+**3. Delete the connector**
+
+Select **Delete**, then confirm.
+
+You can't change authentication settings after you add a connector. That covers OAuth credentials and request headers. To change them, or to change the connector's URL, remove the connector and add it again with the new details. Members then need to reconnect.
 
 ## Install a local connector in the desktop app
 

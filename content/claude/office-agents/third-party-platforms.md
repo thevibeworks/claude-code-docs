@@ -354,9 +354,9 @@ skills. The add-in applies these limits to each response.
 
 | Limit | Value |
 | - | - |
-| Skills kept | The first 20 skill names, in array order. No setting changes this number. Uploaded and built-in skills don't count toward it. |
+| Skills kept | The first 200 skill names, in array order. No setting changes this number. Uploaded and built-in skills don't count toward it. |
 | Repeated names | One skill for each name: the last entry with that name, in the position of the first. |
-| Skill `url` | HTTPS, no redirects, CORS for `https://pivot.claude.ai`, and 15 seconds for each download. |
+| Skill `url` | HTTPS, no redirects, CORS for `https://pivot.claude.ai`, and 15 seconds for each download, including the time that it waits for a connection. The add-in downloads up to 20 files at a time. |
 | Bootstrap call | 10 seconds in total to get the user's Microsoft Entra token, when the add-in uses one, and to receive the response. This limit applies to each bootstrap call, except the call made when the add-in sets up a new connection, for example at first use or after a sign-out. |
 
 If a skill fails to load, the add-in doesn't replace it with a later
@@ -365,6 +365,10 @@ bottom of the chat pane, and then select Skills. A note at the top of the
 list names up to three of those skills and gives the number of any others.
 The note leaves out a skill that still has a copy from an earlier load.
 
+If a response holds more than 200 different skill names, a note at the top
+of the same list tells the user how many skills the organization has and
+that Claude can use only 200 of them.
+
 If a bootstrap call takes more than 10 seconds when the add-in
 loads with an existing connection, the add-in has no admin-provisioned
 skills until a later bootstrap call succeeds.
@@ -372,6 +376,17 @@ skills until a later bootstrap call succeeds.
 To stay within these limits:
 
 * Put the most important skills first.
+* Keep each `description` short. The add-in sends the name and description
+  of every skill that it keeps to the model with each request, so long
+  descriptions add to its size and cost.
+* Give each `url` entry a `sha256`. Without one, the add-in downloads
+  every file again each time a user opens a list of skills. See
+  [Publish a new or changed skill](#publish-a-new-or-changed-skill).
+* Keep skill files small. The add-in holds every skill that it loads in
+  memory.
+* Serve a long list of skill files over HTTP/2. Over HTTP/1.1, a browser
+  opens about six connections to a host, and the other downloads wait for
+  one. That wait counts toward the 15 seconds.
 * Return a different list for each app. The `X-Claude-User-Agent` header
   on each bootstrap call starts with `claude-word`, `claude-excel`,
   `claude-powerpoint`, or `claude-outlook`.
@@ -380,13 +395,13 @@ To stay within these limits:
   The add-in downloads skill URLs after the bootstrap call, and only for
   the skills that it keeps.
 
-If a response holds more than 20 different skill names, the add-in sends
+If a response holds more than 200 different skill names, the add-in sends
 the warning log record `Bootstrap skill count exceeds cap — truncating`
 to your [OpenTelemetry collector](https://claude.com/docs/office-agents/opentelemetry.md) at
 `{your_url}/v1/logs`. Your collector might not receive this record for
 the bootstrap call made when the add-in sets up a new connection. On that
 record, `count` is the number of different skill names in the response,
-and `cap` is the limit, 20.
+and `cap` is the limit, 200.
 
 ### Publish a new or changed skill
 
@@ -426,8 +441,9 @@ changed.
 | `url`, no `sha256` | Always. The add-in can't tell whether the file changed. |
 
 An added, removed, or reordered entry also counts as a change, and so does
-an entry that failed to load the last time. When the add-in loads the array
-again, it downloads the `url` of each skill within the limit of 20, unless
+an entry that failed to load the last time. For entries past the limit of
+200, only a change in their number counts. When the add-in loads the array
+again, it downloads the `url` of each skill within the limit of 200, unless
 the entry has inline `content`. It does the same when the pane loads and at
 each scheduled bootstrap call.
 
@@ -440,6 +456,8 @@ The load runs in the background and a chat never waits for it:
 
 * A message sent before the load ends goes without the new skill. A message
   sent after the load ends has it.
+* The skills of a load become available together, when its last download
+  ends.
 * If the call fails or takes more than 10 seconds, the add-in keeps the
   skills that it has.
 * A skill that fails to load keeps the copy the pane already had, until a later

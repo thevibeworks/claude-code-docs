@@ -56,6 +56,8 @@ This guide lists the settings that limit what an agent on Claude Managed Agents 
 
 [Security risks and sandbox boundaries](https://platform.claude.com/docs/en/managed-agents/secure-deployment-risks) explains why these settings matter and what they do not protect against. To review and monitor sessions, see [Review and monitor agent sessions](https://platform.claude.com/docs/en/managed-agents/secure-deployment-monitoring).
 
+If you use Claude Models on Google Cloud (Anthropic managed), read [Access through Google Cloud IAM](https://platform.claude.com/docs/en/managed-agents/secure-deployment#access-through-google-cloud-iam) before you rely on workspaces to limit access.
+
 The [Claude API skill](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill) that ships with Claude Code has a `managed-agents-secure` command that checks an agent, its environments, and its vaults against this guide:
 
 Let Claude Code check your agent against this guide
@@ -888,6 +890,13 @@ Keep these points in mind:
 * **Platforms:** IP allowlisting is not available on Claude Models on Google Cloud (Anthropic managed) or Claude Platform on AWS.
 
 See [IP allowlisting limitations](https://platform.claude.com/docs/en/manage-claude/ip-allowlist#limitations).
+
+## Access through Google Cloud IAM
+
+On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#claude-managed-agents), Google Cloud IAM controls access. Keep these two points in mind:
+
+* **Separating workloads:** An IAM role applies to every workspace in the Google Cloud project. Keep vaults and workloads with different trust levels in separate Google Cloud projects. See [Access on cloud platforms](https://platform.claude.com/docs/en/manage-claude/workspaces#access-on-cloud-platforms).
+* **Stopping an agent:** Revoking Google Cloud access does not stop a running session or a scheduled deployment. To stop them, follow the steps in [Set limits and a way to stop](https://platform.claude.com/docs/en/managed-agents/secure-deployment#set-limits-and-a-way-to-stop).
 
 ## Next steps
 

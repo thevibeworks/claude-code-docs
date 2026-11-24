@@ -56,6 +56,11 @@ Let Claude Code set up your agent for you
 
 ## Before you begin
 
+The examples use the Claude API. If you use one of the following cloud platforms, follow its setup steps instead and adapt this page’s examples:
+
+* **Claude Models on Google Cloud (Anthropic managed):** Follow the [setup steps on Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#before-making-api-calls), then see [Making requests on Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#making-requests).
+* **Claude Platform on AWS:** Follow the [setup steps on Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#before-making-api-calls), then see [Making requests on Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#making-requests).
+
 <Steps continues>
   <Step title="Create a Claude Console account">
     [Sign up](https://platform.claude.com/) for a Claude Console account, or sign in to the one you have.

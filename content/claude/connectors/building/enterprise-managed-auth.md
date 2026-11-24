@@ -109,9 +109,9 @@ Client authentication is left out of this example. Answer at the `token_endpoint
 The **Client** check in [Validate the identity assertion](#validate-the-identity-assertion) compares the assertion's `client_id` claim with this request's `client_id`:
 
 * **Claude-issued**: the claim names the client that sends this request
-* **Identity provider-issued**: the claim is the client ID that the customer's administrator registered for your connector in their identity provider. Claude's managed authorization setup gives the identity provider's setup the client ID that Claude presents on this request, so the two values should match when the administrator registers your connector through it. An administrator who registers your connector another way must enter the client ID that Claude presents on this request, so name it in your setup documentation
+* **Identity provider-issued**: the claim is the client ID that the customer's administrator registered for your connector in their identity provider. Claude's auto-connect setup gives the identity provider's setup the client ID that Claude presents on this request, so the two values should match when the administrator registers your connector through it. An administrator who registers your connector another way must enter the client ID that Claude presents on this request, so name it in your setup documentation
 
-Adding or removing `private_key_jwt` in `token_endpoint_auth_methods_supported` changes which client Claude presents through its metadata document. After customers are set up, that change can make their identity provider-issued sign-ins fail the **Client** check until each administrator runs Claude's managed authorization setup again or enters the new client ID in their identity provider. Tell administrators before you make it.
+Adding or removing `private_key_jwt` in `token_endpoint_auth_methods_supported` changes which client Claude presents through its metadata document. After customers are set up, that change can make their identity provider-issued sign-ins fail the **Client** check until each administrator runs Claude's auto-connect setup again or enters the new client ID in their identity provider. Tell administrators before you make it.
 
 A Claude-issued request always carries the `resource` parameter ([Resource Indicators, RFC 8707](https://www.rfc-editor.org/rfc/rfc8707)), set to the `resource` in your Protected Resource Metadata when that is your MCP server's URL or a parent of it, and otherwise to your MCP server's URL. An identity provider-issued request carries it whenever the customer's identity provider supports forwarding it. Accept the request whether or not `resource` is present, and use it for audience binding when it is.
 
@@ -141,7 +141,7 @@ The `iss` claim is either the identity provider's issuer URL or a Claude issuer 
 
 * **`sub` in identity provider-issued assertions**: `sub` is the identity provider's identifier for the user, and the ID-JAG format requires it to match the subject your product receives when that user signs in through SSO. Find the user by `iss` and `sub` together, among the members of the workspace the assertion resolved to.
 * **`sub` and `email` in Claude-issued assertions**: `sub` is an opaque value that differs under each issuer and, unlike an identity provider's `sub`, doesn't match the subject your product receives through SSO, so [find the user by `email`](#claude-issued-assertions), not by `sub`. Storing that `sub` is optional.
-* **`aud_tenant`**: your own identifier for a customer's workspace, for products where `iss` alone doesn't identify one workspace, such as when one customer has several workspaces that trust the same issuer. For identity provider-issued assertions, the customer's administrator can enter your tenant ID in their identity provider's settings for your product, if the identity provider has a field for it. For Claude-issued ones, they can enter it in Claude's managed authorization setup for your connector. Claude doesn't check the value, so use it only to choose the workspace, and still run the issuer check in [Validate the identity assertion](#validate-the-identity-assertion) against that workspace's registered issuer.
+* **`aud_tenant`**: your own identifier for a customer's workspace, for products where `iss` alone doesn't identify one workspace, such as when one customer has several workspaces that trust the same issuer. For identity provider-issued assertions, the customer's administrator can enter your tenant ID in their identity provider's settings for your product, if the identity provider has a field for it. For Claude-issued ones, they can enter it in Claude's auto-connect setup for your connector. Claude doesn't check the value, so use it only to choose the workspace, and still run the issuer check in [Validate the identity assertion](#validate-the-identity-assertion) against that workspace's registered issuer.
 
 ### Validate the identity assertion
 
@@ -200,13 +200,13 @@ To test both kinds of assertion in one organization, use an organization that si
 
 Add your MCP server as a custom connector for the test organization, as [Add the connector for the organization](https://claude.com/docs/connectors/custom/add-unlisted.md#add-the-connector-for-the-organization) describes.
 
-If your MCP server is already in the [Connectors Directory](https://claude.com/docs/connectors/directory.md), add the custom connector at a different URL from your listing's, such as a staging deployment of the same server. A connector at your listing's URL, whether you add it from the directory or by URL, shows **Managed authorization** once your listing is marked as supporting Enterprise Managed Auth. The **Authentication** section is on the connector's **Configuration** tab.
+If your MCP server is already in the [Connectors Directory](https://claude.com/docs/connectors/directory.md), add the custom connector at a different URL from your listing's, such as a staging deployment of the same server. A connector at your listing's URL, whether you add it from the directory or by URL, shows the **Auto-connect** row in its **Authentication** section once your listing is marked as supporting Enterprise Managed Auth. The **Authentication** section is on the connector's **Configuration** tab.
 
 To test at your listing's production URL before your listing is marked, email `mcp-review@anthropic.com` and ask to have Enterprise Managed Auth enabled for your connector in your test organization. Include your listing's name and the **Organization ID**, which you copy from [**Organization settings > Organization and access**](https://claude.ai/admin-settings/organization). If your server needs [`aud_tenant`](#identity-assertion-claims) in Claude-issued assertions, say so in the same email.
 
-**2. Open the managed authorization setup**
+**2. Open the auto-connect setup**
 
-Open the connector you added. In its **Authentication** section, which is separate from the **Authentication** setting you chose while adding the connector, click **Set up** on the **Managed authorization** row. Under **Identity source**, choose **IdP-managed** for identity provider-issued assertions or **Claude-issued** for Claude-issued ones.
+Open the connector you added. In its **Authentication** section, which is separate from the **Authentication** setting you chose while adding the connector, click **Set up** on the **Auto-connect** row. Under **Identity source**, choose **IdP-managed** for identity provider-issued assertions or **Claude-issued** for Claude-issued ones.
 
 For **IdP-managed**, follow the first step under **Setup guide** to register Claude and your connector in your Okta org. For the steps in the Okta Admin Console, see Okta's [Cross App Access guide for AI agents](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/).
 
@@ -233,13 +233,13 @@ Check each of these cases before you launch:
 
 ## Support customer administrators
 
-A customer's administrator turns on Enterprise Managed Auth for their organization. For a connector added from the directory, an Owner or Primary Owner clicks **Set up auto-connect** on its row in [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors), which opens the managed authorization setup. Claude's guide for administrators is [Auto-connect your organization's apps to Claude](https://support.claude.com/en/articles/15537633-auto-connect-your-organization-s-apps-to-claude).
+A customer's administrator turns on Enterprise Managed Auth for their organization. For a connector added from the directory, an Owner or Primary Owner clicks **Set up auto-connect** on its row in [**Organization settings > Connectors**](https://claude.ai/admin-settings/connectors), which opens Claude's auto-connect setup for that connector. Claude's guide for administrators is [Auto-connect your organization's apps to Claude](https://support.claude.com/en/articles/15537633-auto-connect-your-organization-s-apps-to-claude).
 
 ### Admin settings in your product
 
-In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their workspace and a field for the trusted issuer URL. Accept only an `https` URL in the field, and let only the workspace's administrators set it. The administrator copies the URL from their identity provider or, for Claude-issued assertions, from the **Issuer URL** box in Claude's managed authorization setup for your connector. When the administrator saves, register the URL as that workspace's trusted issuer. With [express admin setup](#support-express-admin-setup), Claude sets the issuer for them, so they don't copy the URL.
+In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their workspace and a field for the trusted issuer URL. Accept only an `https` URL in the field, and let only the workspace's administrators set it. The administrator copies the URL from their identity provider or, for Claude-issued assertions, from the **Issuer URL** box in Claude's auto-connect setup for your connector. When the administrator saves, register the URL as that workspace's trusted issuer. With [express admin setup](#support-express-admin-setup), Claude sets the issuer for them, so they don't copy the URL.
 
-If you identify workspaces by your own tenant ID, show that ID in the same settings. The administrator enters it in the **Tenant ID** field in Claude's managed authorization setup for your connector, and it then arrives in each Claude-issued assertion as [`aud_tenant`](#identity-assertion-claims).
+If you identify workspaces by your own tenant ID, show that ID in the same settings. The administrator enters it in the **Tenant ID** field in Claude's auto-connect setup for your connector, and it then arrives in each Claude-issued assertion as [`aud_tenant`](#identity-assertion-claims).
 
 > [!NOTE]
 >
@@ -255,7 +255,7 @@ If your product has an app in the Okta Integration Network, work with Okta to en
 
 ## Support express admin setup
 
-Express admin setup lets administrators register the trusted issuer directly from Claude. The administrator clicks the **Connect** button for your connector in Claude's managed authorization setup and approves one consent screen. Claude then sends you the issuer URL, and you send back your tenant ID if you use one. It works with **Claude-issued** and **IdP-managed**, and it's optional but highly recommended for ease of setup.
+Express admin setup lets administrators register the trusted issuer directly from Claude. The administrator clicks the **Connect** button for your connector in Claude's auto-connect setup and approves one consent screen. Claude then sends you the issuer URL, and you send back your tenant ID if you use one. It works with **Claude-issued** and **IdP-managed**, and it's optional but highly recommended for ease of setup.
 
 ### What to build for express admin setup
 
@@ -317,7 +317,7 @@ Claude uses the access token once and doesn't store it. For **Claude-issued**, C
 
 ### Test express admin setup
 
-[Add your connector](#add-your-connector-and-run-the-connection-test) from a deployment that advertises the scope, open its managed authorization setup, and click **Connect**. If the button doesn't show and you use Claude's Client ID Metadata Document, check that your metadata lists `none` in `token_endpoint_auth_methods_supported`. Check each of these cases:
+[Add your connector](#add-your-connector-and-run-the-connection-test) from a deployment that advertises the scope, open its auto-connect setup, and click **Connect**. If the button doesn't show and you use Claude's Client ID Metadata Document, check that your metadata lists `none` in `token_endpoint_auth_methods_supported`. Check each of these cases:
 
 * An administrator who completes the flow gets a registered issuer and a passing connection test, with each kind of issuer
 * A user who isn't a workspace administrator can't grant the scope

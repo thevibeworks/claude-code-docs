@@ -4,67 +4,45 @@
 
 # Slack integration
 
-> Use Claude directly in your Slack workspace with the Claude in Slack app, and let Claude search Slack with the Slack connector
+> Install the Claude app in your Slack workspace, and let Claude search Slack with the Slack connector
 
-You can use Claude with Slack in two ways. The Claude in Slack app puts Claude inside your Slack workspace so you can message it there, and the Slack connector lets Claude in claude.ai search your workspace's channels, direct messages, and files for context. The app is available to paid Slack plans once a Slack admin approves it; the connector is available on Team and Enterprise plans and requires the app to be installed first.
+You can use Claude with Slack in two ways. [Claude Tag](https://claude.com/docs/claude-tag/overview.md), which an admin sets up once for your whole team, puts Claude inside your Slack workspace, and the Slack connector lets Claude in claude.ai search your workspace's channels, direct messages, and files for context. The connector is available on Team and Enterprise plans and requires the [Claude app in Slack](#install-the-claude-app-in-slack) to be installed first.
 
-By the end of this page you have installed the app, connected your account, and, if your plan includes it, turned on the connector and asked Claude a question that draws on Slack.
+By the end of this page you have installed the app and, if your plan includes it, turned on the connector and asked Claude a question that draws on Slack.
+
+The earlier per-user Claude in Slack app, where each person connected their own Claude account to chat with @Claude, is retired. In a workspace that no organization has connected to Claude Tag, people who mention or message @Claude get a reply that the workspace isn't set up for Claude Tag.
 
 > [!NOTE]
 >
-> This page covers the earlier per-user Claude in Slack app. The current product is [Claude Tag](https://claude.com/docs/claude-tag/overview.md), which gives your team one Claude identity set up by an admin. If your organization used the earlier app, see [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md).
+> These cases are covered on other pages:
+>
+> * **Setting up Claude for your team in Slack**: see [Set up Claude Tag](https://claude.com/docs/claude-tag/admins/setup-overview). Claude Tag is available on [Team and Enterprise plans](https://claude.com/docs/claude-tag/overview.md#plans-that-include-claude-tag).
+> * **Moving from the earlier per-user Claude in Slack app**: see [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md).
+> * **Using Claude on your own on a Pro, Max, or Ultra plan**: see [Projects in Claude Code](https://code.claude.com/docs/en/claude-projects).
 
-## Use the earlier Claude in Slack app
+## Install the Claude app in Slack
 
-Claude in Slack is available to users on paid Slack plans. A Slack admin must approve the app for your workspace before individual users can connect to it. Once it's installed, you can reach Claude in three places:
+A Slack admin adds the app to the workspace.
 
-* **Direct messages**: start a private conversation with @Claude
-* **AI assistant panel**: select Claude's icon in Slack's AI assistant header
-* **Threads**: mention @Claude in any thread to bring it into the discussion
+**1. Find the app**
 
-Direct messages, the AI assistant panel, and threads all support the same Claude capabilities you've enabled, including web search and tool integrations. On Team and Enterprise plans, users with Claude Code access can also route coding tasks to Claude Code by mentioning @Claude.
+Open the Claude app's listing in the Slack App Marketplace.
 
-### Install the app
+**2. Add the app to Slack**
 
-A Slack admin adds the app to the workspace first, and then each person connects their own Claude account.
+Select **Add to Slack**, then review and approve the app for your organization.
 
-> [tab] Slack admins
->
-> **1. Find the app**
->
-> Open the Claude app's listing in the Slack App Marketplace.
->
-> **2. Add the app to Slack**
->
-> Select **Add to Slack**, then review and approve the app for your organization.
->
-> **3. Choose where to deploy**
->
-> Deploy the app org-wide or to specific workspaces.
->
-> To add the app to more workspaces later, open your Slack management workspace, go to **Integrations > Installed apps > Add to more workspaces**, and turn on each workspace that should have it.
+**3. Choose where to deploy**
 
-> [tab] Individual users
->
-> **1. Find Claude**
->
-> Find **Claude** in your Slack apps list or in the Slack App Marketplace.
->
-> **2. Connect your account**
->
-> Select **Connect Account**, select your Claude organization, and then select **Authorize** to grant access.
->
-> **3. Start a conversation**
->
-> Return to Slack and select **+ New Chat**, or mention @Claude in a channel or thread.
->
-> If your company's Slack requires admin approval and you aren't an admin, you see a **Request to install** prompt instead. Ask a Slack admin to approve the app, then connect.
->
-> To pin Claude to your Slack header, open the app's three-dot menu in Slack and select **Add this app to header**.
+Deploy the app org-wide or to specific workspaces.
+
+To add the app to more workspaces later, open your Slack management workspace, go to **Integrations > Installed apps > Add to more workspaces**, and turn on each workspace that should have it.
+
+To set up Claude to answer in the workspace, see [Set up Claude Tag](https://claude.com/docs/claude-tag/admins/setup-overview).
 
 ## Search Slack with the connector
 
-The Slack connector is available on Team and Enterprise plans. With it turned on, Claude in claude.ai can search your workspace's channels, direct messages, and files to answer your questions. Install the Claude in Slack app before you enable the connector.
+The Slack connector is available on Team and Enterprise plans. With it turned on, Claude in claude.ai can search your workspace's channels, direct messages, and files to answer your questions. Install the [Claude app in Slack](#install-the-claude-app-in-slack) before you enable the connector.
 
 ### Enable the connector
 
@@ -101,7 +79,7 @@ To view your connection status, select **Claude** in your Slack sidebar and open
 
 To disconnect, use the surface that matches what you want to remove:
 
-* **Claude in Slack app**: on the app's **Home** tab in Slack, select **Disconnect**
+* **Claude app in Slack**: on the app's **Home** tab in Slack, select **Disconnect** to disconnect your Claude account
 * **Slack connector**: go to [**Customize > Connectors**](https://claude.ai/customize/connectors), find **Slack**, and select **Disconnect**
 
 > [!NOTE]

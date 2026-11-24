@@ -1354,7 +1354,7 @@ The **Active** status can show before objects arrive, so don’t rely on it. If 
 
 ### If your bucket stops working
 
-To avoid losing data, restore a bucket that stops working as soon as you can. If a write to your bucket fails, Anthropic retries it, then deletes the data about a day after the request. Nobody can recover that data, and it doesn’t go to Anthropic-managed storage.
+To avoid losing data, restore a bucket that stops working as soon as you can. If a write to your bucket fails, Anthropic retries it. Restore your bucket within about 46 hours of the request and keep each workspace on it, or you can lose that data. Anthropic stops retrying by about 72 hours after the request, then deletes the data. Nobody can recover that data, and it doesn’t go to Anthropic-managed storage.
 
 To notice a failure, watch for new objects under `slab/`. Don’t rely on an email or on the bucket’s status to warn you. If you notice a failure, tell your Anthropic account team as soon as you can.
 

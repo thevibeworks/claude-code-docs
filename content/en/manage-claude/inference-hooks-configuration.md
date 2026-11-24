@@ -81,7 +81,7 @@ The following steps take a new configuration from off to enforcing.
 
     Then set **Prompt verdict timeout (ms)**: 1 to 10,000ms, with a default of 5,000ms. The budget covers the entire exchange, and a slower verdict counts as an unreachable server, so set the lowest value your server can reliably meet.
 
-    Changes in this section save as you make them. On first save, the defaults are **Allow the request** and 5,000ms.
+    **Mode** saves when you select an option. To save a new timeout, click **Save changes**. When you first save the endpoint, the defaults are **Allow the request** and 5,000ms.
   </Step>
 
   <Step title="Choose a rollout percentage">

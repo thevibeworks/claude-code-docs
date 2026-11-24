@@ -40,9 +40,7 @@ featureMetadata:
 
 The environment key authorizes posting custom tool results, so your Claude API key stays off the worker host.
 
-<Note>
-  To serve custom tools, you need the SDK worker. The `ant` CLI worker has no way to register a custom tool implementation. In the sandbox-per-session pattern, [run the SDK worker inside the sandbox](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#run-the-sdk-worker-inside-the-sandbox).
-</Note>
+To serve custom tools from a prebuilt worker, you need the SDK worker. The `ant` CLI worker has no way to register a custom tool implementation. In the sandbox-per-session pattern, [run the SDK worker inside the sandbox](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#run-the-sdk-worker-inside-the-sandbox).
 
 ## Serve a custom tool
 
@@ -224,6 +222,8 @@ The environment key authorizes posting custom tool results, so your Claude API k
 </Steps>
 
 The worker answers only the tools registered with it. If you declare a tool on the agent but no worker or client serves it, the session pauses with a `requires_action` stop reason. It stays paused until something posts the result. See [Answer tool calls that pause the session](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#answer-tool-calls-that-pause-the-session) for the event flow.
+
+On Claude Models on Google Cloud (Anthropic managed), you [write your own worker](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#worker-authentication-on-cloud-platforms), which uses Google Cloud credentials instead of the environment key. Have it send each custom tool’s result as a `user.custom_tool_result` event, as [Return a custom tool result](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#return-a-custom-tool-result) describes.
 
 ## Wrap an MCP server as custom tools
 

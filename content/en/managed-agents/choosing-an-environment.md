@@ -90,13 +90,20 @@ You also give up these cloud environment features:
 * [Environment variable credentials](https://platform.claude.com/docs/en/managed-agents/vaults#add-a-credential) in vaults.
 * The [preinstalled runtimes and packages](https://platform.claude.com/docs/en/managed-agents/cloud-sandboxes-reference) of a cloud sandbox. A self-hosted sandbox has whatever your worker provides.
 
-## Differences on Claude Platform on AWS
+## Differences on cloud platforms
 
-If you use Claude Managed Agents through Claude Platform on AWS, Anthropic still operates the service. There, memory stores aren’t available in a self-hosted sandbox, workers don’t use an environment key, and MCP tunnels aren’t available. See [Claude Managed Agents on Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#claude-managed-agents) and [Features not supported](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#features-not-supported).
+Anthropic operates the service when you use Claude Managed Agents through the following cloud platforms. Each platform’s guide describes what differs there:
 
-## Differences on Claude Models on Google Cloud (Anthropic managed)
+* [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#feature-support)
+* [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#feature-support)
 
-If you use Claude Managed Agents through Claude Models on Google Cloud (Anthropic managed), Anthropic still operates the service. There, memory stores aren’t available in a self-hosted sandbox, and MCP tunnels aren’t available. Workers authenticate with Google Cloud credentials, not an environment key. You write your own worker, because the prebuilt workers in the `ant` CLI and the Python, TypeScript, and Go SDKs don’t work there. See [Feature support](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#feature-support) in the Claude Models on Google Cloud (Anthropic managed) guide.
+On both platforms, these differences affect your choice:
+
+* In a self-hosted sandbox, the worker uses the platform’s credentials instead of an environment key. See [Worker authentication on cloud platforms](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#worker-authentication-on-cloud-platforms).
+* Only sessions in a cloud environment can use memory stores.
+* MCP tunnels are available only on the Claude API, whichever option you choose.
+
+On Claude Models on Google Cloud (Anthropic managed), you also write your own worker instead of running a [prebuilt worker](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-workers).
 
 ## Switch from a cloud environment to a self-hosted sandbox
 
@@ -106,6 +113,4 @@ To switch to a self-hosted sandbox, you keep the agent, create a `self_hosted` e
 * **What is new:** A `self_hosted` environment, an environment key that you generate in the Claude Console, and a worker that you run. The [self-hosted sandboxes quickstart](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#quickstart) covers all three.
 * **What stops working:** The features listed in [What you take on and give up with a self-hosted sandbox](https://platform.claude.com/docs/en/managed-agents/choosing-an-environment#what-you-take-on-and-give-up-with-a-self-hosted-sandbox).
 
-On Claude Platform on AWS, memory stores don’t carry over to a self-hosted sandbox, and the worker doesn’t use an environment key. See [Differences on Claude Platform on AWS](https://platform.claude.com/docs/en/managed-agents/choosing-an-environment#differences-on-claude-platform-on-aws).
-
-On Claude Models on Google Cloud (Anthropic managed), memory stores aren’t available in a self-hosted sandbox, and you write your own worker, which doesn’t use an environment key. See [Differences on Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/managed-agents/choosing-an-environment#differences-on-claude-models-on-google-cloud-anthropic-managed).
+If you use Managed Agents through a cloud platform, memory stores don’t carry over, and the worker doesn’t use an environment key. See [Differences on cloud platforms](https://platform.claude.com/docs/en/managed-agents/choosing-an-environment#differences-on-cloud-platforms).

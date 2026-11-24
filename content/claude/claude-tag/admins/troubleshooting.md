@@ -526,7 +526,7 @@ Pair the whole Grid rather than one workspace. When a Grid Org Owner or Org Admi
 
 **What you see**
 
-Claude replies to a mention:
+Claude replies to a mention or a direct message:
 
 > This workspace isn't set up for Claude Tag yet. A workspace admin can run `@Claude connect`, or set it up here.
 
@@ -534,11 +534,11 @@ The reply varies with the sender: someone who isn't a Slack workspace admin is t
 
 **What it means**
 
-The Slack workspace hasn't been paired with a Claude organization, or, for the shared-channel form, none of the workspaces sharing the channel has.
+The Slack workspace hasn't been paired with a Claude organization on a [Team or Enterprise plan](https://claude.com/docs/claude-tag/overview.md#plans-that-include-claude-tag), or, for the shared-channel form, none of the workspaces sharing the channel has.
 
 **How to resolve**
 
-Run [the pairing flow](https://claude.com/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace). If the fix worked, a mention in the workspace gets a reply.
+Run [the pairing flow](https://claude.com/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace). If the fix worked, a mention in the workspace gets a reply. For direct messages on Enterprise Grid, see [DMs never respond on Enterprise Grid](#dms-never-respond-on-enterprise-grid).
 
 ### The legacy Claude in Slack bot is retired effective October 5, 2026
 
@@ -548,25 +548,11 @@ Claude replies to a mention in a channel with a notice that begins ":warning: Th
 
 **What it means**
 
-The workspace is paired with your Claude organization, but the channel's or workspace's **Claude Tag version** is set to **Legacy (disabled)**. Since that date, the earlier app no longer answers in channels of a paired workspace.
+The workspace is paired with your Claude organization, but the channel's or workspace's **Claude Tag version** is set to **Legacy (disabled)**.
 
 **How to resolve**
 
 Check the **Claude Tag version** on the **Advanced** tab of the channel's page, then of its workspace's page, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), and set it to **New**. **Inherit** works only when the workspace, or the **Slack** page above it, is set to **New**. See [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md). The next mention in the channel gets a reply from Claude.
-
-### Using the legacy Claude in Slack bot. Ask your Claude workspace owner to enable Claude Tag.
-
-**What you see**
-
-Claude posts "Using the legacy Claude in Slack bot. Ask your Claude workspace owner to enable Claude Tag." as a short notice in the thread just before its first reply.
-
-**What it means**
-
-The earlier per-user Claude in Slack app answered a direct message instead of the new version. That happens when the Slack workspace isn't paired with a Claude organization that has Claude Tag turned on, or when the workspace's **Claude Tag version** is set to **Legacy**. In a workspace paired with your Claude organization, the earlier app no longer answers in channels; a channel set to Legacy gets the [retirement notice](#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026) instead. Turning Claude Tag on needs an Owner of your Claude organization, not a Slack workspace owner.
-
-**How to resolve**
-
-An Owner turns on **Enable Claude Tag in Slack** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and [pairs the workspace](https://claude.com/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace). If the workspace is already paired, check the **Claude Tag version** on the **Advanced** tab of the workspace's page and set it to **New**; see [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md). Once Claude Tag is on and the workspace is paired, the notice stops appearing.
 
 ### Claude Tag is turned off for your organization
 
@@ -672,7 +658,7 @@ If the **Slack** page has a single [**Respond in channels** switch](https://clau
 
 ## Access and connections
 
-Access and connection errors usually mean Claude responded but couldn't reach a connected service, a repository, or a capability the sender's seat doesn't include. A channel still set to **Legacy (disabled)** replies with the [retirement notice](#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026) rather than an access error.
+Access and connection errors usually mean Claude responded but couldn't reach a connected service, a repository, or a capability the sender's seat doesn't include. A channel still set to **Legacy (disabled)** gets [a notice or no reply](https://claude.com/docs/claude-tag/admins/restrict-access.md#migrate-from-the-earlier-claude-in-slack) rather than an access error.
 
 ### Claude says a host isn't allowed or it can't reach the internet
 

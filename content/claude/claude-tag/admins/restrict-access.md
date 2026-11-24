@@ -71,7 +71,7 @@ When the toggle is on, a Slack user whose profile email isn't on one of the ente
 
 ## Control where Claude Tag operates
 
-The restriction toggle decides who can use Claude. The controls in this section decide where it works at all, from one channel up to a workspace, and which generation answers in each scope (a scope is a channel, a workspace, or your whole organization). Each scope has its own page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels), and the **Slack** page there holds the settings for your whole organization.
+The restriction toggle decides who can use Claude. The controls in this section decide where it works at all, scope by scope (a scope is a channel, a workspace, or your whole organization). Each scope has its own page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels), and the **Slack** page there holds the settings for your whole organization.
 
 If the **Slack** page's **General** tab shows a **Respond in channels** switch rather than **Respond in all channels**, your organization has a [single on-or-off switch](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-on-the-team-plan) in place of the per-scope switches and version settings. The other controls in this section work the same way either way.
 
@@ -110,10 +110,6 @@ Bundles belong to your organization, not to a workspace, so uninstalling or disc
 To let Claude respond only in channels you choose, for example during a pilot confined to one channel, turn off **Respond in all channels** on the **Slack** page, then turn on each chosen channel's **Enable Claude Tag in this channel** switch. Both pages are on the **Channels** tab under [**Claude's access**](https://claude.ai/admin-settings/claude-tag?access=channels). One-to-one DMs, guest channels, and shared channels need more than these switches; each gets its own treatment after the steps.
 
 These steps need the per-scope switches. If the **Slack** page shows [**Respond in channels**](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-on-the-team-plan) instead, you can't limit Claude this way. Use [blocked channel patterns](#block-or-auto-join-channels-by-name) to keep it out of specific channels.
-
-> [!NOTE]
->
-> Turning Claude off in a scope silences the earlier Claude in Slack there too.
 
 **1. Turn Claude Tag off in every channel**
 
@@ -220,7 +216,7 @@ A guest can talk to Claude by mentioning `@Claude` or by replying in a thread Cl
 
 Treat a channel's instructions, and the instructions in any bundle attached directly to the channel, as visible to everyone in that channel, including guests. Under **Channel only**, Claude follows them in replies that guests can read and respond to.
 
-**Channel only** takes effect where the **New** [Claude Tag version](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) answers. On a scope where **Legacy** answers, a channel that includes a guest is treated as **Restrict**.
+**Channel only** takes effect where the **New** [Claude Tag version](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) answers. Under **Channel only** on a scope still set to **Legacy (disabled)**, a channel that includes a guest is treated as **Restrict**.
 
 ### Limit which channels Claude can search
 
@@ -335,7 +331,14 @@ In a channel shared across workspaces in your Enterprise Grid, don't rely on a w
 
 ### Migrate from the earlier Claude in Slack
 
-If your organization used the earlier Claude in Slack app, the **Claude Tag version** setting on the **Advanced** tab of each scope's page chooses which generation answers `@Claude` there. Bundles only apply where the New version answers. See [Turn Claude Tag on or off and set the version for a scope](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) for the values and [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) for the switch.
+If your organization used the earlier Claude in Slack app, Claude doesn't answer `@Claude` mentions in a channel where the Legacy version is still in effect. A mention there gets the first of these that applies:
+
+* **In a [Slack Connect channel](#when-claude-does-not-answer-in-a-slack-connect-channel):** no reply.
+* **In a [channel shared across workspaces in your Enterprise Grid](#channels-shared-across-workspaces-in-your-enterprise-grid):** a notice that Claude can't respond there.
+* **In a channel that includes a guest:** the [guest notice](#restrict-guest-channels), unless the channel's guest setting is **Full access**.
+* **In any other channel:** the [retirement notice](https://claude.com/docs/claude-tag/admins/troubleshooting.md#the-legacy-claude-in-slack-bot-is-retired-effective-october-5-2026).
+
+To move a channel off Legacy, open its page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and set **Claude Tag version** to **New** on its **Advanced** tab. The [guest setting](#restrict-guest-channels) then decides whether Claude answers in guest and Slack Connect channels. Bundles only apply where the New version answers. See [Turn Claude Tag on or off and set the version for a scope](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) for the values and [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) for the switch.
 
 ### Allow or disable direct messages
 
@@ -355,7 +358,7 @@ A group DM has no [scope](https://claude.com/docs/claude-tag/concepts/glossary.m
   * Turn off the [**Allow direct messages**](#allow-or-disable-direct-messages) toggle. Claude also stops answering one-to-one DMs.
 * **Who can ask.** If you [restrict who can use Claude](#restrict-who-can-use-claude), the restriction applies in group DMs too. With no restriction, a member who hasn't connected a Claude account can ask in a group DM, and the [limits on one-to-one DMs from those members](#limits-on-direct-messages-from-members-without-a-claude-account) don't apply.
 * **Spend.** The organization-wide [spend limit](#set-spend-limits) caps group DM work along with channel work, and the **Default spend limit** applies to each group DM.
-* **Version.** Where the **Legacy** [Claude Tag version](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) answers for the workspace, Claude doesn't respond in group DMs.
+* **Version.** Where the workspace's [Claude Tag version](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) is still **Legacy (disabled)**, set on its own page or inherited from the **Slack** page, Claude doesn't respond in group DMs. To have Claude answer there, open the workspace's page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and set **Claude Tag version** to **New** on its **Advanced** tab.
 
 Who is in a group DM, and how Slack shares it, can change whether Claude answers:
 

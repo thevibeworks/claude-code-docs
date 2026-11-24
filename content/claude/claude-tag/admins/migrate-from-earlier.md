@@ -4,7 +4,7 @@
 
 # Migrate from the earlier Claude in Slack
 
-> Claude Tag replaces the earlier per-user Claude in Slack app in place. See what changes, what stays, how the version is chosen per channel, and what existing users notice.
+> Claude Tag replaces the earlier per-user Claude in Slack app in place. See what changes, what stays, how to set the version, and what existing users notice.
 
 > [!NOTE]
 >
@@ -48,7 +48,10 @@ On Enterprise Grid, an earlier install can lose its connection and stop respondi
 
 > [!WARNING]
 >
-> Since October 5, 2026, the earlier Claude in Slack app, shown as **Legacy (disabled)** in the **Claude Tag version** setting, no longer answers in channels of a workspace paired with your Claude organization. A channel there that's still set to Legacy gets a notice that the legacy bot is retired, until you set **Claude Tag version** to **New** on the channel, or on its workspace if the channel inherits the setting. You also can't switch a workspace or channel to Legacy anymore. Direct messages aren't affected. In a workspace that isn't paired, Pro, Max, and Ultra users still get answers from the earlier app in channels, and anyone else with a connected Claude account gets the [workspace setup notice](https://claude.com/docs/claude-tag/admins/troubleshooting.md#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet) instead.
+> The earlier Claude in Slack app, shown as **Legacy (disabled)** in the **Claude Tag version** setting, is retired.
+>
+> * **In a workspace paired with your Claude organization**: a mention in a channel that's still set to **Legacy (disabled)** gets [a notice or no reply](https://claude.com/docs/claude-tag/admins/restrict-access.md#migrate-from-the-earlier-claude-in-slack). To move the channel off **Legacy (disabled)**, open its page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and set **Claude Tag version** to **New** on its **Advanced** tab. If the channel inherits the setting, set **Claude Tag version** to **New** on the **Advanced** tab of its workspace's page instead.
+> * **In a workspace that no organization has paired**: people who mention or message `@Claude` get a [reply that the workspace isn't set up](https://claude.com/docs/claude-tag/admins/troubleshooting.md#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet) for Claude Tag.
 
 ## What stays the same
 
@@ -68,13 +71,11 @@ The earlier app linked each user's own claude.ai account, so it answered as that
 | Standing work | None | Routines and channel watching |
 | Who sets it up | Each user, individually | An Owner, once |
 
-The **Claude Tag version** setting on each workspace's and channel's page chooses whether the New or Legacy version answers there, and the page's enable switch turns both off. In a paired workspace, Legacy no longer answers in channels. Bundles only apply where the New version answers. See [Turn Claude Tag on or off and set the version for a scope](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) for both controls and where to set them.
+You control each workspace and channel with an enable switch and a **Claude Tag version** setting on its page. Bundles only apply where the New version answers. See [Turn Claude Tag on or off and set the version for a scope](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope) for both controls and where to set them.
 
 ## Two versions of the same Slack app
 
-The earlier Claude in Slack and Claude Tag are two versions of the same `@Claude` Slack app, not two apps, so there is nothing to uninstall. You choose which version answers in each workspace and channel with the **Claude Tag version** setting. Set it to **New** or **Inherit**. A workspace or channel can't be switched to **Legacy (disabled)**, and one that's still on Legacy gets the retirement notice in channels instead of answers. Turning off a workspace's or channel's enable switch silences both versions there.
-
-To tell which version answered in a channel, look at who authored the work. The New version authors code as the Claude GitHub App and keeps work in the channel's thread; if `@Claude` still opens pull requests under the asker's name, that channel is answering with the Legacy version.
+The earlier Claude in Slack and Claude Tag are two versions of the same `@Claude` Slack app, not two apps, so there is nothing to uninstall. If a workspace or channel is still on Legacy, open its page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and set **Claude Tag version** to **New** on its **Advanced** tab. **Inherit** works only when the workspace, or the **Slack** page above it, is set to **New**. A workspace or channel can't be switched to **Legacy (disabled)**, and one that's still on Legacy gets [a notice or no reply](https://claude.com/docs/claude-tag/admins/restrict-access.md#migrate-from-the-earlier-claude-in-slack) in channels instead of answers.
 
 ## What existing users notice after the switch
 

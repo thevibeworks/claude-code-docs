@@ -53,6 +53,8 @@ A single issuer can have many rules: one for each team, namespace, or permission
 
 ## Set up federation
 
+These steps are for workloads that call the Claude API directly. To call Claude through a cloud platform’s own endpoint, use that platform’s credentials instead. For example, Claude Models on Google Cloud (Anthropic managed) uses [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication).
+
 You need the admin role in your Anthropic organization. You also need an OIDC-capable identity provider with a reachable JWKS endpoint, or a JWKS document you can paste for air-gapped clusters. Your workload must be able to obtain an identity token from that provider.
 
 The **Connect workload** wizard creates all three resources (the issuer, the service account, and the federation rule) in one guided flow, then verifies the connection end to end.

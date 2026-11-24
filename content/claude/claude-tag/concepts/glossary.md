@@ -45,7 +45,7 @@ Claude Tag is the second generation of the Claude app in Slack:
 | Memory | None | Per-channel memory, plus workspace notes shared from public channels |
 | Proactive work | None | Routines and channel watching |
 
-Your admin chooses which generation answers `@Claude` in a given channel, so two channels in the same workspace can work differently. See [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/workspaces.md#turn-claude-tag-on-or-off-and-set-the-version-for-a-scope).
+The earlier generation is retired. A mention in a channel that's still set to **Legacy (disabled)** gets [a notice or no reply](https://claude.com/docs/claude-tag/admins/restrict-access.md#migrate-from-the-earlier-claude-in-slack). An admin can move the channel off Legacy by opening its page under [**Claude's access > Channels**](https://claude.ai/admin-settings/claude-tag?access=channels) and setting **Claude Tag version** to **New** on its **Advanced** tab. See [Migrate from the earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md).
 
 ## Connector
 

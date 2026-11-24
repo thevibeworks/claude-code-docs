@@ -8,6 +8,8 @@ Any Google Cloud compute environment with access to the instance metadata server
 
 This guide shows how to register the Google issuer with Anthropic and bind a Google service account to an Anthropic service account. It then shows how to have your workload exchange its identity token for a short-lived Claude API access token.
 
+If you use Claude Models on Google Cloud (Anthropic managed), you don’t need this setup. Authenticate with [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication) instead.
+
 ## Prerequisites
 
 * Familiarity with [Workload Identity Federation (WIF) concepts](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#concepts): service accounts, federation issuers, and federation rules.

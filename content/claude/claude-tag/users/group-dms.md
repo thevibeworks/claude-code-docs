@@ -107,7 +107,7 @@ When you mention `@Claude` at the top level of a group DM and Claude can't answe
 | "Claude is disabled in this channel." | An admin turned Claude off for the workspace | Ask your admin about turning Claude on for the workspace |
 | "This workspace only lets people with a connected Claude account work with me." Only you can see this notice | An admin restricted who can use Claude | Connect your Claude account, then send your message again |
 | No reply and no notice | Claude isn't in the group DM | Start a new group DM that includes Claude |
-| No reply and no notice | Your workspace uses the [earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) | Ask your admin which version answers in your workspace |
+| No reply and no notice | Your workspace uses the [earlier Claude in Slack](https://claude.com/docs/claude-tag/admins/migrate-from-earlier.md) | Ask your admin to move your workspace to Claude Tag |
 
 ## Related resources
 

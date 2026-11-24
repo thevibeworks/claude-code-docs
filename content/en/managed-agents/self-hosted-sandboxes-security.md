@@ -49,7 +49,7 @@ In every environment, Anthropic secures the parts it runs: session and work queu
 
 * **Service key storage and rotation.** The environment service key (`ANTHROPIC_ENVIRONMENT_KEY`) authorizes polling your environment’s work queue and submitting results back to sessions. Store it in a secrets manager, not in environment files or sandbox images. Rotate it immediately if you suspect exposure.
 
-* **Untrusted workload isolation.** The environment service key is scoped to one environment’s work queue. If you run untrusted code inside your sandbox, consider provisioning a separate workspace and environment for each trust boundary. This way, each key reaches only one trust boundary’s sessions, such as one user’s, rather than every session in a shared environment.
+* **Untrusted workload isolation.** The environment service key is scoped to one environment’s work queue. If you run untrusted code inside your sandbox, consider provisioning a separate workspace and environment for each trust boundary. This way, each key reaches only one trust boundary’s sessions, such as one user’s, rather than every session in a shared environment. On a cloud platform, see [Worker credentials on cloud platforms](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-security#worker-credentials-on-cloud-platforms).
 
 * **Per-session credentials.** Each work item your worker claims can carry a per-session `secret` (csharp, go: `Secret`), which the worker uses in place of the environment service key. Access to [memory stores](https://platform.claude.com/docs/en/managed-agents/memory) requires the `secret` (csharp, go: `Secret`): the memory store endpoints reject the environment service key (see [Forward the work item’s secret](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-per-session#forward-the-work-items-secret)). Pass the `secret` (csharp, go: `Secret`) only into the sandbox that serves that session, keep it out of images and shared volumes, and never log it.
 
@@ -72,3 +72,12 @@ In every environment, Anthropic secures the parts it runs: session and work queu
 * **Verify your worker build.** Anthropic does not inspect your sandbox image or runtime. A supply-chain compromise in your image is not detectable from Anthropic’s side.
 * **Isolate tools inside your sandbox.** Anthropic’s security boundary stops at the sandbox. How you isolate individual tool executions from each other inside that boundary is entirely your responsibility.
 * **Enforce data retention in your environment.** Once session content reaches your worker, it is outside Anthropic’s data lifecycle controls.
+
+## Worker credentials on cloud platforms
+
+If you use Managed Agents through a cloud platform, your worker authenticates with that platform’s credentials instead of the environment service key. See [Worker authentication on cloud platforms](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#worker-authentication-on-cloud-platforms).
+
+On Claude Models on Google Cloud (Anthropic managed), take these precautions:
+
+* **Keep untrusted workloads apart:** The worker’s IAM role applies to every workspace in the Google Cloud project. Separate workspaces in that project don’t limit what the worker can reach. Use a separate project for each untrusted workload. See [Access on cloud platforms](https://platform.claude.com/docs/en/manage-claude/workspaces#access-on-cloud-platforms).
+* **Protect the worker’s credentials:** Run tool calls where they can’t reach the worker’s Google Cloud credentials or the cloud metadata server.

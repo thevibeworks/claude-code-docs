@@ -131,7 +131,7 @@ Set the credential with the `auth:` parameter. Use `.appAttest` to ship without 
 
 Each installation of your app uses Apple’s [App Attest](https://developer.apple.com/documentation/devicecheck/establishing-your-app-s-integrity) service to prove that it is a genuine, unmodified build of the app you registered. Anthropic then issues the device a short-lived access token that bills usage to your workspace. The app ships no API key, and there is no proxy for you to operate.
 
-App Attest authentication is available only when your app calls the Claude API directly. It is not available through Amazon Bedrock, Google Cloud, or Microsoft Foundry.
+App Attest authentication is available only when your app sends its requests to the Claude API at `api.anthropic.com`.
 
 To ship without running a back end, use `.appAttest`:
 

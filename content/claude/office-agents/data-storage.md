@@ -73,7 +73,7 @@ holds and what it is scoped to.
 | `claude-memory` | Only with a Claude account sign-in, and only when memory is on: notes that Claude saves so it can use them in later conversations, such as the user's role, their feedback on Claude's work, and details of their projects. A note can include content from a document Claude read. Each note holds its file name, its text, the user's ID, and the time it was last changed | One user |
 | `claude-office-inflight` | Crash-detection records. There is one record for each add-in pane that is running a tool call. It holds a random ID for the pane, the conversation's ID, the tool's name, the Office app and its version, the start time, and, in Excel, Word, and PowerPoint, the document's file path or URL if it had one when the add-in opened. When the add-in opens and finds a record from a call that began more than 10 minutes earlier, which usually means Office or the add-in closed during the call, it sends a usage event for that record and deletes it. The event carries the pane's and the conversation's IDs, the Office app and its version, the time from the call's start until the record was found, and the tool's name, with a connector's tool reported only as a connector tool. It does not carry the document's path. [Data retention](#data-retention) gives when each record is deleted | The device profile, not the individual user |
 | `claude-office-snipped-results` | Parts of the current conversation that were moved out of Claude's working context, which can include document content. A saved conversation keeps its own copy in `claude-chat-history`. [Data retention](#data-retention) gives when this store is emptied | The device profile, not the individual user |
-| Local storage | Settings, onboarding and terms flags, the active sign-in profile, and file identifiers for two markers: a file where the user started a new chat, kept until a message is sent or a saved conversation is opened there, and a file whose last conversation the pane is reopening, kept until it shows | The browser profile |
+| Local storage | Settings, onboarding and terms flags, the active sign-in profile, and file identifiers for two markers: a file where the user started a new chat, kept until a message is sent or a saved conversation is opened there, and a file whose last conversation the pane is reopening, kept until it shows. Where sensitivity label checks are on for your organization, also the IDs of the Microsoft Entra tenants linked to it, the IDs of the labels it blocks, and when the add-in last checked them | The browser profile |
 
 Conversations, memory notes, and the Outlook writing style guide are scoped to
 the individual user. Uploaded skills, connector registrations, crash-detection
@@ -308,6 +308,7 @@ the table.
 | `claude-office-inflight` | Each record is deleted when its tool call ends, or when the user stops Claude, starts a new chat, or opens a saved conversation. It is also deleted while Claude waits for the user to answer a question or approve an action, and written again afterwards. If Office or the add-in closes or reloads during the call, the record is deleted the next time a Claude for M365 add-in that uses the same store opens, once more than 10 minutes have passed since the call began |
 | `claude-office-snipped-results` | Emptied when the user starts a new chat or deletes all chats. Replaced with a saved conversation's parts when a saved conversation is opened. Content left when the add-in closes stays until Claude next moves content out of its working context or asks for moved content back, a saved conversation is opened, or a new chat starts |
 | Claude for Outlook data | Also deleted at a sign-out or an account switch. See [Outlook data deleted when a sign-in ends](#outlook-data-deleted-when-a-sign-in-ends) |
+| Sensitivity label list in local storage | Removed when the user signs out. A list that is 7 days old is removed the next time the add-in reads it |
 | Everything else | Kept until the user deletes it or the browser profile is wiped |
 
 Users clear their own conversations from the add-in's settings. Under "Chat
@@ -347,7 +348,8 @@ tell whether data stored under an earlier Office identity is this user's. If
 that identity has data, the add-in leaves it and says that some of it could not
 be deleted. The user can close and reopen the add-in, then delete again.
 
-There is no expiry by age and no administrator-configurable retention window.
+Apart from the sensitivity label list, there is no expiry by age. There is also
+no administrator-configurable retention window.
 Claude for M365 also does not inherit custom data retention settings configured
 for your organization. If your policy requires a retention limit on this data,
 the practical control is the device profile lifecycle, such as roaming-profile

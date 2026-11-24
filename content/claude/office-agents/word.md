@@ -344,6 +344,15 @@ text, comments, tracked changes, footnotes, tables, and bookmarks. It
 only accesses the document you have open in Word. For highly sensitive
 or regulated data, follow your organization's data handling policies.
 
+## Sensitivity labels
+
+Your organization can block Microsoft Purview sensitivity labels in Claude.
+This feature is in beta on Enterprise plans. With blocking on, Claude does
+not work with a document that has a blocked label, and does not upload an
+attached file that has one. If Claude cannot read a document's label, it
+does not work with the document either. See
+[Block documents and email by sensitivity label](https://claude.com/docs/office-agents/sensitivity-labels.md).
+
 ## Current limitations
 
 Claude for Word is not recommended for:

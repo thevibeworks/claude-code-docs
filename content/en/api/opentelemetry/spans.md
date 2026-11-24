@@ -71,7 +71,7 @@ Any span can have the following attributes:
 
 | Attribute | Type | Description |
 | ----- | ----- | ----- |
-| `gen_ai.provider.name` | `string` | The platform that serves the request: `aws.bedrock` on Amazon Bedrock (Mantle included), `gcp.vertex_ai` on Google Cloud’s Agent Platform, and `anthropic` everywhere else. On every span. |
+| `gen_ai.provider.name` | `string` | The platform that serves the request: `aws.bedrock` on Amazon Bedrock, including [Amazon Bedrock (`bedrock-mantle`)](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), `gcp.vertex_ai` on Claude Models on Google Cloud (Google managed), and `anthropic` everywhere else. On every span. |
 | `anthropic.organization.id` | `string` | The organization ID. |
 | `anthropic.workspace.id` | `string` | The ID of the workspace that the work runs in. |
 | `user.id` | `string` | Your end user’s ID, if you set it in the W3C [`baggage`](https://www.w3.org/TR/baggage/) header (for example, `baggage: user.id=4f2a`). It appears on the request’s API span and on every API span under it, such as the session turns that the request starts.<br />Use an opaque ID, such as your database’s key for the user.<br />**Do not put an email address in this value.** To protect user privacy, the API drops any `user.id` that contains one. |
@@ -451,7 +451,7 @@ The span has the [session attributes](https://platform.claude.com/docs/en/api/op
 * **Parent:** The span that is current in the application when the environment worker or the work poller gets the work item, or none if no span is current. In `ant beta:worker poll`, the span is a root span.
 * **Children:** The spans for the requests that the environment worker sends while it handles the work item and the [tool span](https://platform.claude.com/docs/en/api/opentelemetry/spans#anthropic-tool-use-anthropic-mcp-tool-use-and-anthropic-custom-tool-use) for each tool that it runs for the work item.
 
-The environment worker and the work poller are the [SDK helpers](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#sdk-helpers) that claim work items in a self-hosted sandbox. They emit one `anthropic.environment.work` span for each work item, from when a poll returns the work item until its handling ends.
+The environment worker and the work poller are the [SDK helpers](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes-reference#sdk-helpers) that claim work items in a self-hosted sandbox. They emit one `anthropic.environment.work` span for each work item, from when a poll returns the work item until its handling ends.
 
 | Attribute | Type | Description |
 | ----- | ----- | ----- |
