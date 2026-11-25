@@ -14,9 +14,44 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 
 ### November 23, 2026
 
+* A fix is live for an undercount of web searches in the [List User Activity](https://platform.claude.com/docs/en/api/beta/organization/analytics/users/list) endpoint of the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api). The top-level `web_search_count` did not count every search tool that Claude uses in chats, so it left out some searches. It now includes them, so it can be higher. Most of the added searches come from [Chat and Cowork unified](https://platform.claude.com/docs/en/manage-claude/analytics-api#how-metrics-are-defined).
+* The web search fix applies to data for November 17, 2026 (UTC), and later, so counts that you already pulled for those days can change. It does not recount earlier days.
+* A fix is live for an undercount in the [Get Connector Usage](https://platform.claude.com/docs/en/api/beta/organization/analytics/connectors/list) endpoint of the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api). In chats that the [session counting change](https://platform.claude.com/docs/en/release-notes/overview#analytics-api-chat-session-counting) reached, `individual_auth_distinct_user_count` and `managed_auth_distinct_user_count` left out users who used a connector. For most organizations, these counts now include most of those users. They can be higher, and can show a number where they used to be `null`.
+* The connector fix applies to data for November 19, 2026 (UTC), and later, so counts that you already pulled for those days can change. It does not recount earlier days.
+* On November 24, 2026, a fix for an undercount of project activity in the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api) will go live. The [Get Chat Project Usage](https://platform.claude.com/docs/en/api/beta/organization/analytics/apps/chat/projects/list) endpoint leaves out some messages in project chats. One example is messages sent after a chat moves into a Cowork cloud session. After the fix, it will count most of those messages. `message_count`, `distinct_conversation_count`, and `distinct_user_count` can then be higher, and more projects can appear in the results.
+* The [List User Activity](https://platform.claude.com/docs/en/api/beta/organization/analytics/users/list) endpoint will change in the same way when you filter by `project_id`. `message_count` and `distinct_conversation_count` can be higher, `last_activity_date` can be later, and more users can appear. Without the filter, some of these messages count in `chat_cowork_unified_metrics.sessions.message_count`. So the chat `message_count` for a user can be higher with the filter than without it.
+* The project fix will apply to data for November 20, 2026 (UTC), and later, so counts that you already pulled for those days can change. It does not recount earlier days.
 * We announced the deprecation of the Claude Opus 4.5 model (`claude-opus-4-5-20251101` and `claude-opus-4-5`), with retirement on the Claude API scheduled for January 22, 2027. We recommend migrating to Claude Opus 5.5. See [Migrating from Claude Opus 4.5 or earlier](https://platform.claude.com/docs/en/models/opus-5-5/migration-guide#migrating-from-claude-opus-45). To check which dates apply on other platforms, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 * We’ve launched [Enterprise Frontier Safeguards](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/overview) (EFS) in beta on Claude Platform, Claude Platform on AWS, and Claude Models on Google Cloud (Anthropic managed). EFS is Zero Data Retention (ZDR) for eligible organizations that use [Claude’s most capable models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements). Anthropic doesn’t retain your prompts and responses. Encrypted copies of them, called Sealed Safety Data, go to a bucket in your own cloud account. A workspace on Anthropic-managed storage isn’t on EFS, because Anthropic stores that workspace’s Sealed Safety Data. To get access, see [Setup guide](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/setup-console).
 * We’ve added two event types to [organization webhooks](https://platform.claude.com/docs/en/manage-claude/organization-webhooks#customer-owned-storage-events), which are in beta. We send `external_storage.failed` when a bucket that you use as [customer-owned storage](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/customer-owned-storage) fails our daily check, and `external_storage.recovered` when it passes again.
+
+### November 20, 2026
+
+* The [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api) has a new rule for when a chat in [Chat and Cowork unified](https://platform.claude.com/docs/en/manage-claude/analytics-api#how-metrics-are-defined) counts as a session.
+
+  * **New rule:** A session starts the first time on a UTC day that Claude successfully runs a Bash command, creates a file, or edits a file in the chat. It ends when that day ends.
+  * **Previous rule:** A chat counted as a session after it moved into a Cowork cloud session (a sandbox where Claude runs code), including on later days. Uploading some types of files could cause that move.
+  * **Rollout:** The change reaches chats gradually, and existing chats can change later than new ones. Until then, a chat follows the previous rule. Activity from before then is not recounted. The API does not show which rule a chat follows.
+
+* In [List User Activity](https://platform.claude.com/docs/en/api/beta/organization/analytics/users/list), these counts can change. `chat` and `sessions` are the objects in `chat_cowork_unified_metrics`.
+
+  * **Sessions:** `sessions.distinct_session_count` can be higher, or lower for some users.
+  * **Messages:** They count in `chat` before the session starts and in `sessions` after. `message_count` can be higher or lower in each.
+  * **Chats:** `chat.distinct_conversation_count` can be higher. A chat counts there on each day that it gets a message, even one that counts in `sessions`.
+  * **Tool actions and file edits:** They count in `sessions` during the session. `action_count` and `file_edit_count` can be higher or lower.
+  * **Connectors:** In most chats, `connectors_used_count` and `distinct_connectors_used_count` split the same way as messages. Added up across both objects, each can be higher or lower.
+  * **Skills and plugins:** Their use counts in `sessions`, even on a day with no session.
+  * **Artifacts:** Counts can move between `chat` and `sessions`.
+
+* For chats that the change reached, the API does not get the names of some skills and plugins that Anthropic did not make, such as your own.
+
+  * **List User Activity:** `distinct_skills_used_count` can leave out these skills. Added up across both objects, it can be lower.
+  * **[Get Skill Usage](https://platform.claude.com/docs/en/api/beta/organization/analytics/skills/list):** Spend for these skills can leave out these chats. `estimated_overage_spend` can be lower, and `attributed_list_price` can be lower or `null`.
+  * **[Get Plugin Usage](https://platform.claude.com/docs/en/api/beta/organization/analytics/plugins/list):** These plugins can appear under the `plugin_name` value `third-party`.
+
+* In [Get Connector Usage](https://platform.claude.com/docs/en/api/beta/organization/analytics/connectors/list), `individual_auth_distinct_user_count` and `managed_auth_distinct_user_count` can leave out some users of chats that the change reached, so they can be lower.
+
+* Other counts from the connector, skill, and plugin usage endpoints can be higher or lower.
 
 ### November 17, 2026
 
@@ -49,6 +84,10 @@ The Claude Platform release notes list changes to the Claude API, the client SDK
 * The [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) now includes Security posture data, in beta for Claude Enterprise organizations. The [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) records changes to attestations on the **Security posture** page in claude.ai **Organization settings**. The `GET /v1/compliance/organizations/{organization_id}/security_posture` endpoint returns an organization’s current Security posture results. See [Security posture in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-security-posture/overview).
 * You can now set up an IP allowlist for your organization in the Claude Console, in beta. Requests to covered services from addresses not on your list are refused, which limits where a leaked API key can be used. Add IPv4 and IPv6 addresses or CIDR ranges, up to 1,000 per organization. See [IP allowlisting](https://platform.claude.com/docs/en/manage-claude/ip-allowlist) for what’s covered and how to set it up.
 * You can now sign a member of your Claude Enterprise (claude.ai) organization out of Claude everywhere with the Admin API. This capability is in beta. See the [Admin API reference](https://platform.claude.com/docs/en/api/beta/organization). The member stays in the organization and can sign in again. See [Sign a member out everywhere](https://platform.claude.com/docs/en/manage-claude/user-management#sign-a-member-out-everywhere) for the beta header and what the request doesn’t end.
+
+### November 4, 2026
+
+* We’ve added [error codes](https://platform.claude.com/docs/en/api/errors#error-codes) to the SDK so you can handle one cause of an error without parsing the response body. Each API error now carries the API’s error code, message, and details, and each error code has its own exception class (in Go, a constant). To use error codes, update to the [latest version of the SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/overview#latest-versions). See [Handle errors](https://platform.claude.com/docs/en/api/handle-errors).
 
 ### November 3, 2026
 

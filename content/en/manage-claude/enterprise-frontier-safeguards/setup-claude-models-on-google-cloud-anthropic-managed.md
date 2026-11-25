@@ -51,8 +51,10 @@ Finally, answer these questions:
 To set up Enterprise Frontier Safeguards, you need the following:
 
 * [`roles/claude.admin`](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#using-the-claude-console) on the Google Cloud project whose organization will use EFS.
-* [Access to EFS](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/setup-claude-models-on-google-cloud-anthropic-managed#what-getting-access-changes) for your organization, from your Anthropic account team. Getting access can change settings that you can’t change back.
+* [Access to EFS](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/setup-claude-models-on-google-cloud-anthropic-managed#what-getting-access-changes) for your organization. Getting access can change settings that you can’t change back.
 * To use your own key: [customer-managed keys turned on](https://platform.claude.com/docs/en/manage-claude/cmek#availability) for your organization.
+
+To open the Claude Console, go to [Claude Platform](https://console.cloud.google.com/agent-platform/claude-platform) in the Google Cloud console and select your project. Then, select **Anthropic managed** and click **Open Claude Console**. Do this before you follow links on this page to the Claude Console. Each link opens in the Anthropic organization that your browser is signed in to. To check which organization you’re in, go to **Settings** > **Organization**. **Google Cloud project number** must show your project’s number, not its ID. If the page has no such row, you’re probably in another organization.
 
 ## What getting access changes
 
@@ -85,11 +87,15 @@ Accepting the terms changes more than the workspaces you plan to use. Read these
   </Accordion>
 </AccordionGroup>
 
+### Accept the terms
+
+To accept the terms, go to the [Programs](https://platform.claude.com/settings/programs) page in the Claude Console and click **Accept terms** on the **Enterprise Frontier Safeguards** card. If you don’t see **Accept terms** there, click **Open Verification Portal** on the same page, and then click **Accept terms** in the Verification Portal.
+
+Ask your Anthropic account team for access if you can’t open the Verification Portal or don’t see **Accept terms** there either. If you don’t have an account team, complete the [Enterprise Frontier Safeguards request form](https://claude.com/form/enterprise-frontier-safeguards).
+
 ## 1. Add cloud resources
 
-To open the Claude Console, go to [Claude Platform](https://console.cloud.google.com/agent-platform/claude-platform) in the Google Cloud console and select your project. Then, select **Anthropic managed** and click **Open Claude Console**. Do this before you follow links on this page to the Claude Console. Each link opens in the Anthropic organization that your browser is signed in to. To check which organization you’re in, go to **Settings** > **Organization**. **Google Cloud project number** must show your project’s number, not its ID. If the page has no such row, you’re probably in another organization.
-
-To use EFS, you need your own bucket. Your own encryption key is optional. Without one, a workspace uses an Anthropic-managed key. To add your bucket and key, go to the [Data retention](https://platform.claude.com/settings/privacy) page in the Claude Console and select **Organization** at the top of the page.
+To use Enterprise Frontier Safeguards, you need your own bucket. Your own encryption key is optional. Without one, a workspace uses an Anthropic-managed key. To add your bucket and key, go to the [Data retention](https://platform.claude.com/settings/privacy) page in the Claude Console and select **Organization** at the top of the page.
 
 To use your own key, create a [customer-managed key](https://platform.claude.com/docs/en/manage-claude/cmek-google-cloud-kms) in Google Cloud KMS, then register it with Anthropic under **Encryption keys**. Follow the **Claude Platform** tab and stop before **Attach the key to a workspace**. Use a different key from your bucket’s own key, which you create with the bucket.
 

@@ -239,6 +239,24 @@ These messages are about a custom skill or command. Its name is one that the bui
 
 Leave a repository's `.claude/skills/steward/SKILL.md` as it is, because PR Steward and the watch read it as instructions. Neither message counts that file, so one that names `/steward` is about another skill or command.
 
+### Keep a custom /ship or /steward without renaming
+
+If you've already created your own skill or command called `/ship` or `/steward` and don't want the built-in versions to override it, you can turn them off. To do that, use the `CLAUDE_CODE_DISABLE_SHIP` environment variable, which turns off both together and requires Claude Code v2.1.331 or later. Before you set it, [remove any `"off"` entry](#a-skilloverrides-entry-turns-off-%2Fship-or-%2Fsteward) for your command under `skillOverrides`.
+
+Add this [`env`](https://code.claude.com/docs/en/settings-reference#env) entry to your [user settings file](https://code.claude.com/docs/en/settings.md#settings-files-and-who-they-affect), or to a project's `.claude/settings.json` for everyone who starts sessions in its top folder, then restart Claude Code:
+
+```json theme={null}
+{
+  "env": {
+    "CLAUDE_CODE_DISABLE_SHIP": "1"
+  }
+}
+```
+
+To check that your command loaded, type `/` at the Claude Code prompt and look for its description or first line.
+
+If your command is named `steward` and the repository has a `.claude/skills/steward/SKILL.md` file, check [which one runs](https://code.claude.com/docs/en/skills.md#resolve-skills-that-share-a-name).
+
 ## Related resources
 
 * [`/ship` and `/steward`](https://code.claude.com/docs/en/ship-command): what the commands do, how to run them, and what limits Claude during a watch

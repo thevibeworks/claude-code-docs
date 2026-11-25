@@ -40,7 +40,7 @@ If you need AWS-operated Claude, see [Claude in Amazon Bedrock](https://platform
 
 [AWS PrivateLink](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html) is supported for connecting your VPC to the Claude Platform on AWS endpoint (see [Connect through AWS PrivateLink](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#connect-through-aws-privatelink)).
 
-**When to choose Bedrock:** Organizations in regulated industries that require FedRAMP High, IL4, IL5, or HIPAA readiness, or that need AWS to be the sole data processor, should use [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock). Bedrock runs entirely on AWS-controlled infrastructure with AWS as the operating party.
+**When to choose Bedrock:** Organizations in regulated industries that require FedRAMP High or HIPAA readiness, or that need AWS to be the sole data processor, should use [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock). Bedrock runs entirely on AWS-controlled infrastructure with AWS as the operating party.
 
 **Which offering are you using?** Claude is available through several distinct products:
 
@@ -95,8 +95,7 @@ Setting up Claude Platform on AWS takes four phases: sign up on the AWS Console 
     Access to the Claude Console is federated through AWS IAM:
 
     1. Assume an IAM role with the `aws-external-anthropic:AssumeConsole` permission. See [Console access](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#console-access).
-    2. From the **Claude Platform on AWS** service page, click **Open Claude Console**. The AWS Console issues a JWT and redirects you to `platform.claude.com`.
-    3. On first sign-in, you’re prompted for an email address. Enter your work email. The platform provisions your Claude Console user just-in-time.
+    2. On the **Claude Platform on AWS** service page, select **Admin** or **Developer** and click **Sign in**. The AWS Console issues a JWT and redirects you to `platform.claude.com`. On first sign-in, the platform provisions your Claude Console user just-in-time.
 
     When you’re signed in through the AWS Console, the Claude Console scopes to your Claude Platform on AWS organization. An **Account managed by AWS** indicator appears in the bottom-left of the Claude Console sidebar.
   </Step>
@@ -628,10 +627,6 @@ Claude Platform on AWS supports the following inference geographies:
 
 Set the inference geography for each request with the `inference_geo` parameter:
 
-<Note>
-  The `inference_geo` parameter is supported on Claude 4.6 and later models. Requests with `inference_geo` on Claude Opus 4.5, Claude Sonnet 4.5 (deprecated), or Claude Haiku 4.5 return a 400 error. See [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency) for model availability details.
-</Note>
-
 <CodeGroup>
   ```bash cURL
   # Replace us-west-2 with your AWS region in both the URL and --aws-sigv4
@@ -792,6 +787,8 @@ Set the inference geography for each request with the `inference_geo` parameter:
 
 If you omit `inference_geo`, the request uses the workspace’s `default_inference_geo` if one is configured, otherwise `global`.
 
+The `inference_geo` parameter is supported on Claude 4.6 and later models. Requests with `inference_geo` on earlier models return a 400 error. See [Data residency](https://platform.claude.com/docs/en/manage-claude/data-residency#model-availability) for model availability details.
+
 Workspace-level inference geography controls (`allowed_inference_geos` and `default_inference_geo`) are also available on Claude Platform on AWS. See [Workspace-level restrictions](https://platform.claude.com/docs/en/manage-claude/data-residency#workspace-level-restrictions).
 
 ## Workspaces
@@ -830,10 +827,9 @@ Access to the Claude Console is federated through AWS IAM. See [Set up your acco
 
 1. Assume an IAM role with the `aws-external-anthropic:AssumeConsole` permission. See [Console access](https://platform.claude.com/docs/en/api/claude-platform-on-aws-iam-actions#console-access).
 2. Navigate to the Claude Platform on AWS page in the [AWS Console](https://console.aws.amazon.com/).
-3. Click **Open Claude Console**. The AWS Console issues a JWT and redirects you to `platform.claude.com`.
-4. On first sign-in, you’re prompted for an email address. Enter your work email. The platform provisions your Claude Console user just-in-time.
+3. Select **Admin** or **Developer** and click **Sign in**. The AWS Console issues a JWT and redirects you to `platform.claude.com`. On first sign-in, the platform provisions your Claude Console user just-in-time.
 
-Two Claude Console roles are available: **Admin** and **Developer**. The Admin role grants access to all Claude Console pages and settings available for Claude Platform on AWS. The Developer role grants read access to usage, cost, rate limit, and workspace information. Contact your Anthropic account representative to assign the Admin or Developer role to a principal.
+Two Claude Console roles are available: **Admin** and **Developer**. The Admin role grants access to all Claude Console pages and settings available for Claude Platform on AWS. The Developer role grants read access to usage, cost, and rate limit information. On pages such as **Workspaces**, **Agents**, and **Credential vaults**, what either role can view and manage depends on the principal’s IAM policies. To limit which role a principal can select, allow `AssumeConsole` only in an IAM statement that has a condition on `aws-external-anthropic:Capability` (`admin` or `developer`). Any other statement that allows it, such as one that allows `aws-external-anthropic:*`, allows both roles.
 
 ### Available pages
 

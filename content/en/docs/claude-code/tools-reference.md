@@ -151,10 +151,10 @@ The Bash tool runs each command in a separate process.
 
 ### What persists between commands
 
-* When Claude runs `cd` in the main session, the new working directory carries over to later Bash commands as long as it stays inside the project directory or an [additional working directory](https://code.claude.com/docs/en/permissions.md#working-directories) you added with `--add-dir`, `/add-dir`, or `additionalDirectories` in settings. This includes commands Claude runs in response to your later messages.
+* In the main session, Claude's `cd` carries over to later Bash commands only from a foreground command that exits 0. The command must also end inside the project directory or an [additional working directory](https://code.claude.com/docs/en/permissions.md#working-directories), such as one you added with `--add-dir`, `/add-dir`, or `additionalDirectories` in settings.
+  * By default, if that command ends outside those directories, Claude Code resets to the project directory and appends `Shell cwd was reset to <dir>` to the tool result.
+  * To disable this carry-over, set `CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1`.
   * Subagent sessions never carry over working directory changes.
-  * If `cd` lands outside those directories, Claude Code resets to the project directory and appends `Shell cwd was reset to <dir>` to the tool result.
-  * To disable this carry-over so every Bash command starts in the project directory, set `CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1`.
 * Environment variables don't persist. An `export` in one command won't be available in the next.
 * Claude Code starts a non-interactive shell, sources `~/.zshrc` for Zsh or `~/.bashrc` for Bash, and applies the aliases, functions, and shell options it captures to Bash commands.
 
@@ -512,9 +512,11 @@ Three additional settings control where PowerShell is used:
 * `"shell": "powershell"` on individual [command hooks](https://code.claude.com/docs/en/hooks.md#command-hook-fields): runs that hook in PowerShell. Hooks spawn PowerShell directly, so this works regardless of `CLAUDE_CODE_USE_POWERSHELL_TOOL`.
 * `shell: powershell` in [skill frontmatter](https://code.claude.com/docs/en/skills.md#frontmatter-reference): runs `` !`command` `` blocks in PowerShell. Requires the PowerShell tool to be enabled.
 
-PowerShell commands follow the [same main-session working-directory reset behavior](#what-persists-between-commands) as Bash commands, including the `CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR` environment variable.
+### Working directory and variables in PowerShell commands
 
-PowerShell commands also receive the variables hooks persist through `CLAUDE_ENV_FILE`, under the conditions in [Persisted variables in PowerShell commands](https://code.claude.com/docs/en/hooks.md#persisted-variables-in-powershell-commands). Requires Claude Code v2.1.296 or later.
+By default, when a foreground PowerShell command in the main session ends outside your [working directories](https://code.claude.com/docs/en/permissions.md#working-directories), Claude Code resets to the project directory. To reset after each command, set `CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR=1`.
+
+PowerShell commands receive the variables hooks persist through `CLAUDE_ENV_FILE`, under the conditions in [Persisted variables in PowerShell commands](https://code.claude.com/docs/en/hooks.md#persisted-variables-in-powershell-commands). Requires Claude Code v2.1.296 or later.
 
 ### Exit code 1 from searches and `git diff` in PowerShell
 

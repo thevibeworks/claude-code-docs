@@ -596,44 +596,9 @@ try (HttpResponse response = client.files().download(params)) {
 
 ## Error handling
 
-The SDK throws custom unchecked exception types:
+The SDK throws a subclass of `AnthropicException` when a request fails. Causes include a connection failure and an error response from the API. These exceptions are unchecked. [SDK error types](https://platform.claude.com/docs/en/api/errors#sdk-error-types) lists the cases (including errors in a stream), and [Handle errors](https://platform.claude.com/docs/en/api/handle-errors) shows how to catch these exceptions.
 
-* `AnthropicServiceException` - Base class for HTTP errors
-* `AnthropicIoException` - I/O networking errors
-* `AnthropicRetryableException` - Generic error indicating a failure that could be retried
-* `AnthropicInvalidDataException` - Failure to interpret successfully parsed data (for example, when accessing a property that’s supposed to be required, but the API unexpectedly omitted it)
-* `AnthropicException` - Base class for all exceptions
-
-### Status code mapping
-
-| Status | Exception |
-| ----- | ----- |
-| 400 | `BadRequestException` |
-| 401 | `UnauthorizedException` |
-| 403 | `PermissionDeniedException` |
-| 404 | `NotFoundException` |
-| 422 | `UnprocessableEntityException` |
-| 429 | `RateLimitException` |
-| 5xx | `InternalServerException` |
-| others | `UnexpectedStatusCodeException` |
-
-`SseException` is thrown for errors encountered during SSE streaming after a successful initial HTTP response.
-
-```java
-import com.anthropic.errors.*;
-
-try {
-    Message message = client.messages().create(params);
-} catch (RateLimitException e) {
-    IO.println("Rate limited, retry after: " + e.headers());
-} catch (UnauthorizedException e) {
-    IO.println("Invalid API key");
-} catch (AnthropicServiceException e) {
-    IO.println("API error: " + e.statusCode());
-} catch (AnthropicIoException e) {
-    IO.println("Network error: " + e.getMessage());
-}
-```
+Each exception for an error response extends `AnthropicServiceException`. To read the response’s headers, catch that class and call `headers()`. For example, `e.headers().values("retry-after")` returns that header’s values as a list.
 
 ## Request IDs
 
@@ -652,17 +617,17 @@ This can be used to log failing requests and report them back to Anthropic. For 
 
 ## Retries
 
-The SDK automatically retries 2 times by default, with a short exponential backoff between requests.
+By default, the SDK retries certain errors up to two times (three attempts in all).
 
-Only the following error types are retried:
+The SDK retries the following error types:
 
-* Connection errors (for example, because of a network connectivity problem)
+* Connection errors and timeouts
 * 408 Request Timeout
 * 409 Conflict
-* 429 Rate Limit
-* 5xx Internal
+* 429 Too Many Requests
+* 5xx server errors
 
-The API might also explicitly instruct the SDK to retry or not retry a request.
+If a response has an `x-should-retry` header (`true` or `false`), the SDK follows it instead of the status. Between attempts, the SDK waits as long as the `retry-after` header says, or it uses a short exponential backoff.
 
 To set a custom number of retries, configure the client using the `maxRetries` method:
 

@@ -8,7 +8,7 @@ description: Zero Data Retention (ZDR) for eligible organizations that use Claud
   Enterprise Frontier Safeguards is in beta. It’s available under your agreement with Anthropic, such as the Internal use only terms, [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) and the [Service Specific Terms](https://www.anthropic.com/legal/service-specific-terms). Settings and behavior can change during the beta.
 </Warning>
 
-Enterprise Frontier Safeguards (EFS) is [Zero Data Retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) for eligible organizations that use [Claude’s most capable models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements), such as Claude Fable 5.1. Anthropic doesn’t retain your prompts and responses. Sealed Safety Data is written to storage that you own. EFS requires your own bucket. A workspace on [Anthropic-managed storage](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/faq#glossary) isn’t on EFS, because Anthropic stores encrypted copies of that workspace’s prompts and responses.
+Enterprise Frontier Safeguards (EFS) is [Zero Data Retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention) for eligible organizations that use [Claude’s most capable models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements), such as Claude Fable 5.1. Anthropic doesn’t retain your prompts and responses. Sealed Safety Data is written to storage that you own. EFS requires your own bucket. A workspace on [Anthropic-managed storage](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/faq#glossary) isn’t on EFS, because Anthropic stores encrypted copies of that workspace’s prompts and responses.
 
 Use EFS when you want Claude’s most capable models but need to keep your Sealed Safety Data in your own cloud account. With EFS, people at your organization, not reviewers at Anthropic, review [Safety Cases](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/flagged-cases). EFS includes both:
 
@@ -22,6 +22,16 @@ Use EFS when you want Claude’s most capable models but need to keep your Seale
 Anthropic doesn’t charge for EFS, and EFS doesn’t change model behavior, API pricing, or rate limits. Your cloud provider bills you for that storage as usual, including reads, writes, and data egress.
 
 EFS covers requests to the Messages API in a workspace configured for EFS regardless of model. It does not cover data that is stored by Claude Platform features for their own use, even within a Messages API request, such as code execution containers, Files API uploads, Batch API results, and Claude Managed Agents sessions. See [Data and retention](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/faq#data-and-retention) in the FAQ.
+
+## Get access
+
+To get EFS, follow these steps:
+
+1. If the [Programs](https://platform.claude.com/settings/programs) page in the Claude Console already shows **Enterprise Frontier Safeguards**, skip to step 2. Otherwise, contact your Anthropic account team to request access. If you don’t have an account team, complete the [Enterprise Frontier Safeguards request form](https://claude.com/form/enterprise-frontier-safeguards).
+2. Once Anthropic confirms that your organization is eligible, an Organization Admin accepts the terms from the [Programs](https://platform.claude.com/settings/programs) page in the Claude Console.
+3. To set up EFS, follow the [EFS setup guide for your platform](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/setup-console).
+
+On Amazon Bedrock, you get access through AWS. See [Enterprise Frontier Safeguards on Amazon Bedrock](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/setup-amazon-bedrock).
 
 ## On Claude Platform, EFS applies to a whole workspace
 

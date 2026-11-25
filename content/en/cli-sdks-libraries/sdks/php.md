@@ -75,56 +75,17 @@ $client = new Client(
 
 ## Error handling
 
-When the library is unable to connect to the API, or if the API returns a non-success status code (that is, a 4xx or 5xx response), a subclass of `Anthropic\Core\Exceptions\APIException` is thrown:
+The SDK throws a subclass of `Anthropic\Core\Exceptions\APIException` when it can’t connect to the API or when the API returns an error response (4xx or 5xx). [SDK error types](https://platform.claude.com/docs/en/api/errors#sdk-error-types) lists the classes, and [Handle errors](https://platform.claude.com/docs/en/api/handle-errors) shows how to catch them.
 
-```php
-<?php
-// ...
-use Anthropic\Core\Exceptions\APIConnectionException;
-use Anthropic\Core\Exceptions\APIStatusException;
-use Anthropic\Core\Exceptions\RateLimitException;
-use Anthropic\Messages\Model;
-// ...
-try {
-    $message = $client->messages->create(
-        maxTokens: 1024,
-        messages: [['role' => 'user', 'content' => 'Hello, Claude']],
-        model: Model::CLAUDE_OPUS_5_5,
-    );
-} catch (APIConnectionException $e) {
-    echo 'The server could not be reached', PHP_EOL;
-    echo $e->getPrevious()?->getMessage(), PHP_EOL;
-} catch (RateLimitException $_) {
-    echo 'A 429 status code was received; we should back off a bit.', PHP_EOL;
-} catch (APIStatusException $e) {
-    echo 'Another non-200-range status code was received', PHP_EOL;
-    echo $e->getMessage();
-}
-```
-
-Error codes are as follows:
-
-| Cause | Error type |
-| ----- | ----- |
-| HTTP 400 | `BadRequestException` |
-| HTTP 401 | `AuthenticationException` |
-| HTTP 403 | `PermissionDeniedException` |
-| HTTP 404 | `NotFoundException` |
-| HTTP 409 | `ConflictException` |
-| HTTP 422 | `UnprocessableEntityException` |
-| HTTP 429 | `RateLimitException` |
-| HTTP >= 500 | `InternalServerException` |
-| Other HTTP error | `APIStatusException` |
-| Timeout | `APITimeoutException` |
-| Network error | `APIConnectionException` |
+To see why a connection failed or timed out, call `getPrevious()` on the `Anthropic\Core\Exceptions\APIConnectionException`. The method returns the underlying exception or `null` if there isn’t one.
 
 ## Retries
 
-Certain errors are automatically retried two times by default, with a short exponential backoff.
+By default, the SDK retries certain errors up to two times (three attempts in all). It retries connection errors, timeouts, 408 Request Timeout, 409 Conflict, 429 Too Many Requests, and 5xx server errors.
 
-Connection errors (for example, because of a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts are all retried by default.
+If a response has an `x-should-retry` header (`true` or `false`), the SDK follows it instead of the status. Between attempts, the SDK waits as long as the `retry-after` header says, or it uses a short exponential backoff.
 
-You can use the `maxRetries` option to configure or disable this:
+Use the `maxRetries` request option to configure or disable retries:
 
 ```php
 use Anthropic\Messages\Model;

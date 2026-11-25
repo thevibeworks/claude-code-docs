@@ -37,6 +37,12 @@ Each run is a new session, so an approval for that run alone ends with it. For a
 
 The task's page lists these approvals under **Always allowed**, where the user can remove them. An **Allow for all tasks** approval for a [plugin's own server](https://claude.com/docs/third-party/claude-desktop/extensions.md#approvals-that-users-keep-for-a-plugin-server) can also answer a run. The plugin's page lists it, not the task's page.
 
+### Permission mode of a scheduled task in Cowork
+
+By default, a new scheduled task in Cowork runs in **Manually approve**, whether Claude creates the task or the user creates it on the **Scheduled** page. The task doesn't take the mode that the user last picked for Cowork sessions.
+
+Where [`autoModeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeenabled) is `true`, the user can choose **Automatically approve** under **Permissions** when creating or editing the task. The mode needs a [model that supports it](https://code.claude.com/docs/en/permission-modes#eliminate-prompts-with-auto-mode).
+
 ## Where users see what ran
 
 Users can see how each task's latest run went without opening the run:

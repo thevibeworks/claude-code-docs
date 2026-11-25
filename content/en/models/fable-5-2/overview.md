@@ -92,7 +92,7 @@ Claude Fable 5.2 is built for demanding reasoning and long-horizon agentic work.
 * Adaptive thinking is always on and can’t be turned off. Control thinking depth with the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort).
 * Forced tool use (`tool_choice` types `any` and `tool`) returns a 400 error. See [Thinking and tool choice](https://platform.claude.com/docs/en/models/fable-5-2/whats-new-fable-5-2#thinking-and-tool-choice).
 * Omit `temperature`, `top_p`, and `top_k`. See [Sampling parameters](https://platform.claude.com/docs/en/build-with-claude/thinking#sampling-parameters) for the values that return a 400 error.
-* Claude Fable 5.2 requires 30-day data retention and isn’t available under zero data retention unless expressly authorized by Anthropic. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
+* Claude Fable 5.2 requires 30-day data retention and isn’t available under legacy zero data retention (Legacy ZDR) unless expressly authorized by Anthropic. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
 * Query limits and capabilities programmatically with the [Models API](https://platform.claude.com/docs/en/api/models/list).
 
 ## Resources

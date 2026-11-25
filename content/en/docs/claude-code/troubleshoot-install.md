@@ -58,6 +58,7 @@ Match the error message or symptom you're seeing to a fix:
 | `unable to get local issuer certificate` | [Configure corporate CA certificates](#tls-or-ssl-connection-errors) |
 | `OAuth error`, `That doesn't look like the full code`, or `403 Forbidden` | [Fix authentication](#login-and-authentication) |
 | `Claude Code access has not been granted for this account` | [Get a role that includes Claude Code](#claude-code-access-has-not-been-granted-for-this-account) |
+| `That code wasn't accepted` | Sign in again and paste the new code |
 | `Unable to connect to Anthropic services` during setup | See [Unable to connect to Anthropic services](https://code.claude.com/docs/en/errors.md#unable-to-connect-to-anthropic-services) in the Error reference |
 | `Could not load the default credentials` or `Could not load credentials from any providers` | [Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry credentials](#bedrock-agent-platform-or-foundry-credentials-not-loading) |
 | `ChainedTokenCredential authentication failed` or `CredentialUnavailableError` | [Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry credentials](#bedrock-agent-platform-or-foundry-credentials-not-loading) |

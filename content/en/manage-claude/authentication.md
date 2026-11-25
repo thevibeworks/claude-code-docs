@@ -1,18 +1,19 @@
 ---
 title: Authentication
 url: https://platform.claude.com/docs/en/manage-claude/authentication
-description: Authenticate to the Claude API with API keys, Workload Identity Federation, or App Attest.
+description: "Choose how your code proves who it is to the Claude API: CLI sign-in, Workload Identity Federation, App Attest, or an API key."
 ---
 
-The Claude API supports three ways to authenticate requests:
+Every request to the Claude API carries a credential that tells the API who is calling, such as you or a service account that gives a program its own identity. Choose the method by where your code runs. Every method but an API key sends a short-lived token instead of a long-lived secret, which limits the damage if a token leaks.
 
 | Method | Credential | Best for |
 | ----- | ----- | ----- |
-| [API key](https://platform.claude.com/docs/en/manage-claude/authentication#api-keys) | Static `sk-ant-api...` secret sent as a bearer token in the `Authorization` header | Local development, prototyping, scripts, and servers where you control secret storage |
+| CLI sign-in (see the `ant` CLI’s [Interactive login](https://platform.claude.com/docs/en/cli-sdks-libraries/cli/authentication#interactive-login) section) | Short-lived access token that `ant auth login` stores on your computer | Local development and scripting on your own computer |
 | [Workload Identity Federation (WIF)](https://platform.claude.com/docs/en/manage-claude/authentication#workload-identity-federation) | Short-lived bearer token exchanged from your identity provider’s identity token | Production workloads on cloud platforms (AWS, Google Cloud, and Azure), CI/CD pipelines, and Kubernetes, where you want to eliminate static secrets |
 | [App Attest](https://platform.claude.com/docs/en/manage-claude/authentication#app-attest) | Short-lived access token issued to a genuine, attested installation of your registered iOS or macOS app | iOS and macOS apps distributed to end users, where the app calls the Claude API directly with no back end or proxy |
+| [API key](https://platform.claude.com/docs/en/manage-claude/authentication#api-keys) | Static `sk-ant-api...` secret sent as a bearer token in the `Authorization` header | A server with no identity provider or a tool that asks for a key |
 
-API keys and Workload Identity Federation grant the same access to Claude API endpoints. Choose API keys to get started quickly: a personal key for your own development, or a service account key for anything shared. Move to Workload Identity Federation when your workload already has a platform-issued identity you can federate. Use App Attest for iOS and macOS apps you distribute to end users.
+On your own computer, sign in with the `ant` CLI. The SDK and the CLI then find your credentials on their own as long as `ANTHROPIC_API_KEY` isn’t set. Use Workload Identity Federation in CI or on a server or cluster with an identity provider. Use App Attest for iOS and macOS apps you distribute to end users. Choose an API key for a server with no identity provider or a tool that asks for a key. Pick a personal key for your own use or a service account key for anything shared.
 
 ## API keys
 
@@ -30,7 +31,7 @@ When you create a key, you choose its type, which determines what the key can do
 
 Personal keys and service account keys are identity-backed: each belongs to a user or service account your organization already manages, and every request acts as that identity. When that identity is removed from the organization, the key stops working. This means that keys don’t accidentally outlive the people or workloads that own them. Prefer them over workspace keys for new integrations.
 
-Use a personal key for your own development and scripts. A shared personal key acts as one person and breaks when they leave. For shared or automated workloads (CI, production services), have an organization admin create a service account so the workload has its own identity.
+If a tool that only you run asks for a key, use a personal key. A shared personal key acts as one person and breaks when they leave. For shared or automated workloads (CI, production services), have an organization admin create a service account so the workload has its own identity.
 
 Workspace API keys work but are legacy. Prefer identity-backed keys or [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation). To migrate, see [Replacing workspace API keys](https://platform.claude.com/docs/en/manage-claude/authentication#replacing-workspace-api-keys).
 
@@ -351,9 +352,9 @@ To replace a workspace key with a personal or service account key:
 
 Call the Claude API from your own back end, not from code that runs in your users’ browsers. Anyone who uses a webpage can read an API key in that page’s code. Typically, your web front end calls your back end, which holds the key and calls the Claude API.
 
-A request sent directly from a browser is a cross-origin (CORS) request. The API accepts these requests only when they include the `anthropic-dangerous-direct-browser-access: true` header, which the TypeScript SDK sends when you set `dangerouslyAllowBrowser` to `true`. For the cases where exposing a key this way is acceptable, see [Browser usage](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#runtime-support) in the TypeScript SDK guide.
+A request sent directly from a browser is a cross-origin (CORS) request. The API accepts one only when it includes the `anthropic-dangerous-direct-browser-access: true` header. The TypeScript SDK sends this header when you set `dangerouslyAllowBrowser` to `true`. For the cases where exposing a key this way is acceptable, see [Runtime support](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#runtime-support) in the TypeScript SDK guide.
 
-Organizations that have [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) or the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) enabled cannot call the API directly from a browser, even with that header. Other organization settings can have the same effect, and no setting allows browser requests for these organizations. The API returns a 401 `authentication_error` whose message begins `CORS requests are not allowed for this Organization`, even though the API key is valid. A Claude Console organization linked to a Claude Enterprise parent organization inherits the Compliance API setting from the parent. The restriction can therefore apply even when your Claude Console settings show no Compliance API section.
+Organizations that have [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) cannot call the API directly from a browser, even with that header. Other organization or workspace settings can have the same effect, and no setting allows browser requests for these organizations. The API returns a 401 `authentication_error` whose message begins `CORS requests are not allowed for this Organization`, even though the API key is valid.
 
 The restriction applies only to requests that include an `Origin` header, which browsers add and server-side HTTP clients normally do not. Requests from your own back end are not affected. If your back end forwards requests that start in a browser, have it create a new request to the Claude API. Don’t pass the browser’s request through. That request still includes the browser’s `Origin` header, and the API rejects it the same way.
 
