@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-25T09:32:18.113345Z",
+    "fetch_date": "2026-11-25T20:19:27.218137Z",
     "section": "all"
   },
   "items": [
@@ -7583,8 +7583,8 @@
       "url": "https://code.claude.com/docs/en/managed-settings",
       "status": "success",
       "path": "en/docs/claude-code/managed-settings.md",
-      "sha256": "7a54e72aee8a05d8cd9134fc07dcf6e93774bffdb25b6aff36ac524eea601489",
-      "size": 66636
+      "sha256": "b1630f0456ed3a8fb47117beb5084e1f4e33fa7bc0fcb9b59d4bdce092e21300",
+      "size": 66633
     },
     {
       "url": "https://code.claude.com/docs/en/server-managed-settings",
@@ -13565,6 +13565,13 @@
       "size": 19700
     },
     {
+      "url": "https://support.claude.com/en/articles/18516354-install-an-artifact-as-an-app",
+      "status": "success",
+      "path": "support/18516354-install-an-artifact-as-an-app.md",
+      "sha256": "1c89035b06d2f1242de13e4b90a44f569d1aa1cbf5fc6b6c8ef25cc98d8a9fd3",
+      "size": 8891
+    },
+    {
       "url": "https://support.claude.com/en/articles/18520573-manage-anthropic-email-updates-for-your-organization-members",
       "status": "success",
       "path": "support/18520573-manage-anthropic-email-updates-for-your-organization-members.md",
@@ -13572,11 +13579,32 @@
       "size": 5357
     },
     {
+      "url": "https://support.claude.com/en/articles/18534325-send-files-to-connected-apps-and-save-files-from-them",
+      "status": "success",
+      "path": "support/18534325-send-files-to-connected-apps-and-save-files-from-them.md",
+      "sha256": "a53c3dc5a39c1e00560ae9b43340f50dd302ee7b9ad823142098d1df8a292b17",
+      "size": 7715
+    },
+    {
+      "url": "https://support.claude.com/en/articles/18537562-claude-sonnet-4-6-is-leaving-the-model-selector",
+      "status": "success",
+      "path": "support/18537562-claude-sonnet-4-6-is-leaving-the-model-selector.md",
+      "sha256": "5f1be6bce0b95d71d65d947eedcec16d8dd1cc51171187c37f60c850e7a9a2cc",
+      "size": 1767
+    },
+    {
       "url": "https://support.claude.com/en/articles/18549037-block-files-and-email-from-claude-by-sensitivity-label",
       "status": "success",
       "path": "support/18549037-block-files-and-email-from-claude-by-sensitivity-label.md",
       "sha256": "79408c46b142376c3c756337e87e26376e1e3ae7b29f852d853c4f340590c15b",
       "size": 15387
+    },
+    {
+      "url": "https://support.claude.com/en/articles/18559929-set-an-internal-help-contact-for-your-organization",
+      "status": "success",
+      "path": "support/18559929-set-an-internal-help-contact-for-your-organization.md",
+      "sha256": "e6b2eedfa4147e267a03d9b9d6bd36e025aa60c1840548ac5afa6b93c2c233a6",
+      "size": 2238
     },
     {
       "url": "https://claude.com/docs/build/overview",
@@ -15416,8 +15444,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/code",
       "status": "success",
       "path": "claude/third-party/claude-desktop/code.md",
-      "sha256": "204d5879af9995f6de340a5f11893b949773db9b0be5669aeb34af2b5114191c",
-      "size": 60346
+      "sha256": "9c6fcd034bb1b1ad36103bb3a3318f189b32ed0a04aaa97c24442bd69307058a",
+      "size": 60780
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/configuration",
@@ -15661,8 +15689,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/web-tools",
       "status": "success",
       "path": "claude/third-party/claude-desktop/web-tools.md",
-      "sha256": "4e5534d371fc9375cf98132ce527e62846cd704f1088af661e3df88622c70e85",
-      "size": 23680
+      "sha256": "23c03107e14527d90385aec0fdae95c320f7b8a9d75ada2a1b682e1fd6c8d0bb",
+      "size": 23865
     },
     {
       "url": "https://code.claude.com/docs/en/ultraplan",
@@ -32437,39 +32465,67 @@
       "size": 4749
     },
     {
-      "url": "https://www.anthropic.com/legal/archive/63888185-843f-445e-abe3-4f0cb047d118",
+      "url": "https://www.anthropic.com/legal/archive/79dbc8c6-7f64-43d6-8101-207cede59a4d",
       "status": "success",
       "path": "legal/consumer-terms/2025-10-08.md",
-      "sha256": "a9b3fda5fbc9a20bbb227f1bbb2e689dba495c0a8395443eb19b111c3d6aeeb4",
-      "size": 28125
+      "sha256": "400ef51aacda9fee0c89a230a6f3680973355a4aa487dd0bd8a279c48539a59e",
+      "size": 30187
     },
     {
-      "url": "https://www.anthropic.com/legal/archive/86f776c8-c9ba-4ca3-a016-43bbeb7fbeb0",
+      "url": "https://www.anthropic.com/legal/archive/80e847ae-5c9e-4a7b-b2cb-88895aa972d5",
       "status": "success",
       "path": "legal/consumer-terms/2025-05-01.md",
-      "sha256": "0ec4b1811aad0d0476712c1b1fc0c3dc19b2d751833d1170c12a18ed3f6070b4",
-      "size": 27918
+      "sha256": "18eabe74702caf2fc87818d457178fc25065794541eb2ebfc9815b221d77c377",
+      "size": 27979
     },
     {
-      "url": "https://www.anthropic.com/legal/archive/a8fad402-75fc-429f-95e7-019f83d4879c",
+      "url": "https://www.anthropic.com/legal/archive/99a99900-9830-4383-85ab-47896850d1e5",
+      "status": "success",
+      "path": "legal/consumer-terms/2025-04-15.md",
+      "sha256": "37784515ca0397ef27ed33e6e05366ee152185da4d05af01084158c8b2d447a2",
+      "size": 27543
+    },
+    {
+      "url": "https://www.anthropic.com/legal/archive/df08d2e9-1a7d-4f92-8d52-ea57c42712d7",
       "status": "success",
       "path": "legal/consumer-terms/2025-02-19.md",
-      "sha256": "333b7cab6fb4d312e289ee7e0b7acc64eef9ca32bd070619cfe99a981f5b381b",
-      "size": 26015
+      "sha256": "8ed868bbe9e58be932df17230913b2d1caa53f6b6354ed9f15baeb516c914c82",
+      "size": 26835
     },
     {
-      "url": "https://www.anthropic.com/legal/archive/521a6551-d42f-4977-a454-f3c9f74375e0",
+      "url": "https://www.anthropic.com/legal/archive/90113ac5-6846-4777-84d8-edde3719ac06",
       "status": "success",
-      "path": "legal/consumer-terms/2024-06-05.md",
-      "sha256": "95b12bb414d031ab88f2ed2069a94fc1833d6c344553f72becd5f2eb7d2ebc42",
-      "size": 25147
+      "path": "legal/consumer-terms/2024-06-13.md",
+      "sha256": "49a8aa6cada3e9e23141a19ba178bd13107795216c30d1d4b68b25a5dd66822a",
+      "size": 26052
+    },
+    {
+      "url": "https://www.anthropic.com/legal/archive/d1642ca5-a466-4326-ac3d-a9de6e60e627",
+      "status": "success",
+      "path": "legal/consumer-terms/2024-05-01.md",
+      "sha256": "39ecf4dff43adca35400c9bb57e8fa8f2f480a9dd6b5b00660ba8932ce6338c1",
+      "size": 26375
+    },
+    {
+      "url": "https://www.anthropic.com/legal/archive/60422e4b-4c80-462d-af4a-7ddd10289cf4",
+      "status": "success",
+      "path": "legal/consumer-terms/2024-04-15.md",
+      "sha256": "fba9bf784c2a28a36cef15eeb175d69562c0581681a1afad022ac37b3b47e719",
+      "size": 25549
+    },
+    {
+      "url": "https://www.anthropic.com/legal/archive/71085c3c-857c-464d-8075-ae918f0e5555",
+      "status": "success",
+      "path": "legal/consumer-terms/2024-02-03.md",
+      "sha256": "200b18842e482cc2a612f935f3520e3b7521fffddd58b76ff1b35a1bbd30ac7c",
+      "size": 24740
     },
     {
       "url": "https://www.anthropic.com/legal/consumer-terms",
       "status": "success",
       "path": "legal/consumer-terms.md",
-      "sha256": "1d3a390bd50a9689ca94bf18bdd3bfcc0c3480fae985a919a6332189ecda7324",
-      "size": 28496
+      "sha256": "062ded16a5967a5f66165086f310bb264b7ac8ccc3b24e22dc3dae5123cdd862",
+      "size": 30858
     },
     {
       "url": "https://www.anthropic.com/legal/archive/5c7ecf37-e2e1-4788-b718-a0d914fead48",
@@ -32941,28 +32997,7 @@
       "size": 2548
     }
   ],
-  "failures": [
-    {
-      "url": "https://www.anthropic.com/legal/archive/71085c3c-857c-464d-8075-ae918f0e5555",
-      "error": "dropped from versionHistory"
-    },
-    {
-      "url": "https://www.anthropic.com/legal/archive/60422e4b-4c80-462d-af4a-7ddd10289cf4",
-      "error": "dropped from versionHistory"
-    },
-    {
-      "url": "https://www.anthropic.com/legal/archive/d1642ca5-a466-4326-ac3d-a9de6e60e627",
-      "error": "dropped from versionHistory"
-    },
-    {
-      "url": "https://www.anthropic.com/legal/archive/90113ac5-6846-4777-84d8-edde3719ac06",
-      "error": "dropped from versionHistory"
-    },
-    {
-      "url": "https://www.anthropic.com/legal/archive/99a99900-9830-4383-85ab-47896850d1e5",
-      "error": "dropped from versionHistory"
-    }
-  ],
+  "failures": [],
   "dead": [
     {
       "url": "https://code.claude.com/docs/en/claude-tag",
@@ -34322,11 +34357,11 @@
     }
   ],
   "summary": {
-    "total": 5049,
-    "downloaded": 4705,
+    "total": 5052,
+    "downloaded": 4713,
     "skipped": 0,
     "failed": 0,
-    "dead": 344,
+    "dead": 339,
     "success_rate": 100.0
   }
 }
