@@ -409,7 +409,7 @@ Upload your current configuration, as described under [Start from an existing co
 
 **2. Finish the configuration before users sign in**
 
-Set every setting you rely on in the console, because the console's configuration replaces the profile's. Add your [plugin marketplaces](#plugin-marketplaces) on the **Plugins** page. To migrate users' work, check that the **Automatically import earlier third-party sessions** switch under **Claude.ai data import** on the **Capabilities** page is on (the default). To skip the migration, turn it off. Devices that already migrated keep their items.
+Set every setting you rely on in the console, because the console's configuration replaces the profile's configuration. Add your [plugin marketplaces](#plugin-marketplaces) on the **Plugins** page. To migrate users' work, check that the **Automatically import earlier third-party sessions** switch under **Claude.ai data import** on the **Capabilities** page is on (the default). To skip the migration, turn it off. Devices that already migrated keep their items.
 
 If users have designs or slide decks, also turn on [Design and Slides](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md#turn-on-design-and-slides). Only [Claude Desktop 7.37095.0 or later](#what-is-migrated) migrates designs and decks. Users see them only where Design and Slides is turned on.
 
@@ -467,7 +467,7 @@ With Claude Desktop 5.11492.0 or later, users set up these items again. [Earlier
 * **Project links**: add them again on each project's page
 * **Design systems that users added on the computer**: [add them again](https://claude.com/docs/third-party/claude-desktop/design-and-slides.md#add-a-design-system-on-one-computer)
 * **Project folders in Chat**: Claude can't read a migrated project's folder in Chat until the user [adds the folder to the project again](https://claude.com/docs/third-party/claude-desktop/import.md#make-an-imported-project-folder-readable-in-chat)
-* **Model of scheduled tasks, and the approval mode of some**: each task arrives with **Default model**. A task that ran on **Automatically approve** or in bypass permissions mode arrives on **Automatically approve** if its tab offers that mode when the device migrates. Cowork offers it only where [`autoModeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeenabled) is `true`. Code offers it unless `autoModeEnabled` is `false` or a managed Claude Code setting turns Auto mode off. Any other task arrives without its approval mode. Until the user sets the mode again, a run that needs an approval waits for them.
+* **Model of scheduled tasks, and the approval mode of some**: each task arrives with **Default model**. A task that ran on **Automatically approve** or in bypass permissions mode arrives on **Automatically approve** if its tab offers that mode when the device migrates. Cowork offers it only if [`autoModeEnabled`](https://claude.com/docs/third-party/claude-desktop/configuration#automodeenabled) is `true`. Code offers it unless `autoModeEnabled` is `false` or a managed Claude Code setting turns Auto mode off. Any other task arrives without its approval mode. Until the user sets the mode again, a run that needs an approval waits for them.
 * **Sidebar pins of sessions and scheduled tasks**: pin them again
 * **Optional organization plugins that the migration skipped**: install them again from **Customize → Plugins → Discover → Organization**
 * **Plugins from marketplaces the user added**: add the marketplace and install the plugins again

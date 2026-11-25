@@ -86,7 +86,7 @@ By default, when a running session's credential is rejected, Claude Desktop re-r
 
 ## Install the helper for Claude Code in the terminal
 
-If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md), Claude Code can also run the **Helper script** on your **Connection** page and the **OTLP headers helper script** on your **Telemetry & updates** page. Claude Code checks each script before it runs it:
+If you [manage Claude Code in the terminal from the Enterprise Admin Console](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code.md), Claude Code can also run the **Helper script** on your **Connection** page and the **OTLP headers helper script** on your **Telemetry & updates** page. Claude Code checks each script before running it:
 
 * **On macOS and Linux**: the script runs only if the developer's account can't change any of these: the script, the interpreter on its `#!` line, any file that an argument names, and every folder above those files. For example, make them all owned by root with mode `755`. Start the script with the full path of its interpreter, such as `#!/bin/bash`, not `#!/usr/bin/env`. The script doesn't run when Claude Code runs as root.
 * **On Windows**: install the script, and any file that an argument names, under `C:\Program Files`, not `C:\Program Files (x86)`. Give the full path of each file. Claude Code checks only where the files are, so keep that folder's default permissions.

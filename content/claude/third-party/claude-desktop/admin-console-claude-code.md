@@ -135,7 +135,7 @@ Go through your `managed-settings.json`, MDM profile, or registry policy, and pu
 * **`apiKeyHelper`**: use the **Helper script** on the **Connection** page. It takes the path to a program, not a shell command. You still need to [install that program on each computer](https://claude.com/docs/third-party/claude-desktop/credential-helper.md#install-the-helper-for-claude-code-in-the-terminal).
 * **OpenTelemetry export (`CLAUDE_CODE_ENABLE_TELEMETRY` and the `OTEL_` variables)**: use **OTLP endpoint** and the other OTLP fields on the **Telemetry & updates** page. If you [keep managed settings beside the console](#keep-managed-settings-beside-the-console), leave these variables in them until each computer has Claude Code 2.1.331. Earlier versions export only where these variables say.
 
-The fields on the **Desktop 3P** pages also apply to Claude Desktop, so check that each value works there too.
+The fields on the **Desktop 3P** pages also apply to Claude Desktop, so check that each value also works in Claude Desktop.
 
 If an entry under `sandbox` or in `disabledMcpjsonServers` starts with `//`, remove one slash, because Claude Code ignores such an entry. Leave `//` in deny and ask rules.
 
@@ -309,6 +309,6 @@ To require the sign-in, first turn on sign-in from Claude Code. If you removed y
 
 If you set a retention period under `HKCU` on Windows, add it to this file as `cleanupPeriodDays`. Claude Code ignores `HKCU` once the computer has managed settings.
 
-To test it, ask a developer who isn't signed in to run `claude`. Claude Code prints a message, `This computer's managed settings require a sign-in to Anthropic`, and exits. If Claude Code starts instead, check that its version is 2.1.331 or later, and that developers' accounts can read the file.
+To test the requirement, ask a developer who isn't signed in to run `claude`. Claude Code prints a message, `This computer's managed settings require a sign-in to Anthropic`, and exits. If Claude Code starts instead, check that its version is 2.1.331 or later, and that developers' accounts can read the file.
 
 For other ways around your settings, see [Security considerations](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference.md#security-considerations).

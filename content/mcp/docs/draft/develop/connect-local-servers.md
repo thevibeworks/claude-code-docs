@@ -161,7 +161,7 @@ Review each request carefully before approving. You can always deny a request if
 
 If you encounter issues setting up or using the Filesystem Server, these solutions address common problems:
 
-> [accordion] Server not showing up in Claude / hammer icon missing
+> [accordion] Server not showing up in Claude
 >
 > 1. Restart Claude Desktop completely
 > 2. Check your `claude_desktop_config.json` file syntax

@@ -4,7 +4,7 @@ When you first create a Claude account, you’ll be asked to enter your phone nu
 
 ## Why do I need to verify my phone number?
 
-Verifying your phone number helps us prevent spam and abuse. Your phone number is only used for account verification and not for any other purposes.
+Verifying your phone number helps us prevent spam and abuse. The phone number you verify at sign-up is used for account verification and protection. If you turn on two-step verification by text message, we text the number you set up for it: verification codes when you set it up and when you sign in.
 
 ## What happens during phone verification?
 

@@ -239,7 +239,7 @@ Use `↑` and `↓` to peek at adjacent sessions without closing the panel, or `
 
 Press `Enter` or `→` on a selected row to attach. Agent view is replaced by the full interactive session. When you attach, Claude posts a short recap of what happened while you were away.
 
-While attached, the session behaves like any other Claude Code session: [commands](https://code.claude.com/docs/en/commands.md), keyboard shortcuts, and features all work, with the exceptions below.
+While you're attached, [commands](https://code.claude.com/docs/en/commands.md), keyboard shortcuts, and features all work, with the exceptions below. A [`/ship` or `/steward` watch](https://code.claude.com/docs/en/ship-command-troubleshooting#a-session-setting-blocks-a-watch) doesn't start in a background session.
 
 While you're attached, `/install-github-app` and the [`/mcp`](https://code.claude.com/docs/en/mcp) settings list work normally, since a human at the terminal can complete their dialogs. When nobody is attached, these commands can't open their dialogs, so the session appears under `Needs input` in agent view with a row such as `open this session to manage MCP servers`, and the transcript reply says the same. Attach and run the command again to continue; the needs-input row clears when you attach. `/mcp reconnect <server>`, `/mcp enable`, and `/mcp disable` work without attaching either way.
 
@@ -444,6 +444,10 @@ Two commands move work from the session you're in to the background: `/backgroun
 #### Send the session to the background
 
 Run `/background` or its alias `/bg` to move the current conversation into a background session. Pass a prompt such as `/bg run the test suite and fix any failures` to give one more instruction first. If Claude is responding when you run `/bg`, the response continues in the background session.
+
+> [!NOTE]
+>
+> While a [`/ship` or `/steward` watch](https://code.claude.com/docs/en/ship-command) is on, `/bg` leaves the session in the foreground and prints the reason. See [Messages during a watch](https://code.claude.com/docs/en/ship-command-troubleshooting.md#messages-during-a-watch).
 
 If you exit a session while some kinds of background work are running, such as subagents or workflows, a `Background work is running` dialog warns that the work stops. Choose `Move to background and exit` to background the session the same way `/background` does and return to your shell. The option isn't shown when agent view is [turned off](#turn-off-agent-view).
 
@@ -1052,6 +1056,8 @@ Agent view has evolved quickly during research preview. If you are on an older C
 
 | Version | Change |
 | - | - |
+| v2.1.331 | A [`/ship` or `/steward` watch](https://code.claude.com/docs/en/ship-command-troubleshooting#a-session-setting-blocks-a-watch) doesn't start in a background session. Before this release, one can start there. |
+| v2.1.331 | [`/background`](#send-the-session-to-the-background) doesn't move a session to the background while a `/ship` or `/steward` watch is on. Before this release, the session moves and the watch ends. |
 | v2.1.323 | In agent view's input, [`Ctrl+Y`](#keyboard-shortcuts) restores cleared text. |
 | v2.1.299 | [`/effort` and `/fast` in the dispatch input](#set-the-model-effort-and-fast-mode) set the effort level and fast mode for the sessions you dispatch next. `/model`, `/effort`, or `/fast` typed with no value opens a picker. |
 | v2.1.299 | Claude Code [reads `--bg` and `--background` as the flag](#from-your-shell) only before any bare `--` separator and outside another flag's value, and refuses an ambiguous position instead of guessing. Before this release, a prompt or reply of `--bg` or `--background` to a background session could be taken for the flag. That could start new background sessions over and over instead of delivering the text. |

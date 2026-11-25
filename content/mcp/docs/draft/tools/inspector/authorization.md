@@ -6,7 +6,7 @@
 
 > How the MCP Inspector performs OAuth, re-authorizes mid-session, and shares tokens between its clients
 
-Remote MCP servers usually require authorization. The Inspector implements the full [authorization](https://modelcontextprotocol.io/specification/latest/basic/authorization.md) flow in all three clients, sharing the resulting tokens on disk so a login done once is usable everywhere.
+Remote MCP servers usually require authorization. The Inspector implements the full [authorization](https://modelcontextprotocol.io/specification/draft/basic/authorization.md) flow in all three clients, sharing the resulting tokens on disk so a login done once is usable everywhere.
 
 ## The flow, end to end
 
@@ -21,17 +21,17 @@ scopes the request requires.
 
 The Inspector fetches the server's [protected-resource and
 authorization-server
-metadata](https://modelcontextprotocol.io/specification/latest/basic/authorization/authorization-server-discovery.md)
+metadata](https://modelcontextprotocol.io/specification/draft/basic/authorization/authorization-server-discovery.md)
 to learn the endpoints and the supported grants.
 
 **3. Register or identify the client**
 
 The Inspector identifies itself to the authorization server through
 whichever mechanism is configured: [dynamic client
-registration](https://modelcontextprotocol.io/specification/latest/basic/authorization/client-registration.md#dynamic-client-registration),
+registration](https://modelcontextprotocol.io/specification/draft/basic/authorization/client-registration.md#dynamic-client-registration),
 a pre-registered static client (`--client-id` / `--client-secret`), a
 [Client ID Metadata
-Document](https://modelcontextprotocol.io/specification/latest/basic/authorization/client-registration.md#client-id-metadata-documents)
+Document](https://modelcontextprotocol.io/specification/draft/basic/authorization/client-registration.md#client-id-metadata-documents)
 (`--client-metadata-url`), or an [enterprise-managed
 IdP](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization.md).
 

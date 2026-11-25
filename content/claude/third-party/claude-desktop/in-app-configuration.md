@@ -6,7 +6,7 @@
 
 > Build, test, and export a Claude Desktop on 3P configuration from inside the app, with validation and per-provider guidance
 
-The in-app configuration window is the recommended way to configure Claude Desktop for third-party inference. It validates values as you enter them, shows exactly which fields your inference provider requires, tests the connection against your endpoint, and computes the network egress allowlist for your settings.
+The in-app configuration window is the recommended way to configure Claude Desktop for third-party inference. It validates values as you enter them, shows exactly which fields your inference provider requires, and computes the network egress allowlist for your settings. The **Test connection** button sends a test request to your endpoint, except with the **Vertex AI** provider, where you [check the connection by sending a message](https://claude.com/docs/third-party/claude-desktop/vertex.md#check-the-connection-to-google-cloud).
 
 ## Open the configuration window
 

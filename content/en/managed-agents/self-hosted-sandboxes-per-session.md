@@ -124,7 +124,7 @@ A poller on the host claims work and calls your script once for each work item. 
     <File filename="Dockerfile">
       ```dockerfile
       FROM your-base-image
-      ARG ANT_VERSION=2.13.0
+      ARG ANT_VERSION=2.14.0
       ARG TARGETARCH
       RUN ARCH=$([ "$TARGETARCH" = "arm64" ] && echo arm64 || echo amd64) && \
           curl -fsSL "https://github.com/anthropics/anthropic-cli/releases/download/v${ANT_VERSION}/ant_${ANT_VERSION}_linux_${ARCH}.tar.gz" \

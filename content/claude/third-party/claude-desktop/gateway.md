@@ -95,12 +95,12 @@ For Kong, Envoy, or Azure API Management, configure the equivalent JWT validatio
 
 **3. Configure in the app**
 
-Open the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Gateway** and **Credential kind** to **Interactive sign-in**. This hides the API-key field and reveals **Gateway SSO IdP (OIDC)**:
+Open the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window) (**Developer → Configure Third-Party Inference…**). In the **Connection** section, set **Inference provider** to **Gateway** and **Credential kind** to **Interactive sign-in**. This reveals **Gateway SSO IdP (OIDC)**:
 
 | Field | Value |
 | - | - |
-| Gateway base URL | `https://llm-gateway.example.corp` |
 | Credential kind | **Interactive sign-in** |
+| Gateway base URL | `https://llm-gateway.example.corp`, without `/v1` at the end, because the app adds `/v1/messages` |
 | Gateway SSO IdP (OIDC) → Client ID | `YOUR_CLIENT_ID` |
 | Gateway SSO IdP (OIDC) → Issuer URL | `https://login.microsoftonline.com/YOUR_TENANT_ID/v2.0` |
 | Gateway SSO IdP (OIDC) → Scopes | *leave empty for the default* |
@@ -176,10 +176,12 @@ Open the [in-app configuration window](https://claude.com/docs/third-party/claud
 
 | Field | Value |
 | - | - |
-| Gateway base URL | `https://llm-gateway.example.corp` |
-| Gateway API key | your gateway key (or a placeholder if your gateway has none) |
-| Credential kind | **Static API key** (default), or **Interactive sign-in** for [single sign-on](#single-sign-on-with-your-identity-provider) |
-| Gateway auth scheme | **Bearer** (default) or **x-api-key** |
+| Credential kind | **Static API key**, **Interactive sign-in** for [single sign-on](#single-sign-on-with-your-identity-provider), or **Helper script** for a [credential helper](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) |
+| Gateway base URL | `https://llm-gateway.example.corp`, without `/v1` at the end, because the app adds `/v1/messages` |
+| Gateway API key | when **Credential kind** is **Static API key**, enter your gateway key (or a placeholder if your gateway has none) |
+| Gateway auth scheme | when **Credential kind** is **Static API key** or **Helper script**, select **Bearer** (default) or **x-api-key** |
+
+For the **Identity provider sign-in (OIDC)** credential kind (`external-idp`), see [Single sign-on configuration keys](#single-sign-on-configuration-keys).
 
 Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
 
@@ -629,7 +631,7 @@ In sessions that ask the provider for the review, users see one of the following
 * **A card or notice, and the built-in safety check takes over**: no result comes back, or the provider answers that it doesn't run the review or has turned the review off. The same happens when the request gets one of these errors and then succeeds when the session sends it again without asking for the review: `400`, `403`, `422`, or a `500` or `502` whose response has no `request-id` header. Code shows a card titled **Auto mode switched to its built-in safety check for this session**, and Cowork shows the same words as a notice. In Code, the turn continues once the user selects **Continue**. If nobody answers the card within five minutes, the turn ends, and the action that waited reads `Stopped` and doesn't run.
 * **Nothing, and work continues**: the `tool_use` IDs are rewritten, or the provider answers that it couldn't run the review this time. The built-in safety check reviews actions.
 * **Actions don't run**: the `safeguard_results` field arrives in a form the session can't read. Actions that need a review show as `Blocked`. The turn can stop with a card titled `Auto mode’s safety check was unavailable` in Code, and with a notice that begins `Auto mode is unavailable` in Cowork. As a temporary measure, [turn off **Server-side Auto mode checks**](#turn-off-server-side-auto-mode-checks).
-* **Every Auto mode turn fails**: each request that asks for the review gets an error, and the session doesn't send it again without asking for the review. This happens after every other error, such as `401`, `404`, or `413`. This includes a `500` or `502` whose response has a `request-id` header, which the session treats as the provider's own error. See [Troubleshoot](#troubleshoot).
+* **Every Auto mode turn fails**: each request that asks for the review gets an error, and the session doesn't send it again without asking for the review. This happens after any error other than `400`, `403`, `422`, or a `500` or `502` whose response has no `request-id` header. Examples are `401`, `404`, `413`, and a `500` or `502` whose response has a `request-id` header, which the session treats as the provider's own error. See [Troubleshoot](#troubleshoot).
 
 To find out which of these a user saw, have the user go to **Help > Troubleshooting > Generate Diagnostic Report** and select **Export to file** right after it happens. If Code shows the card, the user selects **Continue** first. Read the report as described in [Test Auto mode checks on one device](#test-auto-mode-checks-on-one-device). A Code session on an SSH host doesn't write its Auto mode lines to this report.
 
@@ -664,7 +666,7 @@ A `requested` line means that the session asked for the review. The lines after 
 | `no_verdict`, `server_unsupported` | The provider doesn't run the review for this model or key. | Use a provider and model that run the review, or, as a temporary measure, [turn off **Server-side Auto mode checks**](#turn-off-server-side-auto-mode-checks). |
 | `no_verdict`, `other_tool_use_ids` | Verdicts came back under IDs that none of the response's actions has. | Return the provider's `tool_use` IDs unchanged. |
 | `no_verdict`, `server_unrecognized_result` | The session can't read the `safeguard_results` field. | As a temporary measure, [turn off **Server-side Auto mode checks**](#turn-off-server-side-auto-mode-checks), because actions that need a review don't run. Then compare what your gateway returned to the client with [the requirements](#gateway-requirements-for-auto-mode-checks). |
-| `not_requested`, `beta_rejected` | Your gateway, or the provider behind it, returned a `400`, `403`, `422`, `500`, or `502` to an earlier request that asked for the review, so the session stopped asking. | Check your gateway's logs for which of the two refused the request. If your gateway refused the request, have your gateway accept [the `dangerous-tool-use-2026-09-03` value and the `safeguards` field](#gateway-requirements-for-auto-mode-checks). For the provider, follow the `server_unsupported` row. |
+| `not_requested`, `beta_rejected` | Your gateway, or the provider behind it, returned a `400`, `403`, `422`, `500`, or `502` to an earlier request that asked for the review, so the session stopped asking. | Check your gateway's logs for which of the two refused the request. If your gateway refused the request, have your gateway accept [the `dangerous-tool-use-2026-09-03` value and the `safeguards` field](#gateway-requirements-for-auto-mode-checks). If the provider refused the request, follow the `server_unsupported` row. |
 | `not_requested`, `betas_disabled`, `switch` is `off` | **Server-side Auto mode checks** is off for this device, because you turned it off, because Claude Desktop can't read the key's value, or because the key isn't set and the device has an earlier version of Claude Desktop, where the setting is off by default. | [Turn the setting on for the device](#test-auto-mode-checks-on-one-device). On an earlier version, you can update Claude Desktop instead. |
 | `not_requested`, `betas_disabled`, `switch` is `on` | The device's own Claude Code managed settings or a compliance policy turn experimental betas off, which takes priority. | If a `requested` line follows, ignore this line. If none follows, check whether the device's [Claude Code managed settings](https://code.claude.com/docs/en/managed-settings) set `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS`. |
 | Only `requested`, and Claude's actions show as `Blocked` | The session couldn't read the verdicts, or the response ended before they arrived. | If the log also holds `cli_stream_failed` lines, see the streaming requirement in [Context window and compaction](#context-window-and-compaction). Otherwise, follow the `server_unrecognized_result` row. |

@@ -563,8 +563,8 @@ PrimitiveSchemaDefinition:\
   | [StringSchema](#stringschema)\
   | [NumberSchema](#numberschema)\
   | [BooleanSchema](#booleanschema)\
-  | [EnumSchema](#enumschema)Restricted schema definitions that only allow primitive types
-without nested objects or arrays.&#x20;
+  | [EnumSchema](#enumschema)Restricted schema definitions for strings, numbers, booleans, and enums,
+without nested objects. The only arrays allowed are multi-select enums.&#x20;
 
 ### `SingleSelectEnumSchema`
 

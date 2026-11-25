@@ -10,7 +10,7 @@ Using MCP, AI applications like Claude or ChatGPT can connect to data sources (e
 
 Think of MCP like a USB-C port for AI applications. Just as USB-C provides a standardized way to connect electronic devices, MCP provides a standardized way to connect AI applications to external systems.
 
-![](https://mintcdn.com/mcp/bEUxYpZqie0DsluH/images/mcp-simple-diagram.png?fit=max\&auto=format\&n=bEUxYpZqie0DsluH\&q=85\&s=35268aa0ad50b8c385913810e7604550)
+![Diagram of MCP as a standardized protocol between AI applications (chat interfaces, IDEs and code editors, and other AI applications) and data sources and tools (data and file systems, development tools, and productivity tools), with bidirectional data flow on both sides](https://mintcdn.com/mcp/bEUxYpZqie0DsluH/images/mcp-simple-diagram.png?fit=max\&auto=format\&n=bEUxYpZqie0DsluH\&q=85\&s=35268aa0ad50b8c385913810e7604550)
 
 ## What can MCP enable?
 

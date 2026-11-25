@@ -136,17 +136,34 @@ With Google Cloud set up and devices prepared, open the [in-app configuration wi
 
 | Field | Service-account key | In-app Google sign-in |
 | - | - | - |
+| Credential kind | **Cloud vendor profile** | **Interactive sign-in** |
 | GCP project ID | `your-gcp-project` | `your-gcp-project` |
-| GCP region | e.g. `us-east5` | e.g. `us-east5` |
-| GCP credentials file path | `/path/to/sa-key.json` | *leave empty* |
-| Vertex OAuth client ID | *leave empty* | `1234567890-abc123.apps.googleusercontent.com` |
-| Vertex OAuth client secret | *leave empty* | `GOCSPX-xxxxxxxxxxxxxxxxxxxx` |
-| Vertex OAuth scopes | *leave empty* | *leave empty for the default* |
+| GCP region | for example, `us-east5` | for example, `us-east5` |
+| GCP credentials file path | `/path/to/sa-key.json` | *field hidden* |
+| Vertex OAuth client ID | *field hidden* | `1234567890-abc123.apps.googleusercontent.com` |
+| Vertex OAuth client secret | *field hidden* | `GOCSPX-xxxxxxxxxxxxxxxxxxxx` |
+| Vertex OAuth scopes | *field hidden* | *leave empty for the default* |
 | Vertex AI base URL | *optional* | *optional* |
+
+For the other authentication approaches, select a different **Credential kind**:
+
+* **[In-app Workforce Identity sign-in](#in-app-workforce-identity-sign-in)**: select **Workforce Identity**
+* **[Credential helper](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper)**: select **Helper script**
 
 Under **Models**, add at least one **Model list** entry using the publisher model ID, for example `claude-sonnet-5`.
 
 Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) file for your MDM. See [Deploy with MDM](https://claude.com/docs/third-party/claude-desktop/mdm.md) for the export and deployment workflow.
+
+### Check the connection to Google Cloud
+
+With the **Vertex AI** provider selected in the [in-app configuration window](https://claude.com/docs/third-party/claude-desktop/in-app-configuration.md#open-the-configuration-window), the **Test connection** button doesn't send a test request to Google Cloud. If your credential helper fails, the result names the error. Otherwise, the result reads `Vertex auth cannot be probed from the main process.`
+
+To check the connection, send a message through it:
+
+1. In the in-app configuration window, click **Apply Changes**.
+2. Click **Save & Restart**. If your changes are already saved, click **Relaunch now** instead.
+3. If **Credential kind** is **Interactive sign-in** or **Workforce Identity**, click **Sign in with Google Cloud** after the app relaunches, and complete the sign-in.
+4. Send a message. A reply from Claude confirms the connection.
 
 ### Configuration keys
 

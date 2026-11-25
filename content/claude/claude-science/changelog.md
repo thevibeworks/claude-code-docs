@@ -6,6 +6,14 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+**0.1.75**
+
+November 24, 2026
+
+* Mac and Linux: Claude can commit to git again. It commits in its own copy of your repository, then pulls the commit into your **Read & write** folder. It can also pull GitHub's commits into the branch you have checked out. It asks once for each repository in a project. After that, it pulls without asking, even if that changes scripts or deletes files, until you revoke this in **Settings > Permissions** or stop sharing the folder. A pull stops if your uncommitted changes are in the way. Claude's commits can show a name other than yours, and they skip your git hooks and signing. On Windows, Claude usually gives you its commits as a file to fetch instead
+* You can now let Claude save skill files (`SKILL.md`) in a repository or **Read & write** folder without asking each time, for the session or, in a git repository, across the project's sessions. It can then overwrite skill files there, even yours, with no backup. It still asks every time in some places, such as `.agents/skills`, and can't save in others, such as `.claude/skills`
+* Bug fixes and reliability improvements
+
 **0.1.73**
 
 November 18, 2026

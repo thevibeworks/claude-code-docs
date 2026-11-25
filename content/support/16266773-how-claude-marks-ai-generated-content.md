@@ -46,17 +46,15 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | Claude Opus 5     | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 4.8   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 4.7   | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Opus 4.6   | ✅†                                                          | ✅\*†                                                                               | ✅                                       |
-| Claude Opus 4.5   | ✅†                                                          | ✅\*†                                                                               | ✅                                       |
+| Claude Opus 4.6   | ✅†                                                          | ✅†                                                                                 | ✅                                       |
+| Claude Opus 4.5   | ✅†                                                          | ✅†                                                                                 | ✅                                       |
 | Claude Opus 3     | ✅†                                                          |                                                                                    | ✅<br>(first-party surfaces only)        |
 | Claude Sonnet 5.5 | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Sonnet 5   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Sonnet 4.6 | ✅†                                                          | ✅†                                                                                 | ✅                                       |
-| Claude Sonnet 4.5 | ✅†                                                          | ✅\*†                                                                               | ✅                                       |
+| Claude Sonnet 4.5 | ✅†                                                          | ✅†                                                                                 | ✅                                       |
 | Claude Haiku 5.5  | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Haiku 4.5  | ✅†                                                          | ✅\*†                                                                               | ✅                                       |
-
-* *Rollout on Amazon Bedrock may take a few additional days.*
+| Claude Haiku 4.5  | ✅†                                                          | ✅†                                                                                 | ✅                                       |
 
 † *For Opus 4.6, Opus 4.5, Opus 3, Sonnet 4.6, Sonnet 4.5, and Haiku 4.5, outputs may not reliably carry the text watermark when `temperature`, `top_p`, or `top_k` is set to a non-default value.*
 

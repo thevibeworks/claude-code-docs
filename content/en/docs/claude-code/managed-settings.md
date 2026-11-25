@@ -333,7 +333,7 @@ Three source states don't cause this refusal:
 * An empty managed settings file counts as `{}`.
 * A malformed value in the user-writable HKCU registry key never blocks launch. Claude Code reports it as a notice in `/status` and `claude doctor` instead.
 
-When a managed settings file, drop-in file, `managed-settings.d/` directory, MDM profile, or HKLM registry value exists but can't be read, and no admin source supplies a policy, what happens depends on why the read failed:
+If a managed settings file, drop-in file, `managed-settings.d/` directory, or MDM profile exists but can't be read and no admin source supplies a policy, sessions exit unless access was denied:
 
 * If the operating system denied the read, for example on a root-only file, every session starts without that source's policies. `/status` and `claude doctor` record the failure, and a run with `-p` also prints it to stderr.
 * For any other read failure, such as an I/O error, every session exits at startup with [a message to contact an administrator](https://code.claude.com/docs/en/errors.md#unable-to-read-managed-policy-settings).

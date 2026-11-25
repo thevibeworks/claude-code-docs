@@ -199,6 +199,7 @@ The following table lists which surfaces are covered by Access Transparency. Cov
 | Claude API (`api.anthropic.com`) | Yes | Prompts, completions, and data directly embedded in the API inputs |
 | Claude Code (using an API key) | Yes | API traffic from Claude Code is covered as Claude API traffic |
 | Claude Platform on AWS | Yes | Claude Platform on AWS generates Access Transparency events within the Compliance API (not AWS CloudTrail) |
+| Claude Models on Google Cloud (Anthropic managed) | Yes | Claude Models on Google Cloud (Anthropic managed) generates Access Transparency events within the Compliance API, which you [read with Google Cloud credentials](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) |
 | Claude API (`api.anthropic.com`) (Batch, Files) | No | The Claude API Batch and Files APIs are not covered, just like they are not covered by ZDR |
 | Claude for Enterprise (claude.ai seats) | No | Not covered |
 | Claude for Work | No | Not covered |

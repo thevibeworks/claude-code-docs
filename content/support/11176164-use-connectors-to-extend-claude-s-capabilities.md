@@ -130,6 +130,16 @@ To configure action restrictions:
 
 **Note:** On Enterprise plans, a member's custom role can also limit connector permissions. Claude applies the stricter of the role's permission and the setting you choose here, so Always allow doesn't raise members above a role set to Needs approval. Role limits apply only to members whose role is set to “Custom,” so an Owner or Admin testing with their own account may not see what those members see. Learn more about **[connector permissions in custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)**.
 
+### Turn on file transfers
+
+On Team and Enterprise plans, file transfers with connectors (beta) are off until an Owner or Primary Owner turns them on:
+
+1. Navigate to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**.
+
+2. Under **File transfers**, turn on **File uploads to connectors**, **File downloads from connectors**, or both.
+
+Learn more about **[managing file transfers on Team and Enterprise plans](https://support.claude.com/en/articles/18534325)**.
+
 ---
 
 ## Use connected services

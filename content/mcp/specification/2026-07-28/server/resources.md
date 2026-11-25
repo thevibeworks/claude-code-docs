@@ -61,7 +61,7 @@ The capability supports two optional features:
 
 Servers may advertise either feature independently, together or neither.
 
-Servers that support neither `listChanged` nor `subscribe` may omit it:
+Servers that support neither `listChanged` nor `subscribe` may omit both fields:
 
 ```json theme={null}
 {
@@ -232,12 +232,18 @@ This operation supports [pagination](https://modelcontextprotocol.io/specificati
 ### List Changed Notification
 
 When the list of available resources changes, servers that declared the `listChanged`
-capability **SHOULD** send a notification:
+capability **SHOULD** send a notification to clients that have opened a
+[`subscriptions/listen`][subscriptions] stream with `resourcesListChanged: true`:
 
 ```json theme={null}
 {
   "jsonrpc": "2.0",
-  "method": "notifications/resources/list_changed"
+  "method": "notifications/resources/list_changed",
+  "params": {
+    "_meta": {
+      "io.modelcontextprotocol/subscriptionId": "listen-1"
+    }
+  }
 }
 ```
 
@@ -308,7 +314,20 @@ A resource definition includes:
 * `description`: Optional description
 * `icons`: Optional array of icons for display in user interfaces
 * `mimeType`: Optional MIME type
+* `annotations`: Optional [annotations](#annotations)
 * `size`: Optional size in bytes
+
+### Resource Template
+
+A resource template definition includes:
+
+* `uriTemplate`: [URI template](https://datatracker.ietf.org/doc/html/rfc6570) for constructing resource URIs
+* `name`: The name of the resource template.
+* `title`: Optional human-readable name of the resource template for display purposes.
+* `description`: Optional description
+* `icons`: Optional array of icons for display in user interfaces
+* `mimeType`: Optional MIME type, only included if all resources that match the template have the same type
+* `annotations`: Optional [annotations](#annotations)
 
 ### Resource Contents
 

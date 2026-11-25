@@ -90,7 +90,7 @@ Linked usage is billed to your organization's prepaid balance or invoice. Some p
 
 - Sign-up credits limited to specific products
 
-- Credits from Anthropic's partner, venture capital, and startup programs (we're still rolling this out)
+- Credits from Anthropic's partner, venture capital, and startup programs
 
 ### What to expect
 

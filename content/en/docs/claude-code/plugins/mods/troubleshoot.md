@@ -12,7 +12,7 @@ When a mod's module or one of its hooks fails, Claude Code skips it and the sess
 
 When a mod does nothing, check what Claude Code reads from the mod's files, and the line it writes when it skips something. For the first, in your shell run [`claude plugin validate`](https://code.claude.com/docs/en/plugins/mods/create#check-what-claude-code-reads-from-your-mod) with the mod's directory, as in `claude plugin validate ./first-mod`. It catches a misspelled event, a bad manifest, and a module Claude Code can't read, without starting a session.
 
-When a module doesn't load, a hook is skipped, or another mod refuses yours, Claude Code writes one line that names your mod. Where you read that line depends on the session:
+Claude Code writes one line naming your mod in cases such as a code error that stops it from loading, a skipped hook, or a refusal by another mod. Look for that line in the transcript, the debug log, or stderr, by session type:
 
 * **A session that hot-reloads a plugin directory**: a dim line in the transcript. That's an interactive session you started with `--plugin-dir`, or one where [hot reloading is on](https://code.claude.com/docs/en/plugins/mods/create.md#ask-claude-for-a-mod) for mods Claude wrote.
 * **Any other interactive session, such as one that runs a mod you installed from a marketplace**: the [debug log](#read-the-debug-log). To get one, start the session with `claude --debug`.

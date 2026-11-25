@@ -59,6 +59,7 @@ Tool events fire around each tool call Claude makes, from the description Claude
 | `tool.judge` | [Auto mode](https://code.claude.com/docs/en/permission-modes.md#eliminate-prompts-with-auto-mode) is about to ask its classifier about a call. Requires Claude Code v2.1.326 or later. | `next(e)` or `{ decision }` |
 | `tool.run` | An allowed call is about to run. Requires Claude Code v2.1.326 or later. | `next(e)`, `{ deny: reason }`, or `{ result }` |
 | `tool.describe` | Once for each tool, when its description is first sent to Claude. A second time for an MCP tool when Claude loads it through [tool search](https://code.claude.com/docs/en/mcp.md#scale-with-mcp-tool-search), with `e.description` set to the text Claude reads for the loaded tool. | `{ description }`, optionally with `isDeferred` set to `true` to put the tool behind tool search or `false` to load it upfront. Add [`breakPromptCache: true`](#break-prompt-cache) to send a changed description on the next turn. |
+| `tool.offer` | Claude Code builds Claude's tool list, and again when Claude calls a tool. Requires Claude Code v2.1.328 or later. | `next(e)`, or `{ isOffered: false }` to withhold the tool from Claude. See [Send a changed tool list](#send-a-changed-tool-list). |
 
 #### Agent and organization fields on `tool.check`
 
@@ -114,6 +115,10 @@ On `skill.prompt`, `e.source`, `e.pluginName`, `e.path`, `e.frontmatter`, and `e
 To change a section or a tool description in a running conversation, call `$.ui.invalidate('prompt.section')` or `$.ui.invalidate('tool.describe')` so your hook runs again. Return `{ text, breakPromptCache: true }` or `{ description, breakPromptCache: true }` from it. Without the field, Claude keeps reading the text [saved with the conversation](https://code.claude.com/docs/en/cli-reference.md#system-prompt-flags-in-resumed-conversations) for a section or a tool loaded upfront until a new conversation or a [compaction](https://code.claude.com/docs/en/prompt-caching.md#compacting-the-conversation).
 
 The changed text reaches Claude on the next turn, and the [prompt cache](https://code.claude.com/docs/en/prompt-caching.md) starts over, so that turn is slower and more expensive. The field requires Claude Code v2.1.321 or later. From v2.1.299 until v2.1.321, a running conversation got the changed text on the next turn.
+
+#### Send a changed tool list
+
+To change the main conversation's tool list, call `$.ui.invalidate('tool.offer')` and return `{ isOffered, breakPromptCache: true }` from your `tool.offer` hook. The [prompt cache](https://code.claude.com/docs/en/prompt-caching.md) then starts over. Requires Claude Code v2.1.331 or later.
 
 ### Commands and configuration
 
@@ -243,7 +248,7 @@ The mods API is the `$` argument every hook receives. Its methods are grouped in
 | [`$.model`](https://code.claude.com/docs/en/plugins/mods/api#call-a-model) | `complete`, `fork`, `classify` |
 | [`$.prompt`](https://code.claude.com/docs/en/plugins/mods/api#start-a-turn-from-a-background-job) | `submit`, `read`, `fill`, `suggest`, `compose`. Claude reads text from `submit({ text })` after a sentence that names your mod as the sender. `submit({ text, asUser: true })` sends the text as the user's own words, without that sentence. |
 | `$.turn` | `abort` |
-| [`$.session`](https://code.claude.com/docs/en/plugins/mods/api#send-and-receive-messages-between-sessions) | `messages`, `cwd`, `root`, `model`, `turns`, `id`, `repo`, `surfaces`, `usage`, `version`, `info`, `compact`, `send`, `append`, `authorize`. `info` requires Claude Code v2.1.326 or later. `usage()` returns `{ startedAt, context, rateLimits, cost }`: `context` has `tokens`, `window`, and `percent`, and `rateLimits` is a list of `{ kind, percentUsed, resetsAt }`. |
+| [`$.session`](https://code.claude.com/docs/en/plugins/mods/api#send-and-receive-messages-between-sessions) | `messages`, `cwd`, `root`, `model`, `turns`, `id`, `repo`, `surfaces`, `usage`, `version`, `info`, `compact`, `send`, `append`, `authorize`, `redact`. `info` requires Claude Code v2.1.326 or later. `redact`, a best-effort mask for credentials only, requires v2.1.331 or later. `usage()` returns `{ startedAt, context, rateLimits, cost }`: `context` has `tokens`, `window`, and `percent`, and `rateLimits` is a list of `{ kind, percentUsed, resetsAt }`. |
 | `$.config` | `list`, `set` |
 | [`$.settings`](https://code.claude.com/docs/en/plugins/mods/api#reach-files-processes-and-the-network) | `read` |
 | [`$.env`](https://code.claude.com/docs/en/plugins/mods/api#reach-files-processes-and-the-network) | `get`, `set` |
@@ -267,8 +272,11 @@ Rendering in the VS Code extension requires extension version 2.1.299 or later. 
 | Site | `e.props` | `e.requestId` | Rendered on |
 | :- | :- | :- | :- |
 | [`Pane`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `title`, `isFocused`, `bodyColumns`, `placement`, `scroll`, `view` | The pane's `id` | Terminal, Desktop, VS Code |
-| [`AbovePrompt`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `hasSurvey`, [`isCollapsed`](https://code.claude.com/docs/en/plugins/mods/interface#when-the-user-collapses-the-band), `isWorking`, `maxRows`, `bodyColumns`, `scroll`, `view` | One instance | Terminal, Desktop |
-| `AbovePromptList`, the stack of `AbovePrompt` rows | `rows`, a list with one `{ plugin, tree }` for each mod's row, plus the `AbovePrompt` props | One instance | Terminal, Desktop. Requires Claude Code v2.1.323 or later. |
+| [`AbovePrompt`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `hasSurvey`, [`isCollapsed`](https://code.claude.com/docs/en/plugins/mods/interface#when-the-user-collapses-the-band), `isWorking`, `maxRows`, `bodyColumns`, `scroll`, `view` | One instance | Terminal, Desktop, VS Code |
+| `AbovePromptList`, the stack of `AbovePrompt` rows | `rows`, a list with one `{ plugin, tree }` for each mod's row, plus the `AbovePrompt` props | One instance | Terminal, Desktop, VS Code. Requires Claude Code v2.1.323 or later. |
+| `BesidePrompt`, a cell to the right of the prompt | `maxColumns`, `floatRows`, `floatColumns`, `isWorking`, `view` | One instance | Terminal in [fullscreen rendering](https://code.claude.com/docs/en/fullscreen.md), Desktop. Requires Claude Code v2.1.331 or later. |
+| `Underlay`, a layer visible only where the interface is blank | `columns`, `rows`, `isWorking`, `view` | `site:underlay` | Terminal in fullscreen rendering. Requires Claude Code v2.1.331 or later. |
+| `BesidePromptList` and `UnderlayList`, the order of the `BesidePrompt` cells and `Underlay` layers | `plugins` | One instance | The same apps as the site it orders. Requires Claude Code v2.1.331 or later. |
 | [`Placed`](https://code.claude.com/docs/en/plugins/mods/interface#place-a-row-in-the-transcript) | `id`, `plugin`, `onScreen` | The `requestId` that `$.ui.place` returned | Terminal |
 | [`Backdrop`](https://code.claude.com/docs/en/plugins/mods/interface#put-a-backdrop-behind-the-conversation) | `scene`, `plugin`, `glass`, `overrideColorScheme`. Before v2.1.323, `scene` was `id` and `overrideColorScheme` was `colorScheme`. | `backdrop` | `desktop` and `mobile` surfaces. Your hook runs when the Desktop or mobile app asks to draw a backdrop. |
 | `UserMessage` | `text`, `origin`, `isExpanded`, and `task` or `from` by origin | The drawn row's id | Terminal, Desktop, VS Code |
@@ -428,6 +436,7 @@ Hooks and mods API calls run under time and size limits. Claude Code skips a hoo
 | PNG or RGBA bytes of all the `Image`s in one tree | 2 MiB |
 | `$.store` | 4 MiB of JSON in total |
 | `$.session.messages()` | The newest 4,096 entries |
+| Text passed to `$.session.redact` | 100,000 characters. A call with longer text rejects. |
 | `$.ui.invalidate('ui.render')` redraws | Throttled to 10 a second, or 30 in the terminal for the visible pane, the expanded band, and the hint line under the prompt. Calls that come sooner are coalesced. |
 | `$.ui.toast` | Shown for 4 seconds unless you pass `{ timeoutMs }`. In the [classic renderer](https://code.claude.com/docs/en/fullscreen.md#enable-fullscreen-rendering), a mod's newer toast can [take the place of its older one](https://code.claude.com/docs/en/plugins/mods/troubleshoot.md#a-toast-doesn’t-appear) that's showing or waiting to show. |
 | A pane opened without the user asking | Placed from 144 terminal columns, 110 after they've opened it once |

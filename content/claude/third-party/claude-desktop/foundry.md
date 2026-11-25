@@ -97,12 +97,15 @@ Open the [in-app configuration window](https://claude.com/docs/third-party/claud
 
 | Field | API key | In-app Entra ID sign-in |
 | - | - | - |
+| Credential kind | **Static API key** | **Interactive sign-in** |
 | Azure AI Foundry resource name | `your-foundry-resource` | `your-foundry-resource` |
-| Azure AI Foundry API key | your resource key | *leave empty* |
-| Entra ID tenant ID | *leave empty* | `00000000-0000-0000-0000-000000000000` |
-| Entra ID client ID | *leave empty* | `11111111-1111-1111-1111-111111111111` |
-| Entra ID sign-in flow | *leave empty* | `browser` or `broker`, or leave empty for the default device-code flow |
+| Azure AI Foundry API key | your resource key | *field hidden* |
+| Entra ID tenant ID | *field hidden* | `00000000-0000-0000-0000-000000000000` |
+| Entra ID client ID | *field hidden* | `11111111-1111-1111-1111-111111111111` |
+| Entra ID sign-in flow | *field hidden* | `browser` or `broker`, or leave empty for the default device-code flow |
 | Azure AI Foundry base URL | *optional*, see [Route requests through a gateway](#route-requests-through-a-gateway) | *optional* |
+
+For a [credential helper](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper), set **Credential kind** to **Helper script**.
 
 Under **Models**, add at least one **Model list** entry using the Microsoft Foundry deployment name.
 
