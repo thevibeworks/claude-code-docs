@@ -431,6 +431,8 @@ At higher effort levels, Claude thinks more readily and at greater length. In a 
 
 On Claude Opus 4.5, the only extended-thinking-only model that supports effort, it works alongside [`budget_tokens`](https://platform.claude.com/docs/en/build-with-claude/extended-thinking): set the effort level for your task, then set the thinking token budget based on how much reasoning depth the task needs.
 
+Claude Opus 4.5 is deprecated on [Anthropic-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview). For the retirement date and the recommended replacement, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations#2026-11-23-claude-opus-4-5-model). [Partner-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview) set their own retirement schedules.
+
 For per-model thinking availability, see the [per-model configuration table](https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting#supported-models). Effort works with or without thinking. See [How effort works](https://platform.claude.com/docs/en/build-with-claude/effort#how-effort-works).
 
 ## Change effort mid-conversation

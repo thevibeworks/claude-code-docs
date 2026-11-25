@@ -1901,7 +1901,7 @@ An entry that you can't select is gray. Hover over it to see the reason:
 * **A broken settings file**: while your own settings file is broken, your administrator's entries may be gray, with a message that names the file. [Fix the file](https://code.claude.com/docs/en/settings.md#fix-a-broken-settings-file).
 * **A new host**: [**Create another**](#create-another-machine) is gray for one minute after Desktop saves a host. Select it after that minute. Before Claude Desktop v4.4212.0, **Replace Dev box's host** is gray for 10 minutes.
 * **Hooks are off or restricted**: your own entries work only where your own hooks can run. Remove `disableAllHooks` from your settings, or ask your administrator.
-* **Settings are still loading**: every entry is gray until Desktop has loaded your organization's [server-managed settings](https://code.claude.com/docs/en/server-managed-settings.md), usually a few seconds after launch. If the entries stay gray, check your connection to claude.ai.
+* **Settings are still loading**: every entry is gray until Desktop has loaded any [server-managed settings](https://code.claude.com/docs/en/server-managed-settings.md), usually a few seconds after launch. If the entries stay gray, check your connection to claude.ai.
 
 #### Pre-configure SSH connections for your team
 
@@ -2098,6 +2098,23 @@ In local and SSH sessions, the desktop app delivers each user's connected claude
 To keep users from overriding `permissions.disableBypassPermissionsMode` or `disableAutoMode`, set it in managed settings.
 
 For the permission, plugin, and delivery keys only a managed source can set, see [Keys only managed settings can set](https://code.claude.com/docs/en/managed-settings.md#managed-only-settings).
+
+#### Deploy skills for all users
+
+To give every user the same skills in local and SSH sessions, deploy them as [enterprise skills](https://code.claude.com/docs/en/skills.md#where-skills-live), which you install once on a machine for all of its users. Install them on the machine where the session runs:
+
+* **Local sessions**: each user's computer
+* **SSH sessions**: each remote host
+
+Install each skill at the path for that machine's platform:
+
+| Platform | Path |
+| :- | :- |
+| macOS | `/Library/Application Support/ClaudeCode/.claude/skills/<skill-name>/SKILL.md` |
+| Linux | `/etc/claude-code/.claude/skills/<skill-name>/SKILL.md` |
+| Windows | `C:\Program Files\ClaudeCode\.claude\skills\<skill-name>\SKILL.md` |
+
+To confirm that your skills load, test with a skill whose [frontmatter](https://code.claude.com/docs/en/skills.md#frontmatter-reference) sets only `name` and `description`. Start a new session and send a message, then type `/` and the first letters of the skill's name in the prompt box. The skill appears in the list.
 
 #### Claude Code settings that behave differently in the Code tab
 
@@ -2359,6 +2376,8 @@ If a new session shows the [environment](#start-a-session) above the prompt box 
 In the earlier layout, choose the environment and any project folder or repository above the prompt box, and the permission mode and model in the row under it. The earlier layout lacks the [session details panel](#see-session-details) and [saved local and SSH environments](#create-a-saved-environment).
 
 ### 403 or authentication errors in the Code tab
+
+For a card that says `For security, Claude Code needs a recent sign-in.`, see [Claude Code needs a recent sign-in](https://code.claude.com/docs/en/errors.md#claude-code-needs-a-recent-sign-in).
 
 If you see `Error 403: Forbidden` or other authentication failures when using the Code tab:
 

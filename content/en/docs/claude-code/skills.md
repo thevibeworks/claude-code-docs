@@ -258,7 +258,7 @@ Claude Code syncs only in a session that signs in with your claude.ai account an
 * A session that doesn't use a sign-in stored by `/login`, such as one that authenticates with an API key, or one where `ANTHROPIC_AUTH_TOKEN`, `CLAUDE_CODE_OAUTH_TOKEN`, or an `apiKeyHelper` script supplies the credential
 * A session that doesn't fetch feature flags, such as one on Amazon Bedrock or one where you set `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`
 * A session in [bare mode](https://code.claude.com/docs/en/headless.md#start-faster-with-bare-mode) or one you start with `--safe-mode`
-* A session where your organization's managed settings [lock skills to plugin sources](https://code.claude.com/docs/en/settings-reference.md#strictpluginonlycustomization-skills), or one you start with a [`--setting-sources`](https://code.claude.com/docs/en/cli-reference#cli-flags) list that leaves out `user`
+* A session where managed settings [lock skills to plugin sources](https://code.claude.com/docs/en/settings-reference.md#strictpluginonlycustomization-skills), or one you start with a [`--setting-sources`](https://code.claude.com/docs/en/cli-reference#cli-flags) list that omits `user`
 
 If you sign in with `/login` during a session, restart Claude Code to start syncing.
 
@@ -820,6 +820,8 @@ Outside [auto mode](https://code.claude.com/docs/en/permission-modes.md#eliminat
 * **Bare repository folders**: a folder looks bare when it holds a `HEAD` file directly beside `refs` or `commondir`. When the closest repository at or above the working directory looks bare, Claude Code ignores `allowed-tools` for a Bash command that contains `git` or that Claude Code can't parse. If you trust that folder, allow the command with [`/permissions`](https://code.claude.com/docs/en/permissions#manage-permissions) in the session.
 
 In auto mode, a command that would otherwise need your approval doesn't abort the invocation. The skill loads with an instruction telling Claude to run the command first, and Claude's own call then goes through [auto mode's usual checks](https://code.claude.com/docs/en/permission-modes.md#how-the-classifier-evaluates-actions). The invocation still aborts in a [forked skill](#run-skills-in-a-subagent) that sets `agent`, and in a session where Claude doesn't have the [shell tool that runs injected commands](#how-injected-commands-run).
+
+`PreToolUse` hooks don't fire for injected commands that run as the skill loads. To log or block the ones that pass the permission check, use a [`PreSkillShellCommand` hook](https://code.claude.com/docs/en/hooks#preskillshellcommand).
 
 ### Run skills in a subagent
 

@@ -84,7 +84,7 @@ Before you create a project, check your plan, your GitHub setup, and what the wo
 
 ### Start a new project from scratch
 
-Starting a project from scratch means opening the **New project** dialog, naming the stream of work, and optionally giving it a goal and the repositories and files it works on. Only the name is required, so you can create the project first and fill in the rest as the work takes shape.
+Starting a project from scratch means opening the **New project** dialog, naming the stream of work, and optionally giving it a goal and the repositories and files it works on.
 
 **1. Open Projects**
 

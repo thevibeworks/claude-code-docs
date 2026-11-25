@@ -80,10 +80,12 @@ Both tool search variants are available on the following models:
 | Claude Opus 4.6 (claude-opus-4-6) | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Sonnet 4.6 (claude-sonnet-4-6) | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Opus 4.5 (claude-opus-4-5-20251101) | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
-| Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) (deprecated; see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations)) | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
+| Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Haiku 4.5 (claude-haiku-4-5-20251001) | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 
 Claude Opus 4.1 and earlier models don’t support the tool search tool.
+
+Claude Opus 4.5 is deprecated on [Anthropic-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview). Claude Sonnet 4.5 is deprecated on the same platforms. For retirement dates and recommended replacements, see [Deprecation history](https://platform.claude.com/docs/en/about-claude/model-deprecations#deprecation-history) on the Model deprecations page. [Partner-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview) set their own retirement schedules.
 
 ## How tool search works
 

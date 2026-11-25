@@ -123,7 +123,7 @@ When two files set the same key, Claude Code combines them by these rules:
 
 ## How Claude Code combines managed sources
 
-If you set your provider or gateway at claude.ai under **Organization settings > Desktop 3P**, first read [which settings take priority](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code#which-settings-take-priority) in the Enterprise Admin Console guide.
+If you set your provider or gateway at claude.ai under [**Organization settings > Desktop 3P**](https://claude.ai/admin-settings/desktop-deployment), first read [which settings take priority](https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code#which-settings-take-priority) in the Enterprise Admin Console guide.
 
 When your organization delivers more than one managed source to the same machine, the [`managedSourcesBehavior`](https://code.claude.com/docs/en/settings-reference#managedsourcesbehavior) key decides what Claude Code does with the others:
 

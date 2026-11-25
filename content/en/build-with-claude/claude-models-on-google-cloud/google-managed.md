@@ -351,7 +351,7 @@ Multi-region and regional endpoints cost 10 percent more than global endpoints. 
 Regional endpoints serve Claude Sonnet 4.6 and earlier models only. For newer models, use a global or multi-region endpoint.
 
 <Note>
-  The premium for multi-region and regional endpoints applies only to Claude Sonnet 4.5 (deprecated) and later models. For the models that keep their earlier pricing, see [Cloud platform pricing](https://platform.claude.com/docs/en/about-claude/pricing#cloud-platform-pricing). For regional endpoints, the premium reflects infrastructure costs for dedicated regional capacity.
+  The premium for multi-region and regional endpoints applies only to Claude 4.5 and later models (see [Cloud platform pricing](https://platform.claude.com/docs/en/about-claude/pricing#cloud-platform-pricing)). For regional endpoints, the premium reflects infrastructure costs for dedicated regional capacity.
 </Note>
 
 The following examples use the `us` multi-region endpoint. The highlighted lines set the region. For a full request on the global endpoint, see [Making requests](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed#accessing-vertex-ai).
@@ -519,7 +519,7 @@ Claude Models on Google Cloud (Google managed) offers a [1M-token context window
 * Claude Sonnet 4.6
 * Claude Haiku 5.5
 
-Other Claude models have a 200k-token context window. These include Claude Sonnet 4.5 (deprecated) and Claude Sonnet 4 (deprecated).
+Other Claude models have a 200k-token context window.
 
 Agent Platform limits request payloads to 30 MB. When you send large documents or many images, you might reach this limit before the token limit.
 

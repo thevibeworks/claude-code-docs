@@ -33,7 +33,7 @@ A mod registers each of its hooks, which are event handlers, by calling `on` ins
 | Argument | What it is |
 | :- | :- |
 | [`$`](https://code.claude.com/docs/en/plugins/mods/events#how-a-hook-handles-an-event) | The mods API: every method in [mods API methods](#mods-api-methods). Write each call in full, namespace then method, as in `$.fs.read('notes.md')`. |
-| [`e`](https://code.claude.com/docs/en/plugins/mods/events#how-a-hook-handles-an-event) | The event's input, as deeply frozen plain data. To change it, pass a copy to `next`. |
+| [`e`](https://code.claude.com/docs/en/plugins/mods/events#how-a-hook-handles-an-event) | The event's input. To change it, pass a copy to `next`. |
 | [`next(e)`](https://code.claude.com/docs/en/plugins/mods/events#how-a-hook-handles-an-event) | The next handler, as in middleware. Runs the hooks after this one, then Claude Code's behavior. Resolves to the event's result. |
 | [`next.signal`](https://code.claude.com/docs/en/plugins/mods/api#stop-background-work) | An `AbortSignal` that aborts when the event is abandoned |
 | `next.origin` | `{ plugin, tier }` of whoever fired the event. Claude Code itself is `{ plugin: 'engine', tier: 'core' }`. A mod's `tier` is its priority group in the [order mods run in](https://code.claude.com/docs/en/plugins/mods/events.md#the-order-mods-run-in): `prepend`, `user`, `append`, or `builtin`. |
@@ -143,7 +143,7 @@ Turn events follow one answer from start to finish, including each request to th
 | :- | :- | :- |
 | [`turn.start`](https://code.claude.com/docs/en/plugins/mods/events#follow-a-turn) | A turn begins | `next(e)` |
 | [`turn.step`](https://code.claude.com/docs/en/plugins/mods/events#follow-a-turn) | One request is about to go to the model | `yield* next(e)`, or `next({ ...e, model })`, `next({ ...e, effort })` |
-| [`turn.complete`](https://code.claude.com/docs/en/plugins/mods/events#follow-a-turn) | A turn ended | `next(e)`, or `{ text }` to show a line under the answer |
+| [`turn.complete`](https://code.claude.com/docs/en/plugins/mods/events#follow-a-turn) | A turn ended | `next(e)`, or `{ text }` to show a line under the main conversation's answer |
 
 ### Session
 
@@ -186,6 +186,7 @@ Interface events fire when Claude Code draws a render site and when the user use
 | [`ui.render`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | A [render site](#render-sites) is about to be drawn |
 | `ui.resolve` | Mods load, once for each app, render site, and mod. The result is the element table that `$.ui.resolve(e)` reads. |
 | [`ui.press`](https://code.claude.com/docs/en/plugins/mods/interface#respond-to-presses-and-typing), [`ui.input`](https://code.claude.com/docs/en/plugins/mods/interface#respond-to-presses-and-typing), [`ui.select`](https://code.claude.com/docs/en/plugins/mods/interface#respond-to-presses-and-typing) | A `Button`, `Input`, or `Select` a mod drew is used |
+| [`ui.pointer`](https://code.claude.com/docs/en/plugins/mods/interface#animate-a-backdrop-with-a-shader) | The user clicks a part of your mod's backdrop that the app doesn't cover. Requires Claude Code v2.1.326 or later. |
 | `ui.focus`, `ui.scroll` | The focused control or the scroll position of a pane or the band is about to change |
 | `ui.close` | A pane is about to close. `e.id` is the pane and `e.origin.kind` is `plugin`, `person`, or `unload`. |
 | [`ui.message`](https://code.claude.com/docs/en/plugins/mods/interface#build-a-tree-from-elements) | A `Client` element posts data to its mod |
@@ -241,7 +242,7 @@ The mods API is the `$` argument every hook receives. Its methods are grouped in
 | :- | :- |
 | `$.plugin` | `name`, `root`: this plugin's name and directory |
 | [`$.ui`](https://code.claude.com/docs/en/plugins/mods/interface#pick-where-to-draw) | `resolve`, `invalidate`, `open`, `close`, `panes`, [`place`](https://code.claude.com/docs/en/plugins/mods/interface#place-a-row-in-the-transcript), `focus`, `scroll`, `toast`, `notify`, `status`, `log`, `notice`, `ask`, `copy`, `selection`, `blit`, `view`. `view` requires Claude Code v2.1.300 or later and `place` v2.1.314 or later. |
-| [`$.theme`](https://code.claude.com/docs/en/plugins/mods/interface#put-a-backdrop-behind-the-conversation) | `set`, `clear`: set a backdrop for the Desktop or mobile app to draw, and take the backdrop off. Requires Claude Code v2.1.319 or later. |
+| [`$.theme`](https://code.claude.com/docs/en/plugins/mods/interface#put-a-backdrop-behind-the-conversation) | `set`, `clear`: set a backdrop for the Desktop or mobile app to draw, and take the backdrop off. Requires Claude Code v2.1.319 or later. [Message styles](https://code.claude.com/docs/en/plugins/mods/interface.md#style-messages-in-the-desktop-app) and [sound](https://code.claude.com/docs/en/plugins/mods/interface.md#add-sound-to-a-theme) require v2.1.329 or later. |
 | [`$.command`](https://code.claude.com/docs/en/plugins/mods/api#add-a-command) | `register`, `run`, `list` |
 | [`$.tool`](https://code.claude.com/docs/en/plugins/mods/api#add-a-tool) | `register`, `call`, `check`, `list` |
 | `$.agent` | `register`, `spawn`, `call`, `list`, `limits`. `call` and `limits` require Claude Code v2.1.326 or later. `list()` returns this session's subagents and teammates, each with a `status` of `pending`, `running`, `waiting`, `idle`, `completed`, `failed`, or `killed`, where `idle` and `waiting` require Claude Code v2.1.289 or later. |
@@ -251,7 +252,7 @@ The mods API is the `$` argument every hook receives. Its methods are grouped in
 | [`$.session`](https://code.claude.com/docs/en/plugins/mods/api#send-and-receive-messages-between-sessions) | `messages`, `cwd`, `root`, `model`, `turns`, `id`, `repo`, `surfaces`, `usage`, `version`, `info`, `compact`, `send`, `append`, `authorize`, `redact`. `info` requires Claude Code v2.1.326 or later. `redact`, a best-effort mask for credentials only, requires v2.1.331 or later. `usage()` returns `{ startedAt, context, rateLimits, cost }`: `context` has `tokens`, `window`, and `percent`, and `rateLimits` is a list of `{ kind, percentUsed, resetsAt }`. |
 | `$.config` | `list`, `set` |
 | [`$.settings`](https://code.claude.com/docs/en/plugins/mods/api#reach-files-processes-and-the-network) | `read` |
-| [`$.env`](https://code.claude.com/docs/en/plugins/mods/api#reach-files-processes-and-the-network) | `get`, `set` |
+| [`$.env`](https://code.claude.com/docs/en/plugins/mods/api#reach-files-processes-and-the-network) | `get`, `set`. A refused `set` either rejects or resolves to `{ deny }`. The `{ deny }` result requires Claude Code v2.1.301 or later. |
 | [`$.fs`](https://code.claude.com/docs/en/plugins/mods/api#reach-files-processes-and-the-network) | `read`, `write`, `list`, `exists`, `stat`, `ancestors`. `write` isn't atomic: it replaces the file's content in place, so another process can read a partly written file. Keep data that several sessions change in `$.store`. |
 | [`$.store`](https://code.claude.com/docs/en/plugins/mods/interface#keep-state) | `get`, `set`, `delete`, `keys`. A key-value store that every session on the machine shares. See [Save from more than one session](https://code.claude.com/docs/en/plugins/mods/interface.md#save-from-more-than-one-session). |
 | [`$.state`](https://code.claude.com/docs/en/plugins/mods/interface#keep-a-value-in-\$-state) | Reactive state: `get`, `set`, with the helpers `atom`, `read`, `update`, `derive`, and `memberOf` imported from `claude-code` |
@@ -262,6 +263,8 @@ The mods API is the `$` argument every hook receives. Its methods are grouped in
 | [`$.wasm`](https://code.claude.com/docs/en/plugins/mods/api#reach-files-processes-and-the-network) | `compile`. Requires Claude Code v2.1.326 or later. |
 | `$.audio` | `play`, `speak` |
 | `$.telemetry` | `log`, `mark`. A record is sent only when Claude Code or a built-in mod makes the call. |
+
+In the terminal, `$.ui.view({ agentId })` shows an agent's transcript and `$.ui.view({})` switches back. Call either from a command or button. A timer's call resolves to `{ deny: 'not person-initiated' }`.
 
 ## Render sites
 
@@ -317,6 +320,7 @@ Elements are the building blocks of a tree a `ui.render` hook returns, and you g
 | [`Input`](https://code.claude.com/docs/en/plugins/mods/interface#take-typed-input-and-draw-a-row-for-each-item) | `key`, `label`, `placeholder`, `value`, `submitLabel`, [`rows`](https://code.claude.com/docs/en/plugins/mods/gallery#input), `onSubmit`, `onInput`, `autoFocus` | ✓ | ✓ | ✓ |
 | `Select` | `key`, `label`, `options`, `value`, `onSelect`, `autoFocus` | ✓ | ✓ | ✓ |
 | `Svg` | a `source` of SVG markup up to 131,072 characters, `alt` text, `width`, `height`, and `isInteractive` | | ✓ | ✓ |
+| [`Shader`](https://code.claude.com/docs/en/plugins/mods/interface#animate-a-backdrop-with-a-shader) | `module`, `values`, and one `Svg` child. Draws in a [`Backdrop`](#render-sites) only. Requires Claude Code v2.1.326 or later. | | ✓ | |
 | [`Client`](https://code.claude.com/docs/en/plugins/mods/interface#build-a-tree-from-elements) | `module`, `key`, `props`, `width`, `height`, `flexGrow` | ✓ | ✓ | |
 | [`Raster`](https://code.claude.com/docs/en/plugins/mods/interface#draw-a-grid-of-colored-cells) | `key`, `columns` up to 512, `rows` up to 256, `cells`. See [Draw a grid of colored cells](https://code.claude.com/docs/en/plugins/mods/interface.md#draw-a-grid-of-colored-cells). | ✓ | | |
 | `Image` | `key`, a `source` such as PNG or RGBA bytes up to 2 MiB, or a file path, `columns` and `rows` up to 255, and `alt` text. See [which terminals draw it](https://code.claude.com/docs/en/plugins/mods/gallery.md#image-and-client). | ✓ | | |
@@ -421,10 +425,12 @@ Hooks and mods API calls run under time and size limits. Claude Code skips a hoo
 | `$.model.complete` `maxTokens` | 1024 by default, up to 64,000 or the model's output limit |
 | `$.fs.read` and `$.fs.write` | 4 MiB for one file. On v2.1.326 or later, read a larger file in parts with `$.fs.read(path, { offset, length })`, both in bytes. |
 | A `$.http.fetch` request body | 4 MiB, counted in characters. A call with a larger body rejects. |
-| A `$.http.fetch` response body | 4 MiB. `text` holds the first 4 MiB and the rest isn't read. When the `Content-Length` header declares more, the call rejects instead, with a reason that ends `is over the 4194304-byte limit`, except when the last request after any redirects uses the `HEAD` method. The `HEAD` exemption requires Claude Code v2.1.296 or later. |
+| A `$.http.fetch` response body | 4 MiB. `text` holds the first 4 MiB and the rest isn't read. When the `Content-Length` header declares more, the call rejects instead, with a reason that ends `is over the 4194304-byte limit`. The call ignores that header on a 204, 205, or 304 response, and when its last request after any redirects uses `HEAD`. The `HEAD` case requires Claude Code v2.1.296 or later, and the others v2.1.299 or later. |
 | One `$.http.fetch` call, redirects and body included | 30 seconds |
 | Redirects one `$.http.fetch` call follows | 5 |
 | A hook's `drop` reason or `config.set` `deny` reason | 4,096 characters. The end of a longer reason is cut, and the drop or deny still applies. The cut requires Claude Code v2.1.292 or later, and on earlier versions the hook [fails](https://code.claude.com/docs/en/plugins/mods/events.md#handle-a-hook-that-fails) instead. |
+| All mods' elements [above the question dialog](https://code.claude.com/docs/en/plugins/mods/interface.md#change-what-claude-code-already-draws) | 12 rows in the terminal and 48 in the Desktop app or the VS Code extension, counted at a 40-column width. Over the limit, the dialog appears without your elements. |
+| A call to a method another mod added in [`engine.create`](#other-mods) | 10 seconds. After that, the call rejects with a reason that ends `did not answer within 10000ms`. |
 | Text in one tree | The first 100,000 characters are drawn |
 | A `Code`'s `language` or `path`, a `Select` option's `value`, or a `Client`'s `module` | 10,000 characters. If one is longer, the `ui.render` hook that returned it [fails](https://code.claude.com/docs/en/plugins/mods/events.md#handle-a-hook-that-fails). |
 | A `Link`'s `href` | 2,048 characters. If it's longer, the `ui.render` hook that returned it [fails](https://code.claude.com/docs/en/plugins/mods/events.md#handle-a-hook-that-fails). |
@@ -438,6 +444,8 @@ Hooks and mods API calls run under time and size limits. Claude Code skips a hoo
 | `$.session.messages()` | The newest 4,096 entries |
 | Text passed to `$.session.redact` | 100,000 characters. A call with longer text rejects. |
 | `$.ui.invalidate('ui.render')` redraws | Throttled to 10 a second, or 30 in the terminal for the visible pane, the expanded band, and the hint line under the prompt. Calls that come sooner are coalesced. |
+| [`ui.pointer`](https://code.claude.com/docs/en/plugins/mods/interface#animate-a-backdrop-with-a-shader) clicks | Two a second. The app drops the rest. |
+| A [`Shader`](https://code.claude.com/docs/en/plugins/mods/interface#animate-a-backdrop-with-a-shader)'s `values` | Eight numbers |
 | `$.ui.toast` | Shown for 4 seconds unless you pass `{ timeoutMs }`. In the [classic renderer](https://code.claude.com/docs/en/fullscreen.md#enable-fullscreen-rendering), a mod's newer toast can [take the place of its older one](https://code.claude.com/docs/en/plugins/mods/troubleshoot.md#a-toast-doesn’t-appear) that's showing or waiting to show. |
 | A pane opened without the user asking | Placed from 144 terminal columns, 110 after they've opened it once |
 | Rows from `$.ui.place` that one mod has in a conversation at one time | 500. At the limit, a call with a new `id` resolves to `{ isPlaced: false, reason: 'a plugin holds at most 500 placed rows' }`. |
@@ -477,5 +485,5 @@ These commands and flags load, inspect, and test a mod. The `claude` commands ru
 | [`/plugin`](https://code.claude.com/docs/en/plugins/mods/overview#see-which-mods-a-session-loaded) | Shows a line such as `1 mod active · first-mod` under its tabs when a mod that isn't built in has loaded |
 | [`claude plugin validate <directory>`](https://code.claude.com/docs/en/plugins/mods/create#check-what-claude-code-reads-from-your-mod) | Reads a plugin's manifest and hooks module and reports errors, the events it handles, and the mods API calls it makes. `--strict` treats warnings as errors and `--json` prints a machine-readable report. |
 | [`claude plugin test [directory]`](https://code.claude.com/docs/en/plugins/mods/test#write-a-test) | Runs every file under the directory, or the current directory when you give none, whose name ends in `.test.ts` or `.test.tsx`. Exits with status 1 when a test fails. |
-| [`claude --plugin-dir <directory>`](https://code.claude.com/docs/en/plugins/mods/create#write-a-mod-yourself) | Loads a plugin directory for one session and reloads its hooks module when you save. Repeat the flag to load several. |
+| [`claude --plugin-dir <directory>`](https://code.claude.com/docs/en/plugins/mods/create#write-a-mod-yourself) | Loads a plugin directory for one session. In an interactive terminal session, reloads the hooks module when you save. Repeat the flag to load several. |
 | `/reload-plugins` | Reloads plugins when you run it |

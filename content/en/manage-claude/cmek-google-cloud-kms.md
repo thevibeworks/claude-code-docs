@@ -226,7 +226,7 @@ On Claude Models on Google Cloud (Anthropic managed), follow the steps in the **
 
         You see **Workspace settings updated.** Once the key [takes effect](https://platform.claude.com/docs/en/manage-claude/cmek-how-it-works#when-your-key-takes-effect), your cloud provider’s audit log shows Anthropic’s calls to the key.
 
-        In a [ZDR organization](https://platform.claude.com/docs/en/manage-claude/cmek-data-retention#zdr-organizations), after you select the workspace, select **Standard data retention** so that **Encryption key** appears. After you click **Save**, click **Accept** on the data retention terms.
+        In an organization with [legacy zero data retention (Legacy ZDR)](https://platform.claude.com/docs/en/manage-claude/cmek-data-retention#zdr-organizations), after you select the workspace, select **Standard data retention** so that **Encryption key** appears. After you click **Save**, click **Accept** on the data retention terms.
       </Step>
     </Steps>
   </Tab>

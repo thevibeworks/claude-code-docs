@@ -10,7 +10,7 @@ description: Compliance API error responses by HTTP status code, with the cause 
 
 This page lists common Compliance API error responses by HTTP status code, with the cause and the fix for each.
 
-The Compliance API returns errors in the standard [Anthropic error format](https://platform.claude.com/docs/en/api/errors): a non-2xx status code, a `request-id` response header, and a JSON body with an `error` object containing `type` and `message`. Include the `request-id` header value when you escalate to support.
+The Compliance API returns errors in the standard format described in [Claude API errors](https://platform.claude.com/docs/en/api/errors): a non-2xx status code, a `request-id` response header, and a JSON body with an `error` object containing `type` and `message`. Include the `request-id` header value when you escalate to support.
 
 ```json
 {
@@ -170,7 +170,7 @@ If an oldest-first request returns this error, do not retry it either. Keep the 
 
 ## 401 Unauthorized
 
-The request carried a Compliance Access Key (`sk-ant-api01-...`) or Admin API key (`sk-ant-admin01-...`) that does not authenticate. A request that carries no key, or a key of another type, returns [404 Not Found](https://platform.claude.com/docs/en/manage-claude/compliance-errors#request-not-authenticated) instead on every endpoint except organization settings and Security posture, and a valid key with the wrong scopes returns [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden).
+The request carried a Compliance Access Key (`sk-ant-api01-...`) or Admin API key (`sk-ant-admin01-...`) that does not authenticate. A request that carries no key, or a key of another type, returns a 404 ([Request not authenticated](https://platform.claude.com/docs/en/manage-claude/compliance-errors#request-not-authenticated)) instead on every endpoint except organization settings and Security posture. A valid key with the wrong scopes returns [403 Forbidden](https://platform.claude.com/docs/en/manage-claude/compliance-errors#403-forbidden).
 
 ### Invalid, deactivated, or expired API key
 
@@ -236,7 +236,7 @@ Missing required scopes. Got: ['read:compliance_user_data'] Needed one of: ['rea
 Missing required scopes. Got: ['read:compliance_org_settings'] Needed one of: ['read:compliance_org_data', 'read:org_audit']
 ```
 
-**Cause:** The `read:compliance_org_settings` scope was retired on June 30, 2026. `GET /v1/compliance/organizations/{organization_id}/settings` now requires `read:compliance_org_data`, the same scope as the other organization endpoints, and the retired scope no longer authorizes anything. A Compliance Access Key that carries only `read:compliance_org_settings` returns this error on every call to the settings endpoint, even though the key worked before the retirement. The retired scope can no longer be selected or granted when creating a key.
+**Cause:** The `read:compliance_org_settings` scope is retired and does not authorize any request. `GET /v1/compliance/organizations/{organization_id}/settings` requires `read:compliance_org_data`, the same scope as the other organization endpoints. A Compliance Access Key that carries only `read:compliance_org_settings` returns this error on every call to the settings endpoint. You cannot select or grant the retired scope when you create a key.
 
 **Fix:** Compliance Access Key scopes are immutable after creation. [Create a new Compliance Access Key](https://platform.claude.com/docs/en/manage-claude/compliance-api-access#set-up-the-compliance-api) with `read:compliance_org_data` selected, update your integration to use it, then delete the old key. A key that already carries `read:compliance_org_data` is unaffected by the retirement.
 
@@ -308,7 +308,7 @@ Chat conversation not found: 'claude_chat_01H5CWunD7RpVJ5bHa8RCkja'
 File not found: 0d3b8f72-6c1e-4a59-b2de-7f4c9a1e5b60
 ```
 
-**Cause:** The file ID does not exist in an organization your key can read, or the file has been deleted. Deleting a chat in claude.ai also deletes the files attached to it, although the chat itself remains listed. The message identifies the file by its underlying UUID rather than by the `claude_file_...` ID sent in the request. The metadata, content, and delete endpoints return this body; it applies to both chat-attached files (`claude_file_...`) and project files.
+**Cause:** The file ID does not exist in an organization your key can read, or the file has been deleted. Deleting a chat in claude.ai usually also deletes the files attached to it, although the chat itself remains listed. For exceptions, see [Content that remains after a delete](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#content-that-remains-after-a-delete). The message identifies the file by its underlying UUID rather than by the `claude_file_...` ID sent in the request. The metadata, content, and delete endpoints return this body; it applies to both chat-attached files (`claude_file_...`) and project files.
 
 **Fix:** Reconcile against recent `claude_file_uploaded` or `claude_file_deleted` activities. Files deleted along with a chat have no `claude_file_deleted` activity, so check for the chat’s `claude_chat_deleted` activity as well. When your organization’s retention policy deletes a chat, the Activity Feed records no `claude_chat_deleted` activity. If the file was deleted, the binary is gone; the activity records remain in the feed for the 6-year retention window.
 
@@ -429,11 +429,11 @@ organization `91012d09-e48b-438e-a489-1bebfd8fa6f9` not found in this organizati
 
 * The `organization_id` is not one of your parent’s linked organizations.
 * The `organization_id` is not a valid UUID.
-* The settings endpoint is not yet enabled for your parent organization.
+* The settings endpoint is not enabled for your parent organization.
 
 The endpoint intentionally returns the same body in all three cases, so a 404 does not reveal whether an organization exists.
 
-**Fix:** Verify the ID against [List organizations](https://platform.claude.com/docs/en/api/compliance/organizations/list). If a known-good organization ID still returns 404, the settings endpoint is not yet enabled for your parent organization; contact your Anthropic representative.
+**Fix:** Verify the ID against [List organizations](https://platform.claude.com/docs/en/api/compliance/organizations/list). If a known-good organization ID still returns 404, the settings endpoint is not enabled for your parent organization; contact your Anthropic representative.
 
 ## 409 Conflict
 
@@ -453,7 +453,7 @@ The "claude_proj_01KGp4eZNug9ri4kE35RSppq" project cannot be deleted as it has c
 
 ## 429 Too Many Requests
 
-Requests to the Compliance API are limited to **600 requests per minute per [parent organization](https://platform.claude.com/docs/en/manage-claude/compliance-api#how-the-compliance-api-works)**. The limit is one budget shared across every key under the parent (Compliance Access Keys and the Admin API keys of all linked organizations) and across every `/v1/compliance/*` endpoint; the remote session endpoints carry a second request budget on top, and the Security posture endpoint has a lower limit of its own, counted for each parent organization. For a standalone Claude Console organization, which has no parent organization, the same budget applies to the organization itself and is shared across its Admin API keys. Contact your Anthropic representative if your integration needs a higher limit.
+Requests to the Compliance API are limited to **600 requests per minute for each [parent organization](https://platform.claude.com/docs/en/manage-claude/compliance-api#how-the-compliance-api-works)**. The limit is one budget shared across every key under the parent (Compliance Access Keys and the Admin API keys of all linked organizations) and across every `/v1/compliance/*` endpoint; the remote session endpoints carry a second request budget on top, and the Security posture endpoint has a lower limit of its own, counted for each parent organization. For a standalone Claude Console organization, which has no parent organization, the same budget applies to the organization itself and is shared across its Admin API keys. Contact your Anthropic representative if your integration needs a higher limit.
 
 One 429 is different: on a very large session, the local session messages endpoint might return [Server busy reading large transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-errors#server-busy-reading-large-transcripts), which is not a rate limit and not a limit on your organization. Its entry, at the end of this section, says how to identify it and what to do.
 

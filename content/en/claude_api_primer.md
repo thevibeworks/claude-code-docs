@@ -113,6 +113,10 @@ Whether the API accepts a prefill depends on the model:
 * **Claude 4.5 and earlier models:** The API accepts a prefill unless the model is retired on the platform that you use. All requests to a retired model fail. To check a model’s status, see [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
 * **All other models:** The API returns a 400 error (see the [Prefill not supported](https://platform.claude.com/docs/en/api/errors#prefill-not-supported) section of the Claude API errors page). Use one of the [alternatives to a prefill](https://platform.claude.com/docs/en/claude_api_primer#alternatives-to-a-prefill) instead.
 
+Claude Opus 4.5 is deprecated on [Anthropic-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview). Claude Sonnet 4.5 is deprecated on the same platforms. For retirement dates and recommended replacements, see [Deprecation history](https://platform.claude.com/docs/en/about-claude/model-deprecations#deprecation-history) on the Model deprecations page. [Partner-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview) set their own retirement schedules.
+
+The recommended replacements for Claude Opus 4.5 and Claude Sonnet 4.5 don’t accept a prefill.
+
 The following example runs on Claude Opus 4.5 and sets the format of a multiple-choice answer. The prefill, `The answer is (`, ends right before the answer’s letter so that Claude writes the letter first. Because the answer is one letter, the example also sets `max_tokens` to `1`. For a longer answer, set a higher `max_tokens`.
 
 <CodeGroup exclude="shell:cURL, typescript, csharp, go, java, php, ruby">
@@ -315,8 +319,8 @@ Thinking is supported in the following models:
 * Claude Opus 4.7 (`claude-opus-4-7`, adaptive thinking only)
 * Claude Opus 4.6 (`claude-opus-4-6`, adaptive or legacy manual thinking)
 * Claude Sonnet 4.6 (`claude-sonnet-4-6`, adaptive or legacy manual thinking)
-* Claude Opus 4.5 (`claude-opus-4-5-20251101`, legacy manual thinking only)
-* Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`, [deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations), legacy manual thinking only)
+* Claude Opus 4.5 (`claude-opus-4-5-20251101`, [deprecated on Anthropic-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview), legacy manual thinking only)
+* Claude Sonnet 4.5 (`claude-sonnet-4-5-20250929`, [deprecated on Anthropic-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview), legacy manual thinking only)
 * Claude Haiku 4.5 (`claude-haiku-4-5-20251001`, legacy manual thinking only)
 
 <Note>

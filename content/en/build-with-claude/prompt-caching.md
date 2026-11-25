@@ -615,12 +615,11 @@ Adding more `cache_control` breakpoints doesn’t increase your costs; you still
 On the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/google-managed), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), the minimum cacheable prompt length is:
 
 * 512 tokens for Claude Fable 5.2, [Claude Mythos 5.2](https://platform.claude.com/docs/en/models/mythos-5-2/overview), Claude Fable 5.1, [Claude Mythos 5.1](https://platform.claude.com/docs/en/models/mythos-5-1/overview), Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Fable 5, [Claude Mythos 5](https://platform.claude.com/docs/en/models/mythos-5/overview), and Claude Haiku 5.5
+* 1,024 tokens for Claude Opus 4.8, Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5 ([deprecated on Anthropic-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview)), Claude Opus 4.1, Claude Opus 4, and Claude Sonnet 4
 * 2,048 tokens for [Claude Mythos Preview](https://anthropic.com/glasswing) and Claude Opus 4.7
-* 4,096 tokens for Claude Opus 4.6 and Claude Opus 4.5
-* 1,024 tokens for Claude Opus 4.8, Claude Sonnet 5, Claude Sonnet 4.6, Claude Sonnet 4.5 ([deprecated](https://platform.claude.com/docs/en/about-claude/model-deprecations)), Claude Opus 4.1 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations)), Claude Opus 4 ([retired, except on Claude Models on Google Cloud (Google managed)](https://platform.claude.com/docs/en/about-claude/model-deprecations)), and Claude Sonnet 4 ([retired, except on Claude Models on Google Cloud (Google managed) and Bedrock](https://platform.claude.com/docs/en/about-claude/model-deprecations))
-* 4,096 tokens for Claude Haiku 4.5
+* 4,096 tokens for Claude Opus 4.6, Claude Opus 4.5 ([deprecated on Anthropic-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview)), and Claude Haiku 4.5
 
-These minimums apply on each of these platforms where the model is available.
+These minimums apply to each model on each of these platforms where that model is available. Claude Opus 4.1, Claude Sonnet 4, and Claude Opus 4 are retired on [Anthropic-operated platforms](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview).
 
 Shorter prompts cannot be cached, even if marked with `cache_control`. Any requests to cache fewer than this number of tokens are processed without caching, and no error is returned. To check whether a prompt was cached, look at the [response usage fields](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#tracking-cache-performance): if both `cache_creation_input_tokens` and `cache_read_input_tokens` are 0, the prompt was not cached (likely because it did not meet the minimum length requirement).
 

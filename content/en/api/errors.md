@@ -4,6 +4,8 @@ url: https://platform.claude.com/docs/en/api/errors
 description: Understand the HTTP status codes, error response shape, and request IDs the Claude API returns, and handle errors with the SDK's typed exceptions.
 ---
 
+To find the SDK error that an API error becomes, see [SDK error types](https://platform.claude.com/docs/en/api/errors#sdk-error-types). To catch it in your code, see [Handle errors](https://platform.claude.com/docs/en/api/handle-errors).
+
 ## HTTP errors
 
 The API follows a predictable HTTP error code format:
@@ -14,7 +16,7 @@ The API follows a predictable HTTP error code format:
 
   On Claude Models on Google Cloud (Anthropic managed), a 401 can mean a problem with your [Google Cloud credentials](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#authentication).
 
-  A 401 whose message begins `CORS requests are not allowed for this Organization` is not a problem with your API key. The request included an `Origin` header, which browsers add, and your organization cannot call the Claude API directly from a browser. The message continues `because of custom retention settings` or `because of its settings`. The first appears only for data retention arrangements such as zero data retention (ZDR); the second is the general case, which includes the Compliance API. No change to the browser request fixes it, so send the request from your own back end; see [Browser-based applications](https://platform.claude.com/docs/en/manage-claude/authentication#browser-based-applications).
+  A 401 whose message begins `CORS requests are not allowed for this Organization` is not a problem with your API key. The request included an `Origin` header, which browsers add, and your organization cannot call the Claude API directly from a browser. The message continues `because of custom retention settings` or `because of its settings`. The first appears only for data retention arrangements such as zero data retention (ZDR); the second is the general case. No change to the browser request fixes it, so send the request from your own back end; see [Browser-based applications](https://platform.claude.com/docs/en/manage-claude/authentication#browser-based-applications).
 
 * 402 - `billing_error`: There’s an issue with your billing or payment information. Check your payment details in the [Claude Console](https://platform.claude.com), or in AWS Marketplace if you’re using Claude Platform on AWS.
 
@@ -34,7 +36,9 @@ The API follows a predictable HTTP error code format:
 
 * 429 - `rate_limit_error`: Your organization has hit a [rate limit](https://platform.claude.com/docs/en/api/rate-limits), reached its usage tier’s monthly spend cap, or reached a spend limit on the Claude Code workspace. A tier spend-cap 429 has no `retry-after` header and keeps failing until access resumes; see [Reaching your spend cap](https://platform.claude.com/docs/en/api/rate-limits#reaching-your-spend-cap) for how to recognize it. A sharp increase in usage can also cause a 429 even while you’re under your rate limits; see [Ramp limits](https://platform.claude.com/docs/en/api/rate-limits#ramp-limits).
 
-* 500 - `api_error`: An unexpected error has occurred internal to Anthropic’s systems. Retry the request with exponential backoff; if the error persists, contact support with the [request ID](https://platform.claude.com/docs/en/api/errors#request-id). If the error type is `timeout_error` instead, see the 504 entry.
+  To tell the spend cap from a rate limit in code, check the [error code](https://platform.claude.com/docs/en/api/errors#error-codes).
+
+* 500 - `api_error`: An unexpected error has occurred internal to Anthropic’s systems. Retry only if the response’s `x-should-retry` header isn’t `false` (see [Retries](https://platform.claude.com/docs/en/api/errors#retries)). If the error persists, contact support with the [request ID](https://platform.claude.com/docs/en/api/errors#request-id). If the error type is `timeout_error` instead, see the 504 entry.
 
 * 504 - `timeout_error`: The request timed out while processing. The API also returns `timeout_error` with other status codes, such as a 500 when a request reaches the server’s time limit before the response starts. For long-running Messages API requests, use the [streaming Messages API](https://platform.claude.com/docs/en/build-with-claude/streaming). See [Long requests](https://platform.claude.com/docs/en/api/errors#long-requests) for more options.
 
@@ -44,9 +48,22 @@ The API follows a predictable HTTP error code format:
     A 529 error can occur when the API experiences high traffic across all users.
   </Warning>
 
-The official SDK automatically retries transient failures (such as connection errors, rate limits, and 5xx server errors) with exponential backoff, twice by default, honoring the `retry-after` header when present. The SDK client accepts `max_retries` (typescript, php: `maxRetries`; java: `.maxRetries()`; csharp: `MaxRetries`; go: `option.WithMaxRetries()`) to configure or disable this behavior.
-
 When receiving a [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) response over server-sent events (SSE), an error can occur after the API returns a 200 response. In that case, error handling doesn’t follow these standard mechanisms. See [Error events](https://platform.claude.com/docs/en/build-with-claude/streaming#error-events) for the shape of mid-stream errors.
+
+The SDK doesn’t retry an error in a stream. To catch one, see [Handle an error in a stream](https://platform.claude.com/docs/en/api/handle-errors#handle-an-error-in-a-stream).
+
+### Retries
+
+By default, the SDK retries a failed request up to two times (three attempts in all). To change the number of retries, set `max_retries` (typescript, php: `maxRetries`; java: `.maxRetries()`; csharp: `MaxRetries`; go: `option.WithMaxRetries()`) on the client. A value of `0` turns retries off.
+
+For each failed attempt, the SDK determines two things:
+
+* **Whether the SDK retries:** If the response has an `x-should-retry` header (`true` or `false`), the SDK follows it. Otherwise, the SDK retries connection errors, timeouts, and the statuses 408, 409, 429, and 500 and above.
+* **How long the SDK waits:** If the response has a `retry-after` header, the SDK waits as long as the header says. Otherwise, it uses exponential backoff from 0.5 to 8 seconds.
+
+The Go SDK retries some create methods in fewer cases. See [Retries for create methods in the Go SDK](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#retries-for-create-methods).
+
+Without the SDK, follow `x-should-retry` and `retry-after` in your own code and use backoff and a retry limit.
 
 ## Request size limits
 
@@ -78,17 +95,241 @@ The API always returns errors as JSON, with a top-level `error` object that alwa
 
 Under the [API versioning policy](https://platform.claude.com/docs/en/api/versioning), the values within these objects can expand, and new `type` values can appear.
 
+### Error codes
+
+Some errors also have an error code in `error.details.error_code`. One `type` can cover several causes, and a code names one of them.
+
+For example, hitting a rate limit and reaching your [monthly spend cap](https://platform.claude.com/docs/en/api/rate-limits#reaching-your-spend-cap) both cause a 429 `rate_limit_error`. On the Messages API, the spend-cap response adds a code:
+
+```json JSON
+{
+  "type": "error",
+  "error": {
+    "type": "rate_limit_error",
+    "message": "You have reached your API usage limits: ...",
+    "details": { "error_code": "enforced_spend_limit_reached" }
+  },
+  "request_id": "req_018EeWyXxfu5pfWkrYcMdjWG"
+}
+```
+
+Other APIs that return this 429, such as Claude Managed Agents, don’t add the code. There, only the `message` tells the two causes apart, and you shouldn’t match it in code. A spend-cap 429 keeps failing until access resumes, so limit your retries after a 429.
+
+The set of codes can grow. If an error has no code or has a code that you don’t recognize, handle it by its `type` or HTTP status.
+
+For the full list of codes, see [`ErrorDetails`](https://platform.claude.com/docs/en/api/$shared#error_details) in the API reference. To find the codes that a method can return, see [Handle a specific error code](https://platform.claude.com/docs/en/api/handle-errors#handle-a-specific-error-code).
+
 ## SDK error types
 
-The official SDK raises typed exceptions for these errors instead of returning raw JSON. For example, a 404 surfaces as `anthropic.NotFoundError` (typescript: `Anthropic.NotFoundError`; ruby: `Anthropic::Errors::NotFoundError`; java: `com.anthropic.errors.NotFoundException`; csharp: `AnthropicNotFoundException`; php: `Anthropic\Core\Exceptions\NotFoundException`; go: `*anthropic.Error`). The Go SDK has one error type for every status, `*anthropic.Error`: branch on `StatusCode`. Catch the SDK’s typed classes rather than string-matching error messages, handling the most specific classes first. Your SDK’s page documents the full exception hierarchy:
+This section lists what to catch or check in the SDK for each kind of error. To write a handler, see [Handle errors](https://platform.claude.com/docs/en/api/handle-errors).
 
-* [Python](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#handling-errors) · [TypeScript](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#handling-errors) · [C#](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/csharp#error-handling) · [Go](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#error-handling) · [Java](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#error-handling) · [PHP](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/php#error-handling) · [Ruby](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/ruby#handling-errors)
+<Tabs>
+  <Tab title="Python">
+    These classes are in the `anthropic` package unless a row names another. A class also catches its subclasses, so put the narrower class first. For example, `RateLimitError` also catches `EnforcedSpendLimitReachedError`.
+
+    | To handle | Catch |
+    | ----- | ----- |
+    | One [error code](https://platform.claude.com/docs/en/api/errors#error-codes) | Its own class, such as `anthropic.EnforcedSpendLimitReachedError` (see [Handle a specific error code](https://platform.claude.com/docs/en/api/handle-errors#handle-a-specific-error-code)) |
+    | 400 | `BadRequestError` |
+    | 401 | `AuthenticationError` |
+    | 403 | `PermissionDeniedError` |
+    | 404 | `NotFoundError` |
+    | 409 | `ConflictError` |
+    | 413 | `ContentTooLargeError` |
+    | 422 | `UnprocessableEntityError` |
+    | 429 | `RateLimitError` |
+    | 504 | `GatewayTimeoutError` |
+    | 529 | `OverloadedError` |
+    | Every 5xx, such as 500, 504, and 529 | `InternalServerError` |
+    | Every error response | `APIStatusError` |
+    | An error event in a stream | `APIStatusError` |
+    | A client timeout (the SDK stopped waiting) | `APITimeoutError` |
+    | Every connection failure before a response arrives (including a client timeout) | `APIConnectionError` |
+    | A connection that drops or stalls in mid-stream | `httpx2.TransportError` (`httpx2` is the SDK’s HTTP library) |
+    | Every error in this table except a dropped stream | `APIError` |
+
+    For a status that has no row, such as 402, catch `APIStatusError` and compare its `status_code`.
+
+    To reach the underlying exception or the raw response, see [Handling errors in Python](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python#handling-errors).
+  </Tab>
+
+  <Tab title="TypeScript">
+    These classes are properties of `Anthropic` unless a row says otherwise. A class also catches its subclasses, so put the narrower class first. For example, `RateLimitError` also catches `EnforcedSpendLimitReachedError`.
+
+    | To handle | Catch |
+    | ----- | ----- |
+    | One [error code](https://platform.claude.com/docs/en/api/errors#error-codes) | Its own class, such as `Anthropic.EnforcedSpendLimitReachedError` (see [Handle a specific error code](https://platform.claude.com/docs/en/api/handle-errors#handle-a-specific-error-code)) |
+    | 400 | `BadRequestError` |
+    | 401 | `AuthenticationError` |
+    | 403 | `PermissionDeniedError` |
+    | 404 | `NotFoundError` |
+    | 409 | `ConflictError` |
+    | 413 | `ContentTooLargeError` |
+    | 422 | `UnprocessableEntityError` |
+    | 429 | `RateLimitError` |
+    | 504 | `GatewayTimeoutError` |
+    | 529 | `OverloadedError` |
+    | Every 5xx, such as 500, 504, and 529 | `InternalServerError` |
+    | A client timeout (the SDK stopped waiting) | `APIConnectionTimeoutError` |
+    | Every connection failure before a response arrives (including a client timeout) | `APIConnectionError` |
+    | A connection that drops in mid-stream | `AnthropicError` from `client.messages.stream()`. With `stream: true`, catch the runtime’s own error, such as `TypeError`. |
+    | An error event in a stream | `APIError` |
+    | Every error in this table except a dropped stream | `APIError` |
+
+    For a status that has no row, such as 402, catch `APIError` and compare its `status`.
+
+    To read the response headers, see [Handling errors in TypeScript](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#handling-errors).
+  </Tab>
+
+  <Tab title="C#">
+    These classes are in the `Anthropic.Exceptions` namespace unless a row names another. A class also catches its subclasses, so put the narrower class first. For example, `AnthropicRateLimitException` also catches `AnthropicEnforcedSpendLimitReachedException`.
+
+    | To handle | Catch |
+    | ----- | ----- |
+    | One [error code](https://platform.claude.com/docs/en/api/errors#error-codes) | Its own class, such as `Anthropic.Models.AnthropicEnforcedSpendLimitReachedException` (see [Handle a specific error code](https://platform.claude.com/docs/en/api/handle-errors#handle-a-specific-error-code)) |
+    | 400 | `AnthropicBadRequestException` |
+    | 401 | `AnthropicUnauthorizedException` |
+    | 403 | `AnthropicForbiddenException` |
+    | 404 | `AnthropicNotFoundException` |
+    | 409 | `AnthropicConflictException` |
+    | 413 | `AnthropicContentTooLargeException` |
+    | 422 | `AnthropicUnprocessableEntityException` |
+    | 429 | `AnthropicRateLimitException` |
+    | 504 | `AnthropicGatewayTimeoutException` |
+    | 529 | `AnthropicOverloadedException` |
+    | Every 4xx | `Anthropic4xxException` |
+    | Every 5xx, such as 500, 504, and 529 | `Anthropic5xxException` |
+    | Every error response | `AnthropicApiException` |
+    | An error event in a stream | `AnthropicSseException` |
+    | Every error response and every error event in a stream | `AnthropicServiceException` |
+    | A connection failure before a response arrives | `AnthropicIOException` |
+    | A connection that drops in mid-stream | .NET’s own `IOException` in `System.IO` |
+    | A client timeout (the SDK stopped waiting) | .NET’s own `TaskCanceledException` in `System.Threading.Tasks` |
+    | Every error in this table except a client timeout and a dropped stream | `AnthropicException` |
+
+    For a status that has no row of its own, such as 402, catch `Anthropic4xxException` and compare its `StatusCode`.
+  </Tab>
+
+  <Tab title="Go">
+    The Go SDK has one error type, `*anthropic.Error`. You compare its fields instead of catching a class. In this table, `apierr` is a `*anthropic.Error` variable that `errors.As()` fills.
+
+    | To handle | Check |
+    | ----- | ----- |
+    | One [error code](https://platform.claude.com/docs/en/api/errors#error-codes) | `apierr.ErrorCode() == anthropic.ErrorCodeEnforcedSpendLimitReached` |
+    | One HTTP status | `apierr.StatusCode == http.StatusTooManyRequests` |
+    | Every error response | `errors.As(err, &apierr)` |
+    | An error event in a stream | `errors.As(stream.Err(), &apierr)` |
+    | A connection failure, a client timeout, or a connection that drops in mid-stream | Any other `err` that isn’t `nil` |
+
+    Each error code has its own constant (see [Handle a specific error code](https://platform.claude.com/docs/en/api/handle-errors#handle-a-specific-error-code)).
+
+    To print the raw request and response of a `*anthropic.Error`, see [Error handling in Go](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#error-handling).
+  </Tab>
+
+  <Tab title="Java">
+    These classes are in the `com.anthropic.errors` package unless a row names another. A class also catches its subclasses, so put the narrower class first. For example, `RateLimitException` also catches `EnforcedSpendLimitReachedException`.
+
+    | To handle | Catch |
+    | ----- | ----- |
+    | One [error code](https://platform.claude.com/docs/en/api/errors#error-codes) | Its own class, such as `com.anthropic.models.EnforcedSpendLimitReachedException` (see [Handle a specific error code](https://platform.claude.com/docs/en/api/handle-errors#handle-a-specific-error-code)) |
+    | 400 | `BadRequestException` |
+    | 401 | `UnauthorizedException` |
+    | 403 | `PermissionDeniedException` |
+    | 404 | `NotFoundException` |
+    | 409 | `ConflictException` |
+    | 413 | `ContentTooLargeException` |
+    | 422 | `UnprocessableEntityException` |
+    | 429 | `RateLimitException` |
+    | 504 | `GatewayTimeoutException` |
+    | 529 | `OverloadedException` |
+    | Every 5xx, such as 500, 504, and 529 | `InternalServerException` |
+    | An error event in a stream | `SseException` |
+    | Every error response and every error event in a stream | `AnthropicServiceException` |
+    | A connection failure, a client timeout, or a connection that drops in mid-stream | `AnthropicIoException` |
+    | Every error in this table | `AnthropicException` |
+
+    For a status that has no row, such as 402, catch `AnthropicServiceException` and compare its `statusCode()`.
+
+    The error’s `errorCode()` and `type()` each return an `Optional`.
+
+    To read the response headers, see [Error handling in Java](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java#error-handling).
+  </Tab>
+
+  <Tab title="PHP">
+    These classes are in the `Anthropic\Core\Exceptions` namespace unless a row names another. A class also catches its subclasses, so put the narrower class first. For example, `RateLimitException` also catches `EnforcedSpendLimitReachedException`.
+
+    | To handle | Catch |
+    | ----- | ----- |
+    | One [error code](https://platform.claude.com/docs/en/api/errors#error-codes) | Its own class, such as `Anthropic\EnforcedSpendLimitReachedException` (see [Handle a specific error code](https://platform.claude.com/docs/en/api/handle-errors#handle-a-specific-error-code)) |
+    | 400 | `BadRequestException` |
+    | 401 | `AuthenticationException` |
+    | 403 | `PermissionDeniedException` |
+    | 404 | `NotFoundException` |
+    | 409 | `ConflictException` |
+    | 413 | `ContentTooLargeException` |
+    | 422 | `UnprocessableEntityException` |
+    | 429 | `RateLimitException` |
+    | 504 | `GatewayTimeoutException` |
+    | 529 | `OverloadedException` |
+    | Every 5xx, such as 500, 504, and 529 | `InternalServerException` |
+    | Every error response | `APIStatusException` |
+    | An error event in a stream | `APIStatusException` |
+    | A connection failure before a response arrives or a client timeout | `APIConnectionException` |
+    | A connection that drops in mid-stream | The HTTP client’s own exception or none (see the paragraph after this table). With Guzzle 7, a connection reset raises PHP’s `\RuntimeException`. |
+    | Every error in this table except a dropped stream | `APIException` |
+
+    If the server closes the connection in mid-stream, the stream ends with no error. Check that a `message_stop` event arrived.
+
+    For a status that has no row, such as 402, catch `APIStatusException` and compare its `status`.
+
+    To reach the underlying exception, see [Error handling in PHP](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/php#error-handling).
+  </Tab>
+
+  <Tab title="Ruby">
+    These classes are in the `Anthropic::Errors` module unless a row names another. A class also catches its subclasses, so put the narrower class first. For example, `RateLimitError` also catches `EnforcedSpendLimitReachedError`.
+
+    | To handle | Catch |
+    | ----- | ----- |
+    | One [error code](https://platform.claude.com/docs/en/api/errors#error-codes) | Its own class, such as `Anthropic::EnforcedSpendLimitReachedError` (see [Handle a specific error code](https://platform.claude.com/docs/en/api/handle-errors#handle-a-specific-error-code)) |
+    | 400 | `BadRequestError` |
+    | 401 | `AuthenticationError` |
+    | 403 | `PermissionDeniedError` |
+    | 404 | `NotFoundError` |
+    | 409 | `ConflictError` |
+    | 413 | `ContentTooLargeError` |
+    | 422 | `UnprocessableEntityError` |
+    | 429 | `RateLimitError` |
+    | 504 | `GatewayTimeoutError` |
+    | 529 | `OverloadedError` |
+    | Every 5xx, such as 500, 504, and 529 | `InternalServerError` |
+    | Every error response | `APIStatusError` |
+    | An error event in a stream | `APIStatusError` |
+    | A client timeout (the SDK stopped waiting) | `APITimeoutError` |
+    | Every connection failure (including a client timeout and a connection that drops in mid-stream) | `APIConnectionError` |
+    | Every error in this table | `APIError` |
+
+    For a status that has no row, such as 402, catch `APIStatusError` and compare its `status`.
+
+    The error’s `error_code` and `type` are symbols.
+
+    To reach the underlying exception, see [Handling errors in Ruby](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/ruby#handling-errors).
+  </Tab>
+</Tabs>
+
+The table goes by HTTP status and error code, not by `error.type`:
+
+* A 503 with `overloaded_error` counts as a 5xx, not as a 529.
+* An error event in a stream never matches a status row or a code’s class. Its HTTP status is the stream’s 200 or is missing.
+
+To go by `error.type` instead, check the error’s `type` (csharp: `Type`; go: `Type()`; java: `type()`; php: `getType()`) as in [Handle an error in a stream](https://platform.claude.com/docs/en/api/handle-errors#handle-an-error-in-a-stream).
 
 ## Request ID
 
 Every API response includes a unique `request-id` header. This header contains a value such as `req_018EeWyXxfu5pfWkrYcMdjWG`. The same identifier appears as the `request_id` field in [error response bodies](https://platform.claude.com/docs/en/api/errors#error-shapes). When contacting support about a specific request, include this ID to help quickly resolve your issue.
 
 On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), responses include two request IDs: the AWS request ID (`x-amzn-requestid`, primary, indexed in CloudTrail) and the Anthropic request ID (`request-id`, secondary). Use the AWS request ID for CloudTrail lookups and the Anthropic request ID for Anthropic support tickets.
+
+When the API returns an error response, read the ID from the SDK error in `request_id` (typescript: `requestID`; csharp, go: `RequestID`; java: `requestId()`; php: `getRequestID()`). For a sample, see [Catch errors by kind](https://platform.claude.com/docs/en/api/handle-errors#catch-errors-by-kind). When a request succeeds, read the ID from the response.
 
 The Python and TypeScript SDKs expose the request ID as a `_request_id` property on top-level response objects. The C#, Go, Java, and PHP SDKs expose it through their raw-response accessors, and the Ruby SDK through [middleware](https://platform.claude.com/docs/en/cli-sdks-libraries/middleware). In every SDK except Ruby, use `with_raw_response` (typescript: `.withResponse()`; java: `.withRawResponse()`; csharp: `WithRawResponse`; go: `option.WithResponseInto()`; php: `->raw`) to read any other [response header](https://platform.claude.com/docs/en/api/overview#response-headers), such as `anthropic-organization-id` and [`anthropic-workspace-id`](https://platform.claude.com/docs/en/manage-claude/workspaces#identify-the-workspace-behind-an-api-response). In Ruby, use the same middleware. On Claude Platform on AWS, use the raw-response accessor to read the AWS request ID (`x-amzn-requestid`) as well:
 
@@ -586,7 +827,7 @@ If every request to [Claude Platform on AWS](https://platform.claude.com/docs/en
     To mitigate misuse and manage capacity on the API, limits are in place on how much an organization can use the Claude API.
   </Card>
 
-  <Card title="Streaming messages" icon="lightning" href="https://platform.claude.com/docs/en/build-with-claude/streaming">
-    Stream Messages API responses incrementally with server-sent events, including text, tool use, and extended thinking deltas.
+  <Card title="Handle errors" icon="code" href="https://platform.claude.com/docs/en/api/handle-errors">
+    Use the SDK to catch Claude API errors by error code, HTTP status, or connection failure and to handle an error that arrives in a stream.
   </Card>
 </CardGroup>

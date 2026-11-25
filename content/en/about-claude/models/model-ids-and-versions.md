@@ -44,15 +44,19 @@ Models before the 4.6 generation include a snapshot date in the ID:
 claude-{name}-{major}-{minor}-{YYYYMMDD}
 ```
 
-For example: `claude-sonnet-4-5-20250929`, `claude-haiku-4-5-20251001`
+For example: `claude-haiku-4-5-20251001`
 
-On Amazon Bedrock, these use the format:
+On the Claude API, the Claude 4.5 models also have shorter aliases, such as `claude-haiku-4-5`. Each alias points to the most recent dated snapshot for its minor version.
+
+On Amazon Bedrock (`bedrock-runtime`), dated IDs use the format:
 
 ```text wrap
 anthropic.claude-{name}-{major}-{minor}-{YYYYMMDD}-v1:0
 ```
 
-For example: `anthropic.claude-sonnet-4-5-20250929-v1:0`
+For example: `anthropic.claude-haiku-4-5-20251001-v1:0`
+
+To call these models, add an inference profile prefix, such as `global.` or `us.`, to the ID. For details, see [API model IDs](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy#api-model-ids) on the Amazon Bedrock (`bedrock-runtime`) page.
 
 On [Claude Models on Google Cloud (Anthropic managed)](https://platform.claude.com/docs/en/build-with-claude/claude-models-on-google-cloud/anthropic-managed#api-model-ids), the format matches the Claude API.
 
@@ -64,7 +68,7 @@ claude-{name}-{major}-{minor}@{YYYYMMDD}
 
 For example: `claude-haiku-4-5@20251001`
 
-On the Claude API, these models also have shorter aliases (for example, `claude-sonnet-4-5`) that point to the most recent dated snapshot for that minor version.
+[Amazon Bedrock (`bedrock-mantle`)](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#supported-models), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#available-models), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#api-model-ids-and-deployments) list these models by an ID without the date. Each link opens that platform’s model table, which has the ID to use.
 
 ## Dateless IDs are pinned snapshots
 
@@ -72,7 +76,7 @@ A common misconception is that dateless model IDs such as `claude-sonnet-4-6` be
 
 For the 4.6 generation and later, the dateless ID is the canonical model ID for that release. It maps to a single, fixed model snapshot. Anthropic does not update the weights or configuration of an existing model ID. When an updated version is available, it ships under a new model ID.
 
-This differs from the dateless aliases that exist on the Claude API for earlier models. An alias such as `claude-sonnet-4-5` is a convenience pointer that resolves to the most recent dated snapshot for that minor version. A 4.6-generation ID such as `claude-sonnet-4-6` is not an alias. It is the snapshot.
+An ID from the 4.6 generation or later, such as `claude-sonnet-4-6`, looks like the aliases in [Before the 4.6 generation](https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions#before-the-4-6-generation). However, it is not an alias. It is the snapshot.
 
 Every model ID, whether dated or dateless, has its own distinct deprecation and retirement schedule.
 

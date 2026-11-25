@@ -1004,7 +1004,22 @@ Interleaved thinking lets Claude think between tool calls, reasoning about each 
   Consecutive tool calls do not require interleaved thinking. Claude can chain tool calls with or without interleaved thinking. Interleaving changes where thinking blocks appear between tool calls, not whether tool calls can chain.
 </Note>
 
-With adaptive thinking, interleaved thinking is automatic on every model that supports adaptive thinking. On Claude Fable 5.2, Claude Mythos 5.2, Claude Fable 5.1, Claude Mythos 5.1, Claude Fable 5, Claude Mythos 5, Claude Mythos Preview, Claude Opus 5.5, Claude Opus 5, Claude Sonnet 5.5, Claude Opus 4.8, and Claude Opus 4.7, reasoning between tool calls always appears in thinking blocks. Claude Haiku 4.5 does not support interleaved thinking. On models using manual extended thinking, interleaving requires a beta header and changes how the thinking budget is counted. [Interleaved thinking in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#interleaved-thinking) covers the per-model rules and platform-specific header behavior.
+With adaptive thinking, interleaved thinking is automatic on [every model that supports adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#configuring-thinking). On the following models, reasoning between tool calls always appears in thinking blocks:
+
+* Claude Fable 5.2
+* Claude Mythos 5.2
+* Claude Fable 5.1
+* Claude Mythos 5.1
+* Claude Fable 5
+* Claude Mythos 5
+* Claude Mythos Preview
+* Claude Opus 5.5
+* Claude Opus 5
+* Claude Sonnet 5.5
+* Claude Opus 4.8
+* Claude Opus 4.7
+
+On models using manual extended thinking, interleaving requires a beta header and changes how the thinking budget is counted. [Interleaved thinking in manual mode](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#interleaved-thinking) covers the per-model rules and platform-specific header behavior.
 
 With interleaved thinking, the thinking allocation can span the entire assistant turn rather than a single response. Interleaved thinking is only supported for [tools used through the Messages API](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview).
 

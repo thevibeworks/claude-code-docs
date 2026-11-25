@@ -24,7 +24,7 @@ Endpoints on this page paginate two ways; see [Paginate results](https://platfor
 
 Use [List chats](https://platform.claude.com/docs/en/api/compliance/apps/chats/list) to page through chat metadata, then [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) to fetch the full message content of one chat.
 
-Chats in the unified Claude experience are returned by these endpoints like any other chat: a chat that continues in a session in the cloud comes back as one chat. The work Claude does there appears in each message’s `content` as `tool_use` blocks (the tool’s `name` and `input`) and `tool_result` blocks (its output, matched by `tool_use_id`). Coverage of these chats is in beta.
+These endpoints return chats in the unified Claude experience like any other chat: a chat that continues in a session in the cloud comes back as one chat. The work Claude does there appears in each message’s `content` as `tool_use` blocks (the tool’s `name` and `input`) and `tool_result` blocks (its output, matched by `tool_use_id`). For exceptions, see [What chat messages do not return](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#what-chat-messages-do-not-return).
 
 The chat list endpoint defaults to organization-wide scope: leave off `user_ids[]` to include every chat under your parent organization. Add `order_by=updated_at` to sort by last update time. This combination is the recommended way to export chats and keep an export current, because one paginated loop picks up new chats, chats with new messages, and chats deleted in claude.ai for every user without enumerating users first. The following request lists chats updated since a given date.
 
@@ -74,8 +74,8 @@ To scope the list to specific users instead (for example, a legal hold on named 
 ```bash cURL
 curl --fail-with-body -sS -G \
   "https://api.anthropic.com/v1/compliance/apps/chats" \
-  --header "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
-  --header "anthropic-version: 2026-10-21" \
+  -H "x-api-key: $ANTHROPIC_COMPLIANCE_ACCESS_KEY" \
+  -H "anthropic-version: 2026-10-21" \
   --data-urlencode "user_ids[]=user_01WxYzAbCdEfGhJkMnPqRsTu" \
   --data-urlencode "created_at.gte=2025-06-01T00:00:00Z" \
   --data-urlencode "limit=100"
@@ -174,6 +174,14 @@ The messages endpoint returns the chat’s metadata plus a `chat_messages` array
 `files`, `generated_files`, and `artifacts` can each be `null` on a given message. `files` are the files and text attachments (for example, PDFs, images, spreadsheets, documents, and pasted text) the user attached to the message, as claude.ai stored them. On an assistant message, `files` can also include files that Claude gave the user from a session in the cloud. `generated_files` are binary files the assistant created during the conversation through tool use (for example, PDFs, spreadsheets, or slide decks). `artifacts` are versioned documents (for example, code or markdown) the assistant generated or updated in its response; an artifact can be revised across multiple assistant turns in the same chat, and each revision appears as a new `version_id` under the same artifact `id`. Pass each entry’s `id` (or `version_id` for artifacts) to the matching content endpoint in [Retrieve files and artifacts](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-files-and-artifacts) to download it. An `id` in `generated_files` starts with either `claude_gen_file_` or `claude_file_`. Choose the endpoint by the prefix, not by the array the entry came from.
 
 An artifact that Claude creates in a chat can instead be a code artifact (ID prefix `cart_`). Code artifacts are not in `artifacts`. [List code artifacts](https://platform.claude.com/docs/en/api/compliance/apps/code/artifacts/list) returns them, but does not identify the chat that each one came from.
+
+### What chat messages do not return
+
+When a chat continues in a session in the cloud, [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) does not return everything that occurs in the session:
+
+* **Files that Claude does not give the user:** Some files stay in the session, such as intermediate files that a script writes. They are not in `files` or `generated_files`, and no endpoint downloads them.
+* **Subagent tool calls:** When Claude delegates work to a subagent, the chat includes the delegation, its result, and the files and artifacts the subagent creates or sends. The subagent’s other tool calls, including connector and web calls, are in the [remote session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-remote-session-transcript), where they are not marked as a subagent’s. Calls inside a skill or another subagent that a subagent runs are not always returned.
+* **Network connections:** No endpoint lists the network connections that the session attempts. Network activity is visible only through the tool calls and results that the endpoints return.
 
 ## Retrieve files and artifacts
 
@@ -318,8 +326,10 @@ Some content can remain after a delete:
 * **Files that Claude gives a user:** In the unified Claude experience, almost all files that Claude gives a user are deleted with the chat, unless another chat or project in your organization uses them. Files that Claude gave before October 8, 2026, can remain, no matter how the chat is deleted.
 * **Code artifacts:** Deleting a chat does not delete the code artifacts that Claude created in it. Delete them with [Delete code artifact](https://platform.claude.com/docs/en/api/compliance/apps/code/artifacts/delete).
 * **File copies in the cloud:** [Delete file](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/delete) does not delete a copy of the file in a chat’s session in the cloud. Deleting the chat deletes the sessions that were started for it, but not sessions that those sessions started.
+* **File copies for code execution:** For a file uploaded to a chat with code execution on, [Delete file](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/delete) does not delete the copy that the chat keeps for running code. To delete that copy, delete each chat that uses the file.
+* **Scheduled tasks:** [Delete project](https://platform.claude.com/docs/en/api/compliance/apps/projects/delete) does not delete the Cowork scheduled tasks in the project, and no Compliance API endpoint deletes them. The user who owns a task can delete it in claude.ai.
 
-To delete files that Claude gave a user:
+After a chat is deleted, no endpoint lists the remaining files by chat. To delete files that Claude gave a user:
 
 1. Before the chat is deleted, call [Get chat messages](https://platform.claude.com/docs/en/api/compliance/apps/chats/messages/list) and collect each `claude_file_` ID in `generated_files`, and in `files` on assistant messages. The endpoint does not return these IDs after the chat is deleted, and it might not list every file that remains.
 2. Before or after the chat is deleted, pass each ID to [Delete file](https://platform.claude.com/docs/en/api/compliance/apps/chats/files/delete). It deletes the file even if another chat or project uses it. It returns 404 for a file that is already deleted.

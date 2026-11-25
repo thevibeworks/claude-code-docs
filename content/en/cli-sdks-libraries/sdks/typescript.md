@@ -374,39 +374,14 @@ await client.files.upload({
 
 ## Handling errors
 
-When the library is unable to connect to the API, or if the API returns a non-success status code (that is, a 4xx or 5xx response), a subclass of `APIError` is thrown:
+The SDK throws a subclass of `Anthropic.APIError` when it can’t connect to the API or when the API returns an error response (4xx or 5xx). [SDK error types](https://platform.claude.com/docs/en/api/errors#sdk-error-types) lists the classes, and [Handle errors](https://platform.claude.com/docs/en/api/handle-errors) shows how to catch them.
 
-```typescript
-const message = await client.messages
-  .create({
-    max_tokens: 1024,
-    messages: [{ role: "user", content: "Hello, Claude" }],
-    model: "claude-opus-5-5"
-  })
-  .catch(async (err) => {
-    if (err instanceof Anthropic.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-```
+The error’s `status` and `headers` properties hold the response’s status and headers (for example, `err.headers?.get("retry-after")`). Both are `undefined` if there was no response.
 
-Error codes are as follows:
+Two errors don’t come from a failed connection or an error response. A check for `APIError` matches the first but not the second:
 
-| Status code | Error type |
-| ----- | ----- |
-| 400 | `BadRequestError` |
-| 401 | `AuthenticationError` |
-| 403 | `PermissionDeniedError` |
-| 404 | `NotFoundError` |
-| 409 | `ConflictError` |
-| 422 | `UnprocessableEntityError` |
-| 429 | `RateLimitError` |
-| >=500 | `InternalServerError` |
-| N/A | `APIConnectionError` |
+* **`APIUserAbortError`:** You aborted a request with the `signal` request option (an `AbortSignal`) or called `abort()` on a [`client.messages.stream()` stream](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#streaming-helpers).
+* **`AnthropicError`:** The SDK itself failed. For example, it refused a long non-streaming request (see [Long requests](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#long-requests)). `AnthropicError` is the parent class of `APIError`.
 
 ## Request IDs
 
@@ -425,9 +400,11 @@ console.log(message._request_id); // req_018EeWyXxfu5pfWkrYcMdjWG
 
 ## Retries
 
-Certain errors are automatically retried 2 times by default, with a short exponential backoff. Connection errors (for example, because of a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors are all retried by default.
+By default, the SDK retries certain errors up to two times (three attempts in all). It retries connection errors, timeouts, 408 Request Timeout, 409 Conflict, 429 Too Many Requests, and 5xx server errors.
 
-You can use the `maxRetries` option to configure or disable this:
+If a response has an `x-should-retry` header (`true` or `false`), the SDK follows it instead of the status. Between attempts, the SDK waits as long as the `retry-after` header says, or it uses a short exponential backoff.
+
+Use the `maxRetries` option to configure or disable retries:
 
 ```typescript
 // Configure the default for all requests:
@@ -767,7 +744,7 @@ const response = await client.beta.messages.create({
   * **Internal tools:** If the application is used solely within a controlled internal environment where the users are trusted, the risk of credential exposure can be mitigated.
   * **Development or debugging purpose:** Enabling this feature temporarily might be acceptable, provided the credentials are short-lived, aren’t also used in production environments, or are frequently rotated.
 
-  Even in these cases, browser support works only if your organization can call the Claude API directly from a browser. Organizations with zero data retention (ZDR) or the Compliance API enabled cannot, and their browser requests fail with a 401 error. See [Browser-based applications](https://platform.claude.com/docs/en/manage-claude/authentication#browser-based-applications).
+  Even in these cases, browser support works only if your organization can call the Claude API directly from a browser. Organizations with zero data retention (ZDR) cannot, and their browser requests fail with a 401 error. See [Browser-based applications](https://platform.claude.com/docs/en/manage-claude/authentication#browser-based-applications).
 </Accordion>
 
 ## Platform integrations

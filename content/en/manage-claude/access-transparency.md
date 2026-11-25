@@ -37,7 +37,7 @@ Anthropic personnel access customer content only under defined conditions. Acces
 * **Claude for Enterprise and Claude Apps:** claude.ai Enterprise seats, Claude for Work, Cowork, and Claude in Chrome are not covered.
 * **Claude consumer products:** Claude Free, Pro, Max, or Ultra plans.
 * **Partner-operated platforms:** Claude Models on Google Cloud (Google managed) and Amazon Bedrock. Refer to those platforms’ transparency controls.
-* **Anything ZDR does not cover:** Products that are not covered by ZDR (for example, the Files API, Anthropic-hosted stateful applications, and the Batch API) are not covered by Access Transparency. See [Zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) for additional details.
+* **Anything ZDR does not cover:** Products that are not covered by ZDR (for example, the Files API, Anthropic-hosted stateful applications, and the Batch API) are not covered by Access Transparency. See [Legacy zero data retention (Legacy ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) for additional details.
 * **Data in customer-owned storage:** On Claude Platform (the Claude API), Access Transparency has no record for data in [customer-owned storage](https://platform.claude.com/docs/en/manage-claude/enterprise-frontier-safeguards/customer-owned-storage).
 
 ## Getting started

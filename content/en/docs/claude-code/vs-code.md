@@ -70,7 +70,7 @@ Other ways to open Claude Code:
 
 * **Activity Bar**: click the Spark icon in the left sidebar to open the sessions list. Click any session to open it in your [preferred location](#extension-settings), or start a new one. This icon is always visible in the Activity Bar.
 * **Command Palette**: `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux), type "Claude Code", and select an option like "Open in New Tab"
-* **Status Bar**: click **✻ Claude Code** in the bottom-right corner of the window. This works even when no file is open.
+* **Status Bar**: click **✻ Claude Code** in the bottom-right corner of the window. This works without an open file.
 
 You can drag the Claude panel to reposition it anywhere in VS Code. See [Customize your workflow](#customize-your-workflow) for details.
 
@@ -796,7 +796,7 @@ VS Code reads `initialPermissionMode` from your user settings and ignores worksp
 
 ## Use third-party providers
 
-By default, Claude Code connects directly to Anthropic's API. If your organization uses Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry to access Claude, configure the extension to use your provider instead:
+By default, Claude Code connects directly to Anthropic's API. If you use Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry to access Claude, configure the extension to use your provider instead:
 
 **1. Disable login prompt**
 
@@ -1012,13 +1012,13 @@ Sign-in, network, and launch errors have their own entries on the install troubl
 
 The Spark icon appears in the **Editor Toolbar** (top-right of editor) when you have a file open. If you don't see it:
 
-1. **Open a file**: The icon requires a file to be open. Having only a folder open isn't enough.
+1. **Open a file**: The icon requires a file to be open.
 2. **Check VS Code version**: Requires 1.94.0 or later. Check under **Help > About**
 3. **Restart VS Code**: Run "Developer: Reload Window" from the Command Palette
 4. **Disable conflicting extensions**: Temporarily disable other AI extensions (Cline, Continue, etc.)
 5. **Check workspace trust**: The extension doesn't work in Restricted Mode
 
-Alternatively, click **✻ Claude Code** in the **Status Bar** at the bottom-right corner of the window. This works even without a file open. You can also use the **Command Palette** (`Cmd+Shift+P` / `Ctrl+Shift+P`) and type "Claude Code".
+Alternatively, click **✻ Claude Code** in the **Status Bar** at the bottom-right corner of the window. This works without a file open. You can also use the **Command Palette** (`Cmd+Shift+P` / `Ctrl+Shift+P`) and type "Claude Code".
 
 ### Cmd+Esc does nothing on macOS
 

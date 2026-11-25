@@ -113,50 +113,17 @@ For complete structured outputs documentation including Ruby examples, see [Stru
 
 ## Handling errors
 
-When the library is unable to connect to the API, or if the API returns a non-success status code (that is, a 4xx or 5xx response), a subclass of `Anthropic::Errors::APIError` is raised:
+The SDK raises a subclass of `Anthropic::Errors::APIError` when it can’t connect to the API or when the API returns an error response (4xx or 5xx). [SDK error types](https://platform.claude.com/docs/en/api/errors#sdk-error-types) lists the classes, and [Handle errors](https://platform.claude.com/docs/en/api/handle-errors) shows how to rescue them.
 
-```ruby
-anthropic = Anthropic::Client.new
-begin
-  message = anthropic.messages.create(
-    max_tokens: 1024,
-    messages: [{role: "user", content: "Hello, Claude"}],
-    model: Anthropic::Model::CLAUDE_OPUS_5_5
-  )
-rescue Anthropic::Errors::APIConnectionError => e
-  puts("The server could not be reached")
-  puts(e.cause)  # an underlying Exception, likely raised within `net/http`
-rescue Anthropic::Errors::RateLimitError => e
-  puts("A 429 status code was received; we should back off a bit.")
-rescue Anthropic::Errors::APIStatusError => e
-  puts("Another non-200-range status code was received")
-  puts(e.status)
-end
-```
-
-Error codes are as follows:
-
-| Cause | Error type |
-| ----- | ----- |
-| HTTP 400 | `BadRequestError` |
-| HTTP 401 | `AuthenticationError` |
-| HTTP 403 | `PermissionDeniedError` |
-| HTTP 404 | `NotFoundError` |
-| HTTP 409 | `ConflictError` |
-| HTTP 422 | `UnprocessableEntityError` |
-| HTTP 429 | `RateLimitError` |
-| HTTP >= 500 | `InternalServerError` |
-| Other HTTP error | `APIStatusError` |
-| Timeout | `APITimeoutError` |
-| Network error | `APIConnectionError` |
+To see why a connection failed or timed out, read `cause` on the `Anthropic::Errors::APIConnectionError` or its subclass `APITimeoutError`. `cause` holds the underlying exception.
 
 ## Retries
 
-Certain errors are automatically retried 2 times by default, with a short exponential backoff.
+By default, the SDK retries certain errors up to two times (three attempts in all). It retries connection errors, timeouts, 408 Request Timeout, 409 Conflict, 429 Too Many Requests, and 5xx server errors.
 
-Connection errors (for example, because of a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, >=500 Internal errors, and timeouts are all retried by default.
+If a response has an `x-should-retry` header (`true` or `false`), the SDK follows it instead of the status. Between attempts, the SDK waits as long as the `retry-after` header says, or it uses a short exponential backoff.
 
-You can use the `max_retries` option to configure or disable this:
+Use the `max_retries` option to configure or disable retries:
 
 ```ruby
 # Configure the default for all requests:

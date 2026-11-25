@@ -349,46 +349,14 @@ The async client uses the exact same interface. If you pass a `PathLike` instanc
 
 ## Handling errors
 
-The SDK raises a subclass of `APIError` when it can’t connect to the API or when the API returns a 4xx or 5xx status code:
+The SDK raises a subclass of `anthropic.APIError` when it can’t connect to the API or when the API returns an error response (4xx or 5xx). [SDK error types](https://platform.claude.com/docs/en/api/errors#sdk-error-types) lists the classes, and [Handle errors](https://platform.claude.com/docs/en/api/handle-errors) shows how to catch them.
 
-```python
-import anthropic
-# ...
-try:
-    message = client.messages.create(
-        max_tokens=1024,
-        messages=[
-            {
-                "role": "user",
-                "content": "Hello, Claude",
-            }
-        ],
-        model="claude-opus-5-5",
-    )
-except anthropic.APIConnectionError as e:
-    print("The server could not be reached")
-    print(e.__cause__)  # an underlying Exception, likely raised within httpx2
-except anthropic.RateLimitError as e:
-    print("A 429 status code was received; wait before retrying.")
-except anthropic.APIStatusError as e:
-    print("Another non-200-range status code was received")
-    print(e.status_code)
-    print(e.response)
-```
+Two of the classes hold more detail on a failure:
 
-Error codes are as follows:
-
-| Status code | Error type |
-| ----- | ----- |
-| 400 | `BadRequestError` |
-| 401 | `AuthenticationError` |
-| 403 | `PermissionDeniedError` |
-| 404 | `NotFoundError` |
-| 409 | `ConflictError` |
-| 422 | `UnprocessableEntityError` |
-| 429 | `RateLimitError` |
-| >=500 | `InternalServerError` |
-| N/A | `APIConnectionError` |
+| Class | Raised when | Where the detail is |
+| ----- | ----- | ----- |
+| `APIConnectionError` | The SDK can’t reach the API, or the request times out (the subclass `APITimeoutError`) | `__cause__` holds the underlying exception |
+| `APIStatusError` | The API returns an error response | `status_code` holds the status, and `response` holds the raw `httpx2.Response` with its headers |
 
 ## Request IDs
 
@@ -411,9 +379,11 @@ print(message._request_id)  # for example, req_018EeWyXxfu5pfWkrYcMdjWG
 
 ## Retries
 
-By default, the SDK retries certain errors twice, with a short exponential backoff. It retries connection errors (for example, a network problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors.
+By default, the SDK retries certain errors up to two times (three attempts in all). It retries connection errors, timeouts, 408 Request Timeout, 409 Conflict, 429 Too Many Requests, and 5xx server errors.
 
-You can use the `max_retries` option to configure or disable this:
+If a response has an `x-should-retry` header (`true` or `false`), the SDK follows it instead of the status. Between attempts, the SDK waits as long as the `retry-after` header says, or it uses a short exponential backoff.
+
+Use the `max_retries` option to configure or disable retries:
 
 ```python
 # Configure the default for all requests:

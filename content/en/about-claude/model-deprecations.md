@@ -25,7 +25,7 @@ The dates on this page apply to Anthropic-operated platforms: the Claude API, [C
 
 ## Migrating to replacements
 
-Once a model is deprecated, migrate all usage to a suitable replacement before the retirement date. Once the model is retired, requests to it fail.
+Once a model is deprecated, migrate all usage to its [recommended replacement](https://platform.claude.com/docs/en/about-claude/model-deprecations#deprecation-history) or another active model before the retirement date. Once the model is retired, requests to it fail. On the Claude API, the Messages API returns a [404 `not_found_error`](https://platform.claude.com/docs/en/api/errors#http-errors).
 
 To help measure the performance of replacement models on your tasks, consider thorough testing of your applications with the new models well before the retirement date.
 
@@ -121,6 +121,10 @@ On September 30, 2026, Anthropic notified developers using Claude Sonnet 4.5 of 
 | November 30, 2026 | `claude-sonnet-4-5-20250929` | `claude-sonnet-5-5` |
 
 This retirement includes `claude-sonnet-4-5`, the same model’s ID without a date.
+
+To migrate, see [Migrating from Claude Sonnet 4.5 or earlier](https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide#migrating-from-sonnet-45) in the Claude Sonnet 5.5 migration guide.
+
+If you use a platform other than the Claude API, see [Overview](https://platform.claude.com/docs/en/about-claude/model-deprecations#overview) for which dates apply.
 
 ### 2026-06-05: Claude Opus 4.1 model
 

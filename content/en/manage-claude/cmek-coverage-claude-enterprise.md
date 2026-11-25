@@ -10,11 +10,12 @@ For Claude Platform, see [What CMEK covers on Claude Platform](https://platform.
 
 * Chat content, including skills and plugins.
 * Chat attachments and project attachments.
-* Artifacts, including Claude Design, Claude Slides, and Claude Docs in conversations and the **Artifacts** tab.
+* Artifact content in conversations and the **Artifacts** tab. This includes Claude Design, Claude Slides, Claude Docs, and Claude Data. It also includes four types that are in beta: design systems, Claude Motion, Claude Sheets, and Claude Whiteboards. For the standalone Claude Design app, see [Encrypted with Anthropic’s key](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#encrypted-with-anthropics-key).
 * Claude Code on the CLI, including message content.
 * Cowork in Claude Desktop.
 * Chats in the unified Claude experience, on the web only. **Computer access** is off.
 * Office agents, including Claude for Outlook.
+* Scheduled tasks in the unified Claude experience: each task’s name and instructions, and the content of its runs.
 * Claude in Chrome.
 * Claude Science, which is in beta.
 * [Plugins API](https://platform.claude.com/docs/en/manage-claude/plugins-api#customer-managed-encryption-keys) (beta) plugin versions: each version’s description, release notes, components, and files. That page lists which requests still work while your key can’t be used.
@@ -40,7 +41,6 @@ This list is not exhaustive. Review it with your team before you set up CMEK.
 | Claude in Slack (beta) | Off. Claude declines requests, even if an admin turns the product on. |
 | Analytics: smart reports and contribution metrics | Off. Certain analytics are disabled, regardless of admin settings: Claude smart reports (under claude.ai/analytics/insights) and Claude Code contribution metrics from GitHub (beta, under claude.ai/analytics/claude-code). |
 | Claude Security (beta) | Off. Beta feature, turned off regardless of admin settings. |
-| Cloud scheduled tasks (research preview) | Off. An admin can turn them on for the unified Claude experience. |
 | Standalone Claude Design app (being deprecated) | Not supported. See [Encrypted with Anthropic’s key](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#encrypted-with-anthropics-key). |
 
 ## Encrypted with Anthropic’s key
@@ -50,7 +50,7 @@ The features that store this data stay available, but the data isn’t encrypted
 | Data | Details |
 | ----- | ----- |
 | Existing data before key setup | Written before [your key takes effect](https://platform.claude.com/docs/en/manage-claude/cmek-how-it-works#when-your-key-takes-effect). |
-| Standalone Claude Design app (being deprecated) | The standalone Claude Design app at claude.ai/design is not supported with CMEK, and its data might not be encrypted under your key. The standalone app is closing. Claude Design in conversations and the **Artifacts** tab is encrypted under your key, as listed under [Encrypted with your key](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#encrypted-with-your-key). |
+| Standalone Claude Design app (being deprecated) | The standalone Claude Design app at claude.ai/design is not supported with CMEK, and its data might not be encrypted under your key. The standalone app is closing. Claude Design content in conversations and the **Artifacts** tab is encrypted under your key, as listed under [Encrypted with your key](https://platform.claude.com/docs/en/manage-claude/cmek-coverage-claude-enterprise#encrypted-with-your-key). |
 | Personal preferences and Cowork Global instructions | [Personal preferences - Instructions for Claude section](https://claude.ai/new#settings/account) and Cowork Global instructions. These are set at the account level and shared across all of a user’s organizations. |
 | Account data for users in your organization | Includes names, email addresses, and profile pictures. |
 | Preserved records | Anthropic can preserve specific records [in three narrow cases](https://platform.claude.com/docs/en/manage-claude/cmek-data-retention#limited-preservation-outside-your-key). |

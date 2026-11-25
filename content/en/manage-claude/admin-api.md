@@ -12,7 +12,7 @@ The Admin API is available to Claude Console and Claude Enterprise organizations
 
 Claude Enterprise (claude.ai) organizations call the Admin API with a scoped API key created in claude.ai. From this page, only the members, invites, and [organization info](https://platform.claude.com/docs/en/manage-claude/admin-api#accessing-organization-info) endpoints apply to them. Outside this page, they can also call the following APIs and endpoints:
 
-* The [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api), which is in beta, and the legacy [Usage and Cost API](https://platform.claude.com/docs/en/manage-claude/usage-cost-api). Both take a key with the `read:analytics` scope.
+* The [Usage and Cost Analytics API](https://platform.claude.com/docs/en/manage-claude/usage-cost-analytics-api), which is in beta and takes a key with the `read:analytics` scope.
 * Enterprise-only endpoints: groups, custom-role reads, and the [Spend Limits API](https://platform.claude.com/docs/en/manage-claude/spend-limits-api).
 * The [Plugins API](https://platform.claude.com/docs/en/manage-claude/plugins-api) and the [Claude Tag API](https://platform.claude.com/docs/en/manage-claude/claude-tag-api), which are Enterprise-only and in beta.
 

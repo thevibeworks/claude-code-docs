@@ -474,13 +474,19 @@ if err != nil {
 }
 ```
 
+To branch on the error code and the HTTP status, see [Handle errors](https://platform.claude.com/docs/en/api/handle-errors).
+
 When other errors occur, they are returned unwrapped; for example, if HTTP transport fails, you might receive `*url.Error` wrapping `*net.OpError`.
 
 ## Retries
 
-Certain errors are automatically retried 2 times by default, with a short exponential backoff. The SDK retries by default all connection errors, 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors.
+By default, the SDK retries certain errors up to two times (three attempts in all). It retries [some create methods](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go#retries-for-create-methods) in fewer cases.
 
-You can use the `WithMaxRetries` option to configure or disable this:
+For most methods, such as `client.Messages.New()`, the SDK retries connection errors, timeouts, 408 Request Timeout, 409 Conflict, 429 Too Many Requests, and 5xx server errors.
+
+For these methods, if a response has an `x-should-retry` header (`true` or `false`), the SDK follows it instead of the status. Between attempts, the SDK waits as long as the `retry-after` header says, or it uses a short exponential backoff.
+
+Use `option.WithMaxRetries()` to configure or disable retries:
 
 ```go
 // Configure the default for all requests:
@@ -502,6 +508,17 @@ client := anthropic.NewClient(
 		option.WithMaxRetries(5),
 	)
 ```
+
+### Retries for create methods
+
+To avoid duplicate resources, the SDK retries some create methods, such as `client.Beta.Agents.New()`, in only two cases:
+
+* The API returns a 429 Too Many Requests response.
+* The SDK can’t connect to the API, so it never sends the request.
+
+In both cases, the API hasn’t processed the request, so a retry can’t create a second resource.
+
+These methods return any other error without a retry even if the response has `x-should-retry: true`. The API might have created the resource if a server error occurred or if the connection dropped or timed out after the SDK sent the request. Check whether the resource exists before you call the method again.
 
 ## Timeouts
 

@@ -350,7 +350,14 @@ Move a marketplace this way when the new source contains the same marketplace. A
 | macOS | `/Library/Application Support/Claude/org-plugins/` |
 | Windows | `C:\Program Files\Claude\org-plugins\` |
 
-On Windows, the directory is under `Program Files` (not `ProgramData`) so that only administrators can create or modify it. Claude Desktop treats the presence of this directory as an admin-provisioned source. On Linux, Claude Desktop reads no organization plugins directory, so use a [plugin marketplace](#plugin-marketplaces-admin) there.
+On Linux, Claude Desktop reads no organization plugins directory, so use a [plugin marketplace](#plugin-marketplaces-admin) there.
+
+Claude Desktop treats this directory, when it exists, as a source that an admin provisioned, so only administrators should be able to create or modify it:
+
+* **macOS**: make `root` the owner of the directory, everything in it, and the `Claude` folder above it. Give group and others no write access to any of them.
+* **Windows**: Claude Desktop reads the directory from `Program Files` (not `ProgramData`) so that only administrators can create or modify it
+
+A plugin's local MCP server runs as the user, so have the server keep its caches and logs outside this directory, such as in the user's home folder.
 
 ### Plugin structure
 
@@ -390,7 +397,7 @@ See the [plugins reference](https://code.claude.com/docs/en/plugins) for the ful
 
 > [!NOTE]
 >
-> Symlinks inside a plugin are followed as long as the target resolves to a path inside the plugin directory. Symlinks that point outside the plugin (for example, `skills/foo/SKILL.md → /etc/hosts`) are skipped. A symlinked top-level plugin directory (for example, `org-plugins/my-plugin → /opt/shared/my-plugin`) is also followed.
+> Symlinks inside a plugin are followed as long as the target resolves to a path inside the plugin directory. Symlinks that point outside the plugin (for example, `skills/foo/SKILL.md → /etc/hosts`) are skipped. A symlinked top-level plugin directory (for example, `org-plugins/my-plugin → /opt/shared/my-plugin`) is also followed, so make sure that only administrators can modify the link's target and the folders that hold it.
 
 > [!NOTE]
 >

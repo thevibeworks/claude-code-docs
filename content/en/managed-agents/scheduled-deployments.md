@@ -765,11 +765,15 @@ Session creation rate-limit responses are recorded immediately as a `session_rat
 
 If a deployment’s agent is archived, the same operation archives the deployment. If the agent is deleted, the next scheduled trigger detects the missing agent and archives the deployment. Neither records a deployment run. If the agent references an archived subagent, the next trigger records a failed run with `error.type: "agent_archived_error"` and pauses the deployment. Other unrecoverable session-creation errors, such as an archived environment or vault, behave the same way: the trigger records a failed run and pauses the deployment. The deployment’s `paused_reason.error.type` mirrors the failed run’s `error.type`.
 
-If a deployment is paused because the agent has an archived subagent:
+If the deployment’s agent version, its advisor, or an agent that it lists uses a [retired model](https://platform.claude.com/docs/en/about-claude/model-deprecations), the next scheduled trigger fails. It records a run with `error.type: "unknown_error"` and pauses the deployment.
 
-1. Remove or replace the archived subagent when you [update the agent](https://platform.claude.com/docs/en/api/beta/agents/update).
+To move a deployment off an archived subagent or a retiring or retired model, follow these steps:
+
+1. For an archived subagent, [update the agent](https://platform.claude.com/docs/en/api/beta/agents/update) to remove or replace it. For a model, make the agent changes in [When a model is retired](https://platform.claude.com/docs/en/managed-agents/migration#when-a-model-is-retired).
 2. Move the deployment to the agent’s latest version: [update the deployment](https://platform.claude.com/docs/en/api/beta/deployments/update) and pass the same agent ID again in `agent` (csharp, go: `Agent`). A deployment runs one version of its agent and keeps it even when the agent changes.
-3. Unpause the deployment, as [Managing deployment lifecycle](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#managing-deployment-lifecycle) describes.
+3. If the deployment is paused, unpause it, as [Managing deployment lifecycle](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#managing-deployment-lifecycle) describes.
+
+If you use Claude Platform on AWS and the model is retired, complete steps 1 and 2. Until you do, the deployment stays active and each scheduled trigger records a `session_creation_rejected_error` run.
 
 ## Trigger a manual run
 

@@ -27,12 +27,12 @@ The API exposes eight endpoints across two resources:
 | **Spend limits** | `GET /v1/organizations/spend_limits/effective`<br />`GET /v1/organizations/spend_limits/{spend_limit_id}`<br />`POST /v1/organizations/spend_limits`<br />`DELETE /v1/organizations/spend_limits/{spend_limit_id}` | Read each member’s effective spend limit and period-to-date spend; set or clear a per-user override. |
 | **Spend limit increase requests** | `GET /v1/organizations/spend_limit_increase_requests`<br />`GET /v1/organizations/spend_limit_increase_requests/{id}`<br />`POST /v1/organizations/spend_limit_increase_requests/{id}/approve`<br />`POST /v1/organizations/spend_limit_increase_requests/{id}/deny` | List members’ requests for a higher spend limit, with the context needed to decide; approve or deny each request. |
 
-Use the **spend limits** endpoints to answer “what spend limit applies to each member, where does it come from, and how close are they to it?” and to set a per-user override. Use the **spend limit increase requests** endpoints to work the queue of member-submitted requests.
-
 ## Prerequisites
 
-* Your organization must be on a Claude Enterprise plan.
-* Usage credits must be turned on for your organization. Your primary owner can turn them on in claude.ai billing settings.
+Your organization must be on a Claude Enterprise plan. See [How am I billed for my Enterprise plan?](https://support.claude.com/en/articles/11526368) to find out whether your plan is usage-based or seat-based.
+
+* **Usage-based Enterprise plans:** You don’t need to set up [usage credits](https://support.claude.com/en/articles/12005970).
+* **Seat-based Enterprise plans:** Turn on usage credits in [claude.ai Organization settings](https://claude.ai/admin-settings/usage). The toggle is labeled **Turn on usage credits** or **Enable extra usage**. For the steps, see [Manage usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970). If you can’t turn on the toggle, ask your primary owner, an organization owner, or your Anthropic account team for help.
 
 The SDK exposes these endpoints under `client.beta.organization.spend_limits` (typescript: `client.beta.organization.spendLimits`; csharp, go: `client.Beta.Organization.SpendLimits`; java: `client.beta().organization().spendLimits()`; php: `$client->beta->organization->spendLimits`), and the `ant` CLI under `ant beta:organization:spend-limits`. Both send the `anthropic-version` header for you. The examples read the Admin API key from the `ANTHROPIC_API_KEY` environment variable. The SDK and the CLI fetch more pages for you as you go through the results, so `limit` sets the page size, not the total (see [Pagination](https://platform.claude.com/docs/en/manage-claude/spend-limits-api#pagination)).
 
@@ -182,7 +182,7 @@ The `source` field on each member’s row tells you which level their spend limi
 
 ### Period
 
-`period` is the recurring window over which the spend limit is enforced and spend resets. A spend limit is identified by its `(scope, period)` pair. Currently `monthly` is the only supported period; monthly spend resets at 00:00 UTC on the first of each calendar month. Treat `period` as an open set.
+`period` is the recurring window over which the spend limit is enforced and spend resets. A spend limit is identified by its `(scope, period)` pair. The only supported period is `monthly`; monthly spend resets at 00:00 UTC on the first of each calendar month. Treat `period` as an open set.
 
 ### Amounts and currency
 

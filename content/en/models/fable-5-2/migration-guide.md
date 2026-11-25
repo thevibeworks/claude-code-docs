@@ -5,7 +5,7 @@ description: Switch to Claude Fable 5.2 and Claude Mythos 5.2 from Claude Fable 
 ---
 
 <Note>
-  This guide covers migrating [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) code. If you use [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview), no changes beyond updating the model name are required.
+  This guide covers migrating [Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) code. If you use [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview), you usually change only your agent’s `model` field. The [Migrating between model versions](https://platform.claude.com/docs/en/managed-agents/migration#migrating-between-model-versions) section of the Managed Agents Migration page has the details.
 </Note>
 
 Let Claude Code migrate your code for you
@@ -32,7 +32,7 @@ The baseline settings shared by `claude-fable-5-2` and `claude-mythos-5-2`:
 * **Account-bound thinking:** Thinking blocks from Claude Fable 5.2 and Claude Mythos 5.2 work only in the account that produced them, or in an account linked to it. When another account sends one of these blocks, the API drops the block before the model receives it, and the request succeeds. On the Claude API and Claude Models on Google Cloud (Google managed), with the `thinking-binding-controls-2026-08-01` beta header, the response lists each dropped block in `input_transformations` with `reason: "organization_binding_mismatch"`. See [Accounts and cloud platforms](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#account-bound-thinking).
 * **Context window and output:** A [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) by default, and up to 128k output tokens for each request.
 * **Pricing:** $8 USD per million input tokens and $40 USD per million output tokens, compared with $10 USD and $50 USD on Claude Fable 5.1 and Claude Mythos 5.1. Prompt cache reads are $0.20 USD per million tokens, compared with $0.25 USD on those models. See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing).
-* **Data retention:** Both models require 30-day data retention, aren’t available under zero data retention (ZDR) arrangements unless expressly authorized by Anthropic, and are designated Covered Models, the same as Claude Fable 5.1 and Claude Mythos 5.1. On the Claude API, a request from an organization or workspace without 30-day retention returns a 400 `invalid_request_error`. Organizations with a ZDR arrangement should contact their Anthropic account team, or configure retention for individual workspaces. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements) for per-platform details.
+* **Data retention:** Both models require 30-day data retention, aren’t available under legacy zero data retention (Legacy ZDR) arrangements unless expressly authorized by Anthropic, and are designated Covered Models, the same as Claude Fable 5.1 and Claude Mythos 5.1. On the Claude API, a request from an organization or workspace without 30-day retention returns a 400 `invalid_request_error`. Organizations with a Legacy ZDR arrangement should contact their Anthropic account team, or configure retention for individual workspaces. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements) for per-platform details.
 * **Priority Tier:** Neither model is supported on [Priority Tier](https://platform.claude.com/docs/en/api/service-tiers#supported-models).
 * **Fast mode:** Both models support [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) in Messages API requests. For each model’s platforms, see [Availability of fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode#feature-availability).
 
@@ -155,7 +155,7 @@ model = "claude-fable-5-2"  # After
 
 ### What changes
 
-1. **Data retention is required:** Claude Fable 5.2 requires 30-day data retention and isn’t available under a zero data retention (ZDR) arrangement unless expressly authorized by Anthropic. If your organization or workspace runs Claude Opus 5.5 under ZDR, enable 30-day retention for a workspace or contact your Anthropic account team before you switch. Otherwise, on the Claude API, every request to Claude Fable 5.2 returns a 400 `invalid_request_error`. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
+1. **Data retention is required:** Claude Fable 5.2 requires 30-day data retention and isn’t available under a legacy zero data retention (Legacy ZDR) arrangement unless expressly authorized by Anthropic. If your organization or workspace runs Claude Opus 5.5 under Legacy ZDR, enable 30-day retention for a workspace or contact your Anthropic account team before you switch. Otherwise, on the Claude API, every request to Claude Fable 5.2 returns a 400 `invalid_request_error`. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
 
 2. **Failed prefix checks return a 400 error:** On Claude Fable 5.2, each request gets a [prefix check](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking/prefix-checks#prefix-check). A prefix check fails if you change `system`, `tools`, or earlier messages mid-conversation and then send thinking blocks back. If a prefix check fails, the request receives a 400 error. To test your code before you switch, see [how to find requests that fail](https://platform.claude.com/docs/en/models/fable-5-2/migration-guide#fable-5-2-preserved-thinking).
 
@@ -185,7 +185,7 @@ model = "claude-fable-5-2"  # After
 
 ### Migration checklist
 
-* If your organization has a ZDR arrangement, enable 30-day retention for the workspace, or confirm eligibility with your Anthropic account team, before anything else.
+* If your organization has a Legacy ZDR arrangement, enable 30-day retention for the workspace, or confirm eligibility with your Anthropic account team, before anything else.
 * Update the model ID from `claude-opus-5-5` to `claude-fable-5-2`.
 * Check your [rate limits](https://platform.claude.com/docs/en/api/rate-limits#rate-limits) before you move production traffic. Claude Fable 5.2’s rate limit is separate from Claude Opus 5.5’s, with lower token limits at each tier.
 * If your code builds the `messages` array itself, run the test in [Failed prefix checks return a 400 error](https://platform.claude.com/docs/en/models/fable-5-2/migration-guide#fable-5-2-preserved-thinking).
@@ -321,7 +321,7 @@ model = "claude-fable-5-2"  # After
 
 8. **Pricing:** Claude Fable 5.2 costs $8 USD per million input tokens and $40 USD per million output tokens, compared with $5 USD and $25 USD for Claude Opus 5. Prompt cache reads are $0.20 USD per million tokens, compared with $0.50 USD. See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing).
 
-9. **Data retention is required:** Claude Fable 5.2 requires 30-day data retention and isn’t available under a zero data retention (ZDR) arrangement unless expressly authorized by Anthropic. Claude Opus 5 is available under ZDR. On the Claude API, a request from an organization or workspace without 30-day retention returns a 400 `invalid_request_error`. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
+9. **Data retention is required:** Claude Fable 5.2 requires 30-day data retention and isn’t available under a legacy zero data retention (Legacy ZDR) arrangement unless expressly authorized by Anthropic. Claude Opus 5 is available under Legacy ZDR. On the Claude API, a request from an organization or workspace without 30-day retention returns a 400 `invalid_request_error`. See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
 
 10. **Fast mode:** Claude Opus 5 supports [fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) (`speed: "fast"`) in research preview, with the `fast-mode-2026-02-01` beta header. Claude Fable 5.2 supports it in Messages API requests on the Claude API without the header. Requests that send the header keep working. Fast mode for Claude Fable 5.2 costs $16 USD per million input tokens and $80 USD per million output tokens, compared with $10 USD and $50 USD for Claude Opus 5 in fast mode. See [Fast mode pricing](https://platform.claude.com/docs/en/about-claude/pricing#fast-mode-pricing).
 
@@ -341,7 +341,7 @@ model = "claude-fable-5-2"  # After
 
 ### Migration checklist
 
-* If your organization has a ZDR arrangement, enable 30-day retention for the workspace, or confirm eligibility with your Anthropic account team, before anything else.
+* If your organization has a Legacy ZDR arrangement, enable 30-day retention for the workspace, or confirm eligibility with your Anthropic account team, before anything else.
 * Update the model ID from `claude-opus-5` to `claude-fable-5-2`.
 * Check your [rate limits](https://platform.claude.com/docs/en/api/rate-limits#rate-limits) before you move production traffic. Claude Fable 5.2’s rate limit is separate from Claude Opus 5’s, with lower token limits at each tier.
 * Remove any `thinking: {type: "disabled"}` configuration. Control token spend with lower effort levels, revisit `max_tokens`, and select content blocks by `type`.
@@ -365,7 +365,7 @@ First work through [Migrating to Claude Fable 5.2 from Claude Opus 5](https://pl
 
 * Accepts `thinking: {type: "disabled"}`, forced tool choice, the `computer_20251124` tool, and fast mode, which is [deprecated on Claude Opus 4.8](https://platform.claude.com/docs/en/build-with-claude/fast-mode).
 * Returns the text between tool calls as `text` blocks.
-* Is available under zero data retention (ZDR) arrangements.
+* Is available under legacy zero data retention (Legacy ZDR) arrangements.
 * Costs $5 USD per million input tokens and $25 USD per million output tokens, with prompt cache reads at $0.50 USD.
 
 This section adds the differences that the Claude Opus 5 section doesn’t cover.

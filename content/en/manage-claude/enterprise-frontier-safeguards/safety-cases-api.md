@@ -213,7 +213,7 @@ The response holds the message and the sender that Anthropic recorded:
 }
 ```
 
-`content` holds the stored request and response. It’s not an exact copy: Anthropic cuts URLs to their host, removes credentials and thinking blocks, and resizes images and documents.
+`content` holds the stored request and response. It’s not an exact copy: Anthropic cuts some URLs to their host, redacts MCP server tokens, removes thinking blocks, and can replace an image or a document with resized images or a placeholder.
 
 Anthropic records one sender for each message:
 

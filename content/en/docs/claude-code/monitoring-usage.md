@@ -801,7 +801,7 @@ When a user submits a prompt, Claude Code may make multiple API calls and run se
 | - | - |
 | `prompt.id` | UUID v4 identifier linking all events produced while processing a single user prompt |
 | `event.sequence` | 0-based counter for ordering events, counted per Claude Code process rather than per session |
-| `message.uuid` | UUID of the message as persisted in the session transcript, the `~/.claude/projects/*/*.jsonl` files. Present on `assistant_response`, on `api_response_body`, and on `user_prompt` except for command dispatches, which can produce zero or many messages. On `assistant_response` and `api_response_body`, this is the response's final transcript entry, which the next turn's `parentUuid` chains from. Requires Claude Code v2.1.274 or later on `api_response_body` |
+| `message.uuid` | UUID of the message as persisted in the session transcript, the `~/.claude/projects/*/*.jsonl` files. Present on `assistant_response`, on `api_response_body`, and on `user_prompt` except for command dispatches, which can produce zero or many messages. On `api_response_body`, and on an `assistant_response` event [without a `tool_use_id`](#assistant-response-event), this is the response's final transcript entry, which the next turn's `parentUuid` chains from. Requires Claude Code v2.1.274 or later on `api_response_body` |
 | `request_id` | Server-assigned ID of the API request, read from the `request-id` response header, such as `req_011...`. On a response with no `request-id` header, as on [Amazon Bedrock](https://code.claude.com/docs/en/amazon-bedrock.md), the value comes from the `x-amzn-requestid` header instead. Present on `api_request`, `api_error`, `api_refusal`, `assistant_response`, `api_response_body`, [`tool_result`](#tool-result-event), and [`tool_decision`](#tool-decision-event) when the response carries either header. Matches the same attribute on the `llm_request` trace span. The `x-amzn-requestid` source requires Claude Code v2.1.282 or later |
 | `client_request_id` | Client-generated UUID sent as the `x-client-request-id` request header. Present on `api_request` and `api_error` on first-party API connections; absent on third-party provider backends and when the request was retried through the non-streaming fallback. Pairs a request with its response and remains available for failures such as timeouts that never produced a server `request_id`. Matches the same attribute on the `llm_request` trace span |
 
@@ -813,7 +813,7 @@ For message-level reconstruction, each event class carries a key that matches a 
 
 * `message.uuid` on `user_prompt`, `assistant_response`, and `api_response_body`
 * `request_id` on the API events, persisted as `requestId` on the transcript's assistant entries
-* `tool_use_id` on `tool_result` and `tool_decision` events, and on `safety_event` events except those for the [end of a turn](#safety-event)
+* `tool_use_id` on `tool_result` and `tool_decision` events, on [`assistant_response`](#assistant-response-event) events for messages sent with a tool, and on `safety_event` events except those for the [end of a turn](#safety-event)
 
 #### User prompt event
 
@@ -836,7 +836,12 @@ Logged when a prompt is submitted, including on turns Claude Code starts on its 
 
 #### Assistant response event
 
-Logged after each API request that returns text content from the model. Only the response's text blocks are included; thinking blocks and tool-use blocks are excluded.
+An `assistant_response` event holds either the text of an API response or a message that Claude wrote to the user by calling a tool. The `tool_use_id` attribute tells you which:
+
+* **Text reply, no `tool_use_id`**: logged after each API request that returns text content from the model. Only the response's text blocks are included; thinking blocks and tool-use blocks are excluded.
+* **Message sent with a tool, has `tool_use_id`**: `response` holds the message text from a successful call to `SendUserMessage` or Cowork's `mcp__cowork__send_user_message`. Claude Code logs the event before [`PostToolUse`](https://code.claude.com/docs/en/hooks#posttooluse) hooks run. Requires Claude Code v2.1.332 or later.
+
+You receive `assistant_response` events with `tool_use_id` only while you include response text, as described under `response`.
 
 **Event Name**: `claude_code.assistant_response`
 
@@ -849,8 +854,9 @@ Logged after each API request that returns text content from the model. Only the
 * `response_length`: Length of the response text in characters
 * `response`: Response text, truncated at the content limit (60 KB by default). Redacted to `<REDACTED>` by default. Set `OTEL_LOG_ASSISTANT_RESPONSES=1` to include it. When `OTEL_LOG_ASSISTANT_RESPONSES` is unset, `OTEL_LOG_USER_PROMPTS` controls it instead, so set `OTEL_LOG_ASSISTANT_RESPONSES=0` to keep responses redacted while prompt logging is on
 * `model`: Model identifier (for example, "claude-sonnet-5")
-* `request_id`: API request ID, described under [Event correlation attributes](#event-correlation-attributes)
-* `message.uuid`: UUID of the response's final transcript entry. An API response is persisted as one transcript entry per content block; this is the last one, which the next turn's `parentUuid` chains from.
+* `request_id`: API request ID, described under [Event correlation attributes](#event-correlation-attributes). On an event with `tool_use_id`, this is the ID of the API response that held the call. When that response also has text, both kinds of event share one `request_id`
+* `tool_use_id`: Present only on an event for a message sent with a tool. Same value as on the call's [tool result event](#tool-result-event)
+* `message.uuid`: UUID of a transcript entry. An API response is persisted as one transcript entry per content block. For a text reply, this is the last one, which the next turn's `parentUuid` chains from. For an event with `tool_use_id`, this is the entry that holds the tool call.
 * `query_source`: Subsystem that issued the request, such as `"repl_main_thread"`, `"compact"`, or a subagent name
 
 #### Tool result event

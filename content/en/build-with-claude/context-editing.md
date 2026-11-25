@@ -73,18 +73,16 @@ When activated, the API automatically clears the oldest tool results in chronolo
 
 The `clear_thinking_20251015` strategy manages `thinking` blocks from earlier assistant turns. This strategy gives you control over thinking preservation: you can choose to keep more thinking blocks to maintain reasoning continuity, or clear them more aggressively to save context space.
 
-<Tip>
-  **Default behavior:** When a request doesn’t include the `clear_thinking_20251015` strategy, the default varies by model class.
+When a request doesn’t include the `clear_thinking_20251015` strategy, the default varies by model class.
 
-  | Model class | Keep all prior thinking | Keep thinking only for the turn in progress |
-  | ----- | ----- | ----- |
-  | Opus | Claude Opus 4.5 and later | Claude Opus 4.1 and earlier |
-  | Sonnet | Claude Sonnet 4.6 and later | Claude Sonnet 4.5 (deprecated) and earlier |
-  | Haiku | Claude Haiku 5.5 and later | Claude Haiku 4.5 and earlier |
-  | Fable and Mythos | All models | (none) |
+| Model class | Keep all prior thinking | Keep thinking only for the turn in progress |
+| ----- | ----- | ----- |
+| Opus | Claude Opus 4.5 and later | Claude Opus 4.1 and earlier |
+| Sonnet | Claude Sonnet 4.6 and later | Claude Sonnet 4.5 and earlier |
+| Haiku | Claude Haiku 5.5 and later | Claude Haiku 4.5 and earlier |
+| Fable and Mythos | All models | (none) |
 
-  Use this strategy to override the default. If your code runs across multiple model classes, include this strategy and set `keep` explicitly rather than relying on the per-model default.
-</Tip>
+Use this strategy to override the default. If your code runs across multiple model classes, include this strategy and set `keep` explicitly rather than relying on the per-model default.
 
 An assistant conversation turn might include multiple content blocks (for example, when using tools) and multiple thinking blocks (for example, with [interleaved thinking](https://platform.claude.com/docs/en/build-with-claude/thinking#interleaved-thinking)).
 

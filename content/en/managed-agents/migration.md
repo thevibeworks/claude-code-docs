@@ -1375,3 +1375,16 @@ Most model-level behavior changes documented in the [Migration guides](https://p
 * **Tool argument JSON escaping** needs no action: the runtime parses the arguments before you receive `agent.custom_tool_use` events. You see structured data, not raw strings.
 
 The behavior descriptions in those guides (what the model does differently) still apply. The migration steps (how to change your request code) do not.
+
+### When a model is retired
+
+Claude Managed Agents doesn’t move your agents to a newer model. Make the following changes before the retirement date on [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations).
+
+| What uses the model | After the model is retired | What to do |
+| ----- | ----- | ----- |
+| An agent, as its model or its [advisor model](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#give-the-session-an-advisor) | Creating a session with that agent version returns a 400 error. | Update the agent, and [resend the model settings](https://platform.claude.com/docs/en/managed-agents/agent-setup#update-semantics) that you want to keep. If you pin a version when you create sessions, pin the new one. |
+| An agent that another agent lists | Creating a session with the agent that lists it returns a 400 error. | Update the listed agent. Then, update the agent that lists it so that [its list references the new version](https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration#list-the-subagents). |
+| An existing session, as its agent’s model | Each new turn fails with a `session.error` event of type `model_request_failed_error`. | Create a new session with the updated agent. An existing session [can’t change its model](https://platform.claude.com/docs/en/managed-agents/session-operations#updating-the-agent-configuration). |
+| A scheduled deployment | The next scheduled run fails, and the deployment stops starting sessions. | [Move the deployment](https://platform.claude.com/docs/en/managed-agents/scheduled-deployments#failure-behavior) to the new agent version. |
+
+A request that sets a retired model on an agent or in a [session override](https://platform.claude.com/docs/en/managed-agents/sessions#override-agent-configuration-for-a-session) also returns a 400 error. An override with a supported model replaces the agent’s retired model for that session.
