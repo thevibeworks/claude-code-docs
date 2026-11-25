@@ -1244,7 +1244,11 @@ To make the Keychain writable again and move your login back into the encrypted 
 
 **1. Check Keychain access**
 
-Run `claude doctor` to check Keychain access. When the Keychain rejects writes, the report lists a warning that starts with `macOS Keychain is not writable`, followed by a suggested fix. When the report lists no Keychain warning, the Keychain is writable and you can skip to the last step.
+In the shell you run Claude Code from, run `claude doctor` and look for a warning that starts with `macOS Keychain is not writable`. What the report shows decides your next step:
+
+* **No such warning**: skip to the last step
+* **A warning whose fix says `Unlocking the Keychain won't help`**: follow that fix. If that shell is sandboxed, restart these steps outside the sandbox to move your login back
+* **A warning with another fix**: go on to the next step
 
 **2. Unlock the Keychain**
 

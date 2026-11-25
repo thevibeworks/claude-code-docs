@@ -35,8 +35,9 @@ Open the [in-app configuration window](https://claude.com/docs/third-party/claud
 
 | Field | Value |
 | - | - |
-| AWS region | e.g. `us-east-1` |
-| AWS bearer token | your Mantle bearer token |
+| Credential kind | **Static API key**, or **Helper script** for a [credential helper](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper) |
+| AWS region | for example, `us-east-1` |
+| AWS bearer token | when **Credential kind** is **Static API key**, enter your Mantle bearer token |
 | Bedrock base URL | *optional* |
 
 If you set **Bedrock base URL**, provide the full SDK base URL including the `/anthropic` path (for example `https://bedrock-mantle.us-east-1.api.aws/anthropic`); it replaces the default `bedrock-mantle.<region>.api.aws/anthropic` endpoint.

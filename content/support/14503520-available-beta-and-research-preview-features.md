@@ -47,6 +47,7 @@ This table below lists the beta and research preview features currently availabl
 | **[Centralized management](https://support.claude.com/en/articles/18232924)**                                                                                    | Enterprise admin  | Beta       |
 | **[Track spend by cost code with project tags](https://support.claude.com/en/articles/18251257-track-spend-by-project-with-tags)**                               | Enterprise admin  | Beta       |
 | **[Personal Finance](https://support.claude.com/en/articles/18185620-use-personal-finance-with-claude)**                                                         | Connectors        | Beta       |
+| **[File transfers with connectors](https://support.claude.com/en/articles/18534325)**                                                                            | Connectors        | Beta       |
 | **[Claude Meetings](https://support.claude.com/en/articles/18325154-use-claude-meetings)**                                                                       | Meetings          | Beta       |
 
 **Note:** Availability varies by plan. Check each linked article to confirm which plans support the feature.

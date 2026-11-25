@@ -4,7 +4,7 @@ Custom connectors using remote MCP are available on Claude, Cowork, and Claude D
 
 ## What are custom connectors?
 
-Custom connectors let you connect Claude directly to the tools and data sources that matter most to your workflows. This enables Claude to operate within your favorite software and draw insights from the complete context of your external tools.
+Custom connectors let you connect Claude directly to the tools and data sources that matter most to your workflows. This enables Claude to operate within your favorite software and draw insights from the complete context of your external tools. With custom connectors, Claude can't use file transfers, a beta feature that sends files to connected apps and saves files from them.
 
 You can:
 

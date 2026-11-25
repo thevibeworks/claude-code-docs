@@ -1104,7 +1104,7 @@ This tutorial will primarily focus on tools.
 >
 > ### System requirements
 >
-> * JDK 11 or higher installed.
+> * JDK 17 or higher installed.
 >
 > ### Set up your environment
 >

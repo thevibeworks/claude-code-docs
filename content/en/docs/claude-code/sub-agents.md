@@ -458,7 +458,7 @@ On macOS, Linux, and WSL, a subagent can also receive the Glob and Grep tools wh
 * `WaitForMcpServers`
 * `Workflow`
 
-The second filter applies to subagents running in the background. `Agent` and `ExitPlanMode` follow the first filter's conditions wherever the subagent runs. A background subagent keeps every MCP tool, and [`SubagentHandback`](https://code.claude.com/docs/en/tools-reference) if it reports through that tool. It also keeps `Read`, `Grep`, `Glob`, `LSP`, `Bash`, `PowerShell`, `Edit`, `Write`, `NotebookEdit`, `WebFetch`, `WebSearch`, `TodoWrite`, `Skill`, `ToolSearch`, `EnterWorktree`, `ExitWorktree`, `Monitor`, `TaskStop`, `SendMessage`, `Artifact`, `ListPlugins`, `ListSkills`, `SearchPlugins`, and `SearchSkills`.
+The second filter applies to subagents running in the background. `Agent` and `ExitPlanMode` follow the first filter's conditions wherever the subagent runs. A background subagent keeps every MCP tool, and [`SubagentHandback`](https://code.claude.com/docs/en/tools-reference) if it reports through that tool. It also keeps `Read`, `Grep`, `Glob`, `LSP`, `Bash`, `PowerShell`, `Edit`, `Write`, `NotebookEdit`, `WebFetch`, `WebSearch`, `TodoWrite`, `Skill`, `ToolSearch`, `EnterWorktree`, `ExitWorktree`, `Monitor`, `TaskStop`, `SendMessage`, `Artifact`, `ListPlugins`, `ListSkills`, `SearchPlugins`, `SearchSkills`, and `REPL`.
 
 Don't rely on other built-in tools in a background subagent: Claude Code removes most of them, whether inherited or listed in the `tools` field. The removal reports no error unless it leaves the `tools` list [resolving to nothing](https://code.claude.com/docs/en/errors.md#agent-would-be-spawned-with-zero-tools).
 
@@ -555,7 +555,7 @@ The `Agent(agent_type)` allowlist syntax applies only to an agent running as the
 
 #### Scope MCP servers to a subagent
 
-Use the `mcpServers` field to give a subagent access to [MCP](https://code.claude.com/docs/en/mcp.md) servers that aren't available in the main conversation. Inline servers defined here are connected when the subagent starts, subject to the [trust rule for the agent file's folder](#inline-server-trust), and disconnected when it finishes. String references share the parent session's connection.
+Use the `mcpServers` field to give a subagent access to [MCP](https://code.claude.com/docs/en/mcp.md) servers that aren't available in the main conversation. Inline servers defined here are connected when the subagent starts, subject to the [trust rule for the agent file's folder](#inline-server-trust), and disconnected when the last agent using them finishes. String references share the parent session's connection.
 
 > [!NOTE]
 >

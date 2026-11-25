@@ -213,7 +213,7 @@ Claude Code draws most of its interface itself: messages, tool call rows, the sp
 | `InfoNotice`, `SessionMode`, `PromptHint` | Status lines under the logo, the mode labels in the footer, and the hint line under the prompt |
 | `AgentRow` | A subagent's or teammate's row in the agent panel |
 
-`Pane`, `AskUserQuestion`, `Spinner`, `UserMessage`, `AssistantMessage`, and the tool call sites work in the terminal, the Desktop app, and the VS Code extension. The [render sites table](https://code.claude.com/docs/en/plugins/mods/reference.md#render-sites) lists where each of the others is raised.
+`Pane`, `AbovePrompt`, `AskUserQuestion`, `Spinner`, `UserMessage`, `AssistantMessage`, and the tool call sites work in the terminal, the Desktop app, and the VS Code extension. The [render sites table](https://code.claude.com/docs/en/plugins/mods/reference.md#render-sites) lists where each of the others is raised.
 
 At a site Claude Code already draws, your hook can change a detail, replace the drawing, or leave it alone. Select a tab to see each one applied to the spinner. The examples read a `calls` variable that another hook counts, as in the [tutorial mod](https://code.claude.com/docs/en/plugins/mods/create.md#write-a-mod-yourself).
 

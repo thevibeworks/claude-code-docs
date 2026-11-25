@@ -12,7 +12,7 @@
 
 This document provides security considerations for the Model Context
 Protocol (MCP), complementing the
-[MCP Authorization](https://modelcontextprotocol.io/specification/latest/basic/authorization.md)
+[MCP Authorization](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization.md)
 specification. This document identifies security risks, attack vectors,
 and best practices specific to MCP implementations.
 
@@ -156,7 +156,7 @@ possible:
    consent screen
 6. The MCP authorization code is redirected to the attacker's server
    (specified in the malicious `redirect_uri` parameter during
-   [dynamic client registration](https://modelcontextprotocol.io/specification/latest/basic/authorization/client-registration.md#dynamic-client-registration))
+   [dynamic client registration](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/client-registration.md#dynamic-client-registration))
 7. The attacker exchanges the stolen authorization code for access
    tokens for the MCP server without the user's explicit approval
 8. The attacker now has access to the third-party API as the compromised
@@ -311,7 +311,7 @@ This vulnerability has two critical dimensions:
 #### Risks
 
 Token passthrough is explicitly forbidden in the
-[authorization specification](https://modelcontextprotocol.io/specification/latest/basic/authorization.md)
+[authorization specification](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization.md)
 as it introduces a number of security risks, that include:
 
 * **Security Control Circumvention**

@@ -1,64 +1,63 @@
 ---
 title: Claude Platform OAuth
 url: https://platform.claude.com/docs/en/manage-claude/oauth-apps/overview
-description: Let your customers pay for the Claude usage in your product from their own Claude organization.
+description: Where to start with Claude Platform OAuth and Linked billing, and how a customer's approval reaches your back end.
 ---
 
 <Warning>
   Claude Platform OAuth is a Beta Service: prerelease software provided under your agreement with Anthropic, such as the [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms), and the [Service Specific Terms](https://www.anthropic.com/legal/service-specific-terms). Endpoints, parameters, and behavior can change during the beta. It might not be suitable for production use.
 </Warning>
 
-Claude Platform OAuth lets your users bill their Claude organization for usage within your app.
+Claude Platform OAuth is how a customer approves your product to use their Claude organization. It powers [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing), which lets your customers pay for the Claude usage in your product through their own Claude organization. To call Claude for your own product with your organization’s credentials, you don’t need an OAuth app: see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication).
 
-## Let customers pay for their own Claude usage
-
-When your product calls Claude, you can bill the usage to each customer’s own Claude organization. This is Linked billing. Your users click a **Link your Claude organization** button, sign in to Claude, and approve your app. They must have the Admin or Billing role in their Claude organization.
-
-After that:
-
-* You choose on each Claude API request whether the customer pays or you pay.
-* If a request you mark for the customer can’t be billed to them, the Claude API rejects it rather than billing you.
-* The customer can unlink your app at any time.
-* You may bill a customer only for the requests they direct you to make, never for your own usage.
-
-You support your customers: Anthropic provides the approval page and the Claude Console page where they set a spend cap or unlink your app, and all other questions about your app come to you.
-
-Linked billing works for customers whose Claude organization pays Anthropic directly for its API usage. It doesn’t work for organizations billed through a cloud marketplace. See [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections).
+To offer Linked billing, you need an OAuth app and an [identity provider](https://platform.claude.com/docs/en/manage-claude/oauth-apps/overview#no-client-secret) that issues tokens to your back end. Your customers need a Claude organization that pays Anthropic directly: see [Eligible customers](https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing#eligible-customers).
 
 ## How it works
 
-Linked billing follows a short round trip. The person leaves your product for Claude’s approval page once, approves your app there, and comes back:
+A customer approves your app once. That creates a connection, which ties their Claude organization to your app until they or you end it.
+
+A user at your customer’s company clicks the [Link your Claude organization button](https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/link-button) in your product. Your back end sends them to Claude’s approval page on `auth.claude.com`. If they have the Admin or Billing role in the customer’s organization, they approve your app, and the browser comes back with a one-time code. Your back end exchanges the code for the connection’s ID and OAuth tokens. After that, Anthropic can bill the customer’s organization for requests that your back end makes for them.
 
 <Frame>
-  ![Sequence diagram: the person approves your app at auth.claude.com, then your back end exchanges the one-time code](https://platform.claude.com/docs/images/oauth-apps-billing-round-trip.svg)
+  ![Sequence diagram: the person approves your app at auth.claude.com, then your back end exchanges the one-time code](https://platform.claude.com/docs/images/linked-billing-round-trip.svg)
 </Frame>
 
-The approval page shows your app’s name and what your app is asking for, so the person knows what they’re approving.
+Someone without either role can’t approve: see [What your customers see](https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/what-your-customers-see#approving-the-link). If you know OAuth, this is the authorization code flow with PKCE.
 
-<Note>
-  Claude Platform OAuth uses the OAuth 2.0 authorization code flow with PKCE. Anthropic is the authorization server.
-</Note>
+### Your OAuth app
 
-## One-time OAuth app setup
+Your OAuth app is your product’s registration with Anthropic. An Admin of your Claude organization creates it in the Claude Console, and it gives your product a client ID. On the approval page, customers see its name, its logo, and what it asks for.
 
-Linked billing starts with these one-time setup steps in the Claude Console. The [Linked billing](https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections#setup-process) guide walks you through them.
+### An identity provider instead of a client secret
 
-These steps need the Admin role in your Claude organization.
+Every request that your back end sends to `auth.claude.com` carries a token from your identity provider, through [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation). Anthropic doesn’t issue client secrets for OAuth apps. Any OpenID Connect issuer works, and there are [guides for common identity providers](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation#identity-providers).
 
-1. **Create the app.** In the Claude Console, create an OAuth app and copy its client ID. The app holds the name that people see on the approval page and the address in your product that they return to.
-2. **Set up client authentication.** Instead of a client secret, your back end uses a short-lived token to prove that a request comes from your app. The token comes from your own identity provider, such as AWS, Google Cloud, or Kubernetes. On the app’s **Client authentication** tab, you select the identity provider and which of its tokens to accept.
-3. **Set up your back end’s identity.** Create a service account and a second federation rule with [Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation). Select the service account as the app’s [operator service account](https://platform.claude.com/docs/en/manage-claude/oauth-apps/oauth-reference#terms), which your back end uses to bill customers.
+## Choose your path
 
-## Next steps
-
-The Linked billing guide walks you through setup and your first linked customer.
+Start with the task you have now. To build an integration, [set up your app](https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/set-up-your-app), [link and bill a test customer](https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/link-and-bill-a-customer), and then [test and publish your app](https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/test-and-publish). Until your app is live, only its test users can link it, so first [add your test customer’s approver](https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/test-and-publish#add-test-users).
 
 <CardGroup cols={2}>
-  <Card title="Linked billing" icon="coins" href="https://platform.claude.com/docs/en/manage-claude/oauth-apps/organization-billing-connections">
-    Let your customers pay for the Claude usage in your product from their own Claude organization
+  <Card title="Linked billing" icon="coins" href="https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing">
+    Decide whether Linked billing fits your product and your customers
   </Card>
 
-  <Card title="OAuth reference" icon="book" href="https://platform.claude.com/docs/en/manage-claude/oauth-apps/oauth-reference">
-    Endpoints, parameters, token responses, lifetimes, and errors
+  <Card title="Set up your app for Linked billing" icon="settings" href="https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/set-up-your-app">
+    Register your app, then go on to link and bill a customer
+  </Card>
+
+  <Card title="Manage linked customers" icon="list" href="https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/manage-customers">
+    Support a linked customer, check whether they’re still linked, or link them again
+  </Card>
+
+  <Card title="Linked billing errors" icon="triangle-alert" href="https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/errors">
+    Fix an error that linking or billing returns
+  </Card>
+
+  <Card title="What your customers see" icon="browser" href="https://platform.claude.com/docs/en/manage-claude/oauth-apps/linked-billing/what-your-customers-see">
+    For product and support teams: the approval page, spend caps, and emails that your customers see
+  </Card>
+
+  <Card title="OAuth endpoints and parameters" icon="book" href="https://platform.claude.com/docs/en/manage-claude/oauth-apps/endpoints-and-parameters">
+    Look up an exact endpoint, parameter, scope, OAuth token field, or error
   </Card>
 </CardGroup>

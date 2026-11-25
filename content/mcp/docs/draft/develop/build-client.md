@@ -18,7 +18,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > Before starting, ensure your system meets these requirements:
 >
-> * Mac or Windows computer
+> * macOS, Windows, or Linux computer
 > * Latest Python version installed
 > * Latest version of `uv` installed
 > * You must use the Python MCP SDK 2.0.0 or higher
@@ -261,7 +261,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > ```python theme={null}
 > async def main() -> None:
 >     if len(sys.argv) < 2:
->         print("Usage: python client.py <path_to_server_script>")
+>         print("Usage: uv run client.py <path_to_server_script>")
 >         sys.exit(1)
 >
 >     async with Client(stdio_client(server_params(sys.argv[1]))) as client:
@@ -343,7 +343,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > > [!NOTE]
 > >
-> > If you're continuing [the weather tutorial from the server quickstart](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-python), your command might look something like this: `python client.py .../quickstart-resources/weather-server-python/weather.py`
+> > If you're continuing [the weather tutorial from the server quickstart](https://github.com/modelcontextprotocol/quickstart-resources/tree/main/weather-server-python), your command might look something like this: `uv run client.py .../quickstart-resources/weather-server-python/weather.py`
 >
 > The client will:
 >
@@ -426,8 +426,8 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > If you see:
 >
-> * `FileNotFoundError`: Check your server path
-> * `Connection refused`: Ensure the server is running and the path is correct
+> * `FileNotFoundError`: Ensure the command (`python`, `node`) is available
+> * `Connection closed`: Check your server path, and run the server command directly to see whether it starts
 > * `Tool execution failed`: Verify the tool's required environment variables are set
 > * `Timeout error`: Consider raising `read_timeout_seconds` on the `Client`
 
@@ -439,7 +439,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > Before starting, ensure your system meets these requirements:
 >
-> * Mac or Windows computer
+> * macOS, Windows, or Linux computer
 > * Node.js 20 or higher installed
 > * Latest version of `npm` installed
 > * Anthropic API key (Claude)
@@ -891,7 +891,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 > If you see:
 >
 > * `Error: Cannot find module`: Check your build folder and ensure TypeScript compilation succeeded
-> * `Connection refused`: Ensure the server is running and the path is correct
+> * `Connection closed`: Check your server path, and run the server command directly to see whether it starts
 > * `Tool execution failed`: Verify the tool's required environment variables are set
 > * `ANTHROPIC_API_KEY is not set`: Check your .env file and environment variables
 > * `TypeError`: Ensure you're using the correct types for tool arguments
@@ -1092,7 +1092,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > Before starting, ensure your system meets these requirements:
 >
-> * JDK 11 or higher
+> * JDK 17 or higher
 > * Anthropic API key (Claude)
 >
 > ## Setting up your environment
@@ -1142,6 +1142,8 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >     id("com.gradleup.shadow") version "8.3.9"
 >     application
 > }
+>
+> version = "0.1.0"
 >
 > repositories {
 >     mavenCentral()
@@ -1517,20 +1519,20 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > ```bash theme={null}
 > # Relative path
-> java -jar build/libs/client.jar ./server/build/libs/server.jar
+> java -jar build/libs/kotlin-mcp-client-0.1.0-all.jar ./server/build/libs/server.jar
 >
 > # Absolute path
-> java -jar build/libs/client.jar /Users/username/projects/mcp-server/build/libs/server.jar
+> java -jar build/libs/kotlin-mcp-client-0.1.0-all.jar /Users/username/projects/mcp-server/build/libs/server.jar
 >
 > # Windows path (either format works)
-> java -jar build/libs/client.jar C:/projects/mcp-server/build/libs/server.jar
-> java -jar build/libs/client.jar C:\\projects\\mcp-server\\build\\libs\\server.jar
+> java -jar build/libs/kotlin-mcp-client-0.1.0-all.jar C:/projects/mcp-server/build/libs/server.jar
+> java -jar build/libs/kotlin-mcp-client-0.1.0-all.jar C:\\projects\\mcp-server\\build\\libs\\server.jar
 > ```
 >
 > ### Build Issues
 >
 > * Use `./gradlew build` or `./gradlew shadowJar` (not `./gradlew jar`) to create the shadow JAR with all dependencies
-> * If you get JDK version errors, ensure your installed JDK version matches or exceeds the `jvmToolchain` setting in `build.gradle.kts`
+> * If you get JDK version errors, ensure your installed JDK is version 17 or higher
 >
 > ### Response Timing
 >
@@ -1546,7 +1548,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > If you see:
 >
-> * `Connection refused`: Ensure the server is running and the path is correct
+> * `Connection closed`: Check your server path, and run the server command directly to see whether it starts
 > * `Tool execution failed`: Verify the tool's required environment variables are set
 > * `[Stopped after 10 tool-use turns]`: Claude was still requesting tools when `MAX_TOOL_TURNS` ran out, so raise the cap or narrow the query
 > * `ANTHROPIC_API_KEY is not set`: Check your environment variables
@@ -1754,7 +1756,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > Before starting, ensure your system meets these requirements:
 >
-> * Mac or Windows computer
+> * macOS, Windows, or Linux computer
 > * Ruby 3.2.0 or higher installed (required by the [Anthropic SDK](https://github.com/anthropics/anthropic-sdk-ruby))
 > * Anthropic API key (Claude)
 >
@@ -2171,8 +2173,8 @@ Before you begin, it helps to have gone through our [Build an MCP Server](https:
 >
 > If you see:
 >
-> * `Errno::ENOENT`: Check your server path and ensure the command (`ruby`, `python3`, `node`) is available
-> * `Connection refused`: Ensure the server is running and the path is correct
+> * `Failed to spawn server process`: Ensure the command (`ruby`, `python3`, `node`) is available
+> * `Server process has exited` or `Failed to write to server process`: Check your server path, and run the server command directly to see whether it starts
 > * `Tool execution failed`: Verify the tool's required environment variables are set
 > * `Anthropic::Errors::AuthenticationError`: Check your `.env` file has a valid `ANTHROPIC_API_KEY`
 > * `[Stopped after 10 tool-use turns]`: Claude kept asking for tools, so the client stopped at `MAX_TOOL_TURNS` and returned the text collected so far

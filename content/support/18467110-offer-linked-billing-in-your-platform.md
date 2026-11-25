@@ -174,6 +174,6 @@ Linked usage is billed to the customer's prepaid balance or invoice. Some promot
 
 - Sign-up credits limited to specific products
 
-- Credits from Anthropic's partner, venture capital, and startup programs (we're still rolling this out)
+- Credits from Anthropic's partner, venture capital, and startup programs
 
 If nothing on the customer's account can pay, its requests may be refused. After the customer adds funds, the purchase can take some time to apply. We may update this list as our credit programs change.

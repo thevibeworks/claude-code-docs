@@ -135,7 +135,7 @@ To run the login command, the app locates the AWS CLI by searching the launch en
 
 If your AWS configuration files are not at the default location, set `inferenceBedrockAwsDir` to the directory that contains them.
 
-In [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#amazon-bedrock-with-a-named-profile), Claude Code signs in on the host, not on the device. Each host needs a profile of the same name, and users sign in to it there if it needs a sign-in.
+In [SSH remote sessions](https://claude.com/docs/third-party/claude-desktop/ssh-remote-sessions.md#amazon-bedrock-with-a-named-profile), Claude Code signs in on the host, not on the device. Each host needs a profile of the same name. If that profile needs a sign-in, users sign in to the profile on the host.
 
 ### Sign in with your identity provider
 
@@ -172,17 +172,23 @@ With AWS set up and devices prepared, open the [in-app configuration window](htt
 
 | Field | Bearer token | In-app AWS sign-in | Named profile |
 | - | - | - | - |
-| AWS region | e.g. `us-west-2` | e.g. `us-west-2` | e.g. `us-west-2` |
-| AWS bearer token | your Amazon Bedrock API key | *leave empty* | *leave empty* |
+| Credential kind | **Static API key** | **Interactive sign-in** | **Cloud vendor profile** |
+| AWS region | for example, `us-west-2` | for example, `us-west-2` | for example, `us-west-2` |
+| AWS bearer token | your Amazon Bedrock API key | *field hidden* | *field hidden* |
 | Bedrock base URL | *optional* | *optional* | *optional* |
-| AWS profile name | *leave empty* | *leave empty* | `claude-cowork` |
-| AWS config directory | *leave empty* | *leave empty* | *only if not `~/.aws`* |
-| AWS CLI path | *leave empty* | *leave empty* | *optional* |
-| AWS SSO start URL | *leave empty* | `https://d-xxxxxxxxxx.awsapps.com/start` | *leave empty* |
-| AWS SSO region | *leave empty* | e.g. `us-east-1` | *leave empty* |
-| AWS SSO account ID | *leave empty* | `123456789012` | *leave empty* |
-| AWS SSO role name | *leave empty* | `BedrockInference` | *leave empty* |
+| AWS profile name | *field hidden* | *field hidden* | `claude-cowork` |
+| AWS config directory | *field hidden* | *field hidden* | *only if not `~/.aws`* |
+| AWS CLI path | *field hidden* | *field hidden* | *optional* |
+| AWS SSO start URL | *field hidden* | `https://d-xxxxxxxxxx.awsapps.com/start` | *field hidden* |
+| AWS SSO region | *field hidden* | for example, `us-east-1` | *field hidden* |
+| AWS SSO account ID | *field hidden* | `123456789012` | *field hidden* |
+| AWS SSO role name | *field hidden* | `BedrockInference` | *field hidden* |
 | Bedrock service tier | *optional* | *optional* | *optional* |
+
+For the other authentication approaches, select a different **Credential kind**:
+
+* **[Identity provider sign-in](#sign-in-with-your-identity-provider)**: select **Identity provider sign-in (OIDC)**
+* **[Credential helper](https://claude.com/docs/third-party/claude-desktop/configuration.md#inferencecredentialhelper)**: select **Helper script**
 
 Under **Models**, add a **Model list** entry using the Amazon Bedrock inference-profile ID (optional for bearer-token or credential-helper auth, which auto-discover models; required otherwise), for example `us.anthropic.claude-sonnet-5`.
 

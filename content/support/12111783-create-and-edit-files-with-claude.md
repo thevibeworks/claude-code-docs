@@ -76,27 +76,27 @@ Team and Enterprise organization owners can control network access settings in *
 
 ## How does disabling network access address security concerns with code execution and file creation?
 
-Disabling network access prevents data from leaving Claude's sandboxed environment—even if something goes wrong.
+Disabling network access prevents code in Claude's sandboxed environment from sending data out. Connectors can still send data.
 
 ### How it works
 
 When Claude executes code or creates files, it operates within an isolated, sandboxed container. This means the work happens in a controlled environment separate from your systems. However, if network access is enabled, there's a potential risk: through prompt injection or other attacks, Claude could theoretically be tricked into sending data to external servers.
 
-Disabling network access eliminates this risk entirely. Your team still gets Claude's full code execution and file creation capabilities - building Excel models, creating presentations, analyzing data—but with the assurance that nothing can be transmitted outside the sandbox.
+Disabling network access reduces this risk. Your team still gets Claude's full code execution and file creation capabilities - building Excel models, creating presentations, analyzing data—and code in the sandbox can't send data out, but connectors still can.
 
 ### A phased approach to network access
 
 Claude is most powerful with network access enabled, allowing it to install new packages and dependencies, pull in real-time data, and interact with web services. For organizations comfortable with that risk profile, enabling access to vetted, trusted domains unlocks the full potential of code execution and file creation. For those taking a more cautious approach, we recommend starting with network access disabled and adjusting as your team builds confidence:
 
-1. **Start with network access off.** This is the most secure configuration. Claude can execute code and create files, but cannot communicate externally.
+1. **Start with network access off.** This is the most secure configuration. Claude can execute code and create files, but code in the sandbox can't communicate externally. Connectors still can.
 
 2. **Enable package managers.** Unlocks pip, npm, and other package managers to install dependencies - significantly expands what Claude can build.
 
 3. **Expand network access as needed.** Add specific domains to an allowlist based on business requirements, maintaining visibility into what's permitted.
 
-This approach gives you defense in depth—even if there were vulnerabilities in the sandbox or a successful prompt injection, disabled network access acts as a final barrier preventing data from leaving Anthropic's infrastructure.
+This approach gives you defense in depth—even if there were vulnerabilities in the sandbox or a successful prompt injection, disabled network access helps prevent code in the sandbox from sending data outside Anthropic's infrastructure. Connectors can still send data.
 
-**Note:** If MCP (Model Context Protocol) integrations are enabled, network communication remains possible through those connections regardless of the network egress setting. Organizations should evaluate MCP configurations separately.
+**Note:** If MCP (Model Context Protocol) integrations are enabled, network communication remains possible through those connections regardless of the network egress setting. This includes file transfers with connectors. Organizations should evaluate MCP configurations separately.
 
 ---
 
@@ -112,7 +112,7 @@ Claude can create Excel spreadsheets (.xlsx), PowerPoint presentations (.pptx), 
 
 With this feature, Claude can also do more advanced data analysis and data science work. Claude can create Python scripts for data analysis. Claude can create data visualizations in image files like PNG. You can also upload CSV, TSV, and other files for data analysis and visualization.
 
-The maximum file size is 30MB per file for both uploads and downloads.
+The maximum file size is 30MB per file for both uploads and downloads. Files you send to or save from connected apps have different limits. Learn more about **[file limits for connected apps](https://support.claude.com/en/articles/18534325)**.
 
 ---
 
@@ -122,7 +122,7 @@ The maximum file size is 30MB per file for both uploads and downloads.
 
 Claude creates Excel spreadsheets (.xlsx), PowerPoint presentations (.pptx), Word documents (.docx), and PDF files. You can download the files Claude creates or save them directly to Google Drive.
 
-The maximum file size is 30MB per file for both uploads and downloads. For PDFs larger than 30MB, Claude can process them through its computing environment without loading them into the context window.
+The maximum file size is 30MB per file for both uploads and downloads. Files you send to or save from connected apps have different limits. For PDFs larger than 30MB, Claude can process them through its computing environment without loading them into the context window.
 
 ### Advanced data analysis
 

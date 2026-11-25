@@ -11,7 +11,7 @@ necessary information dynamically.
 
 Elicitation supports two modes:
 
-* **Form mode**: Servers can request structured data from users with optional JSON schemas to validate responses
+* **Form mode**: Servers can request structured data from users with JSON schemas to validate responses
 * **URL mode**: Servers can direct users to external URLs for sensitive interactions that must *not* pass through the MCP client
 
 ## User Interaction Model
@@ -85,7 +85,8 @@ Servers **MUST NOT** send elicitation requests with modes that are not supported
 Servers **MAY** request information from a user during the processing of a client request, by sending an [`InputRequiredResult`](https://modelcontextprotocol.io/specification/2026-07-28/basic/patterns/mrtr#inputrequiredresult)
 containing an `elicitation/create` request.
 
-All elicitation requests **MUST** include the following parameters:
+All elicitation requests **MUST** include the following parameters, except that form mode
+requests **MAY** omit `mode`:
 
 | Name | Type | Options | Description |
 | - | - | - | - |
@@ -115,9 +116,10 @@ The `requestedSchema` parameter allows servers to define the structure of the ex
 response using a restricted subset of JSON Schema.
 
 To simplify client user experience, form mode elicitation schemas are limited to flat objects
-with primitive properties only.
+whose properties are strings, numbers, booleans, or enums. The only array properties
+allowed are multi-select enums.
 
-The schema is restricted to these primitive types:
+The schema is restricted to these types:
 
 1. **String Schema**
 
@@ -232,9 +234,9 @@ Clients can use this schema to:
 2. Validate user input before sending
 3. Provide better guidance to users
 
-All primitive types support optional default values to provide sensible starting points. Clients that support defaults SHOULD pre-populate form fields with these values.
+All of these types support optional default values to provide sensible starting points. Clients that support defaults SHOULD pre-populate form fields with these values.
 
-Note that complex nested structures, arrays of objects (beyond enums), and other advanced JSON Schema features are intentionally not supported to simplify client user experience.
+Note that complex nested structures, arrays other than multi-select enums, and other advanced JSON Schema features are intentionally not supported to simplify client user experience.
 
 #### Example: Simple Text Request
 
@@ -321,7 +323,7 @@ Note that complex nested structures, arrays of objects (beyond enums), and other
 
 > [!NOTE]
 >
-> **New feature:** URL mode elicitation is introduced in the `2025-11-25` version of the MCP specification. Its design and implementation may change in future protocol revisions.
+> URL mode elicitation was introduced in the `2025-11-25` version of the MCP specification. Its design and implementation may change in future protocol revisions.
 
 URL mode elicitation enables servers to direct users to external URLs for out-of-band interactions that must not pass through the MCP client. This is essential for auth flows, payment processing, and other sensitive or secure operations.
 
@@ -557,12 +559,11 @@ sequenceDiagram
     Note over Server: Needs 3rd-party authorization for user
     Note over Server: Store state (bind the elicitation request to the user)
     Note over Server: generate requestState that encodes information about the original request and user.
-    Server->>Client: InputRequiredResult<br/>(mode: "url", url: "https://mcp.example.com/connect?...", requestState)
+    Server->>Client: InputRequiredResult<br/>(elicitation/create (mode: "url", url: "https://mcp.example.com/connect?..."), requestState)
 
     Client->>User: Present consent to open URL
     User->>Client: Provide consent
     Client->>UserAgent: Open URL
-    Client->>Server: Accept response
     UserAgent->>Server: Load connect route
 
     Note over Server: Confirm: user is logged into MCP Server or MCP AS<br>Confirm: elicitation user matches session user
@@ -575,6 +576,7 @@ sequenceDiagram
     Server->>3AS: Exchange authorization code for  OAuth tokens
     3AS->>Server: Grants tokens
     Note over Server: Bind tokens to MCP user identity
+    User->>Client: Retry the original request
     Client->>Server: tools/call (ElicitResults, requestState)
     Note over Server: Retrieve token bound to user identity
     Server->>3RS: Call 3rd-party API

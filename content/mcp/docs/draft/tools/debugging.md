@@ -16,9 +16,9 @@ MCP provides several tools for debugging at different levels:
 
 1. **[MCP Inspector](https://modelcontextprotocol.io/docs/draft/tools/inspector.md)**: interactive, transport-agnostic
    testing UI. Connect to stdio or Streamable HTTP servers, invoke
-   [tools](https://modelcontextprotocol.io/specification/latest/server/tools.md),
-   [prompts](https://modelcontextprotocol.io/specification/latest/server/prompts.md), and
-   [resources](https://modelcontextprotocol.io/specification/latest/server/resources.md), and watch the
+   [tools](https://modelcontextprotocol.io/specification/draft/server/tools.md),
+   [prompts](https://modelcontextprotocol.io/specification/draft/server/prompts.md), and
+   [resources](https://modelcontextprotocol.io/specification/draft/server/resources.md), and watch the
    notification stream. This should be your first stop.
 2. **Server logging**: structured logs to stderr (stdio transport) or via
    [OpenTelemetry](https://opentelemetry.io/) (all transports).
@@ -49,7 +49,7 @@ or [OpenTelemetry](https://opentelemetry.io/) for logs, and standard HTTP
 tooling (curl, browser DevTools Network panel) to inspect requests and SSE
 streams.
 
-For all [transports](https://modelcontextprotocol.io/specification/latest/basic/transports.md), record what the
+For all [transports](https://modelcontextprotocol.io/specification/draft/basic/transports.md), record what the
 server is doing as it runs. For example, to write to stderr:
 
 ```python Python theme={null}

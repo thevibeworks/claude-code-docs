@@ -10,7 +10,7 @@
 > `2026-07-28`
 > ([SEP-2577](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2577)).
 > Under the [feature lifecycle policy](https://modelcontextprotocol.io/community/feature-lifecycle.md), it remains
-> in the specification for at least twelve months after this revision's release
+> in the specification for at least twelve months after that revision's release
 > before it becomes eligible for removal. New implementations **SHOULD NOT**
 > adopt it; existing implementations **SHOULD** migrate to passing directories
 > or files via tool parameters, resource URIs, or server configuration. See the

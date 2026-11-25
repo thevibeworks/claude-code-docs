@@ -47,6 +47,7 @@ Within the application-data directory:
 | `claude-code-sessions/` | Code session records holding each session's working folder, settings, title, and sometimes a short summary. The conversation transcripts themselves are in Claude Code's own store at `~/.claude/projects/`, outside this directory. |
 | `scratch-workspaces/` | The private working folders of Code sessions that users start without choosing a folder. When a user deletes such a session, the app deletes its folder, with its files, about a week later. [Automatic deletion of idle sessions](#automatic-deletion-of-idle-sessions) deletes the folder when it deletes the session. A folder that another session still uses stays. |
 | `claude-code/`, `claude-code-vm/` | Claude Code binary and VM workspace data for Code sessions. |
+| `import-bundles/` | The unzipped copy of a [Claude Desktop export](https://claude.com/docs/third-party/claude-desktop/import.md#move-your-data-to-another-device) that a user chose to import. |
 | `vm_bundles/` | Cached copy of the VM workspace bundle that Cowork uses, plus the data disk the app creates to hold Cowork sessions' home directories inside the VM. |
 | `local-agent-mode-sessions/.../cowork_plugins/` | User-installed and [org-provisioned](https://claude.com/docs/third-party/claude-desktop/extensions.md#organization-plugins-admin) plugins. Created on first plugin install. |
 | `plugin-mcp-auth/`, `connectors/*/plugin-mcp/` | On Windows and Linux, the `.credentials.json` file that holds the user's sign-ins to plugin servers, made outside **Code**. See [Credentials](#credentials). |
@@ -58,7 +59,7 @@ The app doesn't encrypt conversations, settings, or the locally applied configur
 
 The logs directory contains `main.log` (application and configuration-validation events), `ssh.log` (SSH connection events), `cowork_vm_node.log` (sandbox VM activity), `claude.ai-web.log` (renderer events), and `mcp.log` / `mcp-server-<name>.log` (MCP connection events).
 
-Separately from the application-data directory, Claude Desktop writes live artifacts (interactive pages) and scheduled-task results to `~/Claude/` in your home directory, or `~/Documents/Claude/` on legacy installs. This folder is intended for you to browse directly and is not removed when you delete the application-data directory. To back up a user's data, copy every location listed under [Copy the data to the new device](#copy-the-data-to-the-new-device).
+Separately from the application-data directory, Claude Desktop writes live artifacts (interactive pages) and scheduled-task results to `~/Claude/` in the user's home directory, or `~/Documents/Claude/` on legacy installs. This folder is intended for the user to browse directly and is not removed when you delete the application-data directory. To back up a user's data, copy every location listed under [Copy the data to the new device](#copy-the-data-to-the-new-device).
 
 ### Virtual desktops
 
@@ -273,7 +274,7 @@ Copy the data if:
 * **Your policies don't let users save their conversations and files to a zip file**
 * **Claude Desktop doesn't open on the old device**, so the user can't start an export
 * **You set `allowedOrganizationUuids`** under [`claudeAiImport`](https://claude.com/docs/third-party/claude-desktop/configuration#claudeaiimport), which turns off import from a file
-* **The export dialog says that the export is over the import limit of 20 GB or 5,000,000 files**
+* **The user has more than 20 GB of data or 5,000,000 files to export.** An export leaves out some of their files, or stops with the message **This export is over the import limit of 20 GB or 5,000,000 files.** Versions before 6.6395.0 have a [100 MB limit](https://claude.com/docs/third-party/claude-desktop/import.md#what-a-claude-desktop-export-moves) on some files.
 
 Use an export and import if:
 
@@ -297,7 +298,7 @@ For the user's steps and the full list of data that moves, see [Move your data t
 
 `exportEnabled` works only when `enabled` is on.
 
-* **`exportEnabled`**: users can export their data to a zip file anywhere they can save files. The file contains sessions with attached and output files, projects, the files of each project whose folder is in the default location (`~/Claude/Projects`), memory, scheduled tasks, saved skills, uploaded plugins, some app preferences, and the commands, arguments, and environment variable names of local MCP servers. It also lists the paths of the other folders that projects use, and of the folders and files that scheduled tasks use. If you set `allowedOrganizationUuids`, it contains only sessions, their files, and project names and instructions.
+* **`exportEnabled`**: users can export their data to a zip file anywhere they can save files. The file contains sessions with attached and output files, projects, the files of each project folder that's directly inside the **Projects** folder of the user's Cowork files folder (`~/Claude/Projects` by default), memory, scheduled tasks, saved skills, uploaded plugins, some app preferences, and the commands, arguments, and environment variable names of local MCP servers. It also lists the paths of the other folders that projects use, and of the folders and files that scheduled tasks use. If you set `allowedOrganizationUuids`, it contains only sessions, their files, and project names and instructions.
 * **`enabled`**: users can import an export file from another device, a claude.ai data export, and earlier sessions on the device. Claude Desktop can't verify who made an export file, so it asks the user to confirm that the file is their own. If the user doesn't confirm, only the sessions are imported, with the projects and attached files that they use.
 
 After the user confirms:
@@ -315,6 +316,16 @@ After the user confirms:
 > The zip file isn't encrypted. Sessions, project files, memory, scheduled tasks, skills, plugins, and the arguments of local MCP servers are copied as they are, with any passwords or API keys written in them. Sign-ins, connector tokens, saved provider API keys, and the values of environment variables for the local MCP servers that users added stay on the old device. Tell users to import only their own exports, to keep the file private, and to delete every copy when they no longer need it.
 
 The old device keeps its data until you [remove it](#removing-data).
+
+### Fix the `UNPACK_FOLDER_BLOCKED` error
+
+When a user chooses an export file to import, Claude Desktop unzips the file into the `import-bundles` folder of the user's [application-data directory](#where-data-lives). If the app can't use that folder, for example because the user's account can't open it, the import wizard shows **Couldn’t unpack this export** with the code `UNPACK_FOLDER_BLOCKED`. Take these steps on the user's device:
+
+1. Have the user quit Claude Desktop. Closing its window can leave the app running.
+2. Delete `import-bundles`. The folder holds only unzipped copies of export files. The export files themselves stay where the user saved them.
+3. Have the user open Claude Desktop and import the file again. The app creates the folder again.
+
+If the message comes back, send the code and a [diagnostic report](https://claude.com/docs/third-party/claude-desktop/installation.md#troubleshooting) to your Anthropic representative.
 
 ### What a copy moves
 

@@ -223,7 +223,7 @@ These steps use the Claude API and the `ant` worker. For what changes on a cloud
         For Linux environments, download the release binary directly.
 
         ```bash
-        VERSION=2.13.0
+        VERSION=2.14.0
         OS=$(uname -s | tr '[:upper:]' '[:lower:]')
         case $(uname -m) in
           x86_64) ARCH=amd64 ;;

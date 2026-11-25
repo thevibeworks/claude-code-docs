@@ -8,6 +8,15 @@ The Model Context Protocol (MCP) supports optional progress tracking for long-ru
 operations through notification messages. The server **MAY** send progress notifications
 to report the status of requests the client has issued.
 
+> [!NOTE]
+>
+> For brevity, the request example on this page shows only `progressToken` and
+> omits the `_meta` request metadata (`io.modelcontextprotocol/protocolVersion`,
+> `io.modelcontextprotocol/clientInfo`, and
+> `io.modelcontextprotocol/clientCapabilities`). Every request **MUST** include
+> the required `_meta` fields; see
+> [`_meta`](https://modelcontextprotocol.io/specification/2026-07-28/basic/index#_meta).
+
 ## Progress Flow
 
 When a client wants to *receive* progress updates for a request, it includes a

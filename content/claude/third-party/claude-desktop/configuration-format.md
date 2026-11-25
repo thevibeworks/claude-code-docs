@@ -92,7 +92,7 @@ The managed source on Linux is a single JSON file, `/etc/claude-desktop/managed-
 ```json theme={null}
 {
   "inferenceProvider": "gateway",
-  "inferenceGatewayBaseUrl": "https://gateway.example.com/v1",
+  "inferenceGatewayBaseUrl": "https://gateway.example.com",
   "inferenceGatewayApiKey": "sk-example",
   "inferenceCustomHeaders": { "X-Tenant-Id": "acme" }
 }

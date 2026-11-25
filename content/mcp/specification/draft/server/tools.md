@@ -241,7 +241,12 @@ capability **SHOULD** send a notification to clients that have opened a
 ```json theme={null}
 {
   "jsonrpc": "2.0",
-  "method": "notifications/tools/list_changed"
+  "method": "notifications/tools/list_changed",
+  "params": {
+    "_meta": {
+      "io.modelcontextprotocol/subscriptionId": "listen-1"
+    }
+  }
 }
 ```
 
@@ -283,7 +288,7 @@ A tool definition includes:
 
 * `name`: Unique identifier for the tool
 * `title`: Optional human-readable name of the tool for display purposes.
-* `description`: Human-readable description of functionality
+* `description`: Optional human-readable description of functionality
 * `icons`: Optional array of icons for display in user interfaces
 * `inputSchema`: JSON Schema defining expected parameters
   * Follows the [JSON Schema usage guidelines](https://modelcontextprotocol.io/specification/draft/basic.md#json-schema-usage)
