@@ -1727,28 +1727,8 @@
       "since": "2026-09-22",
       "reason": "moved -> https://support.claude.com/en/articles/9927533-control-project-sharing-for-your-organization"
     },
-    "https://www.anthropic.com/legal/archive/60422e4b-4c80-462d-af4a-7ddd10289cf4": {
-      "since": "2026-11-25",
-      "reason": "dropped from versionHistory"
-    },
-    "https://www.anthropic.com/legal/archive/71085c3c-857c-464d-8075-ae918f0e5555": {
-      "since": "2026-11-25",
-      "reason": "dropped from versionHistory"
-    },
     "https://www.anthropic.com/legal/archive/8d358a42-e4d9-48ff-bd20-d44c89939c98": {
       "since": "2026-11-20",
-      "reason": "dropped from versionHistory"
-    },
-    "https://www.anthropic.com/legal/archive/90113ac5-6846-4777-84d8-edde3719ac06": {
-      "since": "2026-11-25",
-      "reason": "dropped from versionHistory"
-    },
-    "https://www.anthropic.com/legal/archive/99a99900-9830-4383-85ab-47896850d1e5": {
-      "since": "2026-11-25",
-      "reason": "dropped from versionHistory"
-    },
-    "https://www.anthropic.com/legal/archive/d1642ca5-a466-4326-ac3d-a9de6e60e627": {
-      "since": "2026-11-25",
       "reason": "dropped from versionHistory"
     }
   }
