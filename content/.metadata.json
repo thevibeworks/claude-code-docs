@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-26T00:04:47.549723Z",
+    "fetch_date": "2026-11-26T09:11:08.212886Z",
     "section": "all"
   },
   "items": [
@@ -7163,8 +7163,8 @@
       "url": "https://code.claude.com/docs/en/claude-security",
       "status": "success",
       "path": "en/docs/claude-code/claude-security.md",
-      "sha256": "5b7324657a5045492c3be3097a95f55262051e1e53356c1cc09882258e1e8757",
-      "size": 28474
+      "sha256": "8cc2ed048d551f7f3e3e12e8b13e0c17562ff43b6e20da6d8d8c92023d03cbce",
+      "size": 30125
     },
     {
       "url": "https://code.claude.com/docs/en/github-actions",
