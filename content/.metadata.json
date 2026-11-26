@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-25T20:19:27.218137Z",
+    "fetch_date": "2026-11-26T00:04:47.549723Z",
     "section": "all"
   },
   "items": [
@@ -28156,7 +28156,7 @@
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/.claude-plugin/plugin.json",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-security/.claude-plugin/plugin.json",
-      "sha256": "2e5d8fc02a0933fdd365aa6a1f2a71667287152bce2265dda9507d67222c9948",
+      "sha256": "70bab346027eedfccd77af09c9890c14cec7c54474c47fd2723f45676b646cb4",
       "size": 1134
     },
     {
@@ -28184,22 +28184,22 @@
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/README.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-security/README.md",
-      "sha256": "e24280e336b64614858b90044e81caf9f6e3f62063d2312ba342c7c6193937da",
-      "size": 23247
+      "sha256": "5c0928a99c5075a6fc313a451462ad22fd34185a218517e8ae4030caa995a2fc",
+      "size": 23522
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/SECURITY.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-security/SECURITY.md",
-      "sha256": "0465b07a3e1a6d4e7333c88eb408d8bea73444ca748ffbf39c2e890a241c7aa3",
-      "size": 6869
+      "sha256": "a707cca877e503dcb6f1b1fe1c9b669082da711a47df785f879f944b964b6660",
+      "size": 7140
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/TUI.md",
       "status": "success",
       "path": "github/claude-plugins-official/plugins/claude-security/TUI.md",
-      "sha256": "f2dc2ac9e3e804e9a7896e7307884af8364533c566984d434ecafb865fc9f8a2",
-      "size": 5654
+      "sha256": "da2d747e5e82f02afdd40762603c1fdaa4813f583147b5dbe122b2cb7781ca29",
+      "size": 5773
     },
     {
       "url": "https://raw.githubusercontent.com/anthropics/claude-plugins-official/main/plugins/claude-security/agents/attack-surface-redactor.md",
