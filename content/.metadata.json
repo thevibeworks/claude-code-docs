@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-27T19:44:36.117613Z",
+    "fetch_date": "2026-11-27T23:57:48.316868Z",
     "section": "all"
   },
   "items": [
@@ -8556,8 +8556,8 @@
       "url": "https://modelcontextprotocol.io/development/roadmap",
       "status": "success",
       "path": "mcp/development/roadmap.md",
-      "sha256": "f99a47ddf7727a1d1110b187abdef48bb42c70fcbc60643357b310ea3dc3144a",
-      "size": 14142
+      "sha256": "9b4bd8d20bee967cb8062c4db9244a18f9d663c046652c61cd633421c409f173",
+      "size": 14303
     },
     {
       "url": "https://modelcontextprotocol.io/docs/2024-11-05/develop/build-client",

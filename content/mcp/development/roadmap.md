@@ -12,6 +12,8 @@
 
 This page outlines the Core Maintainers' vision for the protocol over the coming six to twelve months, highlighting objectives targeted for the next specification update and beyond. It describes our primary strategic goals and the expected deliverables from [Working and Interest Groups](https://modelcontextprotocol.io/community/working-interest-groups.md).
 
+For when specification releases ship and how SEPs are scheduled into them, see the [release cycle](https://modelcontextprotocol.io/community/release-cycle.md).
+
 > [!NOTE]
 >
 > This roadmap reflects current thinking rather than firm commitments. Priorities may shift, some items may be delivered differently than described or deferred, and work not listed here may still be included in the release.
