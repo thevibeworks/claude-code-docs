@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-27T15:42:57.528841Z",
+    "fetch_date": "2026-11-27T19:44:36.117613Z",
     "section": "all"
   },
   "items": [
@@ -9431,8 +9431,8 @@
       "url": "https://modelcontextprotocol.io/extensions/client-matrix",
       "status": "success",
       "path": "mcp/extensions/client-matrix.md",
-      "sha256": "2547554e2e9d242f5e1e5930966fa08e27398e8f152902800f8735c3dd8c5d38",
-      "size": 5572
+      "sha256": "04bcffdde3bd1c439e120357f9ea847f3dd6d635899106fec720dafc5c97f18f",
+      "size": 5738
     },
     {
       "url": "https://modelcontextprotocol.io/extensions/events/overview",
