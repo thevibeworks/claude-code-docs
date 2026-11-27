@@ -6,7 +6,7 @@
 
 > Use the operating system's native Microsoft Entra sign-in broker so Claude Desktop on 3P satisfies device-based Conditional Access policies
 
-Several Claude Desktop on 3P features can authenticate to Microsoft Entra ID, including the Microsoft Foundry inference provider, gateway and Workforce Identity sign-in when Entra ID is the identity provider, managed MCP servers, and the Microsoft 365 connector. Each of these can run its Entra sign-in through the operating system's native identity broker instead of a browser or device code. To turn on the broker for a feature, see [Where the broker is used](#where-the-broker-is-used).
+Several Claude Desktop on 3P features can authenticate to Microsoft Entra ID, including the Microsoft Foundry inference provider, gateway and Workforce Identity sign-in when Entra ID is the identity provider, managed MCP servers, and the local Microsoft 365 connector. Each of these can run its Entra sign-in through the operating system's native identity broker instead of a browser or device code. To turn on the broker for a feature, see [Where the broker is used](#where-the-broker-is-used).
 
 ## What the broker is
 
@@ -30,13 +30,13 @@ The broker also removes the need for a `localhost` or `127.0.0.1` loopback redir
 
 For the gateway, Amazon Bedrock, and Workforce Identity flows, the broker is available only when your identity provider is Microsoft Entra ID: the `issuer` in `inferenceGatewayOidc`, `inferenceIdpOidc`, or `inferenceVertexWorkforceOidc` must have the form `https://login.microsoftonline.com/TENANT_ID/v2.0`. For a managed MCP server, the `oauth` object must also set `tenantId`, `clientId`, and `scope`. For a GCC High or DoD tenant, see [GCC High and DoD tenants](#gcc-high-and-dod-tenants).
 
-The [Microsoft 365 connector](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#how-users-sign-in) also uses the OS broker for its own Entra sign-in. Its broker setup is documented on that page, and its app registration needs the same settings described under [Register the Entra ID application](#register-the-entra-id-application).
+The local [Microsoft 365 connector](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#how-users-sign-in) also uses the OS broker for its own Entra sign-in. For that sign-in, the connector's app registration needs the settings described under [Register the Entra ID application](#register-the-entra-id-application), and each device must meet the requirements under [Prepare devices](#prepare-devices).
 
 ## Platform support
 
 Brokered sign-in is available on Windows and macOS. Linux has no OS identity broker.
 
-What happens on Linux, or on a Windows or macOS device where the broker is unavailable, depends on the feature. For the inference sign-in flows (Foundry, gateway, Amazon Bedrock, and Workforce Identity), the app shows an error that names the browser flow as the alternative rather than falling back to a browser or device-code flow, because a silent fallback would bypass the device policy the broker was chosen to satisfy. Managed MCP servers and the [Microsoft 365 connector](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#how-users-sign-in) fall back to the system browser instead. To make the Microsoft 365 connector's sign-in fail rather than fall back, set [`microsoftAuthBroker`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `required` (Claude Desktop 1.49585.0 or later).
+What happens on Linux, or on a Windows or macOS device where the broker is unavailable, depends on the feature. For the inference sign-in flows (Foundry, gateway, Amazon Bedrock, and Workforce Identity), the app shows an error that names the browser flow as the alternative rather than falling back to a browser or device-code flow, because a silent fallback would bypass the device policy the broker was chosen to satisfy. Managed MCP servers and the local [Microsoft 365 connector](https://claude.com/docs/third-party/claude-desktop/connectors-m365.md#how-users-sign-in) fall back to the system browser instead. To make the local Microsoft 365 connector's sign-in fail rather than fall back, set [`microsoftAuthBroker`](https://claude.com/docs/third-party/claude-desktop/configuration#microsoftauthbroker) to `required` (Claude Desktop 1.49585.0 or later).
 
 ## GCC High and DoD tenants
 

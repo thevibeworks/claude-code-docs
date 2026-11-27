@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-27T00:25:13.509150Z",
+    "fetch_date": "2026-11-27T15:42:57.528841Z",
     "section": "all"
   },
   "items": [
@@ -15395,8 +15395,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code",
       "status": "success",
       "path": "claude/third-party/claude-desktop/admin-console-claude-code.md",
-      "sha256": "ac71316aa3812607d3b91913282b128c3da4b4f3c20ccceec735c79e06cf0528",
-      "size": 30182
+      "sha256": "bdd9d5df250e553328a589884b16ce0b7107e6e3e3832f411581e704a4df438e",
+      "size": 30130
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/admin-console-claude-code-reference",
@@ -15500,8 +15500,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/connectors-m365",
       "status": "success",
       "path": "claude/third-party/claude-desktop/connectors-m365.md",
-      "sha256": "b3dfc6c854d7ad70d7260d0f06011b0592ae36695396e0d8bb548823905f5a69",
-      "size": 52456
+      "sha256": "02cdf6486681fb87514d911990624767314084e797033f8774f24721a578e442",
+      "size": 52070
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/connectors-salesforce",
@@ -15535,8 +15535,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/entra-broker",
       "status": "success",
       "path": "claude/third-party/claude-desktop/entra-broker.md",
-      "sha256": "ba1fb9f382ef8d922edda76e2576e00ee9a5d9e925546ce319470b4ef6977272",
-      "size": 14644
+      "sha256": "507461f26d8f6d622e0a24e15f9e6c233305c077eda4581ffa39b8d71bcf8245",
+      "size": 14730
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/extensions",
@@ -15563,8 +15563,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/gateway",
       "status": "success",
       "path": "claude/third-party/claude-desktop/gateway.md",
-      "sha256": "cce7cd00364edd611e9560339e1686c845e1ebc5a49e651735066589c3853090",
-      "size": 80909
+      "sha256": "3f2c6f83ab4c82ddb395143b903857ebd7196ad38d63d785d96b66242061b807",
+      "size": 80915
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/import",
@@ -15647,8 +15647,8 @@
       "url": "https://claude.com/docs/third-party/claude-desktop/overview",
       "status": "success",
       "path": "claude/third-party/claude-desktop/overview.md",
-      "sha256": "b081645881e118570930a14b73b75a391f3f4cc44c73b10af4871c577e982fb9",
-      "size": 13331
+      "sha256": "ad6131072b7ce45818b5457a5bb0f3606915c5951fb312592ba1e0ece41cde67",
+      "size": 13280
     },
     {
       "url": "https://claude.com/docs/third-party/claude-desktop/scheduled-tasks",
