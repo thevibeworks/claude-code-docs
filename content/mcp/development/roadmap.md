@@ -8,13 +8,21 @@
 
 > [!NOTE]
 >
-> Last updated: **2026-08-22**
+> Last updated: **2026-11-16**
 
 This page outlines the Core Maintainers' vision for the protocol over the coming six to twelve months, highlighting objectives targeted for the next specification update and beyond. It describes our primary strategic goals and the expected deliverables from [Working and Interest Groups](https://modelcontextprotocol.io/community/working-interest-groups.md).
 
 > [!NOTE]
 >
 > This roadmap reflects current thinking rather than firm commitments. Priorities may shift, some items may be delivered differently than described or deferred, and work not listed here may still be included in the release.
+
+## Next Release
+
+The next specification release is targeted for **March 30, 2027**. This replaces the earlier December 2026 target. It is the first release on the six-month [release cycle](https://modelcontextprotocol.io/community/release-cycle.md), and it uses the planning completed in August 2026. Its Core Maintainer review window closes at the soft freeze date, **2.5 months** before the release. The [2027-03-30 release page](https://voting.modelcontextprotocol.io/p/releases/2027-03-30) lists the exact milestone dates and the SEPs targeted for the release, and the [review agenda](https://voting.modelcontextprotocol.io/p/agenda) lists the scheduled review meetings.
+
+Planning for the September 2027 release begins in late January 2027, and planning for the March 2028 release begins in late July 2027.
+
+SEP pull requests that were opened before the release cycle took effect remain valid. They keep their numbers, discussions, and completed decisions, and authors do not need to close and recreate them. Before its next formal review, each of these proposals needs [sponsorship](https://modelcontextprotocol.io/community/sep-guidelines.md#sponsors) from a working group or the Core Maintainer group and an entry in the [SEP review queue](https://modelcontextprotocol.io/community/release-cycle.md#sep-review-queue). Proposals that were already accepted remain accepted and must be Final and merged by the soft freeze date to be included in the release.
 
 ## SEP Prioritization
 
