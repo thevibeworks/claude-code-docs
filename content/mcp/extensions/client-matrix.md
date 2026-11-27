@@ -44,10 +44,11 @@ This matrix shows which MCP clients support each [official extension](https://mo
 | [mcpc MCP CLI](https://github.com/apify/mcpc) | | | | | | |
 | [Glean](https://www.glean.com/) | | | | | | |
 | [mcp-use](https://github.com/mcp-use/mcp-use) | | | | | | |
+| [OpenCode](https://opencode.ai/) | | | | | | [Partial](https://github.com/anomalyco/opencode/pull/65271) |
 
 > [!NOTE]
 >
-> Events support marked **Partial** means webhook delivery only. Clients marked with a check support poll, push and webhook delivery. Most of these implementations predate SEP-3415 reaching Final and track the draft specification.
+> Events support marked **Partial** means only some delivery modes: webhook only for ChatGPT, and push only for OpenCode. Clients marked with a check support poll, push and webhook delivery. Most of these implementations predate SEP-3415 reaching Final and track the draft specification.
 
 > [!NOTE]
 >
