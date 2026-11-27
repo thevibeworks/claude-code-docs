@@ -6,7 +6,7 @@
 
 > Run Claude Desktop against your own cloud inference provider
 
-Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly. The app runs from a bundled local web application.
+Claude Desktop on third-party (3P) is a deployment mode of Claude Desktop that routes all model inference through a provider you configure: Google Cloud's Agent Platform, Amazon Bedrock, Microsoft Foundry, any compatible gateway you operate, or the Anthropic API directly.
 
 You get the full Claude Desktop experience (Chat, Cowork, and Code, including file creation, multi-step research, and sub-agent coordination) with inference and billing handled by the provider you choose. [Unified Claude](https://claude.com/docs/third-party/claude-desktop/unified-claude.md) combines Chat and Cowork into one experience.
 

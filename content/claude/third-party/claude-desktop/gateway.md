@@ -125,13 +125,13 @@ The [second redirect URI for Claude Code in the terminal](https://claude.com/doc
 
 > [!NOTE]
 >
-> Use the **issuer** value, not the **Metadata URI**. Okta's admin console shows the metadata URI (ending in `/.well-known/openid-configuration`) prominently — that is the discovery document the app fetches *from* the issuer, not the issuer itself. If you are unsure, open the metadata URI in a browser and copy the `"issuer"` field from the JSON response. For a custom Okta authorization server the issuer is `https://YOUR_ORG.okta.com/oauth2/AUTH_SERVER_ID`.
+> Use the **issuer** value, not the **Metadata URI**. Okta's admin console shows the metadata URI (ending in `/.well-known/openid-configuration`) prominently. That URI is the discovery document that the app fetches *from* the issuer, not the issuer itself. If you are unsure, open the metadata URI in a browser and copy the `"issuer"` field from the JSON response. For a custom Okta authorization server the issuer is `https://YOUR_ORG.okta.com/oauth2/AUTH_SERVER_ID`.
 
 In your gateway's JWT validation, set the JWKS URL to `https://YOUR_ORG.okta.com/oauth2/v1/keys`, or for a custom authorization server, to the `jwks_uri` value from its metadata document. Set the audience to the Okta client ID and the issuer to your **Issuer URL**. In LiteLLM, also set `user_id_jwt_field` to `sub`.
 
 #### Map users at the gateway
 
-Claude Desktop forwards the identity provider's token to your gateway verbatim — it does not add, remove, or rewrite any claims. With the default scopes (`openid profile email offline_access`), the ID token your gateway receives contains the standard OIDC `sub`, `email`, and `name` claims, plus whatever your provider includes for the `profile` scope. You can confirm exactly what is present by base64-decoding the middle segment of the `Authorization: Bearer` value your gateway receives.
+Claude Desktop forwards the identity provider's token to your gateway verbatim. Claude Desktop does not add, remove, or rewrite any claims. With the default scopes (`openid profile email offline_access`), the ID token your gateway receives contains the standard OIDC `sub`, `email`, and `name` claims, plus whatever your provider includes for the `profile` scope. You can confirm exactly what is present by base64-decoding the middle segment of the `Authorization: Bearer` value your gateway receives.
 
 Key the gateway's user record on the provider's immutable user ID rather than email, so the record survives email or name changes:
 
@@ -156,15 +156,15 @@ general_settings:
     user_id_upsert: true
 ```
 
-If you need additional claims (for example, a `groups` claim for team-level budgets), add them on your identity provider's authorization server — they pass through to the gateway unchanged. To request a non-default scope, set `scopes` in `inferenceGatewayOidc` (see [Single sign-on configuration keys](#single-sign-on-configuration-keys)).
+If you need additional claims (for example, a `groups` claim for team-level budgets), add them on your identity provider's authorization server. The added claims pass through to the gateway unchanged. To request a non-default scope, set `scopes` in `inferenceGatewayOidc` (see [Single sign-on configuration keys](#single-sign-on-configuration-keys)).
 
 #### Refresh tokens and session lifetime
 
 Silent token refresh requires a refresh token from your identity provider, which in turn requires the `offline_access` scope on the authorization request. Whether Claude Desktop sends that scope depends on how you set `scopes` and `bearerTokenType`:
 
-* **`scopes` left unset** — the default (`openid profile email offline_access`) includes `offline_access`, so a refresh token is issued.
-* **`bearerTokenType: "access_token"`** — Claude Desktop automatically appends `offline_access` to whatever `scopes` value you supply, unless `appendOfflineAccess` is set to `false`.
-* **`bearerTokenType: "id_token"` (the default) with `scopes` set explicitly** — Claude Desktop does **not** add `offline_access` for you. Include it in your `scopes` value if you want silent refresh; without it, users are prompted to sign in again each time the ID token expires (commonly about one hour).
+* **`scopes` left unset**: the default (`openid profile email offline_access`) includes `offline_access`, so a refresh token is issued.
+* **`bearerTokenType: "access_token"`**: Claude Desktop automatically appends `offline_access` to whatever `scopes` value you supply, unless `appendOfflineAccess` is set to `false`.
+* **`bearerTokenType: "id_token"` (the default) with `scopes` set explicitly**: Claude Desktop does **not** add `offline_access` for you. Include it in your `scopes` value if you want silent refresh; without it, users are prompted to sign in again each time the ID token expires (commonly about one hour).
 
 **Authorization servers that reject `offline_access`.** Standard OIDC providers (Entra ID, Okta, Auth0) accept `offline_access` and require it to issue a refresh token, so keep the automatic append. If your authorization server rejects `offline_access` with an `invalid_scope` error, set `appendOfflineAccess` to `false` and include your provider's own refresh-token scope in `scopes`.
 
@@ -505,7 +505,7 @@ For the fields of [`inferenceGatewayOidc`](#inferencegatewayoidc), and for [`inf
 
 > [!WARNING]
 >
-> `inferenceGatewayOidc` is **one MDM key whose value is a JSON string** — not separate keys like `inferenceGatewayOidc.clientId`. See [how object-typed keys are encoded](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types). The in-app **Export** produces the correct format automatically.
+> `inferenceGatewayOidc` is **one MDM key whose value is a JSON string**, not separate keys like `inferenceGatewayOidc.clientId`. See [how object-typed keys are encoded](https://claude.com/docs/third-party/claude-desktop/configuration-format.md#value-types). The in-app **Export** produces the correct format automatically.
 
 In a macOS `.mobileconfig` payload (Okta example):
 
@@ -743,9 +743,9 @@ Claude Desktop can also limit each user's tokens, separately from your gateway's
 
 ## Troubleshoot
 
-**`gateway SSO: server does not advertise device_authorization_endpoint`** — The app could not read your `inferenceGatewayOidc` value, so it fell back to treating the gateway itself as the sign-in server. Almost always this means the value is missing or not valid JSON, for example because it was written as separate dotted keys instead of one `inferenceGatewayOidc` value. Re-export from the in-app configuration window, or copy the `.mobileconfig` snippet above.
+**`gateway SSO: server does not advertise device_authorization_endpoint`.** The app could not read your `inferenceGatewayOidc` value, so it fell back to treating the gateway itself as the sign-in server. Almost always this means the value is missing or not valid JSON, for example because it was written as separate dotted keys instead of one `inferenceGatewayOidc` value. Re-export from the in-app configuration window, or copy the `.mobileconfig` snippet above.
 
-**`OIDC discovery failed (HTTP 404)` or `(HTTP 405)`** — The `issuer` value is not the issuer base URL. Most often the metadata URI (ending in `/.well-known/openid-configuration`) was pasted instead, which doubles the path. Remove that suffix so `issuer` is just `https://YOUR_ORG.okta.com` (or the equivalent for your provider).
+**`OIDC discovery failed (HTTP 404)` or `(HTTP 405)`.** The `issuer` value is not the issuer base URL. Most often the metadata URI (ending in `/.well-known/openid-configuration`) was pasted instead, which doubles the path. Remove that suffix so `issuer` is just `https://YOUR_ORG.okta.com` (or the equivalent for your provider).
 
 **`no credential configured for provider "gateway": set inferenceCredentialKind or one of the credential fields`.** `inferenceCredentialKind: "interactive"` isn't present in the configuration Claude Desktop is using. Add it where Claude Desktop gets its configuration:
 
