@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-11-26T09:11:08.212886Z",
+    "fetch_date": "2026-11-27T00:25:13.509150Z",
     "section": "all"
   },
   "items": [
@@ -8332,8 +8332,8 @@
       "url": "https://modelcontextprotocol.io/community/contributor-ladder",
       "status": "success",
       "path": "mcp/community/contributor-ladder.md",
-      "sha256": "dc16507fa90715a97a3cb5ba5f597ca41d58ca2c379725702fcbe765caadd28c",
-      "size": 15745
+      "sha256": "98f53aa06a306cb0ddf23802f37ea13cb67eecb8f6282fe685a4b68635d4894c",
+      "size": 18158
     },
     {
       "url": "https://modelcontextprotocol.io/community/design-principles",
@@ -8353,8 +8353,8 @@
       "url": "https://modelcontextprotocol.io/community/governance",
       "status": "success",
       "path": "mcp/community/governance.md",
-      "sha256": "49218ab1d9053b9c2b3b40531dc51ac8770dc0b109681b62b18379f57c1eeb6f",
-      "size": 9388
+      "sha256": "72adea09920989e9e592cae702b0f21b4e564fa4131d4d937a838923aec91353",
+      "size": 9997
     },
     {
       "url": "https://modelcontextprotocol.io/community/interest-groups/agents",
@@ -8413,6 +8413,13 @@
       "size": 6258
     },
     {
+      "url": "https://modelcontextprotocol.io/community/release-cycle",
+      "status": "success",
+      "path": "mcp/community/release-cycle.md",
+      "sha256": "060efa9e6c4378d4f3b792a53aa69f62992f6d794b73b4d4eb3eaa76968edbab",
+      "size": 11605
+    },
+    {
       "url": "https://modelcontextprotocol.io/community/sdk-tiers",
       "status": "success",
       "path": "mcp/community/sdk-tiers.md",
@@ -8423,8 +8430,8 @@
       "url": "https://modelcontextprotocol.io/community/sep-guidelines",
       "status": "success",
       "path": "mcp/community/sep-guidelines.md",
-      "sha256": "32fc09432f30d921866a4d37bc2434806f68068ff673a5b6886b53a96ebf10d5",
-      "size": 16535
+      "sha256": "fda60d20fb0f9405947df92bf2129548ec63f2f77845a2f9576b21fef4757440",
+      "size": 18486
     },
     {
       "url": "https://modelcontextprotocol.io/community/working-groups/apps",
@@ -8549,8 +8556,8 @@
       "url": "https://modelcontextprotocol.io/development/roadmap",
       "status": "success",
       "path": "mcp/development/roadmap.md",
-      "sha256": "03d6624155355ec40d3be84e3e116ec86e41ba0d901969e036c6ead069e13a10",
-      "size": 12679
+      "sha256": "f99a47ddf7727a1d1110b187abdef48bb42c70fcbc60643357b310ea3dc3144a",
+      "size": 14142
     },
     {
       "url": "https://modelcontextprotocol.io/docs/2024-11-05/develop/build-client",
@@ -13386,8 +13393,8 @@
       "url": "https://support.claude.com/en/articles/17631495-get-started-with-claude-duet",
       "status": "success",
       "path": "support/17631495-get-started-with-claude-duet.md",
-      "sha256": "472540f8da027f3d613241e570222a39edf2c1744c55bbb7845a61c57aa3b11d",
-      "size": 10583
+      "sha256": "66a4d672e44806e2206b8fbd8f04c5b4ca33b55269f5e32dc2331799e9526d44",
+      "size": 10678
     },
     {
       "url": "https://support.claude.com/en/articles/17644704-share-your-voice-recordings-with-anthropic",
@@ -34357,8 +34364,8 @@
     }
   ],
   "summary": {
-    "total": 5052,
-    "downloaded": 4713,
+    "total": 5053,
+    "downloaded": 4714,
     "skipped": 0,
     "failed": 0,
     "dead": 339,

@@ -2,7 +2,7 @@
 
 **[Claude Duet](https://claude.com/product/claude-duet)** is a research preview of Claude that you message the way you'd message a person. Tell it what you need, typed or spoken, and it works in the apps you've connected, lets you know when something needs you, and is designed to ask before it sends a message, makes a payment, signs a document, or deletes anything. This article explains what Claude Duet does, who can get access, how to join the waitlist, and what it can't do yet.
 
-Claude Duet is available as a research preview to users on Pro, Max, and Ultra plans in the US, through a waitlist. It uses your Claude account settings and your plan usage limits. It isn't available on Team or Enterprise plans yet, and we plan to bring it to those plans later. Access opens in waves, and features can change during the research preview.
+Claude Duet is available through a waitlist as a research preview for users on Pro, Max, and Ultra plans in the US, India, Indonesia, Brazil, and Japan. It uses your Claude account settings and your plan usage limits. It isn't available on Enterprise plans yet, and we plan to bring it to those plans later. Access opens in waves, and features can change during the research preview.
 
 ## Who can get access
 
@@ -10,7 +10,7 @@ To use Claude Duet, you need:
 
 - A Pro, Max, or Ultra plan
 
-- A Claude account in the US
+- A Claude account in the US, India, Indonesia, Brazil, or Japan
 
 - An invitation from the waitlist or from a Claude Duet user
 
@@ -18,9 +18,9 @@ To use Claude Duet, you need:
 
 - Invitations go out in waves, so joining the waitlist doesn't guarantee a specific date.
 
-- Claude Duet is available in the US only during the research preview.
+- During the research preview, Claude Duet is only available in the US, India, Indonesia, Brazil, and Japan.
 
-- Claude Duet isn't available on Team or Enterprise plans yet.
+- Claude Duet isn't available on Enterprise plans yet.
 
 - The email address you used on the waitlist doesn't match your Claude account, or the Google or Apple account on your phone. Access is tied to the email address you gave us.
 
